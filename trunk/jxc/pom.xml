@@ -13,6 +13,35 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+<dependency>  
+	<groupId>abbot</groupId>  
+    <artifactId>abbot</artifactId>  
+    <version>1.2.0</version>  
+    <scope>system</scope>  
+    <systemPath>${project.basedir}/lib/abbot.jar</systemPath>  
+</dependency>
+<plugin>  
+<artifactId>maven-assembly-plugin</artifactId>  
+	<configuration>  
+		<descriptorRefs>  
+			<descriptorRef>jar-with-dependencies</descriptorRef>  
+		</descriptorRefs> 
+ 		<archive>  
+ 			<manifest>  
+ 				<mainClass>inventory.view.ProductServiceView</mainClass>  
+			</manifest>  
+		</archive>  
+		</configuration>  
+</plugin>  
+		
+
+<dependency>  
+	<groupId>costello</groupId>  
+    <artifactId>costello</artifactId>  
+    <version>1.1.0</version>  
+    <scope>system</scope>  
+    <systemPath>${project.basedir}/lib/costello.jar</systemPath>  
+</dependency>
 
   <dependencies>
     <dependency>
