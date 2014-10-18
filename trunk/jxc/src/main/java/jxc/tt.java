@@ -1,5 +1,8 @@
 package jxc;
 
 public class tt {
-   dkfjeifj
+   public String  give(){
+	  return "Hello";
+	   
+   }
 }
