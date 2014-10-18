@@ -10,7 +10,7 @@ public class ttTest extends TestCase{
 	 
 	 public void testgive() {
          tt hi = new tt();
-          assertEquals("hello!", hi.give());
+          assertEquals("hello", hi.give());
 
       }
 
