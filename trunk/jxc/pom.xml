@@ -15,7 +15,7 @@
   </properties>
  
 		
-
+<dependencies>
 <dependency>  
 	<groupId>costello</groupId>  
     <artifactId>costello</artifactId>  
@@ -23,8 +23,9 @@
     <scope>system</scope>  
     <systemPath>${project.basedir}/lib/costello.jar</systemPath>  
 </dependency>
+ 
+  
 
-  <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
