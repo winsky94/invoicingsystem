@@ -2,8 +2,8 @@ package jxc;
 
 import junit.framework.TestCase;
 
-public class testtt extends TestCase{
-	 public testtt( String testName )
+public class ttTest extends TestCase{
+	 public ttTest( String testName )
 	    {
 	        super( testName );
 	    }
@@ -16,7 +16,7 @@ public class testtt extends TestCase{
 
       public static void main(String[] args) {
 
-          junit.textui.TestRunner.run(testtt.class);
+          junit.textui.TestRunner.run(ttTest.class);
 
       }
 }
