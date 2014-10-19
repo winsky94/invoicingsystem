@@ -7,6 +7,6 @@ import junit.framework.TestCase;
 public class uiTest extends TestCase {
 	public void testTwo()
 	{
-		assertEquals("订单",ui.Two());
+		assertEquals("单",ui.Two());
 	}
 }
