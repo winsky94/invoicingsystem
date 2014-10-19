@@ -1,9 +1,9 @@
 -------------------------------------------------------------------------------
 Test set: uitest.salesTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.011 sec <<< FAILURE!
-testSay(uitest.salesTest)  Time elapsed: 0.009 sec  <<< FAILURE!
-junit.framework.ComparisonFailure: expected:<...> but was:<...¹þ>
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.012 sec <<< FAILURE!
+testSay(uitest.salesTest)  Time elapsed: 0.01 sec  <<< FAILURE!
+junit.framework.ComparisonFailure: expected:<    ...> but was:<¹þ...>
 	at junit.framework.Assert.assertEquals(Assert.java:81)
 	at junit.framework.Assert.assertEquals(Assert.java:87)
 	at uitest.salesTest.testSay(salesTest.java:9)
