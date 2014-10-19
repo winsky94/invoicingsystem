@@ -1,4 +1,4 @@
-package uiTest;
+package test;
 
 
 import uitest.ui;
