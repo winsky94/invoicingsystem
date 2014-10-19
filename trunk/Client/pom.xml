@@ -5,9 +5,9 @@
   <groupId>Client</groupId>
   <artifactId>Client</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
 
-  <name>Client</name>
+<module>Server</module>  <name>Client</name>
   <url>http://maven.apache.org</url>
 
   <properties>
