@@ -1,11 +1,11 @@
-//进货和销售时的商品清单
-public class CommodityList {
+package vo;
+public class CommodityListVO {
 	GoodsVO good;
 	int num;
 	double price;
 	double totalPrice;
 	String memo;
-	public CommodityList(GoodsVO good,int num,double price,String memo){
+	public CommodityListVO(GoodsVO good,int num,double price,String memo){
 		this.good=good;
 		this.num=num;
 		this.price=price;

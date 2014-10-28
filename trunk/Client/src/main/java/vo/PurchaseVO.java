@@ -1,19 +1,21 @@
+package vo;
+
 import java.util.ArrayList;
 import java.util.Date;
 
-//½ø»õµ¥VO
+
 public class PurchaseVO extends ReceiptVO {
-	ArrayList<CommodityList> purchaseList;
+	ArrayList<CommodityListVO> purchaseList;
 	double totalInAll;
-	public PurchaseVO(ArrayList<CommodityList> purchaseList, String id,
+	public PurchaseVO(ArrayList<CommodityListVO> purchaseList, String id,
 			MemberVO member, UserVO user,Date createDate,
-			int status, String info, String stockid,double totalInAll) {
-		super(id, member, user,ReceiptType.PURCHASE, createDate, status, info, stockid);
+			int status, int hurry,String info, String stockid,double totalInAll) {
+		super(id, member, user,ReceiptType.PURCHASE, createDate, status,hurry,info, stockid);
 		this.purchaseList = purchaseList;
 		this.totalInAll=totalInAll;
 	}
 
-	public ArrayList<CommodityList> getPurchaseList() {
+	public ArrayList<CommodityListVO> getPurchaseList() {
 		return purchaseList;
 	}
 	
