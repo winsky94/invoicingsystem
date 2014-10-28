@@ -1,3 +1,5 @@
+package vo;
+
 public class MemberVO {
 	String memberID;
 	MemberType mType;

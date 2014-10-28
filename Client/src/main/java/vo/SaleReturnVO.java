@@ -1,16 +1,18 @@
+package vo;
+
 import java.util.ArrayList;
 import java.util.Date;
 
 
 public class SaleReturnVO extends ReceiptVO{
 	String clerk;
-	ArrayList<CommodityList> saleReturnList;
+	ArrayList<CommodityListVO> saleReturnList;
 	double totalYuanChu, totalZheHou, totalKeHuYingFu;
 	double ZheRang, couponPrice;
 	public SaleReturnVO(String id,UserVO user,SaleVO s,Date createDate, int status,
-			String info){
+			String info,int hurry){
 		super(id, s.member, user, ReceiptType.SALERETURN, createDate,
-				status, info, s.stockid);
+				status, hurry,info, s.stockid);
 		this.totalKeHuYingFu=s.totalKeHuYingFu;
 		this.totalYuanChu=s.totalYuanChu;
 		this.totalZheHou=s.totalZheHou;
@@ -22,7 +24,7 @@ public class SaleReturnVO extends ReceiptVO{
 	public String getClerk() {
 		return clerk;
 	}
-	public ArrayList<CommodityList> getSaleReturnList() {
+	public ArrayList<CommodityListVO> getSaleReturnList() {
 		return saleReturnList;
 	}
 	public double getTotalYuanChu() {
