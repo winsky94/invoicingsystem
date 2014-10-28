@@ -9,7 +9,7 @@ public class PurchaseReturnVO extends ReceiptVO {
 	public PurchaseReturnVO(String id,UserVO user,PurchaseVO p, Date createDate, int status,
 			String info,int hurry) {
 		super(id, p.member, user, ReceiptType.PURCHASERETURN, createDate,
-				status, hurry, info, p.stockid);
+				status,hurry, info, p.stockid);
 		this.purchaseReturnList=p.purchaseList;
 		this.totalInAll=p.totalInAll;
 	}
