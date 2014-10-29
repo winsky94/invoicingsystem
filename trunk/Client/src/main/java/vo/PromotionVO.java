@@ -11,6 +11,7 @@ public class PromotionVO {
 	PromotionType type;
 	MemberLevel level;
 	MemberType mtype;
+	int release;//发布
 	public PromotionVO(){
 		
 	}
