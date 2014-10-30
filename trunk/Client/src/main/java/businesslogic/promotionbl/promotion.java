@@ -45,4 +45,5 @@ public class promotion {
 		
 		return null;
 	}
+	//发布
 }
