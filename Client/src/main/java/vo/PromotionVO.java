@@ -81,6 +81,7 @@ class discountProVO extends PromotionVO{
 
 }
 
+//折让记录
 class disrecord{
 	GoodsVO vo;
 	double price;
