@@ -8,7 +8,10 @@ public class SaleVO extends ReceiptVO {
 	ArrayList<CommodityListVO> salesList;
 	double totalYuanChu, totalZheHou, totalKeHuYingFu;
 	double ZheRang, couponPrice;
-
+	public SaleVO(){
+		
+		
+	}
 	public SaleVO(String clerk, ArrayList<CommodityListVO> salesList, String id,
 			MemberVO member, UserVO user, Date createDate, int status,
 			int hurry,String info, String stockid, double totalYuanChu,
