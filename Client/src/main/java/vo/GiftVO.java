@@ -5,6 +5,9 @@ import java.util.Date;
 public class GiftVO extends ReceiptVO {
 	GoodsVO goods;
 	int num;
+	public GiftVO(){
+		
+	}
 
 	public GiftVO(MemberVO member, GoodsVO goods, int num, UserVO user,
 			ReceiptType type, String info, String stockid) {
