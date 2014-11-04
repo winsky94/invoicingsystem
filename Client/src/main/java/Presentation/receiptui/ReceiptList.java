@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableModel;
 public class ReceiptList extends ReceiptFrame{
 	JTabbedPane  xxk;//选项卡
 	JPanel approved,wait;
-	JTable app=new JTable();
+	JTable app;
 	JTable wai=new JTable();
 	DefaultTableModel app1=null;
 	DefaultTableModel wai1=null;
@@ -22,17 +22,20 @@ public class ReceiptList extends ReceiptFrame{
 	public void init(){
 		xxk=new JTabbedPane();
 		String[] name1={"单据编号","创建日期","业务类型","交易客户","交易金额","业务员","备注"};
+		 String[][] content={{"1","2"},{"22","33"}};
+		 app=new JTable(content,name1);
 		 java.util.Vector vname = new java.util.Vector();
 		 for (int i = 0 ; i < name1.length ; i++){
 	            vname.addElement(name1[i]);
 	        }
 		 app1 = new DefaultTableModel(vname,0);
 		 app.setModel(app1);
+		
 		 approved=new JPanel();
 		 JScrollPane scroll=new JScrollPane(app);
 		 approved=new JPanel();approved.add(app);
 		 wait=new JPanel();wait.add(wai);
-		 xxk.add("已审批", approved);
+		 xxk.add("已审批", scroll);
 		 xxk.add("待审批",wait);
 		 right.add(xxk);
 		 

@@ -47,4 +47,9 @@ public class ReceiptController implements ReceiptBLService{
 		return 0;
 	}
 
+	public ReceiptVO View(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
