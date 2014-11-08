@@ -12,6 +12,13 @@ public class MockMember implements MemberBLService {
 	double MaxOwe, toReceive, toPay;
 	int points;
 
+	public MockMember( double toReceive,double toPay) {
+		
+		this.toReceive = toReceive;
+		this.toPay = toPay;
+
+	}
+	
 	public MockMember(String memberID, MemberType mType, MemberLevel mLevel,
 			String name, String tel, String address, String postcode,
 			String EMail, String defaultClerk, double MaxOwe, double toReceive,
@@ -60,11 +67,19 @@ public class MockMember implements MemberBLService {
 
 	}
 
-	public void updateToReceive(int newData) {
-
+	public void updateToReceive(double newData) {
+        toReceive-=newData;
 	}
 
-	public void updateToPay(int newData) {
-
+	public void updateToPay(double newData) {
+        toPay-=newData;
+	}
+	
+	public double getToReceive(){
+		return toReceive;
+	}
+	
+	public double getToPay(){
+		return toPay;
 	}
 }
