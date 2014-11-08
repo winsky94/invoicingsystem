@@ -53,5 +53,14 @@ public class Member implements MemberBLService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public void updatePoints(int pointsToAdd){
+		
+	}
+	public void updateToReceive(int newData){
+		
+	}
+	public void updateToPay(int newData){
+		
+	}
 
 }
