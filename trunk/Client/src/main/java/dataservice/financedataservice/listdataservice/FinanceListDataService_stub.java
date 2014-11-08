@@ -3,7 +3,7 @@ package dataservice.financedataservice.listdataservice;
 import po.CashlistPO;
 import po.CollectionPO;
 import po.PaymentPO;
-import vo.ReceiptVO;
+import po.ReceiptPO;
 
 public class FinanceListDataService_stub implements FinanceListDataService{
 
@@ -22,12 +22,12 @@ public class FinanceListDataService_stub implements FinanceListDataService{
 		return 0;
 	}
 	
-	public int createRedExtrusion(ReceiptVO vo) {
+	public int createRedExtrusion(ReceiptPO po) {
 		System.out.println("Create red extrusion success!");
 		return 0;
 	}
 
-	public int createRedExtrusionAndCopy(ReceiptVO vo) {
+	public int createRedExtrusionAndCopy(ReceiptPO po) {
 		System.out.println("Create red extrusion and copy success!");
 		return 0;
 	}
