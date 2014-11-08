@@ -7,7 +7,7 @@ public class FinanceAccountBLService_Driver {
 	   	 fbs.addAccount(new AccountVO());
 	   	 fbs.deleteAccount(new AccountVO());
 	   	 fbs.modifyAccount(new AccountVO());
-	   	 fbs.findAccount(new AccountVO());
+	   	 fbs.findAccount(null);
 	    }
 		
 	    public static void main(String args[]){
