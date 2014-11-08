@@ -1,4 +1,4 @@
-package member;
+package Member;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

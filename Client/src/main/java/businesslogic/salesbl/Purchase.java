@@ -3,23 +3,22 @@ package businesslogic.salesbl;
 import java.util.ArrayList;
 import java.util.Date;
 
-import businesslogic.memberbl.Member;
-import businesslogic.stockbl.User;
-
 public class Purchase {
 	ArrayList<CommodityList> purchaseList;
-	Member member; 
-	User user;
+	String memberName;
+	String memberID;
+	String user;
 	Date createDate;
 	int status,hurry;
 	String id,info,stockid;
 	double totalInAll;
 	//---------------------------------------------
 	public Purchase(ArrayList<CommodityList> purchaseList, String id,
-			Member member, User user,Date createDate,
+			String memberName,String memberID,String user,Date createDate,
 			int status, int hurry,String info, String stockid){
 		this.id = id;
-		this.member = member;
+		this.memberName = memberName;
+		this.memberID=memberID;
 		this.user = user;
 		this.createDate = createDate;
 		this.status = status;
