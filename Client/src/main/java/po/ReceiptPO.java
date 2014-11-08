@@ -2,8 +2,6 @@ package po;
 
 import java.util.Date;
 
-import vo.MemberVO;
-import vo.UserVO;
 import enumeration.ReceiptType;
 
 public class ReceiptPO {
