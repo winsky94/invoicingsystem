@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 import vo.PurchaseReturnVO;
 import vo.PurchaseVO;
-import vo.SaleListVO;
 import vo.SaleReturnVO;
 import vo.SaleVO;
 
@@ -13,7 +12,7 @@ public interface SalesBLService {
 	public int purchaseReturn (PurchaseReturnVO vo);
 	public int sale (SaleVO vo);
 	public int saleReturn (SaleReturnVO vo);
-	public SaleListVO showSaleList();
+	public void showSaleList();
 	public int modifyPurchase (PurchaseVO vo);
 	public int modifyPurchaseReturn (PurchaseReturnVO vo);
 	public int modifySale (SaleVO vo);

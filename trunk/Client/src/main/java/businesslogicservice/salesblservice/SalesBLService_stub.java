@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 import vo.PurchaseReturnVO;
 import vo.PurchaseVO;
-import vo.SaleListVO;
 import vo.SaleReturnVO;
 import vo.SaleVO;
 
@@ -33,10 +32,10 @@ public class SalesBLService_stub implements SalesBLService{
 		return 0;
 	}
 
-	public SaleListVO showSaleList() {
+	public void showSaleList() {
 		// TODO Auto-generated method stub
 		System.out.println("showSaleList!");
-		return null;
+
 	}
 
 	public ArrayList<PurchaseVO> showPurchase() {
