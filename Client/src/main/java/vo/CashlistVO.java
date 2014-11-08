@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class CashlistVO extends ReceiptVO{
 	 String ID;
-     UserVO user;
-     AccountVO account;
+     String user;
+     String account;
      ArrayList<ClauseItem> clauselist=new ArrayList<ClauseItem>();
      double totalMoney;
      
@@ -13,7 +13,7 @@ public class CashlistVO extends ReceiptVO{
     	 this(null,null,null,null,0);
      }
      
-     public CashlistVO(String a,UserVO b,AccountVO c,ArrayList<ClauseItem> d,double e){
+     public CashlistVO(String a,String b,String c,ArrayList<ClauseItem> d,double e){
     	 ID=a;
     	 user=b;
     	 account=c;
@@ -25,11 +25,11 @@ public class CashlistVO extends ReceiptVO{
     	 return ID;
      }
      
-     public UserVO getUser(){
+     public String getUser(){
     	 return user;
      }
      
-     public AccountVO getAccount(){
+     public String getAccount(){
     	 return account;
      }
      

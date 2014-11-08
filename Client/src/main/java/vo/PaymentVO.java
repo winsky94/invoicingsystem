@@ -4,22 +4,23 @@ import java.util.ArrayList;
 
 public class PaymentVO extends ReceiptVO{
 	String ID;
-	MemberVO supplier;
-    MemberVO seller;
-    UserVO user;
+	String supplier;
+    String seller;
+    String user;
     ArrayList<TransferItem> transferlist=new ArrayList<TransferItem>();
     double totalMoney;
        
     public PaymentVO(){
-   	 this(null,null,null,null,0);
+   	 this(null,null,null,null,null,0);
     }
     
-    public PaymentVO(String a,MemberVO b,UserVO c,ArrayList<TransferItem> d,double e){
+    public PaymentVO(String a,String b,String c,String d,ArrayList<TransferItem> e,double f){
    	 ID=a;
-   	 member=b;
-   	 user=c;
-   	 transferlist=d;
-   	 totalMoney=e;
+   	 supplier=b;
+   	 seller=c;
+   	 user=d;
+   	 transferlist=e;
+   	 totalMoney=f;
     }
     
     public String getID(){
@@ -30,7 +31,7 @@ public class PaymentVO extends ReceiptVO{
    	 return member;
     }
     
-    public UserVO getUser(){
+    public String getUser(){
    	 return user;
     }
     
