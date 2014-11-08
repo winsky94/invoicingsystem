@@ -39,7 +39,7 @@ public class GiftBLService_DriverTest extends TestCase{
 		assertEquals("add gift succeed!" + line
 				+"deal gift succeed!" + line 
 				+"get gift account succeed!" + line
-				+"return gift cost succeed!", bytes.toString());
+				+"return gift cost succeed!" + line, bytes.toString());
 
 	}
 }
