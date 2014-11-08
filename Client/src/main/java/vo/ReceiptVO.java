@@ -2,16 +2,12 @@ package vo;
 
 import java.util.Date;
 
+import enumeration.ReceiptType;
 import vo.MemberVO;
-import vo.ReceiptType;
 import vo.UserVO;
 
 
 
-enum ReceiptType {
-    SALE,SALERETURN,PURCHASE,PURCHASERETURN,COLLECTION,PAYMENT,CASHLIST,
-    GIFT,STOCKERROR,STOCKOVER,STOCKLOW
-}
 
 public class ReceiptVO{
 	String id;

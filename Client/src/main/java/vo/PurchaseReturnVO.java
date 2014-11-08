@@ -3,6 +3,8 @@ package vo;
 import java.util.ArrayList;
 import java.util.Date;
 
+import enumeration.ReceiptType;
+
 public class PurchaseReturnVO extends ReceiptVO {
 	ArrayList<CommodityListVO> purchaseReturnList;
 	double totalInAll;

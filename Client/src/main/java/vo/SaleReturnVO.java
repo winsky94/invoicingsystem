@@ -4,6 +4,8 @@ package vo;
 import java.util.ArrayList;
 import java.util.Date;
 
+import enumeration.ReceiptType;
+
 
 public class SaleReturnVO extends ReceiptVO{
 	String clerk;
