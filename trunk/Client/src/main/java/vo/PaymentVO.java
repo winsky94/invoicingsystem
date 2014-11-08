@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class PaymentVO extends ReceiptVO{
 	String ID;
-    MemberVO member;
+	MemberVO supplier;
+    MemberVO seller;
     UserVO user;
     ArrayList<TransferItem> transferlist=new ArrayList<TransferItem>();
     double totalMoney;

@@ -1,33 +1,45 @@
 package vo;
 
+import java.util.ArrayList;
+
+import vo.AccountVO;
+import vo.BeginInfoVO;
+import vo.GoodsVO;
+import vo.MemberVO;
+
 public class BeginInfoVO {
-    GoodsVO goods;
-    MemberVO member;
-    AccountVO account;
-    String time;
-    
-    public BeginInfoVO(){
-    	goods=null;
-    	member=null;
-    	account=null;
-    }
-    
-    public BeginInfoVO(GoodsVO a,MemberVO b,AccountVO c){
-    	goods=a;
-    	member=b;
-    	account=c;
-    }
-    
-    public GoodsVO getGoods(BeginInfoVO vo){
-    	return goods;
-    }
-    
-    public MemberVO getMember(BeginInfoVO vo){
-    	return member;
-    }
-    
-    public AccountVO getAccount(AccountVO vo){
-    	return account;
-    }
+	 ArrayList<GoodsVO> goodsList;
+	    ArrayList<MemberVO> memberList;
+	    ArrayList<AccountVO> accountList;
+	    String time;
+	    
+	    public BeginInfoVO(){
+	    	goodsList=null;
+	    	memberList=null;
+	    	accountList=null;
+	    }
+	    
+	    public BeginInfoVO(ArrayList<GoodsVO> a,ArrayList<MemberVO> b,ArrayList<AccountVO> c){
+	    	goodsList=a;
+	    	memberList=b;
+	    	accountList=c;
+	    }
+	    
+	    public ArrayList<GoodsVO> getGoods(BeginInfoVO vo){
+	    	return goodsList;
+	    }
+	    
+	    public ArrayList<MemberVO> getMember(BeginInfoVO vo){
+	    	return memberList;
+	    }
+	    
+	    public ArrayList<AccountVO> getAccount(AccountVO vo){
+	    	return accountList;
+	    }
+	    
+	    public String getTime(){
+	    	return time;
+	    }
+
 
 }
