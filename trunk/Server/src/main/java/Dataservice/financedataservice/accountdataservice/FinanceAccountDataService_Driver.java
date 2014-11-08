@@ -7,7 +7,7 @@ public class FinanceAccountDataService_Driver {
 	  	  fds.addAccount(new AccountPO());
 	  	  fds.deleteAccount(new AccountPO());
 	  	  fds.modifyAccount(new AccountPO());
-	  	  fds.findAccount(new AccountPO());
+	  	  fds.findAccount(null);
 	    }
 		
 	    public static void main(String[] args){
