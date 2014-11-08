@@ -1,8 +1,9 @@
 package businesslogicservice.stockblservice.goodsblservice;
 
 import java.util.ArrayList;
-import vo.*;
-import po.*;
+
+import po.GoodsPO;
+import vo.GoodsVO;
 
 public interface StockGoodsBLService {
 	public int addGoods(GoodsVO vo);

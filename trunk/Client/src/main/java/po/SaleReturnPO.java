@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import businesslogic.receiptbl.ReceiptType;
+import businesslogic.salesbl.CommodityList;
 
 
 public class SaleReturnPO extends ReceiptPO{
 	String clerk;
-	ArrayList<CommodityListPO> saleReturnList;
+	ArrayList<CommodityList> saleReturnList;
 	double totalYuanChu, totalZheHou, totalKeHuYingFu;
 	double ZheRang, couponPrice;
 	public SaleReturnPO(String id,UserPO user,SalePO s,Date createDate, int status,
@@ -27,7 +28,7 @@ public class SaleReturnPO extends ReceiptPO{
 	public String getClerk() {
 		return clerk;
 	}
-	public ArrayList<CommodityListPO> getSaleReturnList() {
+	public ArrayList<CommodityList> getSaleReturnList() {
 		return saleReturnList;
 	}
 	public double getTotalYuanChu() {

@@ -1,6 +1,7 @@
 package businesslogicservice.stockblservice.errorblservice;
 
-import vo.*;
+import vo.StockErrorVO;
+import vo.StockOverOrLowVO;
 
 public class StockErrorBLService_stub  implements StockErrorBLService {
 

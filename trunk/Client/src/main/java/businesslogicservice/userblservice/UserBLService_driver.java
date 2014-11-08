@@ -1,6 +1,6 @@
 package businesslogicservice.userblservice;
 
-import vo.*;
+import vo.UserVO;
 
 public class UserBLService_driver {
 	public void drive(UserBLService_stub userBLService) {

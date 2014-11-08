@@ -1,13 +1,19 @@
 package Presentation.receiptui;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 /*Author:JIncui
  *Last Modified:2014-11-2
  *Decription:Receipt Model Base Frame
  *
  *
  * */
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
 public class ReceiptFrame extends JFrame{
 	JSplitPane sp;//拆分

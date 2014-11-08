@@ -2,7 +2,7 @@ package dataservice.userdataservice;
 
 import java.rmi.RemoteException;
 
-import po.*;
+import po.UserPO;
 
 public class UserDataService_driver {
 	public void drive(UserDataService_stub userDataService)

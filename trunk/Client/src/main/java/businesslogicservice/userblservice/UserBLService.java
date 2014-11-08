@@ -1,7 +1,7 @@
 package businesslogicservice.userblservice;
 
-import vo.*;
-import po.*;
+import po.UserPO;
+import vo.UserVO;
 
 public interface UserBLService {
 	public int login(String ID, String password);

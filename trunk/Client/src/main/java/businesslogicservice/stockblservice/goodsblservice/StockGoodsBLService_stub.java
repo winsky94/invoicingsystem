@@ -2,8 +2,8 @@ package businesslogicservice.stockblservice.goodsblservice;
 
 import java.util.ArrayList;
 
-import po.*;
-import vo.*;
+import po.GoodsPO;
+import vo.GoodsVO;
 
 public class StockGoodsBLService_stub implements StockGoodsBLService {
 

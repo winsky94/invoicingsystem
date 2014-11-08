@@ -4,14 +4,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import junit.framework.TestCase;
-
-
-
-import businesslogicservice.promotionblservice.PromotionBLService;
-import businesslogicservice.promotionblservice.PromotionBLService_Stub;
 import vo.GiftVO;
 import vo.PromotionVO;
 import vo.SaleVO;
+import businesslogicservice.promotionblservice.PromotionBLService;
+import businesslogicservice.promotionblservice.PromotionBLService_Stub;
 
 public class PromotionBLService_DriverTest extends TestCase{
 	private PromotionBLService promotionblservice;
