@@ -19,7 +19,7 @@ public class FinanceAccountDataService_stub implements FinanceAccountDataService
 		return 0;
 	}
 
-	public AccountPO findAccount(AccountPO po) {
+	public AccountPO findAccount(String s) {
 		System.out.println("Find account success!");
 		return new AccountPO();
 	}	
