@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import vo.PurchaseReturnVO;
 import vo.PurchaseVO;
+import vo.ReceiptVO;
 import vo.SaleReturnVO;
 import vo.SaleVO;
 
@@ -13,7 +14,7 @@ public interface SalesBLService {
 	public int sale (SaleVO vo);
 	public int saleReturn (SaleReturnVO vo);
 	public int exportSaleListToExcel();
-	public void showSaleList();
+	public ArrayList<ReceiptVO> showSaleList();
 	public int modifyPurchase (PurchaseVO vo);
 	public int modifyPurchaseReturn (PurchaseReturnVO vo);
 	public int modifySale (SaleVO vo);

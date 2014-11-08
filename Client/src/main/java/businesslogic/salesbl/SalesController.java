@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import vo.PurchaseReturnVO;
 import vo.PurchaseVO;
+import vo.ReceiptVO;
 import vo.SaleReturnVO;
 import vo.SaleVO;
 import businesslogicservice.salesblservice.SalesBLService;
@@ -32,9 +33,9 @@ public class SalesController implements SalesBLService{
 		return 0;
 	}
 
-	public void showSaleList() {
+	public ArrayList<ReceiptVO> showSaleList() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	public int modifyPurchase(PurchaseVO vo) {
@@ -78,8 +79,8 @@ public class SalesController implements SalesBLService{
 	}
 
 	public int exportSaleListToExcel() {
-		// TODO Auto-generated method stub
-		return 0;
+		SaleList saleList=new SaleList();
+		return saleList.exportToExcel();
 	}
 
 }
