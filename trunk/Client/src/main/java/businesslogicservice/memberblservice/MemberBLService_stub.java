@@ -36,6 +36,7 @@ public class MemberBLService_stub implements MemberBLService{
 
 	public ArrayList<MemberVO> showMembers() {
 		// TODO Auto-generated method stub
+		System.out.println("Show Members Successfully!");
 		return null;
 	}
 	
