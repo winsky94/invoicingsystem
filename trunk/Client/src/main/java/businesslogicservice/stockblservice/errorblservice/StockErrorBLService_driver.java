@@ -3,6 +3,7 @@ package businesslogicservice.stockblservice.errorblservice;
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
 import vo.UserVO;
+import enumeration.ReceiptType;
 
 public class StockErrorBLService_driver {
 	public void drive(StockErrorBLService_stub stockErrorBLService) {
