@@ -2,10 +2,8 @@ package po;
 import java.util.ArrayList;
 import java.util.Date;
 
-
 import businesslogic.receiptbl.ReceiptType;
-import vo.MemberVO;
-import vo.UserVO;
+import businesslogic.salesbl.CommodityList;
 
 
 
