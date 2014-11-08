@@ -1,4 +1,4 @@
-package enumeration;
+package Data.memberdata;
 
 public enum MemberType {
 	JHS,XSS

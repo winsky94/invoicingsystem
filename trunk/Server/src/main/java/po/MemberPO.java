@@ -1,7 +1,7 @@
 package po;
 
-import enumeration.MemberLevel;
-import enumeration.MemberType;
+import Data.memberdata.MemberLevel;
+import Data.memberdata.MemberType;
 
 
 public class MemberPO {
