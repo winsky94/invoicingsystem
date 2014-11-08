@@ -9,7 +9,8 @@ import businesslogic.receiptbl.ReceiptType;
 
 public class ReceiptVO{
 	String id;
-	MemberVO member;
+	String memberName;
+	String memberID;
 	String user;
 	ReceiptType type;
 	Date createDate;
@@ -20,11 +21,12 @@ public class ReceiptVO{
 	public  ReceiptVO(){
 
 	}
-	public ReceiptVO(String id, MemberVO member, String user, ReceiptType type,
+	public ReceiptVO(String id, String memberName,String memberID, String user, ReceiptType type,
 			Date createDate, int status, int hurry,String info, String stockid) {
 	
 		this.id = id;
-		this.member = member;
+		this.memberName = memberName;
+		this.memberID=memberID;
 		this.user = user;
 		this.type = type;
 		this.createDate = createDate;
@@ -36,8 +38,11 @@ public class ReceiptVO{
 	public String getId() {
 		return id;
 	}
-	public MemberVO getMember() {
-		return member;
+	public String getMemberName() {
+		return memberName;
+	}
+	public String getMemberID() {
+		return memberID;
 	}
 	public String getUser() {
 		return user;
@@ -60,8 +65,5 @@ public class ReceiptVO{
 	public String getStockid() {
 		return stockid;
 	}
-	
-	
-  
 
 }
