@@ -12,6 +12,7 @@ public interface SalesBLService {
 	public int purchaseReturn (PurchaseReturnVO vo);
 	public int sale (SaleVO vo);
 	public int saleReturn (SaleReturnVO vo);
+	public int exportSaleListToExcel();
 	public void showSaleList();
 	public int modifyPurchase (PurchaseVO vo);
 	public int modifyPurchaseReturn (PurchaseReturnVO vo);

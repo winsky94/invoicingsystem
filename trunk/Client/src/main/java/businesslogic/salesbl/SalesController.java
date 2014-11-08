@@ -12,9 +12,9 @@ public class SalesController implements SalesBLService{
 
 	public int purchase(PurchaseVO vo) {
 		Purchase p=new Purchase(vo.getPurchaseList(), vo.getId(),
-				vo.getMember(), vo.getUser(),vo.getCreateDate(),
+				vo.getMemberName(),vo.getMemberID(), vo.getUser(),vo.getCreateDate(),
 				vo.getStatus(), vo.getHurry(),vo.getInfo(),vo.getStockid());
-		return createPurchase();
+		return p.createPurchase();
 	}
 
 	public int purchaseReturn(PurchaseReturnVO vo) {
@@ -75,6 +75,11 @@ public class SalesController implements SalesBLService{
 	public ArrayList<SaleReturnVO> showSaleReturn() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public int exportSaleListToExcel() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

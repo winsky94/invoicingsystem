@@ -40,41 +40,55 @@ public class SalesBLService_stub implements SalesBLService{
 
 	public ArrayList<PurchaseVO> showPurchase() {
 		// TODO Auto-generated method stub
+		System.out.println("showPurchase!");
 		return null;
 	}
 
 	public ArrayList<PurchaseReturnVO> showPurchaseReturn() {
 		// TODO Auto-generated method stub
+		System.out.println("showPurchaseReturn!");
 		return null;
 	}
 
 	public ArrayList<SaleVO> showSale() {
 		// TODO Auto-generated method stub
+		System.out.println("showSale!");
 		return null;
 	}
 
 	public ArrayList<SaleReturnVO> showSaleReturn() {
 		// TODO Auto-generated method stub
+		System.out.println("showSaleReturn!");
 		return null;
 	}
 
 	public int modifyPurchase(PurchaseVO vo) {
 		// TODO Auto-generated method stub
+		System.out.println("Modify Purchase Successfully!");
 		return 0;
 	}
 
 	public int modifyPurchaseReturn(PurchaseReturnVO vo) {
 		// TODO Auto-generated method stub
+		System.out.println("Modify PurchaseReturn Successfully!");
 		return 0;
 	}
 
 	public int modifySale(SaleVO vo) {
 		// TODO Auto-generated method stub
+		System.out.println("Modify Sale Successfully!");
 		return 0;
 	}
 
 	public int modifySaleReturn(SaleReturnVO vo) {
 		// TODO Auto-generated method stub
+		System.out.println("Modify SaleReturn Successfully!");
+		return 0;
+	}
+
+	public int exportSaleListToExcel() {
+		// TODO Auto-generated method stub
+		System.out.println("Export to Excel!");
 		return 0;
 	}
 
