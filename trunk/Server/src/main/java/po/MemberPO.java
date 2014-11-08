@@ -1,5 +1,8 @@
 package po;
 
+import enumeration.MemberLevel;
+import enumeration.MemberType;
+
 
 public class MemberPO {
 	String memberID;
