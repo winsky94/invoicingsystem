@@ -27,9 +27,13 @@ public class PaymentVO extends ReceiptVO{
    	 return ID;
     }
     
-    public MemberVO getMember(){
-   	 return member;
+    public String getSupplier(){
+   	 return supplier;
     }
+    
+    public String getSeller(){
+      	 return seller;
+       }
     
     public String getUser(){
    	 return user;
