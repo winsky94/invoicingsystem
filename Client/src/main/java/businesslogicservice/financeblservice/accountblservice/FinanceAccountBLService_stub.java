@@ -19,7 +19,7 @@ public class FinanceAccountBLService_stub implements FinanceAccountBLService{
 		return 0;
 	}
 
-	public AccountVO findAccount(AccountVO vo) {
+	public AccountVO findAccount(String s) {
 		System.out.println("Find account success!");
 		return new AccountVO();
 	}
