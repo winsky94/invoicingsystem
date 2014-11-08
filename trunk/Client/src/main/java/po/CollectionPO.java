@@ -3,10 +3,6 @@ package po;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import vo.AccountVO;
-import vo.BSLVO;
-import vo.MemberVO;
-import vo.UserVO;
 
 public class CollectionPO extends ReceiptPO implements Serializable{
 
@@ -15,17 +11,17 @@ public class CollectionPO extends ReceiptPO implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	 String ID;
-     MemberVO member;
-     UserVO user;
+     MemberPO member;
+     UserPO user;
      ArrayList<TransferItem> transferlist=new ArrayList<TransferItem>();
      double totalMoney;
-     BSLVO vo;
+     BSLPO vo;
         
      public CollectionPO(){
     	 this(null,null,null,null,0);
      }
      
-     public CollectionPO(String a,MemberVO b,UserVO c,ArrayList<TransferItem> d,double e){
+     public CollectionPO(String a,MemberPO b,UserPO c,ArrayList<TransferItem> d,double e){
     	 ID=a;
     	 member=b;
     	 user=c;
@@ -37,11 +33,11 @@ public class CollectionPO extends ReceiptPO implements Serializable{
     	 return ID;
      }
      
-     public MemberVO getMember(){
+     public MemberPO getMember(){
     	 return member;
      }
      
-     public UserVO getUser(){
+     public UserPO getUser(){
     	 return user;
      }
      
@@ -55,7 +51,7 @@ public class CollectionPO extends ReceiptPO implements Serializable{
      
      
    class TransferItem{
-	AccountVO account;
+	AccountPO account;
 	double money;
 	String info;
   }

@@ -3,8 +3,6 @@ package po;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import vo.AccountVO;
-import vo.UserVO;
 
 public class CashlistPO extends ReceiptPO implements Serializable{
 
@@ -13,8 +11,8 @@ public class CashlistPO extends ReceiptPO implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	 String ID;
-     UserVO user;
-     AccountVO account;
+     UserPO user;
+     AccountPO account;
      ArrayList<ClauseItem> clauselist=new ArrayList<ClauseItem>();
      double totalMoney;
      
@@ -22,7 +20,7 @@ public class CashlistPO extends ReceiptPO implements Serializable{
     	 this(null,null,null,null,0);
      }
      
-     public CashlistPO(String a,UserVO b,AccountVO c,ArrayList<ClauseItem> d,double e){
+     public CashlistPO(String a,UserPO b,AccountPO c,ArrayList<ClauseItem> d,double e){
     	 ID=a;
     	 user=b;
     	 account=c;
@@ -34,11 +32,11 @@ public class CashlistPO extends ReceiptPO implements Serializable{
     	 return ID;
      }
      
-     public UserVO getUser(){
+     public UserPO getUser(){
     	 return user;
      }
      
-     public AccountVO getAccount(){
+     public AccountPO getAccount(){
     	 return account;
      }
      
