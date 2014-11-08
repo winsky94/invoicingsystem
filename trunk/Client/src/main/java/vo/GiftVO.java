@@ -2,6 +2,8 @@ package vo;
 
 import java.util.Date;
 
+import enumeration.ReceiptType;
+
 public class GiftVO extends ReceiptVO {
 	GoodsVO goods;
 	int num;
