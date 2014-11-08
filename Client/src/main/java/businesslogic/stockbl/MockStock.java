@@ -7,17 +7,12 @@ public class MockStock {
 	double importReturnIncome;
 	double goodsLowCost;
 	double giftCost;
-	
+
 	// 库存充足检查
-	public boolean isEnough(String goodsID) {
+	public boolean isEnough(String goodsID, int num) {
 		boolean isEnough = false;
 		isEnough = true;
 		return isEnough;
-	}
-
-	// 商品报溢收入
-	public double goodsOverIncome(double total) {
-		return total;
 	}
 
 	// 商品调价收入
@@ -25,8 +20,8 @@ public class MockStock {
 		return total;
 	}
 
-	// 商品进货退货差价收入
-	public double importReturnIncome(double total) {
+	// 商品报溢收入
+	public double goodsOverIncome(double total) {
 		return total;
 	}
 

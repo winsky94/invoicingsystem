@@ -24,4 +24,8 @@ public class MockSaleList {
 		return 0.0;
 	}
 
+	// 商品进货退货差价收入
+	public double importReturnIncome(double total) {
+		return total;
+	}
 }

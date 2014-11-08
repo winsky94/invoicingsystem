@@ -24,4 +24,10 @@ public class GiftDataService_stub implements GiftDataService{
 		return 0;
 	}
 
+	public double giftCost() throws RemoteException {
+		// TODO 自动生成的方法存根
+		System.out.println("return gift cost in file succeed!");
+		return 0;
+	}
+
 }

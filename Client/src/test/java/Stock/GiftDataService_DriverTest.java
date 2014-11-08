@@ -32,13 +32,14 @@ public class GiftDataService_DriverTest extends TestCase{
 		int resultAdd = giftDataService.addGift(po);
 		int resultDeal = giftDataService.dealGift(po);
 		giftDataService.getAccount(po);
-		
+		giftDataService.giftCost();
 
 		assertEquals(0, resultAdd);
 		assertEquals(0, resultDeal);
 		
 		assertEquals("add gift in files succeed!" + line
 				+ "deal gift in files succeed!" + line
-				+ "get gift account in files succeed!" + line, bytes.toString());
+				+ "get gift account in files succeed!" + line
+				+ "return gift cost in file succeed!" + line, bytes.toString());
 	}
 }

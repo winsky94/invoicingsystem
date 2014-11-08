@@ -20,5 +20,11 @@ public interface StockGoodsDataService extends Remote {
 
 	public ArrayList<GoodsPO> checkStock() throws RemoteException;
 
-	public ArrayList<GoodsPO> showGoods();
+	public ArrayList<GoodsPO> showGoods() throws RemoteException;
+
+	// 库存充足检查
+	public boolean isEnough(String goodsID,int num) throws RemoteException;
+
+	// 商品调价收入
+	public double PrimeCostIncome() throws RemoteException;
 }

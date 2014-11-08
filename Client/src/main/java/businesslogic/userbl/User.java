@@ -5,10 +5,10 @@ import vo.UserVO;
 import businesslogicservice.userblservice.UserBLService;
 
 public class User implements UserBLService{
-	private String name;
-	private String ID;
-	private String password;
-	private String job;
+	String name;
+	String ID;
+	String password;
+	String job;
 	
 	public int login(String ID, String password) {
 		// TODO 自动生成的方法存根

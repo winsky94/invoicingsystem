@@ -48,4 +48,16 @@ public class StockGoodsBLService_stub implements StockGoodsBLService {
 		System.out.print("show goods succeed!");
 		return null;
 	}
+
+	public boolean isEnough(String ID, int num) {
+		// TODO 自动生成的方法存根
+		System.out.println("check stock is enough succeed!");
+		return true;
+	}
+
+	public double PrimeCostIncome() {
+		// TODO 自动生成的方法存根
+		System.out.println("return prime cost income succeed!");
+		return 0;
+	}
 }
