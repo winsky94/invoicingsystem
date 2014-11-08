@@ -2,7 +2,7 @@ package vo;
 
 import java.util.Date;
 
-import enumeration.ReceiptType;
+import businesslogic.receiptbl.ReceiptType;
 
 public class GiftVO extends ReceiptVO {
 	GoodsVO goods;

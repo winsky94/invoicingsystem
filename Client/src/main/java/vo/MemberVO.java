@@ -1,7 +1,7 @@
 package vo;
 
-import enumeration.MemberLevel;
-import enumeration.MemberType;
+import businesslogic.memberbl.MemberLevel;
+import businesslogic.memberbl.MemberType;
 
 public class MemberVO {
 	String memberID;

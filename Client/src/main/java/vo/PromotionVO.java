@@ -3,9 +3,9 @@ package vo;
 import java.util.ArrayList;
 import java.util.Date;
 
-import enumeration.MemberLevel;
-import enumeration.MemberType;
-import enumeration.PromotionType;
+import businesslogic.memberbl.MemberLevel;
+import businesslogic.memberbl.MemberType;
+import businesslogic.promotionbl.PromotionType;
 
 public class PromotionVO {
 	Date startDate,endDate;

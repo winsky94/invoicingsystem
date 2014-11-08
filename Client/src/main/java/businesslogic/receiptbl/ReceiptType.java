@@ -1,4 +1,4 @@
-package enumeration;
+package businesslogic.receiptbl;
 
 public enum ReceiptType {
 	 SALE,SALERETURN,PURCHASE,PURCHASERETURN,COLLECTION,PAYMENT,CASHLIST,

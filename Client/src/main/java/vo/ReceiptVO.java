@@ -2,7 +2,7 @@ package vo;
 
 import java.util.Date;
 
-import enumeration.ReceiptType;
+import businesslogic.receiptbl.ReceiptType;
 import vo.MemberVO;
 import vo.UserVO;
 

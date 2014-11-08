@@ -1,4 +1,4 @@
-package enumeration;
+package businesslogic.memberbl;
 
 public enum MemberType {
 	JHS,XSS
