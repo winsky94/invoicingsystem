@@ -48,6 +48,19 @@ public class StockGoodsDataService_stub implements StockGoodsDataService {
 		System.out.println("show goods in file succeed!");
 		return null;
 	}
+
+	public boolean isEnough(String goodsID ,int num) throws RemoteException {
+		// TODO 自动生成的方法存根
+		System.out.println("check stock is enough in file succeed!");
+		return true;
+	}
+
+	public double PrimeCostIncome() throws RemoteException {
+		// TODO 自动生成的方法存根
+		System.out.println("return prime cost income  in file succeed!");
+		return 0;
+	}
+	
 	
 	
 }

@@ -33,10 +33,14 @@ public class StockErrorDataService_DriverTest extends TestCase{
 		StockOverOrLowPO stockOverOrLowPO=new po.StockOverOrLowPO(null, null, 0, 0, 0);
 		int resultAddError = stockErrorDataService.addStockError(stockErrorPO);
 		int resultAddOverOrLow = stockErrorDataService.addStockOverOrLow(stockOverOrLowPO);
-
+		stockErrorDataService.goodsOverIncome();
+		stockErrorDataService.goodsLowCost();
+		
 		assertEquals(0, resultAddError);
 		assertEquals(0, resultAddOverOrLow);
 		assertEquals("add stockError receipt in file succeed!" + line
-				+ "add stockOverOrLow receipt in file succeed!" + line, bytes.toString());
+				+ "add stockOverOrLow receipt in file succeed!" + line
+				+ "return goods over income in file succeed!" + line
+				+ "return goods low cost in file succeed!" + line, bytes.toString());
 	}
 }

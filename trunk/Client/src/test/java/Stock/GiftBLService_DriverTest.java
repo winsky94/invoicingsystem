@@ -31,13 +31,15 @@ public class GiftBLService_DriverTest extends TestCase{
 		int resultAdd = giftBLService.addGift(vo);
 		int resultDeal = giftBLService.dealGift(vo);
 		giftBLService.getAccount(vo);
+		giftBLService.giftCost();
 		
 		assertEquals(0, resultAdd);
 		assertEquals(0, resultDeal);
 
 		assertEquals("add gift succeed!" + line
 				+"deal gift succeed!" + line 
-				+"get gift account succeed!" + line, bytes.toString());
+				+"get gift account succeed!" + line
+				+"return gift cost succeed!", bytes.toString());
 
 	}
 }

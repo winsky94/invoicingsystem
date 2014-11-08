@@ -18,4 +18,16 @@ public class StockErrorDataService_stub implements StockErrorDataService {
 		return 0;
 	}
 
+	public double goodsOverIncome() {
+		// TODO 自动生成的方法存根
+		System.out.println("return goods over income in file succeed!");
+		return 0;
+	}
+
+	public double goodsLowCost() {
+		// TODO 自动生成的方法存根
+		System.out.println("return goods low cost in file succeed!");
+		return 0;
+	}
+
 }

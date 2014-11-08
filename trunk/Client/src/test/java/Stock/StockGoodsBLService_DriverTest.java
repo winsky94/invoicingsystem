@@ -35,17 +35,21 @@ public class StockGoodsBLService_DriverTest extends TestCase {
 		stockGoodsBLService.checkStock();
 		stockGoodsBLService.showStock("2014年10月1日", "2014年10月17日");
 		stockGoodsBLService.showGoods();
+		boolean isEnough = stockGoodsBLService.isEnough("00001", 10);
+		stockGoodsBLService.PrimeCostIncome();
 
 		assertEquals(0, resultAdd);
 		assertEquals(0, resultMod);
 		assertEquals(0, resultDel);
-
+		assertEquals(true, isEnough);
 		assertEquals("add goods succeed!" + line
 				+ "modify goods succeed!"+ line 
 				+ "delete goods succeed!" + line
 				+ "find goods succeed!"+ line 
 				+ "check stock succeed!"+ line 
 				+"show stock succeed!" + line 
-				+ "show goods succeed!" + line, bytes.toString());
+				+ "show goods succeed!" + line
+				+ "check stock is enough succeed!"+line
+				+ "return prime cost income succeed!"+line, bytes.toString());
 	}
 }

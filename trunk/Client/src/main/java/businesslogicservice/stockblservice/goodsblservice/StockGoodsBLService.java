@@ -15,8 +15,13 @@ public interface StockGoodsBLService {
 	public ArrayList<GoodsPO> findGoods(String message);
 
 	public ArrayList<GoodsPO> showGoods();
-	
+
 	public ArrayList<GoodsPO> showStock(String beginDate, String endDate);
 
 	public ArrayList<GoodsPO> checkStock();
+
+	public boolean isEnough(String ID, int num);
+
+	// 商品调价收入
+	public double PrimeCostIncome();
 }

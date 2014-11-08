@@ -18,6 +18,7 @@ public class GiftDataService_driver {
 			giftDataService_stub.addGift(po);
 			giftDataService_stub.dealGift(po);
 			giftDataService_stub.getAccount(po);
+			giftDataService_stub.giftCost();
 		} catch (RemoteException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();

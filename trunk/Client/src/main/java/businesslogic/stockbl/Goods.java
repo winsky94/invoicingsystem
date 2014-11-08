@@ -52,5 +52,15 @@ public class Goods implements StockGoodsBLService{
 		// TODO 自动生成的方法存根
 		return null;
 	}
+
+	public boolean isEnough(String ID, int num) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	public double PrimeCostIncome() {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
 	
 }

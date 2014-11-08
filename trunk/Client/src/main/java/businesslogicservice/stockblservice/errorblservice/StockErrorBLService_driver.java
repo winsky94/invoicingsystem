@@ -14,6 +14,8 @@ public class StockErrorBLService_driver {
 				"小赵,000001", ReceiptType.STOCKERROR, "", "00002");
 		stockErrorBLService.addStockOverOrLow(stockOverOrLowVO);
 		stockErrorBLService.addStockError(stockErrorVO);
+		stockErrorBLService.goodsOverIncome();
+		stockErrorBLService.goodsLowCost();
 	}
 
 	public static void main(String[] args) {

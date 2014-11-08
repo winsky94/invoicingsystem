@@ -14,6 +14,8 @@ public class StockErrorDataService_driver {
 		StockErrorPO stockErrorPO = new StockErrorPO("飞利浦日光灯", "SR01");
 		stockErrorDataService.addStockOverOrLow(stockOverOrLowPO);
 		stockErrorDataService.addStockError(stockErrorPO);
+		stockErrorDataService.goodsOverIncome();
+		stockErrorDataService.goodsLowCost();
 	}
 
 	public static void main(String[] args) throws RemoteException {
