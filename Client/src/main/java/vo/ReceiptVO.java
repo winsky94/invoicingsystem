@@ -10,7 +10,7 @@ import businesslogic.receiptbl.ReceiptType;
 public class ReceiptVO{
 	String id;
 	MemberVO member;
-	UserVO user;
+	String user;
 	ReceiptType type;
 	Date createDate;
 	int status;
@@ -20,7 +20,7 @@ public class ReceiptVO{
 	public  ReceiptVO(){
 
 	}
-	public ReceiptVO(String id, MemberVO member, UserVO user, ReceiptType type,
+	public ReceiptVO(String id, MemberVO member, String user, ReceiptType type,
 			Date createDate, int status, int hurry,String info, String stockid) {
 	
 		this.id = id;
@@ -39,7 +39,7 @@ public class ReceiptVO{
 	public MemberVO getMember() {
 		return member;
 	}
-	public UserVO getUser() {
+	public String getUser() {
 		return user;
 	}
 	public ReceiptType getType() {
