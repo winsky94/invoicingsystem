@@ -27,7 +27,7 @@ public class FinanceAccountBLService_DriverTest extends TestCase{
 		System.setOut(console);
 	}
 	
-	public void testPromotionBLDrive(){
+	public void testAccountBLDrive(){
 		AccountVO vo=new AccountVO();
 		int resultAdd=accountblservice.addAccount(vo);
 		int resultDel=accountblservice.deleteAccount(vo);

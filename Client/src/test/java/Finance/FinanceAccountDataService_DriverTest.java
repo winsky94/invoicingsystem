@@ -32,7 +32,7 @@ public class FinanceAccountDataService_DriverTest extends TestCase{
 		System.setOut(console);
 	}
 	
-	public void testPromotionDatadrive() throws RemoteException {
+	public void testAccountDatadrive() throws RemoteException {
 		AccountPO po=new AccountPO();
 		int resultAdd=accountdataservice.addAccount(po);
 		int resultDel=accountdataservice.deleteAccount(po);

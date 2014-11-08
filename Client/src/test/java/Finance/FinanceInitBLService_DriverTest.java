@@ -31,7 +31,7 @@ public class FinanceInitBLService_DriverTest extends TestCase{
 		System.setOut(console);
 	}
 	
-	public void testPromotionDatadrive() throws RemoteException {
+	public void testInitBLdrive() throws RemoteException {
 		BeginInfoVO vo=new BeginInfoVO();
 		int result=initblservice.initInfo(vo);
 		initblservice.getInfo(null);
