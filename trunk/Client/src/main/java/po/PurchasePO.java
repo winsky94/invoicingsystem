@@ -2,7 +2,11 @@ package po;
 import java.util.ArrayList;
 import java.util.Date;
 
-import enumeration.ReceiptType;
+
+import businesslogic.receiptbl.ReceiptType;
+import vo.MemberVO;
+import vo.UserVO;
+
 
 
 public class PurchasePO extends ReceiptPO{

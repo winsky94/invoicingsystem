@@ -2,7 +2,7 @@ package vo;
 
 import java.util.Date;
 
-import enumeration.ReceiptType;
+import businesslogic.receiptbl.ReceiptType;
 
 public class StockErrorVO extends ReceiptVO {
 	String goodsName;
