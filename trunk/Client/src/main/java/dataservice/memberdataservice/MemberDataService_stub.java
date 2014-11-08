@@ -1,5 +1,7 @@
 package dataservice.memberdataservice;
 
+import po.MemberPO;
+
 public class MemberDataService_stub implements MemberDataService{
 
 	@Override
@@ -9,7 +11,6 @@ public class MemberDataService_stub implements MemberDataService{
 		return 0;
 	}
 
-	@Override
 	public int delete(MemberPO po) {
 		// TODO Auto-generated method stub
 		System.out.println("Delete Successfully!");
