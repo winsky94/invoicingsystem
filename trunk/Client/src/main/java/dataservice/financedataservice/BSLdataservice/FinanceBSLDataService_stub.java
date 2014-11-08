@@ -4,7 +4,7 @@ import po.BSLPO;
 public class FinanceBSLDataService_stub implements FinanceBSLDataService{
 	
 	public BSLPO viewBSL() {
-		System.out.println("ViewBSL success!");
+		System.out.println("View businessstatementlist success!");
 		return new BSLPO();
 	}
 
