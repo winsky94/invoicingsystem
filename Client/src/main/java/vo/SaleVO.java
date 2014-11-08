@@ -11,16 +11,12 @@ public class SaleVO extends ReceiptVO {
 	ArrayList<CommodityList> salesList;
 	double totalYuanChu, totalZheHou, totalKeHuYingFu;
 	double ZheRang, couponPrice;
-	public SaleVO(){
-		
-		
-	}
 	public SaleVO(String clerk, ArrayList<CommodityList> salesList, String id,
-			MemberVO member, UserVO user, Date createDate, int status,
+			String memberName,String memberID, String user, Date createDate, int status,
 			int hurry,String info, String stockid, double totalYuanChu,
 			double totalZheHou, double totalKeHuYingFu, double ZheRang,
 			double couponPrice) {
-		super(id, member, user, ReceiptType.SALE, createDate, status,hurry, info,
+		super(id, memberName,memberID, user, ReceiptType.SALE, createDate, status,hurry, info,
 				stockid);
 		this.clerk = clerk;
 		this.salesList = salesList;

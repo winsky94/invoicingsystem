@@ -11,9 +11,9 @@ public class PurchaseVO extends ReceiptVO {
 	ArrayList<CommodityList> purchaseList;
 	double totalInAll;
 	public PurchaseVO(ArrayList<CommodityList> purchaseList, String id,
-			MemberVO member, UserVO user,Date createDate,
+			String memberName,String memberID, String user,Date createDate,
 			int status, int hurry,String info, String stockid,double totalInAll) {
-		super(id, member, user,ReceiptType.PURCHASE, createDate, status,hurry,info, stockid);
+		super(id, memberName,memberID, user,ReceiptType.PURCHASE, createDate, status,hurry,info, stockid);
 		this.purchaseList = purchaseList;
 		this.totalInAll=totalInAll;
 	}

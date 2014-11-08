@@ -13,9 +13,9 @@ public class SaleReturnVO extends ReceiptVO{
 	ArrayList<CommodityList> saleReturnList;
 	double totalYuanChu, totalZheHou, totalKeHuYingFu;
 	double ZheRang, couponPrice;
-	public SaleReturnVO(String id,UserVO user,SaleVO s,Date createDate, int status,
+	public SaleReturnVO(String id,String user,SaleVO s,Date createDate, int status,
 			String info,int hurry){
-		super(id, s.member, user, ReceiptType.SALERETURN, createDate,
+		super(id, s.memberName,s.memberID, user, ReceiptType.SALERETURN, createDate,
 				status, hurry,info, s.stockid);
 		this.totalKeHuYingFu=s.totalKeHuYingFu;
 		this.totalYuanChu=s.totalYuanChu;
