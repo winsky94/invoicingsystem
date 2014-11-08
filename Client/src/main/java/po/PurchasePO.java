@@ -2,6 +2,8 @@ package po;
 import java.util.ArrayList;
 import java.util.Date;
 
+import vo.MemberVO;
+import vo.UserVO;
 import enumeration.ReceiptType;
 
 
@@ -10,8 +12,8 @@ public class PurchasePO extends ReceiptPO{
 	double totalInAll;
 	public PurchasePO(ArrayList<CommodityListPO> purchaseList, String id,
 			MemberPO member, UserPO user,Date createDate,
-			int status, String info, String stockid,double totalInAll) {
-		super(id, member, user,ReceiptType.PURCHASE, createDate, status, info, stockid);
+			int status, int hurry,String info, String stockid,double totalInAll) {
+		super(id, member, user,ReceiptType.PURCHASE, createDate, status, hurry, info, stockid);
 		this.purchaseList = purchaseList;
 		this.totalInAll=totalInAll;
 	}
