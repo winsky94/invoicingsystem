@@ -30,7 +30,7 @@ public class FinanceInitDataService_DriverTest extends TestCase{
 		System.setOut(console);
 	}
 	
-	public void testPromotionDatadrive() throws RemoteException {
+	public void testInitDatadrive() throws RemoteException {
 		BeginInfoPO po=new BeginInfoPO();
 		int result=initdataservice.initInfo(po);
 		initdataservice.getInfo(null);

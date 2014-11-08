@@ -25,7 +25,7 @@ public class FinanceBSLDataServcie_DriverTest extends TestCase{
 		System.setOut(console);
 	}
 	
-	public void testPromotionBLDrive(){
+	public void testBSLDataDrive(){
 		BSLPO vo=new BSLPO();
 		BSLdataservice.viewBSL();
 		int result=BSLdataservice.export(vo);		

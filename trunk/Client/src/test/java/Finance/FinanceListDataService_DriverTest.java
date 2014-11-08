@@ -32,7 +32,7 @@ public class FinanceListDataService_DriverTest extends TestCase{
 		System.setOut(console);
 	}
 	
-	public void testPromotionDatadrive() throws RemoteException {
+	public void testListDatadrive() throws RemoteException {
 	    CollectionPO po1=new CollectionPO();
 	    PaymentPO po2=new PaymentPO();
 	    CashlistPO po3=new CashlistPO();

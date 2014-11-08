@@ -31,7 +31,7 @@ public class FinanceListBLService_DriverTest extends TestCase{
 		System.setOut(console);
 	}
 	
-	public void testPromotionDatadrive() throws RemoteException {
+	public void testListBLdrive() throws RemoteException {
 	    CollectionVO vo1=new CollectionVO();
 	    PaymentVO vo2=new PaymentVO();
 	    CashlistVO vo3=new CashlistVO();
