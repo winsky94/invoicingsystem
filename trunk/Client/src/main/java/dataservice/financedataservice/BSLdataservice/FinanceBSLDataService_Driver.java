@@ -1,12 +1,12 @@
 package dataservice.financedataservice.BSLdataservice;
 
-import vo.BSLVO;
+import po.BSLPO;
 
 
 public class FinanceBSLDataService_Driver {
 	public void drive(FinanceBSLDataService fds){
 	  	  fds.viewBSL();
-	      fds.export(new BSLVO());
+	      fds.export(new BSLPO());
 	    }
 		
 	    public static void main(String[] args){
