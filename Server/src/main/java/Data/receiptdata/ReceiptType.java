@@ -1,4 +1,4 @@
-package enumeration;
+package Data.receiptdata;
 
 public enum ReceiptType {
 	 SALE,SALERETURN,PURCHASE,PURCHASERETURN,COLLECTION,PAYMENT,CASHLIST,
