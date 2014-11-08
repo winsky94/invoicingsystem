@@ -1,5 +1,7 @@
 package dataservice.memberdataservice;
 
+import po.MemberPO;
+
 public class MemberDataService_driver {
 	public void drive(MemberDataService memberDataService){
 		memberDataService.add(new MemberPO());

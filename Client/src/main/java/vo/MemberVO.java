@@ -1,5 +1,8 @@
 package vo;
 
+import enumeration.MemberLevel;
+import enumeration.MemberType;
+
 public class MemberVO {
 	String memberID;
 	MemberType mType;
@@ -79,9 +82,5 @@ public class MemberVO {
 		return points;
 	}
 }
-enum MemberType {
-	JHS,XSS;
-}
-enum MemberLevel {
-	ONE,TWO,THREE,FOUR,FIVE;
-}
+
+
