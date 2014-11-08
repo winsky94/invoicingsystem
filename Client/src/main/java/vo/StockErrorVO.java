@@ -8,7 +8,7 @@ public class StockErrorVO extends ReceiptVO {
 	String goodsName;
 	String goodsSize;
 
-	public StockErrorVO(String goodsName, String goodsSize, UserVO user,
+	public StockErrorVO(String goodsName, String goodsSize, String user,
 			ReceiptType type, String info, String stockid) {
 		this.goodsName = goodsName;
 		this.goodsSize = goodsSize;
