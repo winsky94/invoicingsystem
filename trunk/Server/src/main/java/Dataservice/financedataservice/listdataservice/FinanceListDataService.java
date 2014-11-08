@@ -4,8 +4,9 @@ import po.CashlistPO;
 import po.CollectionPO;
 import po.PaymentPO;
 import po.ReceiptPO;
+import java.rmi.Remote;
 
-public interface FinanceListDataService {
+public interface FinanceListDataService extends Remote{
 	public int createCollection (CollectionPO po);
     public int createPayment(PaymentPO po);
     public int createCashlist (CashlistPO po) ;
