@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class CollectionVO extends ReceiptVO{
 	 String ID;
-     MemberVO supplier;
-     MemberVO seller;
-     UserVO user;
+     String supplier;
+     String seller;
+     String user;
      ArrayList<TransferItem> transferlist=new ArrayList<TransferItem>();
      double totalMoney;
    //  BSLVO vo;
@@ -15,7 +15,7 @@ public class CollectionVO extends ReceiptVO{
     	 this(null,null,null,null,null,0);
      }
      
-     public CollectionVO(String a,MemberVO b,MemberVO j,UserVO c,ArrayList<TransferItem> d,double e){
+     public CollectionVO(String a,String b,String j,String c,ArrayList<TransferItem> d,double e){
     	 ID=a;
     	 supplier=b;
     	 seller=j;
@@ -28,15 +28,15 @@ public class CollectionVO extends ReceiptVO{
     	 return ID;
      }
      
-     public MemberVO getSupplier(){
+     public String getSupplier(){
     	 return supplier;
      }
      
-     public MemberVO getSeller(){
+     public String getSeller(){
     	 return seller;
      }
      
-     public UserVO getUser(){
+     public String getUser(){
     	 return user;
      }
      
