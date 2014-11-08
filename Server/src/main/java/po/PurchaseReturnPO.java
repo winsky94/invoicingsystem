@@ -2,6 +2,8 @@ package po;
 import java.util.ArrayList;
 import java.util.Date;
 
+import enumeration.ReceiptType;
+
 
 public class PurchaseReturnPO extends ReceiptPO{
 	ArrayList<CommodityListPO> purchaseReturnList;

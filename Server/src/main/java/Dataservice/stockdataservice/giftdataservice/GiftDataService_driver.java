@@ -4,13 +4,14 @@ import java.rmi.RemoteException;
 
 import po.GiftPO;
 import po.GoodsPO;
+import po.MemberPO;
 
 
 public class GiftDataService_driver {
 	public void drive(GiftDataService_stub giftDataService_stub) {
 		GoodsPO goodsPO = new GoodsPO("00001", "飞利浦日光灯", "SR01", 10,100,100, 150,
 				100, 150);
-		MemberPO memberPO = new MemberPO();
+		MemberPO memberPO = new MemberPO(null, null, null, null, null, null, null, null, null, 0, 0, 0);
 		GiftPO po =new GiftPO(memberPO,goodsPO,1);
 	
 		try {
