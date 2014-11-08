@@ -3,20 +3,22 @@ package vo;
 import java.util.ArrayList;
 
 public class CollectionVO extends ReceiptVO{
-     String ID;
-     MemberVO member;
+	 String ID;
+     MemberVO supplier;
+     MemberVO seller;
      UserVO user;
      ArrayList<TransferItem> transferlist=new ArrayList<TransferItem>();
      double totalMoney;
-     BSLVO vo;
+   //  BSLVO vo;
         
      public CollectionVO(){
-    	 this(null,null,null,null,0);
+    	 this(null,null,null,null,null,0);
      }
      
-     public CollectionVO(String a,MemberVO b,UserVO c,ArrayList<TransferItem> d,double e){
+     public CollectionVO(String a,MemberVO b,MemberVO j,UserVO c,ArrayList<TransferItem> d,double e){
     	 ID=a;
-    	 member=b;
+    	 supplier=b;
+    	 seller=j;
     	 user=c;
     	 transferlist=d;
     	 totalMoney=e;
@@ -26,8 +28,12 @@ public class CollectionVO extends ReceiptVO{
     	 return ID;
      }
      
-     public MemberVO getMember(){
-    	 return member;
+     public MemberVO getSupplier(){
+    	 return supplier;
+     }
+     
+     public MemberVO getSeller(){
+    	 return seller;
      }
      
      public UserVO getUser(){
@@ -48,6 +54,7 @@ public class CollectionVO extends ReceiptVO{
 	double money;
 	String info;
   }
+  
   
 }
 
