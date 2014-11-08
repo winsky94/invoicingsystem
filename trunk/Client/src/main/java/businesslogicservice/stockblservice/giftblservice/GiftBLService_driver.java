@@ -3,10 +3,8 @@ package businesslogicservice.stockblservice.giftblservice;
 import vo.GiftVO;
 import vo.GoodsVO;
 import vo.MemberVO;
-import vo.ReceiptType;
 import vo.UserVO;
-import vo.memberLevel;
-import vo.memberType;
+
 
 public class GiftBLService_driver {
 	public void drive(GiftBLService_stub giftService_stub) {
