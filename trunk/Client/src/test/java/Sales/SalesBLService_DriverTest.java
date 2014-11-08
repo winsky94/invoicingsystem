@@ -34,10 +34,10 @@ public class SalesBLService_DriverTest extends TestCase {
 
 	@Test
 	public void test() {
-		PurchaseVO pv = new PurchaseVO(null, line, null, null, null, 0, 0,
+		PurchaseVO pv = new PurchaseVO(null, line, null, null, null, null, 0, 0,
 				line, line, 0);
 		PurchaseReturnVO prv=new PurchaseReturnVO(line, null, pv, null, 0, line, 0);
-		SaleVO sv=new SaleVO(line, null, line, null, null, null, 0, 0, line, line, 0, 0, 0, 0, 0);
+		SaleVO sv=new SaleVO(line, null, line, null, null, null, null, 0, 0, line, line, 0, 0, 0, 0, 0);
 		SaleReturnVO srv=new SaleReturnVO(line, null, sv, null, 0, line, 0);
 		//
 		s.purchase(pv);
@@ -57,6 +57,23 @@ public class SalesBLService_DriverTest extends TestCase {
 		s.showSaleReturn();
 		//
 		s.showSaleList();
+		s.exportSaleListToExcel();
+		//
+		assertEquals("Purchase Successfully!"+ line
+				+"Modify Purchase Successfully!"+ line
+				+"showPurchase!"+ line
+				+"PurchaseReturn Successfully!"+ line
+				+"Modify PurchaseReturn Successfully!"+ line
+				+"showPurchaseReturn!"+ line
+				+"Sale Successfully!"+ line
+				+"Modify Sale Successfully!"+ line
+				+"showSale!"+ line
+				+"SaleReturn Successfully!"+ line
+				+"Modify SaleReturn Successfully!"+ line
+				+"showSaleReturn!"+ line
+				+"showSaleList!"+line
+				+"Export to Excel!"+line,beos.toString());
+		
 	}
 
 }
