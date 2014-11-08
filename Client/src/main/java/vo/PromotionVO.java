@@ -2,10 +2,11 @@ package vo;
 
 import java.util.ArrayList;
 import java.util.Date;
-enum PromotionType {
-	GIFT,PACK,DISCOUNT
 
-}
+import enumeration.MemberLevel;
+import enumeration.MemberType;
+import enumeration.PromotionType;
+
 public class PromotionVO {
 	Date startDate,endDate;
 	PromotionType type;
