@@ -2,10 +2,17 @@ package dataservice.userdataservice;
 
 import java.rmi.RemoteException;
 
+
 import po.UserPO;
 
 public class UserDataService_stub implements UserDataService {
 
+	public int login(String ID, String password) {
+		// TODO 自动生成的方法存根
+		System.out.println("Login succeed!");
+		return 0;
+	}
+	
 	public int add(UserPO po) throws RemoteException {
 		// TODO 自动生成的方法存根
 		System.out.println("add user in file succeed!");

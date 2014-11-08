@@ -42,4 +42,12 @@ public class StockGoodsDataService_stub implements StockGoodsDataService {
 		System.out.println("check stock in file succeed!");
 		return new ArrayList<GoodsPO>();
 	}
+
+	public ArrayList<GoodsPO> showGoods() {
+		// TODO 自动生成的方法存根
+		System.out.println("show goods in file succeed!");
+		return null;
+	}
+	
+	
 }

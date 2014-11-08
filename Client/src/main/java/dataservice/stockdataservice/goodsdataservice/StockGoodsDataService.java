@@ -19,4 +19,6 @@ public interface StockGoodsDataService extends Remote {
 			throws RemoteException;
 
 	public ArrayList<GoodsPO> checkStock() throws RemoteException;
+
+	public ArrayList<GoodsPO> showGoods();
 }

@@ -15,5 +15,7 @@ public class StockErrorBLService_stub  implements StockErrorBLService {
 		// TODO 自动生成的方法存根
 		System.out.println("add stockError receipt succeed!");
 		return 0;
-	}	
+	}
+	
+	
 }

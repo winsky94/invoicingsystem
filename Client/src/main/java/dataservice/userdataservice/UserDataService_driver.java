@@ -7,6 +7,7 @@ import po.UserPO;
 public class UserDataService_driver {
 	public void drive(UserDataService_stub userDataService)
 			throws RemoteException {
+		userDataService.login("00001", "123456");
 		userDataService.add(new UserPO("小赵", "00001", "123456", "库存管理员"));
 		userDataService.delete(new UserPO("小赵", "00001", "123456", "库存管理员"));
 		userDataService.modify(new UserPO("小赵", "00001", "123456", "库存管理员"));
