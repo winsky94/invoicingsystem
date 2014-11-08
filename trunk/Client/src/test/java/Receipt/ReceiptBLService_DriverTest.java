@@ -23,6 +23,7 @@ public class ReceiptBLService_DriverTest extends TestCase{
 		System.setOut(new PrintStream(bytes));
 		
 	}
+	
 	public void tearDown(){
 		System.setOut(console);
 	}
