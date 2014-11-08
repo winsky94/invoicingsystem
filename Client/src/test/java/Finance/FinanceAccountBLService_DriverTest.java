@@ -1,10 +1,9 @@
 package Finance;
 
-import junit.framework.TestCase;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import junit.framework.TestCase;
 import vo.AccountVO;
 import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
 import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService_stub;

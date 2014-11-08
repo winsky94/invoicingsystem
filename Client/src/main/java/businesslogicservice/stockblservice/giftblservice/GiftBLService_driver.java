@@ -1,12 +1,12 @@
 package businesslogicservice.stockblservice.giftblservice;
 
-import businesslogic.memberbl.MemberLevel;
-import businesslogic.memberbl.MemberType;
-import businesslogic.receiptbl.ReceiptType;
 import vo.GiftVO;
 import vo.GoodsVO;
 import vo.MemberVO;
 import vo.UserVO;
+import businesslogic.memberbl.MemberLevel;
+import businesslogic.memberbl.MemberType;
+import businesslogic.receiptbl.ReceiptType;
 
 public class GiftBLService_driver {
 	public void drive(GiftBLService_stub giftService_stub) {

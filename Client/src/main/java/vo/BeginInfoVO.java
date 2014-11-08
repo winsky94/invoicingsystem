@@ -2,11 +2,6 @@ package vo;
 
 import java.util.ArrayList;
 
-import vo.AccountVO;
-import vo.BeginInfoVO;
-import vo.GoodsVO;
-import vo.MemberVO;
-
 public class BeginInfoVO {
 	 ArrayList<GoodsVO> goodsList;
 	    ArrayList<MemberVO> memberList;

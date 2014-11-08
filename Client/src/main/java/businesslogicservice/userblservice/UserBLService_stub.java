@@ -1,7 +1,7 @@
 package businesslogicservice.userblservice;
 
-import po.*;
-import vo.*;
+import po.UserPO;
+import vo.UserVO;
 
 public class UserBLService_stub implements UserBLService {
 

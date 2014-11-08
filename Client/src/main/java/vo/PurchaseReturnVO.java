@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import businesslogic.receiptbl.ReceiptType;
+import businesslogic.salesbl.CommodityList;
 
 public class PurchaseReturnVO extends ReceiptVO {
-	ArrayList<CommodityListVO> purchaseReturnList;
+	ArrayList<CommodityList> purchaseReturnList;
 	double totalInAll;
 	public PurchaseReturnVO(String id,UserVO user,PurchaseVO p, Date createDate, int status,
 			String info,int hurry) {
@@ -16,7 +17,7 @@ public class PurchaseReturnVO extends ReceiptVO {
 		this.totalInAll=p.totalInAll;
 	}
 
-	public ArrayList<CommodityListVO> getPurchaseReturnList() {
+	public ArrayList<CommodityList> getPurchaseReturnList() {
 		return purchaseReturnList;
 	}
 	

@@ -1,6 +1,6 @@
 package businesslogicservice.stockblservice.giftblservice;
 
-import vo.*;
+import vo.GiftVO;
 
 public interface GiftBLService {
 	public int addGift(GiftVO vo);

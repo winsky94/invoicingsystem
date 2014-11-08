@@ -2,10 +2,7 @@ package po;
 
 import java.util.Date;
 
-
 import businesslogic.receiptbl.ReceiptType;
-import vo.MemberVO;
-import vo.UserVO;
 
 
 public class ReceiptPO {

@@ -2,9 +2,6 @@ package Promotion;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
-
-
 import java.rmi.RemoteException;
 
 import junit.framework.TestCase;

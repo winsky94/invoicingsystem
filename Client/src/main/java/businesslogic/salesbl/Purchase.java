@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import businesslogic.memberbl.Member;
+import businesslogic.stockbl.User;
 
 public class Purchase {
 	ArrayList<CommodityList> purchaseList;
@@ -16,7 +17,7 @@ public class Purchase {
 	//---------------------------------------------
 	public Purchase(ArrayList<CommodityList> purchaseList, String id,
 			Member member, User user,Date createDate,
-			int status, int hurry,String info, String stockid,double totalInAll){
+			int status, int hurry,String info, String stockid){
 		this.id = id;
 		this.member = member;
 		this.user = user;
@@ -26,7 +27,6 @@ public class Purchase {
 		this.info = info;
 		this.stockid = stockid;
 		this.purchaseList = purchaseList;
-		this.totalInAll=totalInAll;	
 	}
 	public int createPurchase(){
 		return 0;

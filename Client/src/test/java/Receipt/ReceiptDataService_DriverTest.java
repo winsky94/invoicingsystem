@@ -2,16 +2,12 @@ package Receipt;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
-
-
-
 import java.rmi.RemoteException;
 
+import junit.framework.TestCase;
 import po.ReceiptPO;
 import dataservice.receiptdataservice.ReceiptDataService;
 import dataservice.receiptdataservice.ReceiptDataService_Stub;
-import junit.framework.TestCase;
 
 public class ReceiptDataService_DriverTest extends TestCase{
 	private ReceiptDataService receiptdataservice;

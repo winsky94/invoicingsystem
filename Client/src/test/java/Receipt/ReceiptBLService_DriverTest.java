@@ -3,12 +3,10 @@ package Receipt;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import org.junit.After;
-
-import businesslogicservice.receiptblservice.ReceiptBLService;
-import businesslogicservice.receiptblservice.ReceiptBLService_Stub;
 import junit.framework.TestCase;
 import vo.ReceiptVO;
+import businesslogicservice.receiptblservice.ReceiptBLService;
+import businesslogicservice.receiptblservice.ReceiptBLService_Stub;
 
 
 

@@ -1,8 +1,9 @@
 package Presentation.receiptui;
 //单据列表   单据审批主界面  已审批，未审批
-import java.awt.*;
-
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 public class ReceiptList extends ReceiptFrame{
 	JTabbedPane  xxk;//选项卡

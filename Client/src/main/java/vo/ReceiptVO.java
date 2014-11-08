@@ -3,8 +3,6 @@ package vo;
 import java.util.Date;
 
 import businesslogic.receiptbl.ReceiptType;
-import vo.MemberVO;
-import vo.UserVO;
 
 
 

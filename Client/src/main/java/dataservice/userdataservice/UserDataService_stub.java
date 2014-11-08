@@ -1,6 +1,7 @@
 package dataservice.userdataservice;
 
-import java.rmi.*;
+import java.rmi.RemoteException;
+
 import po.UserPO;
 
 public class UserDataService_stub implements UserDataService {

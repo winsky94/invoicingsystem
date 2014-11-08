@@ -1,7 +1,9 @@
 package dataservice.userdataservice;
 
-import java.rmi.*;
-import po.*;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+import po.UserPO;
 
 public interface UserDataService extends Remote {
 	public int add(UserPO po) throws RemoteException;
