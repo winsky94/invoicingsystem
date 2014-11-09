@@ -63,4 +63,8 @@ public class Goods implements StockGoodsBLService{
 		return 0;
 	}
 	
+	public double getPrice(){
+		return price;
+	}
+	
 }

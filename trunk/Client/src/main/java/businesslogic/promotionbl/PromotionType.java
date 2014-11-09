@@ -1,5 +1,5 @@
 package businesslogic.promotionbl;
 
 public enum PromotionType {
-	GIFT,PACK,DISCOUNT
+	GIFTGOODS,GIFTCOUPON,PACK,DISCOUNT
 }
