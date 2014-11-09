@@ -1,15 +1,30 @@
 package businesslogic.promotionbl;
 
 import java.util.ArrayList;
+import java.util.Date;
 
+import businesslogic.memberbl.MemberLevel;
+import businesslogic.memberbl.MemberType;
 import vo.GiftVO;
 import vo.PromotionVO;
 import vo.SaleVO;
 
 public class promotion {
-	//属性？
+	Date startDate,endDate;
+	PromotionType type;
+	MemberLevel level;
+	MemberType mtype;
+	int release;
 	public promotion(){
 		
+	}
+	public promotion(Date d1,Date d2,PromotionType t,MemberLevel l,MemberType mt){
+		this.startDate=d1;
+		this.endDate=d2;
+		this.type=t;
+		this.mtype=mt;
+		this.level=l;
+		this.release=0;//未发布
 	}
 	
 	//发布和添加？
