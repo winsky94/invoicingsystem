@@ -6,17 +6,17 @@ import java.io.PrintStream;
 import junit.framework.TestCase;
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
-import businesslogicservice.stockblservice.errorblservice.StockErrorBLService;
-import businesslogicservice.stockblservice.errorblservice.StockErrorBLService_stub;
+import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
+import businesslogicservice.stockblservice.controlblservice.StockControlBLService_stub;
 
 public class StockErrorBLService_DriverTest extends TestCase {
-	private StockErrorBLService stockErrorBLService;
+	private StockControlBLService stockErrorBLService;
 	String line = System.getProperty("line.separator");
 	PrintStream console = null;
 	ByteArrayOutputStream bytes = null;
 
 	public void setUp() {
-		StockErrorBLService stockErrorbl_stub = new StockErrorBLService_stub();
+		StockControlBLService stockErrorbl_stub = new StockControlBLService_stub();
 		stockErrorBLService = stockErrorbl_stub;
 		bytes = new ByteArrayOutputStream();
 		console = System.out;

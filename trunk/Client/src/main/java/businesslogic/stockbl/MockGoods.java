@@ -1,20 +1,18 @@
 package businesslogic.stockbl;
 
-import vo.GoodsVO;
-
 public class MockGoods extends Goods {
 	String GoodsID;
 	String name;
 	String type;
 	int numInStock;
 	double purchasePrice;//售价
-	double price;//
+	double price;//进价
 	double lastPurchasePrice;
 	double lastPrice;
 	
 	public MockGoods(String goodsID, String name, String type, int numInStock,
 			 double purchasePrice ,
-			double Price) {
+			double price) {
 		GoodsID = goodsID;
 		this.name = name;
 		this.type = type;
@@ -31,7 +29,7 @@ public class MockGoods extends Goods {
 	public  MockGoods getGoods(String goodsID) {
 		MockGoods good = new MockGoods(goodsID, name, type, numInStock,
 				purchasePrice, price);
-
+		
 		return good;
 	}
 	
@@ -47,7 +45,4 @@ public class MockGoods extends Goods {
 	public void setLastPurchasePrice(double lastPurchasePrice) {
 		this.lastPurchasePrice = lastPurchasePrice;
 	}
-
-	
-	
 }

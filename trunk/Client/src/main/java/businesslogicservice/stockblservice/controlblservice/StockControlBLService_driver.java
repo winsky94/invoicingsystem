@@ -1,11 +1,11 @@
-package businesslogicservice.stockblservice.errorblservice;
+package businesslogicservice.stockblservice.controlblservice;
 
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
 import businesslogic.receiptbl.ReceiptType;
 
-public class StockErrorBLService_driver {
-	public void drive(StockErrorBLService_stub stockErrorBLService) {
+public class StockControlBLService_driver {
+	public void drive(StockControlBLService_stub stockErrorBLService) {
 		StockOverOrLowVO stockOverOrLowVO = new StockOverOrLowVO("飞利浦日光灯",
 				"SR01", 100, 99, -1, "小赵,000001", ReceiptType.STOCKLOW, "",
 				"00002");
@@ -19,8 +19,8 @@ public class StockErrorBLService_driver {
 	}
 
 	public static void main(String[] args) {
-		StockErrorBLService_stub stockErrorBLService = new StockErrorBLService_stub();
-		StockErrorBLService_driver driver = new StockErrorBLService_driver();
+		StockControlBLService_stub stockErrorBLService = new StockControlBLService_stub();
+		StockControlBLService_driver driver = new StockControlBLService_driver();
 		driver.drive(stockErrorBLService);
 	}
 }

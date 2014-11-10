@@ -7,17 +7,17 @@ import java.rmi.RemoteException;
 import junit.framework.TestCase;
 import po.StockErrorPO;
 import po.StockOverOrLowPO;
-import dataservice.stockdataservice.errordataservice.StockErrorDataService;
-import dataservice.stockdataservice.errordataservice.StockErrorDataService_stub;
+import dataservice.stockdataservice.controldataservice.StockControlDataService;
+import dataservice.stockdataservice.controldataservice.StockControlDataService_stub;
 
 public class StockErrorDataService_DriverTest extends TestCase{
-	private StockErrorDataService stockErrorDataService;
+	private StockControlDataService stockErrorDataService;
 	String line = System.getProperty("line.separator");
 	PrintStream console = null;
 	ByteArrayOutputStream bytes = null;
 
 	public void setUp() {
-		StockErrorDataService stockErrorDataService_stub = new StockErrorDataService_stub();
+		StockControlDataService stockErrorDataService_stub = new StockControlDataService_stub();
 		stockErrorDataService = stockErrorDataService_stub;
 		bytes = new ByteArrayOutputStream();
 		console = System.out;
