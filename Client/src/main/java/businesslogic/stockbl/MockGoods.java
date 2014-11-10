@@ -2,39 +2,52 @@ package businesslogic.stockbl;
 
 import vo.GoodsVO;
 
-public class MockGoods {
+public class MockGoods extends Goods {
 	String GoodsID;
 	String name;
-	String size;
+	String type;
 	int numInStock;
-	double purchasePrice;
-	double price;
-	double PurchasePrice;
+	double purchasePrice;//售价
+	double price;//
+	double lastPurchasePrice;
 	double lastPrice;
-
-	public MockGoods(String goodsID, String name, String size, int numInStock,
-			double purchasePrice, double price, double lastPurchasePrice,
-			double lastPrice) {
+	
+	public MockGoods(String goodsID, String name, String type, int numInStock,
+			 double purchasePrice ,
+			double Price) {
 		GoodsID = goodsID;
 		this.name = name;
-		this.size = size;
+		this.type = type;
 		this.numInStock = numInStock;
 		this.purchasePrice = purchasePrice;
 		this.price = price;
-		this.PurchasePrice = lastPurchasePrice;
-		this.lastPrice = lastPrice;
+		this.lastPurchasePrice = 0;
+		this.lastPrice = 0;
 	}
+	
+	public MockGoods(){
+		
+	}
+	public  MockGoods getGoods(String goodsID) {
+		MockGoods good = new MockGoods(goodsID, name, type, numInStock,
+				purchasePrice, price);
 
-	public GoodsVO getGoods(String goodsID) {
-		GoodsVO goodsVO = new GoodsVO(goodsID, name, size, numInStock,
-				lastPrice, lastPrice, lastPrice, lastPrice);
-
-		return goodsVO;
+		return good;
 	}
 	
 	//商品价格
 	public double getPrice(double price){
 		return price;
 	}
+
+	public double getLastPurchasePrice() {
+		return lastPurchasePrice;
+	}
+
+	public void setLastPurchasePrice(double lastPurchasePrice) {
+		this.lastPurchasePrice = lastPurchasePrice;
+	}
+
+	
 	
 }
