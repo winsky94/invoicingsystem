@@ -1,9 +1,9 @@
-package businesslogicservice.stockblservice.errorblservice;
+package businesslogicservice.stockblservice.controlblservice;
 
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
 
-public interface StockErrorBLService {
+public interface StockControlBLService {
 	public int addStockOverOrLow(StockOverOrLowVO vo);
 
 	public int addStockError(StockErrorVO vo);

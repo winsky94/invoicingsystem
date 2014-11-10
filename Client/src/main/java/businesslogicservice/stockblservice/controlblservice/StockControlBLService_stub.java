@@ -1,9 +1,9 @@
-package businesslogicservice.stockblservice.errorblservice;
+package businesslogicservice.stockblservice.controlblservice;
 
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
 
-public class StockErrorBLService_stub  implements StockErrorBLService {
+public class StockControlBLService_stub  implements StockControlBLService {
 
 	public int addStockOverOrLow(StockOverOrLowVO vo) {
 		// TODO 自动生成的方法存根

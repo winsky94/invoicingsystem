@@ -1,11 +1,11 @@
-package dataservice.stockdataservice.errordataservice;
+package dataservice.stockdataservice.controldataservice;
 
 import java.rmi.RemoteException;
 
 import po.StockErrorPO;
 import po.StockOverOrLowPO;
 
-public class StockErrorDataService_stub implements StockErrorDataService {
+public class StockControlDataService_stub implements StockControlDataService {
 	public int addStockOverOrLow(StockOverOrLowPO po) throws RemoteException {
 		// TODO 自动生成的方法存根
 		System.out.println("add stockOverOrLow receipt in file succeed!");
