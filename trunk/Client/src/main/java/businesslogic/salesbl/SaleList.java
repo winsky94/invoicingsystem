@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import vo.ReceiptVO;
 
 public class SaleList {
+
+	
 	public int exportToExcel(){
 		return 0;
 	}

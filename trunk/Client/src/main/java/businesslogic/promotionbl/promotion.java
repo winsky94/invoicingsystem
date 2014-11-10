@@ -1,5 +1,6 @@
 package businesslogic.promotionbl;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -60,5 +61,15 @@ public class promotion {
 		
 		return null;
 	}
+	
+	public int Release(promotion pro) throws RemoteException{
+		pro.release=1;
+		return promotionList.AddPromotion(pro);
+	}
+	
+	public int  GetRelease(){
+		return release;
+	}
+	
 	//发布
 }
