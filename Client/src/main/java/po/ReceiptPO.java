@@ -6,18 +6,15 @@ import businesslogic.receiptbl.ReceiptType;
 
 
 public class ReceiptPO {
-	String id;
-	MemberPO member;
-	UserPO user;
-	ReceiptType type;
-	Date createDate;
-	int status;
-	int hurry;
-	String info;
-	String stockid;
-	public  ReceiptPO(){
-
-	}
+	private String id;
+	private MemberPO member;
+	private UserPO user;
+	private ReceiptType type;
+	private Date createDate;
+	private int status;
+	private int hurry;
+	private String info;
+	private String stockid;
 	public ReceiptPO(String id, MemberPO member, UserPO user, ReceiptType type,
 			Date createDate, int status, int hurry,String info, String stockid) {
 	
