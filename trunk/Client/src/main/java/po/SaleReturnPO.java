@@ -10,19 +10,20 @@ import businesslogic.salesbl.CommodityList;
 public class SaleReturnPO extends ReceiptPO{
 	String clerk;
 	CommodityList saleReturnList;
-	double totalYuanChu, totalZheHou, totalKeHuYingFu;
-	double ZheRang, couponPrice;
+	double totalOrigin, totalProDiscount, totalFinDiscount,totalToPay;
+	double moneyDiscount, couponPrice;
 	public SaleReturnPO(String id,UserPO user,SalePO s,Date createDate, int status,
 			String info,int hurry){
 		super(id, s.member, user, ReceiptType.SALERETURN, createDate,
 				status, hurry,info, s.stockid);
-		this.totalKeHuYingFu=s.totalKeHuYingFu;
-		this.totalYuanChu=s.totalYuanChu;
-		this.totalZheHou=s.totalZheHou;
-		this.ZheRang=s.ZheRang;
-		this.couponPrice=s.couponPrice;
-		this.clerk=s.clerk;
-		this.saleReturnList=s.salesList;
+		this.totalToPay=s.getTotalToPay();
+		this.totalOrigin=s.getTotalOrigin();
+		this.totalProDiscount=s.getTotalProDiscount();
+		this.totalFinDiscount=s.getTotalFinDiscount();
+		this.moneyDiscount=s.getMoneyDiscount();
+		this.couponPrice=s.getCouponPrice();
+		this.clerk=s.getClerk();
+		this.saleReturnList=s.getSalesList();
 	}
 	public String getClerk() {
 		return clerk;
@@ -30,19 +31,23 @@ public class SaleReturnPO extends ReceiptPO{
 	public CommodityList getSaleReturnList() {
 		return saleReturnList;
 	}
-	public double getTotalYuanChu() {
-		return totalYuanChu;
+	public double getTotalOrigin() {
+		return totalOrigin;
 	}
-	public double getTotalZheHou() {
-		return totalZheHou;
+	public double getTotalProDiscount() {
+		return totalProDiscount;
 	}
-	public double getTotalKeHuYingFu() {
-		return totalKeHuYingFu;
+	public double getTotalFinDiscount() {
+		return totalFinDiscount;
 	}
-	public double getZheRang() {
-		return ZheRang;
+	public double getTotalToPay() {
+		return totalToPay;
+	}
+	public double getMoneyDiscount() {
+		return moneyDiscount;
 	}
 	public double getCouponPrice() {
 		return couponPrice;
 	}
+	
 }

@@ -12,12 +12,14 @@ public class PurchaseReturnPO extends ReceiptPO{
 			String info,int hurry) {
 		super(id, p.member, user, ReceiptType.PURCHASERETURN, createDate,
 				status,hurry, info, p.stockid);
-		this.purchaseReturnList=p.purchaseList;
-		this.totalInAll=p.totalInAll;
+		this.purchaseReturnList=p.getPurchaseList();
+		this.totalInAll=p.getTotalInAll();
 	}
-
 	public CommodityList getPurchaseReturnList() {
 		return purchaseReturnList;
 	}
-	
+	public double getTotalInAll() {
+		return totalInAll;
+	}
+
 }
