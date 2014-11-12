@@ -7,19 +7,21 @@ import businesslogic.receiptbl.ReceiptType;
 
 public class ReceiptPO {
 	private String id;
-	private MemberPO member;
-	private UserPO user;
+	private String memberName;
+	private String memberID;
+	private String user;
 	private ReceiptType type;
 	private Date createDate;
 	private int status;
 	private int hurry;
 	private String info;
 	private String stockid;
-	public ReceiptPO(String id, MemberPO member, UserPO user, ReceiptType type,
+	public ReceiptPO(String id,String memberName, String memberID, String user, ReceiptType type,
 			Date createDate, int status, int hurry,String info, String stockid) {
 	
 		this.id = id;
-		this.member = member;
+		this.memberName = memberName;
+		this.memberID=memberID;
 		this.user = user;
 		this.type = type;
 		this.createDate = createDate;
@@ -27,5 +29,35 @@ public class ReceiptPO {
 		this.hurry=hurry;
 		this.info = info;
 		this.stockid = stockid;
+	}
+	public String getId() {
+		return id;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public String getMemberID() {
+		return memberID;
+	}
+	public String getUser() {
+		return user;
+	}
+	public ReceiptType getType() {
+		return type;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public int getHurry() {
+		return hurry;
+	}
+	public String getInfo() {
+		return info;
+	}
+	public String getStockid() {
+		return stockid;
 	}
 }
