@@ -22,7 +22,7 @@ public class GiftBLService_stub implements GiftBLService{
 		return 0;
 	}
 
-	public double giftCost() {
+	public double getGiftCost() {
 		// TODO 自动生成的方法存根
 		System.out.println("return gift cost succeed!");
 		return 0;

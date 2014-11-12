@@ -2,37 +2,41 @@ package po;
 
 import java.io.Serializable;
 
-import vo.GoodsVO;
-import vo.MemberVO;
+import businesslogic.receiptbl.Receipt;
 
-public class GiftPO implements Serializable {
+public class GiftPO extends Receipt implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	MemberVO member;
-	GoodsVO goods;
+	MemberPO member;
+	GoodsPO goods;
 	int num;
 
-	public GiftPO(MemberVO member, GoodsVO goods, int num) {
+	public GiftPO(){
+		
+	}
+	
+	public GiftPO(MemberPO member, GoodsPO goods, int num) {
+		super();
 		this.member = member;
 		this.goods = goods;
 		this.num = num;
 	}
 
-	public MemberVO getMember() {
+	public MemberPO getMember() {
 		return member;
 	}
 
-	public void setMember(MemberVO member) {
+	public void setMember(MemberPO member) {
 		this.member = member;
 	}
 
-	public GoodsVO getGoods() {
+	public GoodsPO getGoods() {
 		return goods;
 	}
 
-	public void setGoods(GoodsVO goods) {
+	public void setGoods(GoodsPO goods) {
 		this.goods = goods;
 	}
 

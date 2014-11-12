@@ -5,14 +5,13 @@ public class MockGoods extends Goods {
 	String name;
 	String type;
 	int numInStock;
-	double purchasePrice;//售价
-	double price;//进价
+	double purchasePrice;// 售价
+	double price;// 进价
 	double lastPurchasePrice;
 	double lastPrice;
-	
+
 	public MockGoods(String goodsID, String name, String type, int numInStock,
-			 double purchasePrice ,
-			double price) {
+			double purchasePrice, double price) {
 		GoodsID = goodsID;
 		this.name = name;
 		this.type = type;
@@ -22,19 +21,19 @@ public class MockGoods extends Goods {
 		this.lastPurchasePrice = 0;
 		this.lastPrice = 0;
 	}
-	
-	public MockGoods(){
-		
+
+	public MockGoods() {
+
 	}
-	public  MockGoods getGoods(String goodsID) {
+
+	public MockGoods getGoods(String goodsID) {
 		MockGoods good = new MockGoods(goodsID, name, type, numInStock,
 				purchasePrice, price);
-		
 		return good;
 	}
-	
-	//商品价格
-	public double getPrice(double price){
+
+	// 商品价格
+	public double getPrice() {
 		return price;
 	}
 
@@ -84,10 +83,6 @@ public class MockGoods extends Goods {
 
 	public void setPurchasePrice(double purchasePrice) {
 		this.purchasePrice = purchasePrice;
-	}
-
-	public double getPrice() {
-		return price;
 	}
 
 	public void setPrice(double price) {

@@ -17,6 +17,10 @@ public class GoodsPO implements Serializable {
 	double lastPurchasePrice;
 	double lastPrice;
 
+	public GoodsPO(){
+		
+	}
+	
 	public GoodsPO(String goodsID, String name, String size, int numInStock,
 			int virtualnumInStock, double purchasePrice, double price,
 			double lastPurchasePrice, double lastPrice) {

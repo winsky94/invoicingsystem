@@ -10,5 +10,5 @@ public interface GiftBLService {
 	public double getAccount(GiftVO vo);
 
 	// 商品赠送支出
-	public double giftCost();
+	public double getGiftCost();
 }
