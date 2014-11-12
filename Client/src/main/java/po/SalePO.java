@@ -1,64 +1,54 @@
 package po;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import businesslogic.receiptbl.ReceiptType;
-import businesslogic.salesbl.Commodity;
 import businesslogic.salesbl.CommodityList;
 
 public class SalePO extends ReceiptPO {
-	String clerk;
-	CommodityList salesList;
-	double totalYuanChu, totalZheHou, totalKeHuYingFu;
-	double ZheRang, couponPrice;
-	public SalePO(){
-		
-		
-	}
+	private String clerk;
+	private CommodityList salesList;
+	private double totalOrigin, totalProDiscount, totalFinDiscount, totalToPay;
+	private double moneyDiscount, couponPrice;
 	public SalePO(String clerk, CommodityList salesList, String id,
 			MemberPO member, UserPO user, Date createDate, int status,
-			int hurry,String info, String stockid, double totalYuanChu,
-			double totalZheHou, double totalKeHuYingFu, double ZheRang,
-			double couponPrice) {
-		super(id, member, user, ReceiptType.SALE, createDate, status,hurry, info,
-				stockid);
+			int hurry, String info, String stockid, double totalOrigin,
+			double totalProDiscount, double totalFinDiscount,
+			double totalToPay, double moneyDiscount, double couponPrice) {
+		super(id, member, user, ReceiptType.SALE, createDate, status, hurry,
+				info, stockid);
 		this.clerk = clerk;
 		this.salesList = salesList;
-		this.totalYuanChu=totalYuanChu;
-		this.totalKeHuYingFu=totalKeHuYingFu;
-		this.totalZheHou=totalZheHou;
-		this.ZheRang=ZheRang;
-		this.couponPrice=couponPrice;
+		this.totalOrigin = totalOrigin;
+		this.totalToPay = totalToPay;
+		this.totalProDiscount = totalProDiscount;
+		this.totalFinDiscount = totalFinDiscount;
+		this.moneyDiscount = moneyDiscount;
+		this.couponPrice = couponPrice;
 	}
-
 	public String getClerk() {
 		return clerk;
 	}
-
 	public CommodityList getSalesList() {
 		return salesList;
 	}
-
-	public double getTotalYuanChu() {
-		return totalYuanChu;
+	public double getTotalOrigin() {
+		return totalOrigin;
 	}
-
-	public double getTotalZheHou() {
-		return totalZheHou;
+	public double getTotalProDiscount() {
+		return totalProDiscount;
 	}
-
-	public double getTotalKeHuYingFu() {
-		return totalKeHuYingFu;
+	public double getTotalFinDiscount() {
+		return totalFinDiscount;
 	}
-
-	public double getZheRang() {
-		return ZheRang;
+	public double getTotalToPay() {
+		return totalToPay;
 	}
-
+	public double getMoneyDiscount() {
+		return moneyDiscount;
+	}
 	public double getCouponPrice() {
 		return couponPrice;
 	}
-	
 
 }
