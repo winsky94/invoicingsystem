@@ -33,11 +33,6 @@ public class SalesController implements SalesBLService{
 		return 0;
 	}
 
-	public ArrayList<ReceiptVO> showSaleList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public int modifyPurchase(PurchaseVO vo) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -78,9 +73,24 @@ public class SalesController implements SalesBLService{
 		return null;
 	}
 
-	public int exportSaleListToExcel() {
-		SaleList saleList=new SaleList();
-		return saleList.exportToExcel();
+	public ArrayList<PurchaseVO> findPurchase(String message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<PurchaseReturnVO> findPurchaseReturn(String message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<SaleVO> findSale(String message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<SaleReturnVO> findSaleReturn(String message) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

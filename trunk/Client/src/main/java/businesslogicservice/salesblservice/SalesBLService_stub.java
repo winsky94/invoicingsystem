@@ -33,13 +33,6 @@ public class SalesBLService_stub implements SalesBLService{
 		return 0;
 	}
 
-	public ArrayList<ReceiptVO> showSaleList() {
-		// TODO Auto-generated method stub
-		System.out.println("showSaleList!");
-		return null;
-
-	}
-
 	public ArrayList<PurchaseVO> showPurchase() {
 		// TODO Auto-generated method stub
 		System.out.println("showPurchase!");
@@ -88,10 +81,29 @@ public class SalesBLService_stub implements SalesBLService{
 		return 0;
 	}
 
-	public int exportSaleListToExcel() {
+	public ArrayList<PurchaseVO> findPurchase(String message) {
 		// TODO Auto-generated method stub
-		System.out.println("Export to Excel!");
-		return 0;
+		System.out.println("findPurchase!");
+		return null;
 	}
+
+	public ArrayList<PurchaseReturnVO> findPurchaseReturn(String message) {
+		// TODO Auto-generated method stub
+		System.out.println("findPurchaseReturn!");
+		return null;
+	}
+
+	public ArrayList<SaleVO> findSale(String message) {
+		// TODO Auto-generated method stub
+		System.out.println("findSale!");
+		return null;
+	}
+
+	public ArrayList<SaleReturnVO> findSaleReturn(String message) {
+		// TODO Auto-generated method stub
+		System.out.println("findSaleReturn!");
+		return null;
+	}
+
 
 }
