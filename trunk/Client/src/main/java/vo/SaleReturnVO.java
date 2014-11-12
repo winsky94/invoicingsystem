@@ -14,8 +14,8 @@ public class SaleReturnVO extends ReceiptVO{
 	private double moneyDiscount, couponPrice;
 	public SaleReturnVO(String id,String user,SaleVO s,Date createDate, int status,
 			String info,int hurry){
-		super(id, s.memberName,s.memberID, user, ReceiptType.SALERETURN, createDate,
-				status, hurry,info, s.stockid);
+		super(id, s.getMemberName(),s.getMemberID(), user, ReceiptType.SALERETURN, createDate,
+				status, hurry,info, s.getStockid());
 		this.totalToPay=s.getTotalToPay();
 		this.totalOrigin=s.getTotalOrigin();
 		this.totalProDiscount=s.getTotalProDiscount();
