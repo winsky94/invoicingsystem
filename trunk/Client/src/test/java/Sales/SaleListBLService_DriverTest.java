@@ -33,11 +33,13 @@ public class SaleListBLService_DriverTest extends TestCase{
 		s.showSaleList();
 		s.exportSaleListToExcel();
 		s.couponProfitCalc();
+		s.purchaseReturnProfitCalc();
 		s.totalMoneyWeGot();
 		s.totalMoneyWePaid();
 		assertEquals("showSaleList!"+ line
 				+"Export to Excel!"+ line
 				+"couponProfitCalc"+ line
+				+"purchaseReturnProfitCalc"+line
 				+"totalMoneyWeGot"+ line
 				+"totalMoneyWePaid"+ line,beos.toString());
 		

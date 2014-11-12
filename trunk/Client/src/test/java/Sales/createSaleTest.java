@@ -21,6 +21,6 @@ public class createSaleTest extends TestCase {
       	good2=new MockGoods("02010002","蓝之恋吊灯","TP05",2000,2000,1000);
       	//库存2000个
       	list=new CommodityList();
-      	list.add(good1.goodsID, good1.goodName, goodSize, num, price, totalPrice, memo);
+      	list.add(good1.getGoodsID(), good1.getName(), good1.getType(), num, price, totalPrice, memo);
 	}
 }

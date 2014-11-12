@@ -10,4 +10,5 @@ public interface SaleListBLService {
 	public double couponProfitCalc();
 	public double totalMoneyWeGot();
 	public double totalMoneyWePaid();
+	public double purchaseReturnProfitCalc();
 }
