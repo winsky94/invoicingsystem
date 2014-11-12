@@ -12,10 +12,10 @@ public class SaleReturnPO extends ReceiptPO{
 	CommodityList saleReturnList;
 	double totalOrigin, totalProDiscount, totalFinDiscount,totalToPay;
 	double moneyDiscount, couponPrice;
-	public SaleReturnPO(String id,UserPO user,SalePO s,Date createDate, int status,
+	public SaleReturnPO(String id,String user,SalePO s,Date createDate, int status,
 			String info,int hurry){
-		super(id, s.member, user, ReceiptType.SALERETURN, createDate,
-				status, hurry,info, s.stockid);
+		super(id, s.getMemberName(),s.getMemberID(), user, ReceiptType.SALERETURN, createDate,
+				status, hurry,info, s.getStockid());
 		this.totalToPay=s.getTotalToPay();
 		this.totalOrigin=s.getTotalOrigin();
 		this.totalProDiscount=s.getTotalProDiscount();

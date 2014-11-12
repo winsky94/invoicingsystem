@@ -11,11 +11,11 @@ public class SalePO extends ReceiptPO {
 	private double totalOrigin, totalProDiscount, totalFinDiscount, totalToPay;
 	private double moneyDiscount, couponPrice;
 	public SalePO(String clerk, CommodityList salesList, String id,
-			MemberPO member, UserPO user, Date createDate, int status,
+			String memberName,String memberID, String user, Date createDate, int status,
 			int hurry, String info, String stockid, double totalOrigin,
 			double totalProDiscount, double totalFinDiscount,
 			double totalToPay, double moneyDiscount, double couponPrice) {
-		super(id, member, user, ReceiptType.SALE, createDate, status, hurry,
+		super(id, memberName,memberID, user, ReceiptType.SALE, createDate, status, hurry,
 				info, stockid);
 		this.clerk = clerk;
 		this.salesList = salesList;

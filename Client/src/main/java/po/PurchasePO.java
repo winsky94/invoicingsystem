@@ -10,9 +10,9 @@ public class PurchasePO extends ReceiptPO{
 	private CommodityList purchaseList;
 	private double totalInAll;
 	public PurchasePO(CommodityList purchaseList, String id,
-			MemberPO member, UserPO user,Date createDate,
+			String memberName,String memberID, String user,Date createDate,
 			int status, int hurry,String info, String stockid,double totalInAll) {
-		super(id, member, user,ReceiptType.PURCHASE, createDate, status, hurry, info, stockid);
+		super(id, memberName,memberID, user,ReceiptType.PURCHASE, createDate, status, hurry, info, stockid);
 		this.purchaseList = purchaseList;
 		this.totalInAll=totalInAll;
 	}
