@@ -1,11 +1,22 @@
 package businesslogic.receiptbl;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import vo.ReceiptVO;
 
 //关键类 单据的增 改 查
 public class Receipt {
+	private String id;
+	private String memberName;
+	private String memberID;
+	private String user;
+	private ReceiptType type;
+	private Date createDate;
+	private int status;
+	private int hurry;
+	private String info;
+	private String stockid;
 	
 	//属性有哪些
 	public Receipt(){
@@ -54,5 +65,45 @@ public class Receipt {
 	public int Approve(String id){
 		
 		return 0;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public String getMemberID() {
+		return memberID;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public ReceiptType getType() {
+		return type;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public int getHurry() {
+		return hurry;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public String getStockid() {
+		return stockid;
 	}
 }
