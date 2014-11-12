@@ -11,7 +11,6 @@ public class SalesBLService_driver {
 		salesBLService.purchaseReturn(new PurchaseReturnVO(null, null, null, null, 0, null, 0));
 		salesBLService.sale(new SaleVO(null, null, null, null, null, null, null, 0, 0, null, null, 0, 0, 0, 0, 0));
 		salesBLService.saleReturn(new SaleReturnVO(null, null, null, null, 0, null, 0));
-		salesBLService.showSaleList();
 	}
 	public static void main(String[] args){
 		SalesBLService_driver driver=new SalesBLService_driver();
