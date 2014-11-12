@@ -26,9 +26,7 @@ public class SaleVO extends ReceiptVO {
 		this.moneyDiscount = moneyDiscount;
 		this.couponPrice = couponPrice;
 	}
-	public SaleVO() {
-		// TODO 自动生成的构造函数存根
-	}
+
 
 	public String getClerk() {
 		return clerk;
