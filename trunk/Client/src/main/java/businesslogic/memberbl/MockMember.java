@@ -79,11 +79,17 @@ public class MockMember implements MemberBLService {
 	}
 
 	public void updateToReceive(double newData) {
-        toReceive-=newData;
+		if(this.mType==MemberType.JHS)
+            toReceive-=newData;
+		else
+			toReceive+=newData;
 	}
 
 	public void updateToPay(double newData) {
-        toPay-=newData;
+		if(this.mType==MemberType.JHS)
+            toPay+=newData;
+		else
+			toPay-=newData;
 	}
 	
 	public double getToReceive(){
