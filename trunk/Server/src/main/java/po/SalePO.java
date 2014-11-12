@@ -1,20 +1,20 @@
 package po;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import Data.receiptdata.ReceiptType;
+import Data.salesdata.CommodityList;
 
 public class SalePO extends ReceiptPO {
 	String clerk;
-	ArrayList<CommodityListPO> salesList;
+	CommodityList salesList;
 	double totalYuanChu, totalZheHou, totalKeHuYingFu;
 	double ZheRang, couponPrice;
 	public SalePO(){
 		
 		
 	}
-	public SalePO(String clerk, ArrayList<CommodityListPO> salesList, String id,
+	public SalePO(String clerk, CommodityList salesList, String id,
 			MemberPO member, UserPO user, Date createDate, int status,
 			int hurry,String info, String stockid, double totalYuanChu,
 			double totalZheHou, double totalKeHuYingFu, double ZheRang,
@@ -34,7 +34,7 @@ public class SalePO extends ReceiptPO {
 		return clerk;
 	}
 
-	public ArrayList<CommodityListPO> getSalesList() {
+	public CommodityList getSalesList() {
 		return salesList;
 	}
 
