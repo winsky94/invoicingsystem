@@ -7,8 +7,8 @@ import businesslogic.salesbl.CommodityList;
 
 
 public class PurchaseVO extends ReceiptVO {
-	CommodityList purchaseList;
-	double totalInAll;
+	private CommodityList purchaseList;
+	private double totalInAll;
 	public PurchaseVO(CommodityList purchaseList, String id,
 			String memberName,String memberID, String user,Date createDate,
 			int status, int hurry,String info, String stockid,double totalInAll) {
@@ -19,6 +19,10 @@ public class PurchaseVO extends ReceiptVO {
 
 	public CommodityList getPurchaseList() {
 		return purchaseList;
+	}
+
+	public double getTotalInAll() {
+		return totalInAll;
 	}
 	
 }
