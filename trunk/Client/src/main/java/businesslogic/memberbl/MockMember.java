@@ -16,9 +16,20 @@ public class MockMember implements MemberBLService {
 		
 		this.toReceive = toReceive;
 		this.toPay = toPay;
-
 	}
-	
+	public MockMember(String memberID, MemberType mType, MemberLevel mLevel,
+			String name,double MaxOwe, double toReceive,
+			double toPay, int points){
+		this.memberID = memberID;
+		this.mType = mType;
+		this.mLevel = mLevel;
+		this.name = name;
+		this.MaxOwe = MaxOwe;
+		this.toReceive = toReceive;
+		this.toPay = toPay;
+		this.points = points;
+		
+	}
 	public MockMember(String memberID, MemberType mType, MemberLevel mLevel,
 			String name, String tel, String address, String postcode,
 			String EMail, String defaultClerk, double MaxOwe, double toReceive,

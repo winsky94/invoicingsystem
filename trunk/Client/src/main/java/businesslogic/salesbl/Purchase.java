@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Purchase {
-	ArrayList<CommodityList> purchaseList;
+	CommodityList purchaseList;
 	String memberName;
 	String memberID;
 	String user;
@@ -13,7 +13,7 @@ public class Purchase {
 	String id,info,stockid;
 	double totalInAll;
 	//---------------------------------------------
-	public Purchase(ArrayList<CommodityList> purchaseList, String id,
+	public Purchase(CommodityList purchaseList, String id,
 			String memberName,String memberID,String user,Date createDate,
 			int status, int hurry,String info, String stockid){
 		this.id = id;

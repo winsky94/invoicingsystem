@@ -12,10 +12,8 @@ import businesslogicservice.salesblservice.SalesBLService;
 public class SalesController implements SalesBLService{
 
 	public int purchase(PurchaseVO vo) {
-		Purchase p=new Purchase(vo.getPurchaseList(), vo.getId(),
-				vo.getMemberName(),vo.getMemberID(), vo.getUser(),vo.getCreateDate(),
-				vo.getStatus(), vo.getHurry(),vo.getInfo(),vo.getStockid());
-		return p.createPurchase();
+		
+		return 0;
 	}
 
 	public int purchaseReturn(PurchaseReturnVO vo) {

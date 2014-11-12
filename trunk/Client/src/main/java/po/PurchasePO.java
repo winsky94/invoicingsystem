@@ -3,14 +3,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import businesslogic.receiptbl.ReceiptType;
-import businesslogic.salesbl.CommodityList;
+import businesslogic.salesbl.Commodity;
 
 
 
 public class PurchasePO extends ReceiptPO{
-	ArrayList<CommodityList> purchaseList;
+	ArrayList<Commodity> purchaseList;
 	double totalInAll;
-	public PurchasePO(ArrayList<CommodityList> purchaseList, String id,
+	public PurchasePO(ArrayList<Commodity> purchaseList, String id,
 			MemberPO member, UserPO user,Date createDate,
 			int status, int hurry,String info, String stockid,double totalInAll) {
 		super(id, member, user,ReceiptType.PURCHASE, createDate, status, hurry, info, stockid);
@@ -18,7 +18,7 @@ public class PurchasePO extends ReceiptPO{
 		this.totalInAll=totalInAll;
 	}
 
-	public ArrayList<CommodityList> getPurchaseList() {
+	public ArrayList<Commodity> getPurchaseList() {
 		return purchaseList;
 	}
 	

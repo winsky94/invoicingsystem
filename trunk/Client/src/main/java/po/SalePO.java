@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import businesslogic.receiptbl.ReceiptType;
-import businesslogic.salesbl.CommodityList;
+import businesslogic.salesbl.Commodity;
 
 public class SalePO extends ReceiptPO {
 	String clerk;
-	ArrayList<CommodityList> salesList;
+	ArrayList<Commodity> salesList;
 	double totalYuanChu, totalZheHou, totalKeHuYingFu;
 	double ZheRang, couponPrice;
 	public SalePO(){
 		
 		
 	}
-	public SalePO(String clerk, ArrayList<CommodityList> salesList, String id,
+	public SalePO(String clerk, ArrayList<Commodity> salesList, String id,
 			MemberPO member, UserPO user, Date createDate, int status,
 			int hurry,String info, String stockid, double totalYuanChu,
 			double totalZheHou, double totalKeHuYingFu, double ZheRang,
@@ -35,7 +35,7 @@ public class SalePO extends ReceiptPO {
 		return clerk;
 	}
 
-	public ArrayList<CommodityList> getSalesList() {
+	public ArrayList<Commodity> getSalesList() {
 		return salesList;
 	}
 

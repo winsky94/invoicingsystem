@@ -45,4 +45,60 @@ public class MockGoods extends Goods {
 	public void setLastPurchasePrice(double lastPurchasePrice) {
 		this.lastPurchasePrice = lastPurchasePrice;
 	}
+
+	public String getGoodsID() {
+		return GoodsID;
+	}
+
+	public void setGoodsID(String goodsID) {
+		GoodsID = goodsID;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public int getNumInStock() {
+		return numInStock;
+	}
+
+	public void setNumInStock(int numInStock) {
+		this.numInStock = numInStock;
+	}
+
+	public double getPurchasePrice() {
+		return purchasePrice;
+	}
+
+	public void setPurchasePrice(double purchasePrice) {
+		this.purchasePrice = purchasePrice;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public double getLastPrice() {
+		return lastPrice;
+	}
+
+	public void setLastPrice(double lastPrice) {
+		this.lastPrice = lastPrice;
+	}
 }

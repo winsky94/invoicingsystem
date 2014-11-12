@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import businesslogic.receiptbl.ReceiptType;
-import businesslogic.salesbl.CommodityList;
+import businesslogic.salesbl.Commodity;
 
 
 public class SaleReturnVO extends ReceiptVO{
 	String clerk;
-	ArrayList<CommodityList> saleReturnList;
+	ArrayList<Commodity> saleReturnList;
 	double totalYuanChu, totalZheHou, totalKeHuYingFu;
 	double ZheRang, couponPrice;
 	public SaleReturnVO(String id,String user,SaleVO s,Date createDate, int status,
@@ -28,7 +28,7 @@ public class SaleReturnVO extends ReceiptVO{
 	public String getClerk() {
 		return clerk;
 	}
-	public ArrayList<CommodityList> getSaleReturnList() {
+	public ArrayList<Commodity> getSaleReturnList() {
 		return saleReturnList;
 	}
 	public double getTotalYuanChu() {
