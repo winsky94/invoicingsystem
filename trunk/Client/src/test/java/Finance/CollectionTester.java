@@ -27,7 +27,7 @@ public class CollectionTester extends TestCase{
 	    MockMember member2=new MockMember(300,400);
 		Collection collection=new Collection(member1,member2,10);
 		collection.createCollection();
-	    assertEquals(190.0,member1.getToPay());
+	    assertEquals(210.0,member1.getToPay());
 	    assertEquals(390.0,member2.getToPay());
 		assertEquals("Create collection success!"+line,bytes.toString());		
 	}
