@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import vo.ReceiptVO;
 
-public class SaleListBLService_stub implements SaleListBLService{
+public class SaleListBLService_stub implements SaleListBLService {
 	public ArrayList<ReceiptVO> showSaleList() {
 		// TODO Auto-generated method stub
 		System.out.println("showSaleList!");
 		return null;
 	}
-	
+
 	public int exportSaleListToExcel() {
 		// TODO Auto-generated method stub
 		System.out.println("Export to Excel!");
@@ -20,6 +20,12 @@ public class SaleListBLService_stub implements SaleListBLService{
 	public double couponProfitCalc() {
 		// TODO Auto-generated method stub
 		System.out.println("couponProfitCalc");
+		return 0;
+	}
+
+	public double purchaseReturnProfitCalc() {
+		// TODO Auto-generated method stub
+		System.out.println("purchaseReturnProfitCalc");
 		return 0;
 	}
 
