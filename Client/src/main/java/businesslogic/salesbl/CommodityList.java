@@ -9,9 +9,10 @@ public class CommodityList {
 		list = new ArrayList<Commodity>();
 	}
 
-	public void add(String goodID, String goodName, String goodSize, int num,
-			double price, double totalPrice, String memo) {
-		list.add(new Commodity(goodID, goodName, goodSize, num, price,
+	public void add(String goodID, String goodName, String goodType, int num,
+			double price, String memo) {
+		double totalPrice=num*price;
+		list.add(new Commodity(goodID, goodName, goodType, num, price,
 				totalPrice, memo));
 	}
 
