@@ -14,12 +14,12 @@ public class StockOverOrLowPO implements Serializable {
 	int gap;
 
 	public StockOverOrLowPO(String goodsName, String size, int num,
-			int exactNum, int gap) {
+			int exactNum) {
 		this.goodsName = goodsName;
 		this.size = size;
 		this.num = num;
 		this.exactNum = exactNum;
-		this.gap = gap;
+		this.gap = exactNum-num;
 	}
 
 	public String getGoodsName() {

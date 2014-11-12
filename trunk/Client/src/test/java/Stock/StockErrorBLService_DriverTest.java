@@ -31,19 +31,20 @@ public class StockErrorBLService_DriverTest extends TestCase {
 		StockErrorVO stockErrorVO = new StockErrorVO(null, null, null, null,
 				null, null);
 		StockOverOrLowVO stockOverOrLowVO = new StockOverOrLowVO(null, null, 0,
-				0, 0, null, null, null, null);
+				0, null, null, null, null);
 		int resultAddError = stockErrorBLService.addStockError(stockErrorVO);
-		int resultAddOverOrLow = stockErrorBLService.addStockOverOrLow(stockOverOrLowVO);
+		int resultAddOverOrLow = stockErrorBLService
+				.addStockOverOrLow(stockOverOrLowVO);
 		stockErrorBLService.goodsOverIncome();
 		stockErrorBLService.goodsLowCost();
-		
+
 		assertEquals(0, resultAddError);
 		assertEquals(0, resultAddOverOrLow);
 
 		assertEquals("add stockError receipt succeed!" + line
-				+"add stockOverOrLow receipt succeed!" + line 
-				+"return goods over income succeed!" + line 
-				+"return goods low cost succeed!" + line, bytes.toString());
+				+ "add stockOverOrLow receipt succeed!" + line
+				+ "return goods over income succeed!" + line
+				+ "return goods low cost succeed!" + line, bytes.toString());
 
 	}
 }

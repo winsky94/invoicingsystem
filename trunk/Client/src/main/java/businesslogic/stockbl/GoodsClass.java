@@ -6,6 +6,16 @@ import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBL
 public class GoodsClass implements StockGoodsClassBLService {
 	String name;
 	String upClass;
+	
+	public GoodsClass(){
+		
+	}
+	
+	public GoodsClass(String name, String upClass) {
+		this.name = name;
+		this.upClass = upClass;
+	}
+
 
 	public int addGoodsClass(GoodsClassVO vo) {
 		// TODO 自动生成的方法存根

@@ -31,7 +31,7 @@ public class GiftBLService_DriverTest extends TestCase{
 		int resultAdd = giftBLService.addGift(vo);
 		int resultDeal = giftBLService.dealGift(vo);
 		giftBLService.getAccount(vo);
-		giftBLService.giftCost();
+		giftBLService.getGiftCost();
 		
 		assertEquals(0, resultAdd);
 		assertEquals(0, resultDeal);

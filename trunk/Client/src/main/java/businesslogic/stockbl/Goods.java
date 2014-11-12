@@ -9,7 +9,7 @@ import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 
 public class Goods implements StockGoodsBLService{
 	String GoodsID;
-	String name;
+	public String name;
 	String size;
 	int numInStock;
 	int virtualnumInStock;
