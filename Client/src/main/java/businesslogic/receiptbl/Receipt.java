@@ -9,21 +9,23 @@ import vo.ReceiptVO;
 
 //关键类 单据的增 改 查
 public class Receipt {
-	String id;
-	String memberName;
-	String userID;//用Id还是name,name 重名如何
-	ReceiptType type;
-	Date createDate;
-	int status;//草稿，提交待审批，审批失败/审批待执行；执行完毕
-	int hurry;
-	String info;
-	String stockID;
+	private String id;
+	private String memberName;
+	private String memberID;
+	private String userID;
+	private ReceiptType type;
+	private Date createDate;
+	private int status;
+	private int hurry;
+	private String info;
+	private String stockID;
 	
 	//属性有哪些
-	public Receipt(String id,String memberName,String userID,ReceiptType type,
+	public Receipt(String id,String memberName,String memberID,String userID,ReceiptType type,
 			Date date,int hurry,int status,String info,String sid){
 		this.id=id;
 		this.memberName=memberName;
+		this.memberID=memberID;
 		this.userID=userID;
 		this.type=type;
 		this.createDate=date;
@@ -77,5 +79,45 @@ public class Receipt {
 	public int Approve(String id){
 		
 		return 0;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public String getMemberID() {
+		return memberID;
+	}
+
+	public String getUserID() {
+		return userID;
+	}
+
+	public ReceiptType getType() {
+		return type;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public int getHurry() {
+		return hurry;
+	}
+
+	public String getInfo() {
+		return info;
+	}
+
+	public String getStockID() {
+		return stockID;
 	}
 }

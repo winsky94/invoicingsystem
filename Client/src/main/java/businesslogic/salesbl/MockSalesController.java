@@ -22,7 +22,6 @@ public class MockSalesController implements SalesBLService{
 
 	public int sale(SaleVO vo) {
 		// TODO Auto-generated method stub
-		Sale sale=new Sale();
 		
 		return 0;
 	}
