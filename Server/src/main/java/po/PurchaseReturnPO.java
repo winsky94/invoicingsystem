@@ -1,12 +1,12 @@
 package po;
-import java.util.ArrayList;
 import java.util.Date;
 
 import Data.receiptdata.ReceiptType;
+import Data.salesdata.CommodityList;
 
 
 public class PurchaseReturnPO extends ReceiptPO{
-	ArrayList<CommodityListPO> purchaseReturnList;
+	CommodityList purchaseReturnList;
 	double totalInAll;
 	public PurchaseReturnPO(String id,UserPO user,PurchasePO p, Date createDate, int status,
 			String info,int hurry) {
@@ -16,7 +16,7 @@ public class PurchaseReturnPO extends ReceiptPO{
 		this.totalInAll=p.totalInAll;
 	}
 
-	public ArrayList<CommodityListPO> getPurchaseReturnList() {
+	public CommodityList getPurchaseReturnList() {
 		return purchaseReturnList;
 	}
 	
