@@ -11,10 +11,10 @@ public class Receipt {
 	public Receipt(){
 		
 	}
+
 	//保存 可以再编辑？
 	public int Add(ReceiptVO vo){
-		
-		
+	
 		return 0;
 	}
 	//修改
