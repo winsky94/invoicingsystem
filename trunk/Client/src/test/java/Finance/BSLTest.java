@@ -61,12 +61,11 @@ public class BSLTest extends TestCase {
 	}
 
 	public void testBSL() throws RemoteException {
-		System.out.println(couponIncome);
 		// 销售收入，销售两件good商品
 		item = new SaleItem(good, 2);
 		sale.AddGoods(item);
 		salesIncome = sale.getTotalValue();
-		assertEquals(200.0, salesIncome);
+		assertEquals(400.0, salesIncome);
 		// 库存报溢收入
 		stockControl.addStockOver(stockOver);
 		goodsOverIncome = stockControl.getGoodsOverIncome();
@@ -83,7 +82,7 @@ public class BSLTest extends TestCase {
 		// 代金券与实际收款差额收入
 		sale.useCoupon(coupon);
 		couponIncome = sale.getCouponIncome();
-		assertEquals(800.0, couponIncome);
+		assertEquals(600.0, couponIncome);
 		// 总收入
 		totalIncome = salesIncome + goodsOverIncome + primeCostIncome
 				+ importReturnIncome + couponIncome;
