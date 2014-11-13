@@ -7,10 +7,10 @@ import businesslogic.receiptbl.ReceiptType;
 
 public class Purchase extends Receipt{
 
-	public Purchase(String id, String memberName, String memberID,
+	public Purchase(String id,  String memberID,
 			String userID, ReceiptType type, Date date, int hurry, int status,
 			String info, String sid) {
-		super(id, memberName, memberID, userID, type, date, hurry, status, info, sid);
+		super(id, memberID, userID,type, date, hurry, status, info, sid);
 		// TODO Auto-generated constructor stub
 	}
 	

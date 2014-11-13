@@ -8,7 +8,7 @@ public class ReceiptPO {
 	private String id;
 	private String memberName;
 	private String memberID;
-	private String user;
+	private String userID;
 	private ReceiptType type;
 	private Date createDate;
 	private int status;
@@ -17,13 +17,13 @@ public class ReceiptPO {
 	private String stockid;
 
 	public ReceiptPO(String id, String memberName, String memberID,
-			String user, ReceiptType type, Date createDate, int status,
+			String userID, ReceiptType type, Date createDate, int status,
 			int hurry, String info, String stockid) {
 
 		this.id = id;
 		this.memberName = memberName;
 		this.memberID = memberID;
-		this.user = user;
+		this.userID = userID;
 		this.type = type;
 		this.createDate = createDate;
 		this.status = status;
@@ -48,8 +48,8 @@ public class ReceiptPO {
 		return memberID;
 	}
 
-	public String getUser() {
-		return user;
+	public String getUserID() {
+		return userID;
 	}
 
 	public ReceiptType getType() {
