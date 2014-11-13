@@ -18,6 +18,7 @@ public class Sale extends Receipt {
 	private ArrayList<SaleItem> goodsList;
 	private double totalValue;
 	private double totalPurchaseValue;
+	private double couponIncome;
 
 	public Sale(String id, String memberID, String userID, ReceiptType type,
 			Date date, int hurry, int status, String info, String sid,
@@ -60,7 +61,12 @@ public class Sale extends Receipt {
 	public void useCoupon(coupon coupon) {
 		MockCoupon cou = (MockCoupon) coupon;
 		if (!cou.GetIsUse()) {
-			this.totalValue -= cou.GetFaceValue();
+			if (this.totalValue >= cou.GetFaceValue()) {
+				this.totalValue -= cou.GetFaceValue();
+			} else {
+				couponIncome = cou.GetFaceValue() - this.totalValue;
+				this.totalValue = 0;
+			}
 			cou.Use();
 		}
 	}
@@ -91,6 +97,10 @@ public class Sale extends Receipt {
 
 	public double getTotalValue() {
 		return this.totalValue;
+	}
+
+	public double getCouponIncome() {
+		return this.couponIncome;
 	}
 
 }
