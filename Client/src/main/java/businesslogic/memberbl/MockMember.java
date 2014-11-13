@@ -5,98 +5,49 @@ import java.util.ArrayList;
 import vo.MemberVO;
 import businesslogicservice.memberblservice.MemberBLService;
 
-public class MockMember implements MemberBLService {
-	MemberType mType;
-	MemberLevel mLevel;
-	String memberID, name, tel, address, postcode, EMail, defaultClerk;
-	double MaxOwe, toReceive, toPay;
-	int points;
+public class MockMember extends  Member{
+	private MemberType mType;
+	private MemberLevel mLevel;
+	private String memberID, name;
+	private double MaxOwe, toReceive, toPay;
+	private long points;
 
-	public MockMember( double toReceive,double toPay) {
-		
-		this.toReceive = toReceive;
-		this.toPay = toPay;
-	}
+	
 	public MockMember(String memberID, MemberType mType, MemberLevel mLevel,
-			String name,double MaxOwe, double toReceive,
-			double toPay, int points){
+			String name,double MaxOwe	){
 		this.memberID = memberID;
 		this.mType = mType;
 		this.mLevel = mLevel;
 		this.name = name;
 		this.MaxOwe = MaxOwe;
-		this.toReceive = toReceive;
-		this.toPay = toPay;
-		this.points = points;
+		this.toReceive = 0;
+		this.toPay = 0;
 		
 	}
-	public MockMember(String memberID, MemberType mType, MemberLevel mLevel,
-			String name, String tel, String address, String postcode,
-			String EMail, String defaultClerk, double MaxOwe, double toReceive,
-			double toPay, int points) {
-		this.memberID = memberID;
-		this.mType = mType;
-		this.mLevel = mLevel;
-		this.name = name;
-		this.tel = tel;
-		this.address = address;
-		this.postcode = postcode;
-		this.EMail = EMail;
-		this.defaultClerk = defaultClerk;
-		this.MaxOwe = MaxOwe;
-		this.toReceive = toReceive;
-		this.toPay = toPay;
-		this.points = points;
-	}
 
-	public int addMember(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
-	public int deleteMember(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int modifyMember(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public MemberVO findMember(String message) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ArrayList<MemberVO> showMembers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void updatePoints(int pointsToAdd) {
-
-	}
-
+/*客户应收变化*/
 	public void updateToReceive(double newData) {
-		if(this.mType==MemberType.JHS)
-            toReceive-=newData;
+		if(newData>=0)
+			this.toReceive+=newData;
 		else
-			toReceive+=newData;
+			this.toReceive-=newData;
+	
+		
 	}
 
 	public void updateToPay(double newData) {
-		if(this.mType==MemberType.JHS)
-            toPay+=newData;
+		if(newData>=0)
+            this.toPay+=newData;
 		else
-			toPay-=newData;
+			this.toPay-=newData;
 	}
 	
 	public double getToReceive(){
-		return toReceive;
+		return this.toReceive;
 	}
 	
 	public double getToPay(){
-		return toPay;
+		return this.toPay;
 	}
 }
