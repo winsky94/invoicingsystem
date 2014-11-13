@@ -7,6 +7,9 @@ public class coupon {
 	private double value;
 	private boolean isUse;
 	private int num;
+	public coupon(){
+		
+	}
 	public coupon(double price,int num){
 		this.number=getNew();
 		this.value=price;

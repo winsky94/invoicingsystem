@@ -28,20 +28,22 @@ public class MockMember extends  Member{
 
 /*客户应收变化*/
 	public void updateToReceive(double newData) {
-		if(newData>=0)
-			this.toReceive+=newData;
-		else
-			this.toReceive-=newData;
+		this.toReceive+=newData;
 	
 		
 	}
 
 	public void updateToPay(double newData) {
-		if(newData>=0)
-            this.toPay+=newData;
-		else
-			this.toPay-=newData;
+		this.toPay+=newData;
 	}
+	
+	public MockMember find(String id){
+		if(this.memberID.equals(id))
+			return this;
+		else 
+			return null;
+	}
+	
 	
 	public double getToReceive(){
 		return this.toReceive;
