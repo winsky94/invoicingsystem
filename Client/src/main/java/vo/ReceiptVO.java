@@ -16,6 +16,10 @@ public class ReceiptVO {
 	private String info;
 	private String stockid;
 
+	public ReceiptVO(){
+		
+	}
+	
 	public ReceiptVO(String id, String memberName, String memberID,
 			String user, ReceiptType type, Date createDate, int status,
 			int hurry, String info, String stockid) {

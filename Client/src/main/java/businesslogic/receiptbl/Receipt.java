@@ -1,7 +1,5 @@
 package businesslogic.receiptbl;
 
-
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,65 +17,73 @@ public class Receipt {
 	private int hurry;
 	private String info;
 	private String stockID;
-	
-	//属性有哪些
-	public Receipt(String id,String memberName,String memberID,String userID,ReceiptType type,
-			Date date,int hurry,int status,String info,String sid){
-		this.id=id;
-		this.memberName=memberName;
-		this.memberID=memberID;
-		this.userID=userID;
-		this.type=type;
-		this.createDate=date;
-		this.hurry=hurry;
-		this.status=status;
-		this.info=info;
-		this.stockID=sid;
-		
-		
+
+	// 属性有哪些
+	public Receipt(String id, String memberName, String memberID,
+			String userID, ReceiptType type, Date date, int hurry, int status,
+			String info, String sid) {
+		this.id = id;
+		this.memberName = memberName;
+		this.memberID = memberID;
+		this.userID = userID;
+		this.type = type;
+		this.createDate = date;
+		this.hurry = hurry;
+		this.status = status;
+		this.info = info;
+		this.stockID = sid;
+
 	}
 
-	//保存 可以再编辑？
-	public int Add(ReceiptVO vo){
-	
+	public Receipt() {
+
+	}
+
+	// 保存 可以再编辑？
+	public int Add(ReceiptVO vo) {
+
 		return 0;
 	}
-	//修改
-	public int Modify(String id){
-		
+
+	// 修改
+	public int Modify(String id) {
+
 		return 0;
 	}
-	
-	public int Batch(String[] id){
-		
+
+	public int Batch(String[] id) {
+
 		return 0;
 	}
-	//传送单据
-	public void Send(ReceiptVO vo){
-		
-	
+
+	// 传送单据
+	public void Send(ReceiptVO vo) {
+
 	}
-	
-	public void Reply(String userID){
-		
+
+	public void Reply(String userID) {
+
 	}
-	//经营历程表
-	public ArrayList<ReceiptVO> View(){
-		
+
+	// 经营历程表
+	public ArrayList<ReceiptVO> View() {
+
 		return null;
 	}
-	public ReceiptVO View(String id){
-		
+
+	public ReceiptVO View(String id) {
+
 		return null;
 	}
+
 	//
-	
-	public ArrayList<ReceiptVO> Refresh(){
+
+	public ArrayList<ReceiptVO> Refresh() {
 		return null;
 	}
-	
-	public int Approve(String id){
-		
+
+	public int Approve(String id) {
+
 		return 0;
 	}
 

@@ -8,9 +8,9 @@ public class GoodsClassPO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	String name;
-	String upClass;
+	GoodsClassPO upClass;
 
-	public GoodsClassPO(String name, String upClass) {
+	public GoodsClassPO(String name, GoodsClassPO upClass) {
 		this.name = name;
 		this.upClass = upClass;
 	}
@@ -23,11 +23,11 @@ public class GoodsClassPO implements Serializable {
 		this.name = name;
 	}
 
-	public String getUpClass() {
+	public GoodsClassPO getUpClass() {
 		return upClass;
 	}
 
-	public void setUpClass(String upClass) {
+	public void setUpClass(GoodsClassPO upClass) {
 		this.upClass = upClass;
 	}
 }
