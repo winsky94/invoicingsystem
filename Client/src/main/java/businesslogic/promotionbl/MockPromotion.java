@@ -1,13 +1,13 @@
 package businesslogic.promotionbl;
 
+import businesslogic.salesbl.Sale;
 import vo.GoodsVO;
 import vo.couponVO;
 
 public class MockPromotion extends promotion{
-	double minsMoney;
-	double discount;
-	GoodsVO goods;
-	couponVO coupon;
+	private double minsMoney;
+	private double discount;
+	
 	
 	//折扣促销
 	public MockPromotion(double money,double discount){
@@ -15,14 +15,10 @@ public class MockPromotion extends promotion{
 		this.discount=discount;
 	}
 	
-	public MockPromotion(GoodsVO vo){
-		this.goods=vo;
+	public promotion Match(Sale sale){
+		if(sa)
+		
 	}
-	public MockPromotion(couponVO vo){
-		this.coupon=vo;
-	}
-	
-
 	
 	public double getminsMoney(){
 		return minsMoney;

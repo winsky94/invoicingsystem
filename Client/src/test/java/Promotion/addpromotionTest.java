@@ -45,21 +45,27 @@ public class addpromotionTest extends TestCase{
 				
 		}
 		public void testAddPromotion() throws RemoteException{
+			//创建一个赠品促销策略
 			promotion=new giftGoodPro(startDate,endDate,level,type);
 		    giftGoodPro pro=(giftGoodPro)promotion;
 		    good3=good1.getGoods("01010001");
 		    good4=good2.getGoods("02010002");
+		    //添加，删除已选择赠品
 		    pro.AddGoods(good3);
 		    pro.AddGoods(good4);  
 		    double value=good3.getPrice()+good4.getPrice();
+		    //统计赠品总值
 		    assertEquals(value,pro.getTotalValue());
 		    pro.deleteGoods(good3);
 		    value-=good3.getPrice();
 		    assertEquals(value,pro.getTotalValue());
-		    assertEquals(good4,pro.getgiftList().get(0));
+		    //发布促销策略
 		    int resultRelease=pro.Release(pro);
 		    assertEquals(0,resultRelease);
 		    assertEquals(1,pro.GetRelease());
+		   //库存赠品列表录取新的赠品信息
+		    assertEquals(good4,pro.getgiftList().get(0));
+		    //促销策略列表出现新添加的策略
 		    assertEquals(pro,list.getProList().get(0));
 		    
 	}

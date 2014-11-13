@@ -59,7 +59,7 @@ public class Member implements MemberBLService{
 	public void updatePoints(int pointsToAdd){
 		
 	}
-	public void updateToReceive(int newData){
+	public void updateToReceive(double d){
 		
 	}
 	public void updateToPay(int newData){

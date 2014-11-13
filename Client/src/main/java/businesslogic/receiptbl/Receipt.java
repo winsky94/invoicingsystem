@@ -3,6 +3,8 @@ package businesslogic.receiptbl;
 import java.util.ArrayList;
 import java.util.Date;
 
+import businesslogic.financebl.MockAccount;
+import businesslogic.memberbl.MockMember;
 import vo.ReceiptVO;
 
 //关键类 单据的增 改 查
@@ -15,7 +17,7 @@ public class Receipt {
 	private int status;
 	private int hurry;
 	private String info;
-	//private String stockID;
+	private String stockID;
 
 	
 	//属性有哪些
@@ -24,7 +26,7 @@ public class Receipt {
     	
     }
 	public Receipt(String id,String memberID,String userID,ReceiptType type,
-			Date date,int hurry,int status,String info){
+			Date date,int hurry,int status,String info,String sid){
 		this.id=id;
 	//	this.memberName=memberName;
 		this.memberID=memberID;
@@ -34,6 +36,7 @@ public class Receipt {
 		this.hurry=hurry;
 		this.status=status;
 		this.info=info;
+		this.stockID=sid;
 	}
 		
 		
@@ -76,7 +79,9 @@ public class Receipt {
 
 		return null;
 	}
-
+   public void excute(){
+	  this.status=5;
+   }
 	//
 
 	public ArrayList<ReceiptVO> Refresh() {
@@ -121,6 +126,8 @@ public class Receipt {
 			result="审批不通过";
 		else if(this.status==4)
 			result="审批通过待执行";
+		else if(this.status==5)
+			result="执行完毕";
 		return result;
 	}
 	

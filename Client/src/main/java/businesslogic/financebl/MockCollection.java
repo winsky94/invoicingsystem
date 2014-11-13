@@ -13,8 +13,7 @@ public class MockCollection extends Collection{
 	private ArrayList<String> memberID;
 	private ArrayList<Double> money;
 	private double totalMoney;
-	public MockCollection(String id
-			) {
+	public MockCollection(String id) {
 		this.id=id;
 		memberID=new ArrayList<String>();
 		money=new ArrayList<Double>();
@@ -37,12 +36,12 @@ public class MockCollection extends Collection{
 		
 	}
 	
-	public ArrayList<String> getID(){
-		return this.memberID;
+	public String getMemberIDByOrder(int i){
+		return memberID.get(i);
 	}
 	
-	public ArrayList<Double> getMoney(){
-		return this.money;
+	public double getMoneyByOrder(int i){
+		return money.get(i);
 	}
 	
 	public double getTotalMoney(){
