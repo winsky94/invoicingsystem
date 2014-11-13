@@ -99,4 +99,20 @@ public class MockGoods extends Goods {
 	public void setLastPrice(double lastPrice) {
 		this.lastPrice = lastPrice;
 	}
+	
+	public MockGoods findByClass(MockGoodsClass goodsClass){
+//		MockGoods good=new MockGoods("00020001","飞利浦日光灯","SR01",10,200,100);
+		if(this.GoodsID.substring(0, 4).equals(goodsClass.classID)){
+			return this;
+		}
+		else{
+			return null;
+		}
+	}
+	
+	public int modifyGoods(MockGoods newGood){	
+		this.numInStock=newGood.numInStock;
+		
+		return 0;
+	}
 }

@@ -4,7 +4,7 @@ import vo.GoodsClassVO;
 
 public class StockGoodsClassBLService_driver {
 	public void drive(StockGoodsClassBLService_stub stockGoodsClassBLService) {
-		GoodsClassVO goodsClassVO = new GoodsClassVO("日光灯", "民用灯");
+		GoodsClassVO goodsClassVO = new GoodsClassVO("日光灯", null);
 		stockGoodsClassBLService.addGoodsClass(goodsClassVO);
 		stockGoodsClassBLService.deleteGoodsClass(goodsClassVO);
 		stockGoodsClassBLService.modifyGoodsClass(goodsClassVO);

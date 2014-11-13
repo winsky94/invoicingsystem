@@ -4,15 +4,13 @@ import java.util.ArrayList;
 
 import vo.PurchaseReturnVO;
 import vo.PurchaseVO;
-import vo.ReceiptVO;
 import vo.SaleReturnVO;
 import vo.SaleVO;
 import businesslogicservice.salesblservice.SalesBLService;
 
-public class SalesController implements SalesBLService{
+public class SalesController implements SalesBLService {
 
 	public int purchase(PurchaseVO vo) {
-		
 		return 0;
 	}
 
