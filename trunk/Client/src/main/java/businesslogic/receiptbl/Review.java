@@ -20,10 +20,14 @@ public ArrayList<ReceiptVO> View(){
 	public ArrayList<ReceiptVO> Refresh(){
 		return null;
 	}
-	
-	public int Approve(String id){
-		
+	//**传参数呢 还是id呢
+	public int Approve(Receipt receipt,int i){
+		receipt.setStatus(i);
+		receipt.Reply(receipt.getUserID());
 		return 0;
+		
+		
+	
 	}
 	
 	//红冲 i=0,仅红冲，i=1并复制

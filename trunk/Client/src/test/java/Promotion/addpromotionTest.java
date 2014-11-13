@@ -16,7 +16,9 @@ import businesslogic.promotionbl.giftGoodPro;
 import businesslogic.promotionbl.promotionList;
 import businesslogic.stockbl.MockGoods;
 import junit.framework.TestCase;
-//**创建商品赠品策略
+/*
+ * 创建赠品促销策略(基本信息，添加赠品)，并发布
+ */
 public class addpromotionTest extends TestCase{
 		private Date startDate,endDate;
 		private DateFormat form;

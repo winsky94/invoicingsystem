@@ -11,6 +11,9 @@ public class Member implements MemberBLService{
 	String memberID,name,tel,address,postcode,EMail,defaultClerk;
 	double MaxOwe,toReceive, toPay;
 	int points;
+	public Member(){
+		
+	}
 	public Member(String memberID, MemberType mType, MemberLevel mLevel,
 			String name, String tel, String address, String postcode,
 			String EMail, String defaultClerk, double MaxOwe, double toReceive,
