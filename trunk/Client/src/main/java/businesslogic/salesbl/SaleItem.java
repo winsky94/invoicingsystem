@@ -1,6 +1,7 @@
 package businesslogic.salesbl;
 
 import businesslogic.stockbl.Goods;
+import businesslogic.stockbl.MockGoods;
 
 public class SaleItem {
 	private Goods good;
@@ -9,13 +10,16 @@ public class SaleItem {
 		this.good=good;
 		this.num=num;
 	}
-	public void ItemAdd(int n){
-		num+=n;
-	}
-	public void ItemDelete(int n){
-		num-=n;
-	}
 	
+	public void updateNum(int n){
+		this.num+=n;
+	}
+	public void OutGoods(){
+		MockGoods Mockgoods=(MockGoods)good;
+		Mockgoods.SaleGoods(num);
+		
+		
+	}
 	public Goods getGoods(){
 		return good;
 	}
@@ -27,7 +31,7 @@ public class SaleItem {
 	}
 	
 	public double getTotal(){
-		return good.getPrice()*num;
+		return ((MockGoods)good).getPurchasePrice()*num;
 	}
 
 }
