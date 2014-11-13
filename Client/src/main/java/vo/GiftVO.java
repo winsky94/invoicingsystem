@@ -12,20 +12,20 @@ public class GiftVO extends ReceiptVO {
 	int num;
 
 	public GiftVO() {
-		
+
 	}
 
-	public GiftVO(String goodsName,String goodsID,String goodsSize,double goodsPrice,String memberName, String memberID, GoodsVO goods, int num,
+	public GiftVO(String goodsName, String goodsID, String goodsSize,
+			double goodsPrice, String memberID, GoodsVO goods, int num,
 			String user, ReceiptType type, String info, String stockid) {
-		
+
 		// SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 		// String timeNow = df.format(new Date());
 
-		this.goodsName=goodsName;
-		this.goodsID=goodsID;
-		this.goodsSize=goodsSize;
-		this.goodsPrice=goodsPrice;
-		this.memberName = memberName;
+		this.goodsName = goodsName;
+		this.goodsID = goodsID;
+		this.goodsSize = goodsSize;
+		this.goodsPrice = goodsPrice;
 		this.memberID = memberID;
 		this.num = num;
 		this.user = user;

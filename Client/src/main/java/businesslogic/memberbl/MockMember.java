@@ -1,9 +1,5 @@
 package businesslogic.memberbl;
 
-import java.util.ArrayList;
-
-import vo.MemberVO;
-import businesslogicservice.memberblservice.MemberBLService;
 
 public class MockMember extends  Member{
 	private MemberType mType;

@@ -30,8 +30,16 @@ public class SaleItem {
 		return good.getPrice();
 	}
 	
+	public double getPurchasePrice(){
+		return good.getPurchasePrice();
+	}
+	
 	public double getTotal(){
 		return ((MockGoods)good).getPurchasePrice()*num;
+	}
+	
+	public double getTotalPurchase(){
+		return good.getPurchasePrice()*num;
 	}
 
 }

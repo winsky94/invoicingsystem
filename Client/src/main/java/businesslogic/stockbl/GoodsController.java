@@ -6,16 +6,8 @@ import po.GoodsPO;
 import vo.GoodsVO;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 
-public class Goods implements StockGoodsBLService {
-	String GoodsID;
-	public String name;
-	String size;
-	int numInStock;
-	int virtualnumInStock;
-	double purchasePrice;
-	double price;
-	double lastPurchasePrice;
-	double lastPrice;
+public class GoodsController implements StockGoodsBLService {
+	MockGoods good = new MockGoods("00020001", "飞利浦日光灯", "SR01", 20, 200, 100);
 
 	public int addGoods(GoodsVO vo) {
 		// TODO 自动生成的方法存根
@@ -54,7 +46,11 @@ public class Goods implements StockGoodsBLService {
 
 	public boolean isEnough(String ID, int num) {
 		// TODO 自动生成的方法存根
-		return false;
+		if (good.numInStock >= num) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public double PrimeCostIncome() {
@@ -62,12 +58,4 @@ public class Goods implements StockGoodsBLService {
 		return 0;
 	}
 
-	public double getPrice() {
-		return price;
-	}
-	
-	public double getPurchasePrice() {
-		return purchasePrice;
-	}
-	
 }

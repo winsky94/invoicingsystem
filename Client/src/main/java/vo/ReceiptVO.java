@@ -5,16 +5,16 @@ import java.util.Date;
 import businesslogic.receiptbl.ReceiptType;
 
 public class ReceiptVO {
-	private String id;
-	private String memberName;
-	private String memberID;
-	private String user;
-	private ReceiptType type;
-	private Date createDate;
-	private int status;
-	private int hurry;
-	private String info;
-	private String stockid;
+	String id;
+	String memberName;
+	String memberID;
+	String user;
+	ReceiptType type;
+	Date createDate;
+	int status;
+	int hurry;
+	String info;
+	String stockid;
 
 	public ReceiptVO(){
 		

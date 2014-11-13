@@ -19,28 +19,26 @@ public class Receipt {
 	private String info;
 	private String stockID;
 
-	
-	//属性有哪些
-	
-    public Receipt(){
-    	
-    }
-	public Receipt(String id,String memberID,String userID,ReceiptType type,
-			Date date,int hurry,int status,String info,String sid){
-		this.id=id;
-	//	this.memberName=memberName;
-		this.memberID=memberID;
-		this.userID=userID;
-		this.type=type;
-		this.createDate=date;
-		this.hurry=hurry;
-		this.status=status;
-		this.info=info;
-		this.stockID=sid;
-	}
-		
-		
+	// 属性有哪些
 
+	
+	public Receipt(String id, String memberID, String userID, ReceiptType type,
+			Date date, int hurry, int status, String info, String sid) {
+		this.id = id;
+		// this.memberName=memberName;
+		this.memberID = memberID;
+		this.userID = userID;
+		this.type = type;
+		this.createDate = date;
+		this.hurry = hurry;
+		this.status = status;
+		this.info = info;
+		this.stockID = sid;
+	}
+	
+	public Receipt() {
+
+	}
 
 
 	// 保存 可以再编辑？
@@ -79,9 +77,11 @@ public class Receipt {
 
 		return null;
 	}
-   public void excute(){
-	  this.status=5;
-   }
+
+	public void excute() {
+		this.status = 5;
+	}
+
 	//
 
 	public ArrayList<ReceiptVO> Refresh() {
@@ -93,12 +93,9 @@ public class Receipt {
 		return 0;
 	}
 
-
 	public String getId() {
 		return id;
 	}
-
-	
 
 	public void setMemberID(String memberID) {
 		this.memberID = memberID;
@@ -121,19 +118,20 @@ public class Receipt {
 	}
 
 	public String getStatus() {
-		String result="";
-		if(this.status==3)
-			result="审批不通过";
-		else if(this.status==4)
-			result="审批通过待执行";
-		else if(this.status==5)
-			result="执行完毕";
+		String result = "";
+		if (this.status == 3)
+			result = "审批不通过";
+		else if (this.status == 4)
+			result = "审批通过待执行";
+		else if (this.status == 5)
+			result = "执行完毕";
 		return result;
 	}
-	
-	public void setStatus(int i){
-		this.status=i;
+
+	public void setStatus(int i) {
+		this.status = i;
 	}
+
 	public int getHurry() {
 		return hurry;
 	}
@@ -141,6 +139,5 @@ public class Receipt {
 	public String getInfo() {
 		return info;
 	}
-
 
 }

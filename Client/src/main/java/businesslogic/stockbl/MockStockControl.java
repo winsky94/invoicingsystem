@@ -6,7 +6,36 @@ public class MockStockControl {
 	double primeCostIncome;
 	double goodsLowCost;
 	double giftCost;
+	
+	public MockStockControl(){
+		this.goodsOverIncome=0;
+		this.primeCostIncome=0;
+		this.goodsLowCost=0;
+		this.giftCost=0;
+	}
 
+	public int addStockOver(StockOverOrLowReceipt receipt){
+		MockGoods good=new MockGoods("01010001","飞利浦日光灯","SR01",10,100,200);
+		goodsOverIncome+=receipt.getGap()*good.getPrice();
+		return 0;
+	}
+
+	public int addStockLow(StockOverOrLowReceipt receipt){
+		MockGoods good=new MockGoods("01010001","飞利浦日光灯","SR01",10,100,200);
+		goodsLowCost-=receipt.getGap()*good.getPrice();
+		return 0;
+	}
+	
+	public int changePrime(MockGoods good,MockGoods newGood){
+		primeCostIncome+=(good.getPurchasePrice()-newGood.getPurchasePrice())*newGood.getNumInStock();
+		return 0;
+	}
+	
+	public int addGift(GiftReceipt receipt){
+		giftCost+=receipt.getTotal();
+		return 0;
+	}
+	
 	// 库存充足检查
 	public boolean isEnough(String goodsID, int num) {
 		boolean isEnough = false;
@@ -15,22 +44,22 @@ public class MockStockControl {
 	}
 
 	// 商品调价收入
-	public double getPrimeCostIncome(double total) {
-		return total;
+	public double getPrimeCostIncome() {
+		return primeCostIncome;
 	}
 
 	// 商品报溢收入
-	public double getGoodsOverIncome(double total) {
-		return total;
+	public double getGoodsOverIncome() {
+		return goodsOverIncome;
 	}
 
 	// 商品报损支出
-	public double getGoodsLowCost(double total) {
-		return total;
+	public double getGoodsLowCost() {
+		return goodsLowCost;
 	}
 
 	// 商品赠送支出
-	public double getGiftCost(double total) {
-		return total;
+	public double getGiftCost() {
+		return giftCost;
 	}
 }
