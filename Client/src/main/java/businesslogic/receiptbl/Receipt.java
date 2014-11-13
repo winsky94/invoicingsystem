@@ -88,10 +88,7 @@ public class Receipt {
 		return null;
 	}
 
-	public int Approve(String id) {
 
-		return 0;
-	}
 
 	public String getId() {
 		return id;
