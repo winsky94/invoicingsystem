@@ -5,13 +5,13 @@ import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBL
 
 public class GoodsClass implements StockGoodsClassBLService {
 	String name;
-	String upClass;
+	GoodsClass upClass;
 	
 	public GoodsClass(){
 		
 	}
 	
-	public GoodsClass(String name, String upClass) {
+	public GoodsClass(String name, GoodsClass upClass) {
 		this.name = name;
 		this.upClass = upClass;
 	}

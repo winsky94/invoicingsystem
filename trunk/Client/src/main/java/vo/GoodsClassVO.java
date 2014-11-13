@@ -2,9 +2,9 @@ package vo;
 
 public class GoodsClassVO {
 	String name;
-	String upClass;
+	GoodsClassVO upClass;
 	
-	public GoodsClassVO(String name, String upClass) {
+	public GoodsClassVO(String name, GoodsClassVO upClass) {
 		this.name = name;
 		this.upClass = upClass;
 	}
@@ -13,7 +13,7 @@ public class GoodsClassVO {
 		return name;
 	}
 
-	public String getUpClass() {
+	public GoodsClassVO getUpClass() {
 		return upClass;
 	}
 }
