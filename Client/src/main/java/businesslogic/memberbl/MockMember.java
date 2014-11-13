@@ -10,7 +10,7 @@ public class MockMember extends  Member{
 	private MemberLevel mLevel;
 	private String memberID, name;
 	private double MaxOwe, toReceive, toPay;
-	private long points;
+	private double points;
 
 	
 	public MockMember(String memberID, MemberType mType, MemberLevel mLevel,
@@ -22,6 +22,7 @@ public class MockMember extends  Member{
 		this.MaxOwe = MaxOwe;
 		this.toReceive = 0;
 		this.toPay = 0;
+		this.points=15001;
 		
 	}
 
@@ -44,12 +45,22 @@ public class MockMember extends  Member{
 			return null;
 	}
 	
+	public double getDiscount(){
+		return 0.95;
+	}
 	
+	public void updatePoint(double price){
+		points+=(price/100);
+		
+	}
 	public double getToReceive(){
 		return this.toReceive;
 	}
 	
 	public double getToPay(){
 		return this.toPay;
+	}
+	public double getPoints(){
+		return this.points;
 	}
 }

@@ -67,4 +67,5 @@ public class Goods implements StockGoodsBLService{
 		return price;
 	}
 	
+	
 }

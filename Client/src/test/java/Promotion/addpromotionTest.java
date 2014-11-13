@@ -53,11 +53,11 @@ public class addpromotionTest extends TestCase{
 		    //添加，删除已选择赠品
 		    pro.AddGoods(good3);
 		    pro.AddGoods(good4);  
-		    double value=good3.getPrice()+good4.getPrice();
+		    double value=good3.getPurchasePrice()+good4.getPurchasePrice();
 		    //统计赠品总值
 		    assertEquals(value,pro.getTotalValue());
 		    pro.deleteGoods(good3);
-		    value-=good3.getPrice();
+		    value-=good3.getPurchasePrice();
 		    assertEquals(value,pro.getTotalValue());
 		    //发布促销策略
 		    int resultRelease=pro.Release(pro);

@@ -37,7 +37,7 @@ public class ApproveReceiptTest extends TestCase{
 		collect.AddCollectItem("140002",300);
 		assertEquals(500.0,collect.getTotalMoney());
 		//审批不通过
-		review.Approve(collect, 3);
+		review.Approve(collect_A, 3);
 		assertEquals("审批不通过",collect.getStatus());
 		collect=(MockCollection)collect_B;
 		collect.AddCollectItem("140001",300);

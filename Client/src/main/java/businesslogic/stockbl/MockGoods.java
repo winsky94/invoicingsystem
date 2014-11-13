@@ -32,6 +32,9 @@ public class MockGoods extends Goods {
 		return good;
 	}
 
+	public void SaleGoods(int num){
+		numInStock-=num;
+	}
 	// 商品价格
 	public double getPrice() {
 		return price;

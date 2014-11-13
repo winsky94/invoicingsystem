@@ -16,7 +16,9 @@ public class MockPromotion extends promotion{
 	}
 	
 	public promotion Match(Sale sale){
-		if(sa)
+		if(sale.getTotalValue()>=minsMoney)
+			return this;
+		else return null;
 		
 	}
 	
@@ -28,12 +30,7 @@ public class MockPromotion extends promotion{
 		return discount;
 	}
 
-	public GoodsVO getGoods() {
-		return goods;
-	}
-	public couponVO getCoupon() {
-		return coupon;
-	}
+	
 
 	
 	

@@ -25,4 +25,7 @@ public class MockCoupon extends coupon{
 		return this.faceValue;
 	}
 
+	public boolean GetIsUse(){
+		return this.isUse;
+	}
 }

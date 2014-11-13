@@ -7,6 +7,7 @@ import java.util.Date;
 import businesslogic.memberbl.MemberLevel;
 import businesslogic.memberbl.MemberType;
 import businesslogic.stockbl.Goods;
+import businesslogic.stockbl.MockGoods;
 
 public class giftGoodPro extends promotion{	
 	private ArrayList<Goods> giftList;
@@ -20,14 +21,14 @@ public class giftGoodPro extends promotion{
 	public void AddGoods(Goods good)
 	{
 		giftList.add(good);
-		totalValue+=good.getPrice();
+		totalValue+=((MockGoods)good).getPurchasePrice();
 		
 	}
 	
 	public void deleteGoods(Goods good)
 	{
 		giftList.remove(good);
-		totalValue-=good.getPrice();
+		totalValue-=((MockGoods)good).getPurchasePrice();
 	}
 
 	public double getTotalValue() {
