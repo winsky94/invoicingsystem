@@ -35,7 +35,7 @@ public class SaleItem {
 	}
 	
 	public double getTotal(){
-		return ((MockGoods)good).getPurchasePrice()*num;
+		return ((MockGoods)good).getPrice()*num;
 	}
 	
 	public double getTotalPurchase(){
