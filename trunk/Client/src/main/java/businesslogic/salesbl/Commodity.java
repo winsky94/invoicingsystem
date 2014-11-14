@@ -8,7 +8,9 @@ public class Commodity {
 	double price;
 	double totalPrice;
 	String memo;
-	
+	public Commodity(){
+		
+	}
 	public Commodity(String goodID, String goodName, String goodType,
 			int num, double price, double totalPrice, String memo) {
 		this.goodID = goodID;

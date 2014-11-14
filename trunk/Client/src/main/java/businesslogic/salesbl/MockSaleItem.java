@@ -22,9 +22,7 @@ public class MockSaleItem extends SaleItem{
 		
 		
 	}
-	public Goods getGoods(){
-		return good;
-	}
+	
 	public int getNum(){
 		return num;
 	}
