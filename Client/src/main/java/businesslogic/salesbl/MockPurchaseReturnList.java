@@ -1,13 +1,18 @@
 package businesslogic.salesbl;
 
+import java.util.ArrayList;
+
 public class MockPurchaseReturnList {
 	private double totalValue;
+	private ArrayList<PurchaseReturn> list;
 	
-	public MockPurchaseReturnList(){
-		this.totalValue=850.0;
+	public MockPurchaseReturnList(double value){
+		this.totalValue=value;
 	}
 	
 	public void addPurchaseReturn(PurchaseReturn purchaseReturn){
+		this.list.add(purchaseReturn);
+		this.totalValue+=purchaseReturn.getTotal();
 		
 	}
 

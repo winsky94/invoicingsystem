@@ -43,7 +43,7 @@ public class BSL {
 	}
 	
 	public double getProfit(){
-		return this.getProfit();
+		return this.profit;
 	}
 
 }
