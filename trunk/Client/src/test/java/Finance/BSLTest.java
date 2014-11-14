@@ -49,7 +49,8 @@ public class BSLTest extends TestCase {
 		good3 = new MockGoods("01010001", "飞利浦日光灯", "SR03", 10, 100, 200);
 		saleList1=new MockSaleList();
 		saleList2=new MockSaleList();
-		purchaseReturnList=new MockPurchaseReturnList();
+		purchaseReturnList=new MockPurchaseReturnList(850.0);
+	
 	}
 
 	public void testBSL() throws RemoteException {
