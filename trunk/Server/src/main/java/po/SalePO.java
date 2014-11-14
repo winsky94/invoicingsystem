@@ -3,26 +3,27 @@ package po;
 import java.util.Date;
 
 import Data.receiptdata.ReceiptType;
-import Data.salesdata.CommodityList;
+
 
 public class SalePO extends ReceiptPO {
 	String clerk;
-	CommodityList salesList;
+
 	double totalYuanChu, totalZheHou, totalKeHuYingFu;
 	double ZheRang, couponPrice;
+	public Object member;
+	public Object stockid;
 	public SalePO(){
 		
 		
 	}
-	public SalePO(String clerk, CommodityList salesList, String id,
+	public SalePO(String clerk,  String id,
 			MemberPO member, UserPO user, Date createDate, int status,
 			int hurry,String info, String stockid, double totalYuanChu,
 			double totalZheHou, double totalKeHuYingFu, double ZheRang,
 			double couponPrice) {
-		super(id, member, user, ReceiptType.SALE, createDate, status,hurry, info,
-				stockid);
+		super();
 		this.clerk = clerk;
-		this.salesList = salesList;
+		//this.salesList = salesList;
 		this.totalYuanChu=totalYuanChu;
 		this.totalKeHuYingFu=totalKeHuYingFu;
 		this.totalZheHou=totalZheHou;
@@ -34,9 +35,9 @@ public class SalePO extends ReceiptPO {
 		return clerk;
 	}
 
-	public CommodityList getSalesList() {
-		return salesList;
-	}
+	//public CommodityList getSalesList() {
+		//return salesList;
+	//}
 
 	public double getTotalYuanChu() {
 		return totalYuanChu;
