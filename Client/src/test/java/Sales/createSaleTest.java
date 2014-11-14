@@ -42,8 +42,8 @@ public class createSaleTest extends TestCase {
 		String s="2014/12/10";
 		date=form.parse(s);
 		promotion=new MockPromotion(1000,0.9);
-		good1=new MockGoods("01010001","飞利浦日光灯","SR01",100,200,150);
-		good2=new MockGoods("02010002","蓝之恋吊灯","TP25",50,2000,1320);
+		good1=new MockGoods("01010001","飞利浦日光灯","SR01",100,150,200);
+		good2=new MockGoods("02010002","蓝之恋吊灯","TP25",50,1320,2000);
 		member=new MockMember("140001",MemberType.XSS,MemberLevel.THREE,"金金灯堂",6000000);
 		member.updateToReceive(100);
 		coupon=new MockCoupon("20141015-0001",1000);
@@ -53,8 +53,8 @@ public class createSaleTest extends TestCase {
 	
 	public void testSales(){
 		//创建销售单
-		sale=new Sale("XSD-20141015-0001","140001","14010001",ReceiptType.SALE,date,0,
-				     0,"","仓库1","王宁宁");
+		sale=new Sale("XSD-20141015-0001","140001","14010001",ReceiptType.SALE,date,0
+				    ,0,"","仓库1","王宁宁");
 		//检测库存足够？
 		if(stock.isEnough("01010001", 10))
 			item1=new SaleItem(good1,10);
