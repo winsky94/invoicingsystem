@@ -11,9 +11,6 @@ import po.PurchasePO;
 import po.PurchaseReturnPO;
 import po.SalePO;
 import po.SaleReturnPO;
-import vo.PurchaseReturnVO;
-import vo.SaleReturnVO;
-import vo.SaleVO;
 import dataservice.salesdataservice.SalesDataService;
 import dataservice.salesdataservice.SalesDataService_stub;
 
@@ -37,10 +34,9 @@ public class SalesDataSevice_DriverTest extends TestCase{
 
 	@Test
 	public void test() {
-		PurchasePO pp = new PurchasePO(null, line, null, null, null, 0, 0,
-				line, line, 0);
+		PurchasePO pp = new PurchasePO(null,null,null,null,null,null,0,0,null,null,0);
 		PurchaseReturnPO prp=new PurchaseReturnPO(line, null, pp, null, 0, line, 0);
-		SalePO sp=new SalePO(line, null, line, null, null, null, 0, 0, line, line, 0, 0, 0, 0, 0, 0);
+		SalePO sp=new SalePO(null, null, null, null, null, null, null, 0, 0, null, null, 0, 0, 0, 0, 0, 0);
 		SaleReturnPO srp=new SaleReturnPO(line, null, sp, null, 0, line, 0);
 		String message="";
 		s.createPurchase(pp);

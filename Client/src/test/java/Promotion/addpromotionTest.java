@@ -63,7 +63,7 @@ public class addpromotionTest extends TestCase{
 		    int resultRelease=pro.Release(pro);
 		    assertEquals(0,resultRelease);
 		    assertEquals(1,pro.GetRelease());
-		   //库存赠品列表录取新的赠品信息
+		   //赠品列表录取新的赠品信息
 		    assertEquals(good4,pro.getgiftList().get(0));
 		    //促销策略列表出现新添加的策略
 		    assertEquals(pro,list.getProList().get(0));
