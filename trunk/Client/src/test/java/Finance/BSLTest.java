@@ -33,8 +33,8 @@ public class BSLTest extends TestCase {
 
 	private double profit;
 
-	private Sale sale;
-	private SaleItem item;
+	private Sale sale;//mock
+	private SaleItem item;//mock
 	private MockGoods good, good1, good2, good3;
 	private MockCoupon coupon;
 	private StockOverOrLowReceipt stockOver;

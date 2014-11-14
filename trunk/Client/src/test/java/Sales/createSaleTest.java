@@ -53,7 +53,7 @@ public class createSaleTest extends TestCase {
 	
 	public void testSales(){
 		//创建销售单
-		sale=new Sale("XSD-20141015-0001","140001","14010001",ReceiptType.SALE,date,
+		sale=new Sale("XSD-20141015-0001","140001","14010001",ReceiptType.SALE,date,0,
 				     0,"","仓库1","王宁宁");
 		//检测库存足够？
 		if(stock.isEnough("01010001", 10))

@@ -15,7 +15,7 @@ import businesslogic.stockbl.MockGoods;
 public class AddGiftReceiptTest extends TestCase {
 	private GiftReceipt giftReceipt;
 	private MockGoods good1, good2,good3;
-	private Member member;
+	private Member member;//mock
 	private double total;
 
 	public void setUp() throws ParseException {
