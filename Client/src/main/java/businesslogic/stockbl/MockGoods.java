@@ -115,4 +115,9 @@ public class MockGoods extends Goods {
 		
 		return 0;
 	}
+
+	public int getNum() {
+		// TODO 自动生成的方法存根
+		return numInStock;
+	}
 }

@@ -8,6 +8,7 @@ public class MockSale extends Sale{
 	private double totalValue;
 	private double couponIncome;
 	private double salesPrimeCost;
+	private double totalPurchaseValue;
 	
 	public MockSale(String id){
 		this.id =id;
@@ -15,6 +16,7 @@ public class MockSale extends Sale{
 		this.totalValue=0;
 		this.couponIncome=600;
 		this.salesPrimeCost=200;
+		this.totalPurchaseValue=100;
 	}
 	
 	public void AddGoods(MockSaleItem item){
@@ -38,5 +40,9 @@ public class MockSale extends Sale{
 
 	public double getSalesPrimeCost() {
 		return salesPrimeCost;
+	}
+
+	public double getTotalPurchaseValue() {
+		return totalPurchaseValue;
 	}
 }

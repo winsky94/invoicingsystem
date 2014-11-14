@@ -5,29 +5,32 @@ import java.util.Date;
 
 import businesslogic.receiptbl.Receipt;
 import businesslogic.receiptbl.ReceiptType;
+import businesslogic.stockbl.Goods;
+import businesslogic.stockbl.MockGoods;
 
 public class Purchase extends Receipt {
-	private ArrayList<Commodity> commodityList;
+	private ArrayList<Goods> commodityList;
 	private double totalValue;
-
 	
+	public Purchase(){
+		
+	}
 
 	public Purchase(String id, String memberID, String userID,
 		 Date date, int hurry, int status, String info,
 			String sid) {
 		super(id, memberID, userID, ReceiptType.PURCHASE, date, hurry, status, info, sid);
 		// TODO Auto-generated constructor stub
-		this.commodityList=new ArrayList<Commodity>();
+		this.commodityList=new ArrayList<Goods>();
 		this.totalValue=0;
 	}
 
-	public void AddCommodity(MockCommodity com){
-		commodityList.add(com);
-		this.totalValue+=com.getTotalPrice();
+	public void AddGood(MockGoods good){
+		commodityList.add(good);
+		this.totalValue+=good.getPurchasePrice();
 	}
 	
-	
-	public void DeleteCommodity(MockCommodity com){
+	public void DeleteGood(MockCommodity com){
 		commodityList.remove(com);
 		this.totalValue-=com.getTotalPrice();
 		
@@ -37,5 +40,17 @@ public class Purchase extends Receipt {
 	
 	public double getTotalValue(){
 		return this.totalValue;
+	}
+
+	public MockGoods createPurchase() {
+		MockGoods good0 = (MockGoods) commodityList.get(0);
+		MockGoods good = new MockGoods("00020001", "飞利浦日光灯", "SR01", 20, 200,
+				100);
+		MockGoods newGood = new MockGoods("00020001", "飞利浦日光灯", "SR01",
+				20 + good0.getNum(), 200, 100);
+
+		good.modifyGoods(newGood);
+
+		return good;
 	}
 }

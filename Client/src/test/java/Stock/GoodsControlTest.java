@@ -26,9 +26,10 @@ public class GoodsControlTest extends TestCase{
 	}
 
 	public void testAddGiftReceipt() throws RemoteException {
+		//查找商品分类
 		MockGoods good=good1.findByClass(goodsClass2);
 		assertEquals(good1,good);
-		
+		//添加商品
 		ArrayList<MockGoods> goodsList=goodsClass2.findsGoodsInClass(goodsClass2);
 		assertEquals(goodsList.size(),2);
 	}
