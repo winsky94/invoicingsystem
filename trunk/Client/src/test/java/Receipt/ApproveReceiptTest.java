@@ -12,6 +12,7 @@ import businesslogic.receiptbl.Review;
 import junit.framework.TestCase;
 /*
  * 总经理审批单据,审批不通过/通过,以收款单为例
+ * 单据状态有五：1.草稿  2.待审批  3.审批不通过  4.审批通过待执行 5.执行完毕
  * */
 public class ApproveReceiptTest extends TestCase{
 	private Review review;
