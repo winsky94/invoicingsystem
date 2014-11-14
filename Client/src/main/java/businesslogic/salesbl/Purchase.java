@@ -1,29 +1,41 @@
 package businesslogic.salesbl;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import businesslogic.receiptbl.Receipt;
 import businesslogic.receiptbl.ReceiptType;
 
 public class Purchase extends Receipt {
-	CommodityList list;
+	private ArrayList<Commodity> commodityList;
+	private double totalValue;
 
-	public Purchase() {
-		// TODO 自动生成的构造函数存根
-	}
+	
 
 	public Purchase(String id, String memberID, String userID,
-			ReceiptType type, Date date, int hurry, int status, String info,
+		 Date date, int hurry, int status, String info,
 			String sid) {
-		super(id, memberID, userID, type, date, hurry, status, info, sid);
+		super(id, memberID, userID, ReceiptType.PURCHASE, date, hurry, status, info, sid);
 		// TODO Auto-generated constructor stub
+		this.commodityList=new ArrayList<Commodity>();
+		this.totalValue=0;
 	}
 
-	public Purchase(String id, String memberID, String userID,
-			ReceiptType type, Date date, int hurry, int status, String info,
-			String sid, CommodityList list) {
-		super(id, memberID, userID, type, date, hurry, status, info, sid);
-		// TODO 自动生成的构造函数存根
-		this.list = list;
+	public void AddCommodity(MockCommodity com){
+		commodityList.add(com);
+		this.totalValue+=com.getTotalPrice();
+	}
+	
+	
+	public void DeleteCommodity(MockCommodity com){
+		commodityList.remove(com);
+		this.totalValue-=com.getTotalPrice();
+		
+	}
+	
+	
+	
+	public double getTotalValue(){
+		return this.totalValue;
 	}
 }
