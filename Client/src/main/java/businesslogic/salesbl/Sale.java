@@ -12,7 +12,6 @@ import businesslogic.promotionbl.coupon;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.receiptbl.ReceiptType;
 
-
 public class Sale extends Receipt {
 	// 要默认业务员
 	private String salesman;
@@ -20,9 +19,11 @@ public class Sale extends Receipt {
 	private double totalValue;
 	private double totalPurchaseValue;
 	private double couponIncome;
-    public Sale(){
-    	
-    }
+
+	public Sale() {
+
+	}
+
 	public Sale(String id, String memberID, String userID, ReceiptType type,
 			Date date, int hurry, int status, String info, String sid,
 			String man) {
