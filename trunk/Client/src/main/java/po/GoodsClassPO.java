@@ -10,9 +10,11 @@ public class GoodsClassPO implements Serializable {
 	String name;
 	GoodsClassPO upClass;
 
+
 	public GoodsClassPO(String name, GoodsClassPO po) {
 		this.name = name;
 		this.upClass = po;
+
 	}
 
 	public String getName() {

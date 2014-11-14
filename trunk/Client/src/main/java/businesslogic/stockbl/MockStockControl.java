@@ -1,13 +1,19 @@
 package businesslogic.stockbl;
 
+import java.util.ArrayList;
+
 public class MockStockControl {
 	String num;
+	ArrayList<StockOverOrLowReceipt> stockOverOrLowReceiptlist;
+	ArrayList<GiftReceipt> giftReceiptlist;
 	double goodsOverIncome;
 	double primeCostIncome;
 	double goodsLowCost;
 	double giftCost;
 	
 	public MockStockControl(){
+		stockOverOrLowReceiptlist=new ArrayList<StockOverOrLowReceipt>();
+		giftReceiptlist=new ArrayList<GiftReceipt>();
 		this.goodsOverIncome=0;
 		this.primeCostIncome=0;
 		this.goodsLowCost=0;

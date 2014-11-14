@@ -36,12 +36,13 @@ public class PurchaseTest extends TestCase {
 	}
 
 	public void testAddPromotion() throws RemoteException {
+		//进货单审批不通过
 		purchase.setStatus(3);
 		if (purchase.getStatus().equals("审批不通过")) {
 			assertEquals(20, good.getNumInStock());
 			assertEquals(0.0, member.getToPay());
 		}
-		
+		//进货单审批通过执行
 		purchase.setStatus(4);
 		if (purchase.getStatus().equals("审批通过待执行")) {
 			good = purchase.createPurchase();

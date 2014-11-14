@@ -6,10 +6,15 @@ public class MockSale extends Sale{
 	private String id;
 	private ArrayList<MockSaleItem> goodsList;
 	private double totalValue;
+	private double couponIncome;
+	private double salesPrimeCost;
+	
 	public MockSale(String id){
 		this.id =id;
 		this.goodsList=new ArrayList<MockSaleItem>();
 		this.totalValue=0;
+		this.couponIncome=600;
+		this.salesPrimeCost=200;
 	}
 	
 	public void AddGoods(MockSaleItem item){
@@ -27,5 +32,11 @@ public class MockSale extends Sale{
 		return this.totalValue;
 	}
 	
+	public double getCouponIncome(){
+		return this.couponIncome;
+	}
 
+	public double getSalesPrimeCost() {
+		return salesPrimeCost;
+	}
 }
