@@ -4,9 +4,9 @@ import businesslogic.stockbl.Goods;
 import businesslogic.stockbl.MockGoods;
 
 public class MockSaleItem extends SaleItem{
-	private Goods good;
+	private MockGoods good;
 	private int num;
-	public MockSaleItem(Goods good,int num){
+	public MockSaleItem(MockGoods good,int num){
 		this.good=good;
 		this.num=num;
 	}
@@ -33,7 +33,11 @@ public class MockSaleItem extends SaleItem{
 	}
 	
 	public double getTotal(){
-		return ((MockGoods)good).getPrice()*num;
+		return good.getPrice()*num;
+	}
+	
+	public double getTotalPurchase(){
+		return good.getPurchasePrice()*num;
 	}
 
 }

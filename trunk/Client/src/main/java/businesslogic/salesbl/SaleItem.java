@@ -6,6 +6,9 @@ import businesslogic.stockbl.MockGoods;
 public class SaleItem {
 	private Goods good;
 	private int num;
+	public SaleItem(){
+		
+	}
 	public SaleItem(Goods good,int num){
 		this.good=good;
 		this.num=num;
@@ -31,7 +34,7 @@ public class SaleItem {
 	}
 	
 	public double getPurchasePrice(){
-		return good.getPurchasePrice();
+		return good.getPrice();
 	}
 	
 	public double getTotal(){
@@ -39,7 +42,7 @@ public class SaleItem {
 	}
 	
 	public double getTotalPurchase(){
-		return good.getPurchasePrice()*num;
+		return good.getPrice()*num;
 	}
 
 }
