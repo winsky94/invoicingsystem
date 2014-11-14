@@ -21,14 +21,14 @@ public class giftGoodPro extends promotion{
 	public void AddGoods(Goods good)
 	{
 		giftList.add(good);
-		totalValue+=((MockGoods)good).getPurchasePrice();
+		totalValue+=((MockGoods)good).getPrice();
 		
 	}
 	
 	public void deleteGoods(Goods good)
 	{
 		giftList.remove(good);
-		totalValue-=((MockGoods)good).getPurchasePrice();
+		totalValue-=((MockGoods)good).getPrice();
 	}
 
 	public double getTotalValue() {
