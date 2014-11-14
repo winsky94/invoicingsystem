@@ -9,7 +9,7 @@ import businesslogic.memberbl.MemberType;
 import businesslogic.memberbl.MockMember;
 import businesslogic.promotionbl.MockCoupon;
 import businesslogic.salesbl.CommodityList;
-import businesslogic.salesbl.MockPurchaseReturn;
+import businesslogic.salesbl.MockPurchaseReturnList;
 import businesslogic.salesbl.MockSale;
 import businesslogic.salesbl.MockSaleItem;
 import businesslogic.salesbl.MockSaleList;
@@ -44,7 +44,7 @@ public class BSLTest extends TestCase {
 	private MockMember member;
 	private GiftReceipt gift;
 	private MockSaleList saleList1,saleList2;
-
+	private MockPurchaseReturnList purchaseReturnList;
 	public void setUp() throws ParseException {
 		good = new MockGoods("01010001", "飞利浦日光灯", "SR01", 10, 100, 200);
 		good1 = new MockGoods("01010001", "飞利浦日光灯", "SR02", 10, 100, 200);
@@ -61,6 +61,7 @@ public class BSLTest extends TestCase {
 		good3 = new MockGoods("01010001", "飞利浦日光灯", "SR03", 10, 100, 200);
 		saleList1=new MockSaleList();
 		saleList2=new MockSaleList();
+		purchaseReturnList=new MockPurchaseReturnList();
 	}
 
 	public void testBSL() throws RemoteException {
@@ -83,8 +84,9 @@ public class BSLTest extends TestCase {
 		assertEquals(150.0, primeCostIncome);
 		// 进货退货收入
 		list.add("01010001", "飞利浦日光灯", "SR02", 10, 85, null);
-		MockPurchaseReturn purchaseReturn = new MockPurchaseReturn(list);
-		importReturnIncome = purchaseReturn.getTotal();
+//		PurchaseReturn purchaseReturn = new PurchaseReturn(list);
+		
+		importReturnIncome = purchaseReturnList.getTotalValue();
 		assertEquals(850.0, importReturnIncome);
 		// 代金券与实际收款差额收入
 		sale1.useCoupon(coupon);
@@ -97,7 +99,7 @@ public class BSLTest extends TestCase {
 		assertEquals(4000.0, totalIncome);
 
 		// 销售成本支出
-		salesPrimeCost = sale1.getSalesPrimeCost();
+		salesPrimeCost = saleList1.getSalesPrimeCost();
 		assertEquals(200.0, salesPrimeCost);
 		// 库存报损支出
 		stockLow = new StockOverOrLowReceipt("飞利浦日光灯", "SR01", 95, 100);
