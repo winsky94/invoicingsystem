@@ -26,6 +26,9 @@ public class SaleVO extends ReceiptVO {
 		this.moneyDiscount = moneyDiscount;
 		this.couponPrice = couponPrice;
 	}
+	public SaleVO(){
+		
+	}
 
 
 	public String getClerk() {
