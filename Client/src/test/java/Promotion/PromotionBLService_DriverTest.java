@@ -11,7 +11,7 @@ import businesslogicservice.promotionblservice.PromotionBLService;
 import businesslogicservice.promotionblservice.PromotionBLService_Stub;
 
 public class PromotionBLService_DriverTest extends TestCase{
-	/*private PromotionBLService promotionblservice;
+	private PromotionBLService promotionblservice;
 	String line=System.getProperty("line.separator");
 	PrintStream console=null;
 	ByteArrayOutputStream bytes=null;
@@ -43,6 +43,6 @@ public class PromotionBLService_DriverTest extends TestCase{
 				+"Give Present by Promotion Success!"+line
 				+"Show Promotion Success!"+line,bytes.toString());
 		
-	}*/
+	}
 	
 }
