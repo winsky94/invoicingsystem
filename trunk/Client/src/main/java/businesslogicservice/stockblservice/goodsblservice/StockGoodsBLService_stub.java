@@ -31,33 +31,11 @@ public class StockGoodsBLService_stub implements StockGoodsBLService {
 		return null;
 	}
 
-	public ArrayList<GoodsPO> showStock(String beginDate, String endDate) {
-		// TODO 自动生成的方法存根
-		System.out.println("show stock succeed!");
-		return new ArrayList<GoodsPO>();
-	}
-
-	public ArrayList<GoodsPO> checkStock() {
-		// TODO 自动生成的方法存根
-		System.out.println("check stock succeed!");
-		return new ArrayList<GoodsPO>();
-	}
-
 	public ArrayList<GoodsPO> showGoods() {
 		// TODO 自动生成的方法存根
 		System.out.println("show goods succeed!");
 		return null;
 	}
 
-	public boolean isEnough(String ID, int num) {
-		// TODO 自动生成的方法存根
-		System.out.println("check stock is enough succeed!");
-		return true;
-	}
 
-	public double PrimeCostIncome() {
-		// TODO 自动生成的方法存根
-		System.out.println("return prime cost income succeed!");
-		return 0;
-	}
 }

@@ -33,24 +33,16 @@ public class StockGoodsDataService_DriverTest extends TestCase {
 		int resultMod = stockGoodsDataService.modifyGoods(po);
 		int resultDel = stockGoodsDataService.deleteGoods(po);
 		stockGoodsDataService.findGoods("00001");
-		stockGoodsDataService.checkStock();
-		stockGoodsDataService.showStock("2014年10月1日", "2014年10月17日");
 		stockGoodsDataService.showGoods();
-		boolean isEnough = stockGoodsDataService.isEnough("00001", 10);
-		stockGoodsDataService.PrimeCostIncome();
-		
+
 		assertEquals(0, resultAdd);
 		assertEquals(0, resultMod);
 		assertEquals(0, resultDel);
-		assertEquals(true, isEnough);
+
 		assertEquals("add goods in file succeed!" + line
 				+ "modify goods in file succeed!" + line
 				+ "delete goods in file succeed!" + line
 				+ "find goods in file succeed!" + line
-				+ "check stock in file succeed!" + line
-				+ "show stock in file succeed!" + line
-				+ "show goods in file succeed!" + line
-				+ "check stock is enough in file succeed!" + line
-				+ "return prime cost income  in file succeed!" + line, bytes.toString());
+				+ "show goods in file succeed!" + line, bytes.toString());
 	}
 }
