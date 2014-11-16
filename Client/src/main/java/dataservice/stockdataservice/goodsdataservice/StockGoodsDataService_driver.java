@@ -13,11 +13,6 @@ public class StockGoodsDataService_driver {
 		stockGoodsDataService.deleteGoods(goodsPO);
 		stockGoodsDataService.modifyGoods(goodsPO);
 		stockGoodsDataService.findGoods("00001");
-		stockGoodsDataService.showStock("2014年10月1日", "2014年10月17日");
-
-		stockGoodsDataService.checkStock();
-		stockGoodsDataService.isEnough("00001",10);
-		stockGoodsDataService.PrimeCostIncome();
 	}
 
 	public static void main(String[] args) throws RemoteException {

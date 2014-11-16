@@ -12,11 +12,6 @@ public class StockGoodsBLService_driver {
 		stockGoodsBLService.modifyGoods(goodsVO);
 		stockGoodsBLService.findGoods("00001");
 		stockGoodsBLService.showGoods();
-		stockGoodsBLService.checkStock();
-		stockGoodsBLService.showStock("2014年10月1日", "2014年10月17日");
-		stockGoodsBLService.isEnough("00001", 10);
-		stockGoodsBLService.PrimeCostIncome();
-
 	}
 
 	public static void main(String[] args) {

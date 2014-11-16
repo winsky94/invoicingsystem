@@ -1,5 +1,8 @@
 package businesslogicservice.stockblservice.controlblservice;
 
+import java.util.ArrayList;
+
+import po.GoodsPO;
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
 
@@ -17,17 +20,39 @@ public class StockControlBLService_stub  implements StockControlBLService {
 		return 0;
 	}
 
-	public double goodsOverIncome() {
+	public double getGoodsOverIncome() {
 		// TODO 自动生成的方法存根
 		System.out.println("return goods over income succeed!");
 		return 0;
 	}
 
-	public double goodsLowCost() {
+	public double getGoodsLowCost() {
 		// TODO 自动生成的方法存根
 		System.out.println("return goods low cost succeed!");
 		return 0;
 	}
 	
+	public ArrayList<GoodsPO> showStock(String beginDate, String endDate) {
+		// TODO 自动生成的方法存根
+		System.out.println("show stock succeed!");
+		return new ArrayList<GoodsPO>();
+	}
+
+	public ArrayList<GoodsPO> checkStock() {
+		// TODO 自动生成的方法存根
+		System.out.println("check stock succeed!");
+		return new ArrayList<GoodsPO>();
+	}
 	
+	public boolean isEnough(String ID, int num) {
+		// TODO 自动生成的方法存根
+		System.out.println("check stock is enough succeed!");
+		return true;
+	}
+
+	public double getPrimeCostIncome() {
+		// TODO 自动生成的方法存根
+		System.out.println("return prime cost income succeed!");
+		return 0;
+	}
 }
