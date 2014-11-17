@@ -10,7 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
+//11-17 By jin  添加showAll 和Find 方法删除 login 判断留在bl层
 public class User implements UserDataService{
 	
 	public String  Find(String ID){
