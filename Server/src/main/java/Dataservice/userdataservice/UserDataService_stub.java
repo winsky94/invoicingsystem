@@ -1,6 +1,7 @@
 package Dataservice.userdataservice;
 
 import java.rmi.*;
+
 import po.UserPO;
 
 public class UserDataService_stub implements UserDataService {
@@ -26,6 +27,11 @@ public class UserDataService_stub implements UserDataService {
 	public UserPO showUserInfo(String ID) throws RemoteException {
 		// TODO 自动生成的方法存根
 		System.out.println("show users in file succeed!");
+		return null;
+	}
+
+	public String Find(String ID) throws RemoteException {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

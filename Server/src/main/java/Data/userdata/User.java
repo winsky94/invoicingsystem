@@ -1,3 +1,4 @@
+
 package Data.userdata;
 
 import java.rmi.RemoteException;
@@ -11,6 +12,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class User implements UserDataService{
+	
+	public String  Find(String ID){
+		return "123456";
+	}
 
 	public int add(UserPO po) throws RemoteException {		
 	    	try {
@@ -47,5 +52,8 @@ public class User implements UserDataService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 
 }
+
