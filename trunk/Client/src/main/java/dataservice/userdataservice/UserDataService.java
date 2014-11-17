@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import po.UserPO;
 //Remote Exception 改何去何从  By jin
 public interface UserDataService extends Remote {
-	public int login(String ID, String password);
+	public String Find(String ID);
 
 	public int add(UserPO po) ;
 

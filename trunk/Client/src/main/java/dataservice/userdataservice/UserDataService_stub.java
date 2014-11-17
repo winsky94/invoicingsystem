@@ -9,10 +9,10 @@ import po.UserPO;
 
 public class UserDataService_stub implements UserDataService {
 
-	public int login(String ID, String password) {
+	public String Find(String ID) {
 		// TODO 自动生成的方法存根
 		System.out.println("Login succeed!");
-		return 0;
+		return null;
 	}
 	
 	public int add(UserPO po) {
