@@ -8,9 +8,9 @@ public interface UserBLService {
 
 	public int addUser(UserVO vo);
 
-	public int deleteUser(UserVO vo);
+	public int deleteUser(String ID);
 
 	public int modifyUser(UserVO vo);
 
-	public UserPO showUser(String UserID);
+	public UserVO showUser(String UserID);
 }
