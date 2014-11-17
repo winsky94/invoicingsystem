@@ -32,13 +32,13 @@ public class UserDataService_DriverTest extends TestCase{
 		int resultAdd = userDataService.add(po);
 		int resultMod = userDataService.modify(po);
 		int resultDel = userDataService.delete(po.getID());
-		int resultLog = userDataService.login(null, null);
+		//int resultLog = userDataService.login(null, null);
 		userDataService.showUserInfo(null);
 
 		assertEquals(0, resultAdd);
 		assertEquals(0, resultMod);
 		assertEquals(0, resultDel);
-		assertEquals(0, resultLog);
+		//assertEquals(0, resultLog);
 		
 		assertEquals("add user in file succeed!" + line
 				+ "modify user in file succeed!" + line

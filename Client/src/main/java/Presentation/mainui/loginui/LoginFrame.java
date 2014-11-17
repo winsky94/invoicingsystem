@@ -165,13 +165,13 @@ public class LoginFrame extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			String ID=idField.getText();
 			String passWord=passwordField.getPassword().toString();
-			//int result=service.login(ID, passWord);
+			int result=service.login(ID, passWord);
 			System.out.println(ID);
 			System.out.println(passWord);
-			//switch(result){
-			//case 0:
+			switch(result){
+			case 0:System.out.println("成功注册");
 				
-			//}
+			}
 			
 			
 			}

@@ -24,8 +24,13 @@ public class User implements UserBLService{
 	
 	
 	public int login(String ID, String password) {
-		
-		return service.login(ID, password);
+		String pass=service.Find(ID);
+		int result=0;//成功
+		if(pass==null)
+			return 2;//该用户不存在
+		else if(pass.equals(password))
+			return 1;//密码错误
+		return result;
 	}
 
 	public int addUser(UserVO vo)   {
