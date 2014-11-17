@@ -5,17 +5,18 @@ import java.io.PrintStream;
 
 import junit.framework.TestCase;
 import vo.UserVO;
+import businesslogic.userbl.User;
 import businesslogicservice.userblservice.UserBLService;
-import businesslogicservice.userblservice.UserBLService_stub;
 
+//11-17 By jin 肯定失败 User没有语句输出
 public class UserBLService_DriverTest extends TestCase {
 	private UserBLService userBLService;
 	String line = System.getProperty("line.separator");
 	PrintStream console = null;
 	ByteArrayOutputStream bytes = null;
 
-	public void setUp() {
-		UserBLService userbl_stub = new UserBLService_stub();
+	public void setUp() throws Exception {
+		UserBLService userbl_stub = new User();
 		userBLService = userbl_stub;
 		bytes = new ByteArrayOutputStream();
 		console = System.out;
@@ -30,7 +31,7 @@ public class UserBLService_DriverTest extends TestCase {
 		UserVO vo = new UserVO(null, null, null, null);
 		int resultAdd = userBLService.addUser(vo);
 		int resultMod = userBLService.modifyUser(vo);
-		int resultDel = userBLService.deleteUser(vo);
+		int resultDel = userBLService.deleteUser(vo.getID());
 		int resultLog = userBLService.login(null, null);
 		userBLService.showUser(null);
 
