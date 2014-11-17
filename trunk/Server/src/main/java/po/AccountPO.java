@@ -14,6 +14,10 @@ public class AccountPO implements Serializable{
 	    	  this(null,0);
 	      }
 	      
+	      public AccountPO(String a){
+	    	  this(a,0);
+	      }
+	      
 	      public AccountPO(String a,double b){
 	    	  name=a;
 	    	  money=b;
