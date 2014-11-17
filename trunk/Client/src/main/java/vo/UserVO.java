@@ -1,16 +1,18 @@
 package vo;
 
-public class UserVO {
-	String name;
-	String ID;
-	String password;
-	String job;
+import businesslogic.userbl.UserType;
 
-	public UserVO(String name, String iD, String password, String job) {
+public class UserVO {
+	private String name;
+	private String ID;
+	private String password;
+	private UserType type;
+
+	public UserVO(String name, String ID, String password, UserType type) {
 		this.name = name;
-		ID = iD;
+		ID = ID;
 		this.password = password;
-		this.job = job;
+		this.type=type;
 	}
 
 	public String getName() {
@@ -25,7 +27,7 @@ public class UserVO {
 		return password;
 	}
 
-	public String getJob() {
-		return job;
+	public UserType getJob() {
+		return type;
 	}
 }
