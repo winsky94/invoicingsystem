@@ -1,57 +1,96 @@
 package businesslogic.userbl;
 
 import java.rmi.Naming;
-import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import dataservice.userdataservice.UserDataService;
 import po.UserPO;
 import vo.UserVO;
-import ServerRMI.localinter;
 import businesslogicservice.userblservice.UserBLService;
-
+//11-17  By jin 0 warning 哈
 public class User implements UserBLService{
 	private String name;
 	private String ID;
 	private String password;
 	private UserType type;
 	private UserDataService service;
-	public User(){
-		String host="8080";
+	public User() throws Exception{
+		String host="localhost:1099";
 		String url="rmi://"+host+"/localService";
+		//查找服务器端远程方法
 		service=(UserDataService)Naming.lookup(url);
 	}
 	
 	
 	
 	public int login(String ID, String password) {
-		// TODO 自动生成的方法存根
+		
 		return service.login(ID, password);
 	}
 
 	public int addUser(UserVO vo)   {
-		// TODO 自动生成的方法存根
-		UserPO po=new UserPO(vo.getName(),vo.getID(),vo.getPassword(),
-				   vo.getJob());
+	
+		UserPO po=voToPO(vo);
 		
 		return service.add(po);
 	}
 
 	public int deleteUser(String ID) {
-		// TODO 自动生成的方法存根
+		
 		return service.delete(ID);
 	}
 
 	public int modifyUser(UserVO vo) {
-		// TODO 自动生成的方法存根
-		return 0;
+		
+		return service.modify(voToPO(vo));
 	}
 
 	public UserVO showUser(String UserID) {
-		// TODO 自动生成的方法存根
+		
 		UserPO po=service.showUserInfo(UserID);
-		UserVO vo=new UserVO(po.getName()
-		return null;
+		//password是否需要显示
+		UserVO vo=poToVO(po);
+		return vo;
+	}
+	
+	public ArrayList<UserVO> showAll(){
+		ArrayList<UserPO> po=service.showAll();
+		ArrayList<UserVO> vo=new ArrayList<UserVO>();
+		for(int i=0;i<po.size();i++)
+			vo.add(poToVO(po.get(i)));
+			
+		return vo;
+}
+	
+	
+	private UserPO voToPO(UserVO vo){
+		UserPO po=new UserPO(vo.getID(),vo.getName(),vo.getPassword(),
+				vo.getJob());
+		return po;
+		
+	}
+	
+	
+	private UserVO poToVO(UserPO po){
+		UserVO vo=new UserVO(po.getID(),po.getName(),po.getPassword(),
+				po.getJob());
+		return vo;
+	}
+	
+	public String getID(){
+		return ID;
+	}
+	
+	public String getName(){
+		return name;
 	}
 
+	public String getPassWord(){
+		return password;
+	}
+	
+	public UserType getType(){
+		return type;
+	}
 	
 }

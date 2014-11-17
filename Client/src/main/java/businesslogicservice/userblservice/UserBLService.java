@@ -1,5 +1,7 @@
 package businesslogicservice.userblservice;
 
+import java.util.ArrayList;
+
 import po.UserPO;
 import vo.UserVO;
 
@@ -13,4 +15,6 @@ public interface UserBLService {
 	public int modifyUser(UserVO vo);
 
 	public UserVO showUser(String UserID);
+	
+	public ArrayList<UserVO> showAll();
 }

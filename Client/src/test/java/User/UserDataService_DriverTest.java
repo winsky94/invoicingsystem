@@ -31,7 +31,7 @@ public class UserDataService_DriverTest extends TestCase{
 		UserPO po=new UserPO(null, null, null, null);
 		int resultAdd = userDataService.add(po);
 		int resultMod = userDataService.modify(po);
-		int resultDel = userDataService.delete(po);
+		int resultDel = userDataService.delete(po.getID());
 		int resultLog = userDataService.login(null, null);
 		userDataService.showUserInfo(null);
 
