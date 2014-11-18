@@ -1,74 +1,85 @@
 
+
 package Data.userdata;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 import po.UserPO;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
-import javax.rmi.PortableRemoteObject;
-
 import dataservice.userdataservice.UserDataService;
+
+import Data.serutility.JXCFile;
 //11-17 By jin  添加showAll 和Find 方法删除 login 判断留在bl层
-public class User extends UnicastRemoteObject implements UserDataService,Serializable{
-	
-	public  User() throws RemoteException {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+public class User extends UnicastRemoteObject implements UserDataService{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	public String  Find(String ID)throws RemoteException{
-		return "123456";
+	JXCFile file;
+	public User() throws RemoteException {
+		super();
+		file=new JXCFile("user.ser");
+		// TODO 自动生成的构造函数存根
 	}
-
-	public int add(UserPO po) throws RemoteException {		
-	    	try {
-                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("user.ser"));                     
-                oos.writeObject(po);
-                oos.close();                       
-        } catch (Exception ex) {  
-        	ex.printStackTrace();
-        	return 1;
-        }
-	    		    
+	
+	public int add(UserPO po) throws RemoteException {
+		if(showUserInfo(po.getID())!=null){
+			return 1;
+		}
+	    file.write(po);
 	    return 0;
 	}
 
 	public int delete(UserPO po) throws RemoteException {
-		  UserPO b;
-		    try {
-	            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("user.ser"));
-	            b = (UserPO) ois.readObject();
-	            System.out.println();
-	            ois.close();
-	    } catch (Exception ex) {
-	            ex.printStackTrace();
-	    }
-		    return 0;
+		ArrayList<Object> a=file.read();
+		  		
+		int i;
+		for(i=0;i<a.size();i++){
+			UserPO b=(UserPO)a.get(i);
+			if(b.getID().equals(po.getID())){
+				a.remove(i);
+			}
+		}
+		
+		if(i==a.size())      //不存在该用户
+			return 1;
+		
+		file.write(a);
+		return 0;
 	}
 
 	public int modify(UserPO po) throws RemoteException {
-		// TODO Auto-generated method stub
+		ArrayList<Object> a=file.read();
+  		
+		int i;
+		for(i=0;i<a.size();i++){
+			UserPO b=(UserPO)a.get(i);
+			if(b.getID().equals(po.getID())){
+				b.setJob(po.getJob());
+				b.setName(po.getName());
+				b.setPassword(po.getPassword());
+			}
+		}
+		
+		if(i==a.size())      //不存在该用户
+			return 1;
+		
+		file.write(a);
 		return 0;
 	}
 
 	public UserPO showUserInfo(String ID) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Object> a=file.read();
+		for(Object b:a){
+			UserPO c=(UserPO)b;
+			if(c.getID()==ID)
+				return c;
+		}
+					
+		return null; //不存在该用户
 	}
-	
 	
 
 }
-
