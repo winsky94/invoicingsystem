@@ -37,89 +37,88 @@ public class LoginFrame extends JFrame {
 
 	public LoginFrame() throws Exception {
 		service = new User();//声明一下  yan 11-18
-		Toolkit kit = Toolkit.getDefaultToolkit();
-		Dimension screenSize = kit.getScreenSize();
-		screenHeight = screenSize.height;
-		screenWidth = screenSize.width;
-		frameHeight = screenHeight * 2 / 3;
-		frameWidth = screenWidth * 2 / 9;
-		// 获得了与分辨率匹配的大小
-		this.setSize(frameWidth, frameHeight);
-		this.setLocation((screenWidth - frameWidth) / 2,
-				(screenHeight - frameHeight) / 2);
-		// 设置好了窗口大小，位置
-		this.setTitle("欢迎使用进销存系统");
-		// Image image=kit.getImage("GUI/Login/icon.png");
-		// this.setIconImage(image);
-		// 设置了图标
-
-		// 功能panel
-		JPanel panel = new JPanel() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			protected void paintComponent(Graphics g) {
-				ImageIcon icon = new ImageIcon("img/Login/background.jpg");
-				Image img = icon.getImage();
-				g.drawImage(img, 0, 0, icon.getIconWidth(),
-						icon.getIconHeight(), icon.getImageObserver());
-			}
-		};
-		panel.setSize(frameWidth, frameHeight);
-		panel.setLocation(0, 0);
-		// 搞了一个和frame一样size的panel出来
-		idField = new JTextField();
-		idField.setSize(frameWidth / 2, frameHeight / 10);
-		idField.setLocation(frameWidth * 2 / 7, frameHeight / 5);
-		idField.getDocument().addDocumentListener(new idFieldListener());
-		idField.setVisible(true);
-		// 设置好了一个用户名文本域
-		passwordField = new JPasswordField();
-		passwordField.setSize(frameWidth / 2, frameHeight / 10);
-		passwordField.setLocation(frameWidth * 2 / 7, frameHeight * 2 / 5);
-		passwordField.addKeyListener(new passwordFieldListener());
-		passwordField.setVisible(true);
-		// 设置好了一个密码域
-		JButton loginButton = new JButton("登 录");
-		Font buttonFont = new Font("登 录", Font.PLAIN, 13);
-		loginButton.setFont(buttonFont);
-		loginButton.setSize(frameWidth / 5, frameHeight / 10);
-		loginButton.setLocation(frameWidth * 2 / 9, frameHeight * 3 / 5);
-		loginButton.addActionListener(new LoginListener());
-		loginButton.setVisible(true);
-		// 设置好了登录按钮
-
-		JLabel idLabel = new JLabel("用户名");
-		Font idLabelFont = new Font("用户名", Font.BOLD, 14);
-		idLabel.setFont(idLabelFont);
-		idLabel.setSize(frameWidth / 5, frameHeight / 11);
-		idLabel.setLocation(frameWidth / 7, frameHeight / 5);
-		idLabel.setVisible(true);
-		// 设置了用户名标签
-		JLabel passwordLabel = new JLabel("密码");
-		Font passwordLabelFont = new Font("密码", Font.BOLD, 14);
-		passwordLabel.setFont(passwordLabelFont);
-		passwordLabel.setSize(frameWidth / 5, frameHeight / 11);
-		passwordLabel.setLocation(frameWidth / 7, frameHeight * 2 / 5);
-		passwordLabel.setVisible(true);
-		panel.setVisible(true);
-
-		// 设置了我的标签
-		panel.setLayout(null);
-		panel.add(idLabel);
-		panel.add(passwordLabel);
-
-		panel.add(loginButton);
-		panel.add(idField);
-		panel.add(passwordField);
-		// 向LoginFrame添加组件
-		this.add(panel);
-		this.repaint();
-		this.setResizable(false);// 不允许调整窗口大小
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 关闭时结束进程
-		this.setVisible(true);// 窗口可见
+		//获得与分辨率匹配的大小
+				Toolkit kit = Toolkit.getDefaultToolkit();
+				Dimension screenSize =kit.getScreenSize();
+				screenHeight=screenSize.height;
+				screenWidth=screenSize.width;
+				frameHeight=screenHeight*2/3;
+				frameWidth=screenWidth*2/9;
+				//设置窗口大小，位置
+				this.setSize(frameWidth,frameHeight);
+				this.setLocation((screenWidth-frameWidth)/2,(screenHeight-frameHeight)/2);
+				//窗口标题
+		        this.setTitle("欢迎使用进销存系统");
+		        //设置图标
+//		      Image image=kit.getImage("GUI/Login/icon.png");
+//		      this.setIconImage(image);
+		        
+		        
+		        //----------下面是覆盖整个窗口的MainPanel---------------------------------------------
+		        JPanel mainPanel=new JPanel(){
+				private static final long serialVersionUID = 1L;
+				//给panel加上图片
+				protected void paintComponent(Graphics g) {  
+		            ImageIcon icon = new ImageIcon("img/Login/background.jpg");  
+		            Image img = icon.getImage();  
+		            g.drawImage(img, 0, 0, icon.getIconWidth(), icon.getIconHeight(), icon.getImageObserver());  
+		        }
+		        };
+		        //设置mainPanel的大小和位置：同frame一样大小，覆盖整个frame
+		        mainPanel.setSize(frameWidth,frameHeight);
+		        mainPanel.setLocation(0,0);
+		        //------------在mainPanel上添加组件------------------------------------------------
+		        //设置用户名文本域
+		        idField=new JTextField();
+		        idField.setSize(frameWidth*64/100,frameHeight/16);
+		        idField.setLocation(frameWidth*28/100,frameHeight*55/100);
+		        idField.getDocument().addDocumentListener(new idFieldListener());
+		        idField.setVisible(true);
+		        //设置密码域
+		        passwordField=new JPasswordField();
+		        passwordField.setSize(frameWidth*64/100,frameHeight/16);
+		        passwordField.setLocation(frameWidth*28/100,frameHeight*65/100);
+		        passwordField.addKeyListener(new passwordFieldListener());
+		        passwordField.setVisible(true);
+		        //设置登录按钮
+		        JButton loginButton=new JButton("登 录");
+		        Font buttonFont=new Font("登 录", Font.PLAIN, 13);
+		        loginButton.setFont(buttonFont);
+		        loginButton.setSize(frameWidth/5,frameHeight/10);
+		        loginButton.setLocation(frameWidth*2/9,frameHeight*3/5);
+		        loginButton.addActionListener(new LoginListener());
+		        loginButton.setVisible(true);
+		        
+		       
+		        JLabel idLabel=new JLabel("用户名");
+		        Font idLabelFont=new Font("用户名", Font.BOLD, 14);
+		        idLabel.setFont(idLabelFont);
+		        idLabel.setSize(frameWidth/5,frameHeight/11);
+		        idLabel.setLocation(frameWidth/7,frameHeight/5);
+		        idLabel.setVisible(true);
+		        //设置了用户名标签
+		        JLabel passwordLabel=new JLabel("密码");
+		        Font passwordLabelFont=new Font("密码", Font.BOLD, 14);
+		        passwordLabel.setFont(passwordLabelFont);
+		        passwordLabel.setSize(frameWidth/5,frameHeight/11);
+		        passwordLabel.setLocation(frameWidth/7,frameHeight*2/5);
+		        passwordLabel.setVisible(true);
+		        mainPanel.setVisible(true);
+		   
+		        //设置了我的标签
+		        mainPanel.setLayout(null);
+		        mainPanel.add(idLabel);
+		        mainPanel.add(passwordLabel);
+		   
+		        mainPanel.add(loginButton);
+		        mainPanel.add(idField);
+		        mainPanel.add(passwordField);
+		        //向LoginFrame添加组件
+		        this.add(mainPanel);
+		        this.repaint();
+		        this.setResizable(false);//不允许调整窗口大小
+		        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//关闭时结束进程
+		        this.setVisible(true);//窗口可见
 	}
 
 	public static void main(String[] args) throws Exception {
