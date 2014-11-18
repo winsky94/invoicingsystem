@@ -1,4 +1,4 @@
-package Dataservice.receiptdataservice;
+package dataservice.receiptdataservice;
 
 public class receiptdataservice_stub {
 

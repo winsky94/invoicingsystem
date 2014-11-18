@@ -1,4 +1,4 @@
-package Dataservice.memberdataservice;
+package dataservice.memberdataservice;
 import java.rmi.Remote;
 
 import po.MemberPO;

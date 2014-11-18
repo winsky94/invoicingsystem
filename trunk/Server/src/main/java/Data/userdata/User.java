@@ -2,9 +2,10 @@
 package Data.userdata;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 import po.UserPO;
-import Dataservice.userdataservice.UserDataService;
+import dataservice.userdataservice.UserDataService;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -12,8 +13,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 //11-17 By jin  添加showAll 和Find 方法删除 login 判断留在bl层
-public class User implements UserDataService,Serializable{
+public class User extends UnicastRemoteObject implements UserDataService,Serializable{
 	
+	public User() throws RemoteException {
+		super();
+		// TODO 自动生成的构造函数存根
+	}
+
 	public String  Find(String ID)throws RemoteException{
 		return "123456";
 	}

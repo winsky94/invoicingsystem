@@ -1,4 +1,4 @@
-package Dataservice.financedataservice.listdataservice;
+package dataservice.financedataservice.listdataservice;
 
 import po.CashlistPO;
 import po.CollectionPO;

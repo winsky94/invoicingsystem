@@ -1,4 +1,4 @@
-package Dataservice.promotiondataservice;
+package dataservice.promotiondataservice;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

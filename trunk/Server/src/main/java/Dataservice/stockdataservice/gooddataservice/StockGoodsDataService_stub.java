@@ -1,4 +1,4 @@
-package Dataservice.stockdataservice.gooddataservice;
+package dataservice.stockdataservice.gooddataservice;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;

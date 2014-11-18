@@ -1,4 +1,4 @@
-package Dataservice.financedataservice.initdataservice;
+package dataservice.financedataservice.initdataservice;
 
 import po.BeginInfoPO;
 import java.rmi.Remote;
