@@ -106,11 +106,13 @@ public class LoginFrame extends JFrame {
 		        passwordLabel.setVisible(true);
 		        //设置头像区
 		        JPanel portraitPanel=new JPanel();
+		        
 		        mainPanel.setVisible(true);
 		        mainPanel.setLayout(null);
+		        //向mainPanel添加组件
 		        mainPanel.add(idLabel);
 		        mainPanel.add(passwordLabel);
-		   
+		        mainPanel.add(portraitPanel);
 		        mainPanel.add(loginButton);
 		        mainPanel.add(idField);
 		        mainPanel.add(passwordField);
