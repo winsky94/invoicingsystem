@@ -14,7 +14,7 @@ public class runServer {
 		 */
 		
 		try{
-			LocateRegistry.createRegistry(1099);
+			LocateRegistry.createRegistry(8080);
 			System.out.println("已启动服务器。。。");
 			User user=new User();
 			Naming.rebind("localService", user);
