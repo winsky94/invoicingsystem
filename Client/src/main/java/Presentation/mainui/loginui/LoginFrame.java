@@ -71,41 +71,42 @@ public class LoginFrame extends JFrame {
 		        //设置用户名文本域
 		        idField=new JTextField();
 		        idField.setSize(frameWidth*64/100,frameHeight/16);
-		        idField.setLocation(frameWidth*28/100,frameHeight*55/100);
+		        idField.setLocation(frameWidth*26/100,frameHeight*55/100);
 		        idField.getDocument().addDocumentListener(new idFieldListener());
 		        idField.setVisible(true);
 		        //设置密码域
 		        passwordField=new JPasswordField();
 		        passwordField.setSize(frameWidth*64/100,frameHeight/16);
-		        passwordField.setLocation(frameWidth*28/100,frameHeight*65/100);
+		        passwordField.setLocation(frameWidth*26/100,frameHeight*65/100);
 		        passwordField.addKeyListener(new passwordFieldListener());
 		        passwordField.setVisible(true);
 		        //设置登录按钮
-		        JButton loginButton=new JButton("登 录");
-		        Font buttonFont=new Font("登 录", Font.PLAIN, 13);
+		        //设想：改为圆形按钮
+		        JButton loginButton=new JButton("登录");
+		        Font buttonFont=new Font("登录", Font.PLAIN, 13);
 		        loginButton.setFont(buttonFont);
-		        loginButton.setSize(frameWidth/5,frameHeight/10);
-		        loginButton.setLocation(frameWidth*2/9,frameHeight*3/5);
+		        loginButton.setSize(frameWidth/5,frameHeight*6/100);
+		        loginButton.setLocation((frameWidth-frameWidth/5)/2,frameHeight*80/100);
 		        loginButton.addActionListener(new LoginListener());
 		        loginButton.setVisible(true);
 		        
-		       
+		        //设置用户名标签
 		        JLabel idLabel=new JLabel("用户名");
 		        Font idLabelFont=new Font("用户名", Font.BOLD, 14);
 		        idLabel.setFont(idLabelFont);
 		        idLabel.setSize(frameWidth/5,frameHeight/11);
-		        idLabel.setLocation(frameWidth/7,frameHeight/5);
+		        idLabel.setLocation(frameWidth*8/100,frameHeight*54/100);
 		        idLabel.setVisible(true);
-		        //设置了用户名标签
+		        //设置了密码标签
 		        JLabel passwordLabel=new JLabel("密码");
 		        Font passwordLabelFont=new Font("密码", Font.BOLD, 14);
 		        passwordLabel.setFont(passwordLabelFont);
 		        passwordLabel.setSize(frameWidth/5,frameHeight/11);
-		        passwordLabel.setLocation(frameWidth/7,frameHeight*2/5);
+		        passwordLabel.setLocation(frameWidth*8/100,frameHeight*64/100);
 		        passwordLabel.setVisible(true);
+		        //设置头像区
+		        JPanel portraitPanel=new JPanel();
 		        mainPanel.setVisible(true);
-		   
-		        //设置了我的标签
 		        mainPanel.setLayout(null);
 		        mainPanel.add(idLabel);
 		        mainPanel.add(passwordLabel);
