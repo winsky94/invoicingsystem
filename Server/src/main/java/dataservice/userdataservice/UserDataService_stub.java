@@ -30,8 +30,5 @@ public class UserDataService_stub implements UserDataService {
 		return null;
 	}
 
-	public String Find(String ID) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }
