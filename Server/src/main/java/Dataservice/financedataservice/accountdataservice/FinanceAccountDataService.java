@@ -1,4 +1,4 @@
-package Dataservice.financedataservice.accountdataservice;
+package dataservice.financedataservice.accountdataservice;
 
 import java.rmi.Remote;
 

@@ -1,4 +1,4 @@
-package Dataservice.memberdataservice;
+package dataservice.memberdataservice;
 
 import po.MemberPO;
 

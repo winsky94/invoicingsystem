@@ -1,4 +1,4 @@
-package Dataservice.financedataservice.BSLdataservice;
+package dataservice.financedataservice.BSLdataservice;
 
 import po.BSLPO;
 import java.rmi.Remote;

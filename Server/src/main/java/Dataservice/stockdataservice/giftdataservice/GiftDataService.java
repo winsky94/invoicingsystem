@@ -1,4 +1,4 @@
-package Dataservice.stockdataservice.giftdataservice;
+package dataservice.stockdataservice.giftdataservice;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

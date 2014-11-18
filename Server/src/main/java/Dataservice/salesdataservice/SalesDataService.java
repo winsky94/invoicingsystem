@@ -1,4 +1,4 @@
-package Dataservice.salesdataservice;
+package dataservice.salesdataservice;
 import java.rmi.Remote;
 
 import po.PurchasePO;

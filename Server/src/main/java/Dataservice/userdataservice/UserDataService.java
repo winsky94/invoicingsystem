@@ -1,4 +1,4 @@
-package Dataservice.userdataservice;
+package dataservice.userdataservice;
 
 import java.rmi.*;
 

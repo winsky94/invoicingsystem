@@ -1,4 +1,4 @@
-package Dataservice.salesdataservice;
+package dataservice.salesdataservice;
 
 import po.PurchasePO;
 import po.PurchaseReturnPO;
