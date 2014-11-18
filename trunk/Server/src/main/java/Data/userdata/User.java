@@ -5,20 +5,28 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import po.UserPO;
-import dataservice.userdataservice.UserDataService;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+
+import javax.rmi.PortableRemoteObject;
+
+import dataservice.userdataservice.UserDataService;
 //11-17 By jin  添加showAll 和Find 方法删除 login 判断留在bl层
 public class User extends UnicastRemoteObject implements UserDataService,Serializable{
 	
-	public User() throws RemoteException {
+	public  User() throws RemoteException {
 		super();
-		// TODO 自动生成的构造函数存根
+		// TODO Auto-generated constructor stub
 	}
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public String  Find(String ID)throws RemoteException{
 		return "123456";
