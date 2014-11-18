@@ -10,10 +10,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 //11-17 By jin  添加showAll 和Find 方法删除 login 判断留在bl层
-public class User implements UserDataService{
+public class User implements UserDataService,Serializable{
 	
-	public String  Find(String ID){
+	public String  Find(String ID)throws RemoteException{
 		return "123456";
 	}
 
