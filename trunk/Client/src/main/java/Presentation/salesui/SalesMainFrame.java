@@ -1,12 +1,9 @@
 package Presentation.salesui;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import Presentation.uihelper.UIhelper;
 
 /*进货销售人员主界面
  * by wn,2014.11.19
@@ -15,39 +12,26 @@ public class SalesMainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	JPanel leftPnl, rightPnl;
+	int screenWidth = UIhelper.getScreenWidth();
+	int screenHeight = UIhelper.getScreenHeight();
+	int frameWidth = screenWidth * 85 / 100;
+	int frameHeight = screenHeight * 85 / 100;
 
 	public SalesMainFrame() {
 		// ---------------界面实现区，功能实现请勿写在区域内-------------------------------------------
-		// 此处新建对象
-		Container contentPane = getContentPane();
-		// 定义布局管理器
-		GridBagLayout gbl_main = new GridBagLayout();
-		contentPane.setLayout(gbl_main);
-		GridBagConstraints gbc_main = new GridBagConstraints();
-		// 新建leftPanel
-		leftPnl.setBackground(Color.black);
-		gbc_main.fill = GridBagConstraints.BOTH;
-		gbc_main.gridx = 0;
-		gbc_main.gridy = 0;
-		gbc_main.weightx = 0.2;
-		gbc_main.weighty = 1;
-		gbl_main.setConstraints(leftPnl, gbc_main);
-		contentPane.add(leftPnl);
-		// 新建rightPanel
-		rightPnl = new JPanel();
-		rightPnl.setBackground(Color.blue);
-		gbc_main.gridx = 1;
-		gbc_main.gridy = 0;
-		gbc_main.weightx = 1;
-		gbc_main.weighty = 1;
-		gbl_main.setConstraints(rightPnl, gbc_main);
-		contentPane.add(rightPnl);
-		// 设置leftPanel
-
-		this.setSize(1100, 630);
-		this.setLocation(110, 60);
+		this.setBounds((screenWidth - frameWidth) / 2,
+				(screenHeight - frameHeight) / 2, frameWidth, frameHeight);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLayout(null);
+		//设置图标
+        this.setIconImage(UIhelper.getImage("img/icon.jpg"));
+        leftPnl=new SalesLeftPanel(frameWidth, frameHeight);
+        leftPnl.setLocation(0, 0);
+        this.add(leftPnl);
+        this.setResizable(false);
 		this.setVisible(true);
 	}
-
+	public static void main(String[] args){
+		SalesMainFrame smf=new SalesMainFrame();
+	}
 }
