@@ -1,6 +1,10 @@
 package businesslogic.userbl;
 
 import java.rmi.Naming;
+import java.rmi.RMISecurityManager;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 import dataservice.userdataservice.UserDataService;
@@ -15,22 +19,29 @@ public class User implements UserBLService{
 	private UserType type;
 	private UserDataService service;
 	public User() throws Exception{
-		String host="localhost:1099";
-		String url="rmi://"+host+"/localService";
+		//System.setSecurityManager(new RMISecurityManager());
+		Registry registry=LocateRegistry.getRegistry("localhost",1099);
+		//String host="localhost:1099";
+		//String url="rmi://"+host+"/localService";
 		//查找服务器端远程方法
-		service=(UserDataService)Naming.lookup(url);
+		service=(UserDataService)registry.lookup("localService");
 	}
 	
 	
 	
 	public int login(String ID, String password) {
-		String pass=service.Find(ID);
-		int result=0;//成功
-		if(pass==null)
-			return 2;//该用户不存在
-		else if(pass.equals(password))
-			return 1;//密码错误
-		return result;
+	   
+	
+			String pass = service.showUserInfo(ID).getPassword();
+			int result=0;//成功
+			if(pass==null)
+				return 2;//该用户不存在
+			else if(pass.equals(password))
+				return 1;//密码错误
+		
+		
+		
+		return 0;
 	}
 
 	public int addUser(UserVO vo)   {
@@ -51,11 +62,18 @@ public class User implements UserBLService{
 	}
 
 	public UserVO showUser(String UserID) {
+		UserVO vo = null;
 		
-		UserPO po=service.showUserInfo(UserID);
+	
+			UserPO po;
+			po = service.showUserInfo(UserID);
+			 vo=poToVO(po);
+			
+	
 		//password是否需要显示
-		UserVO vo=poToVO(po);
 		return vo;
+		
+		
 	}
 	
 	public ArrayList<UserVO> showAll(){
