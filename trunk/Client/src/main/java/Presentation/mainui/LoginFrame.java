@@ -172,14 +172,17 @@ public class LoginFrame extends JFrame {
 		// 11-17 By jin
 		public void actionPerformed(ActionEvent e) {
 			String ID = idField.getText();
-			String passWord = passwordField.getPassword().toString();
+			String passWord = new String(passwordField.getPassword());
+			
 			int result = service.login(ID, passWord);
 			System.out.println(ID);
 		
 			System.out.println(passwordField.getPassword());
 			switch (result) {
 			case 0:
-				System.out.println("成功登录");
+				System.out.println("成功登录");break;
+			default:
+				System.out.println("密码错误");
 			}
 
 		}
