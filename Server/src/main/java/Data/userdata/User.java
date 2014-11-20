@@ -71,14 +71,15 @@ public class User extends UnicastRemoteObject implements UserDataService{
 	}
 
 	public UserPO showUserInfo(String ID) throws RemoteException {
-		ArrayList<Object> a=file.read();
+		/*ArrayList<Object> a=file.read();
 		for(Object b:a){
 			UserPO c=(UserPO)b;
 			if(c.getID()==ID)
 				return c;
-		}
+		}*/
+		UserPO po=new UserPO("jfje","22","123456","rere");
 					
-		return null; //不存在该用户
+		return po; //不存在该用户
 	}
 	
 
