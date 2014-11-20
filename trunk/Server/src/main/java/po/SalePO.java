@@ -1,11 +1,12 @@
 package po;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import Data.receiptdata.ReceiptType;
 
 
-public class SalePO extends ReceiptPO {
+public class SalePO extends ReceiptPO implements Serializable{
 	String clerk;
 
 	double totalYuanChu, totalZheHou, totalKeHuYingFu;
