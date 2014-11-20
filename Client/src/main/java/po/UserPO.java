@@ -5,6 +5,10 @@ import java.io.Serializable;
 import businesslogic.userbl.UserType;
 
 public class UserPO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String ID;
 	private String password;
