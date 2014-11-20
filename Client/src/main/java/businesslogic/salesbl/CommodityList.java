@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class CommodityList {
 	private ArrayList<Commodity> list;
+	private double TotalValue;
 
 	public CommodityList() {
 		list = new ArrayList<Commodity>();

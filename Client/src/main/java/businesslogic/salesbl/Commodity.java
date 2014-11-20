@@ -4,7 +4,6 @@ package businesslogic.salesbl;
 
 public class Commodity {
 	String goodID,goodName,goodType;
-	int num;
 	double price;
 	double totalPrice;
 	String memo;
@@ -16,7 +15,7 @@ public class Commodity {
 		this.goodID = goodID;
 		this.goodName = goodName;
 		this.goodType = goodType;
-		this.num = num;
+		//this.num = num;
 		this.price = price;
 		this.totalPrice = totalPrice;
 		this.memo = memo;
@@ -46,13 +45,7 @@ public class Commodity {
 		this.goodType = goodType;
 	}
 
-	public int getNum() {
-		return num;
-	}
-
-	public void setNum(int num) {
-		this.num = num;
-	}
+	
 
 	public double getPrice() {
 		return price;
