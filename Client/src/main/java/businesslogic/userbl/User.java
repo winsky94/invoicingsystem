@@ -37,7 +37,7 @@ public class User implements UserBLService{
 			int result=0;//成功
 			if(pass==null)
 				return 2;//该用户不存在
-			else if(pass.equals(password))
+			else if(!pass.equals(password))
 				return 1;//密码错误
 		
 		
