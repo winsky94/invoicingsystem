@@ -175,7 +175,7 @@ public class LoginFrame extends JFrame {
 			String passWord = passwordField.getPassword().toString();
 			int result = service.login(ID, passWord);
 			System.out.println(ID);
-			System.out.println(passWord);
+		
 			System.out.println(passwordField.getPassword());
 			switch (result) {
 			case 0:
