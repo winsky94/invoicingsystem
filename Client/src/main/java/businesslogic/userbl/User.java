@@ -20,17 +20,18 @@ public class User implements UserBLService{
 	private UserDataService service;
 	public User() throws Exception{
 		//System.setSecurityManager(new RMISecurityManager());
-		Registry registry=LocateRegistry.getRegistry("localhost",1099);
-		//String host="localhost:1099";
-		//String url="rmi://"+host+"/localService";
+		//Registry registry=LocateRegistry.getRegistry("localhost",1099);
+		String host="localhost:1099";
+		String url="rmi://"+host+"/localService";
 		//查找服务器端远程方法
-		service=(UserDataService)registry.lookup("localService");
+		service=(UserDataService)Naming.lookup(url);
 	}
 	
 	
 	
 	public int login(String ID, String password) {
 	   
+		
 	
 			String pass = service.showUserInfo(ID).getPassword();
 			int result=0;//成功
