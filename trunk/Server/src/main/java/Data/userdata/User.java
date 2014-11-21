@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import po.UserPO;
 import dataservice.userdataservice.UserDataService;
-
 import Data.serutility.JXCFile;
 //11-17 By jin  添加showAll 和Find 方法删除 login 判断留在bl层
 public class User extends UnicastRemoteObject implements UserDataService{
@@ -17,6 +16,10 @@ public class User extends UnicastRemoteObject implements UserDataService{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	
 	JXCFile file;
 	public User() throws RemoteException {
 		super();
@@ -84,3 +87,4 @@ public class User extends UnicastRemoteObject implements UserDataService{
 	
 
 }
+
