@@ -77,7 +77,7 @@ public class User extends UnicastRemoteObject implements UserDataService{
 			if(c.getID()==ID)
 				return c;
 		}*/
-		UserPO po=new UserPO("jfje","22","123456","rere");
+		UserPO po=new UserPO("jfje","22","123456",UserJob.SALE,0);
 					
 		return po; //不存在该用户
 	}
