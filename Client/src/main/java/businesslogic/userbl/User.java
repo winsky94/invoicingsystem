@@ -16,7 +16,7 @@ public class User implements UserBLService{
 	private String name;
 	private String ID;
 	private String password;
-	private UserType type;
+	private UserJob job;
 	private UserDataService service;
 	public User() throws Exception{
 		//System.setSecurityManager(new RMISecurityManager());
@@ -89,7 +89,7 @@ public class User implements UserBLService{
 	
 	private UserPO voToPO(UserVO vo){
 		UserPO po=new UserPO(vo.getID(),vo.getName(),vo.getPassword(),
-				vo.getJob());
+				vo.getJob(),vo.getGrades());
 		return po;
 		
 	}
@@ -97,7 +97,7 @@ public class User implements UserBLService{
 	
 	private UserVO poToVO(UserPO po){
 		UserVO vo=new UserVO(po.getID(),po.getName(),po.getPassword(),
-				po.getJob());
+				po.getJob(),po.getGrades());
 		return vo;
 	}
 	
@@ -113,8 +113,8 @@ public class User implements UserBLService{
 		return password;
 	}
 	
-	public UserType getType(){
-		return type;
+	public UserJob getJob(){
+		return job;
 	}
 	
 }
