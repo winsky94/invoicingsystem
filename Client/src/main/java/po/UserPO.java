@@ -2,7 +2,7 @@ package po;
 
 import java.io.Serializable;
 
-import businesslogic.userbl.UserType;
+import businesslogic.userbl.UserJob;
 
 public class UserPO implements Serializable {
 	/**
@@ -12,13 +12,15 @@ public class UserPO implements Serializable {
 	private String name;
 	private String ID;
 	private String password;
-	private UserType type;
+	private UserJob job;
+	private double grades;//业绩点
 
-	public UserPO(String name, String iD, String password, UserType type) {
+	public UserPO(String name, String ID, String password, UserJob job,double grades) {
 		this.name = name;
-		ID = iD;
+		this.ID = ID;
 		this.password = password;
-		this.type=type;
+		this.job=job;
+		this.grades=grades;
 	}
 
 	public String getName() {
@@ -45,12 +47,16 @@ public class UserPO implements Serializable {
 		this.password = password;
 	}*/
 
-	public UserType getJob() {
-		return type;
+	public UserJob getJob() {
+		return job;
 	}
 
 	/*public void setJob(UserType type) {
 		this.type = type;
 	}*/
+	
+	public double getGrades(){
+		return grades;
+	}
 
 }

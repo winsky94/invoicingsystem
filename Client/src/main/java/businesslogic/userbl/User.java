@@ -19,11 +19,10 @@ public class User implements UserBLService{
 	private UserJob job;
 	private UserDataService service;
 	public User() throws Exception{
-		//System.setSecurityManager(new RMISecurityManager());
-		//Registry registry=LocateRegistry.getRegistry("localhost",1099);
+		System.setSecurityManager(new SecurityManager());
 		String host="localhost:1099";
-		String url="rmi://"+host+"/localService";
-		//查找服务器端远程方法
+		String url="rmi://"+host+"/userService";
+	
 		service=(UserDataService)Naming.lookup(url);
 	}
 	
