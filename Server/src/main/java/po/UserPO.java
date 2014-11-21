@@ -2,21 +2,27 @@ package po;
 
 import java.io.Serializable;
 
+import Data.userdata.UserJob;
+
+
 public class UserPO implements Serializable {
 	/**
 	 * 
 	 */
+	 
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String ID;
 	private String password;
-	private String job;
+	private UserJob  job;
+	private double grades;//业绩点
 
-	public UserPO(String name, String iD, String password, String job) {
+	public UserPO(String name, String iD, String password,UserJob job,double grades) {
 		this.name = name;
 		ID = iD;
 		this.password = password;
 		this.job = job;
+		this.grades=grades;
 	}
 
 	public String getName() {
@@ -40,12 +46,16 @@ public class UserPO implements Serializable {
 		this.password = password;
 	}
 
-	public String getJob() {
+	public UserJob getJob() {
 		return job;
 	}
 
-	public void setJob(String job) {
+	public void setJob(UserJob job) {
 		this.job = job;
+	}
+	
+	public double getGrades(){
+		return grades;
 	}
 
 }
