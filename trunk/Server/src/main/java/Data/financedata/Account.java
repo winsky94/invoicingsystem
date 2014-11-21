@@ -10,7 +10,7 @@ import po.AccountPO;
 
 public class Account implements FinanceAccountDataService{
 
-	
+	//这是要干嘛？？？？
 	public static void main(String[] args) {
 		Account a=new Account();
 		AccountPO b=new AccountPO("张三");
@@ -33,6 +33,7 @@ public class Account implements FinanceAccountDataService{
 	    }
 	    
 	    AccountPO b;
+	    //为什么要输出？为了测试吗 By jin
 	    try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("account.ser"));
             b = (AccountPO) ois.readObject();
