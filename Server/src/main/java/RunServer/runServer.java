@@ -1,7 +1,10 @@
 package RunServer;
 
 import java.rmi.Naming;
+import java.rmi.RMISecurityManager;
 import java.rmi.registry.LocateRegistry;
+
+import Data.memberdata.Member;
 import Data.userdata.User;
 
 
@@ -11,7 +14,7 @@ public class runServer {
 		/**
 		 * �?��加安全机�?
 		 */
-		
+		System.setSecurityManager(new SecurityManager());
 
 		try {
 
@@ -22,9 +25,13 @@ public class runServer {
 
 			System.out.println("已启动服务器");
 			User user = new User();
+			Member member=new Member();
 
+			Naming.bind("memberService",member);
+			Naming.bind("userService", user);	
+		
 			
-			Naming.rebind("localService", user);			
+			
 			
 
 		} catch (Exception e) {
