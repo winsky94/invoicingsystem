@@ -3,9 +3,9 @@ package businesslogic.salesbl;
 
 
 public class Commodity {
-	String goodID,goodName,goodType;
+	String  goodID,goodName,goodType;
 	double price;
-	double totalPrice;
+	
 	String memo;
 	public Commodity(){
 		
