@@ -35,12 +35,12 @@ public class LoginFrame extends JFrame {
 	int screenHeight, screenWidth, frameHeight, frameWidth;
 
 	public LoginFrame() throws Exception {
-		service = new User();// 声明一下 yan 11-18
+		//service = new User();// 声明一下 yan 11-18
 		// 获得与分辨率匹配的大小
 		screenHeight=UIhelper.getScreenHeight();
 		screenWidth=UIhelper.getScreenWidth();
-		frameHeight = screenHeight * 2 / 3;
-		frameWidth = screenWidth * 2 / 9;
+		frameHeight = 480;
+		frameWidth = 300;
 		// 设置窗口大小，位置
 		this.setSize(frameWidth, frameHeight);
 		this.setLocation((screenWidth - frameWidth) / 2,
