@@ -1,42 +1,28 @@
 package vo;
 
+import businesslogic.memberbl.MemAccountInfo;
+import businesslogic.memberbl.MemBaseInfo;
+import businesslogic.memberbl.MemContactInfo;
 import businesslogic.memberbl.MemberLevel;
 import businesslogic.memberbl.MemberType;
 
 public class MemberVO {
-	String memberID;
-	MemberType mType;
-	MemberLevel mLevel;
-	String name, tel, address, postcode, EMail, defaultClerk;
-	double MaxOwe;
-	double toReceive, toPay;
-	int points;
+	 MemBaseInfo bInfo;
+	 MemAccountInfo aInfo;
+	 private MemContactInfo cInfo;
 
-	public MemberVO(String memberID, MemberType mType, MemberLevel mLevel,
-			String name, String tel, String address, String postcode,
-			String EMail, String defaultClerk, double MaxOwe, double toReceive,
-			double toPay) {
-		this.memberID=memberID;
-		this.mType=mType;
-		this.mLevel=mLevel;
-		this.name=name;
-		this.tel=tel;
-		this.address=address;
-		this.postcode=postcode;
-		this.EMail=EMail;
-		this.defaultClerk=defaultClerk;
-		this.MaxOwe=MaxOwe;
-		this.toReceive=toReceive;
-		this.toPay=toPay;
-		this.points=0;
+	public MemberVO(MemBaseInfo bInfo,MemAccountInfo aInfo,MemContactInfo cInfo) {
+		this.bInfo=bInfo;
+		this.aInfo=aInfo;
+		this.cInfo=cInfo;	
 	}
 
 	public String getMemberID() {
-		return memberID;
+		return bInfo.memberID;
 	}
 
 	public MemberType getmType() {
-		return mType;
+		return bInfo.mType;
 	}
 
 	public MemberLevel getmLevel() {

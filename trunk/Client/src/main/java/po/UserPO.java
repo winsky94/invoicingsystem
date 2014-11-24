@@ -2,7 +2,7 @@ package po;
 
 import java.io.Serializable;
 
-import businesslogic.userbl.UserJob;
+
 
 public class UserPO implements Serializable {
 	/**
@@ -57,6 +57,10 @@ public class UserPO implements Serializable {
 	
 	public double getGrades(){
 		return grades;
+	}
+	public enum UserJob implements Serializable{
+		MANAGER,FINANCE,FINANCEMANGER,SALE,STOCK,ADMINSTRATOR
+
 	}
 
 }

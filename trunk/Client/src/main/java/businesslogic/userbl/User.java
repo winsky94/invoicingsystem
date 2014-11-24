@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import dataservice.userdataservice.UserDataService;
 import po.UserPO;
+import po.UserPO.UserJob;
 import vo.UserVO;
 import businesslogicservice.userblservice.UserBLService;
 //11-17  By jin 0 warning 哈
@@ -88,7 +89,7 @@ public class User implements UserBLService{
 	
 	private UserPO voToPO(UserVO vo){
 		UserPO po=new UserPO(vo.getID(),vo.getName(),vo.getPassword(),
-				vo.getJob(),vo.getGrades());
+				(UserJob)vo.getJob(),vo.getGrades());
 		return po;
 		
 	}

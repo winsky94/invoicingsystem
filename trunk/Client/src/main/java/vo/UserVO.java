@@ -1,6 +1,6 @@
 package vo;
 
-import businesslogic.userbl.UserJob;
+import po.UserPO.UserJob;
 
 public class UserVO {
 	private String name;

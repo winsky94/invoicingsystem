@@ -1,10 +1,10 @@
 package businesslogic.memberbl;
 
 public class MemBaseInfo {
-	 MemberType mType; 
-	 MemberLevel mLevel;
-	 String memberID,name;
-	 double points;
+	 public MemberType mType; 
+	 public MemberLevel mLevel;
+	 public String memberID,name;
+	 public double points;
 	public MemBaseInfo(MemberType mType, MemberLevel mLevel, String memberID,
 			String name, double points) {
 		
