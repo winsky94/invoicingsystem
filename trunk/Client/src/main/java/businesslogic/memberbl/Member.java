@@ -69,9 +69,18 @@ public class Member implements MemberBLService{
 	}
 	
 	public MemberPO voToPo(MemberVO vo){
-		
+		MemberPO po=new MemberPO(vo.getMemberID(),vo.getmType(),vo.getmLevel(),vo.getName(),
+				vo.getTel(),vo.getAddress(),vo.getPostcode(),vo.getEMail(),vo.getDefaultClerk()
+				,vo.getMaxOwe(),vo.getToReceive(),vo.getToPay());
+		po.setPoints(vo.getPoints());
+		return po;
 	}
 	public MemberVO poToVo(MemberPO po){
+	   bInfo=new MemBaseInfo(po.getmType(),po.getmLevel(),po.getMemberID(),po.getName(),po.getPoints());
+	   aInfo=new MemAccountInfo(po.getMaxOwe(),po.getToReceive(),po.getToPay());
+	   cInfo=new MemContactInfo(po.getTel(),po.getAddress(),po.getPostcode(),po.getEMail());
+	   MemberVO vo=new MemberVO(bInfo,aInfo,cInfo);
+	   return vo;
 		
 	}
 

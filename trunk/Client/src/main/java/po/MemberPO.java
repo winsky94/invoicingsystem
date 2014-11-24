@@ -1,7 +1,6 @@
 package po;
 
-import businesslogic.memberbl.MemberLevel;
-import businesslogic.memberbl.MemberType;
+
 
 public class MemberPO {
 	String memberID;
@@ -10,7 +9,7 @@ public class MemberPO {
 	String name, tel, address, postcode, EMail, defaultClerk;
 	double MaxOwe;
 	double toReceive, toPay;
-	int points;
+	double points;
 
 	public MemberPO(String memberID, MemberType mType, MemberLevel mLevel,
 			String name, String tel, String address, String postcode,
@@ -58,6 +57,10 @@ public class MemberPO {
 	public String getPostcode() {
 		return postcode;
 	}
+	
+	public void setPoints(double point){
+		this.points=point;
+	}
 
 	public String getEMail() {
 		return EMail;
@@ -81,4 +84,11 @@ public class MemberPO {
 	public double getPoints() {
 		return points;
 	}
+	public enum MemberLevel {
+		ONE,TWO,THREE,FOUR,FIVE;
+	}
+	public enum MemberType {
+		JHS,XSS
+	}
+
 }

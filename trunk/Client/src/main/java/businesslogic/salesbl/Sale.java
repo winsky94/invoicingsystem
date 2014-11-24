@@ -3,9 +3,7 @@ package businesslogic.salesbl;
 import java.util.ArrayList;
 import java.util.Date;
 
-import businesslogic.memberbl.MemberLevel;
-import businesslogic.memberbl.MemberType;
-import businesslogic.memberbl.MockMember;
+
 import businesslogic.promotionbl.MockCoupon;
 import businesslogic.promotionbl.MockPromotion;
 import businesslogic.promotionbl.coupon;
@@ -81,13 +79,13 @@ public class Sale extends Receipt {
 	}
 
 	public void getPrivilege() {
-		MockMember member = new MockMember("140001", MemberType.XSS,
+		Member member = new Member("140001", MemberType.XSS,
 				MemberLevel.THREE, "金金灯堂", 6000000);
 		member = member.find(this.getMemberID());
 		this.totalValue *= member.getDiscount();
 	}
 
-	public void excute(MockMember member) {
+	public void excute(Member member) {
 		member.updatePoint(this.totalValue);
 		member.updateToReceive(this.totalValue);
 		for (int i = 0; i < goodsList.size(); i++) {
