@@ -19,9 +19,8 @@ public class UserInfoPanel extends JPanel{
 	 * 下面的构造器应当有参数来获取User信息
 	 */
 	public UserInfoPanel(){
-		this.setBounds(0,0,500,500);
 		this.setBackground(Color.black);
-		//this.setOpaque(false);
+		this.setOpaque(false);
 		this.addMouseListener(new UserInfoPnlMouseListener());
 		this.setVisible(true);
 	}
