@@ -7,6 +7,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import po.UserPO;
+import po.UserPO.UserJob;
 import dataservice.userdataservice.UserDataService;
 import Data.serutility.JXCFile;
 //11-17 By jin  添加showAll 和Find 方法删除 login 判断留在bl层
