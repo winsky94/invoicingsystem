@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import Presentation.salesui.managerPanel.MemberMgrPanel;
 import Presentation.salesui.managerPanel.PurchaseMgrPanel;
 import Presentation.salesui.managerPanel.SaleMgrPanel;
+import Presentation.uihelper.AboutPanel;
 import Presentation.uihelper.UIhelper;
 
 /*进货销售人员主界面
@@ -46,6 +47,8 @@ public class SalesMainFrame extends JFrame {
 		purchaseMgrPnl.setVisible(false);
 		saleMgrPnl = new SaleMgrPanel();
 		saleMgrPnl.setVisible(false);
+		aboutPnl= new AboutPanel();
+		aboutPnl.setVisible(false);
 		rightPnl = new JPanel() {
 			/**
 			 * 
@@ -60,7 +63,7 @@ public class SalesMainFrame extends JFrame {
 			}
 		};
 		// 左侧菜单Panel
-		leftPnl = new SalesLeftPanel(memberMgrPnl, purchaseMgrPnl, saleMgrPnl,rightPnl);
+		leftPnl = new SalesLeftPanel(memberMgrPnl, purchaseMgrPnl, saleMgrPnl,aboutPnl,rightPnl);
 		c.gridx = 0; // x grid position
 		c.gridy = 0; // y grid position
 		c.weightx = 0.05;
@@ -80,6 +83,8 @@ public class SalesMainFrame extends JFrame {
 		this.add(purchaseMgrPnl);
 		gbl.setConstraints(saleMgrPnl, c);
 		this.add(saleMgrPnl);
+		gbl.setConstraints(aboutPnl, c);
+		this.add(aboutPnl);
 		// 设置图标和可见性
 		this.setIconImage(UIhelper.getImage("img/icon.png"));
 		this.setTitle("进销存系统");
