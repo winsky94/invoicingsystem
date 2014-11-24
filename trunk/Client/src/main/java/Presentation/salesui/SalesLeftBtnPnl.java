@@ -17,10 +17,11 @@ public class SalesLeftBtnPnl extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JButton purchaseBtn, saleBtn, memberBtn;
-	JPanel memberMgrPnl, purchaseMgrPnl, saleMgrPnl,rightPnl;
+	JButton purchaseBtn, saleBtn, memberBtn,aboutBtn;
+	JPanel memberMgrPnl, purchaseMgrPnl, saleMgrPnl, aboutPnl,rightPnl;
 
-	public SalesLeftBtnPnl(JPanel memberMgrPnl,JPanel purchaseMgrPnl,JPanel saleMgrPnl,JPanel rightPnl) {
+	public SalesLeftBtnPnl(JPanel memberMgrPnl, JPanel purchaseMgrPnl,
+			JPanel saleMgrPnl, JPanel aboutPnl, JPanel rightPnl) {
 		this.setLayout(new GridLayout(10, 1));
 		// 客户管理按钮
 		memberBtn = new JButton("客户管理",
@@ -57,12 +58,24 @@ public class SalesLeftBtnPnl extends JPanel {
 		saleBtn.setFocusPainted(false);
 		saleBtn.addActionListener(new SaleBtnListener());
 		this.add(saleBtn);
+		// 关于按钮
+		aboutBtn = new JButton("关于系统", new ImageIcon("img/sales/memberMgr.png"));
+		aboutBtn.setFont(new Font("楷体", Font.PLAIN, 19));
+		// aboutBtn.setBorder(BorderFactory.createRaisedBevelBorder());
+		aboutBtn.setForeground(Color.white);
+		// saleBtn.setBorderPainted(false);
+		aboutBtn.setBackground(new Color(47, 73, 136));
+		aboutBtn.setHorizontalAlignment(SwingConstants.LEFT);
+		aboutBtn.setFocusPainted(false);
+		aboutBtn.addActionListener(new AboutBtnListener());
+		this.add(aboutBtn);
 		//
 		this.setBackground(new Color(47, 73, 136));
 		this.memberMgrPnl = memberMgrPnl;
 		this.purchaseMgrPnl = purchaseMgrPnl;
 		this.saleMgrPnl = saleMgrPnl;
-		this.rightPnl=rightPnl;
+		this.aboutPnl=aboutPnl;
+		this.rightPnl = rightPnl;
 	}
 
 	// -------------------监听----------------------------------------------
@@ -73,6 +86,7 @@ public class SalesLeftBtnPnl extends JPanel {
 			memberMgrPnl.setVisible(true);
 			purchaseMgrPnl.setVisible(false);
 			saleMgrPnl.setVisible(false);
+			aboutPnl.setVisible(false);
 			rightPnl.setVisible(false);
 		}
 
@@ -85,6 +99,7 @@ public class SalesLeftBtnPnl extends JPanel {
 			memberMgrPnl.setVisible(false);
 			purchaseMgrPnl.setVisible(true);
 			saleMgrPnl.setVisible(false);
+			aboutPnl.setVisible(false);
 			rightPnl.setVisible(false);
 		}
 
@@ -97,8 +112,21 @@ public class SalesLeftBtnPnl extends JPanel {
 			memberMgrPnl.setVisible(false);
 			purchaseMgrPnl.setVisible(false);
 			saleMgrPnl.setVisible(true);
+			aboutPnl.setVisible(false);
 			rightPnl.setVisible(false);
 		}
 
+	}
+	class AboutBtnListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			memberMgrPnl.setVisible(false);
+			purchaseMgrPnl.setVisible(false);
+			saleMgrPnl.setVisible(false);
+			aboutPnl.setVisible(true);
+			rightPnl.setVisible(false);
+		}
+		
 	}
 }

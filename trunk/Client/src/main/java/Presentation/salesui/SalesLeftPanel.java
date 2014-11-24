@@ -18,7 +18,7 @@ public class SalesLeftPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JPanel userInfoPnl,menuPnl;
 
-	public SalesLeftPanel(JPanel memberMgrPnl,JPanel purchaseMgrPnl,JPanel saleMgrPnl,JPanel rightPnl) {
+	public SalesLeftPanel(JPanel memberMgrPnl,JPanel purchaseMgrPnl,JPanel saleMgrPnl,JPanel aboutPnl,JPanel rightPnl) {
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
 		GridBagConstraints c = new GridBagConstraints();
@@ -35,7 +35,7 @@ public class SalesLeftPanel extends JPanel {
 		gbl.setConstraints(userInfoPnl, c);
 		this.add(userInfoPnl);
 		//
-		menuPnl=new SalesLeftBtnPnl(memberMgrPnl, purchaseMgrPnl, saleMgrPnl,rightPnl);
+		menuPnl=new SalesLeftBtnPnl(memberMgrPnl, purchaseMgrPnl, saleMgrPnl,aboutPnl,rightPnl);
 		c.gridx = 0;
 		c.gridy = 1;
 		c.weightx = 1;
