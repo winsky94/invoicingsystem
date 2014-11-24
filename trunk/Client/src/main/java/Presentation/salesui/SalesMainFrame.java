@@ -5,11 +5,16 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Presentation.salesui.managerPanel.MemberMgrPanel;
+import Presentation.salesui.managerPanel.PurchaseMgrPanel;
+import Presentation.salesui.managerPanel.SaleMgrPanel;
 import Presentation.uihelper.UIhelper;
 
 /*进货销售人员主界面
@@ -19,6 +24,7 @@ public class SalesMainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	JPanel leftPnl, rightPnl;
+	JPanel memberMgrPnl, purchaseMgrPnl, saleMgrPnl;
 	int screenWidth = UIhelper.getScreenWidth();
 	int screenHeight = UIhelper.getScreenHeight();
 	int frameWidth = screenWidth * 85 / 100;
@@ -33,40 +39,53 @@ public class SalesMainFrame extends JFrame {
 		this.setLayout(gbl);
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
-		//左侧菜单Panel
-		leftPnl = new SalesLeftPanel(frameWidth, frameHeight);
-		c.gridx = 0; // x grid position
-		c.gridy = 0; // y grid position
-		c.weightx=0.05;
-		c.weighty=1;
-		gbl.setConstraints(leftPnl, c);
-		this.add(leftPnl);
-		//右侧欢迎Panel
-		rightPnl=new JPanel(){
+		//
+		memberMgrPnl = new MemberMgrPanel();
+		memberMgrPnl.setVisible(false);
+		purchaseMgrPnl = new PurchaseMgrPanel();
+		purchaseMgrPnl.setVisible(false);
+		saleMgrPnl = new SaleMgrPanel();
+		saleMgrPnl.setVisible(false);
+		rightPnl = new JPanel() {
 			/**
 			 * 
 			 */
-	private static final long serialVersionUID = 1L;
+			private static final long serialVersionUID = 1L;
 
-	protected void paintComponent(Graphics g) {
-		ImageIcon icon = new ImageIcon("img/sales/welcome.jpg");
-		Image img = icon.getImage();
-		g.drawImage(img, 0, 0, icon.getIconWidth(),
-				icon.getIconHeight(), icon.getImageObserver());
-	}
+			protected void paintComponent(Graphics g) {
+				ImageIcon icon = new ImageIcon("img/sales/welcome.jpg");
+				Image img = icon.getImage();
+				g.drawImage(img, 0, 0, icon.getIconWidth(),
+						icon.getIconHeight(), icon.getImageObserver());
+			}
 		};
-		c.gridx=1;
-		c.gridy=0;
-		c.weightx=0.82;
-		c.weighty=1;
+		// 左侧菜单Panel
+		leftPnl = new SalesLeftPanel(memberMgrPnl, purchaseMgrPnl, saleMgrPnl,rightPnl);
+		c.gridx = 0; // x grid position
+		c.gridy = 0; // y grid position
+		c.weightx = 0.05;
+		c.weighty = 1;
+		gbl.setConstraints(leftPnl, c);
+		this.add(leftPnl);
+		// 右侧欢迎Panel
+		c.gridx = 1;
+		c.gridy = 0;
+		c.weightx = 0.95;
+		c.weighty = 1;
 		gbl.setConstraints(rightPnl, c);
-		rightPnl.setBackground(Color.black);
 		this.add(rightPnl);
+		gbl.setConstraints(memberMgrPnl, c);
+		this.add(memberMgrPnl);
+		gbl.setConstraints(purchaseMgrPnl, c);
+		this.add(purchaseMgrPnl);
+		gbl.setConstraints(saleMgrPnl, c);
+		this.add(saleMgrPnl);
 		// 设置图标和可见性
-		this.setIconImage(UIhelper.getImage("img/icon.png"));	
+		this.setIconImage(UIhelper.getImage("img/icon.png"));
+		this.setTitle("进销存系统");
 		this.setVisible(true);
 	}
-
+	
 	public static void main(String[] args) {
 		SalesMainFrame smf = new SalesMainFrame();
 	}
