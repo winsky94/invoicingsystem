@@ -1,10 +1,11 @@
 package vo;
 
+import po.MemberPO.MemberLevel;
+import po.MemberPO.MemberType;
 import businesslogic.memberbl.MemAccountInfo;
 import businesslogic.memberbl.MemBaseInfo;
 import businesslogic.memberbl.MemContactInfo;
-import businesslogic.memberbl.MemberLevel;
-import businesslogic.memberbl.MemberType;
+
 
 public class MemberVO {
 	 MemBaseInfo bInfo;
@@ -26,46 +27,46 @@ public class MemberVO {
 	}
 
 	public MemberLevel getmLevel() {
-		return mLevel;
+		return bInfo.mLevel;
 	}
 
 	public String getName() {
-		return name;
+		return bInfo.name;
 	}
 
 	public String getTel() {
-		return tel;
+		return cInfo.getTel();
 	}
 
 	public String getAddress() {
-		return address;
+		return cInfo.getAddress();
 	}
 
 	public String getPostcode() {
-		return postcode;
+		return cInfo.getPostcode();
 	}
 
 	public String getEMail() {
-		return EMail;
+		return cInfo.getEMail();
 	}
 
 	public String getDefaultClerk() {
-		return defaultClerk;
+		return bInfo.defaultClerk;
 	}
 
 	public double getMaxOwe() {
-		return MaxOwe;
+		return aInfo.getMaxOwe();
 	}
 
 	public double getToReceive() {
-		return toReceive;
+		return aInfo.getToReceive();
 	}
 
 	public double getToPay() {
-		return toPay;
+		return aInfo.getToPay();
 	}
 	public double getPoints() {
-		return points;
+		return bInfo.points;
 	}
 }
 

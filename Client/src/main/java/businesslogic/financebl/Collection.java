@@ -6,7 +6,7 @@ import java.util.Date;
 import vo.AccountVO;
 import vo.CollectionVO;
 import businesslogic.memberbl.Member;
-import businesslogic.memberbl.MockMember;
+
 import businesslogic.receiptbl.Receipt;
 import businesslogic.receiptbl.ReceiptType;
 
@@ -14,8 +14,8 @@ import businesslogic.receiptbl.ReceiptType;
 public class Collection extends Receipt {
 
 	 String ID;
-     MockMember supplier;
-     MockMember seller;
+      Member supplier;
+      Member seller;
      String user;
      ArrayList<TransferItem> transferlist=new ArrayList<TransferItem>();
      double totalMoney;
@@ -53,7 +53,7 @@ public class Collection extends Receipt {
 	    System.out.println("Create collection success!");
 		return 0;
 	}
-    public void excute(MockMember mb,MockAccount account){
+    public void excute(Member mb,MockAccount account){
     	MockCollection collect=(MockCollection)this;
     	double money=-collect.getMoneyByOrder(0);
     	mb.updateToReceive(money);

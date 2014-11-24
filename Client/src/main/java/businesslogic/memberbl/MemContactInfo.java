@@ -1,15 +1,19 @@
 package businesslogic.memberbl;
 
 public class MemContactInfo {
-	private String tel,address,postcode,EMail,defaultClerk;
+	private String tel;
+	private String address;
+	private String postcode;
+	private String EMail;
+	
 
 	public MemContactInfo(String tel, String address, String postcode,
-			String eMail, String defaultClerk) {
+			String eMail) {
 		this.tel = tel;
 		this.address = address;
 		this.postcode = postcode;
 		EMail = eMail;
-		this.defaultClerk = defaultClerk;
+		
 	}
 
 	public String getTel() {
@@ -28,9 +32,7 @@ public class MemContactInfo {
 		return EMail;
 	}
 
-	public String getDefaultClerk() {
-		return defaultClerk;
-	}
+
 
 	public void setTel(String tel) {
 		this.tel = tel;
@@ -48,9 +50,7 @@ public class MemContactInfo {
 		EMail = eMail;
 	}
 
-	public void setDefaultClerk(String defaultClerk) {
-		this.defaultClerk = defaultClerk;
-	}
+	
 	
 	
 	

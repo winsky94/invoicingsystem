@@ -1,12 +1,11 @@
 package businesslogic.salesbl;
 
 
-
+//交易客户显示在那里，一笔单据对应一个客户！
 public class Commodity {
 	String  goodID,goodName,goodType;
 	double price;
-	
-	String memo;
+	String memo;//备注？？
 	public Commodity(){
 		
 	}
@@ -15,9 +14,7 @@ public class Commodity {
 		this.goodID = goodID;
 		this.goodName = goodName;
 		this.goodType = goodType;
-		//this.num = num;
 		this.price = price;
-		this.totalPrice = totalPrice;
 		this.memo = memo;
 	}
 
@@ -55,13 +52,7 @@ public class Commodity {
 		this.price = price;
 	}
 
-	public double getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
+	
 
 	public String getMemo() {
 		return memo;

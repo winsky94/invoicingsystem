@@ -4,8 +4,11 @@ package businesslogic.promotionbl;
 import java.util.ArrayList;
 import java.util.Date;
 
-import businesslogic.memberbl.MemberLevel;
-import businesslogic.memberbl.MemberType;
+
+
+
+import po.MemberPO.MemberLevel;
+import po.MemberPO.MemberType;
 import businesslogic.stockbl.Goods;
 import businesslogic.stockbl.MockGoods;
 
