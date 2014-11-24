@@ -12,7 +12,7 @@ import Data.userdata.User;
 public class runServer {
 	public static void main(String[] args) {
 		/**
-		 * �?��加安全机�?
+		 * 加载安全机制
 		 */
 		System.setSecurityManager(new SecurityManager());
 
