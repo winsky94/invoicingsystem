@@ -27,7 +27,7 @@ public class LoginFrame extends JFrame {
 	/**
 	 * 
 	 */
-	private UserBLService service;
+	//private UserBLService service;
 	private static final long serialVersionUID = 1L;
 	String id, key;
 	JTextField idField;
@@ -170,10 +170,17 @@ public class LoginFrame extends JFrame {
 	// 下面的类是按钮的事件监听器
 	class LoginListener implements ActionListener {
 		// 11-17 By jin
+		
 		public void actionPerformed(ActionEvent e) {
+		    UserBLService service;
+			try {
+				service = new User();
+			
 			String ID = idField.getText();
 			String passWord = new String(passwordField.getPassword());
-			
+			if(service==null){
+				System.out.println("service怎么变成null了");
+			}
 			int result = service.login(ID, passWord);
 			System.out.println(ID);
 		
@@ -185,7 +192,10 @@ public class LoginFrame extends JFrame {
 				System.out.println("密码错误");
 			}
 
-		}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}}
 	}
 
 }

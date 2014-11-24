@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import businesslogic.financebl.MockAccount;
-import businesslogic.memberbl.MockMember;
+
 import vo.ReceiptVO;
 
 //关键类 单据的增 改 查

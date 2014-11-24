@@ -6,6 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import po.MemberPO;
 import dataservice.memberdataservice.MemberDataService;
 import dataservice.userdataservice.UserDataService;
 import vo.MemberVO;
@@ -65,6 +66,13 @@ public class Member implements MemberBLService{
 	}
 	public void updateToPay(double data){
 		aInfo.setToPay(data);
+	}
+	
+	public MemberPO voToPo(MemberVO vo){
+		
+	}
+	public MemberVO poToVo(MemberPO po){
+		
 	}
 
 }
