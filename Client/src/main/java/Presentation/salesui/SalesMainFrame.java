@@ -24,7 +24,7 @@ public class SalesMainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	JPanel leftPnl, rightPnl;
-	JPanel memberMgrPnl, purchaseMgrPnl, saleMgrPnl;
+	JPanel memberMgrPnl, purchaseMgrPnl, saleMgrPnl,aboutPnl;
 	int screenWidth = UIhelper.getScreenWidth();
 	int screenHeight = UIhelper.getScreenHeight();
 	int frameWidth = screenWidth * 85 / 100;

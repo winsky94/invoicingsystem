@@ -11,10 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import Presentation.salesui.managerPanel.MemberMgrPanel;
-import Presentation.salesui.managerPanel.PurchaseMgrPanel;
-import Presentation.salesui.managerPanel.SaleMgrPanel;
-
 public class SalesLeftBtnPnl extends JPanel {
 
 	/**
