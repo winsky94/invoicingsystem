@@ -36,7 +36,7 @@ public class MockGoodsClass implements StockGoodsClassBLService {
 		return 0;
 	}
 	
-	public ArrayList<MockGoods> findsGoodsInClass(MockGoodsClass goodsClass){
+	public ArrayList<MockGoods> findsGoodsInClass(MockGoodsClass goodsClass) throws Exception{
 		ArrayList<MockGoods> goodsList=new ArrayList<MockGoods>();
 		ArrayList<MockGoods> result=new ArrayList<MockGoods>();
 		MockGoods good1=new MockGoods("00020001","飞利浦日光灯","SR01",10,200,100);

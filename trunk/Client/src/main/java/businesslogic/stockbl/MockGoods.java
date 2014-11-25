@@ -1,6 +1,6 @@
 package businesslogic.stockbl;
 
-public class MockGoods extends Goods {
+public class MockGoods extends Goods{
 	String GoodsID;
 	String name;
 	String type;
@@ -11,7 +11,7 @@ public class MockGoods extends Goods {
 	double lastPrice;
 
 	public MockGoods(String goodsID, String name, String type, int numInStock,
-			double purchasePrice, double price) {
+			double purchasePrice, double price) throws Exception{
 		GoodsID = goodsID;
 		this.name = name;
 		this.type = type;
@@ -22,19 +22,20 @@ public class MockGoods extends Goods {
 		this.lastPrice = 0;
 	}
 
-	public MockGoods() {
+	public MockGoods() throws Exception{
 
 	}
 
-	public MockGoods getGoods(String goodsID) {
+	public MockGoods getGoods(String goodsID) throws Exception{
 		MockGoods good = new MockGoods(goodsID, name, type, numInStock,
 				purchasePrice, price);
 		return good;
 	}
 
-	public void SaleGoods(int num){
-		numInStock-=num;
+	public void SaleGoods(int num) {
+		numInStock -= num;
 	}
+
 	// 商品价格
 	public double getPrice() {
 		return price;
@@ -99,20 +100,19 @@ public class MockGoods extends Goods {
 	public void setLastPrice(double lastPrice) {
 		this.lastPrice = lastPrice;
 	}
-	
-	public MockGoods findByClass(MockGoodsClass goodsClass){
-//		MockGoods good=new MockGoods("00020001","飞利浦日光灯","SR01",10,200,100);
-		if(this.GoodsID.substring(0, 4).equals(goodsClass.classID)){
+
+	public MockGoods findByClass(MockGoodsClass goodsClass) {
+		// MockGoods good=new MockGoods("00020001","飞利浦日光灯","SR01",10,200,100);
+		if (this.GoodsID.substring(0, 4).equals(goodsClass.classID)) {
 			return this;
-		}
-		else{
+		} else {
 			return null;
 		}
 	}
-	
-	public int modifyGoods(MockGoods newGood){	
-		this.numInStock=newGood.numInStock;
-		
+
+	public int modifyGoods(MockGoods newGood) {
+		this.numInStock = newGood.numInStock;
+
 		return 0;
 	}
 

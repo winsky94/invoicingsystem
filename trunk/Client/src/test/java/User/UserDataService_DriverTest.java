@@ -7,9 +7,8 @@ import java.rmi.RemoteException;
 import junit.framework.TestCase;
 import po.UserPO;
 import dataservice.userdataservice.UserDataService;
-import dataservice.userdataservice.UserDataService_stub;
 
-public class UserDataService_DriverTest extends TestCase{
+public class UserDataService_DriverTest extends TestCase {
 	private UserDataService userDataService;
 	String line = System.getProperty("line.separator");
 	PrintStream console = null;
@@ -28,22 +27,21 @@ public class UserDataService_DriverTest extends TestCase{
 	}
 
 	public void testStockGoodsDataDrive() throws RemoteException {
-		UserPO po=new UserPO(null, null, null, null);
+		UserPO po = new UserPO(null, null, null, null, 0);
 		int resultAdd = userDataService.add(po);
 		int resultMod = userDataService.modify(po);
 		int resultDel = userDataService.delete(po.getID());
-		//int resultLog = userDataService.login(null, null);
+		// int resultLog = userDataService.login(null, null);
 		userDataService.showUserInfo(null);
 
 		assertEquals(0, resultAdd);
 		assertEquals(0, resultMod);
 		assertEquals(0, resultDel);
-		//assertEquals(0, resultLog);
-		
+		// assertEquals(0, resultLog);
+
 		assertEquals("add user in file succeed!" + line
 				+ "modify user in file succeed!" + line
-				+ "delete user in file succeed!" + line
-				+ "Login succeed!" + line
-				+ "show users in file succeed!" + line, bytes.toString());
+				+ "delete user in file succeed!" + line + "Login succeed!"
+				+ line + "show users in file succeed!" + line, bytes.toString());
 	}
 }
