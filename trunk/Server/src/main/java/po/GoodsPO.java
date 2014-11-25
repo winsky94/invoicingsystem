@@ -16,10 +16,11 @@ public class GoodsPO implements Serializable {
 	double price;
 	double lastPurchasePrice;
 	double lastPrice;
-
+	String goodsClass;
+	
 	public GoodsPO(String goodsID, String name, String size, int numInStock,
 			int virtualnumInStock, double purchasePrice, double price,
-			double lastPurchasePrice, double lastPrice) {
+			double lastPurchasePrice, double lastPrice,String goodsClass) {
 		GoodsID = goodsID;
 		this.name = name;
 		this.size = size;
@@ -29,6 +30,7 @@ public class GoodsPO implements Serializable {
 		this.price = price;
 		this.lastPurchasePrice = lastPurchasePrice;
 		this.lastPrice = lastPrice;
+		this.goodsClass=goodsClass;
 	}
 
 	public String getGoodsID() {
@@ -93,5 +95,13 @@ public class GoodsPO implements Serializable {
 
 	public void setLastPrice(int lastPrice) {
 		this.lastPrice = lastPrice;
+	}
+
+	public String getGoodsClass() {
+		return goodsClass;
+	}
+
+	public void setGoodsClass(String goodsClass) {
+		this.goodsClass = goodsClass;
 	}
 }
