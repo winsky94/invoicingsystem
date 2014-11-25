@@ -1,4 +1,4 @@
-package Presentation.salesui.managerPanel;
+package Presentation.salesui.manage;
 
 import java.awt.Color;
 
