@@ -1,49 +1,33 @@
 package businesslogic.promotionbl;
 
 //使用操作 在哪儿
-
 public class coupon {
-	private String number;
+	private String id;
 	private double value;
 	private boolean isUse;
-	private int num;
-	public coupon(){
-		
-	}
-	public coupon(double price,int num){
-		this.number=getNew();
+
+	public coupon(String id,double price){
+        this.id=id;
 		this.value=price;
-		this.isUse=false;
-		this.num=num;
-	}
-	
-	/*
-	 * 生成代金券编号
-	 */
-	public String getNew(){
-			String number="";
-			return number;
+		isUse=false;
 	}
 
 	
-	public void setIsUse(){
-		this.isUse=true;
+	
+	
+	public void Use(){
+		isUse=true;
 	}
 
 	public double getValue() {
-		return value;
+		return this.value;
 	}
 
 	public void setValue(double value) {
 		this.value = value;
 	}
-	
-	public int getNum(){
-		return num;
+		
+	public boolean getIsUse(){
+		return isUse;
 	}
-	public void setNum(int num){
-		this.num=num;
-	}
-	
-	
 }
