@@ -1,10 +1,12 @@
 package businesslogic.stockbl;
 
+import java.rmi.Naming;
 import java.util.ArrayList;
 
 import po.GoodsPO;
 import vo.GoodsVO;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
+import dataservice.stockdataservice.goodsdataservice.StockGoodsDataService;
 
 public class Goods implements StockGoodsBLService {
 	String GoodsID;
@@ -16,10 +18,21 @@ public class Goods implements StockGoodsBLService {
 	double price;
 	double lastPurchasePrice;
 	double lastPrice;
-
+	StockGoodsDataService service;
+	
+	public Goods() throws Exception{
+		System.setSecurityManager(new SecurityManager());
+		String host="localhost:1099";
+		String url="rmi://"+host+"/userService";
+	
+		service=(StockGoodsDataService)Naming.lookup(url);
+	}
+	
 	public int addGoods(GoodsVO vo) {
 		// TODO 自动生成的方法存根
-		return 0;
+		GoodsPO po=new GoodsPO(vo.getGoodsID(), vo.getName(), vo.getSize(), vo.getNumInStock(), vo.getNumInStock(), vo.getPurchasePrice(), vo.getPrice(), vo.getLastPurchasePrice(), vo.getLastPrice()); 
+		
+		return service.addGoods(po);
 	}
 
 	public int deleteGoods(GoodsVO vo) {
@@ -42,26 +55,7 @@ public class Goods implements StockGoodsBLService {
 		return null;
 	}
 
-	public ArrayList<GoodsPO> showStock(String beginDate, String endDate) {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-	public ArrayList<GoodsPO> checkStock() {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-	public boolean isEnough(String ID, int num) {
-		// TODO 自动生成的方法存根
-		return false;
-	}
-
-	public double PrimeCostIncome() {
-		// TODO 自动生成的方法存根
-		return 0;
-	}
-
+	
 	public double getPrice() {
 		return price;
 	}

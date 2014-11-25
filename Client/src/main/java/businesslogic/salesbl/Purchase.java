@@ -25,7 +25,7 @@ public class Purchase extends Receipt {
 		this.totalValue=0;
 	}
 
-	public void AddGood(MockGoods good){
+	public void AddGood(Goods good){
 		commodityList.add(good);
 		this.totalValue+=good.getPurchasePrice();
 	}
@@ -42,7 +42,7 @@ public class Purchase extends Receipt {
 		return this.totalValue;
 	}
 
-	public MockGoods createPurchase() {
+	public MockGoods createPurchase() throws Exception{
 		MockGoods good0 = (MockGoods) commodityList.get(0);
 		MockGoods good = new MockGoods("00020001", "飞利浦日光灯", "SR01", 20, 200,
 				100);
