@@ -17,6 +17,7 @@ public class UserInfoWindow extends JWindow{
 		this.setBounds(x, y, 320, 280);
 		Container pnl=this.getContentPane();
 		pnl.setBackground(Color.white);
+		this.setVisible(true);
 	}
 
 }
