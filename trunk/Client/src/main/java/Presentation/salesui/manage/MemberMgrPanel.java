@@ -5,13 +5,18 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import Presentation.salesui.manage.member.AddMemberDialog;
 
 public class MemberMgrPanel extends JPanel {
 	/**
@@ -38,7 +43,7 @@ public class MemberMgrPanel extends JPanel {
 		addBtn.setBackground(Color.white);
 		addBtn.setHorizontalAlignment(SwingConstants.LEFT);
 		addBtn.setFocusPainted(false);
-		// addBtn.addActionListener(new addBtnListener());
+		addBtn.addActionListener(new AddBtnListener());
 		c.gridx = 0;
 		c.gridy = 0;
 		c.weightx = 0.02;
@@ -125,5 +130,13 @@ public class MemberMgrPanel extends JPanel {
 		c.weighty = 0.98;
 		gbl.setConstraints(memberTable, c);
 		this.add(memberTable);
+	}
+	class AddBtnListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			JDialog addMemberDlg=new AddMemberDialog();
+		}
+		
 	}
 }
