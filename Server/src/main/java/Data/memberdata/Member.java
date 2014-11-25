@@ -2,6 +2,7 @@ package Data.memberdata;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 import po.MemberPO;
 import dataservice.memberdataservice.MemberDataService;
@@ -18,7 +19,7 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 		return 0;
 	}
 
-	public int delete(MemberPO po) {
+	public int delete(String id) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -29,6 +30,11 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 	}
 
 	public MemberPO find(String message) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<MemberPO> showAll() throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
