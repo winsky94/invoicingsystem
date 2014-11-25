@@ -2,18 +2,18 @@ package vo;
 
 public class GoodsClassVO {
 	String name;
-	GoodsClassVO upClass;
-	
-	public GoodsClassVO(String name, GoodsClassVO upClass) {
+	String upClassName;
+
+	public GoodsClassVO(String name, String upClass) {
 		this.name = name;
-		this.upClass = upClass;
+		this.upClassName = upClass;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public GoodsClassVO getUpClass() {
-		return upClass;
+	public String getUpClassName() {
+		return upClassName;
 	}
 }
