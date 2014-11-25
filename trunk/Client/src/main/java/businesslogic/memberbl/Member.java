@@ -34,27 +34,34 @@ public class Member implements MemberBLService{
 	}
 	public int addMember(MemberVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		MemberPO po=voToPo(vo);
+		return service.add(po);
 	}
 
-	public int deleteMember(MemberVO vo) {
+	public int deleteMember(String memID) {
 		// TODO Auto-generated method stub
-		return 0;
+		return service.delete(memID);
 	}
 
 	public int modifyMember(MemberVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		MemberPO po=voToPo(vo);
+		return service.modify(po);
 	}
 
+	//可能返回为NULL
 	public MemberVO findMember(String message) {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Auto-generated method stu
+		return poToVo(service.find(message));
 	}
 
 	public ArrayList<MemberVO> showMembers() {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<MemberPO> po=service.showAll();
+		ArrayList<MemberVO> vo=new ArrayList<MemberVO>();
+		for(int i=0;i<po.size();i++)
+			vo.add(poToVo(po.get(i)));
+		return vo;
 	}
 	public void updatePoints(double pointsToAdd){
 		bInfo.points+=pointsToAdd;
@@ -83,5 +90,6 @@ public class Member implements MemberBLService{
 	   return vo;
 		
 	}
+	
 
 }
