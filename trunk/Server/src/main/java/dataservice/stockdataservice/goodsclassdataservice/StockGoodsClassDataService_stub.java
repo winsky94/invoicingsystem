@@ -1,6 +1,7 @@
 package dataservice.stockdataservice.goodsclassdataservice;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import po.GoodsClassPO;
 
@@ -22,5 +23,10 @@ public class StockGoodsClassDataService_stub implements
 		// TODO 自动生成的方法存根
 		System.out.println("modify goodsClass in file succeed!");
 		return 0;
+	}
+
+	public ArrayList<GoodsClassPO> show() throws RemoteException {
+		// TODO 自动生成的方法存根
+		return null;
 	}
 }
