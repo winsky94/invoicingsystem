@@ -15,8 +15,12 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import Presentation.salesui.manage.member.AddMemberDialog;
+import Presentation.salesui.manage.member.DelMemberDialog;
+import Presentation.salesui.manage.member.ModMemberDialog;
 
 public class MemberMgrPanel extends JPanel {
 	/**
@@ -26,7 +30,7 @@ public class MemberMgrPanel extends JPanel {
 	JButton addBtn, delBtn, modBtn, refreshBtn, searchBtn;
 	JTextField searchFld;
 	JTable memberTable;
-
+	String keyWord;
 	public MemberMgrPanel() {
 		this.setBackground(Color.white);
 		GridBagLayout gbl = new GridBagLayout();
@@ -59,7 +63,7 @@ public class MemberMgrPanel extends JPanel {
 		delBtn.setBackground(Color.white);
 		delBtn.setHorizontalAlignment(SwingConstants.LEFT);
 		delBtn.setFocusPainted(false);
-		// delBtn.addActionListener(new addBtnListener());
+		delBtn.addActionListener(new DelBtnListener());
 		c.gridx = 1;
 		c.gridy = 0;
 		gbl.setConstraints(delBtn, c);
@@ -72,7 +76,7 @@ public class MemberMgrPanel extends JPanel {
 		modBtn.setBackground(Color.white);
 		modBtn.setHorizontalAlignment(SwingConstants.LEFT);
 		modBtn.setFocusPainted(false);
-		// modBtn.addActionListener(new addBtnListener());
+		modBtn.addActionListener(new ModBtnListener());
 		c.gridx = 2;
 		c.gridy = 0;
 		gbl.setConstraints(modBtn, c);
@@ -86,7 +90,7 @@ public class MemberMgrPanel extends JPanel {
 		refreshBtn.setBackground(Color.white);
 		refreshBtn.setHorizontalAlignment(SwingConstants.LEFT);
 		refreshBtn.setFocusPainted(false);
-		// refreshBtn.addActionListener(new addBtnListener());
+		refreshBtn.addActionListener(new RefreshBtnListener());
 		c.gridx = 3;
 		c.gridy = 0;
 		gbl.setConstraints(refreshBtn, c);
@@ -94,7 +98,7 @@ public class MemberMgrPanel extends JPanel {
 		// 搜索框
 		searchFld = new JTextField();
 		searchFld.setFont(new Font("楷体", Font.BOLD, 13));
-		// refreshBtn.addActionListener(new addBtnListener());
+		searchFld.getDocument().addDocumentListener(new SearchFldListener());
 		c.gridx = 4;
 		c.weightx = 0.2;
 		c.gridy = 0;
@@ -107,7 +111,7 @@ public class MemberMgrPanel extends JPanel {
 		searchBtn.setBackground(Color.white);
 		searchBtn.setHorizontalAlignment(SwingConstants.LEFT);
 		searchBtn.setFocusPainted(false);
-		// searchBtn.addActionListener(new addBtnListener());
+		searchBtn.addActionListener(new SearchBtnListener());
 		c.gridx = 5;
 		c.weightx = 0.02;
 		c.gridy = 0;
@@ -134,8 +138,54 @@ public class MemberMgrPanel extends JPanel {
 	class AddBtnListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			JDialog addMemberDlg=new AddMemberDialog();
+		}
+		
+	}
+	class DelBtnListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			//-----应当传入客户编号-----------------------
+			JDialog delMemberDlg=new DelMemberDialog();
+		}
+		
+	}
+	class ModBtnListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			//-----应当传入客户信息-----------------------
+			JDialog modMemberDlg=new ModMemberDialog();
+		}
+		
+	}
+	class RefreshBtnListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	class SearchFldListener implements DocumentListener{
+
+		public void insertUpdate(DocumentEvent e) {
+			keyWord=searchFld.getText();
+		}
+
+		public void removeUpdate(DocumentEvent e) {
+			keyWord=searchFld.getText();
+		}
+
+		public void changedUpdate(DocumentEvent e) {
+			keyWord=searchFld.getText();
+		}
+		
+	}
+	class SearchBtnListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
 		}
 		
 	}
