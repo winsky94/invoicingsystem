@@ -24,8 +24,10 @@ public class AboutPanel extends JPanel{
 		this.setLayout(gbl);
 		GridBagConstraints c=new GridBagConstraints();
 		c.fill=GridBagConstraints.BOTH;
+		c.anchor=GridBagConstraints.CENTER;
 		//
-		imagePnl=new JPanel() {
+		imagePnl=new JPanel()
+		{
 			/**
 			 * 
 			 */
@@ -34,24 +36,24 @@ public class AboutPanel extends JPanel{
 			protected void paintComponent(Graphics g) {
 				ImageIcon icon = new ImageIcon("img/aboutUs.png");
 				Image img = icon.getImage();
-				g.drawImage(img, 0, 0, icon.getIconWidth(),
+				g.drawImage(img, (imagePnl.getWidth()-img.getWidth(imagePnl))/2,(imagePnl.getHeight()-img.getHeight(imagePnl))/2, icon.getIconWidth(),
 						icon.getIconHeight(), icon.getImageObserver());
 			}
 		};
-
+		imagePnl.setBackground(Color.black);
 		c.gridx=0;
 		c.gridy=0;
-		c.weighty=0.9;
+		c.weighty=0.8;
 		c.weightx=1;
 		gbl.addLayoutComponent(imagePnl, c);
 		this.add(imagePnl);
 		//
-		wordLbl=new JLabel("本系统由“羽见青柠”小组开发，PM：金翠，组员：严顺宽，黄涵倩，王宁。",SwingConstants.CENTER);
+		wordLbl=new JLabel("本系统由“羽见青柠”小组开发。PM：金翠；组员：严顺宽，黄涵倩，王宁。",SwingConstants.CENTER);
 		wordLbl.setFont(new Font("楷体", Font.PLAIN, 19));
 		wordLbl.setForeground(Color.black);
 		c.gridx=0;
 		c.gridy=1;
-		c.weighty=0.1;
+		c.weighty=0.2;
 		gbl.addLayoutComponent(wordLbl, c);
 		this.add(wordLbl);
 	}
