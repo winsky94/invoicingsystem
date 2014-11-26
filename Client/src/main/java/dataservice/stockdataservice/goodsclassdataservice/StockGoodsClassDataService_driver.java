@@ -7,7 +7,7 @@ import po.GoodsClassPO;
 public class StockGoodsClassDataService_driver {
 	public void drive(StockGoodsClassDataService_stub stockGoodsClassDataService)
 			throws RemoteException {
-		GoodsClassPO goodsClassPO = new GoodsClassPO("日光灯", null);
+		GoodsClassPO goodsClassPO = new GoodsClassPO("","日光灯", "");
 		stockGoodsClassDataService.addGoodsClass(goodsClassPO);
 		stockGoodsClassDataService.deleteGoodsClass(goodsClassPO);
 		stockGoodsClassDataService.modifyGoodsClass(goodsClassPO);

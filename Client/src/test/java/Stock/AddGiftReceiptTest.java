@@ -9,9 +9,9 @@ import businesslogic.memberbl.MemberLevel;
 import businesslogic.memberbl.MemberType;
 import businesslogic.memberbl.MockMember;
 import businesslogic.stockbl.GiftReceipt;
-import businesslogic.stockbl.Goods;
-import businesslogic.stockbl.MockGoods;
 import businesslogic.stockbl.MockStockControl;
+import businesslogic.stockbl.goods.Goods;
+import businesslogic.stockbl.goods.MockGoods;
 
 public class AddGiftReceiptTest extends TestCase {
 	private GiftReceipt giftReceipt;

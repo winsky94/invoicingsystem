@@ -14,4 +14,6 @@ public interface StockGoodsClassDataService extends Remote {
 
 	public ArrayList<GoodsClassPO> show();
 
+	public String getMaxID();
+
 }

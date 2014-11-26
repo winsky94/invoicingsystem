@@ -1,0 +1,47 @@
+package businesslogic.stockbl.goods;
+
+import java.util.ArrayList;
+
+import po.GoodsPO;
+import vo.GoodsVO;
+import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
+
+public class GoodsController implements StockGoodsBLService {
+
+	public int addGoods(GoodsVO vo) {
+		// TODO 自动生成的方法存根
+		Goods goods = new Goods( vo.getName(), vo.getSize(),
+				vo.getGoodsClass(), vo.getNumInStock(), vo.getPurchasePrice(),
+				vo.getPrice(), vo.getLastPurchasePrice(), vo.getLastPrice());
+		return goods.addGoods();
+	}
+
+	public int deleteGoods(GoodsVO vo) {
+		// TODO 自动生成的方法存根
+		Goods good = new Goods(vo.getName(), vo.getSize(), vo.getGoodsClass(),
+				vo.getNumInStock(), vo.getPurchasePrice(), vo.getPrice(),
+				vo.getLastPurchasePrice(), vo.getLastPrice());
+		return good.deleteGoods(vo.getGoodsID());
+	}
+
+	public int modifyGoods(GoodsVO vo) {
+		// TODO 自动生成的方法存根
+		Goods good = new Goods(vo.getName(), vo.getSize(), vo.getGoodsClass(),
+				vo.getNumInStock(), vo.getPurchasePrice(), vo.getPrice(),
+				vo.getLastPurchasePrice(), vo.getLastPrice());
+		return good.modifyGoods(vo.getGoodsID());
+	}
+
+	public ArrayList<GoodsPO> findGoods(String message) {
+		// TODO 自动生成的方法存根
+		Goods good = new Goods();
+		return good.findGoods(message);
+	}
+
+	public ArrayList<GoodsPO> showGoods() {
+		// TODO 自动生成的方法存根
+		Goods good = new Goods();
+		return good.showGoods();
+	}
+
+}

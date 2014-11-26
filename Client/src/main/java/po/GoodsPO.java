@@ -68,6 +68,10 @@ public class GoodsPO implements Serializable {
 	public void setNumInStock(int numInStock) {
 		this.numInStock = numInStock;
 	}
+	
+	public int getVirtualNumInStock() {
+		return virtualnumInStock;
+	}
 
 	public double getPurchasePrice() {
 		return purchasePrice;

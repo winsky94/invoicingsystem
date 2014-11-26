@@ -7,10 +7,12 @@ import java.util.Date;
 
 
 
+
+
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
-import businesslogic.stockbl.Goods;
-import businesslogic.stockbl.MockGoods;
+import businesslogic.stockbl.goods.Goods;
+import businesslogic.stockbl.goods.MockGoods;
 
 public class giftGoodPro extends promotion{	
 	private ArrayList<Goods> giftList;

@@ -5,8 +5,8 @@ import java.util.Date;
 
 import businesslogic.receiptbl.Receipt;
 import businesslogic.receiptbl.ReceiptType;
-import businesslogic.stockbl.Goods;
-import businesslogic.stockbl.MockGoods;
+import businesslogic.stockbl.goods.Goods;
+import businesslogic.stockbl.goods.MockGoods;
 
 public class Purchase extends Receipt {
 	private ArrayList<Goods> commodityList;

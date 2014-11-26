@@ -1,7 +1,6 @@
 package businesslogic.stockbl;
 
 import java.util.ArrayList;
-
 import po.GoodsPO;
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
@@ -9,7 +8,7 @@ import businesslogicservice.stockblservice.controlblservice.StockControlBLServic
 
 
 public class StockControlList implements StockControlBLService{
-
+	
 	public int addStockOverOrLow(StockOverOrLowVO vo) {
 		// TODO 自动生成的方法存根
 		return 0;

@@ -12,7 +12,8 @@ public class GoodsClassPO implements Serializable {
 	String upClassName;
 
 
-	public GoodsClassPO(String name, String upClassName) {
+	public GoodsClassPO(String id,String name, String upClassName) {
+		this.ID=id;
 		this.name = name;
 		this.upClassName = upClassName;
 

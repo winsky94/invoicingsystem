@@ -1,7 +1,6 @@
 package dataservice.stockdataservice.controldataservice;
 
 import java.rmi.Remote;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.GoodsPO;
@@ -10,9 +9,9 @@ import po.StockOverOrLowPO;
 
 public interface StockControlDataService extends Remote {
 
-	public int addStockOverOrLow(StockOverOrLowPO po) throws RemoteException;
+	public int addStockOverOrLow(StockOverOrLowPO po);
 
-	public int addStockError(StockErrorPO po) throws RemoteException;
+	public int addStockError(StockErrorPO po);
 
 	// 商品报溢收入
 	public double goodsOverIncome();
@@ -20,14 +19,16 @@ public interface StockControlDataService extends Remote {
 	// 商品报损支出
 	public double goodsLowCost();
 
-	public ArrayList<GoodsPO> showStock(String beginDate, String endDate)
-			throws RemoteException;
+	public ArrayList<GoodsPO> showStock(String beginDate, String endDate);
 
-	public ArrayList<GoodsPO> checkStock() throws RemoteException;
+	public ArrayList<GoodsPO> checkStock();
 
 	// 库存充足检查
-	public boolean isEnough(String goodsID, int num) throws RemoteException;
+	public boolean isEnough(String goodsID, int num);
 
 	// 商品调价收入
-	public double PrimeCostIncome() throws RemoteException;
+	public double PrimeCostIncome();
+
+	// 获得所有库存报溢报损单
+	public ArrayList<StockOverOrLowPO> getStockOverOrLowPO();
 }

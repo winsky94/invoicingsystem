@@ -3,6 +3,7 @@ package businesslogic.stockbl;
 import vo.GiftVO;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.Receipt;
+import businesslogic.stockbl.goods.Goods;
 import businesslogicservice.stockblservice.giftblservice.GiftBLService;
 
 public class Gift extends Receipt implements GiftBLService {

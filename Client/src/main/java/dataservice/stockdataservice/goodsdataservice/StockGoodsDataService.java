@@ -16,5 +16,7 @@ public interface StockGoodsDataService extends Remote {
 
 	public ArrayList<GoodsPO> showGoods() ;
 
+	public String getMaxID();
+
 	
 }
