@@ -42,4 +42,9 @@ public class StockGoodsDataService_stub implements StockGoodsDataService {
 		System.out.println("check stock in file succeed!");
 		return new ArrayList<GoodsPO>();
 	}
+
+	public String getMaxID() throws RemoteException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
 }

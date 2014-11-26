@@ -29,4 +29,9 @@ public class StockGoodsClassDataService_stub implements
 		// TODO 自动生成的方法存根
 		return null;
 	}
+
+	public String getMaxID() throws RemoteException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
 }
