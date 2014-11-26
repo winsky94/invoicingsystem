@@ -18,7 +18,7 @@ import Presentation.uihelper.UIhelper;
 
 public class AddMemberDialog extends JDialog {
 	/**
-	 * 
+	 * !!!!没写监听
 	 */
 	private static final long serialVersionUID = 1L;
 	int screenWidth = UIhelper.getScreenWidth();
