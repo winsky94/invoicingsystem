@@ -53,15 +53,9 @@ public class Receipt {
 		return 0;
 	}
 
-	public int Batch(String[] id) {
-
-		return 0;
-	}
-
-	// 传送单据
-	public void Send(ReceiptVO vo) {
-
-	}
+	
+	
+	
 
 	public void Reply(String userID) {
 

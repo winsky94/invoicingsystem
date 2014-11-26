@@ -63,8 +63,10 @@ public class Member implements MemberBLService{
 			vo.add(poToVo(po.get(i)));
 		return vo;
 	}
-	public void updatePoints(double pointsToAdd){
-		bInfo.points+=pointsToAdd;
+	
+	//一百元一个积分
+	public void updatePoints(double price){
+		bInfo.points+=(price/100);
 		
 	}
 	public void updateToReceive(double data){
