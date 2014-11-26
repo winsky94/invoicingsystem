@@ -87,7 +87,7 @@ public class User implements UserBLService{
 }
 	
 	
-	private UserPO voToPO(UserVO vo){
+	public static UserPO voToPO(UserVO vo){
 		UserPO po=new UserPO(vo.getID(),vo.getName(),vo.getPassword(),
 				(UserJob)vo.getJob(),vo.getGrades());
 		return po;

@@ -3,16 +3,19 @@ package businesslogic.salesbl;
 import java.util.ArrayList;
 import java.util.Date;
 
+import vo.PurchaseVO;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.receiptbl.ReceiptType;
 import businesslogic.stockbl.goods.Goods;
 import businesslogic.stockbl.goods.MockGoods;
 
 public class Purchase extends Receipt {
-	private ArrayList<Goods> commodityList;
+	private ArrayList<Commodity> list;//商品清单
 	private double totalValue;
 	
-	public Purchase(){
+	public Purchase(PurchaseVO vo){
+		list=vo.getPurchaseList();
+		totalValue=vo.getTotalInAll();
 		
 	}
 
@@ -21,36 +24,53 @@ public class Purchase extends Receipt {
 			String sid) {
 		super(id, memberID, userID, ReceiptType.PURCHASE, date, hurry, status, info, sid);
 		// TODO Auto-generated constructor stub
-		this.commodityList=new ArrayList<Goods>();
+		this.list=new ArrayList<Commodity>();
 		this.totalValue=0;
 	}
 
-	public void AddGood(Goods good){
-		commodityList.add(good);
-		this.totalValue+=good.getPurchasePrice();
+	public int AddPurchaseItem(Commodity item){
+		if(!(list.indexOf(item)<0)){
+			return 1;//添加失败，已存在
+		}
+		else
+		{list.add(item);
+		 totalValue+=item.getTotal();
+		return 0;}
 	}
 	
-	public void DeleteGood(MockCommodity com){
-		commodityList.remove(com);
-		this.totalValue-=com.getTotalPrice();
+	public void DeletePurcaseItem(String ID){
+		Commodity item=find(ID);
+		totalValue-=item.getTotal();
+		
+		list.remove(item);
 		
 	}
 	
+	public Commodity find(String ID){
+		for(int i=0;i<list.size();i++){
+			if(list.get(i).getId().equals(ID))
+				return list.get(i);
+		}
+		return null;//不可能没有把
+	}
 	
+	public void ModifyPurchaseItem(double total,Commodity nItem){
+		int i=list.indexOf(find(nItem.getId()));
+		totalValue-=total;
+		list.set(i, nItem);
+		totalValue+=nItem.getTotal();
+		
+	}
+	
+	public void updateVO(PurchaseVO vo){
+		vo.setPurchaseList(list);
+		vo.setTotalValue(totalValue);
+		
+	}
 	
 	public double getTotalValue(){
 		return this.totalValue;
 	}
 
-	public MockGoods createPurchase() throws Exception{
-		MockGoods good0 = (MockGoods) commodityList.get(0);
-		MockGoods good = new MockGoods("00020001", "飞利浦日光灯", "SR01", 20, 200,
-				100);
-		MockGoods newGood = new MockGoods("00020001", "飞利浦日光灯", "SR01",
-				20 + good0.getNum(), 200, 100);
-
-		good.modifyGoods(newGood);
-
-		return good;
-	}
+	
 }

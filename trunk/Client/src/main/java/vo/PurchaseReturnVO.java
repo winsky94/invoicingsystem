@@ -1,12 +1,14 @@
 package vo;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import businesslogic.receiptbl.ReceiptType;
-import businesslogic.salesbl.CommodityList;
+import businesslogic.salesbl.Commodity;
+
 
 public class PurchaseReturnVO extends ReceiptVO {
-	private CommodityList purchaseReturnList;
+	private ArrayList<Commodity> purchaseReturnList;
 	private double totalInAll;
 	public PurchaseReturnVO(String id,String user,PurchaseVO p, Date createDate, int status,
 			String info,int hurry) {
@@ -15,13 +17,26 @@ public class PurchaseReturnVO extends ReceiptVO {
 		this.purchaseReturnList=p.getPurchaseList();
 		this.totalInAll=p.getTotalInAll();
 	}
+	
 
-	public CommodityList getPurchaseReturnList() {
+	public  ArrayList<Commodity> getPurchaseReturnList() {
 		return purchaseReturnList;
 	}
 
 	public double getTotalInAll() {
 		return totalInAll;
 	}
+
+
+	public void setPurchaseReturnList(ArrayList<Commodity> purchaseReturnList) {
+		this.purchaseReturnList = purchaseReturnList;
+	}
+
+
+	public void setTotalInAll(double totalInAll) {
+		this.totalInAll = totalInAll;
+	}
+	
+	
 	
 }

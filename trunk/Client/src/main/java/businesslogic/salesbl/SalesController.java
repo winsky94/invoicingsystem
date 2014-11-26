@@ -6,6 +6,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import po.PurchasePO;
+import po.ReceiptPO;
 import po.SalePO;
 import dataservice.salesdataservice.SalesDataService;
 import dataservice.userdataservice.UserDataService;
@@ -55,16 +57,18 @@ public class SalesController implements SalesBLService {
 		else{
 			switch(vo.getType()){
 			case SALE:
-				SaleVO VO=(SaleVO)vo;
-				SalePO po=saleVoToPo(VO);service.createSale(po);break;
+				 SalePO  salepo=saleVoToPo(vo);service.createSale(salepo);break;
 			case PURCHASE:
-				PurchaseVO VO=(PurchaseVO)vo;
+				 PurchasePO purchasepo=purchaseVoToPo(vo);service.createPurchase(purchasepo);break;
+			case PURCHASERETURN:
+				
 				
 				
 			}
 			
 			
 		}
+		return 0;
 	}
 	public int modifySale(SaleVO vo) {
 		// TODO Auto-generated method stub
@@ -117,14 +121,23 @@ public class SalesController implements SalesBLService {
 	}
 	
 	
-	public SalePO saleVoToPo(SaleVO vo){
-		
+	public SalePO saleVoToPo(ReceiptVO VO){
+		SaleVO vo=(SaleVO)VO;
 		SalePO po=new SalePO(vo.getClerk(),vo.getSalesList(),vo.getId(),
 				vo.getMemberName(),vo.getMemberID(),vo.getUser(),vo.getCreateDate(),
 				vo.getStatus(),vo.getHurry(),vo.getInfo(),vo.getStockid(),vo.getDiscount(),vo.getTotal());
 		
 		return po;
 		
+	}
+	
+	public PurchasePO purchaseVoToPo(ReceiptVO VO){
+		PurchaseVO vo=(PurchaseVO)VO;
+		PurchasePO po=new PurchasePO(vo.getPurchaseList(),vo.getId(),
+				vo.getMemberName(),vo.getMemberID(),vo.getUser(),vo.getCreateDate(),
+				vo.getStatus(),vo.getHurry(),vo.getInfo(),vo.getStockid(),vo.getTotalInAll());
+		
+		return po;
 	}
 	
 	
