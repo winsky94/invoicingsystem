@@ -1,30 +1,27 @@
 package vo;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import businesslogic.receiptbl.ReceiptType;
-import businesslogic.salesbl.CommodityList;
 
+import businesslogic.salesbl.SaleItem;
+//double[] discount;pro/pre/money/toaldiscount;
+//double[] total; cost/origin/value/couponIncom/toPay
 public class SaleVO extends ReceiptVO {
-	private String clerk;
-	private CommodityList salesList;
-	private double totalOrigin, totalProDiscount, totalFinDiscount, totalToPay;
-	private double moneyDiscount, couponPrice;
-	public SaleVO(String clerk, CommodityList salesList, String id,
+	private String clerk,operator;
+	private ArrayList<SaleItem> salesList;
+	private double[] discount=new double[4];//折让类数据
+	private double[] total=new double[5];//总计类数据
+	public SaleVO(String clerk, ArrayList<SaleItem> salesList, String id,
 			String memberName,String memberID, String user, Date createDate, int status,
-			int hurry,String info, String stockid, double totalOrigin,
-			double totalProDiscount, double totalFinDiscount,
-			double totalToPay, double moneyDiscount, double couponPrice) {
+			int hurry,String info, String stockid, double[] total,double[] discount) {
 		super(id, memberName,memberID, user, ReceiptType.SALE, createDate, status,hurry, info,
 				stockid);
 		this.clerk = clerk;
 		this.salesList = salesList;
-		this.totalOrigin = totalOrigin;
-		this.totalToPay = totalToPay;
-		this.totalProDiscount = totalProDiscount;
-		this.totalFinDiscount = totalFinDiscount;
-		this.moneyDiscount = moneyDiscount;
-		this.couponPrice = couponPrice;
+		this.total=total;
+		this.discount=discount;
 	}
 	public SaleVO(){
 		
@@ -34,25 +31,25 @@ public class SaleVO extends ReceiptVO {
 	public String getClerk() {
 		return clerk;
 	}
-	public CommodityList getSalesList() {
+	public ArrayList<SaleItem> getSalesList() {
 		return salesList;
 	}
 	public double getTotalOrigin() {
-		return totalOrigin;
+		return total[0];
 	}
-	public double getTotalProDiscount() {
-		return totalProDiscount;
+	public double getProDiscount() {
+		return discount[0];
 	}
-	public double getTotalFinDiscount() {
-		return totalFinDiscount;
+	public double getPreDiscount() {
+		return discount[1];
 	}
-	public double getTotalToPay() {
-		return totalToPay;
+	public double getToPay() {
+		return total[4];
 	}
 	public double getMoneyDiscount() {
-		return moneyDiscount;
+		return discount[2];
 	}
 	public double getCouponPrice() {
-		return couponPrice;
+		return total[3];
 	}
 }
