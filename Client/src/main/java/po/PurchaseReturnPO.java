@@ -1,12 +1,14 @@
 package po;
+import java.util.ArrayList;
 import java.util.Date;
 
 import businesslogic.receiptbl.ReceiptType;
-import businesslogic.salesbl.CommodityList;
+import businesslogic.salesbl.Commodity;
 
+//CommoditList封装数据结构
 
 public class PurchaseReturnPO extends ReceiptPO{
-	CommodityList purchaseReturnList;
+	ArrayList<Commodity> purchaseReturnList;
 	double totalInAll;
 	public PurchaseReturnPO(String id,String user,PurchasePO p, Date createDate, int status,
 			String info,int hurry) {
@@ -15,7 +17,7 @@ public class PurchaseReturnPO extends ReceiptPO{
 		this.purchaseReturnList=p.getPurchaseList();
 		this.totalInAll=p.getTotalInAll();
 	}
-	public CommodityList getPurchaseReturnList() {
+	public ArrayList<Commodity> getPurchaseReturnList() {
 		return purchaseReturnList;
 	}
 	public double getTotalInAll() {

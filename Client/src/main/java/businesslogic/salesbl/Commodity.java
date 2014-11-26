@@ -1,14 +1,27 @@
 package businesslogic.salesbl;
 //部分信息取自用户商品选择商品的goods
-public class SaleItem {
+public class Commodity {
 	private String id,name,type;
 	private double price,last_bid;//售价,最后一次进价,销售成本不显示
 	private int num;//数量
 	private double total,cost;
 	private String tip;
-	public SaleItem(String id, String name, String type, double price, double last_bid,int num,
+	public Commodity(String id, String name, String type, double price, double last_bid,int num,
 			String tip) {
-		super();
+		this.id = id;
+		this.last_bid=last_bid;
+		this.name = name;
+		this.type = type;
+		this.price = price;
+		this.num = num;
+		this.tip = tip;
+		this.total=price*num;
+		this.cost=last_bid*num;
+	}
+	
+	public Commodity(String id, String name, String type, double price, int num,
+			String tip)
+			{
 		this.id = id;
 		this.name = name;
 		this.type = type;
@@ -16,7 +29,6 @@ public class SaleItem {
 		this.num = num;
 		this.tip = tip;
 		this.total=price*num;
-		this.cost=price*num;
 	}
 	
 	public void updateData(){
