@@ -35,7 +35,9 @@ public class Member implements MemberBLService{
 	public int addMember(MemberVO vo) {
 		// TODO Auto-generated method stub
 		MemberPO po=voToPo(vo);
-		return service.add(po);
+		
+		return  service.add(po);
+		
 	}
 
 	public int deleteMember(String memID) {
@@ -85,12 +87,16 @@ public class Member implements MemberBLService{
 		return po;
 	}
 	public MemberVO poToVo(MemberPO po){
-	   bInfo=new MemBaseInfo(po.getmType(),po.getmLevel(),po.getMemberID(),po.getName(),po.getPoints());
+	   bInfo=new MemBaseInfo(po.getmType(),po.getmLevel(),po.getMemberID(),po.getName(),po.getPoints(),po.getDefaultClerk());
 	   aInfo=new MemAccountInfo(po.getMaxOwe(),po.getToReceive(),po.getToPay());
 	   cInfo=new MemContactInfo(po.getTel(),po.getAddress(),po.getPostcode(),po.getEMail());
 	   MemberVO vo=new MemberVO(bInfo,aInfo,cInfo);
 	   return vo;
 		
+	}
+	public String getNewID() {
+		// TODO Auto-generated method stub
+		return "111111";
 	}
 	
 

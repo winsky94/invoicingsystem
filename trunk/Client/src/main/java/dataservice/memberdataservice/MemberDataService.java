@@ -1,5 +1,6 @@
 package dataservice.memberdataservice;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.MemberPO;

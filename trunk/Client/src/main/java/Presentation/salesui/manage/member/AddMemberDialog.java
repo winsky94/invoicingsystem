@@ -6,6 +6,11 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -14,11 +19,19 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import po.MemberPO.MemberLevel;
+import po.MemberPO.MemberType;
+import vo.MemberVO;
+import businesslogic.memberbl.MemAccountInfo;
+import businesslogic.memberbl.MemBaseInfo;
+import businesslogic.memberbl.MemContactInfo;
+import businesslogic.memberbl.Member;
+import businesslogicservice.memberblservice.MemberBLService;
 import Presentation.uihelper.UIhelper;
 
 public class AddMemberDialog extends JDialog {
 	/**
-	 * !!!!没写监听
+	 * !!!!已写监听  
 	 */
 	private static final long serialVersionUID = 1L;
 	int screenWidth = UIhelper.getScreenWidth();
@@ -141,6 +154,46 @@ public class AddMemberDialog extends JDialog {
 				dialogWidth * 20 / 100, dialogHeight * 8 / 100);
 		submitBtn.setFocusPainted(false);
 		pnl.add(submitBtn);
+		
+		submitBtn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				MemberBLService service;
+				try {
+					service = new Member();
+					String id=service.getNewID();
+					MemberType type;
+					if(typeCbox.getSelectedItem()=="进货商")
+						type=MemberType.JHS;
+					else type=MemberType.XSS;
+					
+						
+					MemBaseInfo bInfo=new MemBaseInfo(type,MemberLevel.ONE,id,nameFld.getText(),0,defaultClerkFld.getText());
+					MemContactInfo cInfo=new MemContactInfo(phoneFld.getText(), addressFld.getText(),
+							postcodeFld.getText(),  EMailFld.getText());
+					MemAccountInfo aInfo=new MemAccountInfo(1000000,0,0);
+				
+					
+					MemberVO vo=new MemberVO(bInfo,aInfo,cInfo);
+					int result=service.addMember(vo);
+					//改
+					if(result==0){
+						System.out.println("读入成功");
+					}else{
+						System.out.println("读入失败");
+					}
+				} catch (MalformedURLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (NotBoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		// ------------------------------------------------------------------
 		this.setTitle("添加客户");
 		this.setBounds((screenWidth - dialogWidth) / 2,
@@ -152,5 +205,7 @@ public class AddMemberDialog extends JDialog {
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 	}
+	
+	
 
 }
