@@ -99,14 +99,15 @@ public class PurchaseMgrPanel extends JPanel {
 		/*
 		 * 
 		 * 
-		 * 这个表格BL来搞一下~注入信息啊
+		 * 这个表格BL来搞一下~注入信息
 		 */
 		purchaseTable = new JTable();
 		c.gridx = 0;
 		c.gridwidth = 5;
 		c.gridy = 1;
-		c.weightx = 0.98;
-		c.weighty = 0.98;
+		c.weightx = 0.9;
+		c.weighty = 0.9;
+		purchaseTable.setBackground(Color.black);
 		gbl.setConstraints(purchaseTable, c);
 		this.add(purchaseTable);
 	}

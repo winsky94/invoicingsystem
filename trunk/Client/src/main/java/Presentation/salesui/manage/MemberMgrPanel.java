@@ -127,6 +127,7 @@ public class MemberMgrPanel extends JPanel {
 		 * 
 		 */
 		memberTable = new JTable();
+		memberTable.setBackground(Color.black);
 		c.gridx = 0;
 		c.gridwidth = 6;
 		c.gridy = 1;
