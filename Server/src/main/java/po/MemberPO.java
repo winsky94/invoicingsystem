@@ -1,7 +1,6 @@
 package po;
 
-import Data.memberdata.MemberLevel;
-import Data.memberdata.MemberType;
+
 
 
 public class MemberPO {
@@ -82,4 +81,11 @@ public class MemberPO {
 	public double getPoints() {
 		return points;
 	}
+	public enum MemberLevel {
+		ONE,TWO,THREE,FOUR,FIVE;
+	}
+	public enum MemberType {
+		JHS,XSS
+	}
+
 }
