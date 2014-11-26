@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.Receipt;
+import businesslogic.stockbl.goods.Goods;
 
 public class GiftReceipt extends Receipt{
 	Member member;

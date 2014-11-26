@@ -17,8 +17,8 @@ import businesslogic.salesbl.CommodityList;
 import businesslogic.salesbl.Sale;
 import businesslogic.salesbl.SaleItem;
 import businesslogic.salesbl.SalesController;
-import businesslogic.stockbl.MockGoods;
 import businesslogic.stockbl.MockStockControl;
+import businesslogic.stockbl.goods.MockGoods;
 import businesslogicservice.salesblservice.SalesBLService;
 
 /*

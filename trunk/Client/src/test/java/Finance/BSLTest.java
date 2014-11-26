@@ -15,9 +15,9 @@ import businesslogic.salesbl.MockSale;
 import businesslogic.salesbl.MockSaleItem;
 import businesslogic.salesbl.MockSaleList;
 import businesslogic.stockbl.GiftReceipt;
-import businesslogic.stockbl.MockGoods;
 import businesslogic.stockbl.MockStockControl;
 import businesslogic.stockbl.StockOverOrLowReceipt;
+import businesslogic.stockbl.goods.MockGoods;
 
 public class BSLTest extends TestCase {
 	private BSL bsList;

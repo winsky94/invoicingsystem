@@ -5,8 +5,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
-import businesslogic.stockbl.MockGoods;
-import businesslogic.stockbl.MockGoodsClass;
+import businesslogic.stockbl.goods.MockGoods;
+import businesslogic.stockbl.goodsClass.MockGoodsClass;
 
 public class GoodsControlTest extends TestCase{
 	MockGoodsClass goodsClass1,goodsClass2;

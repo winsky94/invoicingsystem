@@ -10,7 +10,7 @@ import businesslogic.memberbl.MockMember;
 import businesslogic.salesbl.CommodityList;
 import businesslogic.salesbl.Purchase;
 import businesslogic.salesbl.PurchaseList;
-import businesslogic.stockbl.MockGoods;
+import businesslogic.stockbl.goods.MockGoods;
 
 public class PurchaseTest extends TestCase {
 	private Purchase purchase1, purchase2;

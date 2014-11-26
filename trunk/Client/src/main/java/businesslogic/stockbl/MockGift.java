@@ -1,6 +1,7 @@
 package businesslogic.stockbl;
 
 import businesslogic.memberbl.Member;
+import businesslogic.stockbl.goods.Goods;
 
 public class MockGift extends Gift{
 	Member member;

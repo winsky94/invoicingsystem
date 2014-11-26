@@ -1,8 +1,9 @@
-package businesslogic.stockbl;
+package businesslogic.stockbl.goodsClass;
 
 import java.util.ArrayList;
 
 import vo.GoodsClassVO;
+import businesslogic.stockbl.goods.MockGoods;
 import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBLService;
 
 public class MockGoodsClass implements StockGoodsClassBLService {
@@ -14,6 +15,30 @@ public class MockGoodsClass implements StockGoodsClassBLService {
 		
 	}
 	
+	public String getClassID() {
+		return classID;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public MockGoodsClass getUpClass() {
+		return upClass;
+	}
+
+	public void setClassID(String classID) {
+		this.classID = classID;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setUpClass(MockGoodsClass upClass) {
+		this.upClass = upClass;
+	}
+
 	public MockGoodsClass(String classID , String name, MockGoodsClass upClass) {
 		this.classID=classID;
 		this.name = name;
@@ -46,12 +71,17 @@ public class MockGoodsClass implements StockGoodsClassBLService {
 		goodsList.add(good2);
 		
 		for(int i=0;i<goodsList.size();i++){
-			if(goodsList.get(i).GoodsID.substring(0, 4).equals(goodsClass.classID)){
+			if(goodsList.get(i).getGoodsID().substring(0, 4).equals(goodsClass.classID)){
 				result.add(goodsList.get(i));
 			}
 		}
 		
 		return result;
+	}
+
+	public ArrayList<GoodsClassVO> show() {
+		// TODO 自动生成的方法存根
+		return null;
 	}
 
 }

@@ -29,15 +29,15 @@ public class StockGoodsDataService_stub implements StockGoodsDataService {
 		return null;
 	}
 
-	
 	public ArrayList<GoodsPO> showGoods() {
 		// TODO 自动生成的方法存根
 		System.out.println("show goods in file succeed!");
 		return null;
 	}
 
-	
-	
-	
-	
+	public String getMaxID() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 }

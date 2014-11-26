@@ -2,6 +2,8 @@ package businesslogic.stockbl;
 
 import java.util.ArrayList;
 
+import businesslogic.stockbl.goods.MockGoods;
+
 public class MockStockControl {
 	String num;
 	ArrayList<StockOverOrLowReceipt> stockOverOrLowReceiptlist;

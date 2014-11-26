@@ -12,7 +12,7 @@ import businesslogic.promotionbl.promotion;
 import businesslogic.promotionbl.PromotionType;
 import businesslogic.promotionbl.giftGoodPro;
 import businesslogic.promotionbl.promotionList;
-import businesslogic.stockbl.MockGoods;
+import businesslogic.stockbl.goods.MockGoods;
 import junit.framework.TestCase;
 
 /*

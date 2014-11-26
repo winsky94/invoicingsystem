@@ -2,7 +2,7 @@ package businesslogic.promotionbl;
 
 import java.util.ArrayList;
 
-import businesslogic.stockbl.Goods;
+import businesslogic.stockbl.goods.Goods;
 
 public class giftCouponPro extends promotion{
 	

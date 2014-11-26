@@ -1,4 +1,6 @@
-package businesslogic.stockbl;
+package businesslogic.stockbl.goods;
+
+import businesslogic.stockbl.goodsClass.MockGoodsClass;
 
 public class MockGoods extends Goods{
 	String GoodsID;
@@ -103,7 +105,7 @@ public class MockGoods extends Goods{
 
 	public MockGoods findByClass(MockGoodsClass goodsClass) {
 		// MockGoods good=new MockGoods("00020001","飞利浦日光灯","SR01",10,200,100);
-		if (this.GoodsID.substring(0, 4).equals(goodsClass.classID)) {
+		if (this.GoodsID.substring(0, 4).equals(goodsClass.getClassID())) {
 			return this;
 		} else {
 			return null;
