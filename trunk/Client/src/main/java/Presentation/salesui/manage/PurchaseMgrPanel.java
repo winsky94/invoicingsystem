@@ -20,6 +20,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import Presentation.salesui.manage.purchase.PurchaseDialog;
+import Presentation.salesui.manage.purchase.PurchaseReturnDialog;
 
 public class PurchaseMgrPanel extends JPanel {
 	/**
@@ -124,7 +125,7 @@ public class PurchaseMgrPanel extends JPanel {
 	class PurchaseReturnBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			JDialog purchaseReturnDlg=new PurchaseReturnDialog();
 
 		}
 
