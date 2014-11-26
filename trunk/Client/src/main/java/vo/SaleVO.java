@@ -35,7 +35,7 @@ public class SaleVO extends ReceiptVO {
 		return salesList;
 	}
 	public double getTotalOrigin() {
-		return total[0];
+		return total[1];
 	}
 	public double getProDiscount() {
 		return discount[0];
@@ -51,5 +51,23 @@ public class SaleVO extends ReceiptVO {
 	}
 	public double getCouponPrice() {
 		return total[3];
+	}
+	
+	public double[] getTotal(){
+		return total;
+	}
+	public double[] getDiscount(){
+		return discount;
+	}
+	public void setTotal(double[] total){
+		this.total=total;
+	}
+	
+	public void setDiscount(double[] discount){
+		this.discount=discount;
+	}
+	
+	public void setSaleList(ArrayList<SaleItem> list){
+		this.salesList=list;
 	}
 }

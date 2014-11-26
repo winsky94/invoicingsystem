@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import po.ReceiptPO;
 
 public interface ReceiptDataService extends Remote{
-	public int Add(ReceiptPO po)throws RemoteException;
+	public int Add(ReceiptPO po)throws RemoteException;//红冲并复制
 	public ReceiptPO find(String id)throws RemoteException;
 	public int Modify(ReceiptPO po)throws RemoteException;
 	public ArrayList<ReceiptPO> show()throws RemoteException;

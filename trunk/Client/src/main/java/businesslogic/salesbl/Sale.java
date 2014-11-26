@@ -1,42 +1,71 @@
 package businesslogic.salesbl;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 
 
 
+
+
+
+
+
+
+
+
+
+
+import po.MemberPO.MemberLevel;
+import po.UserPO;
+import po.UserPO.UserJob;
+import vo.SaleVO;
+import dataservice.memberdataservice.MemberDataService;
+import dataservice.userdataservice.UserDataService;
+import businesslogic.memberbl.Member;
 import businesslogic.promotionbl.MockCoupon;
 import businesslogic.promotionbl.MockPromotion;
 import businesslogic.promotionbl.coupon;
 import businesslogic.promotionbl.promotionController;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.receiptbl.ReceiptType;
+import businesslogic.userbl.User;
 
-public class Sale extends Receipt {
-	// 要默认业务员  当前操作员
-	private String salesman,operator;
+public class Sale extends Receipt {  //单据总值包含代金券金额
+	// 要默认业务员 
+	private String clerk;
 	private ArrayList<SaleItem> list;
 	private double discountValue;//折让金额
 	private double cost;//销售成本，商品总值
 	private double couponIncome;//代金券差值收入
+	private double totalOrigin;//原始总价
 	private double totalValue;//折让后收入
-	public Sale() {
+	private double proValue;//促销让利；
+	private double preValue;//会员让利
+	private double addDiscount;
+	private double toPay;
+	private SaleVO vo;
+	public Sale(SaleVO vo) {
+		this.vo=vo;
+		list=vo.getSalesList();
 		
 	}
 
-	public Sale(String id, String memberID, String userID, 
+	/*public Sale(String id, String memberID, String userID, 
 			Date date, int hurry, int status, String info, String sid,
-			String man,String operator) {
+			String man) {
 		super(id, memberID, userID, ReceiptType.SALE, date, hurry, 0, info, sid);
 		// TODO Auto-generated constructor stub
 		list=new ArrayList<SaleItem>();
 		couponIncome=0;
 		discountValue=0;
-		this.salesman = man;
-		this.operator=operator;
+		this.clerk = man;
 		this.totalValue = 0;
 		this.cost=0;
-	}
+	}*/
 	
 	public int addItem(SaleItem item){
 		if(!(list.indexOf(item)<0)){
@@ -44,6 +73,7 @@ public class Sale extends Receipt {
 		}
 		else
 		{list.add(item);
+		 totalOrigin+=item.getTotal();
 		 updateData(item.getCost(),item.getTotal());
 		return 0;}
 	}
@@ -55,6 +85,7 @@ public class Sale extends Receipt {
 	
 	public void deleteItem(String ID){
 		SaleItem item=find(ID);
+		totalOrigin-=item.getTotal();
 		updateData(-item.getCost(),-item.getTotal());
 		list.remove(item);
 	}
@@ -68,14 +99,32 @@ public class Sale extends Receipt {
 	}
 	//先find获取原item的cost,total,原位置，修改后,存回list
 	public void ModifyItem(double cost,double total,int i,SaleItem nitem){
+		totalOrigin-=total;
 		updateData(-cost,-total);
 		list.set(i, nitem);
+		totalOrigin+=nitem.getTotal();
 		updateData(nitem.getCost(),nitem.getTotal());
 	}
 	
-	public double getCost() {
-		return cost;
+	//人为折让
+	public int AddDiscount(double value) throws MalformedURLException, RemoteException, NotBoundException{
+		String host="localhost:1099";
+		String url="rmi://"+host+"/userService";
+	
+		UserDataService service=(UserDataService)Naming.lookup(url);
+		UserPO user=service.showUserInfo(this.getUserID());
+		if(this.totalValue<=value)
+			return 1;//折让金额过高；
+		else if((user.getJob()==UserJob.SALE)&&value>5000){
+			return 2;//销售经理最高折让5000	
+		}else{
+			this.totalValue-=value;
+			this.addDiscount=value;
+			this.discountValue+=value;
+			return 0;
+		}
 	}
+
 
 
 	
@@ -85,39 +134,67 @@ public class Sale extends Receipt {
 		if(cou==null||cou.getIsUse()) return 1;//改代金券编号无效
 		else {
 			if (this.totalValue >= cou.getValue()) {
-				this.totalValue -= cou.getValue();
+				this.toPay=this.totalValue - cou.getValue();
 			} else {
 				couponIncome = cou.getValue() - this.totalValue;
-				this.totalValue = 0;
+				this.toPay = 0;
 			}
 			cou.Use();
 			return 0;
 		}
 	}
 
+	//算入折让
 	public void MatchProMotion() {
 		MockPromotion pro = new MockPromotion(1000, 0.9);
 		pro = (MockPromotion) pro.Match(this);
 		this.totalValue *= pro.getdiscount();
 	}
 
-	public void getPrivilege() {
-		Member member = new Member("140001", MemberType.XSS,
-				MemberLevel.THREE, "金金灯堂", 6000000);
-		member = member.find(this.getMemberID());
-		this.totalValue *= member.getDiscount();
+	//算入折让  网络放这儿合适否？
+	public void getPrivilege() throws MalformedURLException, RemoteException, NotBoundException {
+		MemberDataService service;
+		String host="localhost:1099";
+		String url="rmi://"+host+"/memberService";
+		service=(MemberDataService)Naming.lookup(url);
+		MemberLevel level=service.find(this.getMemberID()).getmLevel();
+		double dis;
+		switch(level){
+		case FIVE:
+			dis=0.88;break;
+		case FOUR:
+			dis=0.9;break;
+		case THREE:
+			dis=0.95;break;
+		case TWO:
+			dis=0.98;break;
+		default:
+			dis=1;
+		}
+		preValue=(1-dis)*totalValue;
+		totalValue*=dis;
+		discountValue+=preValue;
+
+		
+	}
+	
+	public void updateSaleVO(){
+		vo.setDiscount(new double[]{proValue,preValue,addDiscount,discountValue});
+		vo.setTotal(new double[]{cost,totalOrigin,totalValue,couponIncome,toPay});
+		vo.setSaleList(list);
 	}
 
 	public void excute(Member member) {
-		member.updatePoint(this.totalValue);
+		member.updatePoints(this.totalValue);
 		member.updateToReceive(this.totalValue);
-		for (int i = 0; i < goodsList.size(); i++) {
-			goodsList.get(i).OutGoods();
+		for (int i = 0; i <list.size(); i++) {
+		//	list.get(i).OutGoods();
 		}
 
-		this.setStatus(5);
+		this.setStatus(5);//执行完毕
 
 	}
+	/*
 	public void setDiscountValue(double value){
 		this.discountValue=value;
 	}
@@ -133,7 +210,13 @@ public class Sale extends Receipt {
 	public double getCouponIncome() {
 		return this.couponIncome;
 	}
+	public double getPreValue(){
+		return preValue;
+	}
+	public double getProValue(){
+		return proValue;
+	}
 	
-	
+	*/
 
 }
