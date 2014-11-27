@@ -1,8 +1,8 @@
 package Presentation.stockui.goodsmanage;
 
-import javax.swing.JDialog;
+import javax.swing.JPanel;
 
-public class AddGoodsDialog extends JDialog{
+public class AddGoodsPanel extends JPanel{
 
 	/**
 	 * 

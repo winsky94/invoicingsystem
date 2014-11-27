@@ -115,11 +115,12 @@ public class GoodsPanel extends JPanel {
 		// ---------goodsClassTree-------------------
 		goodsClassTree=new JTree();
 		goodsClassTree.setBackground(Color.black);
+		c.insets = new Insets(10,3,10,3);
 		c.gridx = 0;
 		c.gridy=1;
 		c.gridheight=GridBagConstraints.REMAINDER;
 		c.gridwidth=2;
-		c.weightx = 0.15;
+		c.weightx = 0.1;
 		c.weighty=50;
 		gbl.setConstraints(goodsClassTree, c);
 		this.add(goodsClassTree);
