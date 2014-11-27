@@ -38,7 +38,7 @@ public class PurchaseMgrPanel extends JPanel {
 		this.setLayout(gbl);
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(3, 3, 3, 3);
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		// 创建进货单
 		purchaseBtn = new JButton("创建进货单", new ImageIcon(
 				"img/sales/purchase-blue.png"));
@@ -75,6 +75,7 @@ public class PurchaseMgrPanel extends JPanel {
 		searchFld.getDocument().addDocumentListener(new SearchFldListener());
 		c.gridx = 2;
 		c.weightx = 0.3;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridy = 0;
 		gbl.setConstraints(searchFld, c);
 		this.add(searchFld);
@@ -87,6 +88,7 @@ public class PurchaseMgrPanel extends JPanel {
 		searchBtn.setFocusPainted(false);
 		searchBtn.addActionListener(new SearchBtnListener());
 		c.gridx = 3;
+		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0.02;
 		gbl.setConstraints(searchBtn, c);
 		this.add(searchBtn);
