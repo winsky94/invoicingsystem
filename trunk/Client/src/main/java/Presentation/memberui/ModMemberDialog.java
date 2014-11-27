@@ -1,4 +1,4 @@
-package Presentation.salesui.manage.member;
+package Presentation.memberui;
 
 import java.awt.Color;
 import java.awt.Container;

@@ -1,4 +1,4 @@
-package Presentation.salesui.manage;
+package Presentation.memberui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,10 +17,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
-import Presentation.salesui.manage.member.AddMemberDialog;
-import Presentation.salesui.manage.member.DelMemberDialog;
-import Presentation.salesui.manage.member.ModMemberDialog;
 
 public class MemberMgrPanel extends JPanel {
 	/**
