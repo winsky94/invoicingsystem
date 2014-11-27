@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import Presentation.salesui.manage.MemberMgrPanel;
+import Presentation.memberui.MemberMgrPanel;
 import Presentation.salesui.manage.PurchaseMgrPanel;
 import Presentation.salesui.manage.SaleMgrPanel;
 import Presentation.uihelper.AboutPanel;

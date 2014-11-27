@@ -19,12 +19,12 @@ public class UserInfoButton extends JButton{
 	 */
 	private static final long serialVersionUID = 1L;
 	JWindow userInfoWindow;
-	public UserInfoButton(String username,Icon icon){
+	public UserInfoButton(String username,Icon icon,Color themeColor){
 		super(username, icon);
 		this.setFont(new Font("楷体", Font.PLAIN, 19));
 		this.setForeground(Color.white);
 		this.setBorderPainted(false);
-		this.setBackground(new Color(47, 73, 136));
+		this.setBackground(themeColor);
 		this.setHorizontalAlignment(SwingConstants.CENTER);
 		this.setFocusPainted(false);
 		this.addMouseListener(new UserInfoBtnListener());
