@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -36,11 +39,11 @@ public class LoginFrame extends JFrame {
 	String id, key;
 	JTextField idField;
 	JPasswordField passwordField;
-    JButton closebutton;
+    JButton closeButton;
 	int screenHeight, screenWidth, frameHeight, frameWidth;
-
+    int xOld,yOld;
 	public LoginFrame() throws Exception {
-		
+	
 	
 		
 		//service = new User();// 声明一下 yan 11-18
@@ -70,6 +73,23 @@ public class LoginFrame extends JFrame {
 						icon.getIconHeight(), icon.getImageObserver());
 			}
 		};
+		
+		//关闭按钮
+		 closeButton = new JButton();  
+		 ImageIcon close=new ImageIcon("img/Login/closeButton.png");
+        closeButton.setIcon(close);  
+        closeButton.setContentAreaFilled(false);
+       closeButton.setBorder(BorderFactory.createEmptyBorder());
+        closeButton.setSize(close.getIconWidth(), close.getIconHeight());
+        closeButton.setLocation(getWidth()-20, 0);
+        closeButton.addActionListener(new ActionListener() {  
+            public void actionPerformed(ActionEvent e) {  
+                System.exit(0);  
+            }  
+        });  
+        mainPanel.add(closeButton);  
+          
+       
 		// 设置mainPanel的大小和位置：同frame一样大小，覆盖整个frame
 		mainPanel.setSize(frameWidth, frameHeight);
 		mainPanel.setLocation(0, 0);
@@ -121,7 +141,7 @@ public class LoginFrame extends JFrame {
 		
 		//pane.add(image);
 		//mainPanel.add(pane);
-		ImageIcon icon=new ImageIcon("img/log.png");
+		ImageIcon icon=new ImageIcon("img/Login/tou.png");
 		icon.setImage(icon.getImage().getScaledInstance(180,180,Image.SCALE_DEFAULT));
 		JLabel label=new JLabel();
 		label.setLocation(55, 50);
@@ -148,12 +168,31 @@ public class LoginFrame extends JFrame {
 		this.setResizable(false);// 不允许调整窗口大小
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 关闭时结束进程
 		this.setVisible(true);// 窗口可见
+		
+		//处理拖动事件
+		  this.addMouseListener(new MouseAdapter() {  
+	            public void mousePressed(MouseEvent e) {  
+	                xOld = e.getX();  
+	                yOld = e.getY();  
+	            }  
+	        });  
+	        this.addMouseMotionListener(new MouseMotionAdapter() {  
+	            @Override  
+	            public void mouseDragged(MouseEvent e) {  
+	                int xOnScreen = e.getXOnScreen();  
+	                int yOnScreen = e.getYOnScreen();  
+	                int xx = xOnScreen - xOld;  
+	                int yy = yOnScreen - yOld;  
+	                LoginFrame.this.setLocation(xx, yy);  
+	            }  
+	        });  
 	}
 
 	public static void main(String[] args) throws Exception {
 		new LoginFrame();
 	}
 
+	
 	// 下面的类是用户名文本域的事件监听器
 	class idFieldListener implements DocumentListener {
 
