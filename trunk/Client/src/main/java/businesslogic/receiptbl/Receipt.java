@@ -130,5 +130,9 @@ public class Receipt {
 	public String getInfo() {
 		return info;
 	}
-
+	
+	//11-27 yan
+	public String getStockID() {
+		return stockID;
+	}
 }
