@@ -61,6 +61,8 @@ public class SalesController implements SalesBLService {
 			case PURCHASE:
 				 PurchasePO purchasepo=purchaseVoToPo(vo);service.createPurchase(purchasepo);break;
 			case PURCHASERETURN:
+			case SALERETURN:
+				
 				
 				
 				
