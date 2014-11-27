@@ -2,12 +2,9 @@ package Presentation.stockui;
 
 import javax.swing.JPanel;
 
-public class GoodsPanel extends JPanel{
-
+public class GiftPanel extends JPanel{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-
 }
