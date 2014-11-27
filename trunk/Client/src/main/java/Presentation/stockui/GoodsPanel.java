@@ -2,7 +2,7 @@ package Presentation.stockui;
 
 import javax.swing.JPanel;
 
-public class goodsPanel extends JPanel{
+public class GoodsPanel extends JPanel{
 
 	/**
 	 * 
