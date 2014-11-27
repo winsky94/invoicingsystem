@@ -1,5 +1,7 @@
 package Presentation.mainui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -8,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -32,9 +36,13 @@ public class LoginFrame extends JFrame {
 	String id, key;
 	JTextField idField;
 	JPasswordField passwordField;
+    JButton closebutton;
 	int screenHeight, screenWidth, frameHeight, frameWidth;
 
 	public LoginFrame() throws Exception {
+		
+	
+		
 		//service = new User();// 声明一下 yan 11-18
 		// 获得与分辨率匹配的大小
 		screenHeight=UIhelper.getScreenHeight();
@@ -56,7 +64,7 @@ public class LoginFrame extends JFrame {
 
 			// 给panel加上图片
 			protected void paintComponent(Graphics g) {
-				ImageIcon icon = new ImageIcon("img/Login/background.jpg");
+				ImageIcon icon = new ImageIcon("img/Login/login.jpg");
 				Image img = icon.getImage();
 				g.drawImage(img, 0, 0, icon.getIconWidth(),
 						icon.getIconHeight(), icon.getImageObserver());
@@ -82,6 +90,7 @@ public class LoginFrame extends JFrame {
 		// 设置登录按钮
 		// 设想：改为圆形按钮
 		JButton loginButton = new JButton("登录");
+		
 		Font buttonFont = new Font("登录", Font.PLAIN, 13);
 		loginButton.setFont(buttonFont);
 		loginButton.setSize(frameWidth / 5, frameHeight * 6 / 100);
@@ -104,12 +113,27 @@ public class LoginFrame extends JFrame {
 		passwordLabel.setSize(frameWidth / 5, frameHeight / 11);
 		passwordLabel.setLocation(frameWidth * 8 / 100, frameHeight * 64 / 100);
 		passwordLabel.setVisible(true);
-		// 设置头像区
 		JPanel portraitPanel = new JPanel();
-
+        
 		mainPanel.setVisible(true);
-		mainPanel.setLayout(null);
+	mainPanel.setLayout(null);
 		// 向mainPanel添加组件
+		
+		//pane.add(image);
+		//mainPanel.add(pane);
+		ImageIcon icon=new ImageIcon("img/log.png");
+		icon.setImage(icon.getImage().getScaledInstance(180,180,Image.SCALE_DEFAULT));
+		JLabel label=new JLabel();
+		label.setLocation(55, 50);
+		label.setIcon(icon);
+	
+		//Border border=new Border();
+		//label.setBorder(border);
+		
+		label.setSize(icon.getIconWidth(),icon.getIconHeight());
+		
+		
+		mainPanel.add(label);
 		mainPanel.add(idLabel);
 		mainPanel.add(passwordLabel);
 		mainPanel.add(portraitPanel);
@@ -117,6 +141,8 @@ public class LoginFrame extends JFrame {
 		mainPanel.add(idField);
 		mainPanel.add(passwordField);
 		// 向LoginFrame添加组件
+		//this.add(image);
+		 this.setUndecorated(true);
 		this.add(mainPanel);
 		this.repaint();
 		this.setResizable(false);// 不允许调整窗口大小
