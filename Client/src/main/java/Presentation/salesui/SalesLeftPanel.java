@@ -21,13 +21,13 @@ public class SalesLeftPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JButton userInfoBtn,purchaseBtn, saleBtn, memberBtn,aboutBtn;
 	JPanel memberMgrPnl, purchaseMgrPnl, saleMgrPnl, aboutPnl,rightPnl;
-
+	Color salesColor=new Color(47,73,136);
 	public SalesLeftPanel(JPanel memberMgrPnl, JPanel purchaseMgrPnl,
 			JPanel saleMgrPnl, JPanel aboutPnl, JPanel rightPnl) {
 		this.setLayout(new GridLayout(10, 1));
 		//
 		/*!!!!!BL看这里！！：这里的构造器应放入User姓名和头像！！！！！！！！！*/
-		userInfoBtn=new UserInfoButton("严顺宽", new ImageIcon("img/sales/ysk.png"));
+		userInfoBtn=new UserInfoButton("严顺宽", new ImageIcon("img/sales/ysk.png"),salesColor);
 		this.add(userInfoBtn);
 		// 客户管理按钮
 		memberBtn = new JButton("客户管理",
@@ -36,7 +36,7 @@ public class SalesLeftPanel extends JPanel {
 		// memberBtn.setBorder(BorderFactory.createRaisedBevelBorder());
 		memberBtn.setForeground(Color.white);
 		// memberBtn.setBorderPainted(false);
-		memberBtn.setBackground(new Color(47, 73, 136));
+		memberBtn.setBackground(salesColor);
 		memberBtn.setHorizontalAlignment(SwingConstants.CENTER);
 		memberBtn.setFocusPainted(false);
 		memberBtn.addActionListener(new MemberBtnListener());
@@ -48,7 +48,7 @@ public class SalesLeftPanel extends JPanel {
 		// purchaseBtn.setBorder(BorderFactory.createRaisedBevelBorder());
 		purchaseBtn.setForeground(Color.white);
 		// purchaseBtn.setBorderPainted(false);
-		purchaseBtn.setBackground(new Color(47, 73, 136));
+		purchaseBtn.setBackground(salesColor);
 		purchaseBtn.setHorizontalAlignment(SwingConstants.CENTER);
 		purchaseBtn.setFocusPainted(false);
 		purchaseBtn.addActionListener(new PurchaseBtnListener());
@@ -59,7 +59,7 @@ public class SalesLeftPanel extends JPanel {
 		// saleBtn.setBorder(BorderFactory.createRaisedBevelBorder());
 		saleBtn.setForeground(Color.white);
 		// saleBtn.setBorderPainted(false);
-		saleBtn.setBackground(new Color(47, 73, 136));
+		saleBtn.setBackground(salesColor);
 		saleBtn.setHorizontalAlignment(SwingConstants.CENTER);
 		saleBtn.setFocusPainted(false);
 		saleBtn.addActionListener(new SaleBtnListener());
@@ -70,13 +70,13 @@ public class SalesLeftPanel extends JPanel {
 		// aboutBtn.setBorder(BorderFactory.createRaisedBevelBorder());
 		aboutBtn.setForeground(Color.white);
 		// saleBtn.setBorderPainted(false);
-		aboutBtn.setBackground(new Color(47, 73, 136));
+		aboutBtn.setBackground(salesColor);
 		aboutBtn.setHorizontalAlignment(SwingConstants.CENTER);
 		aboutBtn.setFocusPainted(false);
 		aboutBtn.addActionListener(new AboutBtnListener());
 		this.add(aboutBtn);
 		//
-		this.setBackground(new Color(47, 73, 136));
+		this.setBackground(salesColor);
 		this.memberMgrPnl = memberMgrPnl;
 		this.purchaseMgrPnl = purchaseMgrPnl;
 		this.saleMgrPnl = saleMgrPnl;
