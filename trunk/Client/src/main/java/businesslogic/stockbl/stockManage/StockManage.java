@@ -84,7 +84,7 @@ public class StockManage {
 	public double getGoodsOverIncome() {
 		ArrayList<StockOverOrLowPO> list=service.getStockOverOrLowPO();
 		for(int i=0;i<list.size();i++){
-			if(list.get(i))
+			//if(list.get(i))  ??
 		}
 		return goodsOverIncome;
 	}
