@@ -33,7 +33,7 @@ public class MemberMgrPanel extends JPanel {
 		this.setLayout(gbl);
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets=new Insets(3,3,3,3);
-		c.fill=GridBagConstraints.HORIZONTAL;
+		c.fill=GridBagConstraints.BOTH;
 		// 增
 		addBtn = new JButton("添加客户", new ImageIcon(
 				"img/sales/addMember-blue.png"));
@@ -61,7 +61,6 @@ public class MemberMgrPanel extends JPanel {
 		delBtn.setFocusPainted(false);
 		delBtn.addActionListener(new DelBtnListener());
 		c.gridx = 1;
-		c.gridy = 0;
 		gbl.setConstraints(delBtn, c);
 		this.add(delBtn);
 		// 改
@@ -74,7 +73,6 @@ public class MemberMgrPanel extends JPanel {
 		modBtn.setFocusPainted(false);
 		modBtn.addActionListener(new ModBtnListener());
 		c.gridx = 2;
-		c.gridy = 0;
 		gbl.setConstraints(modBtn, c);
 		this.add(modBtn);
 		// 刷新
@@ -88,7 +86,6 @@ public class MemberMgrPanel extends JPanel {
 		refreshBtn.setFocusPainted(false);
 		refreshBtn.addActionListener(new RefreshBtnListener());
 		c.gridx = 3;
-		c.gridy = 0;
 		gbl.setConstraints(refreshBtn, c);
 		this.add(refreshBtn);
 		// 搜索框
@@ -96,8 +93,9 @@ public class MemberMgrPanel extends JPanel {
 		searchFld.setFont(new Font("楷体", Font.BOLD, 13));
 		searchFld.getDocument().addDocumentListener(new SearchFldListener());
 		c.gridx = 4;
-		c.weightx = 0.2;
-		c.gridy = 0;
+		c.fill=GridBagConstraints.HORIZONTAL;
+		c.weightx = 0.1;
+		c.weighty = 0.02;
 		gbl.setConstraints(searchFld, c);
 		this.add(searchFld);
 		// 查找按钮
@@ -126,6 +124,7 @@ public class MemberMgrPanel extends JPanel {
 		memberTable.setBackground(Color.black);
 		c.gridx = 0;
 		c.gridwidth = 6;
+		c.fill=GridBagConstraints.BOTH;
 		c.gridy = 1;
 		c.weightx = 0.98;
 		c.weighty = 0.98;
