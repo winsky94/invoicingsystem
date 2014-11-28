@@ -14,10 +14,10 @@ import businesslogic.salesbl.MockPurchaseReturnList;
 import businesslogic.salesbl.MockSale;
 import businesslogic.salesbl.MockSaleItem;
 import businesslogic.salesbl.MockSaleList;
-import businesslogic.stockbl.GiftReceipt;
-import businesslogic.stockbl.MockStockControl;
-import businesslogic.stockbl.StockOverOrLowReceipt;
+import businesslogic.stockbl.gift.GiftReceipt;
 import businesslogic.stockbl.goods.MockGoods;
+import businesslogic.stockbl.stockManage.MockStockControl;
+import businesslogic.stockbl.stockManage.StockOverOrLowReceipt;
 
 public class BSLTest extends TestCase {
 	private BSL bsList;

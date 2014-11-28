@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import po.GoodsClassPO;
 import po.GoodsPO;
+import vo.GoodsClassVO;
 import dataservice.stockdataservice.goodsclassdataservice.StockGoodsClassDataService;
 import dataservice.stockdataservice.goodsdataservice.StockGoodsDataService;
 
@@ -21,10 +22,11 @@ public class GoodsClass {
 	public GoodsClass() {
 		// System.setSecurityManager(new SecurityManager());
 		String host = "localhost:1099";
-		String url = "rmi://" + host + "/userService";
+		String url1 = "rmi://" + host + "/goodsClassService";
+		String url2 = "rmi://" + host + "/goodsService";
 		try {
-			service = (StockGoodsClassDataService) Naming.lookup(url);
-			goodsService = (StockGoodsDataService) Naming.lookup(url);
+			service = (StockGoodsClassDataService) Naming.lookup(url1);
+			goodsService = (StockGoodsDataService) Naming.lookup(url2);
 		} catch (MalformedURLException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
@@ -43,53 +45,48 @@ public class GoodsClass {
 		this.upClassName = upClassName;
 	}
 
-	public String getClassID() {
-		return classID;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getUpClassName() {
-		return upClassName;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setUpClassName(String upClassName) {
-		this.upClassName = upClassName;
-	}
-
 	public int addGoodsClass() {
 		GoodsClassManage manage = new GoodsClassManage();
-		GoodsClassPO upClass = manage.find(upClassName);
-		ArrayList<GoodsPO> goodsList = goodsService.showGoods();
-		if (!upClass.equals(null)) {
-			// 查找上级分类下是否有商品，如果有则不可以在其下加子分类
-			boolean isAble = true;
-			for (int i = 0; i < goodsList.size(); i++) {
-				if (upClass.getName().equals(
-						goodsList.get(i).getGoodsClassName())) {
-					isAble = false;
-					break;
-				}
+		boolean isExist = false;
+		ArrayList<GoodsClassVO> list = new ArrayList<GoodsClassVO>();
+		list = manage.show();
+		for (int i = 0; i < list.size(); i++) {
+			if (name.equals(list.get(i).getName())) {
+				isExist = true;
 			}
+		}
 
-			if (isAble) {
-				// 商品分类编号+1
-				String maxID=service.getMaxID();
-				int tp = Integer.parseInt(maxID);
-				classID = String.valueOf(tp + 1);
-				GoodsClassPO po = new GoodsClassPO(classID, name, upClassName);
-				return service.addGoodsClass(po);
+		if (!isExist) {
+			GoodsClassPO upClass = manage.find(upClassName);
+			ArrayList<GoodsPO> goodsList = goodsService.showGoods();
+			if (!upClass.equals(null)) {
+				// 查找上级分类下是否有商品，如果有则不可以在其下加子分类
+				boolean isAble = true;
+				for (int i = 0; i < goodsList.size(); i++) {
+					if (upClass.getName().equals(
+							goodsList.get(i).getGoodsClassName())) {
+						isAble = false;
+						break;
+					}
+				}
+
+				if (isAble == true) {
+					// 商品分类编号+1
+					String maxID = service.getMaxID();
+					int tp = Integer.parseInt(maxID);
+					classID = String.valueOf((tp + 1));
+					System.out.println("id:"+classID);
+					GoodsClassPO po = new GoodsClassPO(classID, name,
+							upClassName);
+					return service.addGoodsClass(po);
+				} else {
+					return 1;//上级分类下有商品，无法添加
+				}
 			} else {
-				return 1;
+				return 2;//上级分类不存在
 			}
 		} else {
-			return 2;
+			return 5;//当前分类已存在
 		}
 	}
 
@@ -113,8 +110,28 @@ public class GoodsClass {
 	}
 
 	public int modifyGoodsClass() {
-		GoodsClassPO po = new GoodsClassPO(classID, name, upClassName);
+		GoodsClassPO po = new GoodsClassPO("1", name, upClassName);
 		return service.modifyGoodsClass(po);
+	}
+
+	public String getClassID() {
+		return classID;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getUpClassName() {
+		return upClassName;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setUpClassName(String upClassName) {
+		this.upClassName = upClassName;
 	}
 
 }

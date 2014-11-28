@@ -1,4 +1,4 @@
-package businesslogic.stockbl;
+package businesslogic.stockbl.gift;
 
 import businesslogic.memberbl.Member;
 import businesslogic.stockbl.goods.Goods;

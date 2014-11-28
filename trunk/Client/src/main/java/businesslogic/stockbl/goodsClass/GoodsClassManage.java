@@ -16,7 +16,7 @@ public class GoodsClassManage {
 
 	public GoodsClassManage() {
 		String host = "localhost:1099";
-		String url = "rmi://" + host + "/userService";
+		String url = "rmi://" + host + "/goodsClassService";
 		try {
 			service = (StockGoodsClassDataService) Naming.lookup(url);
 		} catch (MalformedURLException e) {
@@ -34,7 +34,7 @@ public class GoodsClassManage {
 	public GoodsClassPO find(String name) {
 		GoodsClassPO po = null;
 		boolean isExist = false;
-		ArrayList<GoodsClassPO> list = service.show();
+		ArrayList<GoodsClassPO> list = service.showAllPO();
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getName().equals(name)) {
 				po = list.get(i);
@@ -51,7 +51,13 @@ public class GoodsClassManage {
 
 	public ArrayList<GoodsClassVO> show() {
 		// TODO 自动生成的方法存根
-		ArrayList<GoodsClassPO> list = service.show();
+		ArrayList<GoodsClassPO> list = null;
+		try {
+			list = service.show();
+		} catch (RemoteException e) {
+			// TODO 自动生s成的 catch 块
+			e.printStackTrace();
+		}
 		ArrayList<GoodsClassVO> result = new ArrayList<GoodsClassVO>();
 		for (int i = 0; i < list.size(); i++) {
 			GoodsClassPO po = list.get(i);
@@ -65,8 +71,8 @@ public class GoodsClassManage {
 		GoodsClassVO vo = new GoodsClassVO(po.getName(), po.getUpClassName());
 		return vo;
 	}
-	
-	public String getID(String name){
+
+	public String getID(String name) {
 		return find(name).getID();
 	}
 }

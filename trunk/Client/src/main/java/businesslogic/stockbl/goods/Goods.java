@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import po.GoodsPO;
 import businesslogic.stockbl.goodsClass.GoodsClassManage;
-import businesslogic.stockbl.stockManage.StockManage;
+import businesslogic.stockbl.stockManage.StockManageController;
 import dataservice.stockdataservice.goodsdataservice.StockGoodsDataService;
 
 public class Goods {
@@ -27,7 +27,7 @@ public class Goods {
 	public Goods() {
 		// System.setSecurityManager(new SecurityManager());
 		String host = "localhost:1099";
-		String url = "rmi://" + host + "/userService";
+		String url = "rmi://" + host + "/goodsService";
 		try {
 			service = (StockGoodsDataService) Naming.lookup(url);
 		} catch (MalformedURLException e) {
@@ -96,7 +96,7 @@ public class Goods {
 		GoodsPO po = new GoodsPO(id, name, size, numInStock, virtualnumInStock,
 				purchasePrice, price, lastPurchasePrice, lastPrice, gc);
 		if (oldPO.getPurchasePrice() != po.getPurchasePrice()) {
-			StockManage manage = new StockManage();
+			StockManageController manage = new StockManageController();
 			Goods good = new Goods(oldPO.getName(), oldPO.getSize(),
 					oldPO.getGoodsClassName(), oldPO.getNumInStock(),
 					oldPO.getPurchasePrice(), oldPO.getPrice(),

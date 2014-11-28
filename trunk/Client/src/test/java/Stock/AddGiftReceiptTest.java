@@ -8,10 +8,10 @@ import junit.framework.TestCase;
 import businesslogic.memberbl.MemberLevel;
 import businesslogic.memberbl.MemberType;
 import businesslogic.memberbl.MockMember;
-import businesslogic.stockbl.GiftReceipt;
-import businesslogic.stockbl.MockStockControl;
+import businesslogic.stockbl.gift.GiftReceipt;
 import businesslogic.stockbl.goods.Goods;
 import businesslogic.stockbl.goods.MockGoods;
+import businesslogic.stockbl.stockManage.MockStockControl;
 
 public class AddGiftReceiptTest extends TestCase {
 	private GiftReceipt giftReceipt;

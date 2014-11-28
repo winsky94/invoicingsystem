@@ -4,8 +4,8 @@ import java.rmi.RemoteException;
 import java.text.ParseException;
 
 import junit.framework.TestCase;
-import businesslogic.stockbl.StockOverOrLowReceipt;
 import businesslogic.stockbl.goods.MockGoods;
+import businesslogic.stockbl.stockManage.StockOverOrLowReceipt;
 
 public class AddStockOverTest extends TestCase {
 	String goodsID;
