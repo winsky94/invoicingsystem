@@ -33,6 +33,7 @@ public class AddGoodsDialog extends JDialog {
 
 	public AddGoodsDialog() {
 		pnl = this.getContentPane();
+		pnl.setBackground(Color.white);
 		pnl.setLayout(null);
 		//
 		// -----------------------IDLabel------------------------------------

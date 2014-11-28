@@ -150,7 +150,7 @@ public class GoodsPanel extends JPanel {
 	class DelGoodsBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			JDialog delGoodsDlg=new DelGoodsDialog();
 
 		}
 
