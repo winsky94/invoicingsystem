@@ -1,4 +1,4 @@
-package businesslogic.stockbl;
+package businesslogic.stockbl.stockManage;
 
 import java.util.ArrayList;
 import po.GoodsPO;

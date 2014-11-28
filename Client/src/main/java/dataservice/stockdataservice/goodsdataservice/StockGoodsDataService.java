@@ -8,15 +8,17 @@ import po.GoodsPO;
 public interface StockGoodsDataService extends Remote {
 	public int addGoods(GoodsPO po);
 
-	public int deleteGoods(GoodsPO po)  ;
+	public int deleteGoods(GoodsPO po);
 
-	public int modifyGoods(GoodsPO po) ;
+	public int modifyGoods(GoodsPO po);
 
-	public ArrayList<GoodsPO> findGoods(String message) ;
+	public ArrayList<GoodsPO> findGoods(String message);
 
-	public ArrayList<GoodsPO> showGoods() ;
+	public ArrayList<GoodsPO> showStock(String beginDate, String endDate);
+
+	public ArrayList<GoodsPO> checkStock();
 
 	public String getMaxID();
 
-	
+	public ArrayList<GoodsPO> showGoods();
 }

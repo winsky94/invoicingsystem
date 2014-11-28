@@ -1,7 +1,8 @@
-package businesslogic.stockbl;
+package businesslogic.stockbl.stockManage;
 
 import java.util.ArrayList;
 
+import businesslogic.stockbl.gift.GiftReceipt;
 import businesslogic.stockbl.goods.MockGoods;
 
 public class MockStockControl {

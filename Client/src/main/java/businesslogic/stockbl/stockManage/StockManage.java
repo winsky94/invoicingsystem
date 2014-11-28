@@ -8,8 +8,7 @@ import java.util.ArrayList;
 
 import po.GoodsPO;
 import po.StockOverOrLowPO;
-import businesslogic.stockbl.GiftReceipt;
-import businesslogic.stockbl.StockOverOrLowReceipt;
+import businesslogic.stockbl.gift.GiftReceipt;
 import businesslogic.stockbl.goods.Goods;
 import dataservice.stockdataservice.controldataservice.StockControlDataService;
 import dataservice.stockdataservice.goodsdataservice.StockGoodsDataService;

@@ -1,4 +1,4 @@
-package businesslogic.stockbl;
+package businesslogic.stockbl.stockManage;
 
 import businesslogic.receiptbl.Receipt;
 

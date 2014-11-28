@@ -40,4 +40,14 @@ public class StockGoodsDataService_stub implements StockGoodsDataService {
 		return null;
 	}
 
+	public ArrayList<GoodsPO> showStock(String beginDate, String endDate) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	public ArrayList<GoodsPO> checkStock() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 }
