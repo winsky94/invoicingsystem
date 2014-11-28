@@ -9,13 +9,21 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
+import Presentation.memberui.AddMemberDialog.AddressFieldListener;
+import Presentation.memberui.AddMemberDialog.ClerkFieldListener;
+import Presentation.memberui.AddMemberDialog.EMailFieldListener;
+import Presentation.memberui.AddMemberDialog.NameFieldListener;
+import Presentation.memberui.AddMemberDialog.PhoneFieldListener;
+import Presentation.memberui.AddMemberDialog.PostcodeFieldListener;
 import Presentation.uihelper.UIhelper;
 
 public class ModMemberDialog extends JDialog {
 	/**
 	 * ！！！！这里的构造器应当传入Member的各种信息，默认填入组件中！！
-	 * 
+	 * 没写监听！
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -29,7 +37,7 @@ public class ModMemberDialog extends JDialog {
 			defaultClerkFld;
 	JLabel IDLbl, typeLbl,typeContentLbl, nameLbl, phoneLbl, addressLbl, postcodeLbl,
 			EMailLbl, defaultClerkLbl;
-
+	String nameText,phoneText,addressText,postcodeText,EMailText,clerkText;
 	public ModMemberDialog() {
 		pnl = this.getContentPane();
 		pnl.setLayout(null);
@@ -69,6 +77,7 @@ public class ModMemberDialog extends JDialog {
 		nameFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		nameFld.setBounds(dialogWidth * 60 / 100, dialogHeight * 20 / 100,
 				dialogWidth * 20 / 100, dialogHeight * 7 / 100);
+		nameFld.getDocument().addDocumentListener(new NameFieldListener());
 		pnl.add(nameFld);
 		// -----------------phoneLbl----------------------------------------
 		phoneLbl = new JLabel("电话 ");
@@ -81,6 +90,7 @@ public class ModMemberDialog extends JDialog {
 		phoneFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		phoneFld.setBounds(dialogWidth * 15 / 100, dialogHeight * 35 / 100,
 				dialogWidth * 25 / 100, dialogHeight * 7 / 100);
+		phoneFld.getDocument().addDocumentListener(new PhoneFieldListener());
 		pnl.add(phoneFld);
 		// -------------------EMailLbl---------------------------------------
 		EMailLbl = new JLabel("电子邮箱 ");
@@ -93,6 +103,7 @@ public class ModMemberDialog extends JDialog {
 		EMailFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		EMailFld.setBounds(dialogWidth * 60 / 100, dialogHeight * 35 / 100,
 				dialogWidth * 30 / 100, dialogHeight * 7 / 100);
+		EMailFld.getDocument().addDocumentListener(new EMailFieldListener());
 		pnl.add(EMailFld);
 		// ----------------addressLabel---------------------------------------
 		addressLbl = new JLabel("地址 ");
@@ -105,6 +116,7 @@ public class ModMemberDialog extends JDialog {
 		addressFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		addressFld.setBounds(dialogWidth * 15 / 100, dialogHeight * 50 / 100,
 				dialogWidth * 50 / 100, dialogHeight * 7 / 100);
+		addressFld.getDocument().addDocumentListener(new AddressFieldListener());
 		pnl.add(addressFld);
 		// ----------------postcodeLabel---------------------------------------
 		postcodeLbl = new JLabel("邮编 ");
@@ -117,6 +129,7 @@ public class ModMemberDialog extends JDialog {
 		postcodeFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		postcodeFld.setBounds(dialogWidth * 15 / 100, dialogHeight * 65 / 100,
 				dialogWidth * 25 / 100, dialogHeight * 7 / 100);
+		postcodeFld.getDocument().addDocumentListener(new PostcodeFieldListener());
 		pnl.add(postcodeFld);
 		// -------------------defaultClerkLbl---------------------------------------
 		defaultClerkLbl = new JLabel("默认业务员 ");
@@ -131,6 +144,7 @@ public class ModMemberDialog extends JDialog {
 		defaultClerkFld.setBounds(dialogWidth * 60 / 100,
 				dialogHeight * 65 / 100, dialogWidth * 30 / 100,
 				dialogHeight * 7 / 100);
+		defaultClerkFld.getDocument().addDocumentListener(new ClerkFieldListener());
 		pnl.add(defaultClerkFld);
 		// -------------------submitBtn---------------------------------------------
 		submitBtn = new JButton("确  定");
@@ -149,5 +163,83 @@ public class ModMemberDialog extends JDialog {
 		this.setIconImage(UIhelper.getImage("img/sales/modify-blue.png"));
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
+	}
+	class NameFieldListener implements DocumentListener{
+		public void changedUpdate(DocumentEvent d) {
+			nameText=nameFld.getText();
+		}
+
+		public void insertUpdate(DocumentEvent d) {
+			nameText=nameFld.getText();
+		}
+
+		public void removeUpdate(DocumentEvent d) {
+			nameText=nameFld.getText();
+		}
+	}
+	class PhoneFieldListener implements DocumentListener{
+		public void changedUpdate(DocumentEvent d) {
+			phoneText=phoneFld.getText();
+		}
+
+		public void insertUpdate(DocumentEvent d) {
+			phoneText=phoneFld.getText();
+		}
+
+		public void removeUpdate(DocumentEvent d) {
+			phoneText=phoneFld.getText();
+		}
+	}
+	class AddressFieldListener implements DocumentListener{
+		public void changedUpdate(DocumentEvent d) {
+			addressText=addressFld.getText();
+		}
+
+		public void insertUpdate(DocumentEvent d) {
+			addressText=addressFld.getText();
+		}
+
+		public void removeUpdate(DocumentEvent d) {
+			addressText=addressFld.getText();
+		}
+	}
+	class EMailFieldListener implements DocumentListener{
+		public void changedUpdate(DocumentEvent d) {
+			EMailText=EMailFld.getText();
+		}
+
+		public void insertUpdate(DocumentEvent d) {
+			EMailText=EMailFld.getText();
+		}
+
+		public void removeUpdate(DocumentEvent d) {
+			EMailText=EMailFld.getText();
+		}
+	}
+	class PostcodeFieldListener implements DocumentListener{
+		public void changedUpdate(DocumentEvent d) {
+			postcodeText=postcodeFld.getText();
+		}
+
+		public void insertUpdate(DocumentEvent d) {
+			postcodeText=postcodeFld.getText();
+		}
+
+		public void removeUpdate(DocumentEvent d) {
+			postcodeText=postcodeFld.getText();
+		}
+	}
+	class ClerkFieldListener implements DocumentListener{
+		public void changedUpdate(DocumentEvent d) {
+			clerkText=defaultClerkFld.getText();
+		}
+
+		public void insertUpdate(DocumentEvent d) {
+			clerkText=defaultClerkFld.getText();
+		}
+
+		public void removeUpdate(DocumentEvent d) {
+			clerkText=defaultClerkFld.getText();
+		}
 	}
 }
