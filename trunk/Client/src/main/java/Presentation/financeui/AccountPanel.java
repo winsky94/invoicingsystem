@@ -1,4 +1,4 @@
-package Presentation.mainui;
+package Presentation.financeui;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

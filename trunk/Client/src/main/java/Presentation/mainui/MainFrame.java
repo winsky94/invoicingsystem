@@ -8,6 +8,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
+import Presentation.financeui.LeftLongPanel;
+
 public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	
 	JSplitPane jsp;

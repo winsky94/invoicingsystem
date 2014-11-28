@@ -67,9 +67,7 @@ public class SalesLeftPanel extends JPanel {
 		// 关于按钮
 		aboutBtn = new JButton("关于系统", new ImageIcon("img/icon-about.png"));
 		aboutBtn.setFont(new Font("楷体", Font.PLAIN, 19));
-		// aboutBtn.setBorder(BorderFactory.createRaisedBevelBorder());
 		aboutBtn.setForeground(Color.white);
-		// saleBtn.setBorderPainted(false);
 		aboutBtn.setBackground(salesColor);
 		aboutBtn.setHorizontalAlignment(SwingConstants.CENTER);
 		aboutBtn.setFocusPainted(false);
