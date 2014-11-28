@@ -1,17 +1,18 @@
 package Presentation.promotionui;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Presentation.mainui.functionPane;
+
 public class listPane extends JPanel{
-	
-	public listPane(){
-		ImageIcon skin=new ImageIcon("img/mainFrame/skin.png");
-		JLabel skinbutton=new JLabel(skin);
-		skinbutton.setSize(skin.getIconWidth(),skin.getIconHeight());
-		skinbutton.setLocation(this.getWidth()*2, 0);
-		this.add(skinbutton);
+	JFrame parent;
+	public listPane(JFrame frame){
+		setSize(frame.getWidth()*3/4,frame.getHeight());
+		JPanel button=new functionPane(this,frame);
+		add(button);
 	}
 	
 

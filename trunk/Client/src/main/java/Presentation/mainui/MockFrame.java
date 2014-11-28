@@ -3,8 +3,10 @@ package Presentation.mainui;
 	import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
 
 	import javax.swing.*;
 
@@ -21,10 +23,11 @@ import Presentation.uihelper.UIhelper;
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		JSplitPane jsp;
+		JSplitPane jsp,rsp;//rsp 右边的pane
 		JPanel jp1,jp2;
 		JLabel jlb;
 		String userType;
+		int xOld,yOld;
 		Color[] color=new Color[2];
 		int screenWidth = UIhelper.getScreenWidth();
 		int screenHeight = UIhelper.getScreenHeight();
@@ -53,9 +56,27 @@ import Presentation.uihelper.UIhelper;
 			UserJob job=user.getJob();
 			switch(job){
 			case MANAGER:
-				this.setLeftComponent(new leftPane());
-				this.setRightComponent(new listPane());
+				this.setLeftComponent(new leftPane(this));
+				this.setRightComponent(new listPane(this));
 			}
+			
+			//处理拖动事件
+			  jsp.addMouseListener(new MouseAdapter() {  
+		            public void mousePressed(MouseEvent e) {  
+		                xOld = e.getX();  
+		                yOld = e.getY();  
+		            }  
+		        });  
+		        jsp.addMouseMotionListener(new MouseMotionAdapter() {  
+		            @Override  
+		            public void mouseDragged(MouseEvent e) {  
+		                int xOnScreen = e.getXOnScreen();  
+		                int yOnScreen = e.getYOnScreen();  
+		                int xx = xOnScreen - xOld;  
+		                int yy = yOnScreen - yOld;  
+		                MockFrame.this.setLocation(xx, yy);  
+		            }  
+		        });  
 			
 		}
 		

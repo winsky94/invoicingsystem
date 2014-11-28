@@ -10,6 +10,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import po.UserPO.UserJob;
+import businesslogic.userbl.User;
+import Presentation.mainui.headPane;
 import Presentation.uihelper.UIhelper;
 
 public class leftPane extends JPanel implements ActionListener{
@@ -22,10 +25,15 @@ public class leftPane extends JPanel implements ActionListener{
 	JLButton receipt,promotion,view,back;
 	JPanel headPane;
 	Color color=new Color(115,46,126);
+	JFrame parent;
 	
-	public leftPane(){
+	public leftPane(JFrame frame){
+		parent=frame;
 		setSize(frameWidth/4,frameHeight);
-		headPane=new headPane(this);
+		//去掉
+		User user=new User(0);
+		user.setJob(UserJob.MANAGER);
+		headPane=new headPane(this,user);
 		ImageIcon receiptImg=new ImageIcon("img/promotion/receiptView.png");
 		receipt=new JLButton("单据审批",receiptImg);
 		int width=this.getWidth();
