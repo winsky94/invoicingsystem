@@ -6,9 +6,11 @@ import java.util.Date;
 
 
 
+
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
-import businesslogic.promotionbl.PromotionType;
+import po.PromotionPO.PromotionType;
+
 
 public class PromotionVO {
 	Date startDate,endDate;

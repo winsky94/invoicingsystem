@@ -2,6 +2,7 @@ package Presentation.mainui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -82,12 +83,14 @@ public class LoginFrame extends JFrame {
 		 final JLabel closeButton = new JLabel(close);
         closeButton.setSize(close.getIconWidth(), close.getIconHeight());
         closeButton.setLocation(getWidth()-20, 0);
+        closeButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         
         final ImageIcon min=new ImageIcon("img/Login/minButton.png");
         final ImageIcon min1=new ImageIcon("img/Login/minButton1.png");
         final JLabel minButton=new JLabel(min);
         minButton.setSize(min.getIconWidth(), min.getIconHeight());
         minButton.setLocation(getWidth()-45,0);
+        minButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         class buttonListener extends MouseAdapter{
         	public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub

@@ -7,8 +7,10 @@ import java.util.Date;
 
 
 
+
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
+import po.PromotionPO.PromotionType;
 import vo.GiftVO;
 import vo.PromotionVO;
 import vo.SaleVO;
