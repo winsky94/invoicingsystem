@@ -159,7 +159,7 @@ public class GoodsPanel extends JPanel {
 	class ModGoodsBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			JDialog modGoodsDlg=new ModGoodsDialog();
 
 		}
 
