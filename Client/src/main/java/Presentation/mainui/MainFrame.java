@@ -15,11 +15,11 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	JSplitPane jsp;
 	JPanel jp1,jp2;
 	JLabel jlb;
-	String type;
+	String userType;
 	Color[] color=new Color[2];
 		
 	public MainFrame(String s){	
-		type=s;
+		userType=s;
 	}
 	
 	public void setRightComponent(JPanel a){
@@ -39,15 +39,15 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	}
 	
 	public void setColor(){
-		if(type.equals("finance")){
+		if(userType.equals("finance")){
 			color[0]=new Color(242,125,5);
 			color[1]=new Color(222,105,5);
 		}
-		else if(type.equals("sales")){
+		else if(userType.equals("sales")){
 			color[0]=new Color(47,73,136);
 			color[1]=new Color(27,53,116);
 		}
-		else if(type.equals("stock")){
+		else if(userType.equals("stock")){
 			color[0]=new Color(51,125,86);
 			color[1]=new Color(31,105,66);
 		}
