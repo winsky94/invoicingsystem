@@ -1,4 +1,4 @@
-package Presentation.promotionui;
+package Presentation.mainui;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -8,11 +8,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import businesslogic.userbl.User;
+
+//根据  user构造left 头像Pane
 public class headPane extends JPanel{
 	JLabel head,info,name,job,point;
 	int width,height;
 	//选哟user构造啊
-	public headPane(JPanel parent){
+	public headPane(JPanel parent,User user){
 		//--------------userInfo Pane构造
 		this.setBackground(new Color(115,46,126));
 		width=parent.getWidth();
