@@ -30,28 +30,28 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 		jp3.setBackground(color[0]);
 		
 		jb1=new JButton();
-		jb1.setIcon(new ImageIcon("commodity-golden.png"));
+		jb1.setIcon(new ImageIcon("img/finance/commodity-golden.png"));
 		jb1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jb1.setFocusPainted(false);
 		jb1.setBackground(color[0]);
 		jb1.addMouseListener(this);
 		jb1.addActionListener(this);
 		jb2=new JButton();
-		jb2.setIcon(new ImageIcon("account-golden.png"));
+		jb2.setIcon(new ImageIcon("img/finance/account-golden.png"));
 		jb2.setFocusPainted(false);
 		jb2.setBackground(color[0]);
 		jb2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jb2.addActionListener(this);
 		jb2.addMouseListener(this);
 		jb3=new JButton();
-		jb3.setIcon(new ImageIcon("manage-golden.png"));
+		jb3.setIcon(new ImageIcon("img/finance/manage-golden.png"));
 		jb3.setBackground(color[0]);
 		jb3.setFocusPainted(false);
 		jb3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jb3.addActionListener(this);
 		jb3.addMouseListener(this);
 		jb4=new JButton();
-		jb4.setIcon(new ImageIcon("manage2-golden.png"));
+		jb4.setIcon(new ImageIcon("img/finance/manage2-golden.png"));
 		jb4.setFocusPainted(false);
 		jb4.setBackground(color[0]);
 		jb4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -66,7 +66,7 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 		jp4.add(jb4);
 		
         jp5=new JPanel();
-        ImageIcon image1 = new ImageIcon("right-blue.png"); 
+        ImageIcon image1 = new ImageIcon("img/finance/right-blue.png"); 
 		jb5=new JButton(image1);
 		jb5.setText("拉开");
 		Font f1=new Font("宋体",Font.BOLD,15);//根据指定字体名称、样式和磅值大小，创建一个新 Font。

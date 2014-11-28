@@ -34,32 +34,32 @@ public class CollectionPanel extends JPanel implements ActionListener{
 		this.setLayout(new BorderLayout());
 		
 		jb1=new JButton("收款单");
-		jb1.setIcon(new ImageIcon("account-golden.png"));
+		jb1.setIcon(new ImageIcon("img/finance/account-golden.png"));
 		jb1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jb1.setFocusPainted(false);
 		jb1.setContentAreaFilled(false);
 		jb1.setBorder(null);
 		jb1.setBackground(new Color(255,255,255));
 		jb2=new JButton("付款单");
-		jb2.setIcon(new ImageIcon("account-golden.png"));
+		jb2.setIcon(new ImageIcon("img/finance/account-golden.png"));
 		jb2.setBorder(null);
 		jb2.setContentAreaFilled(false);
 		jb2.setBackground(new Color(255,255,255));
 		jb2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jb3=new JButton("现金费用单");
-		jb3.setIcon(new ImageIcon("account-golden.png"));
+		jb3.setIcon(new ImageIcon("img/finance/account-golden.png"));
 		jb3.setBorder(null);
 		jb3.setContentAreaFilled(false);
 		jb3.setBackground(new Color(255,255,255));
 		jb3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jb4=new JButton("添加");
-		jb4.setIcon(new ImageIcon("add-golden.png"));
+		jb4.setIcon(new ImageIcon("img/finance/add-golden.png"));
 		jb4.setBorder(null);
 		jb4.setContentAreaFilled(false);
 		jb4.setBackground(new Color(255,255,255));
 		jb4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jtf=new JTextField(6);
-		ImageIcon image = new ImageIcon("find-golden.png"); 
+		ImageIcon image = new ImageIcon("img/finance/find-golden.png"); 
 		jlb=new JLabel(image);
 		
 		jp1=new JPanel();
