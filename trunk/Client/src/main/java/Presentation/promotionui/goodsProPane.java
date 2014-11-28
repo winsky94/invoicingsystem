@@ -1,5 +1,7 @@
 package Presentation.promotionui;
 
-public class goodsProPane {
+import javax.swing.JPanel;
+
+public class goodsProPane extends JPanel{
 
 }

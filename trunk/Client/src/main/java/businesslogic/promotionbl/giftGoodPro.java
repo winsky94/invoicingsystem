@@ -9,8 +9,10 @@ import java.util.Date;
 
 
 
+
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
+import po.PromotionPO.PromotionType;
 import businesslogic.stockbl.goods.Goods;
 import businesslogic.stockbl.goods.MockGoods;
 
