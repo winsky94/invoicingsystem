@@ -12,6 +12,10 @@ import Presentation.financeui.LeftLongPanel;
 
 public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JSplitPane jsp;
 	JPanel jp1,jp2;
 	JLabel jlb;
