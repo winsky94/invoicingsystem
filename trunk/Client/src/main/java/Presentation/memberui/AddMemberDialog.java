@@ -3,31 +3,29 @@ package Presentation.memberui;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
 import vo.MemberVO;
+import Presentation.uihelper.UIhelper;
 import businesslogic.memberbl.MemAccountInfo;
 import businesslogic.memberbl.MemBaseInfo;
 import businesslogic.memberbl.MemContactInfo;
 import businesslogic.memberbl.Member;
 import businesslogicservice.memberblservice.MemberBLService;
-import Presentation.uihelper.UIhelper;
 
 public class AddMemberDialog extends JDialog {
 	/**
@@ -45,7 +43,7 @@ public class AddMemberDialog extends JDialog {
 			defaultClerkFld;
 	JLabel IDLbl, typeLbl, nameLbl, phoneLbl, addressLbl, postcodeLbl,
 			EMailLbl, defaultClerkLbl;
-
+	String nameText,phoneText,addressText,postcodeText,EMailText,clerkText;
 	public AddMemberDialog() {
 		pnl = this.getContentPane();
 		pnl.setLayout(null);
@@ -86,6 +84,7 @@ public class AddMemberDialog extends JDialog {
 		nameFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		nameFld.setBounds(dialogWidth * 60 / 100, dialogHeight * 20 / 100,
 				dialogWidth * 20 / 100, dialogHeight * 7 / 100);
+		nameFld.getDocument().addDocumentListener(new NameFieldListener());
 		pnl.add(nameFld);
 		// -----------------phoneLbl----------------------------------------
 		phoneLbl = new JLabel("电话 ");
@@ -98,6 +97,7 @@ public class AddMemberDialog extends JDialog {
 		phoneFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		phoneFld.setBounds(dialogWidth * 15 / 100, dialogHeight * 35 / 100,
 				dialogWidth * 25 / 100, dialogHeight * 7 / 100);
+		phoneFld.getDocument().addDocumentListener(new PhoneFieldListener());
 		pnl.add(phoneFld);
 		// -------------------EMailLbl---------------------------------------
 		EMailLbl = new JLabel("电子邮箱 ");
@@ -110,6 +110,7 @@ public class AddMemberDialog extends JDialog {
 		EMailFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		EMailFld.setBounds(dialogWidth * 60 / 100, dialogHeight * 35 / 100,
 				dialogWidth * 30 / 100, dialogHeight * 7 / 100);
+		EMailFld.getDocument().addDocumentListener(new EMailFieldListener());
 		pnl.add(EMailFld);
 		// ----------------addressLabel---------------------------------------
 		addressLbl = new JLabel("地址 ");
@@ -122,6 +123,7 @@ public class AddMemberDialog extends JDialog {
 		addressFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		addressFld.setBounds(dialogWidth * 15 / 100, dialogHeight * 50 / 100,
 				dialogWidth * 50 / 100, dialogHeight * 7 / 100);
+		addressFld.getDocument().addDocumentListener(new AddressFieldListener());
 		pnl.add(addressFld);
 		// ----------------postcodeLabel---------------------------------------
 		postcodeLbl = new JLabel("邮编 ");
@@ -134,6 +136,7 @@ public class AddMemberDialog extends JDialog {
 		postcodeFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		postcodeFld.setBounds(dialogWidth * 15 / 100, dialogHeight * 65 / 100,
 				dialogWidth * 25 / 100, dialogHeight * 7 / 100);
+		postcodeFld.getDocument().addDocumentListener(new PostcodeFieldListener());
 		pnl.add(postcodeFld);
 		// -------------------defaultClerkLbl---------------------------------------
 		defaultClerkLbl = new JLabel("默认业务员 ");
@@ -146,6 +149,7 @@ public class AddMemberDialog extends JDialog {
 		defaultClerkFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		defaultClerkFld.setBounds(dialogWidth * 60 / 100, dialogHeight * 65 / 100,
 				dialogWidth * 30 / 100, dialogHeight * 7 / 100);
+		defaultClerkFld.getDocument().addDocumentListener(new ClerkFieldListener());
 		pnl.add(defaultClerkFld);
 		//-------------------submitBtn---------------------------------------------
 		submitBtn=new JButton("确  定");
@@ -205,7 +209,82 @@ public class AddMemberDialog extends JDialog {
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 	}
-	
-	
+	class NameFieldListener implements DocumentListener{
+		public void changedUpdate(DocumentEvent d) {
+			nameText=nameFld.getText();
+		}
 
+		public void insertUpdate(DocumentEvent d) {
+			nameText=nameFld.getText();
+		}
+
+		public void removeUpdate(DocumentEvent d) {
+			nameText=nameFld.getText();
+		}
+	}
+	class PhoneFieldListener implements DocumentListener{
+		public void changedUpdate(DocumentEvent d) {
+			phoneText=phoneFld.getText();
+		}
+
+		public void insertUpdate(DocumentEvent d) {
+			phoneText=phoneFld.getText();
+		}
+
+		public void removeUpdate(DocumentEvent d) {
+			phoneText=phoneFld.getText();
+		}
+	}
+	class AddressFieldListener implements DocumentListener{
+		public void changedUpdate(DocumentEvent d) {
+			addressText=addressFld.getText();
+		}
+
+		public void insertUpdate(DocumentEvent d) {
+			addressText=addressFld.getText();
+		}
+
+		public void removeUpdate(DocumentEvent d) {
+			addressText=addressFld.getText();
+		}
+	}
+	class EMailFieldListener implements DocumentListener{
+		public void changedUpdate(DocumentEvent d) {
+			EMailText=EMailFld.getText();
+		}
+
+		public void insertUpdate(DocumentEvent d) {
+			EMailText=EMailFld.getText();
+		}
+
+		public void removeUpdate(DocumentEvent d) {
+			EMailText=EMailFld.getText();
+		}
+	}
+	class PostcodeFieldListener implements DocumentListener{
+		public void changedUpdate(DocumentEvent d) {
+			postcodeText=postcodeFld.getText();
+		}
+
+		public void insertUpdate(DocumentEvent d) {
+			postcodeText=postcodeFld.getText();
+		}
+
+		public void removeUpdate(DocumentEvent d) {
+			postcodeText=postcodeFld.getText();
+		}
+	}
+	class ClerkFieldListener implements DocumentListener{
+		public void changedUpdate(DocumentEvent d) {
+			clerkText=defaultClerkFld.getText();
+		}
+
+		public void insertUpdate(DocumentEvent d) {
+			clerkText=defaultClerkFld.getText();
+		}
+
+		public void removeUpdate(DocumentEvent d) {
+			clerkText=defaultClerkFld.getText();
+		}
+	}
 }
