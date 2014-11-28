@@ -116,7 +116,7 @@ public class ModGoodsDialog extends JDialog{
 		submitBtn.setFocusPainted(false);
 		pnl.add(submitBtn);
 		//
-		this.setTitle("添加商品");
+		this.setTitle("修改商品信息");
 		this.setBounds((screenWidth - dlgWidth) / 2,
 				(screenHeight - dlgHeight) / 2, dlgWidth, dlgHeight);
 
