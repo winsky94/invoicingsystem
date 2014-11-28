@@ -1,4 +1,4 @@
-package Presentation.mainui;
+package Presentation.financeui;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,6 +8,8 @@ import java.util.Calendar;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
+
+import Presentation.mainui.MainFrame;
 public class CollectionPanel extends JPanel implements ActionListener{
 	JLabel timeNow;
 	JTable jt;
