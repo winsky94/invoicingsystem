@@ -1,10 +1,11 @@
 package RunServer;
 
 import java.rmi.Naming;
-import java.rmi.RMISecurityManager;
 import java.rmi.registry.LocateRegistry;
 
 import Data.memberdata.Member;
+import Data.stockdata.goods.Goods;
+import Data.stockdata.goodsClass.GoodsClass;
 import Data.userdata.User;
 
 
@@ -14,7 +15,7 @@ public class runServer {
 		/**
 		 * 加载安全机制
 		 */
-		System.setSecurityManager(new SecurityManager());
+//		System.setSecurityManager(new SecurityManager());
 
 		try {
 
@@ -26,10 +27,12 @@ public class runServer {
 			System.out.println("已启动服务器");
 			User user = new User();
 			Member member=new Member();
-
+			GoodsClass gc=new GoodsClass();
+			Goods g=new Goods();
 			Naming.bind("memberService",member);
 			Naming.bind("userService", user);	
-		
+			Naming.rebind("goodsClassService", gc);
+			Naming.rebind("goodsService", g);
 			
 			
 			
