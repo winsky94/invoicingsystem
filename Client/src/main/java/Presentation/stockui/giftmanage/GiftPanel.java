@@ -1,4 +1,4 @@
-package Presentation.stockui;
+package Presentation.stockui.giftmanage;
 
 import javax.swing.JPanel;
 

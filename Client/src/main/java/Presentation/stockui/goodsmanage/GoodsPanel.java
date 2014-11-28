@@ -140,6 +140,7 @@ public class GoodsPanel extends JPanel {
 	class AddGoodsBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
+			
 			JDialog addGoodsDlg=new AddGoodsDialog();
 
 		}
