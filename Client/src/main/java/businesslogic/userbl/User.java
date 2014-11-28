@@ -26,7 +26,9 @@ public class User implements UserBLService{
 	
 		service=(UserDataService)Naming.lookup(url);
 	}
-	
+	public User(int n){
+		
+	}
 	
 	
 	public int login(String ID, String password) {
@@ -115,6 +117,10 @@ public class User implements UserBLService{
 	
 	public UserJob getJob(){
 		return job;
+	}
+	
+	public void setJob(UserJob job){
+		this.job=job;
 	}
 	
 }

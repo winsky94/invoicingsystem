@@ -27,6 +27,7 @@ import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import po.UserPO.UserJob;
 import Presentation.uihelper.UIhelper;
 import businesslogic.userbl.User;
 import businesslogicservice.userblservice.UserBLService;
@@ -284,16 +285,14 @@ public class LoginFrame extends JFrame {
 			
 			String ID = idField.getText();
 			String passWord = new String(passwordField.getPassword());
-			if(service==null){
-				System.out.println("service怎么变成null了");
-			}
 			int result = service.login(ID, passWord);
-			System.out.println(ID);
-		
-			System.out.println(passwordField.getPassword());
 			switch (result) {
 			case 0:
-				System.out.println("成功登录");break;
+				System.out.println("成功登录");
+				User user=new User();
+				user.setJob(UserJob.MANAGER);
+				new MockFrame(user);
+				break;
 			default:
 				System.out.println("密码错误");
 			}
