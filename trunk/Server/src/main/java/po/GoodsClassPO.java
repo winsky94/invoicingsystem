@@ -32,4 +32,12 @@ public class GoodsClassPO implements Serializable {
 	public void setUpClass(String upClass) {
 		this.upClass = upClass;
 	}
+	
+	public String getID() {
+		return ID;
+	}
+
+	public void setID(String iD) {
+		ID = iD;
+	}
 }
