@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.BorderFactory;
@@ -39,7 +40,7 @@ public class LoginFrame extends JFrame {
 	String id, key;
 	JTextField idField;
 	JPasswordField passwordField;
-    JButton closeButton;
+   
 	int screenHeight, screenWidth, frameHeight, frameWidth;
     int xOld,yOld;
 	public LoginFrame() throws Exception {
@@ -75,18 +76,52 @@ public class LoginFrame extends JFrame {
 		};
 		
 		//关闭按钮
-		 closeButton = new JButton();  
-		 ImageIcon close=new ImageIcon("img/Login/closeButton.png");
-        closeButton.setIcon(close);  
-        closeButton.setContentAreaFilled(false);
-       closeButton.setBorder(BorderFactory.createEmptyBorder());
+		  
+		 final ImageIcon close=new ImageIcon("img/Login/closeButton.png");
+		 final ImageIcon close1=new ImageIcon("img/Login/closeButton1.png");
+		 final JLabel closeButton = new JLabel(close);
         closeButton.setSize(close.getIconWidth(), close.getIconHeight());
         closeButton.setLocation(getWidth()-20, 0);
-        closeButton.addActionListener(new ActionListener() {  
-            public void actionPerformed(ActionEvent e) {  
-                System.exit(0);  
-            }  
-        });  
+        
+        final ImageIcon min=new ImageIcon("img/Login/minButton.png");
+        final ImageIcon min1=new ImageIcon("img/Login/minButton1.png");
+        final JLabel minButton=new JLabel(min);
+        minButton.setSize(min.getIconWidth(), min.getIconHeight());
+        minButton.setLocation(getWidth()-45,0);
+        class buttonListener extends MouseAdapter{
+        	public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+        		if(e.getSource()==minButton)
+				  LoginFrame.this.setExtendedState(JFrame.ICONIFIED);
+        		else 
+        			System.exit(0);
+        	}
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getSource()==minButton)
+				minButton.setIcon(min1);
+				else 
+					closeButton.setIcon(close1);
+				
+			}
+
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getSource()==minButton)
+					minButton.setIcon(min);
+				else
+					closeButton.setIcon(close);
+				
+			}
+        }
+        buttonListener bl=new buttonListener();
+        minButton.addMouseListener(bl);
+        closeButton.addMouseListener(bl);
+        
+      
+        
+        
+        mainPanel.add(minButton);
         mainPanel.add(closeButton);  
           
        
@@ -146,6 +181,7 @@ public class LoginFrame extends JFrame {
 		JLabel label=new JLabel();
 		label.setLocation(55, 50);
 		label.setIcon(icon);
+		
 	
 		//Border border=new Border();
 		//label.setBorder(border);
@@ -186,6 +222,8 @@ public class LoginFrame extends JFrame {
 	                LoginFrame.this.setLocation(xx, yy);  
 	            }  
 	        });  
+	        
+	    
 	}
 
 	public static void main(String[] args) throws Exception {
