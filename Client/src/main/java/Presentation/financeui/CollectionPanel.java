@@ -7,21 +7,18 @@ import java.util.Calendar;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import Presentation.mainui.MainFrame;
 public class CollectionPanel extends JPanel implements ActionListener{
 	JLabel timeNow;
 	JTable jt;
-	String[] columnNames;
-	String[][] rowData;
-	DefaultTableModel dtf;
+	CollectionModel cm=new CollectionModel();
 	JScrollPane jspp;
 	Timer t;
 	JPanel jp1,jp2,jp3;
-	JButton jb1,jb2,jb3,jb4;
+	JButton jb1,jb2,jb3,jb4,jb5,jb6;
 	JTextField jtf;
-	JLabel jlb;
 	
 	MainFrame frame;
 	Color[] color;
@@ -34,51 +31,68 @@ public class CollectionPanel extends JPanel implements ActionListener{
 		this.setLayout(new BorderLayout());
 		
 		jb1=new JButton("收款单");
-		jb1.setIcon(new ImageIcon("img/finance/account-golden.png"));
+		jb1.setIcon(new ImageIcon("account-golden.png"));
 		jb1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jb1.setFocusPainted(false);
 		jb1.setContentAreaFilled(false);
 		jb1.setBorder(null);
 		jb1.setBackground(new Color(255,255,255));
+		jb1.addActionListener(this);
 		jb2=new JButton("付款单");
-		jb2.setIcon(new ImageIcon("img/finance/account-golden.png"));
+		jb2.setIcon(new ImageIcon("account-golden.png"));
 		jb2.setBorder(null);
 		jb2.setContentAreaFilled(false);
 		jb2.setBackground(new Color(255,255,255));
 		jb2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jb3=new JButton("现金费用单");
-		jb3.setIcon(new ImageIcon("img/finance/account-golden.png"));
+		jb3.setIcon(new ImageIcon("account-golden.png"));
 		jb3.setBorder(null);
 		jb3.setContentAreaFilled(false);
 		jb3.setBackground(new Color(255,255,255));
 		jb3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jb4=new JButton("添加");
-		jb4.setIcon(new ImageIcon("img/finance/add-golden.png"));
+		jb4.setIcon(new ImageIcon("add-golden.png"));
 		jb4.setBorder(null);
 		jb4.setContentAreaFilled(false);
 		jb4.setBackground(new Color(255,255,255));
 		jb4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		jb4.addActionListener(this);
+		jb6=new JButton("查看");
+		jb6.setIcon(new ImageIcon("salelist-golden.png"));
+		jb6.setBorder(null);
+		jb6.setContentAreaFilled(false);
+		jb6.setBackground(new Color(255,255,255));
+		jb6.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jtf=new JTextField(6);
-		ImageIcon image = new ImageIcon("img/finance/find-golden.png"); 
-		jlb=new JLabel(image);
+		jb5=new JButton();
+		jb5.setIcon(new ImageIcon("find-golden.png"));
+		jb5.setBorder(null);
+		jb5.setContentAreaFilled(false);
+		jb5.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		jp1=new JPanel();
 		jp1.add(jb1);
 		jp1.add(jb2);
 		jp1.add(jb3);
 		jp1.add(jb4);
+		jp1.add(jb6);
 		jp1.add(new JPanel());
 		jp1.add(jtf);		
-		jp1.add(jlb);
+		jp1.add(jb5);
 		this.add(jp1,BorderLayout.NORTH);
-		
-		columnNames=new String[]{"姓名","学号","籍贯"};
-		rowData=new String[][]{{"a","1","b"}};
-		dtf=new DefaultTableModel(rowData,columnNames);		
-		jt=new JTable(dtf);
+
+		jt=new JTable(cm);
 		jspp=new JScrollPane(jt);
+		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();// 设置table内容居中
+		tcr.setHorizontalAlignment(SwingConstants.CENTER);// 这句和上句作用一样
+		jt.setDefaultRenderer(Object.class, tcr);
+		jt.getColumnModel().getColumn(0).setPreferredWidth(130);
+		jt.getColumnModel().getColumn(1).setPreferredWidth(200);
 		jp2=new JPanel();
+		jp2.setLayout(new BorderLayout());
 		jp2.add(jspp);
+		jp2.add(new Panel(),BorderLayout.WEST);
+		jp2.add(new Panel(),BorderLayout.EAST);
 		this.add(jp2);
 		
 		jp3=new JPanel();
@@ -91,9 +105,13 @@ public class CollectionPanel extends JPanel implements ActionListener{
         this.add(jp3,BorderLayout.SOUTH);
 	}
 
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==jb4){
+			frame.setRightComponent(new AddCollectionPanel(frame,color));
+		}
 		this.timeNow.setText(Calendar.getInstance().getTime().toLocaleString());
 		
 	}
 	
 }
+
