@@ -11,11 +11,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
+import Presentation.mainui.LoginFrame;
+
 
 public class userSet extends JPopupMenu implements ActionListener{
-	
+	JFrame parent;
 	JMenuItem caccount,cpass;
 	public  userSet(JFrame frame,JPanel pane){
+			parent=frame;
 			ImageIcon account=new ImageIcon("img/mainFrame/close.png");
 			caccount=new JMenuItem("切换帐号",account);
 			ImageIcon pass=new ImageIcon("img/mainFrame/min.png");
@@ -23,10 +26,22 @@ public class userSet extends JPopupMenu implements ActionListener{
 			this.setBorder(BorderFactory.createLineBorder(new Color(115,46,126)));
 			add(caccount);
 			add(cpass);
+			caccount.addActionListener(this);
+			cpass.addActionListener(this);
 	}
 
 public void actionPerformed(ActionEvent e) {
 	// TODO Auto-generated method stub
+	if(e.getSource()==caccount){
+		parent.dispose();
+		try {
+			new LoginFrame();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	}
 	
 }
 	

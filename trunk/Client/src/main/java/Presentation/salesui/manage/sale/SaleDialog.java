@@ -39,7 +39,7 @@ public class SaleDialog extends JPanel implements ActionListener{
 	int screenHeight = UIhelper.getScreenHeight();
 	int dialogWidth = screenWidth * 65 / 100;
 	int dialogHeight = screenHeight * 65 / 100;
-	Container pnl;
+	JPanel pnl;
 	JLabel IDLbl, XSSLbl, clerkLbl, userLbl, stockLbl, saleItemLbl,
 			totalOriginLbl, discountValueLbl, couponValueLbl, totalToPayLbl,
 			remarkLbl;
@@ -63,14 +63,14 @@ public class SaleDialog extends JPanel implements ActionListener{
 		pane.add(button);
 		this.setLayout(new BorderLayout());
 		pane.setBackground(Color.WHITE);;
-		this.add(pane,BorderLayout.NORTH);
+		//this.add(pane,BorderLayout.NORTH);
 		
 
 	
 		pnl =new JPanel();
-		((JComponent) pnl).setBorder(BorderFactory.createTitledBorder("制定销售单"));
-		pnl.setLayout(null);
-		pnl.setBackground(Color.white);
+		((JComponent) this).setBorder(BorderFactory.createTitledBorder("制定销售单"));
+		this.setLayout(null);
+		this.setBackground(Color.white);
 		// -----------------------IDLabel------------------------------------
 		IDLbl = new JLabel();
 		IDLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
@@ -79,13 +79,13 @@ public class SaleDialog extends JPanel implements ActionListener{
 		IDLbl.setText(text);
 		IDLbl.setBounds(dialogWidth * 3 / 100, dialogHeight * 3 / 100,
 				dialogWidth * 20 / 100, dialogHeight * 5 / 100);
-		pnl.add(IDLbl);
+		this.add(IDLbl);
 		// -----------------------JHSLabel供应商------------------------------------
 		XSSLbl = new JLabel("供应商 ");
 		XSSLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		XSSLbl.setBounds(dialogWidth * 3 / 100, dialogHeight * 13 / 100,
 				dialogWidth * 7 / 100, dialogHeight * 5 / 100);
-		pnl.add(XSSLbl);
+		this.add(XSSLbl);
 		// ----------------------XSSCbox-----------------------------------------
 		// !!!!!!!!!!!这里应该传入所有销售商的名字+编号！！！
 		String[] memberList = { "请选择销售商", "BL写这里", "XSS-0000001 李四" };
@@ -94,31 +94,31 @@ public class SaleDialog extends JPanel implements ActionListener{
 		XSSCbox.setBackground(Color.white);
 		XSSCbox.setBounds(dialogWidth * 10 / 100, dialogHeight * 13 / 100,
 				dialogWidth * 20 / 100, dialogHeight * 5 / 100);
-		pnl.add(XSSCbox);
+		this.add(XSSCbox);
 		// -------------------stockLbl------------------------------------------
 		stockLbl = new JLabel("仓库 ");
 		stockLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		stockLbl.setBounds(dialogWidth * 3 / 100, dialogHeight * 23 / 100,
 				dialogWidth * 7 / 100, dialogHeight * 5 / 100);
-		pnl.add(stockLbl);
+		this.add(stockLbl);
 		// ------------------stockFld-----------------------------------------
 		stockFld = new JTextField();
 		stockFld.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		stockFld.setBounds(dialogWidth * 10 / 100, dialogHeight * 23 / 100,
 				dialogWidth * 20 / 100, dialogHeight * 5 / 100);
-		pnl.add(stockFld);
+		this.add(stockFld);
 		// -------------------clerkLbl------------------------------------------
 		clerkLbl = new JLabel("业务员 ");
 		clerkLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		clerkLbl.setBounds(dialogWidth * 17 / 100, dialogHeight * 33 / 100,
 				dialogWidth * 7 / 100, dialogHeight * 5 / 100);
-		pnl.add(clerkLbl);
+		this.add(clerkLbl);
 		// ------------------clerkFld-----------------------------------------
 		clerkFld = new JTextField();
 		clerkFld.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		clerkFld.setBounds(dialogWidth * 24 / 100, dialogHeight * 33 / 100,
 				dialogWidth * 15 / 100, dialogHeight * 5 / 100);
-		pnl.add(clerkFld);
+		this.add(clerkFld);
 		// -------------------userLbl------------------------------------------
 		userLbl = new JLabel();
 		// !!!!!!!!!!!BL获取user信息
@@ -127,20 +127,20 @@ public class SaleDialog extends JPanel implements ActionListener{
 		userLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		userLbl.setBounds(dialogWidth * 3 / 100, dialogHeight * 33 / 100,
 				dialogWidth * 40 / 100, dialogHeight * 5 / 100);
-		pnl.add(userLbl);
+		this.add(userLbl);
 		// -------------------saleItemLbl-------------------------------
 		saleItemLbl = new JLabel("进货商品列表 ");
 		saleItemLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		saleItemLbl.setBounds(dialogWidth * 40 / 100, dialogHeight * 3 / 100,
 				dialogWidth * 10 / 100, dialogHeight * 5 / 100);
-		pnl.add(saleItemLbl);
+		this.add(saleItemLbl);
 
 		// -----------------saleItemTbl-----------------------------------
 		saleItemTbl = new JTable();
 		saleItemTbl.setBounds(dialogWidth * 40 / 100, dialogHeight * 23 / 100,
 				dialogWidth * 68 / 100, dialogHeight * 55 / 100);
 		saleItemTbl.setBackground(Color.black);
-		pnl.add(saleItemTbl);
+		this.add(saleItemTbl);
 		// -----------------addItemBtn---------------------------------------
 		addItemBtn = new JButton("增加");
 		addItemBtn.setFont(new Font("微软雅黑", Font.PLAIN, 12));
@@ -148,7 +148,7 @@ public class SaleDialog extends JPanel implements ActionListener{
 				dialogWidth * 8 / 100, dialogHeight * 6 / 100);
 		addItemBtn.setFocusPainted(false);
 		addItemBtn.addActionListener(new AddItemBtnListener());
-		pnl.add(addItemBtn);
+		this.add(addItemBtn);
 		// -----------------addCouponBtn---------------------------------------
 		addCouponBtn = new JButton("使用代金券");
 		addCouponBtn.setFont(new Font("微软雅黑", Font.PLAIN, 12));
@@ -157,7 +157,7 @@ public class SaleDialog extends JPanel implements ActionListener{
 		addCouponBtn.setHorizontalAlignment(SwingConstants.LEFT);
 		addCouponBtn.setFocusPainted(false);
 		addCouponBtn.addActionListener(new AddCouponBtnListener());
-		pnl.add(addCouponBtn);
+		this.add(addCouponBtn);
 		// -----------------delItemBtn---------------------------------------
 		delItemBtn = new JButton("删除");
 		delItemBtn.setFont(new Font("微软雅黑", Font.PLAIN, 12));
@@ -165,13 +165,13 @@ public class SaleDialog extends JPanel implements ActionListener{
 				dialogWidth * 8 / 100, dialogHeight * 6 / 100);
 		delItemBtn.setFocusPainted(false);
 		delItemBtn.addActionListener(new DelItemBtnListener());
-		pnl.add(delItemBtn);
+		this.add(delItemBtn);
 		// -------------------remarkLbl------------------------------------------
 		remarkLbl = new JLabel("备注");
 		remarkLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		remarkLbl.setBounds(dialogWidth * 3 / 100, dialogHeight * 43 / 100,
 				dialogWidth * 10 / 100, dialogHeight * 5 / 100);
-		pnl.add(remarkLbl);
+		this.add(remarkLbl);
 		// -----------------remarkArea---------------------------------------
 		remarkArea = new JTextArea();
 		remarkArea.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
@@ -179,15 +179,15 @@ public class SaleDialog extends JPanel implements ActionListener{
 		remarkArea.setFont(new Font("楷体", Font.PLAIN, 12));
 		remarkArea.setBounds(dialogWidth * 3 / 100, dialogHeight * 50 / 100,
 				dialogWidth * 35 / 100, dialogHeight * 28 / 100);
-		pnl.add(remarkArea);
+		this.add(remarkArea);
 		// -----------------submitBtn------------------------------------------
 		submitBtn = new JButton("提  交");
 		submitBtn.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		submitBtn.setBounds(dialogWidth * 40 / 100, dialogHeight * 85 / 100,
 				dialogWidth * 20 / 100, dialogHeight * 6 / 100);
 		submitBtn.setFocusPainted(false);
-		pnl.add(submitBtn);
-		add(pnl,BorderLayout.CENTER);
+		this.add(submitBtn);
+		//add(pnl,BorderLayout.CENTER);
 		
 		
 
@@ -200,7 +200,7 @@ public class SaleDialog extends JPanel implements ActionListener{
 		timeNow=new JLabel(Calendar.getInstance().getTime().toLocaleString());
 		jp3.add(timeNow);
 		jp3.setBorder(new EtchedBorder(EtchedBorder.RAISED));
-        this.add(jp3,BorderLayout.SOUTH);
+      //  this.add(jp3,BorderLayout.SOUTH);
 		this.setVisible(true);
 		
 		

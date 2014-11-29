@@ -7,8 +7,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
+import java.util.Calendar;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 
 import po.UserPO.UserJob;
 import businesslogic.userbl.User;
@@ -26,6 +28,7 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	JLabel jlb;
 	String type;
 	User user;
+	JLabel timeNow;
 	
 	Color[] color=new Color[2];
 		
@@ -50,7 +53,7 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 				}
 			};
 			
-			//====功能按钮
+			/*//====功能按钮
 			JPanel button=new functionPane(this);
 			button.setOpaque(false);
 			JPanel pane=new JPanel();
@@ -60,7 +63,7 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 			pane.setLayout(flow);
 			pane.add(button);
 			welcomePanel.setLayout(new BorderLayout());
-			welcomePanel.add(pane,BorderLayout.NORTH);
+			welcomePanel.add(pane,BorderLayout.NORTH);*/
 			
 	
 			
@@ -82,7 +85,7 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	        setDividerLocation("long");
 			jsp.setDividerSize(0);		
 			UserJob job=user.getJob();
-			this.setRightComponent(welcomePanel);
+		
 			switch(job){
 			case MANAGER:
 				type="manager";setColor();
@@ -99,6 +102,7 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 				type="sales";setColor();
 				this.setLeftComponent(new SalesLeftPanel(this));
 			}
+			this.setRightComponent(welcomePanel,0);
 		
 	}
 	
@@ -106,9 +110,50 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 		return "Lucy";
 	//	return user.getName();
 	}
-	
-	public void setRightComponent(JPanel a){
+	public void setRightComponent(JPanel a,int i){
+		
+		a.setLayout(new BorderLayout());
+		a.add(getFunction(i),BorderLayout.NORTH);
 		jsp.setRightComponent(a);
+		
+	}
+	
+	public JPanel getFunction(int i){
+		JPanel button=new functionPane(this);
+		JPanel pane=new JPanel();
+		FlowLayout flow=new FlowLayout();
+		flow.setAlignment(FlowLayout.RIGHT);
+		pane.setLayout(flow);
+		pane.add(button);
+		if(i==0){
+			button.setOpaque(false);
+			pane.setOpaque(false);
+		}else{
+			button.setBackground(Color.white);
+			pane.setBackground(Color.WHITE);
+		}
+		return pane;
+	}
+	
+	public JPanel getFootPanel(){
+		JPanel jp3=new JPanel();
+		jp3.setBackground(Color.white);
+		Timer t=new Timer(1000,this);//每隔一秒触发ActionEvent事件
+		t.start();//启动计时器
+		timeNow=new JLabel(Calendar.getInstance().getTime().toLocaleString());
+		jp3.add(timeNow);
+		jp3.setBorder(new EtchedBorder(EtchedBorder.RAISED));
+       return jp3;
+	}
+	public void setRightComponent(JPanel a){
+		JPanel right=new JPanel();
+		
+		right.setLayout(new BorderLayout());
+		right.add(getFunction(1),BorderLayout.NORTH);
+		right.add(a,BorderLayout.CENTER);
+		right.add(getFootPanel(),BorderLayout.SOUTH);
+		
+		jsp.setRightComponent(right);
 		
 	}
 	
@@ -195,8 +240,8 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	
 
 
-	public void actionPerformed(ActionEvent arg0) {
-		
+	public void actionPerformed(ActionEvent e) {
+		this.timeNow.setText(Calendar.getInstance().getTime().toLocaleString());
 		
 	
 	}
@@ -231,8 +276,10 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	
 	public static void main(String[] args) {
 		User user=new User("王宁宁",UserJob.SALE,129);
-		user.setJob(UserJob.SALE);
-		new MainFrame(user);
+		//user.setJob(UserJob.SALE);
+		MainFrame frame =new MainFrame(user);
+		//frame.print();
+		
 	}
 	
 	public Color[] getTheme(){
