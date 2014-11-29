@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.table.AbstractTableModel;
 
+import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.uihelper.UIhelper;
 
 public class ChooseGoodsDialog extends JDialog {
@@ -29,12 +30,12 @@ public class ChooseGoodsDialog extends JDialog {
 	 * 3.把右侧表格内容传出外层
 	 */
 	private static final long serialVersionUID = 1L;
-	Vector<Vector<String>> selected=new Vector<Vector<String>>();
-	Vector<Vector<String>> rightTblMessage=new Vector<Vector<String>>();
+	ArrayList<ArrayList<String>> selected=new ArrayList<ArrayList<String>>();
+	ArrayList<ArrayList<String>> rightTblMessage=new ArrayList<ArrayList<String>>();
 	ChosenTblModel ctm;
 	GoodsTblModel gtm;
-	Vector<Vector<String>> leftTblMessage=new Vector<Vector<String>>();
-	
+	ArrayList<ArrayList<String>> leftTblMessage=new ArrayList<ArrayList<String>>();
+	ChooseGoodsFatherPane father;
 	//
 	JButton submitBtn, exitBtn, addBtn, delBtn;
 	JTree classTree;
@@ -46,7 +47,8 @@ public class ChooseGoodsDialog extends JDialog {
 	int dialogWidth = screenWidth * 2 / 3;
 	int dialogHeight = screenHeight * 2 / 3;
 
-	public ChooseGoodsDialog() {
+	public ChooseGoodsDialog(ChooseGoodsFatherPane myFather) {
+		father=myFather;
 		pnl = this.getContentPane();
 		pnl.setLayout(null);
 		pnl.setBackground(Color.white);
@@ -72,7 +74,7 @@ public class ChooseGoodsDialog extends JDialog {
 
 			public void mouseReleased(MouseEvent e) {
 				for (int i = 0; i < goodsTbl.getSelectedRows().length; i++) {
-					Vector<String> temp=new Vector<String>();
+					ArrayList<String> temp=new ArrayList<String>();
 					for(int j=0;j<3;j++){
 						temp.add((String) goodsTbl.getValueAt(goodsTbl.getSelectedRows()[i], j));
 					}
@@ -153,6 +155,9 @@ public class ChooseGoodsDialog extends JDialog {
 				dialogWidth * 8 / 100, dialogHeight * 5 / 100);
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ChooseGoodsDialog.this.father.content=rightTblMessage;
+				ChooseGoodsDialog.this.father.repaint();
+				ChooseGoodsDialog.this.father.revalidate();
 				ChooseGoodsDialog.this.dispose();
 			}
 		});
@@ -202,7 +207,7 @@ public class ChooseGoodsDialog extends JDialog {
 		public String getColumnName(int column) {
 			return head[column];
 		}
-		public void addRow(Vector<String> v){
+		public void addRow(ArrayList<String> v){
 			leftTblMessage.add(v);
 		}
 		public void removeRow(int row){
@@ -220,7 +225,7 @@ public class ChooseGoodsDialog extends JDialog {
 		public int getRowCount() {
 			return rightTblMessage.size();
 		}
-		public void addRow(Vector<String> v){
+		public void addRow(ArrayList<String> v){
 			rightTblMessage.add(v);
 		}
 		public void removeRow(int row){
@@ -238,10 +243,7 @@ public class ChooseGoodsDialog extends JDialog {
 			return head[column];
 		}
 	}
-	public Vector<Vector<String>> getSelected(){
+	public ArrayList<ArrayList<String>> getSelected(){
 		return rightTblMessage;
-	}
-	public static void main(String[] args) {
-		JDialog d = new ChooseGoodsDialog();
 	}
 }
