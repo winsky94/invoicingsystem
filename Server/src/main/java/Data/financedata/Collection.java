@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import Data.serutility.JXCFile;
 
 public class Collection extends UnicastRemoteObject implements CollectionDataService{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JXCFile file;
 	
 	public Collection() throws RemoteException{
@@ -41,7 +45,6 @@ public class Collection extends UnicastRemoteObject implements CollectionDataSer
 			System.out.println("Success!");
 
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
