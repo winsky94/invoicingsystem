@@ -88,10 +88,10 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 				type="adminstrator";setColor();break;
 			case STOCK:
 				type="stock";setColor();
-				this.setLeftComponent(new StockLeftPanel(this));
+				this.setLeftComponent(new StockLeftPanel(this));break;
 			case SALE:
 				type="sales";setColor();
-				this.setLeftComponent(new SalesLeftPanel(this));
+				this.setLeftComponent(new SalesLeftPanel(this));break;
 			}
 			this.setRightComponent(welcomePanel,0);
 		
@@ -268,7 +268,7 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	}
 	
 	public static void main(String[] args) {
-		User user=new User("王宁宁",UserJob.SALE,129);
+		User user=new User("王宁宁",UserJob.MANAGER,129);
 		//user.setJob(UserJob.SALE);
 		MainFrame frame =new MainFrame(user);
 		//frame.print();
