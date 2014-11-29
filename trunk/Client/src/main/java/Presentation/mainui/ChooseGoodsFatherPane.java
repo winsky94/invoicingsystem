@@ -9,5 +9,5 @@ public class ChooseGoodsFatherPane extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	ArrayList<ArrayList<String>> content;
+	public ArrayList<ArrayList<String>> content;
 }
