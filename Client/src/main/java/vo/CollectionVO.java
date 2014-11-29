@@ -7,7 +7,7 @@ public class CollectionVO extends ReceiptVO{
      String supplier;
      String seller;
      String user;
-     ArrayList<TransferItem> transferlist=new ArrayList<TransferItem>();
+     ArrayList<TransferItemVO> transferlist=new ArrayList<TransferItemVO>();
      double totalMoney;
    //  BSLVO vo;
         
@@ -15,7 +15,7 @@ public class CollectionVO extends ReceiptVO{
     	 this(null,null,null,null,null,0);
      }
      
-     public CollectionVO(String a,String b,String j,String c,ArrayList<TransferItem> d,double e){
+     public CollectionVO(String a,String b,String j,String c,ArrayList<TransferItemVO> d,double e){
     	 ID=a;
     	 supplier=b;
     	 seller=j;
@@ -40,7 +40,7 @@ public class CollectionVO extends ReceiptVO{
     	 return user;
      }
      
-     public ArrayList<TransferItem> getTransferlist(){
+     public ArrayList<TransferItemVO> getTransferlist(){
     	 return transferlist;
      }
      
@@ -49,11 +49,7 @@ public class CollectionVO extends ReceiptVO{
      }
      
      
-   class TransferItem{
-	AccountVO account;
-	double money;
-	String info;
-  }
+  
   
   
 }
