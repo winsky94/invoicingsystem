@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import po.UserPO.UserJob;
+import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import businesslogic.userbl.User;
 
@@ -21,14 +22,14 @@ public class StockLeftShortPanel extends JPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 	JButton goodsBtn, stockBtn, giftBtn, aboutBtn;
-	JFrame parent;
+	MainFrame parent;
 	headPane hp;
 	Color stockColor=new Color(51,125,86);
-	public StockLeftShortPanel(JFrame frame){
+	public StockLeftShortPanel(MainFrame frame){
 		parent=frame;
 		this.setLayout(new GridLayout(10, 1));
 		//!!!!!!!!!BL!!!!!!!!!!!
-		User user=new User(0);
+		User user=frame.getUser();
 		user.setJob(UserJob.MANAGER);
 		hp=new headPane(frame,this,user);
 		this.add(hp);

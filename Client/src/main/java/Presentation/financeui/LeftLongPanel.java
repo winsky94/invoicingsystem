@@ -8,9 +8,11 @@ import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
+import businesslogic.userbl.User;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
 public class LeftLongPanel extends JPanel implements ActionListener,MouseListener{
-	JPanel jp1,jp3,jp4,jp5,jp6;
+	JPanel jp1,jp3,jp4,jp5,jp6,headPane;
 	ImageIcon ii1,iiw;
 	JButton jb1,jb2,jb3,jb4,jb5;
 	JLabel jlb1,jlb2;
@@ -21,18 +23,31 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		
 		frame=myframe;
 		color=mycolor;
+		GridBagLayout grid=new GridBagLayout();
+		GridBagConstraints c=new GridBagConstraints();
+		User user=frame.getUser();
+		this.setLayout(grid);
 		
-		jp1=new JPanel();		
-		ImageIcon image = new ImageIcon("img/finance/12.jpg"); 
-		jlb1=new JLabel(image);
-		jlb2=new JLabel("<html>Lucy <br> 财务人员</html>");
-		jp3=new JPanel();
-		jp3.setLayout(new GridLayout(1,2));
-		jp3.add(jlb1);
-		jp3.add(jlb2);
-		jp3.setBackground(color[0]);
+		c.fill=GridBagConstraints.HORIZONTAL;
+		c.gridx=0;c.gridy=0;
+		c.gridheight=2;
 		
-				
+		headPane=new headPane(frame,this,user);
+		grid.setConstraints(headPane, c);
+		this.add(headPane);
+		
+		//=======功能键构造
+		JPanel down=new JPanel();
+		c.weightx=0.3;c.weighty=0.4;
+		c.gridx=0;c.gridy=2;
+		c.gridheight=6;
+		c.gridwidth=1;
+		grid.setConstraints(down, c);
+		this.add(down);
+		down.setBackground(color[0]);
+		down.setLayout(new GridLayout(6,1));
+		
+		//
 		jb1=new JButton("账户管理");
 		Font f=new Font("宋体",Font.BOLD,18);//根据指定字体名称、样式和磅值大小，创建一个新 Font。
 		jb1.setFont(f);
@@ -65,14 +80,26 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		jb4.setFocusPainted(false);
 		jb4.addMouseListener(this);
 		
-		jp4=new JPanel();
-		jp4.setLayout(new GridLayout(4,1));
-		jp4.add(jb1);
-		jp4.add(jb2);
-		jp4.add(jb3);
-		jp4.add(jb4);
+		//jp4=new JPanel();
+		//jp4.setLayout(new GridLayout(4,1));
+		down.add(jb1);
+		down.add(jb2);
+		down.add(jb3);
+		down.add(jb4);
 		
-        jp5=new JPanel();
+		jb5=new JButton("收起菜单",new ImageIcon("img/mainFrame/back.png"));
+		jb5.setFont(new Font("楷体", Font.PLAIN, 19));
+		jb5.setForeground(Color.white);
+		jb5.setBackground(color[0]);
+		jb5.setHorizontalAlignment(SwingConstants.CENTER);
+		jb5.setFocusPainted(false);
+		jb5.addActionListener(this);
+		c.gridx=0;c.gridy=8;
+		grid.setConstraints(jb5, c);
+		this.add(jb5);
+		this.setBackground(color[0]);
+		
+      /*  jp5=new JPanel();
         ImageIcon image1 = new ImageIcon("img/finance/left-blue.png"); 
 		jb5=new JButton(image1);
 		jb5.setText("收起");
@@ -90,7 +117,7 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		this.setLayout(new BorderLayout());
 		this.add(jp3,BorderLayout.NORTH);
 		this.add(jp4);
-		this.add(jp5,BorderLayout.SOUTH);
+		this.add(jp5,BorderLayout.SOUTH);*/
 
 		
 	}
