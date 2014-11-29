@@ -3,6 +3,8 @@ package RunServer;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 
+
+
 import Data.memberdata.Member;
 import Data.stockdata.goods.Goods;
 import Data.stockdata.goodsClass.GoodsClass;
@@ -15,7 +17,7 @@ public class runServer {
 		/**
 		 * 加载安全机制
 		 */
-//		System.setSecurityManager(new SecurityManager());
+	System.setSecurityManager(new SecurityManager());
 
 		try {
 
