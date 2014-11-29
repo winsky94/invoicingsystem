@@ -2,6 +2,7 @@ package Presentation.mainui;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -27,34 +28,34 @@ public class functionPane extends JPanel{
 		max=new JLabel(new ImageIcon("img/mainFrame/max.png"));//最大后后图标变化
 		skin=new JLabel(new ImageIcon("img/mainFrame/skin.png"));
 		help=new JLabel(new ImageIcon("img/mainFrame/help.png"));
+		
 		close.addMouseListener(listen);
 		min.addMouseListener(listen);
 		max.addMouseListener(listen);
 		skin.addMouseListener(listen);
-		help.addMouseListener(listen);
-		
-		
-		
+		help.addMouseListener(listen);	
 		parent=panel;
-		int width=panel.getWidth();
-		//System.out.println(width);
-		setSize(width,10);
-		
-		skin.setLocation(width-50,0);
-		help.setLocation(width-40,0);
-		min.setLocation(width-30,0);
-		max.setLocation(width-20,0);
-		close.setLocation(width-10,0);
+		skin.setToolTipText("皮肤");
+		help.setToolTipText("帮助");
+		min.setToolTipText("最小化");
+		close.setToolTipText("关闭");
 		skin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		help.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		min.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		max.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		close.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
-		
+		FlowLayout flow=new FlowLayout();
+		flow.setAlignment(FlowLayout.RIGHT);
+		this.setLayout(flow);
+		int width=panel.getWidth();
 		add(skin);
 		add(help);
 		add(min);add(max);add(close);
+		skin.setLocation(width-100,0);
+		help.setLocation(width-80,0);
+		min.setLocation(width-60,0);
+		max.setLocation(width-40,0);
+		close.setLocation(width-20,0);
 	
 		
 		

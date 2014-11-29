@@ -36,6 +36,7 @@ import Presentation.uihelper.UIhelper;
 		public MockFrame(User user){
 			
 			jsp=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,jp1,jp2);
+			
 			jsp.setOneTouchExpandable(true);
 				
 			this.add(jsp);
