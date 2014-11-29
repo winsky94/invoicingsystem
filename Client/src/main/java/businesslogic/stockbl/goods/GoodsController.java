@@ -10,7 +10,7 @@ public class GoodsController implements StockGoodsBLService {
 
 	public int addGoods(GoodsVO vo) {
 		// TODO 自动生成的方法存根
-		Goods goods = new Goods( vo.getName(), vo.getSize(),
+		Goods goods = new Goods(vo.getGoodsID(), vo.getName(), vo.getSize(),
 				vo.getGoodsClass(), vo.getNumInStock(), vo.getPurchasePrice(),
 				vo.getPrice(), vo.getLastPurchasePrice(), vo.getLastPrice());
 		return goods.addGoods();
@@ -18,17 +18,17 @@ public class GoodsController implements StockGoodsBLService {
 
 	public int deleteGoods(GoodsVO vo) {
 		// TODO 自动生成的方法存根
-		Goods good = new Goods(vo.getName(), vo.getSize(), vo.getGoodsClass(),
-				vo.getNumInStock(), vo.getPurchasePrice(), vo.getPrice(),
-				vo.getLastPurchasePrice(), vo.getLastPrice());
+		Goods good = new Goods(vo.getGoodsID(), vo.getName(), vo.getSize(),
+				vo.getGoodsClass(), vo.getNumInStock(), vo.getPurchasePrice(),
+				vo.getPrice(), vo.getLastPurchasePrice(), vo.getLastPrice());
 		return good.deleteGoods(vo.getGoodsID());
 	}
 
 	public int modifyGoods(GoodsVO vo) {
 		// TODO 自动生成的方法存根
-		Goods good = new Goods(vo.getName(), vo.getSize(), vo.getGoodsClass(),
-				vo.getNumInStock(), vo.getPurchasePrice(), vo.getPrice(),
-				vo.getLastPurchasePrice(), vo.getLastPrice());
+		Goods good = new Goods(vo.getGoodsID(), vo.getName(), vo.getSize(),
+				vo.getGoodsClass(), vo.getNumInStock(), vo.getPurchasePrice(),
+				vo.getPrice(), vo.getLastPurchasePrice(), vo.getLastPrice());
 		return good.modifyGoods(vo.getGoodsID());
 	}
 
@@ -38,7 +38,7 @@ public class GoodsController implements StockGoodsBLService {
 		return good.findGoods(message);
 	}
 
-	public ArrayList<GoodsPO> showGoods() {
+	public ArrayList<GoodsVO> showGoods() {
 		// TODO 自动生成的方法存根
 		Goods good = new Goods();
 		return good.showGoods();

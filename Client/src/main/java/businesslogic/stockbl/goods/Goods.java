@@ -4,11 +4,14 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import po.GoodsPO;
+import vo.GoodsVO;
 import businesslogic.stockbl.goodsClass.GoodsClassManage;
-import businesslogic.stockbl.stockManage.StockManageController;
+import businesslogic.stockbl.stockManage.StockManage;
 import dataservice.stockdataservice.goodsdataservice.StockGoodsDataService;
 
 public class Goods {
@@ -42,10 +45,11 @@ public class Goods {
 		}
 	}
 
-	public Goods(String name, String size, String gc, int numInStock,
-			double purchasePrice, double price, double latPurchasePrice,
-			double lastPrice) {
+	public Goods(String goodsID, String name, String size, String gc,
+			int numInStock, double purchasePrice, double price,
+			double latPurchasePrice, double lastPrice) {
 		this();
+		this.goodsID = goodsID;
 		this.name = name;
 		this.size = size;
 		this.gc = gc;
@@ -58,12 +62,12 @@ public class Goods {
 	}
 
 	public int addGoods() {
-		ArrayList<GoodsPO> list = showGoods();
+		ArrayList<GoodsPO> list = service.showGoods();
 		boolean isExist = false;
 
 		// 遍历文件中是否存在该商品
 		for (int i = 0; i < list.size(); i++) {
-			if (goodsID.equals(list.get(i).getGoodsID())) {
+			if (name.equals(list.get(i).getName())&&size.equals(list.get(i).getSize())) {
 				isExist = true;
 				break;
 			}
@@ -72,10 +76,16 @@ public class Goods {
 		if (isExist) {
 			return 4;// 商品已存在，无法添加商品
 		} else {
+			String ID = "";
+			NumberFormat nf = new DecimalFormat("0000");
 			GoodsClassManage gClassManage = new GoodsClassManage();
 			String maxID = service.getMaxID();
-			int tp = Integer.parseInt(maxID);
-			String ID = String.valueOf(tp + 1);
+			if (maxID == null) {
+				ID = "0000";
+			} else {
+				int tp = Integer.parseInt(maxID);
+				ID = nf.format(tp+1);
+			}
 			goodsID = gClassManage.getID(gc) + "-" + size + "-" + ID;
 			GoodsPO po = new GoodsPO(goodsID, name, size, numInStock,
 					virtualnumInStock, purchasePrice, price, lastPurchasePrice,
@@ -96,13 +106,14 @@ public class Goods {
 		GoodsPO po = new GoodsPO(id, name, size, numInStock, virtualnumInStock,
 				purchasePrice, price, lastPurchasePrice, lastPrice, gc);
 		if (oldPO.getPurchasePrice() != po.getPurchasePrice()) {
-			StockManageController manage = new StockManageController();
-			Goods good = new Goods(oldPO.getName(), oldPO.getSize(),
-					oldPO.getGoodsClassName(), oldPO.getNumInStock(),
-					oldPO.getPurchasePrice(), oldPO.getPrice(),
-					oldPO.getLastPurchasePrice(), oldPO.getLastPrice());
-			Goods newGood = new Goods(po.getName(), po.getSize(),
-					po.getGoodsClassName(), po.getNumInStock(),
+			StockManage manage = new StockManage();
+			Goods good = new Goods(oldPO.getGoodsID(), oldPO.getName(),
+					oldPO.getSize(), oldPO.getGoodsClassName(),
+					oldPO.getNumInStock(), oldPO.getPurchasePrice(),
+					oldPO.getPrice(), oldPO.getLastPurchasePrice(),
+					oldPO.getLastPrice());
+			Goods newGood = new Goods(po.getGoodsID(), po.getName(),
+					po.getSize(), po.getGoodsClassName(), po.getNumInStock(),
 					po.getPurchasePrice(), po.getPrice(),
 					po.getLastPurchasePrice(), po.getLastPrice());
 			manage.changePrime(good, newGood);
@@ -114,10 +125,19 @@ public class Goods {
 		return service.findGoods(message);
 	}
 
-	public ArrayList<GoodsPO> showGoods() {
-		return service.showGoods();
+	public ArrayList<GoodsVO> showGoods() {
+		ArrayList<GoodsPO> list = service.showGoods();
+		ArrayList<GoodsVO> result = new ArrayList<GoodsVO>();
+		for (int i = 0; i < list.size(); i++) {
+			GoodsPO po = list.get(i);
+			GoodsVO vo = new GoodsVO(po.getGoodsID(), po.getName(),
+					po.getSize(), po.getNumInStock(), po.getPurchasePrice(),
+					po.getPrice(), po.getLastPurchasePrice(),
+					po.getLastPrice(), po.getGoodsClassName());
+			result.add(vo);
+		}
+		return result;
 	}
-
 
 	public String getGoodsID() {
 		return goodsID;

@@ -1,6 +1,9 @@
 package businesslogicservice.stockblservice.goodsclassblservice;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+
+import javax.swing.JTree;
 
 import vo.GoodsClassVO;
 
@@ -27,6 +30,16 @@ public class StockGoodsClassBLService_stub implements StockGoodsClassBLService{
 	public ArrayList<GoodsClassVO> show() {
 		// TODO 自动生成的方法存根
 		return null;
+	}
+
+	public JTree getClassTree() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	public int recordClassTree(JTree tree) throws RemoteException {
+		// TODO 自动生成的方法存根
+		return 0;
 	}
 
 }

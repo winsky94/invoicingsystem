@@ -4,6 +4,8 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import po.GoodsClassPO;
@@ -20,7 +22,7 @@ public class GoodsClass {
 	StockGoodsDataService goodsService;
 
 	public GoodsClass() {
-		// System.setSecurityManager(new SecurityManager());
+//		System.setSecurityManager(new SecurityManager());
 		String host = "localhost:1099";
 		String url1 = "rmi://" + host + "/goodsClassService";
 		String url2 = "rmi://" + host + "/goodsService";
@@ -50,6 +52,7 @@ public class GoodsClass {
 		boolean isExist = false;
 		ArrayList<GoodsClassVO> list = new ArrayList<GoodsClassVO>();
 		list = manage.show();
+
 		for (int i = 0; i < list.size(); i++) {
 			if (name.equals(list.get(i).getName())) {
 				isExist = true;
@@ -59,7 +62,7 @@ public class GoodsClass {
 		if (!isExist) {
 			GoodsClassPO upClass = manage.find(upClassName);
 			ArrayList<GoodsPO> goodsList = goodsService.showGoods();
-			if (!upClass.equals(null)) {
+			if (upClass != null) {
 				// 查找上级分类下是否有商品，如果有则不可以在其下加子分类
 				boolean isAble = true;
 				for (int i = 0; i < goodsList.size(); i++) {
@@ -72,21 +75,25 @@ public class GoodsClass {
 
 				if (isAble == true) {
 					// 商品分类编号+1
+					NumberFormat nf = new DecimalFormat("0000");
 					String maxID = service.getMaxID();
-					int tp = Integer.parseInt(maxID);
-					classID = String.valueOf((tp + 1));
-					System.out.println("id:"+classID);
+					if (maxID != null) {
+						int tp = Integer.parseInt(maxID);
+						classID = nf.format((tp + 1));
+					} else {
+						classID = nf.format(1);
+					}
 					GoodsClassPO po = new GoodsClassPO(classID, name,
 							upClassName);
 					return service.addGoodsClass(po);
 				} else {
-					return 1;//上级分类下有商品，无法添加
+					return 1;// 上级分类下有商品，无法添加
 				}
 			} else {
-				return 2;//上级分类不存在
+				return 2;// 上级分类不存在
 			}
 		} else {
-			return 5;//当前分类已存在
+			return 5;// 当前分类已存在
 		}
 	}
 
