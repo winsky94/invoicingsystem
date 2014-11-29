@@ -1,25 +1,43 @@
 package Presentation.financeui;
 
+
 import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
+
+import vo.TransferItemVO;
+
+
 public class ExchangeMoneyModel extends AbstractTableModel{
 	Vector<String> columnNames=new Vector<String>();
 	Vector<String[]> rowData=new Vector<String[]>();
 	 	 
 	public ExchangeMoneyModel(){
-		int i;
-		String[] buffer;
+
 		columnNames.add("银行账户");
-		columnNames.add("转账金额");
+		columnNames.add("转账金额(元)");
 		columnNames.add("备注");
 		
 //	    buffer=new String[]{"审批通过","SKD-20140826-00001","张三","02","Lucy","点击查看","15000"};
 //		rowData.add(buffer);
-		}		
+		}	
 	
+	public void addRow(String[] hang){
+		rowData.add(hang);
+	}
 	
+	public ArrayList<TransferItemVO> getInfo(){
+		int i=0;
+		ArrayList<TransferItemVO> a=new ArrayList<TransferItemVO>();
+		TransferItemVO b;
+		while(i<rowData.size()){
+			b=new TransferItemVO(getValueAt(i,0),Double.parseDouble(getValueAt(i,1)),getValueAt(i,2));
+			a.add(b);
+			i++;
+		}
+		return a;
+	}
 	
 //	得到共有多少列
 	public int getColumnCount() {

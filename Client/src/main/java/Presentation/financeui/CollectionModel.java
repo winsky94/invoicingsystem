@@ -24,7 +24,9 @@ public class CollectionModel extends AbstractTableModel{
 		rowData.add(buffer);
 		}		
 	
-	
+public void addRow(String[] buffer){
+	   rowData.add(buffer);
+}
 	
 //	得到共有多少列
 	public int getColumnCount() {

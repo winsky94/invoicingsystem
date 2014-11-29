@@ -105,9 +105,14 @@ public class CollectionPanel extends JPanel implements ActionListener{
         this.add(jp3,BorderLayout.SOUTH);
 	}
 
+	public void addRow(String[] buffer){
+		cm.addRow(buffer);
+    	jt.revalidate();
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==jb4){
-			frame.setRightComponent(new AddCollectionPanel(frame,color));
+			frame.setRightComponent(new AddCollectionPanel(frame,this,color));
 		}
 		this.timeNow.setText(Calendar.getInstance().getTime().toLocaleString());
 		

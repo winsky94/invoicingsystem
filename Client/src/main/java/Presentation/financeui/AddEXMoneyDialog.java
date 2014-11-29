@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import stocksystem.AccountManagement;
 
 public class AddEXMoneyDialog extends JDialog implements ActionListener{
 
@@ -14,9 +13,11 @@ public class AddEXMoneyDialog extends JDialog implements ActionListener{
 	JTextField jtf1,jtf2,jtf3;
 	JButton jb1,jb2;
 	JPanel jp1,jp2,jp3;
+	AddCollectionPanel owner;
 	
-	public AddEXMoneyDialog(AddCollectionPanel owner,String title,boolean modal){
+	public AddEXMoneyDialog(AddCollectionPanel myowner,String title,boolean modal){
 		
+		owner=myowner;
 		jl1=new JLabel("银行账户");
 		jl2=new JLabel("转账金额");
 		jl3=new JLabel("备注");
@@ -57,7 +58,7 @@ public class AddEXMoneyDialog extends JDialog implements ActionListener{
 	    
 	    this.setSize(300,250);
 //		this.setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
-	    this.setLocation(300,250);
+	    this.setLocation(500,250);
 		this.setVisible(true);
 	    	
 		
@@ -71,7 +72,7 @@ public class AddEXMoneyDialog extends JDialog implements ActionListener{
 			String[] buffer={jtf1.getText(),jtf2.getText(),jtf3.getText()};
 	//		myFrame.jt.setBackground(Color.blue);
 	//		myFrame.jt.setEnabled(true);
-			owner.addDialog(buffer);
+			owner.addRow(buffer);
             
 	//		myFrame.jt.getValueAt(row, column);
 			this.dispose();
