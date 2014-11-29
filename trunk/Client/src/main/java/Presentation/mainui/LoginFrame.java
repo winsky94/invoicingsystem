@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -295,6 +296,9 @@ public class LoginFrame extends JFrame {
 				frame.setDividerLocation("long");
 				LoginFrame.this.dispose();
 				break;
+			case 2:
+				 JOptionPane.showMessageDialog(null,"该用户不存在!","提示",JOptionPane.WARNING_MESSAGE);break;
+				
 			default:
 				System.out.println("密码错误");
 			}
