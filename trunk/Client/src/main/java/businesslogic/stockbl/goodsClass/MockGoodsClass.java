@@ -1,6 +1,9 @@
 package businesslogic.stockbl.goodsClass;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+
+import javax.swing.JTree;
 
 import vo.GoodsClassVO;
 import businesslogic.stockbl.goods.MockGoods;
@@ -82,6 +85,16 @@ public class MockGoodsClass implements StockGoodsClassBLService {
 	public ArrayList<GoodsClassVO> show() {
 		// TODO 自动生成的方法存根
 		return null;
+	}
+
+	public JTree getClassTree() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	public int recordClassTree(JTree tree) throws RemoteException {
+		// TODO 自动生成的方法存根
+		return 0;
 	}
 
 }

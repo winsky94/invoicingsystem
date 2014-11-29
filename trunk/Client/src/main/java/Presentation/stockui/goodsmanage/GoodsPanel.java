@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.rmi.RemoteException;
+import java.security.Provider.Service;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -55,6 +57,8 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 	DefaultMutableTreeNode addNode = null;
 	DefaultMutableTreeNode updateNode = null;
 
+	GoodsClassNode newNode = null;
+
 	public GoodsPanel() {
 		CreateGoodsClass();// yan
 		this.setBackground(Color.white);
@@ -62,14 +66,14 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 		this.setLayout(gbl);
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(3, 3, 3, 3);
-		//-----------upPnl--------------------------------------------------------
-		JPanel upPnl=new JPanel();
+		// -----------upPnl--------------------------------------------------------
+		JPanel upPnl = new JPanel();
 		upPnl.setBackground(Color.white);
-		GridBagLayout upGbl=new GridBagLayout();
-		GridBagConstraints uc=new GridBagConstraints();
+		GridBagLayout upGbl = new GridBagLayout();
+		GridBagConstraints uc = new GridBagConstraints();
 		upPnl.setLayout(upGbl);
-		uc.insets=new Insets(3, 3, 3, 3);
-		uc.fill=GridBagConstraints.HORIZONTAL;	
+		uc.insets = new Insets(3, 3, 3, 3);
+		uc.fill = GridBagConstraints.HORIZONTAL;
 		addGoodsBtn = new JButton("添加商品", new ImageIcon("img/stock/add.png"));
 		addGoodsBtn.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		addGoodsBtn.setForeground(stockColor);
@@ -78,10 +82,10 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 		addGoodsBtn.setHorizontalAlignment(SwingConstants.LEFT);
 		addGoodsBtn.setFocusPainted(false);
 		addGoodsBtn.addActionListener(new AddGoodsBtnListener());
-		uc.gridx=0;
-		uc.gridy=0;
-		uc.weightx=0.05;
-		uc.weighty=0.05;
+		uc.gridx = 0;
+		uc.gridy = 0;
+		uc.weightx = 0.05;
+		uc.weighty = 0.05;
 		upGbl.setConstraints(addGoodsBtn, uc);
 		upPnl.add(addGoodsBtn);
 		//
@@ -93,7 +97,7 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 		delGoodsBtn.setHorizontalAlignment(SwingConstants.LEFT);
 		delGoodsBtn.setFocusPainted(false);
 		delGoodsBtn.addActionListener(new DelGoodsBtnListener());
-		uc.gridx=1;
+		uc.gridx = 1;
 		upGbl.setConstraints(delGoodsBtn, uc);
 		upPnl.add(delGoodsBtn);
 		//
@@ -106,19 +110,19 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 		modGoodsBtn.setHorizontalAlignment(SwingConstants.LEFT);
 		modGoodsBtn.setFocusPainted(false);
 		modGoodsBtn.addActionListener(new ModGoodsBtnListener());
-		uc.gridx=2;
-		uc.insets=new Insets(3, 3, 3, 150);
+		uc.gridx = 2;
+		uc.insets = new Insets(3, 3, 3, 150);
 		upGbl.setConstraints(modGoodsBtn, uc);
 		upPnl.add(modGoodsBtn);
-		//------------------------------------------
+		// ------------------------------------------
 		// 搜索框
 		searchFld = new JTextField();
 		searchFld.setFont(new Font("楷体", Font.BOLD, 13));
 		searchFld.getDocument().addDocumentListener(new SearchFldListener());
-		uc.gridx=3;
-		uc.gridwidth=4;
-		uc.weightx=0.8;
-		uc.insets=new Insets(3, 3, 3, 3);
+		uc.gridx = 3;
+		uc.gridwidth = 4;
+		uc.weightx = 0.8;
+		uc.insets = new Insets(3, 3, 3, 3);
 		upGbl.setConstraints(searchFld, uc);
 		upPnl.add(searchFld);
 		// 查找按钮
@@ -129,17 +133,17 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 		searchBtn.setHorizontalAlignment(SwingConstants.LEFT);
 		searchBtn.setFocusPainted(false);
 		searchBtn.addActionListener(new SearchBtnListener());
-		uc.gridx=7;
-		uc.gridwidth=1;
-		uc.weightx=0.05;
+		uc.gridx = 7;
+		uc.gridwidth = 1;
+		uc.weightx = 0.05;
 		upGbl.setConstraints(searchBtn, uc);
 		upPnl.add(searchBtn);
-		//-------------------------------------
-		c.gridx=0;
-		c.gridy=0;
-		c.gridwidth=GridBagConstraints.REMAINDER;
-		c.gridheight=1;
-		c.fill=GridBagConstraints.HORIZONTAL;
+		// -------------------------------------
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.gridheight = 1;
+		c.fill = GridBagConstraints.HORIZONTAL;
 		gbl.setConstraints(upPnl, c);
 		this.add(upPnl);
 
@@ -159,8 +163,8 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 		this.add(jtree);
 
 		// ---------------------button---------------------
-		JPanel downPnl=new JPanel();
-		downPnl.setLayout(new GridLayout(1,3));
+		JPanel downPnl = new JPanel();
+		downPnl.setLayout(new GridLayout(1, 3));
 		// ------------------------------------------------
 		addGCBtn = new JButton("添加分类");
 		addGCBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
@@ -175,7 +179,7 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 		delGCBtn.setForeground(stockColor);
 		delGCBtn.setBackground(Color.white);
 		delGCBtn.setFocusPainted(false);
-		delGCBtn.addActionListener(new AddGCBtnListener());
+		delGCBtn.addActionListener(new DelGCBtnListener());
 		downPnl.add(delGCBtn);
 		// ------------------------------------------------
 		modGCBtn = new JButton("修改分类");
@@ -183,7 +187,7 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 		modGCBtn.setForeground(stockColor);
 		modGCBtn.setBackground(Color.white);
 		modGCBtn.setFocusPainted(false);
-		modGCBtn.addActionListener(new AddGCBtnListener());
+		modGCBtn.addActionListener(new ModGCBtnListener());
 		downPnl.add(modGCBtn);
 		c.insets = new Insets(1, 1, 1, 1);
 		c.gridx = 0;
@@ -192,14 +196,13 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 		c.gridwidth = 2;
 		c.weightx = 0.05;
 		c.weighty = 0.05;
-		//c.fill = GridBagConstraints.SOUTHWEST;
 		gbl.setConstraints(downPnl, c);
 		this.add(downPnl);
 
 		// ----------goodsTable------------------
 		goodsTable = new JTable();
 		goodsTable.setBackground(Color.blue);
-		c.gridx = 3;// 2->1 、、yan
+		c.gridx = 3;
 		c.gridy = 1;
 		c.gridheight = 7;
 		c.gridwidth = GridBagConstraints.REMAINDER;
@@ -264,12 +267,11 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 	}
 
 	// yan---------------------------------------------------------------------
-	// ------------tree_button--------------------------------------------------
+	// ------------tree_button_listener--------------------------------------------------
 	class AddGCBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			addGoodsClass();
-
 		}
 
 	}
@@ -297,12 +299,12 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 	private DefaultMutableTreeNode createGoodsClassNode(GoodsClassNode root) {
 		DefaultMutableTreeNode Troot = null;
 		if (root != null)
-			Troot = new DefaultMutableTreeNode(root.name);
+			Troot = new DefaultMutableTreeNode(root.getName());
 		else
 			return null;
-		for (int i = 0; i < root.children.size(); i++) {
-			DefaultMutableTreeNode Tnode = createGoodsClassNode(root.children
-					.get(i));
+		for (int i = 0; i < root.getChildren().size(); i++) {
+			DefaultMutableTreeNode Tnode = createGoodsClassNode(root
+					.getChildren().get(i));
 			Troot.add(Tnode);
 		}
 		return Troot;
@@ -310,38 +312,37 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 
 	// 创建逻辑根节点--yan
 	private GoodsClassNode CreateTree() {
-		GoodsClassNode root = new GoodsClassNode("商品分类", "001");
-		GoodsClassNode node1 = new GoodsClassNode("食品", "001001");
-		GoodsClassNode node2 = new GoodsClassNode("日用品", "001002");
-		GoodsClassNode node3 = new GoodsClassNode("电器", "001003");
-		GoodsClassNode node4 = new GoodsClassNode("服装", "001004");
+		// GoodsClassNode root = new GoodsClassNode("商品分类", "001");
+		// GoodsClassNode node1 = new GoodsClassNode("食品", "001001");
+		// GoodsClassNode node2 = new GoodsClassNode("日用品", "001002");
+		// GoodsClassNode node3 = new GoodsClassNode("电器", "001003");
+		// GoodsClassNode node4 = new GoodsClassNode("服装", "001004");
+		//
 		// root.children.add(node1);
-		// root.children.add(node1);
-		// root.children.add(node1);
-		// root.children.add(node1);
-		// root.children.add(node1);
-		// root.children.add(node1);
-		// root.children.add(node1);
-		// root.children.add(node1);
-		root.children.add(node1);
-		root.children.add(node2);
-		root.children.add(node3);
-		root.children.add(node4);
-		GoodsClassNode node1_1 = new GoodsClassNode("肉食", "001001001");
-		GoodsClassNode node1_2 = new GoodsClassNode("蔬菜", "001001002");
-		GoodsClassNode node1_3 = new GoodsClassNode("水果", "001001003");
-		node1.children.add(node1_1);
-		node1.children.add(node1_2);
-		node1.children.add(node1_3);
+		// root.children.add(node2);
+		// root.children.add(node3);
+		// root.children.add(node4);
+		// GoodsClassNode node1_1 = new GoodsClassNode("肉食", "001001001");
+		// GoodsClassNode node1_2 = new GoodsClassNode("蔬菜", "001001002");
+		// GoodsClassNode node1_3 = new GoodsClassNode("水果", "001001003");
+		// node1.children.add(node1_1);
+		// node1.children.add(node1_2);
+		// node1.children.add(node1_3);
+		GoodsClassNode root = new GoodsClassNode("灯具", "001");
 
 		return root;
 	}
 
 	private void CreateGoodsClass() {
 		// 商品分类
-		GoodsClassNode root = CreateTree();
-		DefaultMutableTreeNode Troot = createGoodsClassNode(root);
-		jtree = new JTree(Troot);
+		StockGoodsClassBLService controller = new GoodsClassController();
+		jtree = controller.getClassTree();
+		if (jtree == null) {
+			// GoodsClassNode root = CreateTree();
+			GoodsClassNode root = new GoodsClassNode("灯具", "001");
+			DefaultMutableTreeNode Troot = createGoodsClassNode(root);
+			jtree = new JTree(Troot);
+		}
 		treeModel = (DefaultTreeModel) jtree.getModel();
 		// 渲染器，调整树背景色及文字背景色
 		DefaultTreeCellRenderer cellRenderer = (DefaultTreeCellRenderer) jtree
@@ -388,16 +389,25 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 		// 如果选中的分类下面有商品，提示不能添加分类
 
 		// 添加节点
-		// new AddGoodsClassDialog(this);
+		new AddGoodsClassDialog(this);
 		if (addNode == null)
 			return;
+		// rmi通信
 		StockGoodsClassBLService controller = new GoodsClassController();
-		GoodsClassVO vo = new GoodsClassVO(null, null);
+		GoodsClassVO vo = new GoodsClassVO(newNode.getName(),
+				newNode.getUpClass());
 		int addResult = controller.addGoodsClass(vo);
+
 		if (addResult == 0) {
 			DefaultMutableTreeNode treeNode = getSelectedNode();
 			treeModel.insertNodeInto(addNode, treeNode,
 					treeNode.getChildCount());
+			try {
+				controller.recordClassTree(jtree);
+			} catch (RemoteException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
 		} else
 			JOptionPane.showMessageDialog(this, "添加失败", "Error",
 					JOptionPane.ERROR_MESSAGE);
@@ -417,7 +427,8 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 
 		StockGoodsClassBLService controller = new GoodsClassController();
 		GoodsClassVO vo = new GoodsClassVO(null, null);
-		int delResult = controller.addGoodsClass(vo);
+		// int delResult = controller.addGoodsClass(vo);
+		int delResult = 0;
 		if (delResult == 0) {
 			DefaultMutableTreeNode treeNode = getSelectedNode();
 			treeModel.removeNodeFromParent(treeNode);
@@ -432,13 +443,14 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		// new UpdateGoodsClassDialog(this);
+		new UpdateGoodsClassDialog(this);
 
 		if (updateNode == null)
 			return;
 		StockGoodsClassBLService controller = new GoodsClassController();
 		GoodsClassVO vo = new GoodsClassVO(null, null);
-		int molResult = controller.addGoodsClass(vo);
+		// int molResult = controller.addGoodsClass(vo);
+		int molResult = 0;
 		if (molResult == 0) {
 			DefaultMutableTreeNode treeNode = getSelectedNode();
 			treeNode.setUserObject(updateNode.getUserObject());
@@ -481,7 +493,15 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 
 	public void mousePressed(MouseEvent e) {
 		// TODO 自动生成的方法存根
-
+		if (e.getButton() == MouseEvent.BUTTON1) {
+			TreePath path = jtree.getPathForLocation(e.getX(), e.getY());
+			if (path != null)
+				selectedPath = path;
+			if (selectedPath != null) {
+				jtree.setSelectionPath(selectedPath);
+			} else
+				return;
+		}
 	}
 
 	public void mouseReleased(MouseEvent e) {
@@ -491,49 +511,130 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 
 	class AddGoodsClassDialog extends JDialog implements ActionListener {
 		private static final long serialVersionUID = 1L;
-		JLabel fatherClassDjl = null;
+		JLabel fatherClassjl = null;
+		JLabel classjl = null;
+		JTextField fatherClassjtf = null;
+		JTextField classjtf = null;
+		JButton okjb = null;
+		JButton canceljb = null;
+
+		GoodsPanel father = null;
+
+		public AddGoodsClassDialog(GoodsPanel father) {
+			this.father = father;
+
+			Font font = new Font("仿宋", Font.BOLD, 16);
+			fatherClassjl = new JLabel("父分类");
+			fatherClassjl.setFont(font);
+			fatherClassjl.setBounds(15, 20, 60, 30);
+			this.add(fatherClassjl);
+
+			classjl = new JLabel("分类名");
+			classjl.setFont(font);
+			classjl.setBounds(15, 60, 60, 30);
+			this.add(classjl);
+
+			fatherClassjtf = new JTextField();
+			fatherClassjtf.setFont(font);
+			fatherClassjtf.setText(getSelectedClass());
+			fatherClassjtf.setEditable(false);
+			fatherClassjtf.setBounds(85, 20, 180, 30);
+			this.add(fatherClassjtf);
+
+			classjtf = new JTextField();
+			classjtf.setFont(font);
+			classjtf.setBounds(85, 60, 180, 30);
+			this.add(classjtf);
+
+			okjb = new JButton("确定");
+			okjb.setBounds(50, 110, 60, 30);
+			okjb.addActionListener(this);
+			okjb.setVisible(true);
+			this.add(okjb);
+
+			canceljb = new JButton("取消");
+			canceljb.setBounds(170, 110, 60, 30);
+			canceljb.addActionListener(this);
+			canceljb.setVisible(true);
+			this.add(canceljb);
+
+			this.setSize(300, 200);
+			this.setLayout(null);
+			this.setTitle("添加商品分类");
+			this.setResizable(false);
+			this.setLocation(father.getX() + father.getWidth() / 2,
+					father.getY() + father.getHeight() / 3);
+			this.setModal(true);
+			this.setVisible(true);
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == okjb) {
+				if (fatherClassjtf.getText().trim().equals("")
+						|| classjtf.getText().trim().equals("")) {
+					JOptionPane.showMessageDialog(this, "请填写全部信息！", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				father.newNode = new GoodsClassNode(classjtf.getText().trim(),
+						fatherClassjtf.getText().trim());
+				father.addNode = new DefaultMutableTreeNode(classjtf.getText()
+						.trim());
+				this.dispose();
+			} else if (e.getSource() == canceljb) {
+				father.addNode = null;
+				this.dispose();
+			}
+		}
+
+	}
+
+	class UpdateGoodsClassDialog extends JDialog implements ActionListener {
+		private static final long serialVersionUID = 1L;
+		JLabel oldClassDjl = null;
 		JLabel classDjl = null;
-		JTextField fatherClassDjtf = null;
+		JTextField oldClassDjtf = null;
 		JTextField classDjtf = null;
 		JButton okDjb = null;
 		JButton cancelDjb = null;
 
-		GoodsClassNode father = null;
+		GoodsPanel father = null;
 
-		public AddGoodsClassDialog(GoodsClassNode father) {
+		public UpdateGoodsClassDialog(GoodsPanel father) {
 			this.father = father;
 
-			Font font = new Font("仿宋", Font.BOLD, 16);
-			fatherClassDjl = new JLabel("父分类");
-			fatherClassDjl.setFont(font);
-			fatherClassDjl.setBounds(15, 20, 60, 30);
-			this.add(fatherClassDjl);
+			Font font = new Font("����", Font.BOLD, 16);
+			oldClassDjl = new JLabel("ԭ����");
+			oldClassDjl.setFont(font);
+			oldClassDjl.setBounds(15, 20, 60, 30);
+			this.add(oldClassDjl);
 
-			classDjl = new JLabel("分类名");
+			classDjl = new JLabel("������");
 			classDjl.setFont(font);
 			classDjl.setBounds(15, 60, 60, 30);
+			// balanceDjl.setEnabled(false);
 			this.add(classDjl);
 
-			fatherClassDjtf = new JTextField();
-			fatherClassDjtf.setFont(font);
-			fatherClassDjtf.setText(getSelectedClass());
-			fatherClassDjtf.setEditable(false);
-			fatherClassDjtf.setBounds(85, 20, 180, 30);
-			this.add(fatherClassDjtf);
+			oldClassDjtf = new JTextField();
+			oldClassDjtf.setFont(font);
+			oldClassDjtf.setText(getSelectedClass());
+			oldClassDjtf.setEditable(false);
+			oldClassDjtf.setBounds(85, 20, 180, 30);
+			this.add(oldClassDjtf);
 
 			classDjtf = new JTextField();
 			classDjtf.setFont(font);
 			classDjtf.setBounds(85, 60, 180, 30);
 			this.add(classDjtf);
 
-			okDjb = new JButton("确定");
+			okDjb = new JButton("ȷ��");
 			// okDjb.setFont(font);
 			okDjb.setBounds(50, 110, 60, 30);
 			okDjb.addActionListener(this);
 			okDjb.setVisible(true);
 			this.add(okDjb);
 
-			cancelDjb = new JButton("取消");
+			cancelDjb = new JButton("ȡ��");
 			// cancelDjb.setFont(font);
 			cancelDjb.setBounds(170, 110, 60, 30);
 			cancelDjb.addActionListener(this);
@@ -542,28 +643,28 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 
 			this.setSize(300, 200);
 			this.setLayout(null);
-			this.setTitle("添加商品分类");
+			this.setTitle("�޸���Ʒ����");
 			this.setResizable(false);
-			// this.setLocation(father.getX() + father.getWidth() / 2,
-			// father.getY() + father.getHeight() / 3);
+			this.setLocation(father.getX() + father.getWidth() / 2,
+					father.getY() + father.getHeight() / 3);
 			this.setModal(true);
+			// this.setType(Type.UTILITY);
 			this.setVisible(true);
 		}
 
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == okDjb) {
-				if (fatherClassDjtf.getText().trim().equals("")
+				if (oldClassDjtf.getText().trim().equals("")
 						|| classDjtf.getText().trim().equals("")) {
-					JOptionPane.showMessageDialog(this, "请填写全部信息！", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "����дȫ����Ϣ��",
+							"Error", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				// father.addNode = new
-				// DefaultMutableTreeNode(classDjtf.getText()
-				// .trim());
+				father.updateNode = new DefaultMutableTreeNode(classDjtf
+						.getText().trim());
 				this.dispose();
 			} else if (e.getSource() == cancelDjb) {
-				// father.addNode = null;
+				father.updateNode = null;
 				this.dispose();
 			}
 		}
