@@ -21,7 +21,7 @@ public class User implements UserBLService{
 	private UserJob job;
 	private UserDataService service;
 	public User() throws Exception{
-		System.setSecurityManager(new SecurityManager());
+	//	System.setSecurityManager(new SecurityManager());
 		String host="localhost:1099";
 		String url="rmi://"+host+"/userService";
 	

@@ -49,7 +49,7 @@ public class functionPane extends JPanel{
 		max.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		close.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		FlowLayout flow=new FlowLayout();
-		this.setBackground(Color.WHITE);
+		//this.setBackground(Color.WHITE);
 		flow.setAlignment(FlowLayout.RIGHT);
 		this.setLayout(flow);
 		//this.setBackground(Color.WHITE);
