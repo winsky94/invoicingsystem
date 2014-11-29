@@ -2,7 +2,7 @@ package po;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+import po.ReceiptPO;
 
 public class CollectionPO extends ReceiptPO implements Serializable{
 
