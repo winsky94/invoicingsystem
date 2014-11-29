@@ -20,9 +20,11 @@ public class StockLeftPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JButton userInfoBtn, goodsBtn, stockBtn, giftBtn, aboutBtn,foldBtn;
+	JButton userInfoBtn, goodsBtn, stockBtn, giftBtn, aboutBtn;
 	Color stockColor=new Color(51,125,86);
+	JFrame parent;
 	public StockLeftPanel(JFrame frame) {
+		parent=frame;
 		this.setLayout(new GridLayout(10, 1));
 		//
 		/* !!!!!BL看这里！！：这里的构造器应放入User姓名和头像！！！！！！！！！ */

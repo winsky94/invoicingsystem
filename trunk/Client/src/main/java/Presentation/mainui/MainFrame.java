@@ -3,34 +3,103 @@ package Presentation.mainui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.*;
 
+import po.UserPO.UserJob;
 import businesslogic.userbl.User;
 import Presentation.financeui.LeftLongPanel;
+import Presentation.promotionui.leftPane;
+import Presentation.promotionui.listPane;
+import Presentation.salesui.SalesLeftPanel;
+import Presentation.stockui.StockLeftPanel;
 
 
 public class MainFrame extends JFrame implements MouseListener,ActionListener{
-	
+	int xOld,yOld;
 	JSplitPane jsp;
-	JPanel jp1,jp2;
+	JPanel jp1,jp2,welcomePanel;
 	JLabel jlb;
 	String type;
 	User user;
+	
 	Color[] color=new Color[2];
 		
 	public MainFrame(User myuser){
+		this.setSize(1100, 600);
+	       
+        this.setLocation(150, 100);
+        
 		user=myuser;
-//		if(user.getJob().equals(UserJob.FINANCE))
-		   type="finance";
-//		else if(user.getJob().equals(UserJob.SALE))
-//			type="sales";
-//		else if(user.getJob().equals(UserJob.STOCK))
-//			type="stock";
-//		else
-//			type="manage";
+
+		   
+		   
+		   JPanel welcomePanel = new JPanel() {
+				private static final long serialVersionUID = 1L;
+
+				// 给panel加上图片
+				protected void paintComponent(Graphics g) {
+					ImageIcon icon = new ImageIcon("img/mainFrame/welcome.png");
+					Image img = icon.getImage();
+					g.drawImage(img, 0, 0,getWidth(),
+							getHeight(), icon.getImageObserver());
+				}
+			};
+			
+			//====功能按钮
+			JPanel button=new functionPane(this);
+			button.setOpaque(false);
+			JPanel pane=new JPanel();
+			pane.setOpaque(false);
+			FlowLayout flow=new FlowLayout();
+			flow.setAlignment(FlowLayout.RIGHT);
+			pane.setLayout(flow);
+			pane.add(button);
+			welcomePanel.setLayout(new BorderLayout());
+			welcomePanel.add(pane,BorderLayout.NORTH);
+			
+	
+			
+			
+			jsp=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,jp1,jp2);
+			
+			jsp.setOneTouchExpandable(true);
+				
+			this.add(jsp);
+			this.setTitle("进销存系统");
+			this.setIconImage(new ImageIcon("qq.PNG").getImage());
+			
+	     //   this.setResizable(false);
+	     
+	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        this.setUndecorated(true);
+	        this.setVisible(true);
+			jsp.setDividerSize(0);
+	        setDividerLocation("long");
+			jsp.setDividerSize(0);		
+			UserJob job=user.getJob();
+			this.setRightComponent(welcomePanel);
+			switch(job){
+			case MANAGER:
+				type="manager";setColor();
+				this.setLeftComponent(new leftPane(this));break;
+			case FINANCE:
+				type="finance";setColor();break;
+			//	this.setLeftComponent(n);
+			case ADMINSTRATOR:
+				type="adminstrator";setColor();break;
+			case STOCK:
+				type="stock";setColor();
+				this.setLeftComponent(new StockLeftPanel(this));
+			case SALE:
+				type="sales";setColor();
+				this.setLeftComponent(new SalesLeftPanel(this));
+			}
+		
 	}
 	
 	public String getUser(){
@@ -102,13 +171,28 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
         this.setVisible(true);
 		jsp.setDividerSize(0);
         setDividerLocation("long");
-		jsp.setDividerSize(0);		
+		jsp.setDividerSize(0);	
+		
+		//处理拖动事件
+		  jsp.addMouseListener(new MouseAdapter() {  
+	            public void mousePressed(MouseEvent e) {  
+	                xOld = e.getX();  
+	                yOld = e.getY();  
+	            }  
+	        });  
+	        jsp.addMouseMotionListener(new MouseMotionAdapter() {  
+	            @Override  
+	            public void mouseDragged(MouseEvent e) {  
+	                int xOnScreen = e.getXOnScreen();  
+	                int yOnScreen = e.getYOnScreen();  
+	                int xx = xOnScreen - xOld;  
+	                int yy = yOnScreen - yOld;  
+	                MainFrame.this.setLocation(xx, yy);  
+	            }  
+	        });  
 	}
 	
-	public static void main(String[] args) {
-		MainFrame c=new MainFrame(null);
-		c.print();
-	}
+	
 
 
 	public void actionPerformed(ActionEvent arg0) {
@@ -143,5 +227,15 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public static void main(String[] args) {
+		User user=new User("王宁宁",UserJob.SALE,129);
+		user.setJob(UserJob.SALE);
+		new MainFrame(user);
+	}
+	
+	public Color[] getTheme(){
+		return this.color;
 	}
 }

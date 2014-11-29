@@ -28,7 +28,7 @@ public class listPane extends JPanel{
 		System.out.println(width);
 		
 	//============functionPane由mainFrame构造
-		JPanel button=new functionPane(this,frame,size);
+		JPanel button=new functionPane(frame);
 		JPanel pane=new JPanel();
 		FlowLayout flow=new FlowLayout();
 		flow.setAlignment(FlowLayout.RIGHT);

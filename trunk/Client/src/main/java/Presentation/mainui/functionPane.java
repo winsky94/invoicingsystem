@@ -21,10 +21,11 @@ public class functionPane extends JPanel{
 	JFrame mainFrame;
 	int fsize;
 	
-	Color color=new Color(115,46,126);//需要get
-	public functionPane(JPanel panel,JFrame frame,int size){
-		parent=panel;
+	Color color;//需要get
+	public functionPane(JFrame frame){
+		//parent=panel;
 		mainFrame=frame;
+		color=((MainFrame)frame).getTheme()[0];
 		buttonListener listen=new buttonListener();
 		close=new JLabel(new ImageIcon("img/mainFrame/close.png"));
 		min=new JLabel(new ImageIcon("img/mainFrame/min.png"));
@@ -37,7 +38,7 @@ public class functionPane extends JPanel{
 		max.addMouseListener(listen);
 		skin.addMouseListener(listen);
 		help.addMouseListener(listen);	
-		parent=panel;
+		//parent=panel;
 		skin.setToolTipText("皮肤");
 		help.setToolTipText("帮助");
 		min.setToolTipText("最小化");
@@ -48,10 +49,10 @@ public class functionPane extends JPanel{
 		max.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		close.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		FlowLayout flow=new FlowLayout();
-		
+		this.setBackground(Color.WHITE);
 		flow.setAlignment(FlowLayout.RIGHT);
 		this.setLayout(flow);
-	
+		//this.setBackground(Color.WHITE);
 		this.setSize(100,30);
 		add(skin);
 		add(help);
@@ -63,15 +64,7 @@ public class functionPane extends JPanel{
 		
 		
 	}
-	public void update(int width){
-		remove(skin);remove(help);remove(min);
-		remove(max);remove(close);
-		this.setSize(width,30);
-		
-		add(skin);
-		add(help);
-		add(min);add(max);add(close);
-	}
+
 	
 	
 	
@@ -91,12 +84,12 @@ public class functionPane extends JPanel{
     				int width=mainFrame.getWidth()*fsize/(fsize+1);
     				mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     				 max.setIcon(new ImageIcon("img/mainFrame/small.png"));
-    				// functionPane.this.update(mainFrame.getWidth()-width);
+    				
     				
     				}else
     				{mainFrame.setExtendedState(JFrame.NORMAL);
    				 max.setIcon(new ImageIcon("img/mainFrame/max.png"));
-   				// functionPane.this.update(mainFrame.getWidth()/(fsize+1));
+   			
     					
     				}
     				}

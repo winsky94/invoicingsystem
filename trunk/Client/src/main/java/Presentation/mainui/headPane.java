@@ -16,20 +16,51 @@ import javax.swing.JPanel;
 import Presentation.userui.userSet;
 import businesslogic.userbl.User;
 
-//根据  user构造left 头像Pane
+//根据 暂时处理  user构造left 头像Pane
 public class headPane extends JPanel{
 	JLabel head,info,name,job,point;
 	int width,height;
 	 JFrame rame;
+	 Color[] theme=new Color[2];
 	//选哟user构造啊
-	public headPane( JFrame frame,JPanel parent,User user){
+	public headPane( MainFrame frame,JPanel parent,User user){
 		//--------------userInfo Pane构造
 		rame=frame;
-		this.setBackground(new Color(115,46,126));
+		theme=frame.getTheme();
+		Color color=theme[0];
+		this.setBackground(color);
 		width=parent.getWidth();
 		height=parent.getHeight();
 		this.setLayout(new FlowLayout());
-		head=new JLabel(new ImageIcon("img/promotion/head.png"));
+		name=new JLabel(user.getName());
+		point=new JLabel("业绩点："+user.getPoints());
+		switch(user.getJob()){
+		case MANAGER:
+			head=new JLabel(new ImageIcon("img/promotion/head.png"));
+			job=new JLabel("总经理");	
+			break;
+			
+		case FINANCE:
+			head=new JLabel(new ImageIcon("img/finance/xxh.png"));
+			job=new JLabel("财务人员");	
+			break;
+		case STOCK:
+			head=new JLabel(new ImageIcon("img/stock/ysk.png"));
+			job=new JLabel("库存人员");	
+			break;
+		case ADMINSTRATOR:
+			head=new JLabel(new ImageIcon("img/login/admin.png"));
+			job=new JLabel("系统管理员");
+		
+			break;
+		case SALE:
+			head=new JLabel(new ImageIcon("img/sales/wn.png"));
+			job=new JLabel("销售人员");
+			break;
+			
+			
+		}
+		
 		head.setSize(width/3, height/5);
 		head.setLocation(0, 0);
 		head.setToolTipText("修改头像");
@@ -47,9 +78,7 @@ public class headPane extends JPanel{
 		ImageIcon icon=(ImageIcon) info.getIcon();
 		info.setSize(icon.getIconWidth(),icon.getIconHeight());
 		info.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		name=new JLabel("小金金");
-		job=new JLabel("总经理");
-		point=new JLabel("业绩点:0.01");
+		
 		JPanel userInfo=new JPanel();
 		userInfo.setBackground(this.getBackground());
 		userInfo.setLayout(new GridLayout(3,1));
@@ -72,6 +101,6 @@ public class headPane extends JPanel{
 		
 		
 		
-		//-----------headPane构造
+		
 	}
 }
