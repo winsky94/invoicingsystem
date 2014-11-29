@@ -1,5 +1,6 @@
 package Presentation.stockui;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class StockRightPanel extends JPanel{
@@ -8,7 +9,7 @@ public class StockRightPanel extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public StockRightPanel(){
+	public StockRightPanel(JFrame frame){
 		
 	}
 
