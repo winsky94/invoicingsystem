@@ -24,7 +24,7 @@ public class JXCFile {
 			if (fin.available() <= 0) {
 				fin.close();
 				return null;
-				
+
 			} else {
 				ObjectInputStream in = new ObjectInputStream(fin);
 				while (fin.available() > 0) {
@@ -36,7 +36,7 @@ public class JXCFile {
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println(name+"文件不存在");
+			System.out.println(name + "文件不存在");
 			return null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -69,22 +69,22 @@ public class JXCFile {
 				os.writeObject(o);
 			}
 			os.close();
-			
-			//当删除所有数据后，直接将这个文件删除、、、yan
-			if(ls.size()==0){
-				File f=new File(name);
+
+			// 当删除所有数据后，直接将这个文件删除、、、yan
+			if (ls.size() == 0) {
+				File f = new File(name);
 				f.delete();
 			}
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	//修改的情况下，需要删除原来的数据，重新写入，所以新建一个writeM给modify方法——yan
-	public void writeM(ArrayList<Object> ls){
-		File ff=new File(name);
+	// 修改的情况下，需要删除原来的数据，重新写入，所以新建一个writeM给modify方法——yan
+	public void writeM(ArrayList<Object> ls) {
+		File ff = new File(name);
 		ff.delete();
 		try {
 			boolean isexist = false;
@@ -105,20 +105,20 @@ public class JXCFile {
 				os.writeObject(o);
 			}
 			os.close();
-			
-			//当删除所有数据后，直接将这个文件删除、、、yan
-			if(ls.size()==0){
-				File f=new File(name);
+
+			// 当删除所有数据后，直接将这个文件删除、、、yan
+			if (ls.size() == 0) {
+				File f = new File(name);
 				f.delete();
 			}
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	} 
-	
- 	public void write(Object o) {
+
+	public void write(Object o) {
 
 		try {
 			boolean isexist = false;
@@ -137,6 +137,33 @@ public class JXCFile {
 			oos.writeObject(o);
 
 			oos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	// 向文件中写入一个对象，覆盖原来的所有内容
+	public void writeM(Object a) {
+		File ff = new File(name);
+		ff.delete();
+		try {
+			boolean isexist = false;
+			File file = new File(name);
+			if (file.exists())
+				isexist = true;
+			FileOutputStream fo = new FileOutputStream(name);
+			long pos = 0;
+
+			ObjectOutputStream os;
+			os = new ObjectOutputStream(fo);
+			if (isexist) {
+				pos = fo.getChannel().position() - 4;
+				fo.getChannel().truncate(pos);
+			}
+
+			os.writeObject(a);
+			os.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

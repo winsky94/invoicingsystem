@@ -6,6 +6,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import javax.swing.JTree;
+
 import po.GoodsClassPO;
 
 public interface StockGoodsClassDataService extends Remote {
@@ -20,4 +22,8 @@ public interface StockGoodsClassDataService extends Remote {
 	public String getMaxID() throws RemoteException;
 
 	public ArrayList<GoodsClassPO> showAllPO() throws RemoteException;
+
+	public int recordClassTree(JTree tree) throws RemoteException;
+
+	public JTree getClassTree() throws RemoteException;
 }

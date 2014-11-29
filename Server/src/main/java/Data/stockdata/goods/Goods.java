@@ -16,9 +16,8 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 	JXCFile file;
 
 	public Goods() throws RemoteException {
-		file = new JXCFile("C:/Users/Administrator/Desktop/invoicingsystem/trunk/Server/src/main/java/stock.ser");
-//		GoodsPO po=new GoodsPO("00020001","飞利浦日光灯","SR01",10,10,200,100,200, 100, "飞利浦");
-//		file.write(po);
+		file = new JXCFile(
+				"C:/Users/Administrator/Desktop/invoicingsystem/trunk/Server/src/main/java/stock.ser");
 	}
 
 	public int addGoods(GoodsPO po) throws RemoteException {
@@ -33,13 +32,14 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 
 		int i;
 		for (i = 0; i < a.size(); i++) {
+			System.out.println(i);
 			GoodsPO b = (GoodsPO) a.get(i);
 			if (b.getGoodsID().equals(po.getGoodsID())) {
 				a.remove(i);
 			}
 		}
 
-		file.write(a);
+		file.writeM(a);
 		return 0;
 	}
 
@@ -49,13 +49,14 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 
 		int i;
 		for (i = 0; i < a.size(); i++) {
+//			System.out.println(i);
 			GoodsPO b = (GoodsPO) a.get(i);
 			if (b.getGoodsID().equals(po.getGoodsID())) {
 				a.set(i, po);
 			}
 		}
 
-		file.write(a);
+		file.writeM(a);
 		return 0;
 	}
 
@@ -81,7 +82,7 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 		// TODO 自动生成的方法存根
 		ArrayList<GoodsPO> result = new ArrayList<GoodsPO>();
 		ArrayList<Object> a = file.read();
-		if (a==null) {
+		if (a == null) {
 			return result;
 		} else {
 			int i;
@@ -92,7 +93,6 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 
 			return result;
 		}
-//		return result;
 	}
 
 	public ArrayList<GoodsPO> showStock(String beginDate, String endDate)
@@ -108,7 +108,24 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 
 	public String getMaxID() throws RemoteException {
 		// TODO 自动生成的方法存根
-		return null;
+		ArrayList<GoodsPO> list = showGoods();
+		String result = "";
+		if (list.size() != 0) {
+			String[] temp = list.get(0).getGoodsID().split("-");
+			result = temp[2];
+
+			for (int i = 0; i < list.size(); i++) {
+				String tp[] = list.get(i).getGoodsID().split("-");
+				if (Integer.parseInt(result) < Integer.parseInt(tp[2])) {
+					result = tp[2];
+				}
+
+			}
+			return result;
+		} else {
+			return null;
+		}
+
 	}
 
 }

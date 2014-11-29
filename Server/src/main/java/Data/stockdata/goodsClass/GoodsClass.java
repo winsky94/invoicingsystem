@@ -1,9 +1,11 @@
 package Data.stockdata.goodsClass;
 
+import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import po.GoodsClassPO;
@@ -46,14 +48,14 @@ public class GoodsClass extends UnicastRemoteObject implements
 					a.remove(i);
 				}
 			}
-			file.write(a);
+			file.writeM(a);
 			return 0;
 		} else {
 			return 0;
 		}
 	}
 
-	//修改是要删除原来的所有的数据重新写入，调用writeM方法——yan
+	// 修改是要删除原来的所有的数据重新写入，调用writeM方法——yan
 	public int modifyGoodsClass(GoodsClassPO po) throws RemoteException {
 		// TODO 自动生成的方法存根
 		ArrayList<Object> a = file.read();
@@ -87,54 +89,11 @@ public class GoodsClass extends UnicastRemoteObject implements
 		return result;
 	}
 
-	// //显示所有商品分类信息，建树并返回给界面
-	// public JTree show() throws RemoteException {
-	// // TODO 自动生成的方法存根
-	// ArrayList<Object> a = file.read();
-	// String[][] data = null;
-	// // { { "体育", "足球", "篮球", "乒乓球" },
-	// // { "娱乐", "唱歌", "跳舞", "相声", "小品" }, { "电视", "长虹", "海尔", "创维" },
-	// // { "戏剧", "京剧", "川剧", "越剧" }, { "国家", "中国", "越南", "朝鲜", "德国" },
-	// // { "武器", "飞机", "大炮", "坦克" } }
-	// // 遍历获得所有分类信息，按分类将其拆分到二维数组里去——也不一定是二维啊，如果我有三级分类呢、、、、
-	// int j = 0;
-	// for (Object b : a) {
-	// GoodsClassPO c = (GoodsClassPO) b;
-	// if (c.getUpClass().equals("灯具")) {
-	// data[0][j] = c.getName();
-	// j++;
-	// }
-	// }
-	//
-	// DefaultMutableTreeNode root;
-	// /* DefaultMutableTreeNode是树数据结构中的通用节点 */
-	// DefaultMutableTreeNode child;
-	// DefaultMutableTreeNode chosen;
-	// JTree tree;
-	// DefaultTreeModel model; // 使用 TreeNodes 的简单树数据模型.
-	//
-	// root = new DefaultMutableTreeNode("根");
-	// tree = new JTree(root); // 建立以root为根的树
-	//
-	// model = (DefaultTreeModel) tree.getModel();
-	// for (int i = 0; i < data.length; i++) {
-	// child = new Branch(data[i++]).node();
-	// chosen = (DefaultMutableTreeNode) tree
-	// .getLastSelectedPathComponent();
-	// if (chosen == null) {
-	// chosen = root;
-	// }
-	// model.insertNodeInto(child, chosen, 0);
-	// }
-	//
-	// return tree;
-	// }
-
 	public String getMaxID() throws RemoteException {
 		// TODO 自动生成的方法存根
-		String maxID = "";
+		String maxID = null;
 		ArrayList<Object> a = file.read();
-		//有可能是系统初始化，所以读出的MaxID可能为空!
+		// 有可能是系统初始化，所以读出的MaxID可能为空!
 		if (a != null) {
 			maxID = ((GoodsClassPO) a.get(0)).getID();
 
@@ -145,7 +104,7 @@ public class GoodsClass extends UnicastRemoteObject implements
 				}
 			}
 		} else {
-			maxID = "0000";
+			maxID = null;
 		}
 		return maxID;
 	}
@@ -193,6 +152,25 @@ public class GoodsClass extends UnicastRemoteObject implements
 		GoodsClassPO po = new GoodsClassPO("00001", "飞利浦", "灯具");
 		result.add(po);
 		return result;
+	}
+
+	public int recordClassTree(JTree tree) throws RemoteException {
+		// TODO 自动生成的方法存根
+		JXCFile f=new JXCFile("C:/Users/Administrator/Desktop/invoicingsystem/trunk/Server/src/main/java/ClassTree.ser");
+		
+		f.writeM(tree);
+		return 0;
+	}
+
+	public JTree getClassTree() throws RemoteException {
+		// TODO 自动生成的方法存根
+		JXCFile f=new JXCFile("C:/Users/Administrator/Desktop/invoicingsystem/trunk/Server/src/main/java/ClassTree.ser");
+		JTree tree=null;
+		ArrayList<Object> a=f.read();
+		if(a!=null){
+			tree=(JTree) f.read().get(0);
+		}
+		return null;
 	}
 
 }
