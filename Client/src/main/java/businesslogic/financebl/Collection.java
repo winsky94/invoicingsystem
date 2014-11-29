@@ -12,6 +12,14 @@ import businesslogic.receiptbl.Receipt;
 import businesslogic.receiptbl.ReceiptType;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 
+import java.rmi.Naming;
+import java.rmi.RMISecurityManager;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
+import dataservice.financedataservice.listdataservice.CollectionDataService;
+
 
 public class Collection extends Receipt implements CollectionBLService{
 
@@ -20,14 +28,19 @@ public class Collection extends Receipt implements CollectionBLService{
      String seller;
      String user;
      ArrayList<TransferItem> transferlist=new ArrayList<TransferItem>();
+     CollectionDataService service;
      double totalMoney;
-     public Collection(){
-    	 
+     public Collection()throws Exception{
+    	System.setSecurityManager(new SecurityManager());
+ 		String host="localhost:1099";
+ 		String url="rmi://"+host+"/userService";
+ 	
+ 		service=(CollectionDataService)Naming.lookup(url);
      }
     
 	 public Collection(String id,  String memberID,
 			String userID,Date date, int hurry, int status,
-			String info,String sid,double Money) {
+			String info,String sid,double Money) throws Exception{
 		super(id,memberID, userID, ReceiptType.COLLECTION, date, hurry, status, info,sid);
 		// TODO Auto-generated constructor stub
 		this.totalMoney=Money;
