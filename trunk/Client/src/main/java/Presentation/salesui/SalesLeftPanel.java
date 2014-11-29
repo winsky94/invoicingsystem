@@ -47,22 +47,25 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 	public SalesLeftPanel(MainFrame frame){
 		salesColor=frame.getTheme()[0];
 		parent=frame;
-		//暂时处理  需读文件读取
+		//===构造头像
 		GridBagLayout grid=new GridBagLayout();
 		GridBagConstraints c=new GridBagConstraints();
-	//	this.setLayout(new GridLayout(8, 1));
+	
 		User user=frame.getUser();
 		this.setLayout(grid);
 		
-		//this.setLayout(new GridLayout(9,1));
+		
 		c.fill=GridBagConstraints.HORIZONTAL;
 		c.gridx=0;c.gridy=0;
 		c.gridheight=2;
 		
 		headPane=new headPane(parent,this,user);
-		//c.gridheight=headPane.getHeight();
 		grid.setConstraints(headPane, c);
 		this.add(headPane);
+		
+		
+		
+		
 		JPanel down=new JPanel();
 		c.weightx=0.3;c.weighty=0.4;
 		c.gridx=0;c.gridy=2;
