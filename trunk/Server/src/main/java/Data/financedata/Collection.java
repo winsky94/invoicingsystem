@@ -20,7 +20,7 @@ public class Collection extends UnicastRemoteObject implements CollectionDataSer
 	
 	public Collection() throws RemoteException{
 		super();
-		file=new JXCFile("E:/Working/invoicingsystem/trunk/Server/src/main/java/collection.ser");
+		file=new JXCFile("src/main/java/collection.ser");
 	}
 	public int createCollection(CollectionPO po) throws RemoteException{
 		file.write(po);
