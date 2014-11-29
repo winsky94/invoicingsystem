@@ -13,7 +13,7 @@ public class CollectionPO extends ReceiptPO implements Serializable{
 	 String ID;
      MemberPO member;
      UserPO user;
-     ArrayList<TransferItem> transferlist=new ArrayList<TransferItem>();
+     ArrayList<TransferItemPO> transferlist=new ArrayList<TransferItemPO>();
      double totalMoney;
      BSLPO vo;
         
@@ -21,7 +21,7 @@ public class CollectionPO extends ReceiptPO implements Serializable{
     	 this(null,null,null,null,0);
      }
      
-     public CollectionPO(String a,MemberPO b,UserPO c,ArrayList<TransferItem> d,double e){
+     public CollectionPO(String a,MemberPO b,UserPO c,ArrayList<TransferItemPO> d,double e){
     	 ID=a;
     	 member=b;
     	 user=c;
@@ -41,7 +41,7 @@ public class CollectionPO extends ReceiptPO implements Serializable{
     	 return user;
      }
      
-     public ArrayList<TransferItem> getTransferlist(){
+     public ArrayList<TransferItemPO> getTransferlist(){
     	 return transferlist;
      }
      
@@ -50,9 +50,5 @@ public class CollectionPO extends ReceiptPO implements Serializable{
      }
      
      
-   class TransferItem{
-	AccountPO account;
-	double money;
-	String info;
-  }
+   
 }
