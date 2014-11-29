@@ -23,7 +23,7 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		color=mycolor;
 		
 		jp1=new JPanel();		
-		ImageIcon image = new ImageIcon("img/finance/12.jpg"); 
+		ImageIcon image = new ImageIcon("12.jpg"); 
 		jlb1=new JLabel(image);
 		jlb2=new JLabel("<html>Lucy <br> 财务人员</html>");
 		jp3=new JPanel();
@@ -36,7 +36,7 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		jb1=new JButton("账户管理");
 		Font f=new Font("宋体",Font.BOLD,18);//根据指定字体名称、样式和磅值大小，创建一个新 Font。
 		jb1.setFont(f);
-		jb1.setIcon(new ImageIcon("img/finance/commodity-golden.png"));
+		jb1.setIcon(new ImageIcon("commodity-golden.png"));
 		jb1.setBackground(color[0]);
 		jb1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jb1.setFocusPainted(false);
@@ -44,7 +44,7 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		jb1.addActionListener(this);
 		jb2=new JButton("制定单据");
 		jb2.setFont(f);
-		jb2.setIcon(new ImageIcon("img/finance/account-golden.png"));
+		jb2.setIcon(new ImageIcon("account-golden.png"));
 		jb2.setBackground(color[0]);
 		jb2.setFocusPainted(false);
 		jb2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -52,14 +52,14 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		jb2.addMouseListener(this);
 		jb3=new JButton("查看报表");
 		jb3.setFont(f);
-		jb3.setIcon(new ImageIcon("img/finance/manage-golden.png"));
+		jb3.setIcon(new ImageIcon("manage-golden.png"));
 		jb3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jb3.setBackground(color[0]);
 		jb3.setFocusPainted(false);
 		jb3.addMouseListener(this);
 		jb4=new JButton("期初建账");
 		jb4.setFont(f);
-		jb4.setIcon(new ImageIcon("img/finance/manage2-golden.png"));
+		jb4.setIcon(new ImageIcon("manage2-golden.png"));
 		jb4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jb4.setBackground(color[0]);
 		jb4.setFocusPainted(false);
@@ -73,7 +73,7 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		jp4.add(jb4);
 		
         jp5=new JPanel();
-        ImageIcon image1 = new ImageIcon("img/finance/left-blue.png"); 
+        ImageIcon image1 = new ImageIcon("left-blue.png"); 
 		jb5=new JButton(image1);
 		jb5.setText("收起");
 		Font f1=new Font("宋体",Font.BOLD,15);//根据指定字体名称、样式和磅值大小，创建一个新 Font。
@@ -95,10 +95,12 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		
 	}
 
+
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 	public void mouseEntered(MouseEvent e) {
 		if(e.getSource()==jb1)
@@ -110,6 +112,7 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		else if(e.getSource()==jb4)
 			jb4.setBackground(color[1]);
 	}
+
 
 	public void mouseExited(MouseEvent e) {
 		if(e.getSource()==jb1)
@@ -123,10 +126,12 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 	}
 		
 
+
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
