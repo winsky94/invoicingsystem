@@ -10,16 +10,16 @@ import businesslogic.salesbl.Commodity;
 
 
 public class PurchasePO extends ReceiptPO{
-	private ArrayList<Commodity> purchaseList;
+	private ArrayList<CommodityPO> purchaseList;
 	private double totalInAll;
-	public PurchasePO(ArrayList<Commodity> purchaseList, String id,
-			String memberName,String memberID, String user,Date createDate,
+	public PurchasePO(ArrayList<CommodityPO> purchaseList, String id,
+			String memberName,String memberID, String user,
 			int status, int hurry,String info, String stockid,double totalInAll) {
-		super(id, memberName,memberID, user,ReceiptType.PURCHASE, createDate, status, hurry, info, stockid);
+		super(id, memberName,memberID, user,ReceiptType.PURCHASE, status, hurry, info, stockid);
 		this.purchaseList = purchaseList;
 		this.totalInAll=totalInAll;
 	}
-	public ArrayList<Commodity> getPurchaseList() {
+	public ArrayList<CommodityPO> getPurchaseList() {
 		return purchaseList;
 	}
 	public double getTotalInAll() {

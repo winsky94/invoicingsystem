@@ -1,6 +1,6 @@
 package businesslogic.promotionbl;
 
-//使用操作 在哪儿
+//使用操作 在哪儿 无使用期限
 public class coupon {
 	private String id;
 	private double value;

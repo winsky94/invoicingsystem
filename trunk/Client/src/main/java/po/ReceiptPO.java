@@ -10,14 +10,13 @@ public class ReceiptPO {
 	private String memberID;
 	private String userID;
 	private ReceiptType type;
-	private Date createDate;
 	private int status;
 	private int hurry;
 	private String info;
 	private String stockid;
 
 	public ReceiptPO(String id, String memberName, String memberID,
-			String userID, ReceiptType type, Date createDate, int status,
+			String userID, ReceiptType type,  int status,
 			int hurry, String info, String stockid) {
 
 		this.id = id;
@@ -25,7 +24,7 @@ public class ReceiptPO {
 		this.memberID = memberID;
 		this.userID = userID;
 		this.type = type;
-		this.createDate = createDate;
+		
 		this.status = status;
 		this.hurry = hurry;
 		this.info = info;
@@ -56,9 +55,7 @@ public class ReceiptPO {
 		return type;
 	}
 
-	public Date getCreateDate() {
-		return createDate;
-	}
+
 
 	public int getStatus() {
 		return status;

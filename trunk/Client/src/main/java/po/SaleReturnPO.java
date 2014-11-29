@@ -11,11 +11,11 @@ import businesslogic.salesbl.Commodity;
 
 public class SaleReturnPO extends ReceiptPO{
 	private String clerk;
-	private ArrayList<Commodity> saleReturnList;
+	private ArrayList<CommodityPO> saleReturnList;
 	private double[] total,discount;
-	public SaleReturnPO(String id,String user,SalePO s,Date createDate, int status,
+	public SaleReturnPO(String id,String user,SalePO s, int status,
 			String info,int hurry){
-		super(id, s.getMemberName(),s.getMemberID(), user, ReceiptType.SALERETURN, createDate,
+		super(id, s.getMemberName(),s.getMemberID(), user, ReceiptType.SALERETURN,
 				status, hurry,info, s.getStockid());
 		total=s.getTotal();
 		discount=s.getDiscount();
@@ -25,7 +25,7 @@ public class SaleReturnPO extends ReceiptPO{
 	public String getClerk() {
 		return clerk;
 	}
-	public ArrayList<Commodity>  getSaleReturnList() {
+	public ArrayList<CommodityPO>  getSaleReturnList() {
 		return saleReturnList;
 	}
 	

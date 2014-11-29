@@ -53,17 +53,7 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 				}
 			};
 			
-			/*//====功能按钮
-			JPanel button=new functionPane(this);
-			button.setOpaque(false);
-			JPanel pane=new JPanel();
-			pane.setOpaque(false);
-			FlowLayout flow=new FlowLayout();
-			flow.setAlignment(FlowLayout.RIGHT);
-			pane.setLayout(flow);
-			pane.add(button);
-			welcomePanel.setLayout(new BorderLayout());
-			welcomePanel.add(pane,BorderLayout.NORTH);*/
+		
 			
 	
 			
@@ -91,7 +81,8 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 				type="manager";setColor();
 				this.setLeftComponent(new leftPane(this));break;
 			case FINANCE:
-				type="finance";setColor();break;
+				type="finance";setColor();
+				this.setLeftComponent(new LeftLongPanel(this,color));break;
 			//	this.setLeftComponent(n);
 			case ADMINSTRATOR:
 				type="adminstrator";setColor();break;
@@ -106,8 +97,8 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 		
 	}
 	
-	public String getUser(){
-		return "Lucy";
+	public User getUser(){
+		return this.user;
 	//	return user.getName();
 	}
 	public void setRightComponent(JPanel a,int i){
@@ -154,8 +145,7 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 		right.add(getFootPanel(),BorderLayout.SOUTH);
 		
 		jsp.setRightComponent(right);
-		
-	}
+		}
 	
 	public void setLeftComponent(JPanel a){
 		jsp.setLeftComponent(a);
@@ -181,9 +171,12 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 			color[0]=new Color(51,125,86);
 			color[1]=new Color(31,105,66);
 		}
-		else{
+		else if(type.equals("manager")){
 			color[0]=new Color(115,46,126);
 			color[1]=new Color(95,26,106);
+		}else{
+			color[0]=new Color(61,49,35);
+			color[1]=new Color(220, 177 ,131);
 		}
 	}
 	
