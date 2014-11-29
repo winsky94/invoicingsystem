@@ -22,6 +22,44 @@ public class PromotionPO {
 		this.mtype = mtype;
 		this.release = release;
 	}
+	
+	
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+
+
+	public PromotionType getType() {
+		return type;
+	}
+
+
+
+	public MemberLevel getLevel() {
+		return level;
+	}
+
+
+
+	public MemberType getMtype() {
+		return mtype;
+	}
+
+
+
+	public int getRelease() {
+		return release;
+	}
+
+
 
 	public enum PromotionType {
 		GIFTGOODS,GIFTCOUPON,PACK,DISCOUNT
