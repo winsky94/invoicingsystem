@@ -125,18 +125,18 @@ public class JXCFile {
 			File file = new File(name);
 			if (file.exists())
 				isexist = true;
-			FileOutputStream fo = new FileOutputStream(name, true);
+			FileOutputStream fos = new FileOutputStream(name, true);
 			long pos = 0;
 
-			ObjectOutputStream os;
-			os = new ObjectOutputStream(fo);
+			ObjectOutputStream oos;
+			oos = new ObjectOutputStream(fos);
 			if (isexist) {
-				pos = fo.getChannel().position() - 4;
-				fo.getChannel().truncate(pos);
+				pos = fos.getChannel().position() - 4;
+				fos.getChannel().truncate(pos);
 			}
-			os.writeObject(o);
+			oos.writeObject(o);
 
-			os.close();
+			oos.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
