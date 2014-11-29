@@ -6,25 +6,19 @@ import Data.receiptdata.ReceiptType;
 
 
 public class PurchasePO extends ReceiptPO{
-	//CommodityList purchaseList;
-	double totalInAll;
-
-	public Object stockid;
-	public Object member;
-	public PurchasePO(ArrayList<CommodityListPO> purchaseList, String id,
-			MemberPO member, UserPO user,Date createDate,
+	private ArrayList<CommodityPO> purchaseList;
+	private double totalInAll;
+	public PurchasePO(ArrayList<CommodityPO> purchaseList, String id,
+			String memberName,String memberID, String user,
 			int status, int hurry,String info, String stockid,double totalInAll) {
-
-		//super();
-
-		super(id, member, user, ReceiptType.PURCHASE, createDate, status, hurry, info, stockid);
-
-		//this.purchaseList = purchaseList;
+		super(id, memberName,memberID, user,ReceiptType.PURCHASE, status, hurry, info, stockid);
+		this.purchaseList = purchaseList;
 		this.totalInAll=totalInAll;
 	}
-
-	//public CommodityList getPurchaseList() {
-	//	return purchaseList;
-	//}
-	
+	public ArrayList<CommodityPO> getPurchaseList() {
+		return purchaseList;
+	}
+	public double getTotalInAll() {
+		return totalInAll;
+	}
 }
