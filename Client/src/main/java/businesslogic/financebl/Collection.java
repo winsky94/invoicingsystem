@@ -62,12 +62,5 @@ public class Collection extends Receipt {
     	this.setStatus(5);
     	
     }
-	
-	 class TransferItem{
-			AccountVO account;
-			double money;
-			String info;
-		  }
- 
 
 }
