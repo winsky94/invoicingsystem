@@ -23,7 +23,7 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 		color=mycolor;
 		
 		jp1=new JPanel();		
-		ImageIcon image = new ImageIcon("12.jpg"); 
+		ImageIcon image = new ImageIcon("img/finance/12.jpg"); 
 		jlb1=new JLabel(image);
 		jp3=new JPanel();
 		jp3.add(jlb1);

@@ -106,7 +106,7 @@ public class AddCollectionPanel extends JPanel implements ActionListener{
 		tcr.setHorizontalAlignment(SwingConstants.CENTER);// 这句和上句作用一样
 		jt.setDefaultRenderer(Object.class, tcr);
 		jb1=new JButton("添加");
-		jb1.setIcon(new ImageIcon("add-golden.png"));
+		jb1.setIcon(new ImageIcon("img/finance/add-golden.png"));
 		jb1.setBorder(null);
 		jb1.setContentAreaFilled(false);
 		jb1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
