@@ -29,7 +29,7 @@ public class StockLeftPanel extends JPanel {
 				"img/sales/ysk.png"),stockColor);
 		this.add(userInfoBtn);
 		// 商品管理按钮
-		goodsBtn = new JButton("商品管理", new ImageIcon("img/sales/memberMgr.png"));
+		goodsBtn = new JButton("商品管理", new ImageIcon("img/stock/goodsMgr.png"));
 		goodsBtn.setFont(new Font("楷体", Font.PLAIN, 19));
 		goodsBtn.setForeground(Color.white);
 		goodsBtn.setBackground(stockColor);
@@ -39,7 +39,7 @@ public class StockLeftPanel extends JPanel {
 		this.add(goodsBtn);
 		// 库存管理按钮
 		stockBtn = new JButton("库存管理", new ImageIcon(
-				"img/sales/purchaseMgr.png"));
+				"img/stock/stockMgr.png"));
 		stockBtn.setFont(new Font("楷体", Font.PLAIN, 19));
 		stockBtn.setForeground(Color.white);
 		stockBtn.setBackground(stockColor);
@@ -48,7 +48,7 @@ public class StockLeftPanel extends JPanel {
 		stockBtn.addActionListener(new StockBtnListener());
 		this.add(stockBtn);
 		// 库存赠送按钮
-		giftBtn = new JButton("库存赠送", new ImageIcon("img/sales/saleMgr.png"));
+		giftBtn = new JButton("库存赠送", new ImageIcon("img/stock/giftMgr.png"));
 		giftBtn.setFont(new Font("楷体", Font.PLAIN, 19));
 		giftBtn.setForeground(Color.white);
 		giftBtn.setBackground(stockColor);
