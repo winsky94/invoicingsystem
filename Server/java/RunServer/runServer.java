@@ -15,7 +15,7 @@ public class runServer {
 		/**
 		 * 加载安全机制
 		 */
-//		System.setSecurityManager(new SecurityManager());
+		System.setSecurityManager(new SecurityManager());
 
 		try {
 
@@ -34,7 +34,7 @@ public class runServer {
 			Naming.rebind("goodsClassService", gc);
 			Naming.rebind("goodsService", g);
 			
-			
+			 
 			
 
 		} catch (Exception e) {
