@@ -116,7 +116,7 @@ public class JXCFile {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	} 
 	
  	public void write(Object o) {
 
