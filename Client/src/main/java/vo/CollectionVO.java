@@ -36,6 +36,7 @@ public class CollectionVO extends ReceiptVO{
     	 return seller;
      }
      
+     
      public String getUser(){
     	 return user;
      }
