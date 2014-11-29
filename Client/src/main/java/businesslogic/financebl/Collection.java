@@ -84,6 +84,7 @@ public class Collection extends Receipt implements CollectionBLService{
 		 }
 	
 		CollectionPO po=new CollectionPO(vo.getID(),vo.getSupplier(),vo.getSeller(),vo.getUser(),b,vo.getTotalMoney());
+		service.createCollection(po);
 		System.out.println(vo.getID()+" "+vo.getSupplier()+" "+vo.getSeller()+" "+vo.getUser()+" "+b.get(0).getAccount()+" "+vo.getTotalMoney());
 		
 		return 0;
