@@ -10,4 +10,18 @@ public class CouponPO {
 		this.value=price;
 		this.isUse=isUse;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public double getValue() {
+		return value;
+	}
+
+	public boolean isUse() {
+		return isUse;
+	}
+	
+	
 }
