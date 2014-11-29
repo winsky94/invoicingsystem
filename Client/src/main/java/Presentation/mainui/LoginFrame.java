@@ -289,9 +289,11 @@ public class LoginFrame extends JFrame {
 			switch (result) {
 			case 0:
 				System.out.println("成功登录");
-				User user=new User();
+				User user=new User(1);
 				user.setJob(UserJob.MANAGER);
-				new MockFrame(user);
+				MockFrame frame=new MockFrame(user);
+				frame.setDividerLocation("long");
+				LoginFrame.this.dispose();
 				break;
 			default:
 				System.out.println("密码错误");

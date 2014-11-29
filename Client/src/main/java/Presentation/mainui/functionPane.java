@@ -3,6 +3,7 @@ package Presentation.mainui;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -18,9 +19,11 @@ public class functionPane extends JPanel{
 	JPanel parent;
 	JLabel close,min,max,skin,help;
 	JFrame mainFrame;
-	int state;
+	int fsize;
+	
 	Color color=new Color(115,46,126);//需要get
-	public functionPane(JPanel panel,JFrame frame){
+	public functionPane(JPanel panel,JFrame frame,int size){
+		parent=panel;
 		mainFrame=frame;
 		buttonListener listen=new buttonListener();
 		close=new JLabel(new ImageIcon("img/mainFrame/close.png"));
@@ -45,22 +48,29 @@ public class functionPane extends JPanel{
 		max.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		close.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		FlowLayout flow=new FlowLayout();
+		
 		flow.setAlignment(FlowLayout.RIGHT);
 		this.setLayout(flow);
-		int width=panel.getWidth();
+	
+		this.setSize(100,30);
 		add(skin);
 		add(help);
 		add(min);add(max);add(close);
-		skin.setLocation(width-100,0);
-		help.setLocation(width-80,0);
-		min.setLocation(width-60,0);
-		max.setLocation(width-40,0);
-		close.setLocation(width-20,0);
+	
 	
 		
 		
 		
 		
+	}
+	public void update(int width){
+		remove(skin);remove(help);remove(min);
+		remove(max);remove(close);
+		this.setSize(width,30);
+		
+		add(skin);
+		add(help);
+		add(min);add(max);add(close);
 	}
 	
 	
@@ -71,17 +81,22 @@ public class functionPane extends JPanel{
     		if(e.getSource()==min){
     			//打开后恢复默认大小 为保证当前状态
     			
-    		state=mainFrame.getExtendedState();
+    		//state=mainFrame.getExtendedState();
 			  mainFrame.setExtendedState(JFrame.HIDE_ON_CLOSE);}
     		else if(e.getSource()==close)
     			System.exit(0);
     		else if(e.getSource()==max){
     			if(mainFrame.getExtendedState()!=JFrame.MAXIMIZED_BOTH)
-    				{mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    				{
+    				int width=mainFrame.getWidth()*fsize/(fsize+1);
+    				mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     				 max.setIcon(new ImageIcon("img/mainFrame/small.png"));
+    				// functionPane.this.update(mainFrame.getWidth()-width);
+    				
     				}else
     				{mainFrame.setExtendedState(JFrame.NORMAL);
    				 max.setIcon(new ImageIcon("img/mainFrame/max.png"));
+   				// functionPane.this.update(mainFrame.getWidth()/(fsize+1));
     					
     				}
     				}

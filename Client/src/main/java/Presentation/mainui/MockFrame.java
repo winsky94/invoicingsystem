@@ -173,4 +173,8 @@ import Presentation.uihelper.UIhelper;
 			user.setJob(UserJob.MANAGER);
 			new MockFrame(user);
 		}
+		
+		public int getSplitSize(){
+			return (jsp.getDividerLocation());
+		}
 	}
