@@ -19,7 +19,7 @@ public class runServer {
 		/**
 		 * 加载安全机制
 		 */
-	System.setSecurityManager(new SecurityManager());
+//	System.setSecurityManager(new SecurityManager());
 
 		try {
 
