@@ -31,7 +31,7 @@ public class Collection extends Receipt implements CollectionBLService{
      CollectionDataService service;
      double totalMoney;
      public Collection()throws Exception{
-    	System.setSecurityManager(new SecurityManager());
+ //   	System.setSecurityManager(new SecurityManager());
  		String host="localhost:1099";
  		String url="rmi://"+host+"/collectionService";
  	
