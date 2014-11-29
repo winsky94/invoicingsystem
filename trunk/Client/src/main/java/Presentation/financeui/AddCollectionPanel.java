@@ -193,12 +193,19 @@ public class AddCollectionPanel extends JPanel implements ActionListener{
 		}
 	    else if(e.getSource()==jb2){
 	    	
-            CollectionBLService service=new Collection();
-            CollectionVO vo=new CollectionVO(jtf1.getText(),jtf2.getText(),jtf3.getText(),jtf4.getText(),transferItem,Double.parseDouble(jtf5.getText()));
-            service.createCollection(vo);
-            String[] buffer={"等待审批",jtf1.getText(),jtf2.getText(),jtf3.getText(),jtf4.getText(),"点击查看",jtf5.getText()};	    	
-			frame.setRightComponent(panel);
-			panel.addRow(buffer);
+            CollectionBLService service;
+			try {
+				 service = new Collection();
+				 CollectionVO vo=new CollectionVO(jtf1.getText(),jtf2.getText(),jtf3.getText(),jtf4.getText(),transferItem,Double.parseDouble(jtf5.getText()));
+		         service.createCollection(vo);
+		         String[] buffer={"等待审批",jtf1.getText(),jtf2.getText(),jtf3.getText(),jtf4.getText(),"点击查看",jtf5.getText()};	    	
+			     frame.setRightComponent(panel);
+			     panel.addRow(buffer);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+           
 		}
 		else if(e.getSource()==jb3){
 			frame.setRightComponent(panel);
