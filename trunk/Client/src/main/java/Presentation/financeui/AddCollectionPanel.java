@@ -10,6 +10,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import vo.CollectionVO;
 import Presentation.mainui.MainFrame;
 
 public class AddCollectionPanel extends JPanel implements ActionListener{
@@ -24,11 +25,13 @@ public class AddCollectionPanel extends JPanel implements ActionListener{
 	JScrollPane jsp;
 	
 	MainFrame frame;
+	CollectionPanel panel;
 	Color[] color;
 
-    public AddCollectionPanel(MainFrame myframe,Color[] mycolor){
+    public AddCollectionPanel(MainFrame myframe,CollectionPanel mypanel,Color[] mycolor){
 		
 		frame=myframe;
+		panel=mypanel;
 		color=mycolor;
 		
 		this.setLayout(new BorderLayout());
@@ -48,7 +51,7 @@ public class AddCollectionPanel extends JPanel implements ActionListener{
 		c.insets = new Insets(3, 3, 3, 3);
 		jlb1=new JLabel("编号    ");
 		jtf1=new JTextField(11);
-		jtf1.setText("SKD-20140826-0002");
+		jtf1.setText("SKD-20140826-00002");
 		jtf1.setEditable(false);
 		jp4=new JPanel();
 		jp4.add(jlb1);
@@ -115,7 +118,7 @@ public class AddCollectionPanel extends JPanel implements ActionListener{
 		c.weightx = 1000;
 		c.weighty = 1000;
 		gbl.setConstraints(jp8, c);
-		jlb5=new JLabel("总额汇总");
+		jlb5=new JLabel("总额汇总(元)");
 		jtf5=new JTextField(10);
 		jtf5.setText("0");
 		jtf5.setEditable(false);
@@ -165,16 +168,30 @@ public class AddCollectionPanel extends JPanel implements ActionListener{
         this.add(jp3,BorderLayout.SOUTH);
 		
     }
+    
+    public void addRow(String[] buffer){
+    	emm.addRow(buffer);
+    	jt.revalidate();
+    	double money=Double.parseDouble(buffer[1]);
+    	double init=Double.parseDouble(jtf5.getText());
+    	init=init+money;
+    	jtf5.setText(String.valueOf(init));
+    }
+    
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==jb1){
 			new AddEXMoneyDialog(this,"添加转账条目",true);
 		}
 	    else if(e.getSource()==jb2){
-			frame.setRightComponent(new CollectionPanel(frame,color));
+            CollectionVO a=new CollectionVO(jtf1.getText(),jtf2.getText(),jtf3.getText(),jtf4.getText(),emm.getInfo(),Double.parseDouble(jtf5.getText()));
+            
+            String[] buffer={"等待审批",jtf1.getText(),jtf2.getText(),jtf3.getText(),jtf4.getText(),"点击查看",jtf5.getText()};	    	
+			frame.setRightComponent(panel);
+			panel.addRow(buffer);
 		}
 		else if(e.getSource()==jb3){
-			frame.setRightComponent(new CollectionPanel(frame,color));
+			frame.setRightComponent(panel);
 		}
 		this.timeNow.setText(Calendar.getInstance().getTime().toLocaleString());
 		
