@@ -29,11 +29,11 @@ public class leftPane extends JPanel implements ActionListener{
 	
 	public leftPane(JFrame frame){
 		parent=frame;
-		setSize(frameWidth/4,frameHeight);
+		setSize(frameWidth*225/1000,frameHeight);
 		//去掉
 		User user=new User(0);
 		user.setJob(UserJob.MANAGER);
-		headPane=new headPane(this,user);
+		headPane=new headPane(frame,this,user);
 		ImageIcon receiptImg=new ImageIcon("img/promotion/receiptView.png");
 		receipt=new JLButton("单据审批",receiptImg);
 		int width=this.getWidth();
