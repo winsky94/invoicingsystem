@@ -11,19 +11,21 @@ public class CollectionPO extends ReceiptPO implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	 String ID;
-     MemberPO member;
-     UserPO user;
+     String supplier;
+     String seller;
+     String user;
      ArrayList<TransferItemPO> transferlist=new ArrayList<TransferItemPO>();
      double totalMoney;
      BSLPO vo;
         
      public CollectionPO(){
-    	 this(null,null,null,null,0);
+    	 this(null,null,null,null,null,0);
      }
      
-     public CollectionPO(String a,MemberPO b,UserPO c,ArrayList<TransferItemPO> d,double e){
+     public CollectionPO(String a,String b,String f,String c,ArrayList<TransferItemPO> d,double e){
     	 ID=a;
-    	 member=b;
+    	 supplier=b;
+    	 seller=f;
     	 user=c;
     	 transferlist=d;
     	 totalMoney=e;
@@ -37,7 +39,14 @@ public class CollectionPO extends ReceiptPO implements Serializable{
     	 return member;
      }
      
-     public UserPO getUser(){
+     public String getSupplier(){
+    	 return supplier;
+     }
+     
+     public String getSeller(){
+    	 return seller;
+     }
+     public String getUser(){
     	 return user;
      }
      
