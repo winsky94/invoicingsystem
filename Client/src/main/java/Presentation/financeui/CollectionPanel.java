@@ -10,6 +10,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import Presentation.mainui.MainFrame;
+
 public class CollectionPanel extends JPanel implements ActionListener{
 	JLabel timeNow;
 	JTable jt;

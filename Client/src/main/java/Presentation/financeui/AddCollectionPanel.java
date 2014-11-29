@@ -3,6 +3,7 @@ package Presentation.financeui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.*;
@@ -11,7 +12,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import vo.CollectionVO;
+import vo.MemberVO;
+import vo.TransferItemVO;
 import Presentation.mainui.MainFrame;
+import businesslogic.financebl.Collection;
+import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 
 public class AddCollectionPanel extends JPanel implements ActionListener{
 
@@ -23,6 +28,7 @@ public class AddCollectionPanel extends JPanel implements ActionListener{
 	ExchangeMoneyModel emm=new ExchangeMoneyModel();
 	JButton jb1,jb2,jb3;
 	JScrollPane jsp;
+	ArrayList<TransferItemVO> transferItem=new ArrayList<TransferItemVO>();
 	
 	MainFrame frame;
 	CollectionPanel panel;
@@ -176,6 +182,8 @@ public class AddCollectionPanel extends JPanel implements ActionListener{
     	double init=Double.parseDouble(jtf5.getText());
     	init=init+money;
     	jtf5.setText(String.valueOf(init));
+    	TransferItemVO item=new TransferItemVO(buffer[0],Double.parseDouble(buffer[1]),buffer[2]);
+    	transferItem.add(item);
     }
     
 	public void actionPerformed(ActionEvent e) {
@@ -184,8 +192,10 @@ public class AddCollectionPanel extends JPanel implements ActionListener{
 			new AddEXMoneyDialog(this,"添加转账条目",true);
 		}
 	    else if(e.getSource()==jb2){
-            CollectionVO a=new CollectionVO(jtf1.getText(),jtf2.getText(),jtf3.getText(),jtf4.getText(),emm.getInfo(),Double.parseDouble(jtf5.getText()));
-            
+	    	
+            CollectionBLService service=new Collection();
+            CollectionVO vo=new CollectionVO(jtf1.getText(),jtf2.getText(),jtf3.getText(),jtf4.getText(),transferItem,Double.parseDouble(jtf5.getText()));
+            service.createCollection(vo);
             String[] buffer={"等待审批",jtf1.getText(),jtf2.getText(),jtf3.getText(),jtf4.getText(),"点击查看",jtf5.getText()};	    	
 			frame.setRightComponent(panel);
 			panel.addRow(buffer);
