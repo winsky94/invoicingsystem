@@ -123,7 +123,7 @@ public class JXCFile {
 		try {
 			boolean isexist = false;
 			File file = new File(name);
-	//		if (file.exists())
+			if (file.exists())
 				isexist = true;
 			FileOutputStream fos = new FileOutputStream(name, true);
 			long pos = 0;
