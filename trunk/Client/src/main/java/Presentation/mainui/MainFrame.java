@@ -8,22 +8,34 @@ import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
+import businesslogic.userbl.User;
 import Presentation.financeui.LeftLongPanel;
+
 
 public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	JSplitPane jsp;
 	JPanel jp1,jp2;
 	JLabel jlb;
-	String userType;
+	String type;
+	User user;
 	Color[] color=new Color[2];
 		
-	public MainFrame(String s){	
-		userType=s;
+	public MainFrame(User myuser){
+		user=myuser;
+//		if(user.getJob().equals(UserJob.FINANCE))
+		   type="finance";
+//		else if(user.getJob().equals(UserJob.SALE))
+//			type="sales";
+//		else if(user.getJob().equals(UserJob.STOCK))
+//			type="stock";
+//		else
+//			type="manage";
+	}
+	
+	public String getUser(){
+		return "Lucy";
+	//	return user.getName();
 	}
 	
 	public void setRightComponent(JPanel a){
@@ -43,15 +55,15 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	}
 	
 	public void setColor(){
-		if(userType.equals("finance")){
+		if(type.equals("finance")){
 			color[0]=new Color(242,125,5);
 			color[1]=new Color(222,105,5);
 		}
-		else if(userType.equals("sales")){
+		else if(type.equals("sales")){
 			color[0]=new Color(47,73,136);
 			color[1]=new Color(27,53,116);
 		}
-		else if(userType.equals("stock")){
+		else if(type.equals("stock")){
 			color[0]=new Color(51,125,86);
 			color[1]=new Color(31,105,66);
 		}
@@ -94,7 +106,7 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	}
 	
 	public static void main(String[] args) {
-		MainFrame c=new MainFrame("finance");
+		MainFrame c=new MainFrame(null);
 		c.print();
 	}
 
