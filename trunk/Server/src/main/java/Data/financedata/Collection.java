@@ -13,7 +13,7 @@ import Data.serutility.JXCFile;
 
 public class Collection extends UnicastRemoteObject implements CollectionDataService{
 	/**
-	 * 
+	 *  
 	 */
 	private static final long serialVersionUID = 1L;
 	JXCFile file;
