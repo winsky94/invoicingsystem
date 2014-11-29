@@ -5,6 +5,8 @@ import java.rmi.registry.LocateRegistry;
 
 
 
+
+import Data.financedata.Collection;
 import Data.memberdata.Member;
 import Data.stockdata.goods.Goods;
 import Data.stockdata.goodsClass.GoodsClass;
@@ -31,10 +33,12 @@ public class runServer {
 			Member member=new Member();
 			GoodsClass gc=new GoodsClass();
 			Goods g=new Goods();
+			Collection collection=new Collection();
 			Naming.bind("memberService",member);
 			Naming.bind("userService", user);	
 			Naming.rebind("goodsClassService", gc);
 			Naming.rebind("goodsService", g);
+			Naming.rebind("collectionService", collection);
 			
 			
 			
