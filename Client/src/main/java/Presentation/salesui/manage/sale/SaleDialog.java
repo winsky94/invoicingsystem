@@ -1,30 +1,41 @@
 package Presentation.salesui.manage.sale;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
+import javax.swing.border.EtchedBorder;
 
+import Presentation.financeui.AddCollectionPanel;
+import Presentation.mainui.MainFrame;
+import Presentation.mainui.functionPane;
 import Presentation.uihelper.UIhelper;
 
-public class SaleDialog extends JDialog {
+public class SaleDialog extends JPanel implements ActionListener{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	int screenWidth = UIhelper.getScreenWidth();
+	JLabel timeNow;
 	int screenHeight = UIhelper.getScreenHeight();
 	int dialogWidth = screenWidth * 65 / 100;
 	int dialogHeight = screenHeight * 65 / 100;
@@ -38,8 +49,26 @@ public class SaleDialog extends JDialog {
 	JTextArea remarkArea;
 	JButton submitBtn, addCouponBtn, addItemBtn, delItemBtn;
 
-	public SaleDialog() {
-		pnl = this.getContentPane();
+	public SaleDialog(MainFrame frame) {
+		setSize(frame.getWidth()*1000/1225,frame.getHeight());
+		int width=this.getWidth();
+		System.out.println(width);
+		
+	//============functionPane由mainFrame构造
+		JPanel button=new functionPane(frame);
+		JPanel pane=new JPanel();
+		FlowLayout flow=new FlowLayout();
+		flow.setAlignment(FlowLayout.RIGHT);
+		pane.setLayout(flow);
+		pane.add(button);
+		this.setLayout(new BorderLayout());
+		pane.setBackground(Color.WHITE);;
+		this.add(pane,BorderLayout.NORTH);
+		
+
+	
+		pnl =new JPanel();
+		((JComponent) pnl).setBorder(BorderFactory.createTitledBorder("制定销售单"));
 		pnl.setLayout(null);
 		pnl.setBackground(Color.white);
 		// -----------------------IDLabel------------------------------------
@@ -158,19 +187,26 @@ public class SaleDialog extends JDialog {
 				dialogWidth * 20 / 100, dialogHeight * 6 / 100);
 		submitBtn.setFocusPainted(false);
 		pnl.add(submitBtn);
+		add(pnl,BorderLayout.CENTER);
+		
+		
 
 		// ------------------------------------------------------------------
-		this.setTitle("创建销售单");
-		this.setBounds((screenWidth - dialogWidth) / 2,
-				(screenHeight - dialogHeight) / 2, dialogWidth, dialogHeight);
-
-		this.setResizable(false);
-		this.setModal(true);
-		this.setIconImage(UIhelper.getImage("img/sales/purchase-blue.png"));
-		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		JPanel jp3=new JPanel();
+		jp3.setBackground(Color.white);
+		Timer t=new Timer(1000,this);//每隔一秒触发ActionEvent事件
+		t.start();//启动计时器
+//		timeNow=new JLabel(Calendar.getInstance().getTime().toString());
+		timeNow=new JLabel(Calendar.getInstance().getTime().toLocaleString());
+		jp3.add(timeNow);
+		jp3.setBorder(new EtchedBorder(EtchedBorder.RAISED));
+        this.add(jp3,BorderLayout.SOUTH);
 		this.setVisible(true);
+		
+		
 	}
 
+	
 	class AddItemBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
@@ -195,5 +231,10 @@ public class SaleDialog extends JDialog {
 
 		}
 
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		this.timeNow.setText(Calendar.getInstance().getTime().toLocaleString());
+		
 	}
 }

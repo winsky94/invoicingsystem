@@ -17,6 +17,7 @@ public class User implements UserBLService{
 	private String name;
 	private String ID;
 	private String password;
+	private double points;
 	private UserJob job;
 	private UserDataService service;
 	public User() throws Exception{
@@ -26,7 +27,10 @@ public class User implements UserBLService{
 	
 		service=(UserDataService)Naming.lookup(url);
 	}
-	public User(int n){
+	public User(String name,UserJob job,double p){
+		this.name=name;
+		this.job=job;
+		this.points=p;
 		
 	}
 	
@@ -121,6 +125,10 @@ public class User implements UserBLService{
 	
 	public void setJob(UserJob job){
 		this.job=job;
+	}
+	
+	public double getPoints(){
+		return points;
 	}
 	
 }
