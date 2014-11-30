@@ -18,7 +18,7 @@ import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.stockui.ChooseGoodsDialog;
 import Presentation.uihelper.UIhelper;
 
-public class CreateGiftDialog extends JDialog {
+public class CreateGiftPanel extends JDialog {
 	/**
 	 * 问题：无法使goodsText动态改变
 	 */
@@ -35,7 +35,7 @@ public class CreateGiftDialog extends JDialog {
 	int dlgHeight = screenHeight * 60 / 100;
 	ChooseGoodsFatherPane pnl;
 
-	public CreateGiftDialog() {
+	public CreateGiftPanel() {
 
 		pnl = new ChooseGoodsFatherPane();
 		this.add(pnl);
