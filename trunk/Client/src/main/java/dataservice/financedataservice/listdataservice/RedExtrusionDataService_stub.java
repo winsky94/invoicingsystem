@@ -8,8 +8,8 @@ public class RedExtrusionDataService_stub implements RedExtrusionDataService{
 		return 0;
 	}
 
-	public int createRedExtrusionAndCopy(ReceiptPO po) {
+	public ReceiptPO createRedExtrusionAndCopy(ReceiptPO po) {
 		System.out.println("Create red extrusion and copy success!");
-		return 0;
+		return new ReceiptPO();
 	}
 }
