@@ -19,7 +19,7 @@ import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import Presentation.uihelper.UIhelper;
 
-public class ProleftPane extends JPanel implements ActionListener{
+public class ProLeftPanel extends JPanel implements ActionListener{
 	
 	//头像 info到时候动态获取根据user  size需要父类添加时get
 	JLeftButton receipt,promotion,view;
@@ -28,7 +28,7 @@ public class ProleftPane extends JPanel implements ActionListener{
 	Color color;
 	MainFrame parent;
 	
-	public ProleftPane(MainFrame frame){
+	public ProLeftPanel(MainFrame frame){
 		parent=frame;
 		//setSize(frame.getWidth()*225/1000,frame.getHeight());
 		//去掉
