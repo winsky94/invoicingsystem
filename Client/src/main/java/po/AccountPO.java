@@ -27,5 +27,8 @@ public class AccountPO implements Serializable{
 	    	  return money;
 	      }
 	
+	      public void setName(String s){
+	    	  name=s;
+	      }
 
 }
