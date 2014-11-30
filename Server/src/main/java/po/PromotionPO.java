@@ -61,6 +61,36 @@ public class PromotionPO {
 
 
 
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+
+
+	public void setLevel(MemberLevel level) {
+		this.level = level;
+	}
+
+
+
+	public void setMtype(MemberType mtype) {
+		this.mtype = mtype;
+	}
+
+
+
+	public void setRelease(int release) {
+		this.release = release;
+	}
+
+
+
 	public enum PromotionType {
 		GIFTGOODS,GIFTCOUPON,PACK,DISCOUNT
 	}
