@@ -25,7 +25,6 @@ public class User extends UnicastRemoteObject implements UserDataService{
 	public User() throws RemoteException {
 		super();
 		file=new JXCFile("src/main/java/user.ser");
-		// TODO 自动生成的构造函数存根
 	}
 	
 	public int add(UserPO po) throws RemoteException {
