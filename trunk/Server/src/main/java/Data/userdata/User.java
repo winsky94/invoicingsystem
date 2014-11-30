@@ -132,7 +132,9 @@ public class User extends UnicastRemoteObject implements UserDataService{
 		User a;
 		try {
 			a=new User();
-			UserPO b = new UserPO("Lucy", "CW-00001","123456",UserJob.FINANCE,100);
+			UserPO b=new UserPO("刘钦","GL-00001","123456",UserJob.ADMINSTRATOR,0);
+			a.add(b);
+/*			UserPO b = new UserPO("Lucy", "CW-00001","123456",UserJob.FINANCE,100);
 			System.out.println(a.getNum(UserJob.STOCK));
 			System.out.println(a.getNum(UserJob.SALE));
 			System.out.println(a.getNum(UserJob.FINANCE));
@@ -178,11 +180,13 @@ public class User extends UnicastRemoteObject implements UserDataService{
 			a.add(j);
 			UserPO k = new UserPO("宽宽", "KC-00001","123456",UserJob.STOCK,100);
 			a.add(k);
-			ArrayList<UserPO> buffer=a.showUserInfo();
+*/
+			ArrayList<UserPO> buffer=a.showUserInfo();	
 			System.out.println("-----------------我是萌萌哒的分隔线---------------------");
 			for(UserPO po:buffer){
 				System.out.println("ID:"+po.getID()+" name:"+po.getName()+" password:"+po.getPassword()+" job:"+po.getJob()+" grades:"+po.getGrades());
 			}
+
 			
 		} catch (RemoteException e) {
 			e.printStackTrace();
