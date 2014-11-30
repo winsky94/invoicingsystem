@@ -38,14 +38,14 @@ public class User extends UnicastRemoteObject implements UserDataService{
 	    
 	}
 
-	public int delete(UserPO po) throws RemoteException {
+	public int delete(String ID) throws RemoteException {
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	  //不存在该用户	
 		int i;
 		for(i=0;i<a.size();i++){
 			UserPO b=(UserPO)a.get(i);
-			if(b.getID().equals(po.getID())){
+			if(b.getID().equals(ID)){
 				a.remove(i);
 				break;
 			}
