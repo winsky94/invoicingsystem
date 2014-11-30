@@ -51,8 +51,6 @@ public class User extends UnicastRemoteObject implements UserDataService{
 			}
 		}
 		
-		if(i==a.size())      //不存在该用户
-			return 1;
 		
 		file.writeM(a);
 		return 0;
