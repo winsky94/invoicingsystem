@@ -20,7 +20,7 @@ import Presentation.uihelper.UIhelper;
 
 public class CreateGiftDialog extends JDialog {
 	/**
-	 * 隐患：选好商品后，goodsText会随之改变吗？
+	 * 问题：无法使goodsText动态改变
 	 */
 	private static final long serialVersionUID = 1L;
 	String IDtext, goodsText;
@@ -71,8 +71,8 @@ public class CreateGiftDialog extends JDialog {
 				dlgWidth * 20 / 100, dlgHeight * 6 / 100);
 		pnl.add(gLbl);
 		goodsLbl = new JLabel();
-		goodsText = pnl.content.get(0).get(0) + " " + pnl.content.get(0).get(1)
-				+ " " + pnl.content.get(0).get(2);
+//		goodsText = pnl.content.get(0).get(0) + " " + pnl.content.get(0).get(1)
+//				+ " " + pnl.content.get(0).get(2);
 		goodsLbl.setText(goodsText);
 		goodsLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		goodsLbl.setBounds(dlgWidth * 15 / 100, dlgHeight * 23 / 100,
