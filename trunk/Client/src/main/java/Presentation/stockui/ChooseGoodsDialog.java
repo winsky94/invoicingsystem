@@ -24,6 +24,11 @@ import Presentation.uihelper.UIhelper;
 public class ChooseGoodsDialog extends JDialog {
 
 	/**
+	 * 使用方法：
+	 * 此类适用于需要选择商品的情形（如进货，销售，创建特价包，折扣等）,
+	 * 使用此dialog的上一级Panel应继承ChooseGoodsFatherPane,
+	 * chooseGoodsFatherPane继承了JPanel，唯一的区别是他有一个二维ArrayList成员变量用来给表格赋值
+	 * 本dialog里的左侧是选择商品的表格，右侧是当前已选商品
 	 * 没写完:
 	 * 1.JTree的建立
 	 * 2.通过点击JTree改变左侧表格内容
