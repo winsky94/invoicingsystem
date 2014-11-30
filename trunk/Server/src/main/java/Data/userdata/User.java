@@ -132,8 +132,8 @@ public class User extends UnicastRemoteObject implements UserDataService{
 		User a;
 		try {
 			a=new User();
-			UserPO b=new UserPO("刘钦","GL-00001","123456",UserJob.ADMINSTRATOR,0);
-			a.add(b);
+	//		UserPO b=new UserPO("刘钦","GL-00001","123456",UserJob.ADMINSTRATOR,0);
+	//		a.add(b);
 /*			UserPO b = new UserPO("Lucy", "CW-00001","123456",UserJob.FINANCE,100);
 			System.out.println(a.getNum(UserJob.STOCK));
 			System.out.println(a.getNum(UserJob.SALE));
