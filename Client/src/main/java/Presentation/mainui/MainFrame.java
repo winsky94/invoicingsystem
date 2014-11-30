@@ -15,9 +15,10 @@ import javax.swing.border.EtchedBorder;
 import po.UserPO.UserJob;
 import vo.UserVO;
 import Presentation.financeui.LeftLongPanel;
-import Presentation.promotionui.ProleftPane;
+import Presentation.promotionui.ProLeftPanel;
 import Presentation.salesui.SalesLeftPanel;
 import Presentation.stockui.StockLeftPanel;
+import Presentation.userui.UserLeftPanel;
 
 
 public class MainFrame extends JFrame implements MouseListener,ActionListener{
@@ -82,13 +83,14 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 			switch(job){
 			case MANAGER:
 				type="manager";setColor();
-				this.setLeftComponent(new ProleftPane(this));break;
+				this.setLeftComponent(new ProLeftPanel(this));break;
 			case FINANCE:
 				type="finance";setColor();
-				this.setLeftComponent(new LeftLongPanel(this,color));break;
+				this.setLeftComponent(new LeftLongPanel(this));break;
 			//	this.setLeftComponent(n);
 			case ADMINSTRATOR:
-				type="adminstrator";setColor();break;
+				type="adminstrator";setColor();
+				this.setLeftComponent(new UserLeftPanel(this));break;
 			case STOCK:
 				type="stock";setColor();
 				this.setLeftComponent(new StockLeftPanel(this));break;
@@ -202,39 +204,8 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 		}
 	}
 	
-	public void print(){
-		setColor();
-		jp1=new LeftLongPanel(this,color);
-				
-		jlb=new JLabel("Hello,财务人员~",JLabel.CENTER);
-		Font f=new Font("宋体",Font.BOLD,50);//根据指定字体名称、样式和磅值大小，创建一个新 Font。
-		jlb.setFont(f);
-
-		
-		jp2=new JPanel();
-		jp2.setLayout(new BorderLayout());
-		jp2.add(jlb);
-				
-		jsp=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,jp1,jp2);
-		jsp.setOneTouchExpandable(true);
-				
-		this.add(jsp);
-		this.setTitle("进销存系统");
-		this.setIconImage(new ImageIcon("qq.PNG").getImage());
-		this.setSize(800, 500);
-	       
-        this.setLocation(300, 100);
-        
-     //   this.setResizable(false);
-     
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
-		jsp.setDividerSize(0);
-        setDividerLocation("long");
-		jsp.setDividerSize(0);	
-		
 	
-	}
+
 	
 	
 

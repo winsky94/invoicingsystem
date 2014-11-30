@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import vo.UserVO;
-import Presentation.userui.userSet;
+import Presentation.userui.UserSet;
 import businesslogic.userbl.User;
 
 // 头像Pane 构造
@@ -97,7 +97,7 @@ public class headPane extends JPanel{
 		info.addMouseListener(new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
 				 
-				userSet set=new userSet(rame,headPane.this);
+				UserSet set=new UserSet(rame,headPane.this);
 				set.show(info,e.getX(),e.getY());
 				//System.out.println("我被点击了");
 				

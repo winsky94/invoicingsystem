@@ -6,27 +6,42 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Presentation.mainui.MainFrame;
+import Presentation.userui.UserMgrPanel;
+import businesslogic.userbl.User;
+import businesslogicservice.userblservice.UserBLService;
+import po.UserPO.UserJob;
+import vo.UserVO;
+//要判断 用户添加是否已存在？？
 public class AddUserPanel extends JPanel{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JFrame father;
+	MainFrame father;
 	JButton submitBtn,exitBtn;
 	JLabel IDLbl;
+	UserJob ujob;
 	JComboBox<String> typeBox;
 	JTextField nameFld,keyFld;
 	String ID,name,key,type;
+	UserBLService service;
 	String typeList[]={"请选择身份","总经理","库存人员","进货销售人员","销售经理","财务人员","财务经理","系统管理员"};
-	public AddUserPanel(JFrame myFather){
+	public AddUserPanel(MainFrame myFather) throws Exception{
+		service=new User();
 		father=myFather;
 		this.setBackground(Color.white);
 		GridBagLayout gbl=new GridBagLayout();
@@ -52,8 +67,8 @@ public class AddUserPanel extends JPanel{
 		//midPnl.setLayout(new GridLayout(3,2,5,5));
 		midPnl.setBackground(Color.white);
 		//----------ID-----------------------
-		JLabel IDLbl=new JLabel();
-		IDLbl.setText("工号："+ID);
+		final JLabel IDLbl=new JLabel();
+		IDLbl.setText("工号:_________");
 		IDLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		c.gridx=0;
 		c.gridy=2;
@@ -97,6 +112,16 @@ public class AddUserPanel extends JPanel{
 		mc.gridheight=1;
 		mbl.setConstraints(typeBox, mc);
 		midPnl.add(typeBox);
+		//选择后去掉该项 待加
+		typeBox.addItemListener(new ItemListener(){
+			public void itemStateChanged(ItemEvent e){
+				String job=typeBox.getSelectedItem().toString();
+				 ujob=getJobChange.getJobType(job);
+				ID= service.NewUserID(ujob);
+				IDLbl.setText("工号："+ID);
+			}
+			
+		});
 		//-------key--------------------------
 		JLabel keyLbl=new JLabel("密码：");
 		keyLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
@@ -130,6 +155,25 @@ public class AddUserPanel extends JPanel{
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setBackground(new Color(166, 210, 121));
 		submitBtn.setFocusPainted(false);
+		submitBtn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				UserVO vo=new UserVO(nameFld.getText(),ID,keyFld.getText(),ujob,0);
+				int i=service.addUser(vo);
+				if(i==0)
+					JOptionPane.showMessageDialog(null,"添加成功","提示",JOptionPane.CLOSED_OPTION);
+				else 
+					JOptionPane.showMessageDialog(null,"添加失败!","提示",JOptionPane.WARNING_MESSAGE);
+				UserMgrPanel mgr=new UserMgrPanel(father);
+				try {
+					service=new User();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				father.setRightComponent(mgr);
+				mgr.RefreshUserTable(service.showAll());
+			}
+		});
 		btnPnl.add(submitBtn);
 		//---------------------------------
 		JLabel blank=new JLabel();
@@ -139,6 +183,19 @@ public class AddUserPanel extends JPanel{
 		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		exitBtn.setBackground(new Color(251, 147, 121));
 		exitBtn.setFocusPainted(false);
+		exitBtn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				UserMgrPanel mgr=new UserMgrPanel(father);
+				try {
+					service=new User();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				father.setRightComponent(mgr);
+				mgr.RefreshUserTable(service.showAll());
+			}
+		});
 		btnPnl.add(exitBtn);
 		//--------------------------------
 		c.gridx=0;
@@ -164,15 +221,12 @@ public class AddUserPanel extends JPanel{
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
 	}
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 800, 500);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
+	
+	
+	
 
-		AddUserPanel gp = new AddUserPanel(testFrame);
-		gp.setBounds(0, 0, 800, 500);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
-	}
+	
+
 	
 }

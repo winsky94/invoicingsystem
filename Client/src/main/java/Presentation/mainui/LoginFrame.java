@@ -33,7 +33,7 @@ import vo.UserVO;
 import Presentation.uihelper.UIhelper;
 import businesslogic.userbl.User;
 import businesslogicservice.userblservice.UserBLService;
-
+//改进 工号 /姓名 均可登陆
 public class LoginFrame extends JFrame {
 
 	/**
@@ -146,7 +146,7 @@ public class LoginFrame extends JFrame {
 		passwordField.setSize(frameWidth * 64 / 100, frameHeight / 16);
 		passwordField
 				.setLocation(frameWidth * 26 / 100, frameHeight * 65 / 100);
-		passwordField.addKeyListener(new passwordFieldListener());
+	//	passwordField.addKeyListener(new passwordFieldListener());
 		passwordField.setVisible(true);
 		// 设置登录按钮
 		// 设想：改为圆形按钮
@@ -161,8 +161,8 @@ public class LoginFrame extends JFrame {
 		loginButton.setVisible(true);
 
 		// 设置用户名标签
-		JLabel idLabel = new JLabel("用户名");
-		Font idLabelFont = new Font("用户名", Font.BOLD, 14);
+		JLabel idLabel = new JLabel("工号");
+		Font idLabelFont = new Font("工号", Font.BOLD, 14);
 		idLabel.setFont(idLabelFont);
 		idLabel.setSize(frameWidth / 5, frameHeight / 11);
 		idLabel.setLocation(frameWidth * 8 / 100, frameHeight * 54 / 100);
@@ -189,8 +189,7 @@ public class LoginFrame extends JFrame {
 		label.setIcon(icon);
 		
 	
-		//Border border=new Border();
-		//label.setBorder(border);
+		
 		
 		label.setSize(icon.getIconWidth(),icon.getIconHeight());
 		
@@ -234,6 +233,10 @@ public class LoginFrame extends JFrame {
 
 	public static void main(String[] args) throws Exception {
 		new LoginFrame();
+		
+			
+			  
+			
 	}
 
 	
@@ -257,24 +260,7 @@ public class LoginFrame extends JFrame {
 
 	}
 
-	// 下面的类是密码域的事件监听器
-	class passwordFieldListener implements KeyListener {
-
-		public void keyTyped(KeyEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		public void keyPressed(KeyEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-	}
+	
 
 	// 下面的类是按钮的事件监听器
 	class LoginListener implements ActionListener {
@@ -291,6 +277,7 @@ public class LoginFrame extends JFrame {
 			switch (result) {
 			case 0:
 				UserVO user=service.showUser(ID);
+				
 				MainFrame frame=new MainFrame(user);
 				frame.setDividerLocation("long");
 				LoginFrame.this.dispose();

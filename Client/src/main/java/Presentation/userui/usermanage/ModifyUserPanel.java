@@ -13,8 +13,16 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import po.UserPO.UserJob;
+import vo.UserVO;
+import Presentation.mainui.MainFrame;
+import Presentation.userui.UserMgrPanel;
+import businesslogic.userbl.User;
+import businesslogicservice.userblservice.UserBLService;
 
 public class ModifyUserPanel extends JPanel {
 
@@ -22,16 +30,21 @@ public class ModifyUserPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JFrame father;
+	MainFrame father;
 	JButton submitBtn, exitBtn;
 	JLabel IDLbl;
+	UserJob ujob;
 	JComboBox<String> typeBox;
 	JTextField nameFld, keyFld;
-	String ID, name, key, type;
+	UserBLService service;
+	UserVO vo;
+	String ID;
 	String typeList[] = { "请选择身份", "总经理", "库存人员", "进货销售人员", "销售经理", "财务人员",
 			"财务经理", "系统管理员" };
-	public ModifyUserPanel(JFrame myFather){
+	public ModifyUserPanel(MainFrame myFather,String id) throws Exception{
 		father=myFather;
+		service=new User();
+		 vo=service.showUser(id);
 		this.setBackground(Color.white);
 		GridBagLayout gbl=new GridBagLayout();
 		this.setLayout(gbl);
@@ -57,7 +70,8 @@ public class ModifyUserPanel extends JPanel {
 		midPnl.setBackground(Color.white);
 		//----------ID-----------------------
 		JLabel IDLbl=new JLabel();
-		IDLbl.setText("工号："+ID);
+		ID=vo.getID();
+		IDLbl.setText("工号："+vo.getID());
 		IDLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		c.gridx=0;
 		c.gridy=2;
@@ -75,7 +89,7 @@ public class ModifyUserPanel extends JPanel {
 		mbl.setConstraints(nameLbl, mc);
 		midPnl.add(nameLbl);
 		
-		nameFld=new JTextField();
+		nameFld=new JTextField(vo.getName());
 		nameFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		mc.gridx=1;
 		mc.gridy=0;
@@ -93,6 +107,7 @@ public class ModifyUserPanel extends JPanel {
 		mbl.setConstraints(typeLbl, mc);
 		midPnl.add(typeLbl);
 		typeBox=new JComboBox<String>(typeList);
+		typeBox.setSelectedItem(getJobChange.getJobString(vo.getJob()));
 		typeBox.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		typeBox.setBackground(Color.white);
 		mc.gridx=1;
@@ -110,7 +125,7 @@ public class ModifyUserPanel extends JPanel {
 		mc.gridheight=1;
 		mbl.setConstraints(keyLbl, mc);
 		midPnl.add(keyLbl);
-		keyFld=new JTextField();
+		keyFld=new JTextField(vo.getPassword());
 		keyFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		mc.gridx=1;
 		mc.gridy=2;
@@ -134,6 +149,29 @@ public class ModifyUserPanel extends JPanel {
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setBackground(new Color(166, 210, 121));
 		submitBtn.setFocusPainted(false);
+		
+		submitBtn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				ujob=getJobChange.getJobType(typeBox.getSelectedItem().toString());
+				UserVO VO=new UserVO(nameFld.getText(),vo.getID(),keyFld.getText(),ujob,vo.getGrades());
+				int i=service.modifyUser(VO);
+				if(i==0)
+					JOptionPane.showMessageDialog(null,"修改成功","提示",JOptionPane.CLOSED_OPTION);
+				else 
+					JOptionPane.showMessageDialog(null,"修改失败!","提示",JOptionPane.WARNING_MESSAGE);
+				UserMgrPanel mgr=new UserMgrPanel(father);
+				try {
+					service=new User();
+					father.setRightComponent(mgr);
+					mgr.RefreshUserTable(service.showAll());
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+			
+		});
 		btnPnl.add(submitBtn);
 		//---------------------------------
 		JLabel blank=new JLabel();
@@ -143,6 +181,19 @@ public class ModifyUserPanel extends JPanel {
 		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		exitBtn.setBackground(new Color(251, 147, 121));
 		exitBtn.setFocusPainted(false);
+		exitBtn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				UserMgrPanel mgr=new UserMgrPanel(father);
+				try {
+					service=new User();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				father.setRightComponent(mgr);
+				mgr.RefreshUserTable(service.showAll());
+			}
+		});
 		btnPnl.add(exitBtn);
 		//--------------------------------
 		c.gridx=0;
@@ -168,14 +219,6 @@ public class ModifyUserPanel extends JPanel {
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
 	}
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 800, 500);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		ModifyUserPanel gp = new ModifyUserPanel(testFrame);
-		gp.setBounds(0, 0, 800, 500);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
-	}
+	
+	
 }
