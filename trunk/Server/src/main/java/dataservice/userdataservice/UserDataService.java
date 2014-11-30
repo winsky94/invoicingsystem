@@ -1,6 +1,7 @@
 package dataservice.userdataservice;
 
 import java.rmi.*;
+import java.util.ArrayList;
 
 import po.*;
 
@@ -12,4 +13,6 @@ public interface UserDataService extends Remote {
 	public int modify(UserPO po) throws RemoteException;
 
 	public UserPO showUserInfo(String ID) throws RemoteException;
+	
+	public ArrayList<UserPO> showAll()throws RemoteException;
 }
