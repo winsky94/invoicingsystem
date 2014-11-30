@@ -40,7 +40,8 @@ public class User extends UnicastRemoteObject implements UserDataService{
 
 	public int delete(UserPO po) throws RemoteException {
 		ArrayList<Object> a=file.read();
-		  		
+		if(a==null)
+			return 1;  	  //不存在该用户	
 		int i;
 		for(i=0;i<a.size();i++){
 			UserPO b=(UserPO)a.get(i);
@@ -52,13 +53,16 @@ public class User extends UnicastRemoteObject implements UserDataService{
 		if(i==a.size())      //不存在该用户
 			return 1;
 		
-		file.write(a);
+		file.writeM(a);
 		return 0;
 	}
 
 	public int modify(UserPO po) throws RemoteException {
 		ArrayList<Object> a=file.read();
-  		
+		
+		if(a==null)
+			return 1;  	  //不存在该用户	
+		
 		int i;
 		for(i=0;i<a.size();i++){
 			UserPO b=(UserPO)a.get(i);
@@ -66,13 +70,14 @@ public class User extends UnicastRemoteObject implements UserDataService{
 				b.setJob(po.getJob());
 				b.setName(po.getName());
 				b.setPassword(po.getPassword());
+				break;
 			}
 		}
 		
 		if(i==a.size())      //不存在该用户
 			return 1;
 		
-		file.write(a);
+		file.writeM(a);
 		return 0;
 	}
 
@@ -90,19 +95,72 @@ public class User extends UnicastRemoteObject implements UserDataService{
 		return null; //不存在该用户
 	}
 	
+	public ArrayList<UserPO> showUserInfo() throws RemoteException {
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return null;
+		
+		ArrayList<UserPO> buffer=new ArrayList<UserPO>();
+		for(Object b:a){
+			UserPO c=(UserPO)b;
+			buffer.add(c);
+		}
+		
+		return buffer;
+	}
+	
 	public static void main(String[] args){
 		User a;
 		try {
 			a=new User();
-			UserPO b = new UserPO("小金金", "JL-00001","123456",UserJob.MANAGER,100);
-			System.out.println(a.add(b));
+			UserPO b = new UserPO("Lucy", "CW-00001","123456",UserJob.FINANCE,100);
+			System.out.println(a.add(b)+"增加Lucy结果");
 			UserPO c=a.showUserInfo("JL-00001");
+			UserPO d=a.showUserInfo("CW-00001");
 			if(c==null)
 				System.out.println("ID不存在");
-			else 
+			else {
 			    System.out.println(c.getName()+c.getPassword()+c.getJob());
-			System.out.println(a.add(b));
-
+			    System.out.println(d.getName()+d.getPassword()+d.getJob());
+			}
+			System.out.println(a.add(b)+"增加Lucy结果");
+			System.out.println(a.delete(b)+"去掉Lucy结果");
+			UserPO e=a.showUserInfo("CW-00001");
+			if(e==null){
+				System.out.println("ID不存在");
+			    System.out.println(c.getName()+c.getPassword()+c.getJob());
+			}
+			else {
+			    System.out.println(e.getName()+e.getPassword()+e.getJob());
+			   
+			}
+			
+			UserPO f = new UserPO("Lucy", "CW-00001","123456",UserJob.FINANCE,100);
+			System.out.println(a.add(f)+"增加Lucy结果");
+			UserPO g = new UserPO("Lucy18", "CW-00001","123456",UserJob.FINANCE,100);
+			System.out.println(a.modify(g)+"修改Lucy结果");
+			UserPO h=a.showUserInfo("CW-00001");
+			if(h==null){
+				System.out.println("ID不存在");
+			    System.out.println(c.getName()+c.getPassword()+c.getJob());
+			}
+			else {
+			    System.out.println(h.getName()+h.getPassword()+h.getJob());
+			   
+			}
+			
+			UserPO i = new UserPO("Lucy", "CW-00001","123456",UserJob.FINANCE,100);
+			a.modify(i);
+			UserPO j = new UserPO("王宁宁", "XS-00001","123456",UserJob.SALE,100);
+			a.add(j);
+			UserPO k = new UserPO("宽宽", "KC-00001","123456",UserJob.STOCK,100);
+			a.add(k);
+			ArrayList<UserPO> buffer=a.showUserInfo();
+			System.out.println("-----------------我是萌萌哒的分隔线---------------------");
+			for(UserPO po:buffer){
+				System.out.println("ID:"+po.getID()+" name:"+po.getName()+" password:"+po.getPassword()+" job:"+po.getJob()+" grades:"+po.getGrades());
+			}
+			
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
