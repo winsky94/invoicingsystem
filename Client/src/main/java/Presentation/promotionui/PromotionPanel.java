@@ -14,12 +14,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-import Presentation.userui.UserMgrPanel;
+import Presentation.promotionui.addpromotion.AddBarginPanel;
+import Presentation.promotionui.addpromotion.AddCouponPanel;
+import Presentation.promotionui.addpromotion.AddDiscountPanel;
+import Presentation.promotionui.addpromotion.AddGiftPanel;
 
 public class PromotionPanel extends JPanel {
 	/**
@@ -54,8 +59,49 @@ public class PromotionPanel extends JPanel {
 		addBtn.setFocusPainted(false);
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
+				JPopupMenu menu=new JPopupMenu();
+				menu.setBackground(Color.white);
+				JMenuItem bargin=new JMenuItem("创建特价包");
+				bargin.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+				bargin.setOpaque(false);
+				bargin.setForeground(color);
+				JMenuItem coupon=new JMenuItem("制定代金券赠送策略");
+				coupon.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+				coupon.setOpaque(false);
+				coupon.setForeground(color);
+				JMenuItem gift=new JMenuItem("制定赠品赠送策略");
+				gift.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+				gift.setOpaque(false);
+				gift.setForeground(color);
+				JMenuItem discount=new JMenuItem("制定打折促销策略");
+				discount.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+				discount.setOpaque(false);
+				discount.setForeground(color);
+				menu.add(bargin);
+				menu.add(coupon);
+				menu.add(gift);
+				menu.add(discount);
+				bargin.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e) {
+						JPanel barginPnl=new AddBarginPanel(father);
+					}
+				});
+				coupon.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						JPanel couponPnl=new AddCouponPanel(father);
+					}
+				});
+				gift.addActionListener(new ActionListener() {	
+					public void actionPerformed(ActionEvent e) {
+						JPanel giftPnl=new AddGiftPanel(father);
+					}
+				});
+				discount.addActionListener(new ActionListener() {		
+					public void actionPerformed(ActionEvent e) {
+						JPanel discountPnl=new AddDiscountPanel(father);
+					}
+				});
+				menu.show(father, PromotionPanel.this.addBtn.getX()+110,PromotionPanel.this.addBtn.getY()+110);
 			}
 		});
 		top.add(addBtn);
