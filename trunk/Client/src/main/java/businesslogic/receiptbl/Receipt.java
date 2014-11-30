@@ -3,13 +3,12 @@ package businesslogic.receiptbl;
 import java.util.ArrayList;
 import java.util.Date;
 
-import businesslogic.financebl.MockAccount;
-
 import vo.ReceiptVO;
 
 //关键类 单据的增 改 查
 public class Receipt {
 	private String id;
+	private String memberName;
 	private String memberID;
 	private String userID;
 	private ReceiptType type;
@@ -21,11 +20,11 @@ public class Receipt {
 
 	// 属性有哪些
 
-	
-	public Receipt(String id, String memberID, String userID, ReceiptType type,
-			Date date, int hurry, int status, String info, String sid) {
+	public Receipt(String id, String memberName, String memberID,
+			String userID, ReceiptType type, Date date, int hurry, int status,
+			String info, String sid) {
 		this.id = id;
-		// this.memberName=memberName;
+		this.memberName = memberName;
 		this.memberID = memberID;
 		this.userID = userID;
 		this.type = type;
@@ -35,11 +34,10 @@ public class Receipt {
 		this.info = info;
 		this.stockID = sid;
 	}
-	
+
 	public Receipt() {
 
 	}
-
 
 	// 保存 可以再编辑？
 	public int Add(ReceiptVO vo) {
@@ -52,10 +50,6 @@ public class Receipt {
 
 		return 0;
 	}
-
-	
-	
-	
 
 	public void Reply(String userID) {
 
@@ -81,8 +75,6 @@ public class Receipt {
 	public ArrayList<ReceiptVO> Refresh() {
 		return null;
 	}
-
-
 
 	public String getId() {
 		return id;
@@ -130,9 +122,15 @@ public class Receipt {
 	public String getInfo() {
 		return info;
 	}
-	
-	//11-27 yan
+
+	// 11-27 yan
 	public String getStockID() {
 		return stockID;
+	}
+
+	// 11-30 yan
+	public String getmemberName() {
+		// TODO 自动生成的方法存根
+		return memberName;
 	}
 }
