@@ -159,7 +159,7 @@ public class User extends UnicastRemoteObject implements UserDataService{
 			
 			UserPO f = new UserPO("Lucy", "CW-00001","123456",UserJob.FINANCE,100);
 			System.out.println(a.add(f)+"增加Lucy结果");
-			UserPO g = new UserPO("Lucy18", "CW-00001","123456",UserJob.FINANCE,100);
+			UserPO g = new UserPO("Lucy", "CW-00001","123456",UserJob.FINANCE,100);
 			System.out.println(a.modify(g)+"修改Lucy结果");
 			UserPO h=a.showUserInfo("CW-00001");
 			if(h==null){
