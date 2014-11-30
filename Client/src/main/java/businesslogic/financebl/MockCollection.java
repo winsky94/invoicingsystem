@@ -13,7 +13,7 @@ public class MockCollection extends Collection{
 	private ArrayList<String> memberID;
 	private ArrayList<Double> money;
 	private double totalMoney;
-	public MockCollection(String id) {
+	public MockCollection(String id) throws Exception{
 		this.id=id;
 		memberID=new ArrayList<String>();
 		money=new ArrayList<Double>();
