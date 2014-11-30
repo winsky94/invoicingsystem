@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import Data.serutility.JXCFile;
 import po.MemberPO;
+import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
 import dataservice.memberdataservice.MemberDataService;
 
@@ -41,8 +42,6 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 			}
 		}
 		
-		if(i==a.size())      //不存在该用户
-			return 1;
 		
 		file.writeM(a);
 		return 0;
@@ -150,6 +149,31 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 			}
 		}
         return num;
+	}
+	
+	public static void main(String[] args){
+		try {
+			Member m=new Member();
+			MemberPO po=new MemberPO("JHS-0000001", MemberType.JHS, MemberLevel.ONE,"马建国","23333","深圳市蛇口区","210046","a@qq.com","一米五小公主", 100, 0,0,0);
+			m.add(po);
+			MemberPO po2=new MemberPO("XSS-0000001", MemberType.XSS, MemberLevel.ONE,"妞妞","23333","深圳市蛇口区","210046","a@qq.com","端午", 100, 0,0,0);
+			m.add(po2);
+			ArrayList<MemberPO> buffer=m.showAll();
+			for(MemberPO a:buffer){
+			     System.out.println(a.getName());
+			}
+			System.out.println("------------------");
+			m.delete(po2.getMemberID());
+			buffer=m.showAll();
+			for(MemberPO a:buffer){
+			     System.out.println(a.getName());
+			}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 }
