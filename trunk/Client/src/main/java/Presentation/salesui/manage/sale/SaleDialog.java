@@ -21,10 +21,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 import Presentation.financeui.AddCollectionPanel;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.dragListener;
 import Presentation.mainui.functionPane;
 import Presentation.uihelper.UIhelper;
 
@@ -39,7 +43,6 @@ public class SaleDialog extends JPanel implements ActionListener{
 	int screenHeight = UIhelper.getScreenHeight();
 	int dialogWidth = screenWidth * 65 / 100;
 	int dialogHeight = screenHeight * 65 / 100;
-	JPanel pnl;
 	JLabel IDLbl, XSSLbl, clerkLbl, userLbl, stockLbl, saleItemLbl,
 			totalOriginLbl, discountValueLbl, couponValueLbl, totalToPayLbl,
 			remarkLbl;
@@ -52,7 +55,7 @@ public class SaleDialog extends JPanel implements ActionListener{
 	public SaleDialog(MainFrame frame) {
 		setSize(frame.getWidth()*1000/1225,frame.getHeight());
 		int width=this.getWidth();
-		System.out.println(width);
+		
 		
 	//============functionPane由mainFrame构造
 		JPanel button=new functionPane(frame);
@@ -65,10 +68,12 @@ public class SaleDialog extends JPanel implements ActionListener{
 		pane.setBackground(Color.WHITE);;
 		//this.add(pane,BorderLayout.NORTH);
 		
-
-	
-		pnl =new JPanel();
-		((JComponent) this).setBorder(BorderFactory.createTitledBorder("制定销售单"));
+		
+		//======设置主pane外边框
+		Font title=new Font("黑体",Font.BOLD,12);
+		Border border=BorderFactory.createBevelBorder(BevelBorder.LOWERED);
+		this.setBorder(BorderFactory.createTitledBorder(border, "制定销售单",TitledBorder.LEADING,
+				TitledBorder.CENTER, title));
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		// -----------------------IDLabel------------------------------------
@@ -202,6 +207,8 @@ public class SaleDialog extends JPanel implements ActionListener{
 		jp3.setBorder(new EtchedBorder(EtchedBorder.RAISED));
       //  this.add(jp3,BorderLayout.SOUTH);
 		this.setVisible(true);
+		
+		
 		
 		
 	}

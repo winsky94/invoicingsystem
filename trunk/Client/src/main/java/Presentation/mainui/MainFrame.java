@@ -29,7 +29,7 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	String type;
 	User user;
 	JLabel timeNow;
-	
+	JPanel function;
 	Color[] color=new Color[2];
 		
 	public MainFrame(User myuser){
@@ -94,6 +94,23 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 				this.setLeftComponent(new SalesLeftPanel(this));break;
 			}
 			this.setRightComponent(welcomePanel,0);
+			//处理拖动事件
+			  jsp.addMouseListener(new MouseAdapter() {  
+		            public void mousePressed(MouseEvent e) {  
+		                xOld = e.getX();  
+		                yOld = e.getY();  
+		            }  
+		        });  
+		        jsp.addMouseMotionListener(new MouseMotionAdapter() {  
+		            @Override  
+		            public void mouseDragged(MouseEvent e) {  
+		                int xOnScreen = e.getXOnScreen();  
+		                int yOnScreen = e.getYOnScreen();  
+		                int xx = xOnScreen - xOld;  
+		                int yy = yOnScreen - yOld;  
+		                MainFrame.this.setLocation(xx, yy);  
+		            }  
+		        });  
 		
 	}
 	
@@ -104,12 +121,13 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	public void setRightComponent(JPanel a,int i){
 		
 		a.setLayout(new BorderLayout());
-		a.add(getFunction(i),BorderLayout.NORTH);
+		getFunction(i);
+		a.add(function,BorderLayout.NORTH);
 		jsp.setRightComponent(a);
 		
 	}
 	
-	public JPanel getFunction(int i){
+	public void getFunction(int i){
 		JPanel button=new functionPane(this);
 		JPanel pane=new JPanel();
 		FlowLayout flow=new FlowLayout();
@@ -123,7 +141,7 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 			button.setBackground(Color.white);
 			pane.setBackground(Color.WHITE);
 		}
-		return pane;
+		function= pane;
 	}
 	
 	public JPanel getFootPanel(){
@@ -140,7 +158,8 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 		JPanel right=new JPanel();
 		
 		right.setLayout(new BorderLayout());
-		right.add(getFunction(1),BorderLayout.NORTH);
+		getFunction(1);
+		right.add(function,BorderLayout.NORTH);
 		right.add(a,BorderLayout.CENTER);
 		right.add(getFootPanel(),BorderLayout.SOUTH);
 		
@@ -211,23 +230,7 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
         setDividerLocation("long");
 		jsp.setDividerSize(0);	
 		
-		//处理拖动事件
-		  jsp.addMouseListener(new MouseAdapter() {  
-	            public void mousePressed(MouseEvent e) {  
-	                xOld = e.getX();  
-	                yOld = e.getY();  
-	            }  
-	        });  
-	        jsp.addMouseMotionListener(new MouseMotionAdapter() {  
-	            @Override  
-	            public void mouseDragged(MouseEvent e) {  
-	                int xOnScreen = e.getXOnScreen();  
-	                int yOnScreen = e.getYOnScreen();  
-	                int xx = xOnScreen - xOld;  
-	                int yy = yOnScreen - yOld;  
-	                MainFrame.this.setLocation(xx, yy);  
-	            }  
-	        });  
+	
 	}
 	
 	
@@ -268,7 +271,7 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	}
 	
 	public static void main(String[] args) {
-		User user=new User("王宁宁",UserJob.MANAGER,129);
+		User user=new User("王宁宁",UserJob.SALE,129);
 		//user.setJob(UserJob.SALE);
 		MainFrame frame =new MainFrame(user);
 		//frame.print();

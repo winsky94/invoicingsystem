@@ -61,6 +61,9 @@ public class headPane extends JPanel{
 			
 		}
 		
+		name.setForeground(Color.WHITE);
+		job.setForeground(Color.WHITE);
+		point.setForeground(Color.white);
 		head.setSize(width/3, height/5);
 		head.setLocation(0, 0);
 		head.setToolTipText("修改头像");
