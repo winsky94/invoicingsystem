@@ -23,6 +23,72 @@ public class PromotionPO {
 		this.release = release;
 	}
 
+	public Date getStartDate() {
+		return startDate;
+	}
+
+
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+
+
+	public PromotionType getType() {
+		return type;
+	}
+
+
+
+	public MemberLevel getLevel() {
+		return level;
+	}
+
+
+
+	public MemberType getMtype() {
+		return mtype;
+	}
+
+
+
+	public int getRelease() {
+		return release;
+	}
+
+
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+
+
+	public void setLevel(MemberLevel level) {
+		this.level = level;
+	}
+
+
+
+	public void setMtype(MemberType mtype) {
+		this.mtype = mtype;
+	}
+
+
+
+	public void setRelease(int release) {
+		this.release = release;
+	}
+
+
+
 	public enum PromotionType {
 		GIFTGOODS,GIFTCOUPON,PACK,DISCOUNT
 	}

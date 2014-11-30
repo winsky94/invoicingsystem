@@ -30,6 +30,72 @@ public class MemberPO {
 		this.points=0;
 	}
 
+	public void setmLevel(MemberLevel mLevel) {
+		this.mLevel = mLevel;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+
+
+	public void setEMail(String eMail) {
+		EMail = eMail;
+	}
+
+
+
+	public void setDefaultClerk(String defaultClerk) {
+		this.defaultClerk = defaultClerk;
+	}
+
+
+
+	public void setMaxOwe(double maxOwe) {
+		MaxOwe = maxOwe;
+	}
+
+
+
+	public void setToReceive(double toReceive) {
+		this.toReceive = toReceive;
+	}
+
+
+
+	public void setToPay(double toPay) {
+		this.toPay = toPay;
+	}
+
+
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
+
+
 	public String getMemberID() {
 		return memberID;
 	}
@@ -56,10 +122,6 @@ public class MemberPO {
 
 	public String getPostcode() {
 		return postcode;
-	}
-	
-	public void setPoints(double point){
-		this.points=point;
 	}
 
 	public String getEMail() {

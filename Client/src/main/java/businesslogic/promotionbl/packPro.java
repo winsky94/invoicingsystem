@@ -12,6 +12,7 @@ import businesslogic.stockbl.goods.Goods;
 public class packPro extends promotion{
 	private ArrayList<pack> packList;
 	private double totalValue;
+	private double packValue;
 
 	public packPro(Date startDate,Date endDate,MemberLevel l,MemberType mt)
 	{

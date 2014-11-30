@@ -19,6 +19,32 @@ public class CommodityPO {
 		this.cost = cost;
 		this.tip = tip;
 	}
+	public double getPrice() {
+		return price;
+	}
+	public int getNum() {
+		return num;
+	}
+	public double getTotal() {
+		return total;
+	}
+	public String getTip() {
+		return tip;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
+	public void setTotal(double total) {
+		this.total = total;
+	}
+	public void setTip(String tip) {
+		this.tip = tip;
+	}
+	
+	
 	
 
 }

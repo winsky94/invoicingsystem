@@ -32,6 +32,17 @@ public class PackPO {
 	public ArrayList<GoodsPO> getCombine() {
 		return combine;
 	}
+	public void setTotalValue(double totalValue) {
+		this.totalValue = totalValue;
+	}
+	public void setPackValue(double packValue) {
+		this.packValue = packValue;
+	}
+	public void setPack(ArrayList<Integer> num,ArrayList<GoodsPO> combine) {
+		this.num = num;
+		this.combine = combine;
+	}
+	
 	
 	
 

@@ -25,5 +25,12 @@ public class PurchasePO extends ReceiptPO{
 	public double getTotalInAll() {
 		return totalInAll;
 	}
+	public void setPurchaseList(ArrayList<CommodityPO> purchaseList) {
+		this.purchaseList = purchaseList;
+	}
+	public void setTotalInAll(double totalInAll) {
+		this.totalInAll = totalInAll;
+	}
+	
 	
 }
