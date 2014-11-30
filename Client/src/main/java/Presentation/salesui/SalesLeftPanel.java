@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import businesslogic.memberbl.Member;
+import businesslogicservice.memberblservice.MemberBLService;
 import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
@@ -39,7 +41,7 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 	Color salesColor;
 	MainFrame parent;
 	JPanel headPane;
-	
+	MemberBLService service;
 	public SalesLeftPanel(MainFrame frame){
 		salesColor=frame.getTheme()[0];
 		parent=frame;
@@ -117,7 +119,15 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 		if(e.getSource()==purchaseBtn){
 			parent.setRightComponent(new PurchaseMgrPanel(parent));
 		}else if(e.getSource()==memberBtn){
-				parent.setRightComponent(new MemberMgrPanel(parent));
+			MemberMgrPanel mgr=new MemberMgrPanel(parent);
+			try {
+				service=new Member();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			parent.setRightComponent(mgr);
+			mgr.RefreshMemberTable(service.showMembers());
 		}else if(e.getSource()==saleBtn){
 			parent.setRightComponent(new SaleMgrPanel(parent));
 			

@@ -5,6 +5,8 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -13,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -23,12 +26,13 @@ import po.MemberPO.MemberType;
 import vo.MemberVO;
 import Presentation.mainui.MainFrame;
 import Presentation.uihelper.UIhelper;
+import Presentation.userui.usermanage.getJobChange;
 import businesslogic.memberbl.MemAccountInfo;
 import businesslogic.memberbl.MemBaseInfo;
 import businesslogic.memberbl.MemContactInfo;
 import businesslogic.memberbl.Member;
 import businesslogicservice.memberblservice.MemberBLService;
-
+//未加输入检测
 public class AddMemberPanel extends JPanel {
 	/**
 	 * !!!!已写监听  
@@ -41,17 +45,21 @@ public class AddMemberPanel extends JPanel {
 	int dialogWidth = screenWidth / 2;
 	int dialogHeight = screenHeight / 2;
 	MainFrame parent;
+	String ID;
+	MemberBLService service;
+	MemberType mtype;
 	JButton submitBtn;
 	JComboBox<String> typeCbox;
+	
 	JTextField nameFld, phoneFld, addressFld, postcodeFld, EMailFld,
 			defaultClerkFld;
 	JLabel IDLbl, typeLbl, nameLbl, phoneLbl, addressLbl, postcodeLbl,
 			EMailLbl, defaultClerkLbl;
 	String nameText,phoneText,addressText,postcodeText,EMailText,clerkText;
-	public AddMemberPanel(MainFrame frame) {
+	public AddMemberPanel(MainFrame frame) throws Exception {
 		parent=frame;
 	
-		
+		service=new Member();
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		// ----------------------添加各个组件-----------------------------------
@@ -60,7 +68,7 @@ public class AddMemberPanel extends JPanel {
 		IDLbl = new JLabel();
 		IDLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		// 这里要有一个方法来创建String，使得编号自动生成
-		String text = "编号：JHS-0000001";
+		String text = "编号：_____________";
 		IDLbl.setText(text);
 		IDLbl.setBounds(dialogWidth * 5 / 100, dialogHeight * 5 / 100,
 				dialogWidth * 40 / 100, dialogHeight * 7 / 100);
@@ -78,6 +86,23 @@ public class AddMemberPanel extends JPanel {
 		typeCbox.setBackground(Color.white);
 		typeCbox.setBounds(dialogWidth * 15 / 100, dialogHeight * 20 / 100,
 				dialogWidth * 15 / 100, dialogHeight * 7 / 100);
+		
+		typeCbox.addItemListener(new ItemListener(){
+			public void itemStateChanged(ItemEvent e){
+				String t=typeCbox.getSelectedItem().toString();
+				if(t.equals("进货商"))
+					mtype=MemberType.JHS;
+				else
+					mtype=MemberType.XSS;
+				System.out.println(mtype);
+				
+					ID= service.getNewID(mtype);
+					IDLbl.setText("编号："+ID);
+			
+				 }
+				
+			
+		});
 		this.add(typeCbox);
 		// ---------------------nameLabel------------------------------------
 		nameLbl = new JLabel("姓名 ");
@@ -166,18 +191,10 @@ public class AddMemberPanel extends JPanel {
 		this.add(submitBtn);
 		
 		submitBtn.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				MemberBLService service;
-				try {
-					service = new Member();
-					String id=service.getNewID();
-					MemberType type;
-					if(typeCbox.getSelectedItem()=="进货商")
-						type=MemberType.JHS;
-					else type=MemberType.XSS;
+		public void actionPerformed(ActionEvent e){
+		
 					
-						
-					MemBaseInfo bInfo=new MemBaseInfo(type,MemberLevel.ONE,id,nameFld.getText(),0,defaultClerkFld.getText());
+					MemBaseInfo bInfo=new MemBaseInfo(mtype,MemberLevel.ONE,ID,nameFld.getText(),0,defaultClerkFld.getText());
 					MemContactInfo cInfo=new MemContactInfo(phoneFld.getText(), addressFld.getText(),
 							postcodeFld.getText(),  EMailFld.getText());
 					MemAccountInfo aInfo=new MemAccountInfo(1000000,0,0);
@@ -187,20 +204,14 @@ public class AddMemberPanel extends JPanel {
 					int result=service.addMember(vo);
 					//改
 					if(result==0){
-						System.out.println("读入成功");
+						JOptionPane.showMessageDialog(null,"添加客户成功！","提示",JOptionPane.CLOSED_OPTION);
 					}else{
-						System.out.println("读入失败");
+						JOptionPane.showMessageDialog(null,"添加客户失败！","提示",JOptionPane.WARNING_MESSAGE);
 					}
-				} catch (MalformedURLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (RemoteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (NotBoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+					MemberMgrPanel mgr=new MemberMgrPanel(parent);
+					parent.setRightComponent(mgr);
+					mgr.RefreshMemberTable(service.showMembers());
+				
 				
 			}
 		});

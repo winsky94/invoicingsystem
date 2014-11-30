@@ -283,10 +283,14 @@ public class LoginFrame extends JFrame {
 				LoginFrame.this.dispose();
 				break;
 			case 2:
-				 JOptionPane.showMessageDialog(null,"该用户不存在!","提示",JOptionPane.WARNING_MESSAGE);break;
+				 JOptionPane.showMessageDialog(null,"该用户不存在!","提示",JOptionPane.WARNING_MESSAGE);
+				 idField.setText("");passwordField.setText("");
+				 break;
 				
 			default:
+				
 				 JOptionPane.showMessageDialog(null,"密码错误","提示",JOptionPane.WARNING_MESSAGE);
+				 passwordField.setText("");
 			}
 
 		} catch (Exception e1) {

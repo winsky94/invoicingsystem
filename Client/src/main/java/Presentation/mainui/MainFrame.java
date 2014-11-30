@@ -123,6 +123,11 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 		return this.user;
 	//	return user.getName();
 	}
+	
+	public void setUser(UserVO vo){
+		 this.user=vo;
+	//	return user.getName();
+	}
 	public void setRightComponent(JPanel a,int i){
 		
 		a.setLayout(new BorderLayout());

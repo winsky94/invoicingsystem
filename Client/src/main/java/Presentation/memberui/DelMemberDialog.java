@@ -3,25 +3,21 @@ package Presentation.memberui;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 
+import businesslogic.memberbl.Member;
+import businesslogicservice.memberblservice.MemberBLService;
 import Presentation.mainui.MainFrame;
 import Presentation.uihelper.UIhelper;
 
-public class DelMemberDialog extends JDialog{
-	/*
-	 * !!!!!!这里的构造器应该传入一个String memberID，根据ID删除！
-	 * 
-	 * by wn,2014.11.26
-	 * 
-	 */
 
-	/**
-	 * 
-	 */
+public class DelMemberDialog extends JDialog{
+
 	private static final long serialVersionUID = 1L;
 	JLabel sureLbl;
 	JButton sureBtn;
@@ -30,13 +26,15 @@ public class DelMemberDialog extends JDialog{
 	int dialogWidth = screenWidth /4;
 	int dialogHeight = screenHeight / 4;
 	MainFrame parent;
-	public DelMemberDialog(String id,String name,MainFrame frame){
+	MemberBLService service;
+
+	public DelMemberDialog(final String id,String name,MainFrame frame){
 		parent=frame;
 		Container pnl=this.getContentPane();
 		pnl.setBackground(Color.white);
 		pnl.setLayout(null);
 		//---------------sureLbl-----------------------------------
-		sureLbl=new JLabel("   确定要删除该客户吗？");
+		sureLbl=new JLabel("确定要删除 "+name+"("+id+") 吗？");
 		sureLbl.setBounds(dialogWidth*25/100,
 				dialogHeight*10/100, dialogWidth*60/100, dialogHeight*30/100);
 		sureLbl.setFont(new Font("微软雅黑", Font.BOLD, 15));
@@ -48,6 +46,23 @@ public class DelMemberDialog extends JDialog{
 		sureBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		sureBtn.setFocusPainted(false);
 		pnl.add(sureBtn);
+		
+		sureBtn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				try {
+					service=new Member();
+					service.deleteMember(id);
+					DelMemberDialog.this.dispose();
+					MemberMgrPanel mgr=new MemberMgrPanel(parent);
+					parent.setRightComponent(mgr);
+					mgr.RefreshMemberTable(service.showMembers());
+				} catch (Exception e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				
+			}
+		});
 		//---------------------------------------------------------
 		this.setTitle("删除确认");
 		this.setBounds((screenWidth - dialogWidth) / 2,

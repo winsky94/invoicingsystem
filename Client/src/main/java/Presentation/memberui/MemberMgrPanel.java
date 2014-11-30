@@ -7,18 +7,26 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.AbstractTableModel;
+
+import po.MemberPO.MemberType;
+import vo.MemberVO;
 
 import Presentation.mainui.MainFrame;
+
 
 public class MemberMgrPanel extends JPanel {
 	/**
@@ -28,6 +36,9 @@ public class MemberMgrPanel extends JPanel {
 	JButton addBtn, delBtn, modBtn, refreshBtn, searchBtn;
 	JTextField searchFld;
 	JTable memberTable;
+	MemberTableModel utm;
+	ArrayList<ArrayList<String>> c=new ArrayList<ArrayList<String>>();
+	JScrollPane jsp;
 	String keyWord;
 	MainFrame parent;
 	public MemberMgrPanel(MainFrame frame) {
@@ -98,8 +109,8 @@ public class MemberMgrPanel extends JPanel {
 		searchFld.getDocument().addDocumentListener(new SearchFldListener());
 		c.gridx = 4;
 		c.fill=GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.1;
-		c.weighty = 0.02;
+		c.weightx = 0.03;
+		c.weighty = 0.05;
 		gbl.setConstraints(searchFld, c);
 		this.add(searchFld);
 		// 查找按钮
@@ -115,30 +126,77 @@ public class MemberMgrPanel extends JPanel {
 		c.gridy = 0;
 		gbl.setConstraints(searchBtn, c);
 		this.add(searchBtn);
-		//
-		/*
-		 * 
-		 * 
-		 * 这个表格BL来搞一下~注入信息啊
-		 * 
-		 * 
-		 * 
-		 */
-		memberTable = new JTable();
-		memberTable.setBackground(Color.black);
+		//======表格
+	
+		utm=new MemberTableModel();
+		memberTable = new JTable(utm);
+		jsp=new JScrollPane(memberTable);
 		c.gridx = 0;
 		c.gridwidth = 6;
 		c.fill=GridBagConstraints.BOTH;
 		c.gridy = 1;
 		c.weightx = 0.98;
 		c.weighty = 0.98;
-		gbl.setConstraints(memberTable, c);
-		this.add(memberTable);
+		gbl.setConstraints(jsp, c);
+		this.add(jsp);
 	}
+	
+	class MemberTableModel extends AbstractTableModel{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		//String head[] = { "商品编号","名称", "型号","数量","单价","金额","备注" };
+		String head[] = { "编号", "分类","级别","姓名","电话","地址","邮编",
+				"电子邮箱","应收额度","应收","应付","默认业务员" };
+		public int getRowCount() {
+			return c.size();
+		}
+
+		public int getColumnCount() {
+			return head.length;
+		}
+
+		public String getValueAt(int row, int col) {
+			return c.get(row).get(col);
+		}
+		public String getColumnName(int col){
+			return head[col];
+		}
+	}
+	
+	public void RefreshMemberTable(ArrayList<MemberVO> vo){
+		  
+		 for(MemberVO VO:vo){
+		 ArrayList<String> lineInfo=new ArrayList<String>();
+		 lineInfo.add(VO.getMemberID());
+		 if(VO.getmType()==MemberType.JHS)
+			 lineInfo.add("进货商");
+		 else lineInfo.add("销售商");
+		 lineInfo.add(VO.getmLevel().toString());
+		lineInfo.add(VO.getName());
+		lineInfo.add(VO.getTel());
+		lineInfo.add(VO.getAddress());
+		lineInfo.add(VO.getPostcode());
+		lineInfo.add(VO.getEMail());
+		lineInfo.add(Double.toString(VO.getMaxOwe()));
+		lineInfo.add(Double.toString(VO.getToReceive()));
+		lineInfo.add(Double.toString(VO.getToPay()));
+		lineInfo.add(VO.getDefaultClerk());
+		  c.add(lineInfo);
+		   
+		  }
+		 
+}
 	class AddBtnListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			parent.setRightComponent(new AddMemberPanel(parent));
+			try {
+				parent.setRightComponent(new AddMemberPanel(parent));
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 	}
@@ -147,7 +205,16 @@ public class MemberMgrPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			//-----应当传入客户编号-----------------------
 			
-			JDialog delMemberDlg=new DelMemberDialog(null,null,parent);
+				
+					int i=memberTable.getSelectedRow();
+					if(i>=0){
+					String Id=(String)memberTable.getValueAt(i,0);
+					String name=(String)memberTable.getValueAt(i, 1);
+					JDialog delDlg=new DelMemberDialog(Id,name,parent);}
+					else {
+						 JOptionPane.showMessageDialog(null,"请选择用户","提示",JOptionPane.WARNING_MESSAGE);
+					}
+				
 		}
 		
 	}

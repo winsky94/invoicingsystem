@@ -10,6 +10,9 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import businesslogic.memberbl.Member;
+import businesslogic.userbl.User;
+import businesslogicservice.memberblservice.MemberBLService;
 import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
@@ -18,11 +21,13 @@ import Presentation.memberui.MemberMgrPanel;
 import Presentation.salesui.manage.PurchaseMgrPanel;
 import Presentation.salesui.manage.SaleMgrPanel;
 import Presentation.uihelper.AboutPanel;
+import Presentation.userui.UserMgrPanel;
 
 //选中后 变色 以后==========
 public class SaleLeftShortPanel extends JPanel implements ActionListener{
 	MainFrame parent;	
 	Color salesColor;
+	MemberBLService service;
 	JLeftButton purchaseBtn, saleBtn, memberBtn,aboutBtn,backBtn;
 	public SaleLeftShortPanel(MainFrame frame){
 		salesColor=frame.getTheme()[0];
@@ -100,7 +105,16 @@ public class SaleLeftShortPanel extends JPanel implements ActionListener{
 		else if(e.getSource()==saleBtn)
 			parent.setRightComponent(new SaleMgrPanel(parent));
 		else if(e.getSource()==memberBtn){
-			parent.setRightComponent(new MemberMgrPanel(parent));
+			MemberMgrPanel mgr=new MemberMgrPanel(parent);
+			try {
+				service=new Member();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			parent.setRightComponent(mgr);
+			mgr.RefreshMemberTable(service.showMembers());
+		
 			
 		}else if(e.getSource()==purchaseBtn)
 			parent.setRightComponent(new PurchaseMgrPanel(parent));

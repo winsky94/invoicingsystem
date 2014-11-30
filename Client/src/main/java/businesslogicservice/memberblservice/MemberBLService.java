@@ -2,6 +2,7 @@ package businesslogicservice.memberblservice;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import po.MemberPO.MemberType;
 import vo.MemberVO;
 
 
@@ -11,5 +12,5 @@ public interface MemberBLService {
 	public int modifyMember(MemberVO vo);
 	public ArrayList<MemberVO> findMember(String message);
 	public ArrayList<MemberVO> showMembers();
-	public String getNewID();
+	public String getNewID(MemberType type);
 }
