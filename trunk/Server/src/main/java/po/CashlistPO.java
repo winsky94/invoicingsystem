@@ -10,16 +10,16 @@ public class CashlistPO extends ReceiptPO implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	 String ID;
-     UserPO user;
-     AccountPO account;
-     ArrayList<ClauseItem> clauselist=new ArrayList<ClauseItem>();
+     String user;
+     String account;
+     ArrayList<ClauseItemPO> clauselist=new ArrayList<ClauseItemPO>();
      double totalMoney;
      
      public CashlistPO(){
     	 this(null,null,null,null,0);
      }
      
-     public CashlistPO(String a,UserPO b,AccountPO c,ArrayList<ClauseItem> d,double e){
+     public CashlistPO(String a,String b,String c,ArrayList<ClauseItemPO> d,double e){
     	 ID=a;
     	 user=b;
     	 account=c;
@@ -31,15 +31,15 @@ public class CashlistPO extends ReceiptPO implements Serializable{
     	 return ID;
      }
      
-     public UserPO getUser(){
+     public String getUser(){
     	 return user;
      }
      
-     public AccountPO getAccount(){
+     public String getAccount(){
     	 return account;
      }
      
-     public ArrayList<ClauseItem> getClauselist(){
+     public ArrayList<ClauseItemPO> getClauselist(){
     	 return clauselist;
      }
      
@@ -47,11 +47,6 @@ public class CashlistPO extends ReceiptPO implements Serializable{
     	 return totalMoney;
      }
      
-     
-     class ClauseItem{
-    	 String name;
-    	 double money;
-    	 String info;
-     }
+
 
 }

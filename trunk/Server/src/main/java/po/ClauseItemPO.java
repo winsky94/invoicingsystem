@@ -1,6 +1,8 @@
 package po;
 
-public class ClauseItemPO {
+import java.io.Serializable;
+
+public class ClauseItemPO implements Serializable{
 	 String name;
 	 double money;
 	 String info;
