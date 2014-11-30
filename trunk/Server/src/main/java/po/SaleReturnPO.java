@@ -27,17 +27,7 @@ public class SaleReturnPO extends ReceiptPO{
 	public ArrayList<CommodityPO>  getSaleReturnList() {
 		return saleReturnList;
 	}
-	public void setClerk(String clerk) {
-		this.clerk = clerk;
-	}
-	public void setSaleReturnList(ArrayList<CommodityPO> saleReturnList) {
-		this.saleReturnList = saleReturnList;
-	}
-	public void setTotal(double[] total) {
-		this.total = total;
-	}
-	public void setDiscount(double[] discount) {
-		this.discount = discount;
-	}
+	
+	
 	
 }
