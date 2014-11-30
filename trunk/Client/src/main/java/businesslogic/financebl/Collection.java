@@ -39,9 +39,9 @@ public class Collection extends Receipt implements CollectionBLService{
      }
     
 	 public Collection(String id,  String memberID,
-			String userID,Date date, int hurry, int status,
+			String memberName,String userID,Date date, int hurry, int status,
 			String info,String sid,double Money) throws Exception{
-		super(id,memberID, userID, ReceiptType.COLLECTION, date, hurry, status, info,sid);
+		super(id,memberID,memberName, userID, ReceiptType.COLLECTION, date, hurry, status, info,sid);
 		// TODO Auto-generated constructor stub
 		this.totalMoney=Money;
 	}
