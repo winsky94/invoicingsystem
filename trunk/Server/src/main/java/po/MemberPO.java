@@ -93,7 +93,7 @@ public class MemberPO {
 
 
 
-	public void setPoints(int points) {
+	public void setPoints(double points) {
 		this.points = points;
 	}
 
