@@ -1,5 +1,7 @@
 package dataservice.financedataservice.accountdataservice;
 
+import java.util.ArrayList;
+
 import po.AccountPO;
 
 public class FinanceAccountDataService_stub implements FinanceAccountDataService{
@@ -19,8 +21,8 @@ public class FinanceAccountDataService_stub implements FinanceAccountDataService
 		return 0;
 	}
 
-	public AccountPO findAccount(String s) {
+	public ArrayList<AccountPO> findAccount(String s) {
 		System.out.println("Find account success!");
-		return new AccountPO();
+		return new ArrayList<AccountPO>();
 	}	
 }
