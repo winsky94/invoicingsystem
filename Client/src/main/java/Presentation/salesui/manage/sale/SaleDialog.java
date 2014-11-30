@@ -12,8 +12,6 @@ import java.util.Calendar;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -26,10 +24,9 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import Presentation.financeui.AddCollectionPanel;
 import Presentation.mainui.MainFrame;
-import Presentation.mainui.dragListener;
 import Presentation.mainui.functionPane;
+import Presentation.mainui.outBorder;
 import Presentation.uihelper.UIhelper;
 
 public class SaleDialog extends JPanel implements ActionListener{
@@ -54,7 +51,6 @@ public class SaleDialog extends JPanel implements ActionListener{
 
 	public SaleDialog(MainFrame frame) {
 		setSize(frame.getWidth()*1000/1225,frame.getHeight());
-		int width=this.getWidth();
 		
 		
 	//============functionPane由mainFrame构造
@@ -70,10 +66,9 @@ public class SaleDialog extends JPanel implements ActionListener{
 		
 		
 		//======设置主pane外边框
-		Font title=new Font("黑体",Font.BOLD,12);
-		Border border=BorderFactory.createBevelBorder(BevelBorder.LOWERED);
-		this.setBorder(BorderFactory.createTitledBorder(border, "制定销售单",TitledBorder.LEADING,
-				TitledBorder.CENTER, title));
+		
+		
+		this.setBorder(new outBorder("制定销售单"));
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		// -----------------------IDLabel------------------------------------

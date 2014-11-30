@@ -15,7 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import po.UserPO.UserJob;
+import vo.UserVO;
 import businesslogic.userbl.User;
+import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import Presentation.memberui.MemberMgrPanel;
@@ -38,7 +40,7 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 	int frameWidth = screenWidth * 85 / 100;
 	int frameHeight = screenHeight * 85 / 100;
 
-	JButton userInfoBtn,purchaseBtn, saleBtn, memberBtn,aboutBtn,backBtn;
+	JLeftButton purchaseBtn, saleBtn, memberBtn,aboutBtn,backBtn;
 	//JPanel memberMgrPnl, purchaseMgrPnl, saleMgrPnl, aboutPnl,rightPnl;
 	Color salesColor;
 	MainFrame parent;
@@ -51,7 +53,7 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 		GridBagLayout grid=new GridBagLayout();
 		GridBagConstraints c=new GridBagConstraints();
 	
-		User user=frame.getUser();
+		UserVO user=frame.getUser();
 		this.setLayout(grid);
 		
 		
@@ -82,57 +84,31 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 		//userInfoBtn=new UserInfoButton("严顺宽", new ImageIcon("img/sales/ysk.png"),salesColor);
 		// 客户管理按钮
 		
-		memberBtn = new JButton("客户管理",
-				new ImageIcon("img/sales/memberMgr.png"));
-		memberBtn.setFont(new Font("楷体", Font.PLAIN, 19));
-		// memberBtn.setBorder(BorderFactory.createRaisedBevelBorder());
-		memberBtn.setForeground(Color.white);
-		// memberBtn.setBorderPainted(false);
-		memberBtn.setBackground(salesColor);
-		memberBtn.setHorizontalAlignment(SwingConstants.CENTER);
-		memberBtn.setFocusPainted(false);
+		memberBtn = new JLeftButton("客户管理",
+				new ImageIcon("img/sales/memberMgr.png"),salesColor);
+		
+		
 		memberBtn.addActionListener(this);
 		down.add(memberBtn);
 		// 进货管理按钮
-		purchaseBtn = new JButton("进货管理", new ImageIcon(
-				"img/sales/purchaseMgr.png"));
-		purchaseBtn.setFont(new Font("楷体", Font.PLAIN, 19));
-		// purchaseBtn.setBorder(BorderFactory.createRaisedBevelBorder());
-		purchaseBtn.setForeground(Color.white);
-		// purchaseBtn.setBorderPainted(false);
-		purchaseBtn.setBackground(salesColor);
-		purchaseBtn.setHorizontalAlignment(SwingConstants.CENTER);
-		purchaseBtn.setFocusPainted(false);
+		purchaseBtn = new JLeftButton("进货管理", new ImageIcon(
+				"img/sales/purchaseMgr.png"),salesColor);
 		purchaseBtn.addActionListener(this);
 		down.add(purchaseBtn);
 		// 销售管理按钮
-		saleBtn = new JButton("销售管理", new ImageIcon("img/sales/saleMgr.png"));
-		saleBtn.setFont(new Font("楷体", Font.PLAIN, 19));
-		// saleBtn.setBorder(BorderFactory.createRaisedBevelBorder());
-		saleBtn.setForeground(Color.white);
-		// saleBtn.setBorderPainted(false);
-		saleBtn.setBackground(salesColor);
-		saleBtn.setHorizontalAlignment(SwingConstants.CENTER);
-		saleBtn.setFocusPainted(false);
+		saleBtn = new JLeftButton("销售管理", new ImageIcon("img/sales/saleMgr.png"),
+				salesColor);
+
 		saleBtn.addActionListener(this);
 		down.add(saleBtn);
 		// 关于按钮
-		aboutBtn = new JButton("关于系统", new ImageIcon("img/icon-about.png"));
-		aboutBtn.setFont(new Font("楷体", Font.PLAIN, 19));
-		aboutBtn.setForeground(Color.white);
-		aboutBtn.setBackground(salesColor);
-		aboutBtn.setHorizontalAlignment(SwingConstants.CENTER);
-		aboutBtn.setFocusPainted(false);
+		aboutBtn = new JLeftButton("关于系统", new ImageIcon("img/icon-about.png"),
+				salesColor);
 		aboutBtn.addActionListener(this);
 		down.add(aboutBtn);
 		//
 		
-		backBtn=new JButton("收起菜单",new ImageIcon("img/mainFrame/back.png"));
-		backBtn.setFont(new Font("楷体", Font.PLAIN, 19));
-		backBtn.setForeground(Color.white);
-		backBtn.setBackground(salesColor);
-		backBtn.setHorizontalAlignment(SwingConstants.CENTER);
-		backBtn.setFocusPainted(false);
+		backBtn=new JLeftButton("收起菜单",new ImageIcon("img/mainFrame/back.png"),salesColor);
 		backBtn.addActionListener(this);
 		c.gridx=0;c.gridy=8;
 		grid.setConstraints(backBtn, c);

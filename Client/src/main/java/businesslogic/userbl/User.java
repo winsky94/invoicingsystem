@@ -38,17 +38,14 @@ public class User implements UserBLService{
 	public int login(String ID, String password) {
 	   
 		
-	
-			String pass = service.showUserInfo(ID).getPassword();
-			int result=0;//成功
-			if(pass==null)
+			UserPO po=service.showUserInfo(ID);
+		
+			if(po==null)
 				return 2;//该用户不存在
-			else if(!pass.equals(password))
+			else if(!po.getPassword().equals(password))
 				return 1;//密码错误
 		
-		
-		
-		return 0;
+	return 0;//登陆成功
 	}
 
 	public int addUser(UserVO vo)   {

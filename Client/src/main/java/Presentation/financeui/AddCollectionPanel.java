@@ -90,7 +90,7 @@ public class AddCollectionPanel extends JPanel implements ActionListener{
 		gbl.setConstraints(jp6, c);
 		jlb4=new JLabel("操作员");
 		jtf4=new JTextField(11);		
-		jtf4.setText(frame.getUser());
+		jtf4.setText(frame.getUser().getName());
 		jtf4.setEditable(false);
 		jp7=new JPanel();
 		jp7.add(jlb4);

@@ -12,7 +12,9 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import po.UserPO.UserJob;
+import vo.UserVO;
 import businesslogic.userbl.User;
+import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import Presentation.uihelper.UIhelper;
@@ -20,8 +22,8 @@ import Presentation.uihelper.UIhelper;
 public class leftPane extends JPanel implements ActionListener{
 	
 	//头像 info到时候动态获取根据user  size需要父类添加时get
-	JLButton receipt,promotion,view;
-	JButton aboutBtn,backBtn;
+	JLeftButton receipt,promotion,view;
+	JLeftButton aboutBtn,backBtn;
 	JPanel headPane;
 	Color color;
 	MainFrame parent;
@@ -30,7 +32,7 @@ public class leftPane extends JPanel implements ActionListener{
 		parent=frame;
 		setSize(frame.getWidth()*225/1000,frame.getHeight());
 		//去掉
-		User user=parent.getUser();
+		UserVO user=parent.getUser();
 		color=parent.getTheme()[0];
 		GridBagLayout grid=new GridBagLayout();
 		GridBagConstraints c=new GridBagConstraints();
@@ -57,28 +59,23 @@ public class leftPane extends JPanel implements ActionListener{
 		
 		
 		ImageIcon receiptImg=new ImageIcon("img/promotion/receiptView.png");
-		receipt=new JLButton("单据审批",receiptImg);
-		int width=this.getWidth();
-		int height=this.getHeight()/10;
-		
-		receiptImg.setImage(receiptImg.getImage().getScaledInstance(width/4,height-10,Image.SCALE_DEFAULT));
+		receipt=new JLeftButton("单据审批",receiptImg,color);
+	
 		ImageIcon proImg=new ImageIcon("img/promotion/promotion.png");
-		promotion=new JLButton("策略制定",proImg);
-		proImg.setImage(proImg.getImage().getScaledInstance(width/4,height-10,Image.SCALE_DEFAULT));
+		promotion=new JLeftButton("策略制定",proImg,color);
+		//proImg.setImage(proImg.getImage().getScaledInstance(width/4,height-10,Image.SCALE_DEFAULT));
 		ImageIcon viewImg=new ImageIcon("img/promotion/view.png");
-		view=new JLButton("业绩查看",viewImg);
-		viewImg.setImage(viewImg.getImage().getScaledInstance(width/4,height-10,Image.SCALE_DEFAULT));
+		
+		view=new JLeftButton("业绩查看",viewImg,color);
+		//viewImg.setImage(viewImg.getImage().getScaledInstance(width/4,height-10,Image.SCALE_DEFAULT));
 		
 		receipt.addActionListener(this);
 		promotion.addActionListener(this);
 		view.addActionListener(this);
 		
-		aboutBtn = new JButton("关于系统", new ImageIcon("img/icon-about.png"));
-		aboutBtn.setFont(new Font("楷体", Font.PLAIN, 19));
-		aboutBtn.setForeground(Color.white);
-		aboutBtn.setBackground(color);
-		aboutBtn.setHorizontalAlignment(SwingConstants.CENTER);
-		aboutBtn.setFocusPainted(false);
+		aboutBtn = new JLeftButton("关于系统", new ImageIcon("img/icon-about.png"),
+				color);
+		
 		aboutBtn.addActionListener(this);
 		
 		
@@ -91,12 +88,9 @@ public class leftPane extends JPanel implements ActionListener{
 		down.add(aboutBtn);
 		
 		
-		backBtn=new JButton("收起菜单",new ImageIcon("img/mainFrame/back.png"));
-		backBtn.setFont(new Font("楷体", Font.PLAIN, 19));
-		backBtn.setForeground(Color.white);
-		backBtn.setBackground(color);
-		backBtn.setHorizontalAlignment(SwingConstants.CENTER);
-		backBtn.setFocusPainted(false);
+		backBtn=new JLeftButton("收起菜单",new ImageIcon("img/mainFrame/back.png"),
+				color);
+		
 		backBtn.addActionListener(this);
 		c.gridx=0;c.gridy=8;
 		grid.setConstraints(backBtn, c);

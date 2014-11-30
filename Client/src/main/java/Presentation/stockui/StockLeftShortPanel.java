@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import po.UserPO.UserJob;
+import vo.UserVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import businesslogic.userbl.User;
@@ -29,8 +30,8 @@ public class StockLeftShortPanel extends JPanel{
 		parent=frame;
 		this.setLayout(new GridLayout(10, 1));
 		//!!!!!!!!!BL!!!!!!!!!!!
-		User user=frame.getUser();
-		user.setJob(UserJob.MANAGER);
+		UserVO user=frame.getUser();
+		//user.setJob(UserJob.MANAGER);
 		hp=new headPane(frame,this,user);
 		this.add(hp);
 		// 商品管理按钮

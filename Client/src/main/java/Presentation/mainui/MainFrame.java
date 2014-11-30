@@ -13,7 +13,7 @@ import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 
 import po.UserPO.UserJob;
-import businesslogic.userbl.User;
+import vo.UserVO;
 import Presentation.financeui.LeftLongPanel;
 import Presentation.promotionui.leftPane;
 import Presentation.promotionui.listPane;
@@ -27,12 +27,12 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	JPanel jp1,jp2,welcomePanel;
 	JLabel jlb;
 	String type;
-	User user;
+	UserVO user;
 	JLabel timeNow;
 	JPanel function;
 	Color[] color=new Color[2];
 		
-	public MainFrame(User myuser){
+	public MainFrame(UserVO myuser){
 		this.setSize(1100, 600);
 	       
         this.setLocation(150, 100);
@@ -114,7 +114,7 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 		
 	}
 	
-	public User getUser(){
+	public UserVO getUser(){
 		return this.user;
 	//	return user.getName();
 	}
@@ -271,7 +271,7 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 	}
 	
 	public static void main(String[] args) {
-		User user=new User("王宁宁",UserJob.SALE,129);
+		UserVO user=new UserVO("111111","王宁宁","3333",UserJob.FINANCE,129);
 		//user.setJob(UserJob.SALE);
 		MainFrame frame =new MainFrame(user);
 		//frame.print();
