@@ -8,8 +8,8 @@ public class RedExtrusionBLService_stub implements RedExtrusionBLService{
 		return 0;
 	}
 
-	public int createRedExtrusionAndCopy(ReceiptVO vo) {
+	public ReceiptVO createRedExtrusionAndCopy(ReceiptVO vo) {
 		System.out.println("Create red extrusion and copy success!");
-		return 0;
+		return new ReceiptVO();
 	}
 }
