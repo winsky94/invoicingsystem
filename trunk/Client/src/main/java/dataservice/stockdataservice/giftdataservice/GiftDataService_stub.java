@@ -1,10 +1,11 @@
 package dataservice.stockdataservice.giftdataservice;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import po.GiftPO;
 
-public class GiftDataService_stub implements GiftDataService{
+public class GiftDataService_stub implements GiftDataService {
 
 	public int addGift(GiftPO po) throws RemoteException {
 		// TODO 自动生成的方法存根
@@ -28,6 +29,16 @@ public class GiftDataService_stub implements GiftDataService{
 		// TODO 自动生成的方法存根
 		System.out.println("return gift cost in file succeed!");
 		return 0;
+	}
+
+	public ArrayList<GiftPO> getGiftList(String beginDate, String endDate) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	public ArrayList<GiftPO> getGiftList() throws RemoteException {
+		// TODO 自动生成的方法存根
+		return null;
 	}
 
 }

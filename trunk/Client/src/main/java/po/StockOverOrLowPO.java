@@ -1,7 +1,6 @@
 package po;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import businesslogic.receiptbl.ReceiptType;
 
@@ -12,20 +11,21 @@ public class StockOverOrLowPO extends ReceiptPO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	String goodsName;
 	String size;
-	int num;
-	int exactNum;
+	int num;//系统数量
+	int exactNum;//实际库存数量
 	int gap;
 
 	public StockOverOrLowPO(String id, String memberName, String memberID,
-			String userID, ReceiptType type, Date createDate, int status,
-			int hurry, String info, String stockid,String goodsName, String size, int num,
-			int exactNum) {
-		super(id, memberName, memberID, userID, type, createDate, status, hurry, info, stockid);
+			String userID, ReceiptType type, int status, int hurry,
+			String info, String stockid, String goodsName, String size,
+			int num, int exactNum) {
+		super(id, memberName, memberID, userID, type, status, hurry, info,
+				stockid);
 		this.goodsName = goodsName;
 		this.size = size;
 		this.num = num;
 		this.exactNum = exactNum;
-		this.gap = exactNum-num;
+		this.gap = exactNum - num;
 	}
 
 	public String getGoodsName() {

@@ -31,7 +31,7 @@ public class StockGoodsBLService_stub implements StockGoodsBLService {
 		return null;
 	}
 
-	public ArrayList<GoodsPO> showGoods() {
+	public ArrayList<GoodsVO> showGoods() {
 		// TODO 自动生成的方法存根
 		System.out.println("show goods succeed!");
 		return null;
