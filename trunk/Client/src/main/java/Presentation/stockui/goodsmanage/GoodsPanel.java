@@ -34,6 +34,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 import vo.GoodsClassVO;
+import Presentation.mainui.MainFrame;
 import businesslogic.stockbl.goodsClass.GoodsClassController;
 import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBLService;
 
@@ -58,8 +59,9 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 	DefaultMutableTreeNode updateNode = null;
 
 	GoodsClassNode newNode = null;
-
-	public GoodsPanel() {
+	MainFrame parent;
+	public GoodsPanel(MainFrame frame) {
+		parent=frame;
 		CreateGoodsClass();// yan
 		this.setBackground(Color.white);
 		GridBagLayout gbl = new GridBagLayout();
@@ -673,15 +675,15 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 
 	// end_yan-----------------------------------------------------------
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		JFrame testFrame = new JFrame();
 		testFrame.setBounds(100, 50, 800, 500);
 		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		GoodsPanel gp = new GoodsPanel();
+		GoodsPanel gp = new GoodsPanel(parent);
 		gp.setBounds(0, 0, 800, 500);
 		testFrame.add(gp);
 		testFrame.setVisible(true);
-	}
+	}*/
 
 }

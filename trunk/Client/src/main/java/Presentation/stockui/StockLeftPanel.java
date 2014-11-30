@@ -19,6 +19,10 @@ import businesslogic.userbl.User;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
+import Presentation.stockui.giftmanage.GiftPanel;
+import Presentation.stockui.goodsmanage.GoodsPanel;
+import Presentation.stockui.stockmanage.StockPanel;
+import Presentation.uihelper.AboutPanel;
 import Presentation.uihelper.UserInfoButton;
 
 public class StockLeftPanel extends JPanel implements ActionListener{
@@ -95,12 +99,21 @@ public class StockLeftPanel extends JPanel implements ActionListener{
 		
 		
 	}
-
+//goodsBtn, stockBtn, giftBtn, 
 	
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource()==backBtn){
 			parent.setLeftComponent(new StockLeftShortPanel(parent));
+		}else if(e.getSource()==aboutBtn){
+			parent.setRightComponent(new AboutPanel());
+		}else if(e.getSource()==goodsBtn){
+			parent.setRightComponent(new GoodsPanel(parent));
+		}else if(e.getSource()==stockBtn){
+			parent.setRightComponent(new StockPanel(parent));
+		}
+		else if(e.getSource()==giftBtn){
+			parent.setRightComponent(new GiftPanel(parent));
 		}
 		
 	}

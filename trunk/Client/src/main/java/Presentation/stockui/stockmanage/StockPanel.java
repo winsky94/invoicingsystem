@@ -35,10 +35,10 @@ public class StockPanel extends JPanel {
 	MainFrame frame;
 	Color[] color;
 
-	public StockPanel(/*MainFrame myframe,Color mycolor[]*/) {
-	/*	frame=myframe;
-		color=mycolor;
-	*/	
+	public StockPanel(MainFrame myframe) {
+	frame=myframe;
+		color=frame.getTheme();
+	
 		this.setBackground(Color.white);
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
@@ -168,7 +168,7 @@ public class StockPanel extends JPanel {
 		}
 		
 	}
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		JFrame testFrame = new JFrame();
 		testFrame.setBounds(100, 50, 800, 500);
 		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -177,5 +177,5 @@ public class StockPanel extends JPanel {
 		gp.setBounds(0, 0, 1000, 700);
 		testFrame.add(gp);
 		testFrame.setVisible(true);
-	}
+	}*/
 }

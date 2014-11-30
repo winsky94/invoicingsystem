@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import Presentation.mainui.MainFrame;
 import Presentation.uihelper.DateChooser;
 
 public class GiftPanel extends JPanel {
@@ -27,7 +28,7 @@ public class GiftPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JFrame father;
+	MainFrame father;
 	JButton giftBtn;
 	DateChooser fromDC,toDC;
 	JScrollPane jsp;
@@ -35,7 +36,7 @@ public class GiftPanel extends JPanel {
 	GiftTblModel gtm;
 	Vector<Vector<String>> c=new Vector<Vector<String>>();
 	Color color = new Color(51, 125, 86);
-	public GiftPanel(JFrame frame){
+	public GiftPanel(MainFrame frame){
 		father=frame;
 		//
 		this.setBackground(Color.white);
@@ -93,8 +94,9 @@ public class GiftPanel extends JPanel {
 		gbl.setConstraints(jsp, c);
 		this.add(jsp);
 	}
-	public static void main(String[] args){
-		JFrame testFrame = new JFrame();
+	
+	/*public static void main(String[] args){
+		MainFrame testFrame = new MainFrame();
 		testFrame.setBounds(100, 50, 900, 550);
 		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -102,7 +104,7 @@ public class GiftPanel extends JPanel {
 		gp.setBounds(0, 0, 1000, 700);
 		testFrame.add(gp);
 		testFrame.setVisible(true);
-	}
+	}*/
 	class GiftTblModel extends AbstractTableModel {
 		/**
 		 * 

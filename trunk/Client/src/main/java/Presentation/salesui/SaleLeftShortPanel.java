@@ -15,6 +15,7 @@ import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import Presentation.memberui.MemberMgrPanel;
+import Presentation.salesui.manage.PurchaseMgrPanel;
 import Presentation.salesui.manage.SaleMgrPanel;
 import Presentation.uihelper.AboutPanel;
 

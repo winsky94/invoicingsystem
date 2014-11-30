@@ -9,13 +9,13 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.outBorder;
 import Presentation.uihelper.UIhelper;
 
 public class PurchasePane extends JPanel {
@@ -96,7 +96,7 @@ public class PurchasePane extends JPanel {
 				dialogWidth * 90 / 100, dialogHeight * 68 / 100);
 		itemPnl.setBackground(Color.white);
 		itemPnl.setBorder(BorderFactory.createTitledBorder("进货商品列表"));
-		pnl.add(itemPnl);
+		this.add(itemPnl);
 		// -------------------totalLbl-------------------------------
 		totalLbl = new JLabel();
 		// !!!!!!!!!!!BL获取user信息
@@ -134,23 +134,23 @@ public class PurchasePane extends JPanel {
 		remarkLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		remarkLbl.setBounds(dialogWidth * 3 / 100, dialogHeight * 10 / 100,
 				dialogWidth * 10 / 100, dialogHeight * 5 / 100);
-		pnl.add(remarkLbl);
+		this.add(remarkLbl);
 		// -----------------remarkFld---------------------------------------
 		remarkFld = new JTextField();
 		remarkFld.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
 		remarkFld.setFont(new Font("楷体", Font.PLAIN, 13));
 		remarkFld.setBounds(dialogWidth * 8 / 100, dialogHeight * 10 / 100,
 				dialogWidth * 35 / 100, dialogHeight * 6 / 100);
-		pnl.add(remarkFld);
+		this.add(remarkFld);
 		// -----------------submitBtn------------------------------------------
 		submitBtn = new JButton("提  交");
 		submitBtn.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		submitBtn.setBounds(dialogWidth * 40 / 100, dialogHeight * 85 / 100,
 				dialogWidth * 20 / 100, dialogHeight * 6 / 100);
 		submitBtn.setFocusPainted(false);
-		pnl.add(submitBtn);
+		this.add(submitBtn);
 		// ------------------------------------------------------------------
-	
+		this.setBorder(new outBorder("创建进货单"));
 		this.setVisible(true);
 
 	}
