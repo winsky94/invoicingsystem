@@ -1,8 +1,9 @@
 package po;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class LogPO {
+public class LogPO implements Serializable {
 	private Date date;
 	private  String userID;
 	private  String userName;
