@@ -27,6 +27,7 @@ public class User implements UserBLService{
 		String url="rmi://"+host+"/userService";
 	
 		service=(UserDataService)Naming.lookup(url);
+		
 	}
 	
 	

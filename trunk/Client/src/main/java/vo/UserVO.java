@@ -16,7 +16,9 @@ public class UserVO {
 		this.job=job;
 		this.grades=grades;
 	}
-
+	public void setPassWord(String p){
+		this.password=p;
+	}
 	public String getName() {
 		return name;
 	}

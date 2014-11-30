@@ -4,11 +4,12 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import po.MemberPO;
+import po.MemberPO.MemberType;
 import dataservice.memberdataservice.MemberDataService;
-import dataservice.userdataservice.UserDataService;
 import vo.MemberVO;
 import businesslogicservice.memberblservice.MemberBLService;
 
@@ -24,14 +25,10 @@ public class Member implements MemberBLService{
 		String url="rmi://"+host+"/memberService";
 	
 		service=(MemberDataService)Naming.lookup(url);
+	
 		
 	}
-	public Member(MemBaseInfo bInfo,MemAccountInfo aInfo,MemContactInfo cInfo) throws MalformedURLException, RemoteException, NotBoundException{
-		this();
-		this.bInfo=bInfo;
-		this.aInfo=aInfo;
-		this.cInfo=cInfo;	
-	}
+	
 	public int addMember(MemberVO vo) {
 		// TODO Auto-generated method stub
 		MemberPO po=voToPo(vo);
@@ -119,10 +116,31 @@ public class Member implements MemberBLService{
 		return vo;
 	}
 	
-	public String getNewID() {
+	public String getNewID(MemberType type) {
 		// TODO Auto-generated method stub
-		return "111111";
+		ArrayList<MemberPO> po=service.showAll();
+		String lastID=null;
+		for(int i=0;i<po.size();i++){
+			if(po.get(i).getmType()==type)
+				{lastID=po.get(i).getMemberID();}
+		}
+		if(lastID!=null)
+		{	
+			double d=Double.parseDouble(lastID.substring(4,11))+1;
+		     NumberFormat nf = NumberFormat.getInstance();
+		     nf.setMinimumIntegerDigits(7); 
+		     nf.setGroupingUsed(false);
+		     lastID=nf.format(d);
+		}
+		
+		else lastID="0000001";
+		if(type==MemberType.JHS)
+			return "JHS-"+lastID;
+		else 
+			return "XSS-"+lastID;
 	}
+
+	
 	
 
 }

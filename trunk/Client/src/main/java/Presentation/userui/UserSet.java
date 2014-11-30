@@ -12,13 +12,14 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 import Presentation.mainui.LoginFrame;
+import Presentation.mainui.MainFrame;
 
 
 public class UserSet extends JPopupMenu implements ActionListener{
-	JFrame parent;
+	MainFrame parent;
 	JMenuItem caccount,cpass;
 	public  UserSet(JFrame frame,JPanel pane){
-			parent=frame;
+			parent=(MainFrame)frame;
 			ImageIcon account=new ImageIcon("img/mainFrame/close.png");
 			caccount=new JMenuItem("切换帐号",account);
 			ImageIcon pass=new ImageIcon("img/mainFrame/min.png");
@@ -42,7 +43,7 @@ public void actionPerformed(ActionEvent e) {
 		}
 		
 	}else if(e.getSource()==cpass){
-		JDialog Change=new ChangeKeyDialog();
+		JDialog Change=new ChangeKeyDialog(parent);
 		
 	}
 	

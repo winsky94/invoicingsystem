@@ -4,14 +4,21 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
+import vo.UserVO;
+import businesslogic.userbl.User;
+import businesslogicservice.userblservice.UserBLService;
+import Presentation.mainui.MainFrame;
 import Presentation.uihelper.UIhelper;
 
 public class ChangeKeyDialog extends JDialog {
@@ -29,8 +36,11 @@ public class ChangeKeyDialog extends JDialog {
 	JPanel pnl;
 	JPasswordField oldKeyFld, newKeyFld, sureFld;
 	JButton submitBtn;
-
-	public ChangeKeyDialog() {
+	UserBLService service;
+	MainFrame parent;UserVO user;
+	public ChangeKeyDialog(final MainFrame frame) {
+		parent=frame;
+		user=frame.getUser();
 		pnl = new JPanel() {
 			/**
 				 * 
@@ -86,6 +96,31 @@ public class ChangeKeyDialog extends JDialog {
 		submitBtn.setBounds(dlgWidth * 40 / 100, dlgHeight * 75 / 100,
 				dlgWidth * 20 / 100, dlgHeight * 8 / 100);
 		pnl.add(submitBtn);
+		
+		submitBtn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				String op=oldKeyFld.getText();
+				if(!op.equals(user.getPassword())){
+					JOptionPane.showMessageDialog(null,"原密码输入错误！","提示",JOptionPane.WARNING_MESSAGE);
+					oldKeyFld.setText("");
+				}else if(!(newKeyFld.getText().equals(sureFld.getText()))){
+					JOptionPane.showMessageDialog(null,"两次密码输入不一致！","提示",JOptionPane.WARNING_MESSAGE);
+					newKeyFld.setText("");sureFld.setText("");
+				}else{
+					try {
+						service=new User();
+						user.setPassWord(sureFld.getText());
+						service.modifyUser(user);
+						frame.setUser(user);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				
+				}
+				
+			}
+		});
 		//
 		this.setTitle("修改密码");
 		this.setBounds((screenWidth - dlgWidth) / 2,
@@ -97,7 +132,5 @@ public class ChangeKeyDialog extends JDialog {
 		this.setVisible(true);
 	}
 
-	public static void main(String[] args) {
-		JDialog c = new ChangeKeyDialog();
-	}
+	
 }

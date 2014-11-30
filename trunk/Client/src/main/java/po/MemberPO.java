@@ -1,8 +1,14 @@
 package po;
 
+import java.io.Serializable;
 
 
-public class MemberPO {
+
+public class MemberPO implements Serializable{
+	/**
+	 * 
+	 */
+	
 	String memberID;
 	MemberType mType;
 	MemberLevel mLevel;
