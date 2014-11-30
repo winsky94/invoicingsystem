@@ -17,21 +17,43 @@ public class Collection extends UnicastRemoteObject implements CollectionDataSer
 	 */
 	private static final long serialVersionUID = 1L;
 	JXCFile file;
-	
+	static int num=0;
 	public Collection() throws RemoteException{
 		super();
 		file=new JXCFile("src/main/java/collection.ser");
 	}
 	public int createCollection(CollectionPO po) throws RemoteException{
 		file.write(po);
-		ArrayList<Object> al2=file.read();
+		num++;
+/*		ArrayList<Object> al2=file.read();
 		System.out.println(al2.size());
 		for(Object a:al2){
 			CollectionPO b=(CollectionPO)a;
 			ArrayList<TransferItemPO> c=b.getTransferlist();
 			System.out.println(b.getID()+b.getSupplier()+b.getSeller()+b.getUser()+c.get(0).getMoney()+b.getTotalMoney());
+			
 		}
+*/
 		return 0;
+	}
+	
+	public ArrayList<CollectionPO> getCollection() throws RemoteException{
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return null;
+		
+		ArrayList<CollectionPO> buffer=new ArrayList<CollectionPO>();
+		for(Object b:a){
+			CollectionPO po=(CollectionPO)b;
+			buffer.add(po);
+		}
+		
+		return buffer;
+		
+	}
+	
+	public int getNum(){
+		return num;
 	}
 
 	public static void main(String[] args){
