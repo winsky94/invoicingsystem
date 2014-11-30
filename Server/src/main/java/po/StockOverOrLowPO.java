@@ -3,7 +3,6 @@ package po;
 import java.io.Serializable;
 import java.util.Date;
 
-import Data.receiptdata.ReceiptType;
 
 public class StockOverOrLowPO extends ReceiptPO implements Serializable {
 	/**
@@ -17,10 +16,10 @@ public class StockOverOrLowPO extends ReceiptPO implements Serializable {
 	int gap;
 
 	public StockOverOrLowPO(String id, String memberName, String memberID,
-			String userID, ReceiptType type, Date createDate, int status,
+			String userID, ReceiptType type, int status,
 			int hurry, String info, String stockid,String goodsName, String size, int num,
 			int exactNum) {
-		super(id, memberName, memberID, userID, type, createDate, status, hurry, info, stockid);
+		super(id, memberName, memberID, userID, type, status, hurry, info, stockid);
 		this.goodsName = goodsName;
 		this.size = size;
 		this.num = num;

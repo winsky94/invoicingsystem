@@ -1,9 +1,5 @@
 package po;
 import java.util.ArrayList;
-import java.util.Date;
-
-import Data.receiptdata.ReceiptType;
-
 
 public class PurchasePO extends ReceiptPO{
 	private ArrayList<CommodityPO> purchaseList;

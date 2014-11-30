@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-import Data.receiptdata.ReceiptType;
 
 //double[] discount;pro/pre/money/toaldiscount;
 //double[] total; cost/origin/value/couponIncom/toPay
