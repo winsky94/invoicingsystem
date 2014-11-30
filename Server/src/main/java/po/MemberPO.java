@@ -1,9 +1,11 @@
 package po;
 
+import java.io.Serializable;
 
 
 
-public class MemberPO {
+
+public class MemberPO implements Serializable{
 	String memberID;
 	MemberType mType;
 	MemberLevel mLevel;
@@ -149,10 +151,10 @@ public class MemberPO {
 	public double getPoints() {
 		return points;
 	}
-	public enum MemberLevel {
+	public enum MemberLevel implements Serializable{
 		ONE,TWO,THREE,FOUR,FIVE;
 	}
-	public enum MemberType {
+	public enum MemberType implements Serializable{
 		JHS,XSS
 	}
 
