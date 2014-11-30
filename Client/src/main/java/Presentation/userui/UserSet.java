@@ -41,6 +41,9 @@ public void actionPerformed(ActionEvent e) {
 			e1.printStackTrace();
 		}
 		
+	}else if(e.getSource()==cpass){
+		JDialog Change=new ChangeKeyDialog();
+		
 	}
 	
 }

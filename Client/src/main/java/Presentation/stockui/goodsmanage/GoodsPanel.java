@@ -219,7 +219,7 @@ public class GoodsPanel extends JPanel implements MouseListener, ActionListener 
 
 		public void actionPerformed(ActionEvent e) {
 
-			JDialog addGoodsDlg = new AddGoodsDialog();
+			parent.setRightComponent(new AddGoodsPanel(parent));
 
 		}
 

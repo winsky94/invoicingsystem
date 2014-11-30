@@ -58,7 +58,7 @@ public class GiftPanel extends JPanel {
 		giftBtn.setFocusPainted(false);
 		giftBtn.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				JDialog createPnl=new CreateGiftDialog();
+				father.setRightComponent(new CreateGiftPanel(father));
 			}
 		});
 		topPnl.add(giftBtn);

@@ -17,6 +17,7 @@ import businesslogic.userbl.User;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
+import Presentation.uihelper.AboutPanel;
 import Presentation.uihelper.UIhelper;
 
 public class ProLeftPanel extends JPanel implements ActionListener{
@@ -63,11 +64,11 @@ public class ProLeftPanel extends JPanel implements ActionListener{
 	
 		ImageIcon proImg=new ImageIcon("img/promotion/promotion.png");
 		promotion=new JLeftButton("策略制定",proImg,color);
-		//proImg.setImage(proImg.getImage().getScaledInstance(width/4,height-10,Image.SCALE_DEFAULT));
+	
 		ImageIcon viewImg=new ImageIcon("img/promotion/view.png");
 		
 		view=new JLeftButton("业绩查看",viewImg,color);
-		//viewImg.setImage(viewImg.getImage().getScaledInstance(width/4,height-10,Image.SCALE_DEFAULT));
+	
 		
 		receipt.addActionListener(this);
 		promotion.addActionListener(this);
@@ -100,8 +101,16 @@ public class ProLeftPanel extends JPanel implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource()==promotion){
-			promotion.setBackground(parent.getTheme()[1]);;
-		
+			//promotion.setBackground(parent.getTheme()[1]);;
+			parent.setRightComponent(new PromotionPanel(parent));
+		}else if(e.getSource()==backBtn){
+			parent.setLeftComponent(new ProLeftShortPanel(parent));
+		}else if(e.getSource()==view){
+			
+		}else if(e.getSource()==receipt){
+			
+		}else if(e.getSource()==aboutBtn){
+			parent.setRightComponent(new AboutPanel());
 		}
 		
 	}
