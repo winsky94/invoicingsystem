@@ -1,6 +1,7 @@
 package dataservice.userdataservice;
 
 import java.rmi.*;
+import java.util.ArrayList;
 
 import po.UserPO;
 
@@ -27,6 +28,16 @@ public class UserDataService_stub implements UserDataService {
 	public UserPO showUserInfo(String ID) throws RemoteException {
 		// TODO 自动生成的方法存根
 		System.out.println("show users in file succeed!");
+		return null;
+	}
+
+	public int delete(String ID) throws RemoteException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public ArrayList<UserPO> showAll() throws RemoteException {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
