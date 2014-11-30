@@ -22,6 +22,7 @@ public class User extends UnicastRemoteObject implements UserDataService{
 	 */
 	
 	JXCFile file;
+
 	public User() throws RemoteException {
 		super();
 		file=new JXCFile("src/main/java/user.ser");
@@ -46,6 +47,7 @@ public class User extends UnicastRemoteObject implements UserDataService{
 			UserPO b=(UserPO)a.get(i);
 			if(b.getID().equals(po.getID())){
 				a.remove(i);
+				break;
 			}
 		}
 		
@@ -108,11 +110,33 @@ public class User extends UnicastRemoteObject implements UserDataService{
 		return buffer;
 	}
 	
+	public int getNum(UserJob job){
+		ArrayList<Object> a=file.read();
+		int num=0;
+		
+		if(a==null)
+			return 0;
+		else{
+			for(Object b:a){
+				UserPO c=(UserPO)b;
+				if(c.getJob()==job){
+					num++;
+				}
+			}
+		}
+        return num;
+
+	}
+	
 	public static void main(String[] args){
 		User a;
 		try {
 			a=new User();
 			UserPO b = new UserPO("Lucy", "CW-00001","123456",UserJob.FINANCE,100);
+			System.out.println(a.getNum(UserJob.STOCK));
+			System.out.println(a.getNum(UserJob.SALE));
+			System.out.println(a.getNum(UserJob.FINANCE));
+			System.out.println(a.getNum(UserJob.MANAGER));
 			System.out.println(a.add(b)+"增加Lucy结果");
 			UserPO c=a.showUserInfo("JL-00001");
 			UserPO d=a.showUserInfo("CW-00001");
