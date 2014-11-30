@@ -34,7 +34,7 @@ public class runServer {
 			GoodsClass gc=new GoodsClass();
 			Goods g=new Goods();
 			Collection collection=new Collection();
-			Naming.bind("memberService",member);
+			Naming.rebind("memberService",member);
 			Naming.bind("userService", user);	
 			Naming.rebind("goodsClassService", gc);
 			Naming.rebind("goodsService", g);
