@@ -94,7 +94,8 @@ public class User extends UnicastRemoteObject implements UserDataService{
 		return null; //不存在该用户
 	}
 	
-	public ArrayList<UserPO> showUserInfo() throws RemoteException {
+	
+	public ArrayList<UserPO> showAll() throws RemoteException{
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -107,6 +108,7 @@ public class User extends UnicastRemoteObject implements UserDataService{
 		
 		return buffer;
 	}
+	
 	
 	public int getNum(UserJob job){
 		ArrayList<Object> a=file.read();
@@ -179,7 +181,7 @@ public class User extends UnicastRemoteObject implements UserDataService{
 			UserPO k = new UserPO("宽宽", "KC-00001","123456",UserJob.STOCK,100);
 			a.add(k);
 */
-			ArrayList<UserPO> buffer=a.showUserInfo();	
+			ArrayList<UserPO> buffer=a.showAll();	
 			System.out.println("-----------------我是萌萌哒的分隔线---------------------");
 			for(UserPO po:buffer){
 				System.out.println("ID:"+po.getID()+" name:"+po.getName()+" password:"+po.getPassword()+" job:"+po.getJob()+" grades:"+po.getGrades());
@@ -191,6 +193,7 @@ public class User extends UnicastRemoteObject implements UserDataService{
 		}
 		
 	}
+
 	
 
 }
