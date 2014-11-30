@@ -50,11 +50,18 @@ public class SalePO extends ReceiptPO {
 	public double getCost(){
 		return total[0];
 	}
-	public double getTotal(){
+	public double getTotalValue(){
 		return total[2];
 	}
-	public double getDiscount(){
+	public double getDiscountValue(){
 		return discount[3];
+	}
+	
+	public double[] getTotal(){
+		return total;
+	}
+	public double[] getDiscount(){
+		return discount;
 	}
 	public void setClerk(String clerk) {
 		this.clerk = clerk;

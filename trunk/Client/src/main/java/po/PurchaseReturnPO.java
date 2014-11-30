@@ -23,4 +23,5 @@ public class PurchaseReturnPO extends ReceiptPO{
 	public double getTotalInAll() {
 		return totalInAll;
 	}
+	
 }

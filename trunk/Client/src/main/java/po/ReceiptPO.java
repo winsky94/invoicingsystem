@@ -35,6 +35,7 @@ public class ReceiptPO {
 
 	}
 
+
 	public String getId() {
 		return id;
 	}
@@ -71,5 +72,29 @@ public class ReceiptPO {
 
 	public String getStockid() {
 		return stockid;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public void setMemberID(String memberID) {
+		this.memberID = memberID;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public void setHurry(int hurry) {
+		this.hurry = hurry;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
+
+	public void setStockid(String stockid) {
+		this.stockid = stockid;
 	}
 }
