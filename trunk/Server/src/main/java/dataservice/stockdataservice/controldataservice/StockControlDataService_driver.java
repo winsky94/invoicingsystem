@@ -9,7 +9,8 @@ public class StockControlDataService_driver {
 	public void drive(StockControlDataService stockErrorDataService)
 			throws RemoteException {
 		StockOverOrLowPO stockOverOrLowPO = new StockOverOrLowPO("飞利浦日光灯",
-				"SR01", 100, 99, -1);
+				"SR01", null, null, null, null, 100, 99, null, null, null,
+				null, -1, 0);
 		StockErrorPO stockErrorPO = new StockErrorPO("飞利浦日光灯", "SR01");
 		stockErrorDataService.addStockOverOrLow(stockOverOrLowPO);
 		stockErrorDataService.addStockError(stockErrorPO);
