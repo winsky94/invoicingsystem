@@ -128,8 +128,7 @@ public class JXCFile {
 			FileOutputStream fos = new FileOutputStream(name, true);
 			long pos = 0;
 
-			ObjectOutputStream oos;
-			oos = new ObjectOutputStream(fos);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			if (isexist) {
 				pos = fos.getChannel().position() - 4;
 				fos.getChannel().truncate(pos);
