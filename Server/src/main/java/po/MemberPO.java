@@ -10,12 +10,12 @@ public class MemberPO {
 	String name, tel, address, postcode, EMail, defaultClerk;
 	double MaxOwe;
 	double toReceive, toPay;
-	int points;
+	double points;
 
 	public MemberPO(String memberID, MemberType mType, MemberLevel mLevel,
 			String name, String tel, String address, String postcode,
 			String EMail, String defaultClerk, double MaxOwe, double toReceive,
-			double toPay) {
+			double toPay,double points) {
 		this.memberID=memberID;
 		this.mType=mType;
 		this.mLevel=mLevel;
@@ -28,7 +28,7 @@ public class MemberPO {
 		this.MaxOwe=MaxOwe;
 		this.toReceive=toReceive;
 		this.toPay=toPay;
-		this.points=0;
+		this.points=points;
 	}
 	
 	
