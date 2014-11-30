@@ -30,7 +30,7 @@ public class User implements UserBLService{
 	}
 	
 	
-	
+	//用户名也可以登陆
 	public int login(String ID, String password) {
 	   
 		
@@ -80,11 +80,11 @@ public class User implements UserBLService{
 		String lastID=null;
 		for(int i=0;i<po.size();i++){
 			if(po.get(i).getJob()==job)
-				lastID=po.get(i).getID();
+				{lastID=po.get(i).getID();}
 		}
 		if(lastID!=null)
 		{	
-			double d=Double.parseDouble(lastID.substring(3))+1;
+			double d=Double.parseDouble(lastID.substring(3,8))+1;
 		     NumberFormat nf = NumberFormat.getInstance();
 		     nf.setMinimumIntegerDigits(5); 
 		     nf.setGroupingUsed(false);

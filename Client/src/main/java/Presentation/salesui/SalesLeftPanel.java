@@ -1,7 +1,6 @@
 package Presentation.salesui;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -9,21 +8,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
-import po.UserPO.UserJob;
 import vo.UserVO;
-import businesslogic.userbl.User;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import Presentation.memberui.MemberMgrPanel;
 import Presentation.salesui.manage.PurchaseMgrPanel;
 import Presentation.salesui.manage.SaleMgrPanel;
-import Presentation.salesui.manage.sale.SaleDialog;
+import Presentation.salesui.manage.sale.SalePane;
 import Presentation.uihelper.AboutPanel;
 import Presentation.uihelper.UIhelper;
 import Presentation.uihelper.UserInfoButton;
@@ -121,11 +115,11 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource()==purchaseBtn){
-			
+			parent.setRightComponent(new PurchaseMgrPanel(parent));
 		}else if(e.getSource()==memberBtn){
-			
+				parent.setRightComponent(new MemberMgrPanel(parent));
 		}else if(e.getSource()==saleBtn){
-			parent.setRightComponent(new SaleDialog(parent));
+			parent.setRightComponent(new SaleMgrPanel(parent));
 			
 		}else if(e.getSource()==aboutBtn){
 			parent.setRightComponent(new AboutPanel());

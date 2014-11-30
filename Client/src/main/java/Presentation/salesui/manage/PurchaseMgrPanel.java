@@ -19,10 +19,13 @@ import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import Presentation.salesui.manage.purchase.PurchaseDialog;
-import Presentation.salesui.manage.purchase.PurchaseReturnDialog;
+import Presentation.mainui.MainFrame;
+import Presentation.memberui.ModMemberPanel;
+import Presentation.salesui.manage.purchase.PurchasePane;
+import Presentation.salesui.manage.purchase.PurchaseReturnPane;
 
-public class PurchaseMgrPanel extends JPanel {
+
+public class PurchaseMgrPanel extends JPanel implements ActionListener{
 	/**
 	 * 
 	 */
@@ -31,8 +34,9 @@ public class PurchaseMgrPanel extends JPanel {
 	JTable purchaseTable;
 	JTextField searchFld;
 	String keyWord;
-
-	public PurchaseMgrPanel() {
+	MainFrame parent;
+	public PurchaseMgrPanel(MainFrame frame) {
+		parent=frame;
 		this.setBackground(Color.WHITE);
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
@@ -48,7 +52,7 @@ public class PurchaseMgrPanel extends JPanel {
 		purchaseBtn.setBackground(Color.white);
 		purchaseBtn.setHorizontalAlignment(SwingConstants.LEFT);
 		purchaseBtn.setFocusPainted(false);
-		purchaseBtn.addActionListener(new PurchaseBtnListener());
+		purchaseBtn.addActionListener(this);
 		c.gridx = 0;
 		c.gridy = 0;
 		c.weightx = 0.02;
@@ -64,7 +68,7 @@ public class PurchaseMgrPanel extends JPanel {
 		purchaseReturnBtn.setBackground(Color.white);
 		purchaseReturnBtn.setHorizontalAlignment(SwingConstants.LEFT);
 		purchaseReturnBtn.setFocusPainted(false);
-		purchaseReturnBtn.addActionListener(new PurchaseReturnBtnListener());
+		purchaseReturnBtn.addActionListener(this);
 		c.gridx = 1;
 		gbl.setConstraints(purchaseReturnBtn, c);
 		this.add(purchaseReturnBtn);
@@ -115,23 +119,7 @@ public class PurchaseMgrPanel extends JPanel {
 		this.add(purchaseTable);
 	}
 
-	class PurchaseBtnListener implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			JDialog purchaseDlg=new PurchaseDialog();
-
-		}
-
-	}
-
-	class PurchaseReturnBtnListener implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			JDialog purchaseReturnDlg=new PurchaseReturnDialog();
-
-		}
-
-	}
+	
 
 	class SearchFldListener implements DocumentListener {
 
@@ -156,5 +144,13 @@ public class PurchaseMgrPanel extends JPanel {
 
 		}
 
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==purchaseBtn)
+		parent.setRightComponent(new PurchasePane(parent));
+		else if(e.getSource()==purchaseReturnBtn)
+			parent.setRightComponent(new PurchaseReturnPane(parent));;
 	}
 }

@@ -18,6 +18,8 @@ import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import Presentation.mainui.MainFrame;
+
 public class MemberMgrPanel extends JPanel {
 	/**
 	 * 
@@ -27,7 +29,9 @@ public class MemberMgrPanel extends JPanel {
 	JTextField searchFld;
 	JTable memberTable;
 	String keyWord;
-	public MemberMgrPanel() {
+	MainFrame parent;
+	public MemberMgrPanel(MainFrame frame) {
+		parent=frame;
 		this.setBackground(Color.white);
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
@@ -134,7 +138,7 @@ public class MemberMgrPanel extends JPanel {
 	class AddBtnListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			JDialog addMemberDlg=new AddMemberDialog();
+			parent.setRightComponent(new AddMemberPanel(parent));
 		}
 		
 	}
@@ -142,7 +146,8 @@ public class MemberMgrPanel extends JPanel {
 
 		public void actionPerformed(ActionEvent e) {
 			//-----应当传入客户编号-----------------------
-			JDialog delMemberDlg=new DelMemberDialog();
+			
+			JDialog delMemberDlg=new DelMemberDialog(null,null,parent);
 		}
 		
 	}
@@ -150,7 +155,7 @@ public class MemberMgrPanel extends JPanel {
 
 		public void actionPerformed(ActionEvent e) {
 			//-----应当传入客户信息-----------------------
-			JDialog modMemberDlg=new ModMemberDialog();
+			parent.setRightComponent(new ModMemberPanel(parent));
 		}
 		
 	}

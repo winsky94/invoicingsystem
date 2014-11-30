@@ -24,12 +24,13 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.functionPane;
 import Presentation.mainui.outBorder;
 import Presentation.uihelper.UIhelper;
 
-public class SaleDialog extends JPanel implements ActionListener{
+public class SalePane extends  ChooseGoodsFatherPane  implements ActionListener{
 
 	/**
 	 * 
@@ -49,7 +50,7 @@ public class SaleDialog extends JPanel implements ActionListener{
 	JTextArea remarkArea;
 	JButton submitBtn, addCouponBtn, addItemBtn, delItemBtn;
 
-	public SaleDialog(MainFrame frame) {
+	public SalePane(MainFrame frame) {
 		setSize(frame.getWidth()*1000/1225,frame.getHeight());
 		
 		
