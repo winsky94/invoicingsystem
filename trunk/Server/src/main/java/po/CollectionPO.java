@@ -23,6 +23,7 @@ public class CollectionPO extends ReceiptPO implements Serializable{
      }
      
      public CollectionPO(String a,String b,String f,String c,ArrayList<TransferItemPO> d,double e){
+    	 super(ReceiptType.COLLECTION);
     	 ID=a;
     	 supplier=b;
     	 seller=f;

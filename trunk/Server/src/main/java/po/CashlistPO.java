@@ -20,6 +20,7 @@ public class CashlistPO extends ReceiptPO implements Serializable{
      }
      
      public CashlistPO(String a,String b,String c,ArrayList<ClauseItemPO> d,double e){
+    	 super(ReceiptType.CASHLIST);
     	 ID=a;
     	 user=b;
     	 account=c;
