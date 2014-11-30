@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 
 import po.UserPO.UserJob;
 import vo.UserVO;
+import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import businesslogic.userbl.User;
@@ -22,7 +23,7 @@ public class StockLeftShortPanel extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JButton goodsBtn, stockBtn, giftBtn, aboutBtn;
+	JLeftButton goodsBtn, stockBtn, giftBtn, aboutBtn;
 	MainFrame parent;
 	headPane hp;
 	Color stockColor=new Color(51,125,86);
@@ -31,25 +32,23 @@ public class StockLeftShortPanel extends JPanel{
 		this.setLayout(new GridLayout(10, 1));
 		//!!!!!!!!!BL!!!!!!!!!!!
 		UserVO user=frame.getUser();
-		//user.setJob(UserJob.MANAGER);
-		hp=new headPane(frame,this,user);
+		hp=new headPane(frame,this,user,1);
 		this.add(hp);
 		// 商品管理按钮
-		goodsBtn = new JButton(new ImageIcon("img/stock/goodsMgr.png"));
-		goodsBtn.setBackground(stockColor);
-		goodsBtn.setFocusPainted(false);
+		goodsBtn = new JLeftButton(new ImageIcon("img/stock/goodsMgr.png"),stockColor);
+	
 		goodsBtn.addActionListener(new GoodsBtnListener());
 		this.add(goodsBtn);
 		// 库存管理按钮
-		stockBtn = new JButton(new ImageIcon(
-				"img/stock/stockMgr.png"));
-		stockBtn.setBackground(stockColor);
-		stockBtn.setFocusPainted(false);
+		stockBtn = new JLeftButton(new ImageIcon(
+				"img/stock/stockMgr.png"),stockColor);
+	
 		stockBtn.addActionListener(new StockBtnListener());
 		this.add(stockBtn);
 		// 库存赠送按钮
-		giftBtn = new JButton(new ImageIcon("img/stock/giftMgr.png"));
-		giftBtn.setBackground(stockColor);
+		giftBtn = new JLeftButton(new ImageIcon("img/stock/giftMgr.png"),
+				stockColor);
+	
 		giftBtn.setFocusPainted(false);
 		giftBtn.addActionListener(new GiftBtnListener());
 		this.add(giftBtn);

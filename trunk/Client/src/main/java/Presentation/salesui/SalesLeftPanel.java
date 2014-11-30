@@ -61,7 +61,7 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 		c.gridx=0;c.gridy=0;
 		c.gridheight=2;
 		
-		headPane=new headPane(parent,this,user);
+		headPane=new headPane(parent,this,user,0);
 		grid.setConstraints(headPane, c);
 		this.add(headPane);
 		
@@ -69,7 +69,7 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 		
 		
 		JPanel down=new JPanel();
-		c.weightx=0.3;c.weighty=0.4;
+		c.weightx=3;c.weighty=4;
 		c.gridx=0;c.gridy=2;
 		c.gridheight=6;
 		c.gridwidth=1;

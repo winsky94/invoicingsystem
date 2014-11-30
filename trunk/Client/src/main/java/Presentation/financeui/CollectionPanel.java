@@ -12,12 +12,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import Presentation.mainui.MainFrame;
 
 public class CollectionPanel extends JPanel implements ActionListener{
-	JLabel timeNow;
+	//JLabel timeNow;
 	JTable jt;
 	CollectionModel cm=new CollectionModel();
 	JScrollPane jspp;
-	Timer t;
-	JPanel jp1,jp2,jp3;
+	//Timer t;
+	JPanel jp1,jp2;
 	JButton jb1,jb2,jb3,jb4,jb5,jb6;
 	JTextField jtf;
 	
@@ -96,14 +96,14 @@ public class CollectionPanel extends JPanel implements ActionListener{
 		jp2.add(new Panel(),BorderLayout.EAST);
 		this.add(jp2);
 		
-		jp3=new JPanel();
+		/*jp3=new JPanel();
 		t=new Timer(1000,this);//每隔一秒触发ActionEvent事件
 		t.start();//启动计时器
 //		timeNow=new JLabel(Calendar.getInstance().getTime().toString());
 		timeNow=new JLabel(Calendar.getInstance().getTime().toLocaleString());
 		jp3.add(timeNow);
 		jp3.setBorder(new EtchedBorder(EtchedBorder.RAISED));
-        this.add(jp3,BorderLayout.SOUTH);
+        this.add(jp3,BorderLayout.SOUTH);*/
 	}
 
 	public void addRow(String[] buffer){
@@ -115,7 +115,7 @@ public class CollectionPanel extends JPanel implements ActionListener{
 		if(e.getSource()==jb4){
 			frame.setRightComponent(new AddCollectionPanel(frame,this,color));
 		}
-		this.timeNow.setText(Calendar.getInstance().getTime().toLocaleString());
+		//this.timeNow.setText(Calendar.getInstance().getTime().toLocaleString());
 		
 	}
 	

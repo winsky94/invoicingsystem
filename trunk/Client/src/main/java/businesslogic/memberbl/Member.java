@@ -82,8 +82,8 @@ public class Member implements MemberBLService{
 	public MemberPO voToPo(MemberVO vo){
 		MemberPO po=new MemberPO(vo.getMemberID(),vo.getmType(),vo.getmLevel(),vo.getName(),
 				vo.getTel(),vo.getAddress(),vo.getPostcode(),vo.getEMail(),vo.getDefaultClerk()
-				,vo.getMaxOwe(),vo.getToReceive(),vo.getToPay());
-		po.setPoints(vo.getPoints());
+				,vo.getMaxOwe(),vo.getToReceive(),vo.getToPay(),vo.getPoints());
+		
 		return po;
 	}
 	public MemberVO poToVo(MemberPO po){

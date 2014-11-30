@@ -14,7 +14,7 @@ public class MemberPO {
 	public MemberPO(String memberID, MemberType mType, MemberLevel mLevel,
 			String name, String tel, String address, String postcode,
 			String EMail, String defaultClerk, double MaxOwe, double toReceive,
-			double toPay) {
+			double toPay,double points) {
 		this.memberID=memberID;
 		this.mType=mType;
 		this.mLevel=mLevel;
@@ -27,7 +27,7 @@ public class MemberPO {
 		this.MaxOwe=MaxOwe;
 		this.toReceive=toReceive;
 		this.toPay=toPay;
-		this.points=0;
+		this.points=points;
 	}
 
 	public void setmLevel(MemberLevel mLevel) {
@@ -90,8 +90,8 @@ public class MemberPO {
 
 
 
-	public void setPoints(int points) {
-		this.points = points;
+	public void setPoints(double d) {
+		this.points = d;
 	}
 
 
