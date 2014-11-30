@@ -24,16 +24,18 @@ public class User extends UnicastRemoteObject implements UserDataService{
 	JXCFile file;
 	public User() throws RemoteException {
 		super();
-		file=new JXCFile("user.ser");
+		file=new JXCFile("src/main/java/user.ser");
 		// TODO 自动生成的构造函数存根
 	}
 	
 	public int add(UserPO po) throws RemoteException {
-		if(showUserInfo(po.getID())!=null){
-			return 1;
+		if(showUserInfo(po.getID())==null){
+			file.write(po);
+		    return 0;		
 		}
-	    file.write(po);
-	    return 0;
+		else 
+			return 1;
+	    
 	}
 
 	public int delete(UserPO po) throws RemoteException {
@@ -75,15 +77,36 @@ public class User extends UnicastRemoteObject implements UserDataService{
 	}
 
 	public UserPO showUserInfo(String ID) throws RemoteException {
-		/*ArrayList<Object> a=file.read();
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return null;
 		for(Object b:a){
 			UserPO c=(UserPO)b;
-			if(c.getID()==ID)
+			if(c.getID().equals(ID))
 				return c;
-		}*/
-		UserPO po=new UserPO("jfje","22","123456",UserJob.SALE,0);
+		}
+	//	UserPO po=new UserPO("jfje","22","123456",UserJob.SALE,0);
 					
-		return po; //不存在该用户
+		return null; //不存在该用户
+	}
+	
+	public static void main(String[] args){
+		User a;
+		try {
+			a=new User();
+			UserPO b = new UserPO("小金金", "JL-00001","123456",UserJob.MANAGER,100);
+			System.out.println(a.add(b));
+			UserPO c=a.showUserInfo("JL-00001");
+			if(c==null)
+				System.out.println("ID不存在");
+			else 
+			    System.out.println(c.getName()+c.getPassword()+c.getJob());
+			System.out.println(a.add(b));
+
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 
