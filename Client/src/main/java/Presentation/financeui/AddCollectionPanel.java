@@ -20,9 +20,9 @@ import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 
 public class AddCollectionPanel extends JPanel implements ActionListener{
 
-	JLabel jlb,timeNow,jlb1,jlb2,jlb3,jlb4,jlb5;
+	JLabel jlb,jlb1,jlb2,jlb3,jlb4,jlb5;
 	JTextField jtf1,jtf2,jtf3,jtf4,jtf5;
-	Timer t;
+	//Timer t;
 	JPanel jp1,jp2,jp3,jp4,jp5,jp6,jp7,jp8,jp9,jp10;
 	JTable jt;
 	ExchangeMoneyModel emm=new ExchangeMoneyModel();
@@ -164,14 +164,7 @@ public class AddCollectionPanel extends JPanel implements ActionListener{
 	    this.add(jp2);
 		
 				
-		jp3=new JPanel();
-		t=new Timer(1000,this);//每隔一秒触发ActionEvent事件
-		t.start();//启动计时器
-//		timeNow=new JLabel(Calendar.getInstance().getTime().toString());
-		timeNow=new JLabel(Calendar.getInstance().getTime().toLocaleString());
-		jp3.add(timeNow);
-		jp3.setBorder(new EtchedBorder(EtchedBorder.RAISED));
-        this.add(jp3,BorderLayout.SOUTH);
+	
 		
     }
     
@@ -210,7 +203,7 @@ public class AddCollectionPanel extends JPanel implements ActionListener{
 		else if(e.getSource()==jb3){
 			frame.setRightComponent(panel);
 		}
-		this.timeNow.setText(Calendar.getInstance().getTime().toLocaleString());
+		
 		
 	}
 

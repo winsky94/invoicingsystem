@@ -15,13 +15,16 @@ import javax.swing.border.EtchedBorder;
 import po.UserPO.UserJob;
 import vo.UserVO;
 import Presentation.financeui.LeftLongPanel;
-import Presentation.promotionui.leftPane;
-import Presentation.promotionui.listPane;
+import Presentation.promotionui.ProleftPane;
 import Presentation.salesui.SalesLeftPanel;
 import Presentation.stockui.StockLeftPanel;
 
 
 public class MainFrame extends JFrame implements MouseListener,ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int xOld,yOld;
 	JSplitPane jsp;
 	JPanel jp1,jp2,welcomePanel;
@@ -79,7 +82,7 @@ public class MainFrame extends JFrame implements MouseListener,ActionListener{
 			switch(job){
 			case MANAGER:
 				type="manager";setColor();
-				this.setLeftComponent(new leftPane(this));break;
+				this.setLeftComponent(new ProleftPane(this));break;
 			case FINANCE:
 				type="finance";setColor();
 				this.setLeftComponent(new LeftLongPanel(this,color));break;
