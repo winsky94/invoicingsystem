@@ -35,9 +35,6 @@ public class CollectionPO extends ReceiptPO implements Serializable{
     	 return ID;
      }
      
-     public MemberPO getMember(){
-    	 return member;
-     }
      
      public String getSupplier(){
     	 return supplier;
