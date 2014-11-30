@@ -24,4 +24,12 @@ public class GiftCouponProPO extends PromotionPO{
 	public double getTotalValue() {
 		return totalValue;
 	}
+	public void setCouponList(ArrayList<CouponPO> couponList) {
+		this.couponList = couponList;
+	}
+	public void setTotalValue(double totalValue) {
+		this.totalValue = totalValue;
+	}
+	
+	
 }

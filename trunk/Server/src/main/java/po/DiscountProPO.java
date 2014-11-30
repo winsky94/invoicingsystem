@@ -36,4 +36,19 @@ public class DiscountProPO extends PromotionPO{
 	public double getDiscountValue() {
 		return discountValue;
 	}
+	
+	public void setDiscount(ArrayList<Double> count,
+	ArrayList<GoodsPO>  goods){
+		this.countList=count;
+		this.goodsList=goods;
+	}
+
+	public void setTotalValue(double totalValue) {
+		this.totalValue = totalValue;
+	}
+
+	public void setDiscountValue(double discountValue) {
+		this.discountValue = discountValue;
+	}
+	
 }

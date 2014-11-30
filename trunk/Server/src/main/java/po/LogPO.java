@@ -23,4 +23,5 @@ public class LogPO {
 	public double getAddGrades() {
 		return addGrades;
 	}
+	
 }

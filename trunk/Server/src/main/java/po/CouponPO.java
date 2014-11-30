@@ -22,6 +22,14 @@ public class CouponPO {
 	public boolean isUse() {
 		return isUse;
 	}
+
+	public void setValue(double value) {
+		this.value = value;
+	}
+
+	public void setUse(boolean isUse) {
+		this.isUse = isUse;
+	}
 	
 	
 }

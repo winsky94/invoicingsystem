@@ -24,4 +24,12 @@ public class GiftGoodProPO extends PromotionPO{
 	public double getTotalValue() {
 		return totalValue;
 	}
+	public void setGiftList(ArrayList<GoodsPO> giftList) {
+		this.giftList = giftList;
+	}
+	public void setTotalValue(double totalValue) {
+		this.totalValue = totalValue;
+	}
+	
+	
 }
