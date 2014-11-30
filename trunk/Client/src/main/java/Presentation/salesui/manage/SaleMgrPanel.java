@@ -19,10 +19,11 @@ import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import Presentation.salesui.manage.sale.SaleDialog;
-import Presentation.salesui.manage.sale.SaleReturnDialog;
+import Presentation.mainui.MainFrame;
+import Presentation.salesui.manage.sale.SalePane;
+import Presentation.salesui.manage.sale.SaleReturnPane;
 
-public class SaleMgrPanel extends JPanel{
+public class SaleMgrPanel extends JPanel implements ActionListener{
 	/**
 	 * 
 	 */
@@ -31,7 +32,9 @@ public class SaleMgrPanel extends JPanel{
 	JTable saleTable;
 	JTextField searchFld;
 	String keyWord;
-	public SaleMgrPanel(){
+	MainFrame parent;
+	public SaleMgrPanel(MainFrame frame){
+		parent=frame;
 		this.setBackground(Color.WHITE);
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
@@ -47,7 +50,7 @@ public class SaleMgrPanel extends JPanel{
 		saleBtn.setBackground(Color.white);
 		saleBtn.setHorizontalAlignment(SwingConstants.LEFT);
 		saleBtn.setFocusPainted(false);
-		saleBtn.addActionListener(new SaleBtnListener());
+		saleBtn.addActionListener(this);
 		c.gridx = 0;
 		c.gridy = 0;
 		c.weightx = 0.02;
@@ -63,7 +66,7 @@ public class SaleMgrPanel extends JPanel{
 		saleReturnBtn.setBackground(Color.white);
 		saleReturnBtn.setHorizontalAlignment(SwingConstants.LEFT);
 		saleReturnBtn.setFocusPainted(false);
-		saleReturnBtn.addActionListener(new SaleReturnBtnListener());
+		saleReturnBtn.addActionListener(this);
 		c.gridx = 1;
 		gbl.setConstraints(saleReturnBtn, c);
 		this.add(saleReturnBtn);
@@ -114,23 +117,9 @@ public class SaleMgrPanel extends JPanel{
 		this.add(saleTable);
 	}
 
-	class SaleBtnListener implements ActionListener {
 
-		public void actionPerformed(ActionEvent e) {
-			JDialog saleDlg=new SaleDialog();
 
-		}
 
-	}
-
-	class SaleReturnBtnListener implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			JDialog saleReturnDlg=new SaleReturnDialog();
-
-		}
-
-	}
 
 	class SearchFldListener implements DocumentListener {
 
@@ -155,5 +144,14 @@ public class SaleMgrPanel extends JPanel{
 
 		}
 
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==saleBtn){
+			parent.setRightComponent(new SalePane(parent));
+		}else if(e.getSource()==saleReturnBtn)
+			parent.setRightComponent(new SaleReturnPane(parent));
+			
 	}
 }

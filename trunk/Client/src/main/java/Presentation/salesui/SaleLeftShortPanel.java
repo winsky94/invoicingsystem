@@ -14,6 +14,8 @@ import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
+import Presentation.memberui.MemberMgrPanel;
+import Presentation.salesui.manage.SaleMgrPanel;
 import Presentation.uihelper.AboutPanel;
 
 //选中后 变色 以后==========
@@ -94,6 +96,14 @@ public class SaleLeftShortPanel extends JPanel implements ActionListener{
 			parent.setLeftComponent(new SalesLeftPanel(parent));
 		else if(e.getSource()==aboutBtn)
 			parent.setRightComponent(new AboutPanel());
+		else if(e.getSource()==saleBtn)
+			parent.setRightComponent(new SaleMgrPanel(parent));
+		else if(e.getSource()==memberBtn){
+			parent.setRightComponent(new MemberMgrPanel(parent));
+			
+		}else if(e.getSource()==purchaseBtn)
+			parent.setRightComponent(new PurchaseMgrPanel(parent));
+	//	else if(e.getSource())
 		
 	}
 	

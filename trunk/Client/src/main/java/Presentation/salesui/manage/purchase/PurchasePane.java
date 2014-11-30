@@ -15,9 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import Presentation.mainui.MainFrame;
 import Presentation.uihelper.UIhelper;
 
-public class PurchaseDialog extends JDialog {
+public class PurchasePane extends JPanel {
 
 	/**
 	 * 
@@ -35,11 +36,13 @@ public class PurchaseDialog extends JDialog {
 	JTextField remarkFld;
 	JTable purchaseItemTbl;
 	JComboBox<String> JHSCbox;
-
-	public PurchaseDialog() {
-		pnl = this.getContentPane();
-		pnl.setLayout(null);
-		pnl.setBackground(Color.white);
+	MainFrame parent;
+	public PurchasePane(MainFrame frame) {
+		parent=frame;
+		
+		
+		this.setLayout(null);
+		this.setBackground(Color.white);
 		// ---------------下面添加各个组件----------------------------------------
 		// -----------------------IDLabel------------------------------------
 		IDLbl = new JLabel();
@@ -49,13 +52,13 @@ public class PurchaseDialog extends JDialog {
 		IDLbl.setText(text);
 		IDLbl.setBounds(dialogWidth * 3 / 100, dialogHeight * 3 / 100,
 				dialogWidth * 20 / 100, dialogHeight * 5 / 100);
-		pnl.add(IDLbl);
+		this.add(IDLbl);
 		// -----------------------JHSLabel供应商------------------------------------
 		JHSLbl = new JLabel("供应商：");
 		JHSLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		JHSLbl.setBounds(dialogWidth * 22 / 100, dialogHeight * 3 / 100,
 				dialogWidth * 7 / 100, dialogHeight * 5 / 100);
-		pnl.add(JHSLbl);
+		this.add(JHSLbl);
 		// ----------------------JHSCbox-----------------------------------------
 		// !!!!!!!!!!!这里应该传入所有进货商的名字+编号！！！
 		String[] memberList = { "请选择供应商", "BL写这里", "JHS-0000001 李四" };
@@ -64,19 +67,19 @@ public class PurchaseDialog extends JDialog {
 		JHSCbox.setBackground(Color.white);
 		JHSCbox.setBounds(dialogWidth * 28 / 100, dialogHeight * 3 / 100,
 				dialogWidth * 20 / 100, dialogHeight * 5 / 100);
-		pnl.add(JHSCbox);
+		this.add(JHSCbox);
 		// -------------------stockLbl------------------------------------------
 		stockLbl = new JLabel("仓库： ");
 		stockLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		stockLbl.setBounds(dialogWidth * 63 / 100, dialogHeight * 3 / 100,
 				dialogWidth * 7 / 100, dialogHeight * 5 / 100);
-		pnl.add(stockLbl);
+		this.add(stockLbl);
 		// ------------------stockFld-----------------------------------------
 		stockFld = new JTextField();
 		stockFld.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		stockFld.setBounds(dialogWidth * 68 / 100, dialogHeight * 3 / 100,
 				dialogWidth * 15 / 100, dialogHeight * 5 / 100);
-		pnl.add(stockFld);
+		this.add(stockFld);
 		// -------------------userLbl------------------------------------------
 		userLbl = new JLabel();
 		// !!!!!!!!!!!BL获取user信息
@@ -85,7 +88,7 @@ public class PurchaseDialog extends JDialog {
 		userLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		userLbl.setBounds(dialogWidth * 51 / 100, dialogHeight * 3 / 100,
 				dialogWidth * 40 / 100, dialogHeight * 5 / 100);
-		pnl.add(userLbl);
+		this.add(userLbl);
 		// ----------------------itemPnl----------------------------------
 		itemPnl = new JPanel();
 		itemPnl.setLayout(null);
@@ -147,14 +150,7 @@ public class PurchaseDialog extends JDialog {
 		submitBtn.setFocusPainted(false);
 		pnl.add(submitBtn);
 		// ------------------------------------------------------------------
-		this.setTitle("创建进货单");
-		this.setBounds((screenWidth - dialogWidth) / 2,
-				(screenHeight - dialogHeight) / 2, dialogWidth, dialogHeight);
-
-		this.setResizable(false);
-		this.setModal(true);
-		this.setIconImage(UIhelper.getImage("img/sales/purchase-blue.png"));
-		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	
 		this.setVisible(true);
 
 	}
@@ -162,7 +158,7 @@ public class PurchaseDialog extends JDialog {
 	class AddItemBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			JDialog addItemDlg = new AddPurchaseItemDialog();
+			//JDialog addItemDlg = new AddPurchaseItemDialog();
 		}
 
 	}

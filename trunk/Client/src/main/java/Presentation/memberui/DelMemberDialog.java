@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 
+import Presentation.mainui.MainFrame;
 import Presentation.uihelper.UIhelper;
 
 public class DelMemberDialog extends JDialog{
@@ -28,7 +29,9 @@ public class DelMemberDialog extends JDialog{
 	int screenHeight = UIhelper.getScreenHeight();
 	int dialogWidth = screenWidth /4;
 	int dialogHeight = screenHeight / 4;
-	public DelMemberDialog(){
+	MainFrame parent;
+	public DelMemberDialog(String id,String name,MainFrame frame){
+		parent=frame;
 		Container pnl=this.getContentPane();
 		pnl.setBackground(Color.white);
 		pnl.setLayout(null);
