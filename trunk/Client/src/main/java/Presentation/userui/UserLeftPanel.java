@@ -44,7 +44,7 @@ public class UserLeftPanel extends JPanel implements ActionListener {
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridheight = 2;
-		headPane = new headPane(parent, this, user);
+		headPane = new headPane(parent, this, user,0);
 		grid.setConstraints(headPane, c);
 		this.add(headPane);
 
