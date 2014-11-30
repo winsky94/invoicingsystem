@@ -3,6 +3,7 @@ package businesslogicservice.userblservice;
 import java.util.ArrayList;
 
 import po.UserPO;
+import po.UserPO.UserJob;
 import vo.UserVO;
 
 public interface UserBLService {
@@ -17,4 +18,5 @@ public interface UserBLService {
 	public UserVO showUser(String UserID);
 	
 	public ArrayList<UserVO> showAll();
+	public String NewUserID(UserJob job);
 }

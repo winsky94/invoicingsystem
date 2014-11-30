@@ -13,18 +13,18 @@ import businesslogic.userbl.User;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
+import Presentation.uihelper.AboutPanel;
+
 public class LeftLongPanel extends JPanel implements ActionListener,MouseListener{
-	JPanel jp1,jp3,jp4,jp5,jp6,headPane;
-	ImageIcon ii1,iiw;
-	JLeftButton jb1,jb2,jb3,jb4,jb5;
-	JLabel jlb1,jlb2;
+	JPanel headPane;
+	JLeftButton jb1,jb2,jb3,jb4,jb5,aboutBtn;
 	MainFrame frame;
 	Color[] color;
 	
-	public LeftLongPanel(MainFrame myframe,Color[] mycolor){
+	public LeftLongPanel(MainFrame myframe){
 		
 		frame=myframe;
-		color=mycolor;
+		color=myframe.getTheme();
 		GridBagLayout grid=new GridBagLayout();
 		GridBagConstraints c=new GridBagConstraints();
 		UserVO user=frame.getUser();
@@ -54,29 +54,32 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 				color[0]);
 		jb1.addMouseListener(this);
 		jb1.addActionListener(this);
-		
-		jb2=new JLeftButton("制定单据",new ImageIcon("img/finance/account-golden.png"),
+		down.add(jb1);
+		jb2=new JLeftButton("制定单据",new ImageIcon("img/finance/account-left.png"),
 				color[0]);
 		jb2.addActionListener(this);
 		jb2.addMouseListener(this);
-		
+		down.add(jb2);
 		
 		jb3=new JLeftButton("查看报表",new ImageIcon("img/finance/manage-golden.png"),
 				color[0]);
 		jb3.addMouseListener(this);
-		
+		down.add(jb3);
 		
 		jb4=new JLeftButton("期初建账",new ImageIcon("img/finance/manage2-golden.png"),
 				color[0]);
 		
 		jb4.addMouseListener(this);
-		
-		//jp4=new JPanel();
-		//jp4.setLayout(new GridLayout(4,1));
-		down.add(jb1);
-		down.add(jb2);
-		down.add(jb3);
 		down.add(jb4);
+		
+		aboutBtn = new JLeftButton("关于系统", new ImageIcon("img/icon-about.png"),
+				color[0]);
+		aboutBtn.addActionListener(this);
+		down.add(aboutBtn);
+		
+		
+		
+		
 		
 		jb5=new JLeftButton("收起菜单",new ImageIcon("img/mainFrame/back.png"),
 				color[0]);
@@ -86,25 +89,7 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		this.add(jb5);
 		this.setBackground(color[0]);
 		
-      /*  jp5=new JPanel();
-        ImageIcon image1 = new ImageIcon("img/finance/left-blue.png"); 
-		jb5=new JButton(image1);
-		jb5.setText("收起");
-		Font f1=new Font("宋体",Font.BOLD,15);//根据指定字体名称、样式和磅值大小，创建一个新 Font。
-		jb5.setFont(f1);
-		jb5.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		jb5.addActionListener(this);
-		jb5.setBackground(color[0]);
-		jb5.setBorderPainted(false);
-		jb5.setFocusPainted(false);
-		jp5.add(jb5);
-		jp5.setBackground(color[0]);
-		
-
-		this.setLayout(new BorderLayout());
-		this.add(jp3,BorderLayout.NORTH);
-		this.add(jp4);
-		this.add(jp5,BorderLayout.SOUTH);*/
+    
 
 		
 	}
@@ -152,17 +137,18 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		
 	}
 
-	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource()==jb1){
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==jb1){
 			frame.setRightComponent(new AccountPanel());		
 		}
-		else if(arg0.getSource()==jb2){
+		else if(e.getSource()==jb2){
 			frame.setRightComponent(new CollectionPanel(frame,color));	
 		}
-		else if(arg0.getSource()==jb5){			
-			frame.setLeftComponent(new LeftShortPanel(frame,color));
-			frame.setDividerLocation("short");
+		else if(e.getSource()==jb5){			
+			frame.setLeftComponent(new LeftShortPanel(frame));
 		}
+		else if(e.getSource()==aboutBtn)
+			frame.setRightComponent(new AboutPanel());
 		
 	}
 		

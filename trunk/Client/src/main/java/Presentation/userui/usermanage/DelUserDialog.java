@@ -3,12 +3,19 @@ package Presentation.userui.usermanage;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 
+import businesslogic.userbl.User;
+import businesslogicservice.userblservice.UserBLService;
+import Presentation.mainui.MainFrame;
 import Presentation.uihelper.UIhelper;
+import Presentation.userui.UserMgrPanel;
+
 
 public class DelUserDialog extends JDialog {
 	/**
@@ -22,14 +29,14 @@ public class DelUserDialog extends JDialog {
 	int dlgWidth = screenWidth * 25 / 100;
 	int dlgHeight = screenHeight * 25 / 100;
 	Container pnl;
-
-	public DelUserDialog() {
+	UserBLService service;
+	public DelUserDialog(final String ID,String name,final MainFrame parent) {
 		pnl = this.getContentPane();
 		pnl.setBackground(Color.white);
 		pnl.setLayout(null);
 		//
 		// ------------------textLbl------------------------------------
-		textLbl = new JLabel("你确定要删除此用户吗？");
+		textLbl = new JLabel("你确定要删除用户 "+name+"("+ID+") 吗？");
 		textLbl.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		textLbl.setBounds(dlgWidth * 28 / 100, dlgHeight * 20 / 100,
 				dlgWidth * 80 / 100, dlgHeight * 16 / 100);
@@ -41,6 +48,24 @@ public class DelUserDialog extends JDialog {
 				dlgWidth * 30 / 100, dlgHeight * 16 / 100);
 		submitBtn.setFocusPainted(false);
 		pnl.add(submitBtn);
+		submitBtn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				try {
+					service=new User();
+					service.deleteUser(ID);
+					DelUserDialog.this.dispose();
+					UserMgrPanel mgr=new UserMgrPanel(parent);
+					parent.setRightComponent(mgr);
+					mgr.RefreshUserTable(service.showAll());
+				} catch (Exception e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				
+				
+				
+			}
+		});
 		//
 		this.setTitle("删除确认");
 		this.setBounds((screenWidth - dlgWidth) / 2,

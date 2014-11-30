@@ -64,23 +64,23 @@ public class StockLeftPanel extends JPanel implements ActionListener{
 		// 商品管理按钮
 		goodsBtn = new JLeftButton("商品管理", new ImageIcon("img/stock/goodsMgr.png")
 		,stockColor);
-		goodsBtn.addActionListener(new GoodsBtnListener());
+		goodsBtn.addActionListener(this);
 		down.add(goodsBtn);
 		// 库存管理按钮
 		stockBtn = new JLeftButton("库存管理", new ImageIcon(
 				"img/stock/stockMgr.png"),stockColor);
-		stockBtn.addActionListener(new StockBtnListener());
+		stockBtn.addActionListener(this);
 		down.add(stockBtn);
 		// 库存赠送按钮
 		giftBtn = new JLeftButton("库存赠送", new ImageIcon("img/stock/giftMgr.png"),
 				stockColor);
 		
-		giftBtn.addActionListener(new GiftBtnListener());
+		giftBtn.addActionListener(this);
 		down.add(giftBtn);
 		// 关于按钮
 		aboutBtn = new JLeftButton("关于系统", new ImageIcon("img/icon-about.png"),
 				stockColor);
-		aboutBtn.addActionListener(new AboutBtnListener());
+		aboutBtn.addActionListener(this);
 		down.add(aboutBtn);
 		//
 		
@@ -92,45 +92,16 @@ public class StockLeftPanel extends JPanel implements ActionListener{
 		grid.setConstraints(backBtn, c);
 		this.add(backBtn);
 		this.setBackground(stockColor);
+		
+		
 	}
 
-	class GoodsBtnListener implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-	}
-
-	class StockBtnListener implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-	}
-
-	class GiftBtnListener implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-	}
-
-	class AboutBtnListener implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-		}
-
-	}
-
+	
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		if(e.getSource()==backBtn){
+			parent.setLeftComponent(new StockLeftShortPanel(parent));
+		}
 		
 	}
 }

@@ -5,6 +5,7 @@ import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import dataservice.userdataservice.UserDataService;
@@ -19,7 +20,7 @@ public class User implements UserBLService{
 	private String password;
 	private double points;
 	private UserJob job;
-	private UserDataService service;
+	public UserDataService service;
 	public User() throws Exception{
 	//	System.setSecurityManager(new SecurityManager());
 		String host="localhost:1099";
@@ -27,12 +28,7 @@ public class User implements UserBLService{
 	
 		service=(UserDataService)Naming.lookup(url);
 	}
-	public User(String name,UserJob job,double p){
-		this.name=name;
-		this.job=job;
-		this.points=p;
-		
-	}
+	
 	
 	
 	public int login(String ID, String password) {
@@ -79,6 +75,38 @@ public class User implements UserBLService{
 		
 		
 	}
+	public String NewUserID(UserJob job){
+		ArrayList<UserPO> po=service.showAll();
+		String lastID=null;
+		for(int i=0;i<po.size();i++){
+			if(po.get(i).getJob()==job)
+				lastID=po.get(i).getID();
+		}
+		if(lastID!=null)
+		{	
+			double d=Double.parseDouble(lastID.substring(3))+1;
+		     NumberFormat nf = NumberFormat.getInstance();
+		     nf.setMinimumIntegerDigits(5); 
+		     nf.setGroupingUsed(false);
+		     lastID=nf.format(d);
+		}
+		
+		else lastID="00001";
+		switch(job){
+		case MANAGER:
+			return "JL-"+lastID;
+		case SALE:
+			return "XS-"+lastID;
+		case STOCK:
+			return "KC-"+lastID;
+		case FINANCE:
+			return "CW-"+lastID;
+		default:
+			return "GL-"+lastID;		
+			
+		}
+		
+	}
 	
 	public ArrayList<UserVO> showAll(){
 		ArrayList<UserPO> po=service.showAll();
@@ -91,7 +119,7 @@ public class User implements UserBLService{
 	
 	
 	public static UserPO voToPO(UserVO vo){
-		UserPO po=new UserPO(vo.getID(),vo.getName(),vo.getPassword(),
+		UserPO po=new UserPO(vo.getName(),vo.getID(),vo.getPassword(),
 				(UserJob)vo.getJob(),vo.getGrades());
 		return po;
 		
@@ -99,7 +127,7 @@ public class User implements UserBLService{
 	
 	
 	private UserVO poToVO(UserPO po){
-		UserVO vo=new UserVO(po.getID(),po.getName(),po.getPassword(),
+		UserVO vo=new UserVO(po.getName(),po.getID(),po.getPassword(),
 				po.getJob(),po.getGrades());
 		return vo;
 	}

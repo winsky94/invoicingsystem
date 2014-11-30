@@ -10,10 +10,13 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import businesslogic.userbl.User;
+import businesslogicservice.userblservice.UserBLService;
 import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
+import Presentation.uihelper.AboutPanel;
 import Presentation.uihelper.UIhelper;
 
 public class UserLeftPanel extends JPanel implements ActionListener {
@@ -21,11 +24,7 @@ public class UserLeftPanel extends JPanel implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JPanel leftPnl;
-	int screenWidth = UIhelper.getScreenWidth();
-	int screenHeight = UIhelper.getScreenHeight();
-	int frameWidth = screenWidth * 85 / 100;
-	int frameHeight = screenHeight * 85 / 100;
+	UserBLService service;
 	JLeftButton userBtn, logBtn, aboutBtn, backBtn;
 	Color userColor;
 	MainFrame parent;
@@ -91,6 +90,25 @@ public class UserLeftPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		if(e.getSource()==backBtn){
+			parent.setLeftComponent(new UserLeftShortPane(parent));
+			
+		}else if(e.getSource()==logBtn){
+			parent.setRightComponent(new SystemLogPanel(parent));}
+		else if(e.getSource()==userBtn){
+			UserMgrPanel mgr=new UserMgrPanel(parent);
+			try {
+				service=new User();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			parent.setRightComponent(mgr);
+			mgr.RefreshUserTable(service.showAll());
+		}
+		else if(e.getSource()==aboutBtn){
+			parent.setRightComponent(new AboutPanel());
+		}
 
 	}
 

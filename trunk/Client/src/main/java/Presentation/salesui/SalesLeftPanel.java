@@ -34,11 +34,11 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JPanel leftPnl;
-	int screenWidth = UIhelper.getScreenWidth();
-	int screenHeight = UIhelper.getScreenHeight();
-	int frameWidth = screenWidth * 85 / 100;
-	int frameHeight = screenHeight * 85 / 100;
+	//JPanel leftPnl;
+	////int screenWidth = UIhelper.getScreenWidth();
+	//int screenHeight = UIhelper.getScreenHeight();
+	////int frameWidth = screenWidth * 85 / 100;
+	//int frameHeight = screenHeight * 85 / 100;
 
 	JLeftButton purchaseBtn, saleBtn, memberBtn,aboutBtn,backBtn;
 	//JPanel memberMgrPnl, purchaseMgrPnl, saleMgrPnl, aboutPnl,rightPnl;
@@ -128,10 +128,12 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 			parent.setRightComponent(new SaleDialog(parent));
 			
 		}else if(e.getSource()==aboutBtn){
-			
+			parent.setRightComponent(new AboutPanel());
 		}else if(e.getSource()==backBtn){
-			
+			parent.setLeftComponent(new SaleLeftShortPanel(parent));
 		}
+		
+			
 		
 	}
 }

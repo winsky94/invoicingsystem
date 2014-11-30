@@ -14,26 +14,33 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 
+import vo.UserVO;
+import Presentation.mainui.MainFrame;
+import Presentation.userui.usermanage.AddUserPanel;
 import Presentation.userui.usermanage.DelUserDialog;
+import Presentation.userui.usermanage.ModifyUserPanel;
+import Presentation.userui.usermanage.getJobChange;
 
-public class UserMgrPanel extends JPanel {
+public class UserMgrPanel extends JPanel{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	Color userColor=new Color(61,49,35);
-	JFrame father;
+	MainFrame father;
 	JButton addBtn, delBtn, modBtn;
 	UserTableModel utm;
 	ArrayList<ArrayList<String>> c=new ArrayList<ArrayList<String>>();
 	JScrollPane jsp;
 	JTable userTbl;
-	public UserMgrPanel(JFrame myFather) {
+	public UserMgrPanel(MainFrame myFather) {
 		father = myFather;
 		this.setBackground(Color.white);
 		GridBagLayout gbl=new GridBagLayout();
@@ -54,7 +61,12 @@ public class UserMgrPanel extends JPanel {
 		addBtn.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				try {
+					father.setRightComponent(new AddUserPanel(father));
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		top.add(addBtn);
@@ -67,7 +79,14 @@ public class UserMgrPanel extends JPanel {
 		delBtn.setFocusPainted(false);
 		delBtn.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				JDialog delDlg=new DelUserDialog();
+				int i=userTbl.getSelectedRow();
+				if(i>=0){
+				String Id=(String)userTbl.getValueAt(i,0);
+				String name=(String)userTbl.getValueAt(i, 1);
+				JDialog delDlg=new DelUserDialog(Id,name,father);}
+				else {
+					 JOptionPane.showMessageDialog(null,"请选择用户","提示",JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 		top.add(delBtn);
@@ -81,7 +100,18 @@ public class UserMgrPanel extends JPanel {
 		modBtn.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				int i=userTbl.getSelectedRow();
+				if(i>=0){
+				String Id=(String)userTbl.getValueAt(i,0);
+				try {
+					father.setRightComponent(new ModifyUserPanel(father,Id));
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}}
+				else {
+					 JOptionPane.showMessageDialog(null,"请选择用户","提示",JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		});
 		top.add(modBtn);
@@ -120,14 +150,19 @@ public class UserMgrPanel extends JPanel {
 			return head[col];
 		}
 	}
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 920, 600);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		UserMgrPanel gp = new UserMgrPanel(testFrame);
-		gp.setBounds(0, 0,  920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
+	
+	public void RefreshUserTable(ArrayList<UserVO> vo){
+				  
+				 for(UserVO VO:vo){
+				 ArrayList<String> lineInfo=new ArrayList<String>();
+				 lineInfo.add(VO.getID());lineInfo.add(VO.getName());
+				 lineInfo.add(getJobChange.getJobString(VO.getJob()));
+				lineInfo.add(Double.toString(VO.getGrades()));
+				  c.add(lineInfo);
+				   
+				  }
+				 
 	}
+
+	
 }

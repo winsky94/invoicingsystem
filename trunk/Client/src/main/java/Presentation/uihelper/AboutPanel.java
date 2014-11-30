@@ -56,5 +56,6 @@ public class AboutPanel extends JPanel{
 		c.weighty=0.2;
 		gbl.addLayoutComponent(wordLbl, c);
 		this.add(wordLbl);
+		this.setBackground(Color.WHITE);
 	}
 }
