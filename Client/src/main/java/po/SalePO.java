@@ -47,12 +47,54 @@ public class SalePO extends ReceiptPO {
 	public double getCouponPrice() {
 		return total[3];
 	}
+	public double getCost(){
+		return total[0];
+	}
+	public double getTotal(){
+		return total[2];
+	}
+	public double getDiscount(){
+		return discount[3];
+	}
+	public void setClerk(String clerk) {
+		this.clerk = clerk;
+	}
+	public void setSalesList(ArrayList<CommodityPO> salesList) {
+		this.salesList = salesList;
+	}
 	
-	public double[] getTotal(){
-		return total;
+	public void setTotalOrigin(double origin) {
+		this.total[1]=origin;
 	}
-	public double[] getDiscount(){
-		return discount;
+	
+	
+	public void setMoneyDiscount(double money) {
+		this.discount[2]=money;
 	}
-
+	
+	public void setDiscount(double d){
+		this.discount[3]=d;
+	}
+	public void setCouponPrice(double price) {
+		this.total[3]=price;
+	}
+	
+	public void setTotal(double value){
+		this.total[2]=value;
+	}
+	public void setCost(double c){
+		this.total[0]=c;
+	}
+	
+	public void setOrgin(double o){
+		this.total[1]=o;
+	}
+	
+	public void setToPay(double t){
+		this.total[4]=t;
+	}
+	
+	
+	
+	
 }
