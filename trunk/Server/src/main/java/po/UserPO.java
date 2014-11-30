@@ -58,6 +58,9 @@ public class UserPO implements Serializable {
 	public double getGrades(){
 		return grades;
 	}
+	public void setGrades(double g){
+		this.grades=g;
+	}
 	public	enum UserJob implements Serializable{
 		
 		MANAGER,FINANCE,FINANCEMANGER,SALE,STOCK,ADMINSTRATOR,SALEMANAGER

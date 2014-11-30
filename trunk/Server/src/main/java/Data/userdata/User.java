@@ -59,9 +59,6 @@ public class User extends UnicastRemoteObject implements UserDataService{
 	public int modify(UserPO po) throws RemoteException {
 		ArrayList<Object> a=file.read();
 		
-		if(a==null)
-			return 1;  	  //不存在该用户	
-		
 		int i;
 		for(i=0;i<a.size();i++){
 			UserPO b=(UserPO)a.get(i);
@@ -69,10 +66,12 @@ public class User extends UnicastRemoteObject implements UserDataService{
 				b.setJob(po.getJob());
 				b.setName(po.getName());
 				b.setPassword(po.getPassword());
+				b.setGrades(po.getGrades());
 				break;
 			}
 		}
 		
+
 		file.writeM(a);
 		return 0;
 	}
