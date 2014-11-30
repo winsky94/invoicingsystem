@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -64,8 +65,7 @@ public class UserMgrPanel extends JPanel {
 		delBtn.setFocusPainted(false);
 		delBtn.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				JDialog delDlg=new DelUserDialog();
 			}
 		});
 		top.add(delBtn);
