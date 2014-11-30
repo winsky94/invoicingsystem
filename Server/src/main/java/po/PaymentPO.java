@@ -38,7 +38,7 @@ public class PaymentPO extends ReceiptPO implements Serializable{
     	return supplier;
     }
     
-    public String getSell(){
+    public String getSeller(){
     	return seller;
     }
     
