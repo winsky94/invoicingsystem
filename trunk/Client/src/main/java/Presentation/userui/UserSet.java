@@ -14,10 +14,10 @@ import javax.swing.JPopupMenu;
 import Presentation.mainui.LoginFrame;
 
 
-public class userSet extends JPopupMenu implements ActionListener{
+public class UserSet extends JPopupMenu implements ActionListener{
 	JFrame parent;
 	JMenuItem caccount,cpass;
-	public  userSet(JFrame frame,JPanel pane){
+	public  UserSet(JFrame frame,JPanel pane){
 			parent=frame;
 			ImageIcon account=new ImageIcon("img/mainFrame/close.png");
 			caccount=new JMenuItem("切换帐号",account);
