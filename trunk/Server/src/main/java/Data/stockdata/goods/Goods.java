@@ -1,8 +1,11 @@
 package Data.stockdata.goods;
 
+import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+
+import javax.swing.JTree;
 
 import po.GoodsPO;
 import Data.serutility.JXCFile;

@@ -1,6 +1,5 @@
 package Data.stockdata.goodsClass;
 
-import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -156,21 +155,20 @@ public class GoodsClass extends UnicastRemoteObject implements
 
 	public int recordClassTree(JTree tree) throws RemoteException {
 		// TODO 自动生成的方法存根
-		JXCFile f=new JXCFile("C:/Users/Administrator/Desktop/invoicingsystem/trunk/Server/src/main/java/ClassTree.ser");
-		
+		JXCFile f = new JXCFile("src/main/java/ClassTree.ser");
 		f.writeM(tree);
 		return 0;
 	}
 
 	public JTree getClassTree() throws RemoteException {
 		// TODO 自动生成的方法存根
-		JXCFile f=new JXCFile("C:/Users/Administrator/Desktop/invoicingsystem/trunk/Server/src/main/java/ClassTree.ser");
-		JTree tree=null;
-		ArrayList<Object> a=f.read();
-		if(a!=null){
-			tree=(JTree) f.read().get(0);
+		JXCFile f = new JXCFile("src/main/java/ClassTree.ser");
+		JTree tree = null;
+		ArrayList<Object> a = f.read();
+		if (a != null) {
+			tree = (JTree) f.read().get(0);
 		}
-		return null;
+		return tree;
 	}
 
 }
