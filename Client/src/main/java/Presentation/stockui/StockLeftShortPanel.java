@@ -18,6 +18,10 @@ import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
+import Presentation.stockui.giftmanage.GiftPanel;
+import Presentation.stockui.goodsmanage.GoodsPanel;
+import Presentation.stockui.stockmanage.StockPanel;
+import Presentation.uihelper.AboutPanel;
 import businesslogic.userbl.User;
 
 public class StockLeftShortPanel extends JPanel implements ActionListener{
@@ -96,6 +100,15 @@ public class StockLeftShortPanel extends JPanel implements ActionListener{
 		// TODO Auto-generated method stub
 		if(e.getSource()==backBtn){
 			parent.setLeftComponent(new StockLeftPanel(parent));
+		}else if(e.getSource()==aboutBtn){
+			parent.setRightComponent(new AboutPanel());
+		}else if(e.getSource()==goodsBtn){
+			parent.setRightComponent(new GoodsPanel(parent));
+		}else if(e.getSource()==stockBtn){
+			parent.setRightComponent(new StockPanel(parent));
+		}
+		else if(e.getSource()==giftBtn){
+			parent.setRightComponent(new GiftPanel(parent));
 		}
 	}
 }

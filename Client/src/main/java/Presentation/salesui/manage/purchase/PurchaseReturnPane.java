@@ -13,6 +13,7 @@ import javax.swing.JTextArea;
 
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.outBorder;
 import Presentation.uihelper.UIhelper;
 
 public class PurchaseReturnPane extends  ChooseGoodsFatherPane{
@@ -118,7 +119,7 @@ public class PurchaseReturnPane extends  ChooseGoodsFatherPane{
 		submitBtn.setFocusPainted(false);
 		this.add(submitBtn);
 		// ------------------------------------------------------------------
-		
+		this.setBorder(new outBorder("创建进货退货单"));
 
 	}
 }

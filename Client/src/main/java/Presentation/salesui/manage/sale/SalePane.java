@@ -203,6 +203,7 @@ public class SalePane extends  ChooseGoodsFatherPane  implements ActionListener{
 		jp3.setBorder(new EtchedBorder(EtchedBorder.RAISED));
       //  this.add(jp3,BorderLayout.SOUTH);
 		this.setVisible(true);
+		this.setBorder(new outBorder("创建销售单"));
 		
 		
 		

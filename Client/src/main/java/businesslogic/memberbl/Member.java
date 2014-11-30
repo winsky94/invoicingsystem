@@ -54,7 +54,12 @@ public class Member implements MemberBLService{
 	//可能返回为NULL
 	public ArrayList<MemberVO> findMember(String message) {
 		// TODO Auto-generated method stu
-		return poToVo(service.find(message));
+		ArrayList<MemberPO> po=service.find(message);
+		ArrayList<MemberVO> vo=new ArrayList<MemberVO>();
+		for(int i=0;i<po.size();i++){
+			vo.add(poToVo(po.get(i)));
+		}
+		return vo;
 	}
 
 	public ArrayList<MemberVO> showMembers() {
