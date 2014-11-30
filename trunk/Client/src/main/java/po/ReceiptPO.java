@@ -1,10 +1,8 @@
 package po;
 
-import java.util.Date;
+import java.io.Serializable;
 
-import businesslogic.receiptbl.ReceiptType;
-
-public class ReceiptPO {
+public class ReceiptPO  implements Serializable{
 	private String id;
 	private String memberName;
 	private String memberID;
@@ -96,5 +94,10 @@ public class ReceiptPO {
 
 	public void setStockid(String stockid) {
 		this.stockid = stockid;
+	}
+	
+	public enum ReceiptType implements Serializable{
+		 SALE,SALERETURN,PURCHASE,PURCHASERETURN,COLLECTION,PAYMENT,CASHLIST,
+		   GIFT,STOCKERROR,STOCKOVER,STOCKLOW
 	}
 }

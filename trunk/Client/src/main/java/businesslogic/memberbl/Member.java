@@ -52,7 +52,7 @@ public class Member implements MemberBLService{
 	}
 
 	//可能返回为NULL
-	public MemberVO findMember(String message) {
+	public ArrayList<MemberVO> findMember(String message) {
 		// TODO Auto-generated method stu
 		return poToVo(service.find(message));
 	}
@@ -86,6 +86,16 @@ public class Member implements MemberBLService{
 		
 		return po;
 	}
+	
+	public ArrayList<MemberPO> voToPo(ArrayList<MemberVO> vo){
+		ArrayList<MemberPO> po=new ArrayList<MemberPO>();
+		for(int i=0;i<vo.size();i++){
+			MemberPO p=voToPo(vo.get(i));
+			po.add(p);
+		}
+		return po;
+	}
+	
 	public MemberVO poToVo(MemberPO po){
 	   bInfo=new MemBaseInfo(po.getmType(),po.getmLevel(),po.getMemberID(),po.getName(),po.getPoints(),po.getDefaultClerk());
 	   aInfo=new MemAccountInfo(po.getMaxOwe(),po.getToReceive(),po.getToPay());
@@ -94,6 +104,16 @@ public class Member implements MemberBLService{
 	   return vo;
 		
 	}
+	
+	public ArrayList<MemberVO> poToVo(ArrayList<MemberPO> po){
+		ArrayList<MemberVO> vo=new ArrayList<MemberVO>();
+		for(int i=0;i<po.size();i++){
+			MemberVO v=poToVo(po.get(i));
+			vo.add(v);
+		}
+		return vo;
+	}
+	
 	public String getNewID() {
 		// TODO Auto-generated method stub
 		return "111111";
