@@ -8,7 +8,7 @@ import po.*;
 public interface UserDataService extends Remote {
 	public int add(UserPO po) throws RemoteException;
 
-	public int delete(UserPO po) throws RemoteException;
+	public int delete(String ID) throws RemoteException;
 
 	public int modify(UserPO po) throws RemoteException;
 
