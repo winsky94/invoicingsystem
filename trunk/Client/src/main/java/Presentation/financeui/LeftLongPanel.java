@@ -8,13 +8,15 @@ import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
+import vo.UserVO;
 import businesslogic.userbl.User;
+import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 public class LeftLongPanel extends JPanel implements ActionListener,MouseListener{
 	JPanel jp1,jp3,jp4,jp5,jp6,headPane;
 	ImageIcon ii1,iiw;
-	JButton jb1,jb2,jb3,jb4,jb5;
+	JLeftButton jb1,jb2,jb3,jb4,jb5;
 	JLabel jlb1,jlb2;
 	MainFrame frame;
 	Color[] color;
@@ -25,7 +27,7 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		color=mycolor;
 		GridBagLayout grid=new GridBagLayout();
 		GridBagConstraints c=new GridBagConstraints();
-		User user=frame.getUser();
+		UserVO user=frame.getUser();
 		this.setLayout(grid);
 		
 		c.fill=GridBagConstraints.HORIZONTAL;
@@ -48,36 +50,25 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		down.setLayout(new GridLayout(6,1));
 		
 		//
-		jb1=new JButton("账户管理");
-		Font f=new Font("宋体",Font.BOLD,18);//根据指定字体名称、样式和磅值大小，创建一个新 Font。
-		jb1.setFont(f);
-		jb1.setIcon(new ImageIcon("img/finance/commodity-golden.png"));
-		jb1.setBackground(color[0]);
-		jb1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		jb1.setFocusPainted(false);
+		jb1=new JLeftButton("账户管理",new ImageIcon("img/finance/commodity-golden.png"),
+				color[0]);
 		jb1.addMouseListener(this);
 		jb1.addActionListener(this);
-		jb2=new JButton("制定单据");
-		jb2.setFont(f);
-		jb2.setIcon(new ImageIcon("img/finance/account-golden.png"));
-		jb2.setBackground(color[0]);
-		jb2.setFocusPainted(false);
-		jb2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
+		jb2=new JLeftButton("制定单据",new ImageIcon("img/finance/account-golden.png"),
+				color[0]);
 		jb2.addActionListener(this);
 		jb2.addMouseListener(this);
-		jb3=new JButton("查看报表");
-		jb3.setFont(f);
-		jb3.setIcon(new ImageIcon("img/finance/manage-golden.png"));
-		jb3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		jb3.setBackground(color[0]);
-		jb3.setFocusPainted(false);
+		
+		
+		jb3=new JLeftButton("查看报表",new ImageIcon("img/finance/manage-golden.png"),
+				color[0]);
 		jb3.addMouseListener(this);
-		jb4=new JButton("期初建账");
-		jb4.setFont(f);
-		jb4.setIcon(new ImageIcon("img/finance/manage2-golden.png"));
-		jb4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		jb4.setBackground(color[0]);
-		jb4.setFocusPainted(false);
+		
+		
+		jb4=new JLeftButton("期初建账",new ImageIcon("img/finance/manage2-golden.png"),
+				color[0]);
+		
 		jb4.addMouseListener(this);
 		
 		//jp4=new JPanel();
@@ -87,12 +78,8 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		down.add(jb3);
 		down.add(jb4);
 		
-		jb5=new JButton("收起菜单",new ImageIcon("img/mainFrame/back.png"));
-		jb5.setFont(new Font("楷体", Font.PLAIN, 19));
-		jb5.setForeground(Color.white);
-		jb5.setBackground(color[0]);
-		jb5.setHorizontalAlignment(SwingConstants.CENTER);
-		jb5.setFocusPainted(false);
+		jb5=new JLeftButton("收起菜单",new ImageIcon("img/mainFrame/back.png"),
+				color[0]);
 		jb5.addActionListener(this);
 		c.gridx=0;c.gridy=8;
 		grid.setConstraints(jb5, c);

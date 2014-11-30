@@ -29,6 +29,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import po.UserPO.UserJob;
+import vo.UserVO;
 import Presentation.uihelper.UIhelper;
 import businesslogic.userbl.User;
 import businesslogicservice.userblservice.UserBLService;
@@ -289,8 +290,7 @@ public class LoginFrame extends JFrame {
 			int result = service.login(ID, passWord);
 			switch (result) {
 			case 0:
-				System.out.println("成功登录");
-				User user=new User("小金金",UserJob.SALE,1200);
+				UserVO user=service.showUser(ID);
 				MainFrame frame=new MainFrame(user);
 				frame.setDividerLocation("long");
 				LoginFrame.this.dispose();
@@ -299,7 +299,7 @@ public class LoginFrame extends JFrame {
 				 JOptionPane.showMessageDialog(null,"该用户不存在!","提示",JOptionPane.WARNING_MESSAGE);break;
 				
 			default:
-				System.out.println("密码错误");
+				 JOptionPane.showMessageDialog(null,"密码错误","提示",JOptionPane.WARNING_MESSAGE);
 			}
 
 		} catch (Exception e1) {

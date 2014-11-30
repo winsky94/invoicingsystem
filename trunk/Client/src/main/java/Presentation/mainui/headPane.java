@@ -13,17 +13,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import vo.UserVO;
 import Presentation.userui.userSet;
 import businesslogic.userbl.User;
 
 //根据 暂时处理  user构造left 头像Pane
 public class headPane extends JPanel{
-	JLabel head,info,name,job,point;
+	JLabel head,info,name,job,grade;
 	int width,height;
 	 JFrame rame;
 	 Color[] theme=new Color[2];
 	//选哟user构造啊
-	public headPane( MainFrame frame,JPanel parent,User user){
+	public headPane( MainFrame frame,JPanel parent,UserVO user){
 		//--------------userInfo Pane构造
 		rame=frame;
 		theme=frame.getTheme();
@@ -33,7 +34,7 @@ public class headPane extends JPanel{
 		height=parent.getHeight();
 		this.setLayout(new FlowLayout());
 		name=new JLabel(user.getName());
-		point=new JLabel("业绩点："+user.getPoints());
+		grade=new JLabel("业绩点："+user.getGrades());
 		switch(user.getJob()){
 		case MANAGER:
 			head=new JLabel(new ImageIcon("img/promotion/head.png"));
@@ -63,7 +64,7 @@ public class headPane extends JPanel{
 		
 		name.setForeground(Color.WHITE);
 		job.setForeground(Color.WHITE);
-		point.setForeground(Color.white);
+		grade.setForeground(Color.white);
 		head.setSize(width/3, height/5);
 		head.setLocation(0, 0);
 		head.setToolTipText("修改头像");
@@ -85,7 +86,7 @@ public class headPane extends JPanel{
 		JPanel userInfo=new JPanel();
 		userInfo.setBackground(this.getBackground());
 		userInfo.setLayout(new GridLayout(3,1));
-		userInfo.add(name);userInfo.add(job);userInfo.add(point);
+		userInfo.add(name);userInfo.add(job);userInfo.add(grade);
 		userInfo.setSize(width/2, height/5);
 		this.add(head);
 		this.add(info);
