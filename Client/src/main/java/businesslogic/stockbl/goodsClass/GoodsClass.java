@@ -22,7 +22,7 @@ public class GoodsClass {
 	StockGoodsDataService goodsService;
 
 	public GoodsClass() {
-//		System.setSecurityManager(new SecurityManager());
+		// System.setSecurityManager(new SecurityManager());
 		String host = "localhost:1099";
 		String url1 = "rmi://" + host + "/goodsClassService";
 		String url2 = "rmi://" + host + "/goodsService";
@@ -47,7 +47,7 @@ public class GoodsClass {
 		this.upClassName = upClassName;
 	}
 
-	public int addGoodsClass() {
+	public int addGoodsClass() throws RemoteException {
 		GoodsClassManage manage = new GoodsClassManage();
 		boolean isExist = false;
 		ArrayList<GoodsClassVO> list = new ArrayList<GoodsClassVO>();
@@ -110,7 +110,14 @@ public class GoodsClass {
 
 		if (isAble) {
 			GoodsClassPO po = new GoodsClassPO(classID, name, upClassName);
-			return service.deleteGoodsClass(po);
+			int result = 0;
+			try {
+				result = service.deleteGoodsClass(po);
+			} catch (RemoteException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+			return result;
 		} else {
 			return 3;
 		}
@@ -118,7 +125,14 @@ public class GoodsClass {
 
 	public int modifyGoodsClass() {
 		GoodsClassPO po = new GoodsClassPO("1", name, upClassName);
-		return service.modifyGoodsClass(po);
+		int result = 0;
+		try {
+			result = service.modifyGoodsClass(po);
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	public String getClassID() {

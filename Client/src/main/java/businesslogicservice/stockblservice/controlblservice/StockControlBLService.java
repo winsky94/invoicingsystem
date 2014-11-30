@@ -16,8 +16,8 @@ public interface StockControlBLService {
 
 	// 商品报损支出
 	public double getGoodsLowCost();
-	
-	public ArrayList<GoodsPO> showStock(String beginDate, String endDate);
+
+	public ArrayList<String> showStock(String beginDate, String endDate);
 
 	public ArrayList<GoodsPO> checkStock();
 
@@ -25,4 +25,7 @@ public interface StockControlBLService {
 
 	// 商品调价收入
 	public double getPrimeCostIncome();
+
+	// 获得商品赠送支出
+	public double getGiftCost();
 }
