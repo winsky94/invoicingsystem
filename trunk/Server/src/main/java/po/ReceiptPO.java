@@ -1,11 +1,9 @@
 package po;
 
-import java.util.Date;
-
-import Data.receiptdata.ReceiptType;
+import java.io.Serializable;
 
 
-public class ReceiptPO {
+public class ReceiptPO  implements Serializable{
 	private String id;
 	private String memberName;
 	private String memberID;
@@ -98,5 +96,10 @@ public class ReceiptPO {
 		this.stockid = stockid;
 	}
 	
+
+	public enum ReceiptType implements Serializable{
+		 SALE,SALERETURN,PURCHASE,PURCHASERETURN,COLLECTION,PAYMENT,CASHLIST,
+		   GIFT,STOCKERROR,STOCKOVER,STOCKLOW
+	}
 	
 }
