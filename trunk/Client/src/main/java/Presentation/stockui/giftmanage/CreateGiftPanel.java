@@ -10,15 +10,17 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import Presentation.mainui.ChooseGoodsFatherPane;
+import Presentation.mainui.MainFrame;
 import Presentation.stockui.ChooseGoodsDialog;
 import Presentation.uihelper.UIhelper;
 
-public class CreateGiftPanel extends JDialog {
+public class CreateGiftPanel extends JPanel{
 	/**
 	 * 问题：无法使goodsText动态改变
 	 */
@@ -28,14 +30,16 @@ public class CreateGiftPanel extends JDialog {
 	JLabel IDLbl, goodsLbl, numLbl;
 	JTextField numFld;
 	JComboBox<String> memberBox;
-	JButton submitBtn, goodsBtn;
+	JButton submitBtn, goodsBtn,cancelBtn;
 	int screenWidth = UIhelper.getScreenWidth();
 	int screenHeight = UIhelper.getScreenHeight();
 	int dlgWidth = screenWidth * 28 / 100;
 	int dlgHeight = screenHeight * 60 / 100;
 	ChooseGoodsFatherPane pnl;
+	MainFrame parent;
 
-	public CreateGiftPanel() {
+	public CreateGiftPanel(MainFrame frame) {
+		parent=frame;
 
 		pnl = new ChooseGoodsFatherPane();
 		this.add(pnl);
@@ -110,15 +114,15 @@ public class CreateGiftPanel extends JDialog {
 				dlgWidth * 25 / 100, dlgHeight * 8 / 100);
 		submitBtn.setFocusPainted(false);
 		pnl.add(submitBtn);
+		
+		cancelBtn = new JButton("取 消");
+		cancelBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+		cancelBtn.setBounds(dlgWidth * 55 / 100, dlgHeight * 80 / 100,
+				dlgWidth * 25 / 100, dlgHeight * 8 / 100);
+		cancelBtn.setFocusPainted(false);
+		pnl.add(cancelBtn);
 		// --------------------------------------------------
-		this.setTitle("创建库存赠送单");
-		this.setBounds((screenWidth - dlgWidth) / 2,
-				(screenHeight - dlgHeight) / 2, dlgWidth, dlgHeight);
-
-		this.setResizable(false);
-		this.setModal(true);
-		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		this.setVisible(true);
+		
 	}
 
 	class NumFldListener implements DocumentListener {

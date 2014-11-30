@@ -8,13 +8,15 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import Presentation.mainui.MainFrame;
 import Presentation.uihelper.UIhelper;
 
-public class AddGoodsDialog extends JDialog {
+public class AddGoodsPanel extends JPanel {
 
 	/**
 	 * 
@@ -29,12 +31,13 @@ public class AddGoodsDialog extends JDialog {
 	int screenHeight = UIhelper.getScreenHeight();
 	int dlgWidth = screenWidth * 28 / 100;
 	int dlgHeight = screenHeight * 60 / 100;
-	Container pnl;
+	MainFrame parent;
 
-	public AddGoodsDialog() {
-		pnl = this.getContentPane();
-		pnl.setBackground(Color.white);
-		pnl.setLayout(null);
+	public AddGoodsPanel(MainFrame frame) {
+		parent=frame;
+	
+		this.setBackground(Color.white);
+		this.setLayout(null);
 		//
 		// -----------------------IDLabel------------------------------------
 		IDLbl = new JLabel();
@@ -44,13 +47,13 @@ public class AddGoodsDialog extends JDialog {
 		IDLbl.setText(IDtext);
 		IDLbl.setBounds(dlgWidth * 3 / 100, dlgHeight * 3 / 100,
 				dlgWidth * 60 / 100, dlgHeight * 6 / 100);
-		pnl.add(IDLbl);
+		this.add(IDLbl);
 		// -----------------------nameLabel------------------------------------
 		nameLbl = new JLabel("商品名:");
 		nameLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		nameLbl.setBounds(dlgWidth * 3 / 100, dlgHeight * 13 / 100,
 				dlgWidth * 30 / 100, dlgHeight * 6 / 100);
-		pnl.add(nameLbl);
+		this.add(nameLbl);
 		// ---------------------nameFld---------------------------------------
 		nameFld = new JTextField();
 		nameFld.setBorder(BorderFactory.createLineBorder(Color.gray));
@@ -58,13 +61,13 @@ public class AddGoodsDialog extends JDialog {
 		nameFld.setBounds(dlgWidth * 20 / 100, dlgHeight * 13 / 100,
 				dlgWidth * 60 / 100, dlgHeight * 6 / 100);
 		nameFld.getDocument().addDocumentListener(new NameFieldListener());
-		pnl.add(nameFld);
+		this.add(nameFld);
 		// -----------------------sizeLbl------------------------------------
 		sizeLbl = new JLabel("型号:");
 		sizeLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		sizeLbl.setBounds(dlgWidth * 3 / 100, dlgHeight * 23 / 100,
 				dlgWidth * 30 / 100, dlgHeight * 6 / 100);
-		pnl.add(sizeLbl);
+		this.add(sizeLbl);
 		// ---------------------sizeFld---------------------------------------
 		sizeFld = new JTextField();
 		sizeFld.setBorder(BorderFactory.createLineBorder(Color.gray));
@@ -72,13 +75,13 @@ public class AddGoodsDialog extends JDialog {
 		sizeFld.setBounds(dlgWidth * 20 / 100, dlgHeight * 23 / 100,
 				dlgWidth * 60 / 100, dlgHeight * 6 / 100);
 		sizeFld.getDocument().addDocumentListener(new SizeFieldListener());
-		pnl.add(sizeFld);
+		this.add(sizeFld);
 		// -----------------------defaultPurchasePriceLbl------------------------------------
 		defaultPurchasePriceLbl = new JLabel("默认进价:");
 		defaultPurchasePriceLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		defaultPurchasePriceLbl.setBounds(dlgWidth * 3 / 100,
 				dlgHeight * 33 / 100, dlgWidth * 30 / 100, dlgHeight * 6 / 100);
-		pnl.add(defaultPurchasePriceLbl);
+		this.add(defaultPurchasePriceLbl);
 		// ---------------------defaultPurchasePriceFld---------------------------------------
 		defaultPurchasePriceFld = new JTextField();
 		defaultPurchasePriceFld.setBorder(BorderFactory
@@ -88,13 +91,13 @@ public class AddGoodsDialog extends JDialog {
 				dlgHeight * 33 / 100, dlgWidth * 60 / 100, dlgHeight * 6 / 100);
 		defaultPurchasePriceFld.getDocument().addDocumentListener(
 				new PPriceFieldListener());
-		pnl.add(defaultPurchasePriceFld);
+		this.add(defaultPurchasePriceFld);
 		// -----------------------defaultSalePriceLbl------------------------------------
 		defaultSalePriceLbl = new JLabel("默认售价:");
 		defaultSalePriceLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		defaultSalePriceLbl.setBounds(dlgWidth * 3 / 100, dlgHeight * 43 / 100,
 				dlgWidth * 30 / 100, dlgHeight * 6 / 100);
-		pnl.add(defaultSalePriceLbl);
+		this.add(defaultSalePriceLbl);
 		// ---------------------defaultSalePriceFld---------------------------------------
 		defaultSalePriceFld = new JTextField();
 		defaultSalePriceFld.setBorder(BorderFactory
@@ -104,23 +107,16 @@ public class AddGoodsDialog extends JDialog {
 				dlgHeight * 43 / 100, dlgWidth * 60 / 100, dlgHeight * 6 / 100);
 		defaultSalePriceFld.getDocument().addDocumentListener(
 				new SPriceFieldListener());
-		pnl.add(defaultSalePriceFld);
+		this.add(defaultSalePriceFld);
 		// -------------------submitBtn---------------------------------------------
 		submitBtn = new JButton("确  定");
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setBounds(dlgWidth * 40 / 100, dlgHeight * 80 / 100,
 				dlgWidth * 20 / 100, dlgHeight * 6 / 100);
 		submitBtn.setFocusPainted(false);
-		pnl.add(submitBtn);
+		this.add(submitBtn);
 		//
-		this.setTitle("添加商品");
-		this.setBounds((screenWidth - dlgWidth) / 2,
-				(screenHeight - dlgHeight) / 2, dlgWidth, dlgHeight);
-
-		this.setResizable(false);
-		this.setModal(true);
-		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		this.setVisible(true);
+	
 	}
 
 	class NameFieldListener implements DocumentListener {

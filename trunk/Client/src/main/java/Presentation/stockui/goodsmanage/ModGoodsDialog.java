@@ -12,10 +12,10 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import Presentation.stockui.goodsmanage.AddGoodsDialog.NameFieldListener;
-import Presentation.stockui.goodsmanage.AddGoodsDialog.PPriceFieldListener;
-import Presentation.stockui.goodsmanage.AddGoodsDialog.SPriceFieldListener;
-import Presentation.stockui.goodsmanage.AddGoodsDialog.SizeFieldListener;
+import Presentation.stockui.goodsmanage.AddGoodsPanel.NameFieldListener;
+import Presentation.stockui.goodsmanage.AddGoodsPanel.PPriceFieldListener;
+import Presentation.stockui.goodsmanage.AddGoodsPanel.SPriceFieldListener;
+import Presentation.stockui.goodsmanage.AddGoodsPanel.SizeFieldListener;
 import Presentation.uihelper.UIhelper;
 
 public class ModGoodsDialog extends JDialog{

@@ -95,6 +95,7 @@ public class CollectionPanel extends JPanel implements ActionListener{
 		jp2.add(new Panel(),BorderLayout.WEST);
 		jp2.add(new Panel(),BorderLayout.EAST);
 		this.add(jp2);
+		this.setBackground(Color.white);
 		
 		/*jp3=new JPanel();
 		t=new Timer(1000,this);//每隔一秒触发ActionEvent事件
