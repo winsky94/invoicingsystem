@@ -81,7 +81,7 @@ public class functionPane extends JPanel{
     		else if(e.getSource()==max){
     			if(mainFrame.getExtendedState()!=JFrame.MAXIMIZED_BOTH)
     				{
-    				int width=mainFrame.getWidth()*fsize/(fsize+1);
+    				
     				mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     				 max.setIcon(new ImageIcon("img/mainFrame/small.png"));
     				
