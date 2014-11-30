@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
+
 public class PaymentPO extends ReceiptPO implements Serializable{
 
 	/**
@@ -22,6 +23,7 @@ public class PaymentPO extends ReceiptPO implements Serializable{
     }
     
     public PaymentPO(String a,String b,String f,String c,ArrayList<TransferItemPO> d,double e){
+   	 super(ReceiptType.PAYMENT);
    	 ID=a;
    	 supplier=b;
    	 seller=f;
