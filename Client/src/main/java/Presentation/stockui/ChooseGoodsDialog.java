@@ -248,7 +248,5 @@ public class ChooseGoodsDialog extends JDialog {
 			return head[column];
 		}
 	}
-	public ArrayList<ArrayList<Object>> getGoods(){
-		return rightTblMessage;
-	}
+	
 }
