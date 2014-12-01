@@ -17,9 +17,7 @@ public class ReceiptPO  implements Serializable{
 	private int hurry;
 	private String info;
 
-	public ReceiptPO(ReceiptType type){
-		this.type=type;
-	}
+	
 	
 	public ReceiptPO(String id,String memberID,String membername,String userID, ReceiptType type,String info,int status,int hurry) {
 
@@ -33,8 +31,10 @@ public class ReceiptPO  implements Serializable{
 		this.hurry = hurry;
 		this.info = info;
 	}
+	
 
-	public ReceiptPO() {
+	public ReceiptPO(ReceiptType type) {
+		this.type=type;
 
 	}
 

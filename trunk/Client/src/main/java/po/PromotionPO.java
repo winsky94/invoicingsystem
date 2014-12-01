@@ -6,13 +6,14 @@ import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
 
 public class PromotionPO {
+	String id;
 	Date startDate,endDate;
 	PromotionType type;
 	MemberLevel level;
 	MemberType mtype;
 	int release;
 	
-	public PromotionPO(Date startDate, Date endDate, PromotionType type,
+	public PromotionPO(String id,Date startDate, Date endDate, PromotionType type,
 			MemberLevel level, MemberType mtype, int release) {
 		
 		this.startDate = startDate;
@@ -21,6 +22,7 @@ public class PromotionPO {
 		this.level = level;
 		this.mtype = mtype;
 		this.release = release;
+		this.id=id;
 	}
 
 	public Date getStartDate() {
