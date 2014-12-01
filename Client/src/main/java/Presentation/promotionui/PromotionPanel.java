@@ -44,7 +44,8 @@ public class PromotionPanel extends JPanel {
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
 		GridBagConstraints c = new GridBagConstraints();
-		c.insets = new Insets(5, 3, 5, 3);
+		c.fill=GridBagConstraints.BOTH;
+		c.insets = new Insets(10,20,10,20);
 		// --------------------------
 		JPanel top = new JPanel();
 		top.setBackground(Color.white);
@@ -162,7 +163,8 @@ public class PromotionPanel extends JPanel {
 		c.gridy=0;
 		c.gridheight=1;
 		c.gridwidth=GridBagConstraints.REMAINDER;
-		c.fill=GridBagConstraints.HORIZONTAL;
+		c.weightx=1;
+		c.weighty=0.1;
 		gbl.setConstraints(top, c);
 		this.add(top);
 		//--------table-------------------
@@ -171,6 +173,8 @@ public class PromotionPanel extends JPanel {
 		jsp=new JScrollPane(proTbl);
 		c.gridx=0;
 		c.gridy=1;
+		c.weightx=1;
+		c.weighty=1;
 		c.gridheight=GridBagConstraints.REMAINDER;
 		c.gridwidth=GridBagConstraints.REMAINDER;
 		gbl.setConstraints(jsp, c);
