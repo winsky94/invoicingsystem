@@ -59,6 +59,7 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 				b.setDefaultClerk(po.getDefaultClerk());
 				b.setEMail(po.getEMail());
 				b.setMaxOwe(po.getMaxOwe());
+				b.setmType(po.getmType());
 				b.setmLevel(po.getmLevel());
 				b.setName(po.getName());
 				b.setPoints(po.getPoints());
