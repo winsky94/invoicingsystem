@@ -11,25 +11,25 @@ import po.SaleReturnPO;
 
 public interface SalesDataService extends Remote{
 	
-	public int createPurchase(PurchasePO po);
-	public int createPurchaseReturn(PurchaseReturnPO po);
-	public int createSale(SalePO po);
-	public int createSaleReturn(SaleReturnPO po);
+	public int createPurchase(PurchasePO po) throws RemoteException;
+	public int createPurchaseReturn(PurchaseReturnPO po) throws RemoteException;
+	public int createSale(SalePO po) throws RemoteException;
+	public int createSaleReturn(SaleReturnPO po) throws RemoteException;
 	//
-	public int updatePurchase(PurchasePO po);
-	public int updatePurchaseReturn(PurchaseReturnPO po);
-	public int updateSale(SalePO po);
-	public int updateSaleReturn(SaleReturnPO po);
+	public int updatePurchase(PurchasePO po) throws RemoteException;
+	public int updatePurchaseReturn(PurchaseReturnPO po) throws RemoteException;
+	public int updateSale(SalePO po) throws RemoteException;
+	public int updateSaleReturn(SaleReturnPO po) throws RemoteException;
 	//
-	public ArrayList<PurchasePO> showPurchase();
-	public ArrayList<PurchaseReturnPO> showPurchaseReturn();
-	public ArrayList<SalePO> showSale();
-	public ArrayList<SaleReturnPO> showSaleReturn();
+	public ArrayList<PurchasePO> showPurchase() throws RemoteException;
+	public ArrayList<PurchaseReturnPO> showPurchaseReturn() throws RemoteException;
+	public ArrayList<SalePO> showSale() throws RemoteException;
+	public ArrayList<SaleReturnPO> showSaleReturn() throws RemoteException;
 	//
-	public ArrayList<PurchasePO> findPurchase(String message);
-	public ArrayList<PurchaseReturnPO> findPurchaseReturn(String message);
-	public ArrayList<SalePO> findSale(String message);
-	public ArrayList<SaleReturnPO> findSaleReturn(String message);
+	public ArrayList<PurchasePO> findPurchase(String message) throws RemoteException;
+	public ArrayList<PurchaseReturnPO> findPurchaseReturn(String message) throws RemoteException;
+	public ArrayList<SalePO> findSale(String message) throws RemoteException;
+	public ArrayList<SaleReturnPO> findSaleReturn(String message) throws RemoteException;
 	
 	public ArrayList<PurchasePO> getPurchase() throws RemoteException;
 	public ArrayList<PurchaseReturnPO> getPurchaseReturn()throws RemoteException;

@@ -26,7 +26,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		
 	}
 
-	public int purchase(PurchasePO po) throws RemoteException{
+	public int createPurchase(PurchasePO po) throws RemoteException{
 		file=new JXCFile("src/main/java/purchase.ser");
 		file.write(po);
 		return 0;
@@ -46,7 +46,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return buffer;
 	}
 
-	public int purchaseReturn(PurchaseReturnPO po) throws RemoteException{
+	public int createPurchaseReturn(PurchaseReturnPO po) throws RemoteException{
 		file=new JXCFile("src/main/java/purchasereturn.ser");
 		file.write(po);
 		return 0;
@@ -66,7 +66,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return buffer;
 	}
 
-	public int sale(SalePO po) throws RemoteException{
+	public int createSale(SalePO po) throws RemoteException{
 		file=new JXCFile("src/main/java/sale.ser");
 		file.write(po);
 		return 0;
@@ -86,7 +86,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return buffer;
 	}
 
-	public int saleReturn(SaleReturnPO po) throws RemoteException{
+	public int createSaleReturn(SaleReturnPO po) throws RemoteException{
 		file=new JXCFile("src/main/java/salereturn.ser");
 		file.write(po);
 		return 0;
@@ -106,6 +106,59 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return buffer;
 	}
 	
+	public int updatePurchase(PurchasePO po) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int updatePurchaseReturn(PurchaseReturnPO po) throws RemoteException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int updateSale(SalePO po) throws RemoteException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int updateSaleReturn(SaleReturnPO po) throws RemoteException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public ArrayList<PurchasePO> showPurchase() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public ArrayList<PurchaseReturnPO> showPurchaseReturn()
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public ArrayList<SalePO> showSale() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public ArrayList<SaleReturnPO> showSaleReturn() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public ArrayList<PurchasePO> findPurchase(String message)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public ArrayList<PurchaseReturnPO> findPurchaseReturn(String message)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public ArrayList<SalePO> findSale(String message) throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public ArrayList<SaleReturnPO> findSaleReturn(String message)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	public static void main(String[] args){
 		Sales a;
 		try {
@@ -113,7 +166,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			ArrayList<CommodityPO> al=new ArrayList<CommodityPO>();
 			CommodityPO item =new CommodityPO("0001-001-0001","飞利浦日光灯","SRO1",100,158,100,198,98,"这是个灯");
 			al.add(item);
-			a.purchase(new PurchasePO("JHD-20141201-00001","JHS-0000001","02","XS-00001",al,"这是个进货单", 1000,0,1));	
+			a.createPurchase(new PurchasePO("JHD-20141201-00001","JHS-0000001","02","XS-00001",al,"这是个进货单", 1000,0,1));	
 			System.out.println("Success!");
 			ArrayList<PurchasePO> pl=a.getPurchase();
 			for(PurchasePO po:pl){
