@@ -25,9 +25,9 @@ public interface SalesDataService extends Remote{
 	public ArrayList<SalePO> showSale();
 	public ArrayList<SaleReturnPO> showSaleReturn();
 	//
-	public ArrayList<PurchasePO> findPurchase(String message);
-	public ArrayList<PurchaseReturnPO> findPurchaseReturn(String message);
-	public ArrayList<SalePO> findSale(String message);
-	public ArrayList<SaleReturnPO> findSaleReturn(String message);
+	public ArrayList<PurchasePO> findPurchase(String message,String type);
+	public ArrayList<PurchaseReturnPO> findPurchaseReturn(String message,String type);
+	public ArrayList<SalePO> findSale(String message,String type);
+	public ArrayList<SaleReturnPO> findSaleReturn(String message,String type);
 	
 }
