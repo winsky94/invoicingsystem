@@ -13,11 +13,5 @@ public class discountPro extends promotion{
 	private ArrayList<Goods>  goodsList;
 	private double totalValue,discountValue;//折后总额；
 	
-	public discountPro(Date startDate,Date endDate,MemberLevel l,MemberType mt)
-	{
-		super(startDate,endDate,PromotionType.DISCOUNT,l,mt);
-		goodsList=new ArrayList<Goods>();
-		countList=new ArrayList<Double>();
-		totalValue=0;discountValue=0;
-	}
+	
 }

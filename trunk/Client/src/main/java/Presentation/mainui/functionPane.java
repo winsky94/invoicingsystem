@@ -34,12 +34,14 @@ public class functionPane extends JPanel{
 		max=new JLabel(new ImageIcon("img/mainFrame/max.png"));//最大后后图标变化
 		skin=new JLabel(new ImageIcon("img/mainFrame/skin.png"));
 		help=new JLabel(new ImageIcon("img/mainFrame/help.png"));
-		 border=BorderFactory.createLineBorder(new Color(0,0,0));
+		 border=BorderFactory.createLineBorder(new Color(0,0,0,0f));
+		
 		skin.setBorder(border);
 		max.setBorder(border);
 		min.setBorder(border);
 		close.setBorder(border);
 		help.setBorder(border);
+		
 		close.addMouseListener(listen);
 		min.addMouseListener(listen);
 		max.addMouseListener(listen);

@@ -16,10 +16,10 @@ public class GiftCouponProPO extends PromotionPO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private ArrayList<CouponPO> couponList;
 	private double totalValue;
-	public GiftCouponProPO(String id,String startDate,String endDate,MemberLevel l,MemberType mt,int release,
+	public GiftCouponProPO(String id,String startDate,String endDate,MemberLevel l,MemberType mt,
 			ArrayList<CouponPO> coupon,double value)
 	{
-		super(id,startDate,endDate,PromotionType.GIFTCOUPON,l,mt,release);
+		super(id,startDate,endDate,PromotionType.GIFTCOUPON,l,mt);
 		couponList=coupon;
 		totalValue=value;
 	}

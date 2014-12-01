@@ -11,12 +11,7 @@ import businesslogic.stockbl.goods.Goods;
 public class giftCouponPro extends promotion{
 	private ArrayList<coupon> couponList;
 	private double totalValue;
-	public giftCouponPro(Date startDate,Date endDate,MemberLevel l,MemberType mt)
-	{
-		super(startDate,endDate,PromotionType.GIFTCOUPON,l,mt);
-		couponList=new ArrayList<coupon>();
-		totalValue=0;
-	}
+	
 	
 
 }

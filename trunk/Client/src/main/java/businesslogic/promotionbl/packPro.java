@@ -14,12 +14,7 @@ public class packPro extends promotion{
 	private double totalValue;
 	private double packValue;
 
-	public packPro(Date startDate,Date endDate,MemberLevel l,MemberType mt)
-	{
-		super(startDate,endDate,PromotionType.PACK,l,mt);
-		packList=new ArrayList<pack>();
-		totalValue=0;
-	}
+	
 	
 	
 	public void addPack(pack pack){

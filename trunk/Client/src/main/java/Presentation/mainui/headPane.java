@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import vo.UserVO;
 import Presentation.userui.UserSet;
@@ -22,6 +23,7 @@ public class headPane extends JPanel{
 	JLabel head,info,name,job,grade;
 	int width,height;
 	 JFrame rame;
+	 Border border;
 	 Color[] theme=new Color[2];
 	 //i=0 long  i=1 short
 	public headPane( MainFrame frame,JPanel parent,UserVO user,int i){
@@ -61,7 +63,8 @@ public class headPane extends JPanel{
 			
 			
 		}
-		
+		 border=BorderFactory.createLineBorder(new Color(0,0,0,0f));
+		head.setBorder(border);
 		name.setForeground(Color.WHITE);
 		job.setForeground(Color.WHITE);
 		grade.setForeground(Color.white);
@@ -74,7 +77,7 @@ public class headPane extends JPanel{
 				head.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			}
 			public void mouseExited(MouseEvent e){
-				head.setBorder(BorderFactory.createEmptyBorder());
+				head.setBorder(border);
 			}
 		});
 		info=new JLabel(new ImageIcon("img/promotion/infoicon.png"));
