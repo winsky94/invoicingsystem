@@ -411,7 +411,6 @@ public class GoodsPanel extends JPanel implements ActionListener,
 				// tree的scrollPathToVisible()方法在使Tree会自动展开文件夹以便显示所加入的新节点。若没加这行则加入的新节点
 				// 会被 包在文件夹中，你必须自行展开文件夹才看得到。
 				tree.scrollPathToVisible(new TreePath(newNode.getPath()));
-
 				try {
 					System.out.println("插入后存储树");
 					controller.recordClassTree(tree);
@@ -459,7 +458,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			DefaultMutableTreeNode rootNode = (DefaultMutableTreeNode) treeModel
 					.getRoot();
 
-			// 下面一行删除所有子节点.
+			// 下面一行删除所有子节点
 			rootNode.removeAllChildren();
 
 			// 删除完后务必运行DefaultTreeModel的reload()操作，整个Tree的节点才会真正被删除.
