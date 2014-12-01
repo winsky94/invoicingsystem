@@ -19,8 +19,7 @@ public class StockOverOrLowPO extends ReceiptPO implements Serializable {
 			String userID, ReceiptType type, int status, int hurry,
 			String info, String stockid, String goodsName, String size,
 			int num, int exactNum) {
-		super(id, memberName, memberID, userID, type, status, hurry, info,
-				stockid);
+		super(id, memberName, memberID, userID, type,info ,status, hurry );
 		this.goodsName = goodsName;
 		this.size = size;
 		this.num = num;
