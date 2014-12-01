@@ -10,26 +10,29 @@ import po.PurchasePO;
 import po.PurchaseReturnPO;
 import po.SalePO;
 import po.SaleReturnPO;
-import po.ReceiptPO.ReceiptType;
 import dataservice.salesdataservice.SalesDataService;
 
 public class Sales extends UnicastRemoteObject implements SalesDataService{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JXCFile file;
 	public Sales() throws RemoteException{
 		super();
 	}
-	public void getSaleList() {
+	public void getSaleList() throws RemoteException{
 		
 		
 	}
 
-	public int purchase(PurchasePO po) {
+	public int purchase(PurchasePO po) throws RemoteException{
 		file=new JXCFile("src/main/java/purchase.ser");
 		file.write(po);
 		return 0;
 	}
 	
-	public ArrayList<PurchasePO> getPurchase(){
+	public ArrayList<PurchasePO> getPurchase() throws RemoteException{
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -43,13 +46,13 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return buffer;
 	}
 
-	public int purchaseReturn(PurchaseReturnPO po) {
+	public int purchaseReturn(PurchaseReturnPO po) throws RemoteException{
 		file=new JXCFile("src/main/java/purchasereturn.ser");
 		file.write(po);
 		return 0;
 	}
 	
-	public ArrayList<PurchaseReturnPO> getPurchaseReturn(){
+	public ArrayList<PurchaseReturnPO> getPurchaseReturn()throws RemoteException{
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -63,13 +66,13 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return buffer;
 	}
 
-	public int sale(SalePO po) {
+	public int sale(SalePO po) throws RemoteException{
 		file=new JXCFile("src/main/java/sale.ser");
 		file.write(po);
 		return 0;
 	}
 	
-	public ArrayList<SalePO> getSale(){
+	public ArrayList<SalePO> getSale() throws RemoteException{
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -83,13 +86,13 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return buffer;
 	}
 
-	public int saleReturn(SaleReturnPO po) {
+	public int saleReturn(SaleReturnPO po) throws RemoteException{
 		file=new JXCFile("src/main/java/salereturn.ser");
 		file.write(po);
 		return 0;
 	}
 	
-	public ArrayList<SaleReturnPO> getSaleReturn(){
+	public ArrayList<SaleReturnPO> getSaleReturn() throws RemoteException{
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
