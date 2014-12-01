@@ -5,6 +5,8 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -34,7 +36,7 @@ import Presentation.memberui.AddMemberPanel.NameFieldListener;
 import Presentation.memberui.AddMemberPanel.PhoneFieldListener;
 import Presentation.memberui.AddMemberPanel.PostcodeFieldListener;
 import Presentation.uihelper.UIhelper;
-
+//改类型  等级不变 不可改
 public class ModMemberPanel extends JPanel {
 	/**
 	 * ！！！！这里的构造器应当传入Member的各种信息，默认填入组件中！！
@@ -49,18 +51,18 @@ public class ModMemberPanel extends JPanel {
 	MemberBLService service;
 	MemberVO vo;
 	MemberType mtype;
-	MemberLevel level;
 	MainFrame parent;
 	JButton submitBtn;
 	JTextField nameFld, phoneFld, addressFld, postcodeFld, EMailFld,
 			defaultClerkFld;
-	JLabel IDLbl, typeLbl,typeContentLbl, nameLbl, phoneLbl, addressLbl, postcodeLbl,
+	JLabel IDLbl, typeLbl,levelbl, nameLbl, phoneLbl, addressLbl, postcodeLbl,
 			EMailLbl, defaultClerkLbl;
+	JComboBox typeCbox;
 	String nameText,phoneText,addressText,postcodeText,EMailText,clerkText;
 	public ModMemberPanel(String id,MainFrame frame) throws Exception {
 		parent=frame;
 		service=new Member();
-		//vo=service.findMember(message)
+		vo=service.findById(id);
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		// ----------------------添加各个组件-----------------------------------
@@ -69,7 +71,7 @@ public class ModMemberPanel extends JPanel {
 		IDLbl = new JLabel();
 		IDLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		// 这里要有一个方法来创建String，使得编号自动生成
-		String text = "编号：JHS-0000001";
+		String text = "编号:"+vo.getMemberID();
 		IDLbl.setText(text);
 		IDLbl.setBounds(dialogWidth * 5 / 100, dialogHeight * 5 / 100,
 				dialogWidth * 40 / 100, dialogHeight * 7 / 100);
@@ -81,12 +83,27 @@ public class ModMemberPanel extends JPanel {
 				dialogWidth * 5 / 100, dialogHeight * 7 / 100);
 		this.add(typeLbl);
 		// ----------------------typeComboBox--------------------------------
-		typeContentLbl =new JLabel("需要BL修复 ");
-		typeContentLbl.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-		typeContentLbl.setBackground(Color.white);
-		typeContentLbl.setBounds(dialogWidth * 15 / 100, dialogHeight * 20 / 100,
-				dialogWidth * 15 / 100, dialogHeight * 7 / 100);
-		this.add(typeContentLbl);
+				String[] type = { "请选择类型", "进货商", "销售商" };
+				typeCbox = new JComboBox<String>(type);
+				typeCbox.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+				typeCbox.setBackground(Color.white);
+				typeCbox.setBounds(dialogWidth * 15 / 100, dialogHeight * 20 / 100,
+						dialogWidth * 15 / 100, dialogHeight * 7 / 100);
+				
+				typeCbox.addItemListener(new ItemListener(){
+					public void itemStateChanged(ItemEvent e){
+						String t=typeCbox.getSelectedItem().toString();
+						if(t.equals("进货商"))
+							mtype=MemberType.JHS;
+						else
+							mtype=MemberType.XSS;
+						 }
+						
+					
+				});
+				this.add(typeCbox);
+		//----------level--------
+		levelbl=new JLabel("客户等级"+vo.getMemberID().toString());
 		
 		// ---------------------nameLabel------------------------------------
 		nameLbl = new JLabel("姓名 ");

@@ -62,10 +62,10 @@ public class GoodsPanel extends JPanel implements ActionListener,
 	GoodsClassNode newNode = null;
 	DefaultMutableTreeNode addNode = null;
 
-	MainFrame parent;
-//	public GoodsPanel(MainFrame frame) {
-//		parent=frame;
-	public GoodsPanel() {
+	static MainFrame parent;
+	public GoodsPanel(MainFrame frame) {
+	parent=frame;
+	//public GoodsPanel() {
 		controller = new GoodsClassController();
 		this.setBackground(Color.white);
 		GridBagLayout gbl = new GridBagLayout();
@@ -222,7 +222,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 	class AddGoodsBtnListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			new AddGoodsDialog();
+			new AddGoodsPanel(parent);
 
 		}
 
@@ -324,7 +324,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		testFrame.setBounds(100, 50, 800, 500);
 		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		GoodsPanel gp = new GoodsPanel();
+		GoodsPanel gp = new GoodsPanel(parent);
 		gp.setBounds(0, 0, 800, 500);
 		testFrame.add(gp);
 		testFrame.setVisible(true);

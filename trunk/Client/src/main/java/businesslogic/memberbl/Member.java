@@ -140,6 +140,11 @@ public class Member implements MemberBLService{
 			return "XSS-"+lastID;
 	}
 
+	public MemberVO findById(String ID) {
+		// TODO Auto-generated method stub
+		return poToVo(service.findByID(ID));
+	}
+
 	
 	
 
