@@ -216,6 +216,7 @@ public class SalePane extends  ChooseGoodsFatherPane  implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			ChooseGoodsDialog choose=new ChooseGoodsDialog(SalePane.this);
+			
 		}
 	}
 

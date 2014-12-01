@@ -18,6 +18,10 @@ import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.table.AbstractTableModel;
 
+import vo.GoodsVO;
+import vo.MemberVO;
+import businesslogic.stockbl.goods.GoodsController;
+import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.uihelper.UIhelper;
 
@@ -47,6 +51,7 @@ public class ChooseGoodsDialog extends JDialog {
 	JScrollPane jspLeft, jspRight;
 	JTable goodsTbl, chosenTbl;
 	Container pnl;
+	StockGoodsBLService service;
 	int screenWidth = UIhelper.getScreenWidth();
 	int screenHeight = UIhelper.getScreenHeight();
 	int dialogWidth = screenWidth * 2 / 3;
@@ -56,6 +61,11 @@ public class ChooseGoodsDialog extends JDialog {
 		father=myFather;
 		pnl = this.getContentPane();
 		pnl.setLayout(null);
+		service=new GoodsController();
+		if(service.showGoods()!=null)
+			Refresh(service.showGoods());
+		else
+			System.out.println("goods null了");
 		pnl.setBackground(Color.white);
 		// ------------classTree------------------------------------------
 		classTree = new JTree();
@@ -191,6 +201,8 @@ public class ChooseGoodsDialog extends JDialog {
 		this.setVisible(true);
 	}
 
+	
+	
 	class GoodsTblModel extends AbstractTableModel {
 		/**
 		 * 
@@ -219,13 +231,24 @@ public class ChooseGoodsDialog extends JDialog {
 			leftTblMessage.remove(row);
 		}
 	}
+	public void Refresh(ArrayList<GoodsVO> VO){
+		 for(GoodsVO vo:VO){
+			 ArrayList<String> line=new ArrayList<String>();
+			 line.add(vo.getGoodsClass());
+			 line.add(vo.getName());
+			 line.add(vo.getSize());
+			 line.add(Double.toString(vo.getPrice()));
+			 leftTblMessage.add(line);
+		 }
+	}
 
 	class ChosenTblModel extends AbstractTableModel {
 		/**
 		 * 
 		 */
+		//需要更多 吗  检测库存数量何时？？
 		private static final long serialVersionUID = 1L;
-		String head[] = { "商品编号", "商品名", "型号" };
+		String head[] = { "商品编号", "商品名", "型号","单价" };
 
 		public int getRowCount() {
 			return rightTblMessage.size();

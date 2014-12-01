@@ -210,6 +210,7 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 		}
 
 		public void addRow(ArrayList<String> v) {
+
 			c.add(v);
 		}
 
