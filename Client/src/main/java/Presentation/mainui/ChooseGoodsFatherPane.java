@@ -10,4 +10,7 @@ public class ChooseGoodsFatherPane extends JPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 	public ArrayList<ArrayList<Object>> c=new ArrayList<ArrayList<Object>>();
+	public void addContent(ArrayList<ArrayList<Object>> toBeAdded){
+		this.c.addAll(toBeAdded);
+	}
 }
