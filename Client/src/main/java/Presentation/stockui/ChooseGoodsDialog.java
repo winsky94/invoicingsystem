@@ -39,7 +39,7 @@ public class ChooseGoodsDialog extends JDialog {
 	 * 3.把右侧表格内容传出外层
 	 */
 	private static final long serialVersionUID = 1L;
-	ArrayList<ArrayList<String>> selected=new ArrayList<ArrayList<String>>();
+//	ArrayList<ArrayList<String>> selected=new ArrayList<ArrayList<String>>();
 	ArrayList<ArrayList<String>> rightTblMessage=new ArrayList<ArrayList<String>>();
 	ChosenTblModel ctm;
 	GoodsTblModel gtm;
@@ -84,7 +84,7 @@ public class ChooseGoodsDialog extends JDialog {
 			}
 
 			public void mousePressed(MouseEvent e) {
-				selected.clear();
+				//selected.clear();
 			}
 
 			public void mouseReleased(MouseEvent e) {
@@ -208,7 +208,7 @@ public class ChooseGoodsDialog extends JDialog {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		String head[] = { "商品编号", "商品名", "型号" };
+		String head[] = { "商品编号", "商品名", "型号","单价" };
 		public int getRowCount() {
 			return leftTblMessage.size();
 		}

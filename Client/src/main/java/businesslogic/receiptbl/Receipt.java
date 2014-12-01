@@ -20,9 +20,9 @@ public class Receipt {
 
 	// 属性有哪些
 
-	public Receipt(String id, String memberName, String memberID,
+	public Receipt(String id,String memberID,
 			String userID, ReceiptType type, Date date, int hurry, int status,
-			String info, String sid) {
+			String info) {
 		this.id = id;
 		this.memberName = memberName;
 		this.memberID = memberID;
