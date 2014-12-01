@@ -198,7 +198,9 @@ public class MemberMgrPanel extends JPanel {
 				String id = (String) memberTable.getValueAt(i, 0);
 
 				try {
-					parent.setRightComponent(new ModMemberPanel(id, parent));
+
+					parent.setRightComponent(new ModMemberPane(id,parent));
+
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

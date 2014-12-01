@@ -40,6 +40,7 @@ public class AddMemberPanel extends JPanel {
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	MainFrame parent;
 	String ID;
+	typeListener typel;
 	MemberBLService service;
 	MemberType mtype;
 	JButton submitBtn, cancelBtn;
@@ -47,11 +48,11 @@ public class AddMemberPanel extends JPanel {
 
 	JTextField nameFld, phoneFld, addressFld, postcodeFld, EMailFld,
 			defaultClerkFld;
-	JLabel IDLbl, typeLbl, nameLbl, phoneLbl, addressLbl, postcodeLbl,
+	JLabel title, IDLbl, typeLbl, nameLbl, phoneLbl, addressLbl, postcodeLbl,
 			EMailLbl, defaultClerkLbl;
 	String nameText, phoneText, addressText, postcodeText, EMailText,
 			clerkText;
-
+	AddListener add;
 	public AddMemberPanel(MainFrame frame) throws Exception {
 		parent = frame;
 		service = new Member();
@@ -65,7 +66,7 @@ public class AddMemberPanel extends JPanel {
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("添加客户");
+		 title = new JLabel("添加客户");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
@@ -118,21 +119,9 @@ public class AddMemberPanel extends JPanel {
 		typeCbox = new JComboBox<String>(type);
 		typeCbox.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		typeCbox.setBackground(Color.white);
-		typeCbox.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				String t = typeCbox.getSelectedItem().toString();
-				if (t.equals("进货商"))
-					mtype = MemberType.JHS;
-				else
-					mtype = MemberType.XSS;
-				System.out.println(mtype);
-
-				ID = service.getNewID(mtype);
-				IDLbl.setText("编号：" + ID);
-
-			}
-
-		});
+		typel=new typeListener();
+		typeCbox.addItemListener(typel);
+		
 		typePnl.add(typeCbox);
 		// ------------name-------------
 		JPanel namePnl = new JPanel();
@@ -221,40 +210,60 @@ public class AddMemberPanel extends JPanel {
 				Update();
 			}
 		});
-
-		submitBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				if (ID == null || ID.equals("")) {
-					JOptionPane.showMessageDialog(null, "请选择用户类型，并输入信息！", "提示",
-							JOptionPane.CLOSED_OPTION);
-				} else {
-					MemBaseInfo bInfo = new MemBaseInfo(mtype, MemberLevel.ONE,
-							ID, nameFld.getText(), 0, defaultClerkFld.getText());
-					MemContactInfo cInfo = new MemContactInfo(phoneFld
-							.getText(), addressFld.getText(), postcodeFld
-							.getText(), EMailFld.getText());
-					MemAccountInfo aInfo = new MemAccountInfo(1000000, 0, 0);
-
-					MemberVO vo = new MemberVO(bInfo, aInfo, cInfo);
-					int result = service.addMember(vo);
-					// 改
-					if (result == 0) {
-						JOptionPane.showMessageDialog(null, "添加客户成功！", "提示",
-								JOptionPane.CLOSED_OPTION);
-					} else {
-						JOptionPane.showMessageDialog(null, "添加客户失败！", "提示",
-								JOptionPane.WARNING_MESSAGE);
-					}
-					Update();
-				}
-
-			}
-		});
+		add=new AddListener();
+		submitBtn.addActionListener(add);
+		
 		// ------------------------------------------------------------------
 
 	}
+	
+	class AddListener implements ActionListener{
 
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			if (ID == null || ID.equals("")) {
+				JOptionPane.showMessageDialog(null, "请选择用户类型，并输入信息！", "提示",
+						JOptionPane.CLOSED_OPTION);
+			} else {
+				MemBaseInfo bInfo = new MemBaseInfo(mtype, MemberLevel.ONE,
+						ID, nameFld.getText(), 0, defaultClerkFld.getText());
+				MemContactInfo cInfo = new MemContactInfo(phoneFld
+						.getText(), addressFld.getText(), postcodeFld
+						.getText(), EMailFld.getText());
+				MemAccountInfo aInfo = new MemAccountInfo(1000000, 0, 0);
+
+				MemberVO vo = new MemberVO(bInfo, aInfo, cInfo);
+				int result = service.addMember(vo);
+				// 改
+				if (result == 0) {
+					JOptionPane.showMessageDialog(null, "添加客户成功！", "提示",
+							JOptionPane.CLOSED_OPTION);
+				} else {
+					JOptionPane.showMessageDialog(null, "添加客户失败！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+				}
+				Update();
+			}
+		}
+		
+	}
+	
+	class typeListener implements ItemListener{
+
+		public void itemStateChanged(ItemEvent e) {
+			// TODO Auto-generated method stub
+			String t = typeCbox.getSelectedItem().toString();
+			if (t.equals("进货商"))
+				mtype = MemberType.JHS;
+			else
+				mtype = MemberType.XSS;
+			System.out.println(mtype);
+
+			ID = service.getNewID(mtype);
+			IDLbl.setText("编号：" + ID);
+		}
+		
+	}
 	public void Update() {
 		MemberMgrPanel mgr = new MemberMgrPanel(parent);
 		parent.setRightComponent(mgr);
