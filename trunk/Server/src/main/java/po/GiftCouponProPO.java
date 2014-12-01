@@ -13,10 +13,10 @@ import po.PromotionPO.PromotionType;
 public class GiftCouponProPO extends PromotionPO{
 	private ArrayList<CouponPO> couponList;
 	private double totalValue;
-	public GiftCouponProPO(Date startDate,Date endDate,MemberLevel l,MemberType mt,int release,
+	public GiftCouponProPO(String id,String startDate,String endDate,MemberLevel l,MemberType mt,int release,
 			ArrayList<CouponPO> coupon,double value)
 	{
-		super(startDate,endDate,PromotionType.GIFTCOUPON,l,mt,release);
+		super(id,startDate,endDate,PromotionType.GIFTCOUPON,l,mt,release);
 		couponList=coupon;
 		totalValue=value;
 	}
