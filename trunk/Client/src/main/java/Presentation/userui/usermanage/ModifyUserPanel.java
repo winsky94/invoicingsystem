@@ -163,7 +163,8 @@ public class ModifyUserPanel extends JPanel {
 				try {
 					service=new User();
 					father.setRightComponent(mgr);
-					mgr.RefreshUserTable(service.showAll());
+					if(service.showAll()!=null)
+						mgr.RefreshUserTable(service.showAll());
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -191,6 +192,7 @@ public class ModifyUserPanel extends JPanel {
 					e1.printStackTrace();
 				}
 				father.setRightComponent(mgr);
+				if(service.showAll()!=null)
 				mgr.RefreshUserTable(service.showAll());
 			}
 		});

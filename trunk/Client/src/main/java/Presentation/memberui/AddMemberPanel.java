@@ -237,7 +237,8 @@ public class AddMemberPanel extends JPanel {
 	public void Update(){
 		MemberMgrPanel mgr=new MemberMgrPanel(parent);
 		parent.setRightComponent(mgr);
-		mgr.RefreshMemberTable(service.showMembers());
+		if(service.showMembers()!=null)
+			mgr.RefreshMemberTable(service.showMembers());
 	}
 	class NameFieldListener implements DocumentListener{
 		public void changedUpdate(DocumentEvent d) {

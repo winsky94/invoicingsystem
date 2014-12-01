@@ -127,7 +127,8 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 				e1.printStackTrace();
 			}
 			parent.setRightComponent(mgr);
-			mgr.RefreshMemberTable(service.showMembers());
+			if( service.showMembers()!=null)
+				mgr.RefreshMemberTable(service.showMembers());
 		}else if(e.getSource()==saleBtn){
 			parent.setRightComponent(new SaleMgrPanel(parent));
 			

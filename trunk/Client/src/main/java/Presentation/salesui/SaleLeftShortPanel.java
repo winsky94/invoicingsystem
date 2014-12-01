@@ -113,7 +113,8 @@ public class SaleLeftShortPanel extends JPanel implements ActionListener{
 				e1.printStackTrace();
 			}
 			parent.setRightComponent(mgr);
-			mgr.RefreshMemberTable(service.showMembers());
+			if(service.showMembers()!=null)
+				mgr.RefreshMemberTable(service.showMembers());
 		
 			
 		}else if(e.getSource()==purchaseBtn)

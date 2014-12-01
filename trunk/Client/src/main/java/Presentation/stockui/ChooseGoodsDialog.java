@@ -35,11 +35,11 @@ public class ChooseGoodsDialog extends JDialog {
 	 * 3.把右侧表格内容传出外层
 	 */
 	private static final long serialVersionUID = 1L;
-	ArrayList<ArrayList<Object>> selected=new ArrayList<ArrayList<Object>>();
-	ArrayList<ArrayList<Object>> rightTblMessage=new ArrayList<ArrayList<Object>>();
+	ArrayList<ArrayList<String>> selected=new ArrayList<ArrayList<String>>();
+	ArrayList<ArrayList<String>> rightTblMessage=new ArrayList<ArrayList<String>>();
 	ChosenTblModel ctm;
 	GoodsTblModel gtm;
-	ArrayList<ArrayList<Object>> leftTblMessage=new ArrayList<ArrayList<Object>>();
+	ArrayList<ArrayList<String>> leftTblMessage=new ArrayList<ArrayList<String>>();
 	ChooseGoodsFatherPane father;
 	//
 	JButton submitBtn, exitBtn, addBtn, delBtn;
@@ -79,7 +79,7 @@ public class ChooseGoodsDialog extends JDialog {
 
 			public void mouseReleased(MouseEvent e) {
 				for (int i = 0; i < goodsTbl.getSelectedRows().length; i++) {
-					ArrayList<Object> temp=new ArrayList<Object>();
+					ArrayList<String> temp=new ArrayList<String>();
 					for(int j=0;j<3;j++){
 						temp.add((String) goodsTbl.getValueAt(goodsTbl.getSelectedRows()[i], j));
 					}
@@ -125,9 +125,9 @@ public class ChooseGoodsDialog extends JDialog {
 		addBtn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(selected.get(0).get(1));
+				//System.out.println(selected.get(0).get(1));
 				for(int i=0;i<selected.size();i++){
-					ctm.addRow(selected.get(i));			
+					ctm.addRow((ArrayList<String>)(selected.get(i)));			
 				}
 				
 				chosenTbl.revalidate();
@@ -212,7 +212,7 @@ public class ChooseGoodsDialog extends JDialog {
 		public String getColumnName(int column) {
 			return head[column];
 		}
-		public void addRow(ArrayList<Object> v){
+		public void addRow(ArrayList<String> v){
 			leftTblMessage.add(v);
 		}
 		public void removeRow(int row){
@@ -230,7 +230,7 @@ public class ChooseGoodsDialog extends JDialog {
 		public int getRowCount() {
 			return rightTblMessage.size();
 		}
-		public void addRow(ArrayList<Object> v){
+		public void addRow(ArrayList<String> v){
 			rightTblMessage.add(v);
 		}
 		public void removeRow(int row){
@@ -248,5 +248,9 @@ public class ChooseGoodsDialog extends JDialog {
 			return head[column];
 		}
 	}
-	
+
+public ArrayList<ArrayList<String>> getGoods(){
+		return rightTblMessage;
+	}
+
 }
