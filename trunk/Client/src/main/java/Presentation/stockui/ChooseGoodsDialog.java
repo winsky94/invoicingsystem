@@ -13,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
@@ -76,38 +77,7 @@ public class ChooseGoodsDialog extends JDialog {
 		// -----------goodsTbl-------------------------------------------
 		gtm=new GoodsTblModel();
 		goodsTbl = new JTable(gtm);
-		goodsTbl.addMouseListener(new MouseListener() {
-
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void mousePressed(MouseEvent e) {
-				//selected.clear();
-			}
-
-			public void mouseReleased(MouseEvent e) {
-				for (int i = 0; i < goodsTbl.getSelectedRows().length; i++) {
-					ArrayList<String> temp=new ArrayList<String>();
-					for(int j=0;j<3;j++){
-						temp.add((String) goodsTbl.getValueAt(goodsTbl.getSelectedRows()[i], j));
-					}
-				selected.add(temp);
-				}
-			}
-
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-		});
+		
 		jspLeft = new JScrollPane(goodsTbl);
 		jspLeft.setBounds(dialogWidth * 20 / 100, dialogHeight * 5 / 100,
 				dialogWidth * 35 / 100, dialogHeight * 85 / 100);
@@ -136,11 +106,14 @@ public class ChooseGoodsDialog extends JDialog {
 
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println(selected.get(0).get(1));
-				for(int i=0;i<selected.size();i++){
-					ctm.addRow((ArrayList<String>)(selected.get(i)));			
-				}
-				
+				int[] row=goodsTbl.getSelectedRows();
+				if(row.length>0){
+				for(int i=0;i<row.length;i++)
+					ctm.addRow(leftTblMessage.get(i));			
 				chosenTbl.revalidate();
+				}else 
+					JOptionPane.showMessageDialog(null, "请选择商品！","提示",JOptionPane.WARNING_MESSAGE);;
+				
 			}
 		});
 		pnl.add(addBtn);

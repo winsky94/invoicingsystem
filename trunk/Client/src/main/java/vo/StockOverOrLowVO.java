@@ -24,7 +24,7 @@ public class StockOverOrLowVO extends ReceiptVO {
 		this.createDate = new Date();
 		this.status = 0;
 		this.info = info;
-		this.stockid = stockid;
+		
 	}
 
 	public String getGoodsName() {

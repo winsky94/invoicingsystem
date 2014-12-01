@@ -14,7 +14,7 @@ import javax.swing.JPopupMenu;
 import Presentation.mainui.LoginFrame;
 import Presentation.mainui.MainFrame;
 
-
+//监听多次密码输错无法更新
 public class UserSet extends JPopupMenu implements ActionListener{
 	MainFrame parent;
 	JMenuItem caccount,cpass;
@@ -24,7 +24,7 @@ public class UserSet extends JPopupMenu implements ActionListener{
 			caccount=new JMenuItem("切换帐号",account);
 			ImageIcon pass=new ImageIcon("img/mainFrame/min.png");
 			cpass=new JMenuItem("修改密码",pass);
-			this.setBorder(BorderFactory.createLineBorder(new Color(115,46,126)));
+			this.setBorder(BorderFactory.createLineBorder(parent.getTheme()[0]));
 			add(caccount);
 			add(cpass);
 			caccount.addActionListener(this);

@@ -8,8 +8,11 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -21,6 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import Presentation.mainui.MainFrame;
 import Presentation.promotionui.addpromotion.AddBarginPanel;
 import Presentation.promotionui.addpromotion.AddCouponPanel;
 import Presentation.promotionui.addpromotion.AddDiscountPanel;
@@ -31,14 +35,14 @@ public class PromotionPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JFrame father;
+	MainFrame father;
 	JTable proTbl;
 	JScrollPane jsp;
 	PromotionTableModel ptm;
 	ArrayList<ArrayList<String>> c = new ArrayList<ArrayList<String>>();
 	JButton addBtn, delBtn, modBtn, refreshBtn, detailBtn;
 	Color color=new Color(115,46,126);
-	public PromotionPanel(JFrame myFather) {
+	public PromotionPanel(MainFrame myFather) {
 		father = myFather;
 		this.setBackground(Color.white);
 		GridBagLayout gbl = new GridBagLayout();
@@ -58,10 +62,12 @@ public class PromotionPanel extends JPanel {
 		addBtn.setBorderPainted(false);
 		addBtn.setBackground(Color.white);
 		addBtn.setFocusPainted(false);
-		addBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		addBtn.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
 				JPopupMenu menu=new JPopupMenu();
+				
 				menu.setBackground(Color.white);
+				menu.setBorder(BorderFactory.createLineBorder(color));
 				JMenuItem bargin=new JMenuItem("创建特价包");
 				bargin.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 				bargin.setOpaque(false);
@@ -84,25 +90,26 @@ public class PromotionPanel extends JPanel {
 				menu.add(discount);
 				bargin.addActionListener(new ActionListener(){
 					public void actionPerformed(ActionEvent e) {
-						JPanel barginPnl=new AddBarginPanel(father);
+						father.setRightComponent(new AddBarginPanel(father));
 					}
 				});
 				coupon.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						JPanel couponPnl=new AddCouponPanel(father);
+						father.setRightComponent(new AddCouponPanel(father));
 					}
 				});
 				gift.addActionListener(new ActionListener() {	
 					public void actionPerformed(ActionEvent e) {
-						JPanel giftPnl=new AddGiftPanel(father);
+						father.setRightComponent(new AddGiftPanel(father));
 					}
 				});
 				discount.addActionListener(new ActionListener() {		
 					public void actionPerformed(ActionEvent e) {
-						JPanel discountPnl=new AddDiscountPanel(father);
+						father.setRightComponent(new AddDiscountPanel(father));
 					}
 				});
-				menu.show(father, PromotionPanel.this.addBtn.getX()+110,PromotionPanel.this.addBtn.getY()+110);
+				menu.show(father,e.getX(),e.getY());
+				//.addBtn.getX()+110,PromotionPanel.this.addBtn.getY()+110
 			}
 		});
 		top.add(addBtn);
@@ -129,7 +136,7 @@ public class PromotionPanel extends JPanel {
 		modBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-
+				
 			}
 		});
 		top.add(modBtn);
@@ -187,7 +194,7 @@ public class PromotionPanel extends JPanel {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		String head[] = { "促销起始时间", "促销中止时间", "促销策略类型" };
+		String head[] = {"编号", "促销起始时间", "促销中止时间", "促销策略类型" };
 
 		public int getRowCount() {
 			return c.size();
@@ -205,14 +212,5 @@ public class PromotionPanel extends JPanel {
 			return head[col];
 		}
 	}
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 920, 600);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		PromotionPanel gp = new PromotionPanel(testFrame);
-		gp.setBounds(0, 0,  920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
-	}
+	
 }

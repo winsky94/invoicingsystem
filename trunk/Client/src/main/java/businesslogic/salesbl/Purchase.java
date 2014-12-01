@@ -12,6 +12,7 @@ import businesslogic.stockbl.goods.MockGoods;
 public class Purchase extends Receipt {
 	private ArrayList<Commodity> list;//商品清单
 	private double totalValue;
+	private String stockID;
 	
 	public Purchase(PurchaseVO vo){
 		list=vo.getPurchaseList();
@@ -19,15 +20,7 @@ public class Purchase extends Receipt {
 		
 	}
 
-	public Purchase(String id, String memberID, String userID,
-		 Date date, int hurry, int status, String info,
-			String sid) {
-		super(id, memberID, userID, ReceiptType.PURCHASE, date, hurry, status, info, sid);
-		// TODO Auto-generated constructor stub
-		this.list=new ArrayList<Commodity>();
-		this.totalValue=0;
-	}
-
+	
 	public int AddPurchaseItem(Commodity item){
 		if(!(list.indexOf(item)<0)){
 			return 1;//添加失败，已存在

@@ -14,7 +14,7 @@ public class ReceiptVO {
 	int status;
 	int hurry;
 	String info;
-	String stockid;
+
 
 	public ReceiptVO(){
 		
@@ -22,7 +22,7 @@ public class ReceiptVO {
 	
 	public ReceiptVO(String id, String memberName, String memberID,
 			String user, ReceiptType type, Date createDate, int status,
-			int hurry, String info, String stockid) {
+			int hurry, String info) {
 
 		this.id = id;
 		this.memberName = memberName;
@@ -33,7 +33,7 @@ public class ReceiptVO {
 		this.status = status;
 		this.hurry = hurry;
 		this.info = info;
-		this.stockid = stockid;
+		
 	}
 
 	public String getId() {
@@ -72,8 +72,6 @@ public class ReceiptVO {
 		return info;
 	}
 
-	public String getStockid() {
-		return stockid;
-	}
+	
 
 }

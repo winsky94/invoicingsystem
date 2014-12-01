@@ -46,18 +46,7 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 		
 	}
 
-	public Sale(String id, String memberID, String userID, 
-			Date date, int hurry, int status, String info, String sid,
-			String man) {
-		super(id, memberID, userID, ReceiptType.SALE, date, hurry, 0, info, sid);
-		// TODO Auto-generated constructor stub
-		list=new ArrayList<Commodity>();
-		couponIncome=0;
-		discountValue=0;
-		this.clerk = man;
-		this.totalValue = 0;
-		this.cost=0;
-	}
+	
 
 	public int addSaleItem(Commodity item){
 		if(!(list.indexOf(item)<0)){

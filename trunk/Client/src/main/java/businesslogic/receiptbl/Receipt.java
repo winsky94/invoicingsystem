@@ -16,11 +16,11 @@ public class Receipt {
 	private int status;
 	private int hurry;
 	private String info;
-	private String stockID;
+
 
 	// 属性有哪些
 
-	public Receipt(String id,String memberID,
+	public Receipt(String id,String memberID,String memberName,
 			String userID, ReceiptType type, Date date, int hurry, int status,
 			String info) {
 		this.id = id;
@@ -32,7 +32,7 @@ public class Receipt {
 		this.hurry = hurry;
 		this.status = status;
 		this.info = info;
-		this.stockID = sid;
+		
 	}
 
 	public Receipt() {
@@ -124,9 +124,7 @@ public class Receipt {
 	}
 
 	// 11-27 yan
-	public String getStockID() {
-		return stockID;
-	}
+	
 
 	// 11-30 yan
 	public String getmemberName() {
