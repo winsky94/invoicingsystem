@@ -11,8 +11,8 @@ public class PurchasePO extends ReceiptPO implements Serializable{
 	private double totalInAll;
 	private String stockid;
 	
-	public PurchasePO(String id,String memberID, String stockid,String user,ArrayList<CommodityPO> purchaseList,String info, double totalInAll,int status, int hurry) {
-		super(id,memberID,user,ReceiptType.PURCHASE,info,status, hurry);
+	public PurchasePO(String id,String memberID,String name, String stockid,String user,ArrayList<CommodityPO> purchaseList,String info, double totalInAll,int status, int hurry) {
+		super(id,memberID,name,user,ReceiptType.PURCHASE,info,status, hurry);
 		this.stockid=stockid;
 		this.purchaseList = purchaseList;
 		this.totalInAll=totalInAll;

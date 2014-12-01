@@ -12,8 +12,8 @@ public class PurchaseReturnPO extends ReceiptPO implements Serializable{
 	double totalInAll;
 	private String stockid;
 	
-	public PurchaseReturnPO(String id,String memberID, String stockid,String user,ArrayList<CommodityPO> purchasereturnList,String info, double totalInAll,int status, int hurry) {
-		super(id,memberID,user,ReceiptType.PURCHASERETURN,info,status, hurry);
+	public PurchaseReturnPO(String id,String memberID,String name, String stockid,String user,ArrayList<CommodityPO> purchasereturnList,String info, double totalInAll,int status, int hurry) {
+		super(id,memberID,name,user,ReceiptType.PURCHASERETURN,info,status, hurry);
 		this.stockid=stockid;
 		this.purchaseReturnList = purchasereturnList;
 		this.totalInAll=totalInAll;
