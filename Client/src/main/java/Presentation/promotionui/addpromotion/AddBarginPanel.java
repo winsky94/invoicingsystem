@@ -25,153 +25,156 @@ import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.stockui.ChooseGoodsDialog;
 import Presentation.uihelper.DateChooser;
 
-public class AddBarginPanel extends ChooseGoodsFatherPane{
+public class AddBarginPanel extends ChooseGoodsFatherPane {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Font font=new Font("微软雅黑", Font.BOLD, 15);
-	DateChooser from,to;
+	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JFrame father;
+	JComboBox<String> memberGradeBox;
+	DateChooser from, to;
+	JButton submitBtn, exitBtn, addGoodsBtn, delGoodsBtn;
 	JScrollPane jsp;
 	JTable table;
 	AddBarginModel btm;
-	JButton submitBtn,exitBtn,addGoodsBtn,delGoodsBtn;
-	//设置特价包价格
-	JTextField priceFld;
-	//选择用户等级限制
-	JComboBox<String> memberGradeBox;
-	//根据table中的商品信息计算出defaultTotal，通过defaultTotalLbl显示到界面上
 	JLabel defaultTotalLbl;
-	double defaultTotal;
-	//---
-	public AddBarginPanel(JFrame myFather){
+	JTextField priceFld;
+
+	public AddBarginPanel(JFrame myFather) {
+		father = myFather;
+		GridBagLayout gbl = new GridBagLayout();
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(5, 40, 5, 40);
 		this.setBackground(Color.white);
-		father =myFather;
-		this.setLayout(new GridLayout(1,2));
-		JPanel left=new JPanel();
-		left.setBackground(Color.white);
-		this.add(left);
-		JPanel right=new JPanel();
-		right.setBackground(Color.white);
-		this.add(right);
-		//--------left-----------------------
-		GridBagLayout gbl=new GridBagLayout();
-		GridBagConstraints c=new GridBagConstraints();
-		c.insets=new Insets(5,10,5,10);
-		left.setLayout(gbl);
-		JLabel title=new JLabel("创建特价包");
+		this.setLayout(gbl);
+		// -----------title------------------
+		JPanel titlePnl = new JPanel();
+		titlePnl.setBackground(Color.white);
+		titlePnl.setLayout(new GridLayout(1, 1));
+		JLabel title = new JLabel("创建特价包");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
-		c.gridx=0;
-		c.gridy=0;
-		c.gridheight=1;
-		c.gridwidth=2;
-		c.weightx=0.1;
-		c.weighty=0.1;
-		gbl.setConstraints(title, c);
-		left.add(title);
-		//--------表格------------------------
-		c.fill=GridBagConstraints.BOTH;
-		btm=new AddBarginModel();
-		table=new JTable(btm);
-		table.getColumnModel().getColumn(0).setPreferredWidth(200);
-		jsp=new JScrollPane(table);
-		c.gridx=0;
-		c.gridy=1;
-		c.gridheight=5;
-		c.gridwidth=2;
-		c.weightx=10;
-		c.weighty=10;
+		titlePnl.add(title);
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridheight = 2;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.weightx = 1;
+		c.weighty = 0.08;
+		gbl.setConstraints(titlePnl, c);
+		this.add(titlePnl);
+		// --------起止时间，等级限制，原价与现价-----------------
+		JPanel timePnl = new JPanel();
+		timePnl.setBackground(Color.white);
+		JPanel fP = new JPanel();
+		fP.setBackground(Color.white);
+		fP.add(new JLabel("起始于"));
+		from = new DateChooser();
+		fP.add(from);
+		timePnl.add(fP);
+		JPanel tP = new JPanel();
+		tP.setBackground(Color.white);
+		tP.add(new JLabel("截止于"));
+		to = new DateChooser();
+		tP.add(to);
+		timePnl.add(tP);
+		JPanel gradePnl = new JPanel();
+		gradePnl.setBackground(Color.white);
+		timePnl.add(gradePnl);
+		JLabel gradeLbl = new JLabel("等级限制：");
+		gradeLbl.setFont(font);
+		gradePnl.add(gradeLbl);
+		String boxText[] = { "ONE", "TWO", "THREE", "FOUR", "FIVE" };
+		memberGradeBox = new JComboBox<String>(boxText);
+		memberGradeBox.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+		memberGradeBox.setBackground(Color.white);
+		gradePnl.add(memberGradeBox);
+
+		//
+		c.gridx = 0;
+		c.gridy = 2;
+		c.gridheight = 1;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.weightx = 1;
+		c.weighty = 0.04;
+		gbl.setConstraints(timePnl, c);
+		this.add(timePnl);
+		// ---------------------------------
+		JPanel moneyPnl = new JPanel();
+		moneyPnl.setBackground(Color.white);
+		moneyPnl.setLayout(new GridLayout(1,5));
+		moneyPnl.add(new JLabel());
+		defaultTotalLbl = new JLabel("原价：加监听");
+		defaultTotalLbl.setFont(font);
+		moneyPnl.add(defaultTotalLbl);
+		
+		// ---------------------------------
+		JPanel nowPnl=new JPanel();
+		nowPnl.setBackground(Color.white);
+		JLabel priceLbl = new JLabel("定价：");
+		priceLbl.setFont(font);
+		nowPnl.add(priceLbl);
+		priceFld = new JTextField(8);
+		priceFld.setFont(font);
+		nowPnl.add(priceFld);
+		moneyPnl.add(nowPnl);
+		moneyPnl.add(new JLabel());
+		//
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = 0;
+		c.gridy = 3;
+		c.gridheight = 1;
+		c.gridwidth = 3;
+		c.weightx = 0.000001;
+		c.weighty = 0.04;
+		gbl.setConstraints(moneyPnl, c);
+		this.add(moneyPnl);
+		// -------表格-------------------
+		
+		btm = new AddBarginModel();
+		table = new JTable(btm);
+		jsp = new JScrollPane(table);
+		c.gridx = 0;
+		c.gridy = 4;
+		c.gridheight = 4;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.weightx = 10;
+		c.weighty = 10;
 		gbl.setConstraints(jsp, c);
-		left.add(jsp);
-		//---------增加商品和删除商品按钮---------
-		JPanel gPnl=new JPanel();
-		gPnl.setLayout(new GridLayout(1,2));
-		addGoodsBtn =new JButton("添加商品");
+		this.add(jsp);
+		// -------buttons-----------------
+		JPanel btnPnl = new JPanel();
+		btnPnl.setBackground(Color.white);
+		c.gridx = 0;
+		c.gridy = 8;
+		c.gridheight = 2;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.weightx = 1;
+		c.weighty = 0.1;
+		gbl.setConstraints(btnPnl, c);
+		this.add(btnPnl);
+		//
+		addGoodsBtn = new JButton("添加商品");
 		addGoodsBtn.setFont(font);
 		addGoodsBtn.setBackground(Color.white);
 		addGoodsBtn.setFocusPainted(false);
 		addGoodsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JDialog addGoodsDlg=new ChooseGoodsDialog(AddBarginPanel.this);
+				JDialog addGoodsDlg = new ChooseGoodsDialog(AddBarginPanel.this);
 			}
 		});
-		gPnl.add(addGoodsBtn);
-		delGoodsBtn=new JButton("删除商品");
+		btnPnl.add(addGoodsBtn);
+		delGoodsBtn = new JButton("删除商品");
 		delGoodsBtn.setFont(font);
 		delGoodsBtn.setBackground(Color.white);
 		delGoodsBtn.setFocusPainted(false);
 		delGoodsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btm.removeRow(table.getSelectedRow());
-				table.revalidate();
+				// 监听！！！！！！！
 			}
 		});
-		gPnl.add(delGoodsBtn);
-		//-----------------------------------
-		c.gridx=0;
-		c.gridy=7;
-		c.gridheight=1;
-		c.gridwidth=2;
-		c.weightx=0.1;
-		c.weighty=0.1;
-		gbl.setConstraints(gPnl, c);
-		left.add(gPnl);
-		//-----right-------------------------
-		right.setLayout(new GridLayout(8,1,5,5));
-		right.add(new JLabel());
-		right.add(new JLabel());
-		//---------选择日期--------------------
-		JPanel dateP=new JPanel();
-		dateP.setBackground(Color.white);
-		JPanel fP=new JPanel();
-		fP.setBackground(Color.white);
-		fP.add(new JLabel("起始于"));
-		from=new DateChooser();
-		fP.add(from);
-		dateP.add(fP);
-		//
-		JPanel tP=new JPanel();
-		tP.setBackground(Color.white);
-		tP.add(new JLabel("截止于"));
-		to=new DateChooser();
-		tP.add(to);
-		dateP.add(tP);
-		right.add(dateP);
-		//-------客户等级限制-----------------
-		JPanel gradePnl=new JPanel();
-		gradePnl.setBackground(Color.white);
-		JLabel gradeLbl=new JLabel("客户等级限制：");
-		gradeLbl.setFont(font);
-		gradePnl.add(gradeLbl);
-		String boxText[]={"ONE","TWO","THREE","FOUR","FIVE"};
-		memberGradeBox=new JComboBox<String>(boxText);
-		memberGradeBox.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-		memberGradeBox.setBackground(Color.white);
-		gradePnl.add(memberGradeBox);
-		right.add(gradePnl);
-		//-----原价值------------------------
-		JPanel dPnl=new JPanel();
-		dPnl.setBackground(Color.white);
-		defaultTotalLbl=new JLabel();
-		defaultTotalLbl.setText("原价："+String.valueOf(defaultTotal));
-		defaultTotalLbl.setFont(font);
-		dPnl.add(defaultTotalLbl);
-		right.add(dPnl);
-		//-------定价-----------------------
-		JPanel pricePnl=new JPanel();
-		pricePnl.setBackground(Color.white);
-		JLabel priceLbl=new JLabel("定价：");
-		priceLbl.setFont(font);
-		pricePnl.add(priceLbl);
-		priceFld=new JTextField(10);
-		pricePnl.add(priceFld);
-		right.add(pricePnl);
-		//------------------------------------
-		right.add(new JLabel());
-		JPanel btnPnl=new JPanel();
-		btnPnl.setBackground(Color.white);
-		submitBtn=new JButton("确定");
+		btnPnl.add(delGoodsBtn);
+		submitBtn = new JButton("确定");
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
@@ -181,14 +184,15 @@ public class AddBarginPanel extends ChooseGoodsFatherPane{
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(251, 147, 121));
 		btnPnl.add(exitBtn);
-		right.add(btnPnl);
 	}
-	class AddBarginModel extends AbstractTableModel{
+
+	class AddBarginModel extends AbstractTableModel {
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		String head[]={"商品编号","商品名","型号","数量","默认单价"};
+		String head[] = { "商品编号", "商品名", "型号", "数量", "默认单价" };
+
 		public int getRowCount() {
 			return c.size();
 		}
@@ -200,23 +204,27 @@ public class AddBarginPanel extends ChooseGoodsFatherPane{
 		public Object getValueAt(int row, int col) {
 			return c.get(row).get(col);
 		}
-		public String getColumnName(int col){
+
+		public String getColumnName(int col) {
 			return head[col];
 		}
-		public void addRow(ArrayList<Object> v){
+
+		public void addRow(ArrayList<Object> v) {
 			c.add(v);
 		}
-		public void removeRow(int row){
+
+		public void removeRow(int row) {
 			c.remove(row);
 		}
 	}
+
 	public static void main(String[] args) {
 		JFrame testFrame = new JFrame();
 		testFrame.setBounds(100, 50, 920, 600);
 		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		AddBarginPanel gp = new AddBarginPanel(testFrame);
-		gp.setBounds(0, 0,  920, 600);
+		gp.setBounds(0, 0, 920, 600);
 		testFrame.add(gp);
 		testFrame.setVisible(true);
 	}
