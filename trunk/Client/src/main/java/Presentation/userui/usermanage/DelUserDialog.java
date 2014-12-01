@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -30,13 +31,13 @@ public class DelUserDialog extends JDialog {
 	int dlgHeight = screenHeight * 25 / 100;
 	Container pnl;
 	UserBLService service;
-	public DelUserDialog(final String ID,String name,final MainFrame parent) {
+	public DelUserDialog(final ArrayList<String> ID,final MainFrame parent) {
 		pnl = this.getContentPane();
 		pnl.setBackground(Color.white);
 		pnl.setLayout(null);
 		//
 		// ------------------textLbl------------------------------------
-		textLbl = new JLabel("你确定要删除用户 "+name+"("+ID+") 吗？");
+		textLbl = new JLabel("你确定要删除选中用户 吗？");
 		textLbl.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		textLbl.setBounds(dlgWidth * 28 / 100, dlgHeight * 20 / 100,
 				dlgWidth * 80 / 100, dlgHeight * 16 / 100);
@@ -52,7 +53,8 @@ public class DelUserDialog extends JDialog {
 			public void actionPerformed(ActionEvent e){
 				try {
 					service=new User();
-					service.deleteUser(ID);
+				for(int i=0;i<ID.size();i++)
+					service.deleteUser(ID.get(i));
 					DelUserDialog.this.dispose();
 					UserMgrPanel mgr=new UserMgrPanel(parent);
 					parent.setRightComponent(mgr);

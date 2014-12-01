@@ -3,6 +3,11 @@ package Presentation.memberui;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,6 +18,14 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import po.MemberPO.MemberLevel;
+import po.MemberPO.MemberType;
+import vo.MemberVO;
+import businesslogic.memberbl.MemAccountInfo;
+import businesslogic.memberbl.MemBaseInfo;
+import businesslogic.memberbl.MemContactInfo;
+import businesslogic.memberbl.Member;
+import businesslogicservice.memberblservice.MemberBLService;
 import Presentation.mainui.MainFrame;
 import Presentation.memberui.AddMemberPanel.AddressFieldListener;
 import Presentation.memberui.AddMemberPanel.ClerkFieldListener;
@@ -33,6 +46,10 @@ public class ModMemberPanel extends JPanel {
 	int screenHeight = UIhelper.getScreenHeight();
 	int dialogWidth = screenWidth / 2;
 	int dialogHeight = screenHeight / 2;
+	MemberBLService service;
+	MemberVO vo;
+	MemberType mtype;
+	MemberLevel level;
 	MainFrame parent;
 	JButton submitBtn;
 	JTextField nameFld, phoneFld, addressFld, postcodeFld, EMailFld,
@@ -40,9 +57,10 @@ public class ModMemberPanel extends JPanel {
 	JLabel IDLbl, typeLbl,typeContentLbl, nameLbl, phoneLbl, addressLbl, postcodeLbl,
 			EMailLbl, defaultClerkLbl;
 	String nameText,phoneText,addressText,postcodeText,EMailText,clerkText;
-	public ModMemberPanel(MainFrame frame) {
+	public ModMemberPanel(String id,MainFrame frame) throws Exception {
 		parent=frame;
-		
+		service=new Member();
+		//vo=service.findMember(message)
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		// ----------------------添加各个组件-----------------------------------
@@ -69,6 +87,7 @@ public class ModMemberPanel extends JPanel {
 		typeContentLbl.setBounds(dialogWidth * 15 / 100, dialogHeight * 20 / 100,
 				dialogWidth * 15 / 100, dialogHeight * 7 / 100);
 		this.add(typeContentLbl);
+		
 		// ---------------------nameLabel------------------------------------
 		nameLbl = new JLabel("姓名 ");
 		nameLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
@@ -156,6 +175,19 @@ public class ModMemberPanel extends JPanel {
 				dialogWidth * 20 / 100, dialogHeight * 8 / 100);
 		submitBtn.setFocusPainted(false);
 		this.add(submitBtn);
+		submitBtn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				MemBaseInfo bInfo=new MemBaseInfo(mtype,MemberLevel.ONE,ID,nameFld.getText(),0,defaultClerkFld.getText());
+				MemContactInfo cInfo=new MemContactInfo(phoneFld.getText(), addressFld.getText(),
+						postcodeFld.getText(),  EMailFld.getText());
+				MemAccountInfo aInfo=new MemAccountInfo(1000000,0,0);
+			
+				
+				MemberVO vo=new MemberVO(bInfo,aInfo,cInfo);
+				int result=service.addMember(vo);
+				vo=new MemberVO()
+			}
+		});
 		// ------------------------------------------------------------------
 	
 	}

@@ -44,11 +44,11 @@ public class AddMemberPanel extends JPanel {
 	int screenHeight = UIhelper.getScreenHeight();
 	int dialogWidth = screenWidth / 2;
 	int dialogHeight = screenHeight / 2;
-	MainFrame parent;
+     MainFrame parent;
 	String ID;
 	MemberBLService service;
 	MemberType mtype;
-	JButton submitBtn;
+	JButton submitBtn,cancelBtn;
 	JComboBox<String> typeCbox;
 	
 	JTextField nameFld, phoneFld, addressFld, postcodeFld, EMailFld,
@@ -60,6 +60,7 @@ public class AddMemberPanel extends JPanel {
 		parent=frame;
 	
 		service=new Member();
+		Font font=new Font("微软雅黑", Font.BOLD, 14);
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		// ----------------------添加各个组件-----------------------------------
@@ -189,11 +190,25 @@ public class AddMemberPanel extends JPanel {
 				dialogWidth * 20 / 100, dialogHeight * 8 / 100);
 		submitBtn.setFocusPainted(false);
 		this.add(submitBtn);
+		cancelBtn=new JButton("取 消");
+		cancelBtn.setFont(font);
+		cancelBtn.setBounds(dialogWidth * 40 / 100, dialogHeight * 80 / 100,
+				dialogWidth * 20 / 100, dialogHeight * 8 / 100);
+		cancelBtn.setFocusPainted(false);
+		this.add(submitBtn);
+		this.add(cancelBtn);
+		cancelBtn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				Update();
+			}
+		});
 		
 		submitBtn.addActionListener(new ActionListener(){
 		public void actionPerformed(ActionEvent e){
 		
-					
+					if(ID==null||ID.equals("")){
+						JOptionPane.showMessageDialog(null,"请选择用户类型，并输入信息！","提示",JOptionPane.CLOSED_OPTION);
+					}else{
 					MemBaseInfo bInfo=new MemBaseInfo(mtype,MemberLevel.ONE,ID,nameFld.getText(),0,defaultClerkFld.getText());
 					MemContactInfo cInfo=new MemContactInfo(phoneFld.getText(), addressFld.getText(),
 							postcodeFld.getText(),  EMailFld.getText());
@@ -208,15 +223,21 @@ public class AddMemberPanel extends JPanel {
 					}else{
 						JOptionPane.showMessageDialog(null,"添加客户失败！","提示",JOptionPane.WARNING_MESSAGE);
 					}
-					MemberMgrPanel mgr=new MemberMgrPanel(parent);
-					parent.setRightComponent(mgr);
-					mgr.RefreshMemberTable(service.showMembers());
+					Update();
+					}
 				
 				
 			}
 		});
 		// ------------------------------------------------------------------
 	
+	}
+	
+	
+	public void Update(){
+		MemberMgrPanel mgr=new MemberMgrPanel(parent);
+		parent.setRightComponent(mgr);
+		mgr.RefreshMemberTable(service.showMembers());
 	}
 	class NameFieldListener implements DocumentListener{
 		public void changedUpdate(DocumentEvent d) {

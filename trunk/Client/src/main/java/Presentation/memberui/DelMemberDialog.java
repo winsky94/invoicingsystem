@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -28,13 +29,13 @@ public class DelMemberDialog extends JDialog{
 	MainFrame parent;
 	MemberBLService service;
 
-	public DelMemberDialog(final String id,String name,MainFrame frame){
+	public DelMemberDialog(final ArrayList<String> ID,MainFrame frame){
 		parent=frame;
 		Container pnl=this.getContentPane();
 		pnl.setBackground(Color.white);
 		pnl.setLayout(null);
 		//---------------sureLbl-----------------------------------
-		sureLbl=new JLabel("确定要删除 "+name+"("+id+") 吗？");
+		sureLbl=new JLabel("确定要删除选中客户 吗？");
 		sureLbl.setBounds(dialogWidth*25/100,
 				dialogHeight*10/100, dialogWidth*60/100, dialogHeight*30/100);
 		sureLbl.setFont(new Font("微软雅黑", Font.BOLD, 15));
@@ -51,7 +52,8 @@ public class DelMemberDialog extends JDialog{
 			public void actionPerformed(ActionEvent e){
 				try {
 					service=new Member();
-					service.deleteMember(id);
+					for(int i=0;i<ID.size();i++)
+					service.deleteMember(ID.get(i));
 					DelMemberDialog.this.dispose();
 					MemberMgrPanel mgr=new MemberMgrPanel(parent);
 					parent.setRightComponent(mgr);

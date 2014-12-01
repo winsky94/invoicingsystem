@@ -139,7 +139,7 @@ public class LoginFrame extends JFrame {
 		idField = new JTextField();
 		idField.setSize(frameWidth * 64 / 100, frameHeight / 16);
 		idField.setLocation(frameWidth * 26 / 100, frameHeight * 55 / 100);
-		idField.getDocument().addDocumentListener(new idFieldListener());
+	//	idField.getDocument().addDocumentListener(new FieldListener());
 		idField.setVisible(true);
 		// 设置密码域
 		passwordField = new JPasswordField();
@@ -148,6 +148,7 @@ public class LoginFrame extends JFrame {
 				.setLocation(frameWidth * 26 / 100, frameHeight * 65 / 100);
 	//	passwordField.addKeyListener(new passwordFieldListener());
 		passwordField.setVisible(true);
+	//	passwordField.getDocument().addDocumentListener(new FieldListener());
 		// 设置登录按钮
 		// 设想：改为圆形按钮
 		JButton loginButton = new JButton("登录");
@@ -241,7 +242,7 @@ public class LoginFrame extends JFrame {
 
 	
 	// 下面的类是用户名文本域的事件监听器
-	class idFieldListener implements DocumentListener {
+	/*class idFieldListener implements DocumentListener {
 
 		public void insertUpdate(DocumentEvent e) {
 			// TODO Auto-generated method stub
@@ -259,6 +260,10 @@ public class LoginFrame extends JFrame {
 		}
 
 	}
+	
+	
+
+	}*/
 
 	
 
