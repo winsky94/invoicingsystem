@@ -256,9 +256,54 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		}
 		return result;
 	}
+	
 	public ArrayList<PurchaseReturnPO> findPurchaseReturn(String message,String type) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<PurchaseReturnPO> po=showPurchaseReturn();
+		ArrayList<PurchaseReturnPO> result=new ArrayList<PurchaseReturnPO>();
+		if(type.equals("时间区间")){
+			String qishi=message.substring(0,6);
+			String jiezhi=message.substring(6,12);
+			for(PurchaseReturnPO p:po){
+				if(qishi.compareTo(p.getDate())<=0&&p.getDate().compareTo(jiezhi)<=0)
+					result.add(p);
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else if(type.equals("商品名")){
+			for(PurchaseReturnPO p:po){
+				ArrayList<CommodityPO> c=p.getPurchaseReturnList();
+				  for(CommodityPO cp:c){
+					  if(cp.getName().equals(message)){
+					      result.add(p);
+					      break;
+					  }
+				  }
+					
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else if(type.equals("客户")){
+			for(PurchaseReturnPO p:po){
+				if(p.getMemberName().equals(message))
+					result.add(p);
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else if(type.equals("仓库")){
+			for(PurchaseReturnPO p:po){
+				if(p.getStockID().equals(message))
+					result.add(p);
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else{
+			return null;
+		}
+		return result;
 	}
 	public ArrayList<SalePO> findSale(String message,String type) throws RemoteException {
 		// TODO Auto-generated method stub
