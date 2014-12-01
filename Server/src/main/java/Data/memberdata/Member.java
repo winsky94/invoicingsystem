@@ -76,6 +76,20 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 		file.writeM(a);
 		return 0;
 	}
+	
+	public MemberPO findByID(String ID){
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return null;
+		for(Object b:a){
+			MemberPO c=(MemberPO)b;
+			if(c.getMemberID().equals(ID))
+				return c;
+		}
+		
+		return null;
+		
+	}
 
 	public ArrayList<MemberPO> find(String message) {
 		ArrayList<MemberPO> buffer=new ArrayList<MemberPO>();

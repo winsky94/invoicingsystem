@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.MemberPO;
+import po.MemberPO.MemberType;
 
 public interface MemberDataService extends Remote{
 	public int add(MemberPO po) throws RemoteException;
@@ -11,4 +12,6 @@ public interface MemberDataService extends Remote{
 	public int modify(MemberPO po)throws RemoteException;
 	public ArrayList<MemberPO> find(String message)throws RemoteException;
 	public ArrayList<MemberPO> showAll() throws RemoteException; 
+	public MemberPO findByID(String ID) throws RemoteException;
+	public int getNum(MemberType type) throws RemoteException;
 }
