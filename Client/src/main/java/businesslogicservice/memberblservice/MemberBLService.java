@@ -13,4 +13,5 @@ public interface MemberBLService {
 	public ArrayList<MemberVO> findMember(String message);
 	public ArrayList<MemberVO> showMembers();
 	public String getNewID(MemberType type);
+	public MemberVO findById(String ID);
 }
