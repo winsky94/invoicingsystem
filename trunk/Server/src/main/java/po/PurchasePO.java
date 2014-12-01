@@ -1,16 +1,27 @@
 package po;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PurchasePO extends ReceiptPO{
+public class PurchasePO extends ReceiptPO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<CommodityPO> purchaseList;
 	private double totalInAll;
-	public PurchasePO(ArrayList<CommodityPO> purchaseList, String id,
-			String memberName,String memberID, String user,
-			int status, int hurry,String info, String stockid,double totalInAll) {
-		super(id, memberName,memberID, user,ReceiptType.PURCHASE, status, hurry, info, stockid);
+	private String stockid;
+	
+	public PurchasePO(String id,String memberID, String stockid,String user,ArrayList<CommodityPO> purchaseList,String info, double totalInAll,int status, int hurry) {
+		super(id,memberID,user,ReceiptType.PURCHASE,info,status, hurry);
+		this.stockid=stockid;
 		this.purchaseList = purchaseList;
 		this.totalInAll=totalInAll;
 	}
+	
+	public String getStockID(){
+		return stockid;
+	}
+	
 	public ArrayList<CommodityPO> getPurchaseList() {
 		return purchaseList;
 	}
