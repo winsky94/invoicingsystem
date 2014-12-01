@@ -79,11 +79,13 @@ public class UserMgrPanel extends JPanel{
 		delBtn.setFocusPainted(false);
 		delBtn.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				int i=userTbl.getSelectedRow();
-				if(i>=0){
-				String Id=(String)userTbl.getValueAt(i,0);
-				String name=(String)userTbl.getValueAt(i, 1);
-				JDialog delDlg=new DelUserDialog(Id,name,father);}
+				int[] i=userTbl.getSelectedRows();
+				if(i.length>0){
+					ArrayList<String> Id=new ArrayList<String>();
+				for(int j=0;j<i.length;j++)
+					Id.add((String)userTbl.getValueAt(i[j],0));
+				
+				JDialog delDlg=new DelUserDialog(Id,father);}
 				else {
 					 JOptionPane.showMessageDialog(null,"请选择用户","提示",JOptionPane.WARNING_MESSAGE);
 				}

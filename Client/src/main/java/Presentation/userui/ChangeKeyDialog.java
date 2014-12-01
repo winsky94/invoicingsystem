@@ -99,17 +99,19 @@ public class ChangeKeyDialog extends JDialog {
 		
 		submitBtn.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				String op=oldKeyFld.getText();
+				String op=new String(oldKeyFld.getPassword());
+				String np=new String(newKeyFld.getPassword());
+				String sp=new String(sureFld.getPassword());
 				if(!op.equals(user.getPassword())){
 					JOptionPane.showMessageDialog(null,"原密码输入错误！","提示",JOptionPane.WARNING_MESSAGE);
 					oldKeyFld.setText("");
-				}else if(!(newKeyFld.getText().equals(sureFld.getText()))){
+				}else if(!(np.equals(sp))){
 					JOptionPane.showMessageDialog(null,"两次密码输入不一致！","提示",JOptionPane.WARNING_MESSAGE);
 					newKeyFld.setText("");sureFld.setText("");
 				}else{
 					try {
 						service=new User();
-						user.setPassWord(sureFld.getText());
+						user.setPassWord(sp);
 						service.modifyUser(user);
 						frame.setUser(user);
 					} catch (Exception e1) {

@@ -24,7 +24,6 @@ import javax.swing.table.AbstractTableModel;
 
 import po.MemberPO.MemberType;
 import vo.MemberVO;
-
 import Presentation.mainui.MainFrame;
 
 
@@ -206,11 +205,13 @@ public class MemberMgrPanel extends JPanel {
 			//-----应当传入客户编号-----------------------
 			
 				
-					int i=memberTable.getSelectedRow();
-					if(i>=0){
-					String Id=(String)memberTable.getValueAt(i,0);
-					String name=(String)memberTable.getValueAt(i, 1);
-					JDialog delDlg=new DelMemberDialog(Id,name,parent);}
+					int[] i=memberTable.getSelectedRows();
+					ArrayList<String> Id=new ArrayList<String>();
+					if(i.length>0){
+						for(int j=0;j<i.length;j++)
+							Id.add((String)memberTable.getValueAt(i[j],0));
+					
+					JDialog delDlg=new DelMemberDialog(Id,parent);}
 					else {
 						 JOptionPane.showMessageDialog(null,"请选择用户","提示",JOptionPane.WARNING_MESSAGE);
 					}
@@ -222,7 +223,21 @@ public class MemberMgrPanel extends JPanel {
 
 		public void actionPerformed(ActionEvent e) {
 			//-----应当传入客户信息-----------------------
-			parent.setRightComponent(new ModMemberPanel(parent));
+			int i=memberTable.getSelectedRow();
+			if(i>=0){
+				String id=(String)memberTable.getValueAt(i, 0);
+				
+				try {
+					parent.setRightComponent(new ModMemberPanel(id,parent));
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}else{
+				 JOptionPane.showMessageDialog(null,"请选择用户","提示",JOptionPane.WARNING_MESSAGE);
+			}
+			
 		}
 		
 	}
