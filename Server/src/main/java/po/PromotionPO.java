@@ -1,37 +1,40 @@
 package po;
 
-import java.util.Date;
+import java.io.Serializable;
 
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
 
-public class PromotionPO {
-	Date startDate,endDate;
+public class PromotionPO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	String id;
+	String startDate,endDate;
 	PromotionType type;
 	MemberLevel level;
 	MemberType mtype;
 	int release;
 	
-	public PromotionPO(Date startDate, Date endDate, PromotionType type,
-			MemberLevel level, MemberType mtype, int release) {
-		
+	public PromotionPO(String id,String startDate, String endDate, PromotionType type,
+			MemberLevel level, MemberType mtype, int release) {		
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.type = type;
 		this.level = level;
 		this.mtype = mtype;
 		this.release = release;
+		this.id=id;
 	}
-	
-	
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
 
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
@@ -61,13 +64,13 @@ public class PromotionPO {
 
 
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
 
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 

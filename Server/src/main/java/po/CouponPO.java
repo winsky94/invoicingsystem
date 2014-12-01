@@ -1,7 +1,16 @@
 package po;
 
-public class CouponPO {
-	private String id;
+import java.io.Serializable;
+
+/*
+ * 代金券
+ */
+public class CouponPO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	String id;
 	private double value;
 	private boolean isUse;
 
@@ -19,7 +28,7 @@ public class CouponPO {
 		return value;
 	}
 
-	public boolean isUse() {
+	public boolean getIsUse() {
 		return isUse;
 	}
 
