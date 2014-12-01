@@ -10,7 +10,7 @@ import vo.GoodsVO;
 public class CommodityTableModel extends AbstractTableModel{
 	
 	 ArrayList<ArrayList<String>> c=new ArrayList<ArrayList<String>>();
-	 ArrayList<String> line=new ArrayList<String>();
+	
 		private static final long serialVersionUID = 1L;
 		String head[] = { "商品编号","名称", "型号","数量","单价","金额","备注" };
 		public int getRowCount() {
@@ -27,16 +27,31 @@ public class CommodityTableModel extends AbstractTableModel{
 		public String getColumnName(int col){
 			return head[col];
 		}
-		//添加商品  注意
-		public void RefreshCTable(ArrayList<GoodsVO> vo,int tag){
-			for(){
-				line.add()
-				
-			}
-		}
-		
-		public void RefreshCTable(ArrayList<CommodityVO> vo){
-			
+		//添加商品   进货销售有GoodsVO构造   退货有CommodityVO构造
+		//"商品编号","名称", "型号",数量,单价(默认),"金额",备注 
+		//tag=0 销售   tag=1 进货
+		public void RefreshCTable(ArrayList<Object> VO,int tag){
+			if(VO.get(0) instanceof GoodsVO)
+				{for(int i=0;i<VO.size();i++){
+					 ArrayList<String> line=new ArrayList<String>();
+					GoodsVO vo=(GoodsVO)VO.get(i);
+					line.add(vo.getGoodsID());
+					line.add(vo.getName());
+					line.add(vo.getSize());
+					line.add("1");//可改动
+					if(tag==0)
+						line.add(Double.toString(vo.getPrice()));
+					else 
+						line.add(Double.toString(vo.getLastPurchasePrice()));
+					c.add(line);
+				}}else{
+					for(int i=0;i<VO.size();i++){
+						 ArrayList<String> line=new ArrayList<String>();
+						CommodityVO vo=(CommodityVO)VO.get(i);
+						line.add(vo.getID());
+						line.add(vo.getN)
+					}
+				}
 		}
 		
 		

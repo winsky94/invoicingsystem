@@ -22,6 +22,10 @@ public class CommodityVO {
 	public double getPrice() {
 		return price;
 	}
+	
+	public String getName(){
+		return name;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -30,6 +34,10 @@ public class CommodityVO {
 	}
 	public String getTip() {
 		return tip;
+	}
+	
+	public String getID(){
+		return id;
 	}
 	public void setPrice(double price) {
 		this.price = price;
