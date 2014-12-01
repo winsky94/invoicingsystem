@@ -1,7 +1,6 @@
 package Presentation.stockui;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -9,13 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 import vo.UserVO;
-import businesslogic.userbl.User;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
@@ -23,7 +18,6 @@ import Presentation.stockui.giftmanage.GiftPanel;
 import Presentation.stockui.goodsmanage.GoodsPanel;
 import Presentation.stockui.stockmanage.StockPanel;
 import Presentation.uihelper.AboutPanel;
-import Presentation.uihelper.UserInfoButton;
 
 public class StockLeftPanel extends JPanel implements ActionListener{
 
