@@ -2,27 +2,27 @@ package po;
 
 import java.io.Serializable;
 
+
 public class ReceiptPO  implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
-	private String memberName;
 	private String memberID;
 	private String userID;
 	private ReceiptType type;
 	private int status;
 	private int hurry;
 	private String info;
-	private String stockid;
 
 	public ReceiptPO(ReceiptType type){
 		this.type=type;
 	}
 	
-	public ReceiptPO(String id, String memberName, String memberID,
-			String userID, ReceiptType type,  int status,
-			int hurry, String info, String stockid) {
+	public ReceiptPO(String id,String memberID,String userID, ReceiptType type,String info,int status,int hurry) {
 
 		this.id = id;
-		this.memberName = memberName;
 		this.memberID = memberID;
 		this.userID = userID;
 		this.type = type;
@@ -30,21 +30,16 @@ public class ReceiptPO  implements Serializable{
 		this.status = status;
 		this.hurry = hurry;
 		this.info = info;
-		this.stockid = stockid;
 	}
 
 	public ReceiptPO() {
 
 	}
 
-
 	public String getId() {
 		return id;
 	}
 
-	public String getMemberName() {
-		return memberName;
-	}
 
 	public String getMemberID() {
 		return memberID;
@@ -72,14 +67,6 @@ public class ReceiptPO  implements Serializable{
 		return info;
 	}
 
-	public String getStockid() {
-		return stockid;
-	}
-
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
-	}
-
 	public void setMemberID(String memberID) {
 		this.memberID = memberID;
 	}
@@ -96,10 +83,6 @@ public class ReceiptPO  implements Serializable{
 		this.info = info;
 	}
 
-	public void setStockid(String stockid) {
-		this.stockid = stockid;
-	}
-	
 	public enum ReceiptType implements Serializable{
 		 SALE,SALERETURN,PURCHASE,PURCHASERETURN,COLLECTION,PAYMENT,CASHLIST,
 		   GIFT,STOCKERROR,STOCKOVER,STOCKLOW

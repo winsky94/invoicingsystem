@@ -1,27 +1,38 @@
 package po;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
-import businesslogic.receiptbl.ReceiptType;
-import businesslogic.salesbl.Commodity;
 
-//CommoditList封装数据结构
-
-public class PurchaseReturnPO extends ReceiptPO{
+public class PurchaseReturnPO extends ReceiptPO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	ArrayList<CommodityPO> purchaseReturnList;
 	double totalInAll;
-	public PurchaseReturnPO(String id,String user,PurchasePO p,  int status,
-			String info,int hurry) {
-		super(id, p.getMemberName(),p.getMemberID(), user, ReceiptType.PURCHASERETURN, 
-				status,hurry, info, p.getStockid());
-		this.purchaseReturnList=p.getPurchaseList();
-		this.totalInAll=p.getTotalInAll();
+	private String stockid;
+	
+	public PurchaseReturnPO(String id,String memberID, String stockid,String user,ArrayList<CommodityPO> purchasereturnList,String info, double totalInAll,int status, int hurry) {
+		super(id,memberID,user,ReceiptType.PURCHASERETURN,info,status, hurry);
+		this.stockid=stockid;
+		this.purchaseReturnList = purchasereturnList;
+		this.totalInAll=totalInAll;
 	}
+	
+	public String getStockID(){
+		return stockid;
+	}
+	
 	public ArrayList<CommodityPO> getPurchaseReturnList() {
 		return purchaseReturnList;
 	}
 	public double getTotalInAll() {
 		return totalInAll;
 	}
+	
+	public void setTotalInAll(double totalInAll) {
+		this.totalInAll = totalInAll;
+	}
+	
 	
 }
