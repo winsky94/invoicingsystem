@@ -1,14 +1,19 @@
 package businesslogic.salesbl;
 
 import java.net.MalformedURLException;
+import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import dataservice.memberdataservice.MemberDataService;
+import dataservice.salesdataservice.SalesDataService;
 import po.MemberPO.MemberLevel;
 import po.UserPO;
 import po.UserPO.UserJob;
+import vo.CommodityVO;
+import vo.PromotionVO;
 import vo.SaleVO;
 import businesslogic.memberbl.Member;
 import businesslogic.promotionbl.coupon;
@@ -20,7 +25,7 @@ import businesslogic.userbl.User;
 public class Sale extends Receipt {  //单据总值包含代金券金额
 	// 要默认业务员 
 	private String clerk;
-	private ArrayList<Commodity> list;
+	private ArrayList<CommodityVO> list;
 	private double discountValue;//折让金额
 	private double cost;//销售成本，商品总值
 	private double couponIncome;//代金券差值收入
@@ -30,56 +35,30 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 	private double preValue;//会员让利
 	private double addDiscount;
 	private double toPay;
-	//private SaleVO vo;
-	public Sale(SaleVO vo) {
-		list=vo.getSalesList();
-		this.proValue=vo.getProDiscount();
-		this.preValue=vo.getPreDiscount();
-		this.addDiscount=vo.getMoneyDiscount();
-		this.discountValue=proValue+preValue+addDiscount;
-		this.cost=vo.getCost();
-		this.totalOrigin=vo.getTotalOrigin();
-		this.totalValue=vo.getTotalValue();
-		this.couponIncome=vo.getCouponIncome();
-		this.toPay=vo.getToPay();
-		
+	SalesDataService service;
+	
+	public Sale(){
+		String host="localhost:1099";
+		String url="rmi://"+host+"/salesService";
+	
+		service=(SalesDataService)Naming.lookup(url);
+	
+	}
+	
+	public String getNewID(){
 		
 	}
-
-	
-
-	public int addSaleItem(Commodity item){
-		if(!(list.indexOf(item)<0)){
-			return 1;//添加失败，已存在
-		}
-		else
-		{list.add(item);
-		 totalOrigin+=item.getTotal();
-		 updateData(item.getCost(),item.getTotal());
-		return 0;}
+	public int addSale(SaleVO vo){
+		
 	}
 	
-	public void updateData(double costToAdd,double totalToAdd){
-		cost+=costToAdd;
-		totalValue+=totalToAdd;
-	}
 	
-	public void deleteSaleItem(String ID){
-		Commodity item=find(ID);
-		totalOrigin-=item.getTotal();
-		updateData(-item.getCost(),-item.getTotal());
-		list.remove(item);
-	}
 	
-	public Commodity find(String ID){
-		for(int i=0;i<list.size();i++){
-			if(list.get(i).getId().equals(ID))
-				return list.get(i);
-		}
-		return null;//不可能没有把
-	}
+	
+	
+	
 	//先find获取原item的cost,total,原位置，修改后,存回list
-	public void ModifySaleItem(double cost,double total,Commodity nitem){
+	public int  ModifySale(SaleVO vo){
 		int i=list.indexOf(find(nitem.getId()));
 		totalOrigin-=total;
 		updateData(-cost,-total);
@@ -88,27 +67,7 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 		updateData(nitem.getCost(),nitem.getTotal());
 	}
 	
-	//人为折让
-	public int AddDiscount(double value) throws MalformedURLException, RemoteException, NotBoundException{
-		User User;
-		try {
-			User = new User();
-			UserPO user=User.voToPO(User.showUser(this.getUserID()));
-			if(this.totalValue<=value)
-				return 1;//折让金额过高；
-			else if((user.getJob()==UserJob.SALE)&&value>5000){
-				return 2;//销售经理最高折让5000	
-			}else{
-				this.totalValue-=value;
-				this.addDiscount=value;
-				this.discountValue+=value;
-				
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0;
+	public SaleVO find(String message,type){
 		
 	}
 
@@ -132,14 +91,14 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 	}
 
 	//算入折让
-	public void MatchProMotion() {
+	public PromotionVO MatchProMotion(SaleVO vo) {
 	
 	}
 
 	//算入折让  网络放这儿合适否？
-	public void getPrivilege() throws MalformedURLException, RemoteException, NotBoundException {
+	public double getPrivilege(String MemberID) throws MalformedURLException, RemoteException, NotBoundException {
 		Member member=new Member();
-		MemberLevel level=member.findMember(this.getMemberID()).getmLevel();
+		MemberLevel level=member.findById(MemberID).getmLevel();
 		double dis;
 		switch(level){
 		case FIVE:
@@ -153,51 +112,16 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 		default:
 			dis=1;
 		}
-		preValue=(1-dis)*totalValue;
-		totalValue*=dis;
-		discountValue+=preValue;
+		return dis;
 
 		
 	}
 	
-	public void updateSaleVO(SaleVO  vo){
-		vo.setDiscount(new double[]{proValue,preValue,addDiscount,discountValue});
-		vo.setTotal(new double[]{cost,totalOrigin,totalValue,couponIncome,toPay});
-		vo.setSaleList(list);
-	}
 
-	public void excute(Member member) {
-		member.updatePoints(this.totalValue);
-		member.updateToReceive(this.totalValue);
-		for (int i = 0; i <list.size(); i++) {
-		//	list.get(i).OutGoods();
-		}
-
-		this.setStatus(5);//执行完毕
+//单据执行
+	public void excute(SaleVO vo) {
+		
 
 	}
 	
-	public void setDiscountValue(double value){
-		this.discountValue=value;
-	}
-	
-	public double getDiscountValue(){
-		return this.discountValue;
-	}
-
-	public double getTotalValue() {
-		return this.totalValue;
-	}
-
-	public double getCouponIncome() {
-		return this.couponIncome;
-	}
-	public double getPreValue(){
-		return preValue;
-	}
-	public double getProValue(){
-		return proValue;
-	}
-	
-
 }
