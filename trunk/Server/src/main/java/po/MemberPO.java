@@ -6,7 +6,6 @@ import java.io.Serializable;
 
 
 public class MemberPO implements Serializable{
-	private static final long serialVersionUID = 1L;
 	String memberID;
 	MemberType mType;
 	MemberLevel mLevel;
