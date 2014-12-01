@@ -110,8 +110,7 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 		delGoodsBtn.setFocusPainted(false);
 		delGoodsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btm.removeRow(table.getSelectedRow());
-				table.revalidate();
+				//监听！！！！！！！！
 			}
 		});
 		gPnl.add(delGoodsBtn);
