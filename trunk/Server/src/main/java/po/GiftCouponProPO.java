@@ -1,5 +1,7 @@
 package po;
-
+/*
+ * 代金券赠送促销
+ */
 import java.util.ArrayList;
 import java.util.Date;
 
