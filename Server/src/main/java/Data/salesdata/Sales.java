@@ -21,10 +21,6 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	public Sales() throws RemoteException{
 		super();
 	}
-	public void getSaleList() throws RemoteException{
-		
-		
-	}
 
 	public int createPurchase(PurchasePO po) throws RemoteException{
 		file=new JXCFile("src/main/java/purchase.ser");
@@ -32,7 +28,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return 0;
 	}
 	
-	public ArrayList<PurchasePO> getPurchase() throws RemoteException{
+	public ArrayList<PurchasePO> showPurchase() throws RemoteException{
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -52,7 +48,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return 0;
 	}
 	
-	public ArrayList<PurchaseReturnPO> getPurchaseReturn()throws RemoteException{
+	public ArrayList<PurchaseReturnPO> showPurchaseReturn()throws RemoteException{
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -72,7 +68,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return 0;
 	}
 	
-	public ArrayList<SalePO> getSale() throws RemoteException{
+	public ArrayList<SalePO> showSale() throws RemoteException{
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -92,7 +88,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return 0;
 	}
 	
-	public ArrayList<SaleReturnPO> getSaleReturn() throws RemoteException{
+	public ArrayList<SaleReturnPO> showSaleReturn() throws RemoteException{
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -106,39 +102,112 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return buffer;
 	}
 	
-	public int updatePurchase(PurchasePO po) {
-		// TODO Auto-generated method stub
+	public int updatePurchase(PurchasePO po) throws RemoteException{
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return 1;  	  //不存在该用户	
+		int i;
+		for(i=0;i<a.size();i++){
+			PurchasePO p=(PurchasePO)a.get(i);
+			if(p.getId().equals(po.getId())){
+				p.setHurry(po.getHurry());
+				p.setInfo(po.getInfo());
+				p.setMemberID(po.getMemberID());
+				p.setPurchaseList(po.getPurchaseList());
+				p.setStatus(po.getStatus());
+				p.setTotalInAll(po.getTotalInAll());
+				break;
+			}
+		}
+		if(i==a.size())      //不存在该收款单
+			return 1;
+		
+		file.writeM(a);
 		return 0;
 	}
 	public int updatePurchaseReturn(PurchaseReturnPO po) throws RemoteException {
-		// TODO Auto-generated method stub
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return 1;  	  //不存在该用户	
+		int i;
+		for(i=0;i<a.size();i++){
+			PurchaseReturnPO p=(PurchaseReturnPO)a.get(i);
+			if(p.getId().equals(po.getId())){
+				p.setHurry(po.getHurry());
+				p.setInfo(po.getInfo());
+				p.setMemberID(po.getMemberID());
+				p.setStatus(po.getStatus());
+				p.setTotalInAll(po.getTotalInAll());
+				break;
+			}
+		}
+		if(i==a.size())      //不存在该收款单
+			return 1;
+		
+		file.writeM(a);
 		return 0;
 	}
 	public int updateSale(SalePO po) throws RemoteException {
-		// TODO Auto-generated method stub
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return 1;  	  //不存在该用户	
+		int i;
+		for(i=0;i<a.size();i++){
+			SalePO p=(SalePO)a.get(i);
+			if(p.getId().equals(po.getId())){
+				p.setHurry(po.getHurry());
+				p.setInfo(po.getInfo());
+				p.setMemberID(po.getMemberID());
+				p.setClerk(po.getClerk());
+				p.setCost(po.getCost());
+				p.setCouponPrice(po.getCouponPrice());
+				p.setDiscount(po.getDiscountValue());
+				p.setMoneyDiscount(po.getMoneyDiscount());
+				p.setSalesList(po.getSalesList());
+				p.setToPay(po.getToPay());
+				p.setStatus(po.getStatus());
+				p.setTotal(po.getTotalValue());
+				p.setTotalOrigin(po.getTotalOrigin());
+				break;
+			}
+		}
+		if(i==a.size())      //不存在该收款单
+			return 1;
+		
+		file.writeM(a);
 		return 0;
 	}
 	public int updateSaleReturn(SaleReturnPO po) throws RemoteException {
-		// TODO Auto-generated method stub
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return 1;  	  //不存在该用户	
+		int i;
+		for(i=0;i<a.size();i++){
+			SaleReturnPO p=(SaleReturnPO)a.get(i);
+			if(p.getId().equals(po.getId())){
+				p.setHurry(po.getHurry());
+				p.setInfo(po.getInfo());
+				p.setMemberID(po.getMemberID());
+				p.setClerk(po.getClerk());
+				p.setCost(po.getCost());
+				p.setCouponPrice(po.getCouponPrice());
+				p.setDiscount(po.getDiscountValue());
+				p.setMoneyDiscount(po.getMoneyDiscount());
+				p.setSalesreturnList(po.getSalesreturnList());
+				p.setToPay(po.getToPay());
+				p.setStatus(po.getStatus());
+				p.setTotal(po.getTotalValue());
+				p.setTotalOrigin(po.getTotalOrigin());
+				break;
+			}
+		}
+		if(i==a.size())      //不存在该收款单
+			return 1;
+		
+		file.writeM(a);
 		return 0;
 	}
-	public ArrayList<PurchasePO> showPurchase() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public ArrayList<PurchaseReturnPO> showPurchaseReturn()
-			throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public ArrayList<SalePO> showSale() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public ArrayList<SaleReturnPO> showSaleReturn() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	public ArrayList<PurchasePO> findPurchase(String message)
 			throws RemoteException {
 		// TODO Auto-generated method stub
