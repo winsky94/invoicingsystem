@@ -30,6 +30,7 @@ public class AddBarginPanel extends ChooseGoodsFatherPane{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	Font font=new Font("微软雅黑", Font.BOLD, 15);
 	DateChooser from,to;
 	JFrame father;
 	JScrollPane jsp;
@@ -57,7 +58,6 @@ public class AddBarginPanel extends ChooseGoodsFatherPane{
 		//--------left-----------------------
 		GridBagLayout gbl=new GridBagLayout();
 		GridBagConstraints c=new GridBagConstraints();
-		c.fill=GridBagConstraints.BOTH;
 		c.insets=new Insets(5,10,5,10);
 		left.setLayout(gbl);
 		JLabel title=new JLabel("创建特价包");
@@ -71,6 +71,7 @@ public class AddBarginPanel extends ChooseGoodsFatherPane{
 		gbl.setConstraints(title, c);
 		left.add(title);
 		//--------表格------------------------
+		c.fill=GridBagConstraints.BOTH;
 		btm=new AddBarginModel();
 		table=new JTable(btm);
 		table.getColumnModel().getColumn(0).setPreferredWidth(200);
@@ -87,7 +88,7 @@ public class AddBarginPanel extends ChooseGoodsFatherPane{
 		JPanel gPnl=new JPanel();
 		gPnl.setLayout(new GridLayout(1,2));
 		addGoodsBtn =new JButton("添加商品");
-		addGoodsBtn.setFont(new Font("微软雅黑", Font.BOLD, 14));
+		addGoodsBtn.setFont(font);
 		addGoodsBtn.setBackground(Color.white);
 		addGoodsBtn.setFocusPainted(false);
 		addGoodsBtn.addActionListener(new ActionListener() {
@@ -97,7 +98,7 @@ public class AddBarginPanel extends ChooseGoodsFatherPane{
 		});
 		gPnl.add(addGoodsBtn);
 		delGoodsBtn=new JButton("删除商品");
-		delGoodsBtn.setFont(new Font("微软雅黑", Font.BOLD, 14));
+		delGoodsBtn.setFont(font);
 		delGoodsBtn.setBackground(Color.white);
 		delGoodsBtn.setFocusPainted(false);
 		delGoodsBtn.addActionListener(new ActionListener() {
@@ -117,10 +118,70 @@ public class AddBarginPanel extends ChooseGoodsFatherPane{
 		gbl.setConstraints(gPnl, c);
 		left.add(gPnl);
 		//-----right-------------------------
-		right.setLayout(new GridLayout(4,2));
-		
+		right.setLayout(new GridLayout(8,1,5,5));
+		right.add(new JLabel());
+		right.add(new JLabel());
 		//---------选择日期--------------------
-		
+		JPanel dateP=new JPanel();
+		dateP.setBackground(Color.white);
+		JPanel fP=new JPanel();
+		fP.setBackground(Color.white);
+		fP.add(new JLabel("起始于"));
+		from=new DateChooser();
+		fP.add(from);
+		dateP.add(fP);
+		//
+		JPanel tP=new JPanel();
+		tP.setBackground(Color.white);
+		tP.add(new JLabel("截止于"));
+		to=new DateChooser();
+		tP.add(to);
+		dateP.add(tP);
+		right.add(dateP);
+		//-------客户等级限制-----------------
+		JPanel gradePnl=new JPanel();
+		gradePnl.setBackground(Color.white);
+		JLabel gradeLbl=new JLabel("客户等级限制：");
+		gradeLbl.setFont(font);
+		gradePnl.add(gradeLbl);
+		String boxText[]={"ONE","TWO","THREE","FOUR","FIVE"};
+		memberGradeBox=new JComboBox<String>(boxText);
+		memberGradeBox.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+		memberGradeBox.setBackground(Color.white);
+		gradePnl.add(memberGradeBox);
+		right.add(gradePnl);
+		//-----原价值------------------------
+		JPanel dPnl=new JPanel();
+		dPnl.setBackground(Color.white);
+		defaultTotalLbl=new JLabel();
+		defaultTotalLbl.setText("原价："+String.valueOf(defaultTotal));
+		defaultTotalLbl.setFont(font);
+		dPnl.add(defaultTotalLbl);
+		right.add(dPnl);
+		//-------定价-----------------------
+		JPanel pricePnl=new JPanel();
+		pricePnl.setBackground(Color.white);
+		JLabel priceLbl=new JLabel("定价：");
+		priceLbl.setFont(font);
+		pricePnl.add(priceLbl);
+		priceFld=new JTextField(10);
+		pricePnl.add(priceFld);
+		right.add(pricePnl);
+		//------------------------------------
+		right.add(new JLabel());
+		JPanel btnPnl=new JPanel();
+		btnPnl.setBackground(Color.white);
+		submitBtn=new JButton("确定");
+		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+		submitBtn.setFocusPainted(false);
+		submitBtn.setBackground(new Color(166, 210, 121));
+		btnPnl.add(submitBtn);
+		exitBtn = new JButton("取消");
+		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+		exitBtn.setFocusPainted(false);
+		exitBtn.setBackground(new Color(251, 147, 121));
+		btnPnl.add(exitBtn);
+		right.add(btnPnl);
 	}
 	class AddBarginModel extends AbstractTableModel{
 		/**
