@@ -8,30 +8,19 @@ import java.util.Date;
 
 
 
+
+import businesslogicservice.promotionblservice.PromotionBLService;
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
 import po.PromotionPO.PromotionType;
 import vo.GiftVO;
 import vo.PromotionVO;
 import vo.SaleVO;
+//release 去掉？？？当前促销是否还有效？
+public class promotion implements PromotionBLService{
+	
+	
 
-public class promotion {
-	Date startDate,endDate;
-	PromotionType type;
-	MemberLevel level;
-	MemberType mtype;
-	int release;
-	public promotion(){
-		
-	}
-	public promotion(Date d1,Date d2,PromotionType t,MemberLevel l,MemberType mt){
-		this.startDate=d1;
-		this.endDate=d2;
-		this.type=t;
-		this.mtype=mt;
-		this.level=l;
-		this.release=0;//未发布
-	}
 	
 	//发布和添加？
 	public int Add(PromotionVO vo){
@@ -55,8 +44,8 @@ public class promotion {
 		return null;
 	
 	}
-	
-	public ArrayList<PromotionVO> show(){
+	//子类不重写
+	public ArrayList<PromotionVO> Show(){
 		
 		return null;
 	}
@@ -67,14 +56,6 @@ public class promotion {
 		return null;
 	}
 	
-	public int Release(promotion pro) throws RemoteException{
-		pro.release=1;
-		return promotionList.AddPromotion(pro);
-	}
 	
-	public int  GetRelease(){
-		return release;
-	}
 	
-	//发布
 }

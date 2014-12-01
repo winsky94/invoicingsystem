@@ -15,16 +15,15 @@ public class PromotionPO implements Serializable{
 	PromotionType type;
 	MemberLevel level;
 	MemberType mtype;
-	int release;
+	
 	
 	public PromotionPO(String id,String startDate, String endDate, PromotionType type,
-			MemberLevel level, MemberType mtype, int release) {		
+			MemberLevel level, MemberType mtype) {		
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.type = type;
 		this.level = level;
 		this.mtype = mtype;
-		this.release = release;
 		this.id=id;
 	}
 
@@ -58,10 +57,6 @@ public class PromotionPO implements Serializable{
 
 
 
-	public int getRelease() {
-		return release;
-	}
-
 
 
 	public void setStartDate(String startDate) {
@@ -88,9 +83,7 @@ public class PromotionPO implements Serializable{
 
 
 
-	public void setRelease(int release) {
-		this.release = release;
-	}
+	
 
 
 

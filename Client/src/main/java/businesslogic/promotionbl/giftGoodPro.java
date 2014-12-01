@@ -19,11 +19,6 @@ import businesslogic.stockbl.goods.MockGoods;
 public class giftGoodPro extends promotion{	
 	private ArrayList<Goods> giftList;
 	private double totalValue;
-	public giftGoodPro(Date startDate,Date endDate,MemberLevel l,MemberType mt)
-	{
-		super(startDate,endDate,PromotionType.GIFTGOODS,l,mt);
-		giftList=new ArrayList<Goods>();
-	}
 	
 	public void AddGoods(Goods good)
 	{
