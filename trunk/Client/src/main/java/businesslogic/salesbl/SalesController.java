@@ -20,58 +20,43 @@ import businesslogic.receiptbl.ReceiptType;
 import businesslogicservice.salesblservice.SalesBLService;
 
 public class SalesController implements SalesBLService {
-	public int purchase(PurchaseVO vo) {
-		return 0;
+	Sale sale;
+	SaleReturn saleReturn;
+	Purchase purchase;
+	PurchaseReturn purchaseReturn;
+	
+	public SalesController(){
+		sale=new Sale();
+		purchase=new Purchase();
+		purchaseReturn=new PurchaseReturn();
+		saleReturn=new SaleReturn();
 	}
-
-	public int purchaseReturn(PurchaseReturnVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public String getNewID(ReceiptType type){
+		
+		return null;
+		
 	}
-
-	public int sale(SaleVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int saleReturn(SaleReturnVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int modifyPurchase(PurchaseVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int modifyPurchaseReturn(PurchaseReturnVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	public int sendSaleReceipt(ReceiptVO vo) throws MalformedURLException, RemoteException, NotBoundException{
-		String host="localhost:1099";
-		String url="rmi://"+host+"/userService";
-		SalesDataService service=(SalesDataService)Naming.lookup(url);
-		if(service==null)
-			return 1;//服务连接失败
-		else{
-			switch(vo.getType()){
-			case SALE:
-				 SalePO  salepo=saleVoToPo(vo);service.createSale(salepo);break;
-			case PURCHASE:
-				 PurchasePO purchasepo=purchaseVoToPo(vo);service.createPurchase(purchasepo);break;
-			case PURCHASERETURN:
-			case SALERETURN:
-				
-				
-				
-				
-			}
-			
-			
+	
+	//通知审批
+	public int addSaleReceipt(ReceiptVO vo){
+		int result;
+		switch(vo.getType()){
+		case SALE:
+			result=
 		}
 		return 0;
+		
 	}
+	
+	public int ModifySaleReceipt(ReceiptVO vo ){
+		return 0;
+		
+	}
+
+	
+			
+			
+	
 	public int modifySale(SaleVO vo) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -140,6 +125,41 @@ public class SalesController implements SalesBLService {
 				vo.getStatus(),vo.getHurry(),vo.getInfo(),vo.getStockid(),vo.getTotalInAll());
 		
 		return po;
+	}
+
+	public int modifySaleReceipt(ReceiptVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public ArrayList<ReceiptVO> show(ReceiptType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<ReceiptVO> showAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public double couponProfitCalc() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public double totalMoneyWeGot() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public double totalMoneyWePaid() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public double purchaseReturnProfitCalc() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	
