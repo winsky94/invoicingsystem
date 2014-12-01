@@ -306,12 +306,117 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return result;
 	}
 	public ArrayList<SalePO> findSale(String message,String type) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<SalePO> po=showSale();
+		ArrayList<SalePO> result=new ArrayList<SalePO>();
+		if(type.equals("时间区间")){
+			String qishi=message.substring(0,6);
+			String jiezhi=message.substring(6,12);
+			for(SalePO p:po){
+				if(qishi.compareTo(p.getDate())<=0&&p.getDate().compareTo(jiezhi)<=0)
+					result.add(p);
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else if(type.equals("商品名")){
+			for(SalePO p:po){
+				ArrayList<CommodityPO> c=p.getSalesList();
+				  for(CommodityPO cp:c){
+					  if(cp.getName().equals(message)){
+					      result.add(p);
+					      break;
+					  }
+				  }
+					
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else if(type.equals("客户")){
+			for(SalePO p:po){
+				if(p.getMemberName().equals(message))
+					result.add(p);
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else if(type.equals("业务员")){
+			for(SalePO p:po){
+				if(p.getClerk().equals(message))
+					result.add(p);
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else if(type.equals("仓库")){
+			for(SalePO p:po){
+				if(p.getStockID().equals(message))
+					result.add(p);
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else{
+			return null;
+		}
+		return result;
 	}
+	
 	public ArrayList<SaleReturnPO> findSaleReturn(String message,String type) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<SaleReturnPO> po=showSaleReturn();
+		ArrayList<SaleReturnPO> result=new ArrayList<SaleReturnPO>();
+		if(type.equals("时间区间")){
+			String qishi=message.substring(0,6);
+			String jiezhi=message.substring(6,12);
+			for(SaleReturnPO p:po){
+				if(qishi.compareTo(p.getDate())<=0&&p.getDate().compareTo(jiezhi)<=0)
+					result.add(p);
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else if(type.equals("商品名")){
+			for(SaleReturnPO p:po){
+				ArrayList<CommodityPO> c=p.getSalesreturnList();
+				  for(CommodityPO cp:c){
+					  if(cp.getName().equals(message)){
+					      result.add(p);
+					      break;
+					  }
+				  }
+					
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else if(type.equals("客户")){
+			for(SaleReturnPO p:po){
+				if(p.getMemberName().equals(message))
+					result.add(p);
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else if(type.equals("业务员")){
+			for(SaleReturnPO p:po){
+				if(p.getClerk().equals(message))
+					result.add(p);
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else if(type.equals("仓库")){
+			for(SaleReturnPO p:po){
+				if(p.getStockID().equals(message))
+					result.add(p);
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else{
+			return null;
+		}
+		return result;
 	}
 	
 	public static void main(String[] args){
