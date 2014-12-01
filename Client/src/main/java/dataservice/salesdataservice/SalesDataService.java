@@ -30,8 +30,4 @@ public interface SalesDataService extends Remote{
 	public ArrayList<SalePO> findSale(String message);
 	public ArrayList<SaleReturnPO> findSaleReturn(String message);
 	
-	public ArrayList<PurchasePO> getPurchase() throws RemoteException;
-	public ArrayList<PurchaseReturnPO> getPurchaseReturn()throws RemoteException;
-	public ArrayList<SalePO> getSale() throws RemoteException;
-	public ArrayList<SaleReturnPO> getSaleReturn() throws RemoteException;
 }
