@@ -158,7 +158,7 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 		private static final long serialVersionUID = 1L;
 		MyButton(String text,Icon icon){
 			super(text,icon);
-			this.setFont(new Font("微软雅黑", Font.BOLD, 14));
+			this.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 			this.setForeground(new Color(47, 73, 136));
 			this.setBorderPainted(false);
 			this.setBackground(Color.white);
