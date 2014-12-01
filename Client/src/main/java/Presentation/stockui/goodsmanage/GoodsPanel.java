@@ -37,6 +37,7 @@ import javax.swing.tree.TreePath;
 
 import vo.GoodsClassVO;
 import Presentation.mainui.MainFrame;
+import businesslogic.stockbl.goods.GoodsModel;
 import businesslogic.stockbl.goodsClass.GoodsClassController;
 import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBLService;
 
@@ -50,6 +51,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 	JButton addGCBtn, delGCBtn, modGCBtn;
 	JTextField searchFld;
 	JTable goodsTable;
+	JScrollPane jspTable=null;
 	Color stockColor = new Color(51, 125, 86);
 	String keyWord;
 
@@ -207,8 +209,10 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		this.add(downPnl);
 
 		// ----------goodsTable------------------
-		goodsTable = new JTable();
-		goodsTable.setBackground(Color.blue);
+		GoodsModel gm=new GoodsModel();
+		goodsTable = new JTable(gm);
+		goodsTable.setBackground(Color.white);
+		jspTable=new JScrollPane(goodsTable);
 		c.gridx = 3;
 		c.gridy = 1;
 		c.gridheight = 7;
@@ -216,8 +220,8 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		c.weightx = 0.6;
 		c.weighty = 55;
 		c.fill = GridBagConstraints.BOTH;
-		gbl.setConstraints(goodsTable, c);
-		this.add(goodsTable);
+		gbl.setConstraints(jspTable, c);
+		this.add(jspTable);
 	}
 
 	class AddGoodsBtnListener implements ActionListener {
@@ -625,14 +629,5 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 	// end_yan-----------------------------------------------------------
 
-	/*public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 800, 500);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		GoodsPanel gp = new GoodsPanel(parent);
-		gp.setBounds(0, 0, 800, 500);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
-	}*/
+	
 }

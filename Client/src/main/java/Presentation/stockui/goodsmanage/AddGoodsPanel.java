@@ -33,9 +33,9 @@ public class AddGoodsPanel extends JPanel {
 	int dlgHeight = screenHeight * 60 / 100;
 	MainFrame parent;
 
-public AddGoodsPanel(MainFrame frame) {
-	parent=frame;
-	
+	public AddGoodsPanel(MainFrame frame) {
+		parent = frame;
+
 		this.setBackground(Color.white);
 		this.setLayout(null);
 		//
@@ -117,7 +117,7 @@ public AddGoodsPanel(MainFrame frame) {
 		this.add(submitBtn);
 		this.setVisible(true);
 		//
-	
+
 	}
 
 	class NameFieldListener implements DocumentListener {
