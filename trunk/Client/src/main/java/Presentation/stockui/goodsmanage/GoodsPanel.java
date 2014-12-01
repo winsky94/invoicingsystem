@@ -226,7 +226,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 	class AddGoodsBtnListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			new AddGoodsPanel(parent);
+			parent.setRightComponent(new  AddGoodsPanel(parent));
 
 		}
 

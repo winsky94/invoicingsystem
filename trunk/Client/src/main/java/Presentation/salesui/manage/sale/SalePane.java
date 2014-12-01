@@ -28,6 +28,10 @@ import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.functionPane;
 import Presentation.mainui.outBorder;
+import Presentation.salesui.manage.CommodityTableModel;
+import Presentation.salesui.manage.CommodityTableModle;
+import Presentation.salesui.manage.CommodityTablelModle;
+import Presentation.stockui.ChooseGoodsDialog;
 import Presentation.uihelper.UIhelper;
 
 public class SalePane extends  ChooseGoodsFatherPane  implements ActionListener{
@@ -37,7 +41,6 @@ public class SalePane extends  ChooseGoodsFatherPane  implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	int screenWidth = UIhelper.getScreenWidth();
-	JLabel timeNow;
 	int screenHeight = UIhelper.getScreenHeight();
 	int dialogWidth = screenWidth * 65 / 100;
 	int dialogHeight = screenHeight * 65 / 100;
@@ -46,10 +49,11 @@ public class SalePane extends  ChooseGoodsFatherPane  implements ActionListener{
 			remarkLbl;
 	JComboBox<String> XSSCbox;
 	JTextField clerkFld, stockFld, discountMoneyFld;
+	CommodityTableModel ctm=new CommodityTableModel();
 	JTable saleItemTbl;
 	JTextArea remarkArea;
-	JButton submitBtn, addCouponBtn, addItemBtn, delItemBtn;
-
+	JButton submitBtn, addCouponBtn, addItemBtn, delItemBtn,cancelBtn;
+	
 	public SalePane(MainFrame frame) {
 		setSize(frame.getWidth()*1000/1225,frame.getHeight());
 		
@@ -137,7 +141,7 @@ public class SalePane extends  ChooseGoodsFatherPane  implements ActionListener{
 		this.add(saleItemLbl);
 
 		// -----------------saleItemTbl-----------------------------------
-		saleItemTbl = new JTable();
+		saleItemTbl = new JTable(ctm);
 		saleItemTbl.setBounds(dialogWidth * 40 / 100, dialogHeight * 23 / 100,
 				dialogWidth * 68 / 100, dialogHeight * 55 / 100);
 		saleItemTbl.setBackground(Color.black);
@@ -188,20 +192,18 @@ public class SalePane extends  ChooseGoodsFatherPane  implements ActionListener{
 				dialogWidth * 20 / 100, dialogHeight * 6 / 100);
 		submitBtn.setFocusPainted(false);
 		this.add(submitBtn);
-		//add(pnl,BorderLayout.CENTER);
+		cancelBtn = new JButton("取 消");
+		cancelBtn.setFont(new Font("微软雅黑", Font.BOLD, 14));
+		cancelBtn.setBounds(dialogWidth * 40 / 100, dialogHeight * 85 / 100,
+				dialogWidth * 20 / 100, dialogHeight * 6 / 100);
+		cancelBtn.setFocusPainted(false);
+		this.add(cancelBtn);
+		
 		
 		
 
-		// ------------------------------------------------------------------
-		JPanel jp3=new JPanel();
-		jp3.setBackground(Color.white);
-		Timer t=new Timer(1000,this);//每隔一秒触发ActionEvent事件
-		t.start();//启动计时器
-//		timeNow=new JLabel(Calendar.getInstance().getTime().toString());
-		timeNow=new JLabel(Calendar.getInstance().getTime().toLocaleString());
-		jp3.add(timeNow);
-		jp3.setBorder(new EtchedBorder(EtchedBorder.RAISED));
-      //  this.add(jp3,BorderLayout.SOUTH);
+		//---------------------------------------------------
+		
 		this.setVisible(true);
 		this.setBorder(new outBorder("创建销售单"));
 		
@@ -215,7 +217,7 @@ public class SalePane extends  ChooseGoodsFatherPane  implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-
+			ChooseGoodsDialog choose=new ChooseGoodsDialog(SalePane.this);
 		}
 	}
 
@@ -238,7 +240,8 @@ public class SalePane extends  ChooseGoodsFatherPane  implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		this.timeNow.setText(Calendar.getInstance().getTime().toLocaleString());
+		// TODO Auto-generated method stub
 		
 	}
+
 }

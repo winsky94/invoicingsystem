@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,7 +19,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.AbstractTableModel;
 
+import vo.ReceiptVO;
 import Presentation.mainui.MainFrame;
 import Presentation.memberui.ModMemberPanel;
 import Presentation.salesui.manage.purchase.PurchasePane;
@@ -35,6 +38,9 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 	JTextField searchFld;
 	String keyWord;
 	MainFrame parent;
+	JTable purchaseTbl;
+	//CommodityTablelModle ctm;
+	
 	public PurchaseMgrPanel(MainFrame frame) {
 		parent=frame;
 		this.setBackground(Color.WHITE);
@@ -108,6 +114,7 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 		 * 
 		 * 这个表格BL来搞一下~注入信息
 		 */
+		//ctm=new CommodityTablelModle();
 		purchaseTable = new JTable();
 		c.gridx = 0;
 		c.gridwidth = 5;
@@ -119,7 +126,13 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 		this.add(purchaseTable);
 	}
 
-	
+	public void RefreshPurchaseTabel(ArrayList<ReceiptVO> VO){
+		ArrayList<ArrayList<String>> c=ctm.getContent();
+		for(ReceiptVO vo:VO){
+			//if(Receipt)
+		}
+		
+	}
 
 	class SearchFldListener implements DocumentListener {
 
