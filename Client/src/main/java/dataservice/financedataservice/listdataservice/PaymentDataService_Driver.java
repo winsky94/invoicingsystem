@@ -1,11 +1,18 @@
 package dataservice.financedataservice.listdataservice;
 
+import java.rmi.RemoteException;
+
 import po.PaymentPO;
 
 
 public class PaymentDataService_Driver {
 	public void drive(PaymentDataService fds){
-	  	  fds.createPayment(new PaymentPO());
+	  	  try {
+			fds.createPayment(new PaymentPO());
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    }
 		
 	    public static void main(String[] args){
