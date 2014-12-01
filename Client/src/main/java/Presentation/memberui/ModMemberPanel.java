@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -36,7 +37,7 @@ import Presentation.memberui.AddMemberPanel.NameFieldListener;
 import Presentation.memberui.AddMemberPanel.PhoneFieldListener;
 import Presentation.memberui.AddMemberPanel.PostcodeFieldListener;
 import Presentation.uihelper.UIhelper;
-//改类型  等级不变 不可改
+//改类型  等级不变 不可改  为佳
 public class ModMemberPanel extends JPanel {
 	/**
 	 * ！！！！这里的构造器应当传入Member的各种信息，默认填入组件中！！
@@ -89,6 +90,9 @@ public class ModMemberPanel extends JPanel {
 				typeCbox.setBackground(Color.white);
 				typeCbox.setBounds(dialogWidth * 15 / 100, dialogHeight * 20 / 100,
 						dialogWidth * 15 / 100, dialogHeight * 7 / 100);
+				if(vo.getmType()==MemberType.JHS){
+					typeCbox.setSelectedItem("进货商");
+				}else typeCbox.setSelectedItem("销售商");
 				
 				typeCbox.addItemListener(new ItemListener(){
 					public void itemStateChanged(ItemEvent e){
@@ -103,7 +107,7 @@ public class ModMemberPanel extends JPanel {
 				});
 				this.add(typeCbox);
 		//----------level--------
-		levelbl=new JLabel("客户等级"+vo.getMemberID().toString());
+		levelbl=new JLabel("客户等级:"+vo.getMemberID().toString());
 		
 		// ---------------------nameLabel------------------------------------
 		nameLbl = new JLabel("姓名 ");
@@ -112,7 +116,7 @@ public class ModMemberPanel extends JPanel {
 				dialogWidth * 5 / 100, dialogHeight * 7 / 100);
 		this.add(nameLbl);
 		// -----------------nameFld------------------------------------------
-		nameFld = new JTextField();
+		nameFld = new JTextField(vo.getName());
 		nameFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		nameFld.setBounds(dialogWidth * 60 / 100, dialogHeight * 20 / 100,
 				dialogWidth * 20 / 100, dialogHeight * 7 / 100);
@@ -125,7 +129,7 @@ public class ModMemberPanel extends JPanel {
 				dialogWidth * 5 / 100, dialogHeight * 7 / 100);
 		this.add(phoneLbl);
 		// -----------------phoneFld------------------------------------------
-		phoneFld = new JTextField();
+		phoneFld = new JTextField(vo.getTel());
 		phoneFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		phoneFld.setBounds(dialogWidth * 15 / 100, dialogHeight * 35 / 100,
 				dialogWidth * 25 / 100, dialogHeight * 7 / 100);
@@ -138,7 +142,7 @@ public class ModMemberPanel extends JPanel {
 				dialogWidth * 9 / 100, dialogHeight * 7 / 100);
 		this.add(EMailLbl);
 		// ----------------EMailFld------------------------------------------
-		EMailFld = new JTextField();
+		EMailFld = new JTextField(vo.getEMail());
 		EMailFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		EMailFld.setBounds(dialogWidth * 60 / 100, dialogHeight * 35 / 100,
 				dialogWidth * 30 / 100, dialogHeight * 7 / 100);
@@ -151,7 +155,7 @@ public class ModMemberPanel extends JPanel {
 				dialogWidth * 5 / 100, dialogHeight * 7 / 100);
 		this.add(addressLbl);
 		// ---------------addressFld------------------------------------------
-		addressFld = new JTextField();
+		addressFld = new JTextField(vo.getAddress());
 		addressFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		addressFld.setBounds(dialogWidth * 15 / 100, dialogHeight * 50 / 100,
 				dialogWidth * 50 / 100, dialogHeight * 7 / 100);
@@ -164,7 +168,7 @@ public class ModMemberPanel extends JPanel {
 				dialogWidth * 5 / 100, dialogHeight * 7 / 100);
 		this.add(postcodeLbl);
 		// ---------------postcodeFld------------------------------------------
-		postcodeFld = new JTextField();
+		postcodeFld = new JTextField(vo.getPostcode());
 		postcodeFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		postcodeFld.setBounds(dialogWidth * 15 / 100, dialogHeight * 65 / 100,
 				dialogWidth * 25 / 100, dialogHeight * 7 / 100);
@@ -178,7 +182,7 @@ public class ModMemberPanel extends JPanel {
 				dialogHeight * 7 / 100);
 		this.add(defaultClerkLbl);
 		// ----------------defaultClerkFld------------------------------------------
-		defaultClerkFld = new JTextField();
+		defaultClerkFld = new JTextField(vo.getDefaultClerk());
 		defaultClerkFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		defaultClerkFld.setBounds(dialogWidth * 60 / 100,
 				dialogHeight * 65 / 100, dialogWidth * 30 / 100,
@@ -194,15 +198,23 @@ public class ModMemberPanel extends JPanel {
 		this.add(submitBtn);
 		submitBtn.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				MemBaseInfo bInfo=new MemBaseInfo(mtype,MemberLevel.ONE,ID,nameFld.getText(),0,defaultClerkFld.getText());
+				MemBaseInfo bInfo=new MemBaseInfo(mtype,vo.getmLevel(),vo.getMemberID(),nameFld.getText(),vo.getPoints(),defaultClerkFld.getText());
 				MemContactInfo cInfo=new MemContactInfo(phoneFld.getText(), addressFld.getText(),
 						postcodeFld.getText(),  EMailFld.getText());
-				MemAccountInfo aInfo=new MemAccountInfo(1000000,0,0);
+				MemAccountInfo aInfo=new MemAccountInfo(vo.getMaxOwe(),vo.getToReceive(),vo.getToPay());
 			
 				
-				MemberVO vo=new MemberVO(bInfo,aInfo,cInfo);
-				int result=service.addMember(vo);
-				vo=new MemberVO()
+				MemberVO VO=new MemberVO(bInfo,aInfo,cInfo);
+				int result=service.modifyMember(VO);
+			if(result==0){
+				JOptionPane.showMessageDialog(null,"修改客户成功！","提示",JOptionPane.CLOSED_OPTION);
+			}else{
+				JOptionPane.showMessageDialog(null,"硒鼓改客户失败！","提示",JOptionPane.WARNING_MESSAGE);
+			}
+			MemberMgrPanel mgr=new MemberMgrPanel(parent);
+			parent.setRightComponent(mgr);
+			mgr.RefreshMemberTable(service.showMembers());
+				
 			}
 		});
 		// ------------------------------------------------------------------
