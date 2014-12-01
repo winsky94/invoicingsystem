@@ -33,9 +33,9 @@ public class AddGoodsPanel extends JPanel {
 	int dlgHeight = screenHeight * 60 / 100;
 	MainFrame parent;
 
-	public AddGoodsPanel(MainFrame frame) {
-		parent=frame;
-	
+//	public AddGoodsPanel(MainFrame frame) {
+//		parent=frame;
+	public AddGoodsPanel(){
 		this.setBackground(Color.white);
 		this.setLayout(null);
 		//
@@ -115,6 +115,7 @@ public class AddGoodsPanel extends JPanel {
 				dlgWidth * 20 / 100, dlgHeight * 6 / 100);
 		submitBtn.setFocusPainted(false);
 		this.add(submitBtn);
+		this.setVisible(true);
 		//
 	
 	}
