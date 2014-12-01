@@ -8,6 +8,10 @@ public class MemberPO implements Serializable{
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 	
 	String memberID;
 	MemberType mType;
@@ -36,6 +40,9 @@ public class MemberPO implements Serializable{
 		this.points=points;
 	}
 
+	public void setmType(MemberType mtype){
+		this.mType=mtype;
+	}
 	public void setmLevel(MemberLevel mLevel) {
 		this.mLevel = mLevel;
 	}

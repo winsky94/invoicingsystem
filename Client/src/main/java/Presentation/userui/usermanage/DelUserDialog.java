@@ -58,6 +58,7 @@ public class DelUserDialog extends JDialog {
 					DelUserDialog.this.dispose();
 					UserMgrPanel mgr=new UserMgrPanel(parent);
 					parent.setRightComponent(mgr);
+					if(service.showAll()!=null)
 					mgr.RefreshUserTable(service.showAll());
 				} catch (Exception e2) {
 					// TODO Auto-generated catch block

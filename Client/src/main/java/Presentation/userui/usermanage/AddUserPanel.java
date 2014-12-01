@@ -172,6 +172,7 @@ public class AddUserPanel extends JPanel{
 					e1.printStackTrace();
 				}
 				father.setRightComponent(mgr);
+				if(service.showAll()!=null)
 				mgr.RefreshUserTable(service.showAll());
 			}
 		});
@@ -194,6 +195,7 @@ public class AddUserPanel extends JPanel{
 					e1.printStackTrace();
 				}
 				father.setRightComponent(mgr);
+				if(service.showAll()!=null)
 				mgr.RefreshUserTable(service.showAll());
 			}
 		});

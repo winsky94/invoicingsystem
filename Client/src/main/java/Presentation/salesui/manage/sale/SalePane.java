@@ -28,7 +28,7 @@ import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.functionPane;
 import Presentation.mainui.outBorder;
-import Presentation.salesui.manage.CommodityTableModel;
+
 import Presentation.stockui.ChooseGoodsDialog;
 import Presentation.uihelper.UIhelper;
 
@@ -54,7 +54,7 @@ public class SalePane extends  ChooseGoodsFatherPane  implements ActionListener{
 	
 	public SalePane(MainFrame frame) {
 		setSize(frame.getWidth()*1000/1225,frame.getHeight());
-		
+		this.setTag(0);
 		
 	//============functionPane由mainFrame构造
 		JPanel button=new functionPane(frame);

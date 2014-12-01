@@ -26,6 +26,10 @@ public class CommodityVO {
 	public String getName(){
 		return name;
 	}
+	
+	public String getType(){
+		return type;
+	}
 	public int getNum() {
 		return num;
 	}

@@ -104,6 +104,7 @@ public class UserLeftPanel extends JPanel implements ActionListener {
 				e1.printStackTrace();
 			}
 			parent.setRightComponent(mgr);
+			if(service.showAll()!=null)
 			mgr.RefreshUserTable(service.showAll());
 		}
 		else if(e.getSource()==aboutBtn){

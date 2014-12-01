@@ -62,6 +62,8 @@ public class Member implements MemberBLService{
 	public ArrayList<MemberVO> showMembers() {
 		// TODO Auto-generated method stub
 		ArrayList<MemberPO> po=service.showAll();
+		if(po==null)
+			return null;
 		ArrayList<MemberVO> vo=new ArrayList<MemberVO>();
 		for(int i=0;i<po.size();i++)
 			vo.add(poToVo(po.get(i)));
@@ -120,6 +122,8 @@ public class Member implements MemberBLService{
 		// TODO Auto-generated method stub
 		ArrayList<MemberPO> po=service.showAll();
 		String lastID=null;
+		if(po==null) lastID="0000001";
+		else{
 		for(int i=0;i<po.size();i++){
 			if(po.get(i).getmType()==type)
 				{lastID=po.get(i).getMemberID();}
@@ -133,7 +137,7 @@ public class Member implements MemberBLService{
 		     lastID=nf.format(d);
 		}
 		
-		else lastID="0000001";
+		else lastID="0000001";}
 		if(type==MemberType.JHS)
 			return "JHS-"+lastID;
 		else 

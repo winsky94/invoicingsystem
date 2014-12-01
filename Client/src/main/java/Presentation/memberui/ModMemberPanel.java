@@ -10,6 +10,7 @@ import java.awt.event.ItemListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -53,7 +54,7 @@ public class ModMemberPanel extends JPanel {
 	MemberVO vo;
 	MemberType mtype;
 	MainFrame parent;
-	JButton submitBtn;
+	JButton submitBtn,cancelBtn;
 	JTextField nameFld, phoneFld, addressFld, postcodeFld, EMailFld,
 			defaultClerkFld;
 	JLabel IDLbl, typeLbl,levelbl, nameLbl, phoneLbl, addressLbl, postcodeLbl,
@@ -196,6 +197,15 @@ public class ModMemberPanel extends JPanel {
 				dialogWidth * 20 / 100, dialogHeight * 8 / 100);
 		submitBtn.setFocusPainted(false);
 		this.add(submitBtn);
+		
+		cancelBtn = new JButton("取 消");
+		cancelBtn.setFont(new Font("微软雅黑", Font.BOLD, 14));
+		this.add(cancelBtn);
+		cancelBtn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				Update();
+			}
+		});
 		submitBtn.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				MemBaseInfo bInfo=new MemBaseInfo(mtype,vo.getmLevel(),vo.getMemberID(),nameFld.getText(),vo.getPoints(),defaultClerkFld.getText());
@@ -211,14 +221,19 @@ public class ModMemberPanel extends JPanel {
 			}else{
 				JOptionPane.showMessageDialog(null,"硒鼓改客户失败！","提示",JOptionPane.WARNING_MESSAGE);
 			}
-			MemberMgrPanel mgr=new MemberMgrPanel(parent);
-			parent.setRightComponent(mgr);
-			mgr.RefreshMemberTable(service.showMembers());
+			Update();
 				
 			}
 		});
 		// ------------------------------------------------------------------
 	
+	}
+	public void Update(){
+		MemberMgrPanel mgr=new MemberMgrPanel(parent);
+		parent.setRightComponent(mgr);
+		ArrayList<MemberVO> vvo=service.showMembers();
+		if(vvo!=null)
+			mgr.RefreshMemberTable(vvo);
 	}
 	class NameFieldListener implements DocumentListener{
 		public void changedUpdate(DocumentEvent d) {

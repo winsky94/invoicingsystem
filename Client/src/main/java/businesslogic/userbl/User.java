@@ -79,6 +79,8 @@ public class User implements UserBLService{
 	public String NewUserID(UserJob job){
 		ArrayList<UserPO> po=service.showAll();
 		String lastID=null;
+		if(po==null) lastID="00001";
+		else{
 		for(int i=0;i<po.size();i++){
 			if(po.get(i).getJob()==job)
 				{lastID=po.get(i).getID();}
@@ -92,7 +94,7 @@ public class User implements UserBLService{
 		     lastID=nf.format(d);
 		}
 		
-		else lastID="00001";
+		else lastID="00001";}
 		switch(job){
 		case MANAGER:
 			return "JL-"+lastID;
@@ -111,6 +113,8 @@ public class User implements UserBLService{
 	
 	public ArrayList<UserVO> showAll(){
 		ArrayList<UserPO> po=service.showAll();
+		if(po==null)
+			return null;
 		ArrayList<UserVO> vo=new ArrayList<UserVO>();
 		for(int i=0;i<po.size();i++)
 			vo.add(poToVO(po.get(i)));

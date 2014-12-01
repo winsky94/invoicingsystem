@@ -57,6 +57,7 @@ public class DelMemberDialog extends JDialog{
 					DelMemberDialog.this.dispose();
 					MemberMgrPanel mgr=new MemberMgrPanel(parent);
 					parent.setRightComponent(mgr);
+				if(service.showMembers()!=null)
 					mgr.RefreshMemberTable(service.showMembers());
 				} catch (Exception e2) {
 					// TODO Auto-generated catch block
