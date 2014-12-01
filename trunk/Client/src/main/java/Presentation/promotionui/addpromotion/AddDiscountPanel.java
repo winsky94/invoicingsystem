@@ -21,8 +21,6 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import Presentation.mainui.ChooseGoodsFatherPane;
-import Presentation.promotionui.addpromotion.AddGiftPanel.AddGiftModel;
-import Presentation.stockui.ChooseGoodsDialog;
 import Presentation.uihelper.DateChooser;
 
 public class AddDiscountPanel extends ChooseGoodsFatherPane {
@@ -127,7 +125,7 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 		addGoodsBtn.setFocusPainted(false);
 		addGoodsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JDialog addGoodsDlg=new ChooseGoodsDialog(AddDiscountPanel.this);
+				JDialog addGoodsDlg=new DiscountDialog(AddDiscountPanel.this);
 			}
 		});
 		btnPnl.add(addGoodsBtn);
