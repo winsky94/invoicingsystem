@@ -41,7 +41,7 @@ public class Cashlist extends UnicastRemoteObject implements CashlistDataService
 		
 	}
 	
-	public int getNum(){
+	public int getNum() throws RemoteException{
 		return num;
 	}
 

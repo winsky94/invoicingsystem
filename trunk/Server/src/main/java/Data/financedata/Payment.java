@@ -43,7 +43,7 @@ public class Payment extends UnicastRemoteObject implements PaymentDataService{
 		
 	}
 	
-	public int getNum(){
+	public int getNum() throws RemoteException{
 		return num;
 	}
 

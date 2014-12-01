@@ -40,8 +40,6 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 		for(i=0;i<a.size();i++){
 			AccountPO b=(AccountPO)a.get(i);
 			if(b.getName().equals(po.getName())){
-				if(b.getMoney()!=0)
-					return 1;
 				a.remove(b);
 				break;
 			}

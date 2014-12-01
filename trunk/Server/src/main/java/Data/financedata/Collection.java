@@ -52,7 +52,7 @@ public class Collection extends UnicastRemoteObject implements CollectionDataSer
 		
 	}
 	
-	public int getNum(){
+	public int getNum() throws RemoteException{
 		return num;
 	}
 
