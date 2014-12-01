@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.ReceiptPO;
+import po.ReceiptPO.ReceiptType;
 
 public interface ReceiptDataservice extends Remote {
 	public int Add(ReceiptPO po)throws RemoteException;
@@ -12,5 +13,5 @@ public interface ReceiptDataservice extends Remote {
 	public int Modify(ReceiptPO po)throws RemoteException;
 	public ArrayList<ReceiptPO> show()throws RemoteException;
 	public void init() throws RemoteException;
-	
+	public double getNum(ReceiptType type,String date)throws RemoteException;
 }
