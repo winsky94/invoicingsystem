@@ -1,20 +1,15 @@
 package Presentation.memberui;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.net.MalformedURLException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -22,22 +17,15 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
 import vo.MemberVO;
+import Presentation.mainui.MainFrame;
+import Presentation.uihelper.UIhelper;
 import businesslogic.memberbl.MemAccountInfo;
 import businesslogic.memberbl.MemBaseInfo;
 import businesslogic.memberbl.MemContactInfo;
 import businesslogic.memberbl.Member;
 import businesslogicservice.memberblservice.MemberBLService;
-import Presentation.mainui.MainFrame;
-import Presentation.memberui.AddMemberPanel.AddressFieldListener;
-import Presentation.memberui.AddMemberPanel.ClerkFieldListener;
-import Presentation.memberui.AddMemberPanel.EMailFieldListener;
-import Presentation.memberui.AddMemberPanel.NameFieldListener;
-import Presentation.memberui.AddMemberPanel.PhoneFieldListener;
-import Presentation.memberui.AddMemberPanel.PostcodeFieldListener;
-import Presentation.uihelper.UIhelper;
 //改类型  等级不变 不可改  为佳
 public class ModMemberPanel extends JPanel {
 	/**
