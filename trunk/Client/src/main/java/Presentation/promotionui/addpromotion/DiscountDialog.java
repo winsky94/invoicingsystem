@@ -30,11 +30,11 @@ public class DiscountDialog extends JDialog{
 	//
 	JTextField discountFld;
 	//
-	ArrayList<ArrayList<Object>> selected=new ArrayList<ArrayList<Object>>();
-	ArrayList<ArrayList<Object>> rightTblMessage=new ArrayList<ArrayList<Object>>();
+	ArrayList<ArrayList<String>> selected=new ArrayList<ArrayList<String>>();
+	ArrayList<ArrayList<String>> rightTblMessage=new ArrayList<ArrayList<String>>();
 	ChosenTblModel ctm;
 	GoodsTblModel gtm;
-	ArrayList<ArrayList<Object>> leftTblMessage=new ArrayList<ArrayList<Object>>();
+	ArrayList<ArrayList<String>> leftTblMessage=new ArrayList<ArrayList<String>>();
 	ChooseGoodsFatherPane father;
 	//
 	JButton submitBtn, exitBtn, addBtn, delBtn;
@@ -73,7 +73,7 @@ public class DiscountDialog extends JDialog{
 
 			public void mouseReleased(MouseEvent e) {
 				for (int i = 0; i < goodsTbl.getSelectedRows().length; i++) {
-					ArrayList<Object> temp=new ArrayList<Object>();
+					ArrayList<String> temp=new ArrayList<String>();
 					for(int j=0;j<3;j++){
 						temp.add((String) goodsTbl.getValueAt(goodsTbl.getSelectedRows()[i], j));
 					}
@@ -221,7 +221,7 @@ public class DiscountDialog extends JDialog{
 		public String getColumnName(int column) {
 			return head[column];
 		}
-		public void addRow(ArrayList<Object> v){
+		public void addRow(ArrayList<String> v){
 			leftTblMessage.add(v);
 		}
 		public void removeRow(int row){
@@ -239,7 +239,7 @@ public class DiscountDialog extends JDialog{
 		public int getRowCount() {
 			return rightTblMessage.size();
 		}
-		public void addRow(ArrayList<Object> v){
+		public void addRow(ArrayList<String> v){
 			rightTblMessage.add(v);
 		}
 		public void removeRow(int row){

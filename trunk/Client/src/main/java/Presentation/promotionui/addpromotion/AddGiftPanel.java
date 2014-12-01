@@ -211,7 +211,7 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 		public String getColumnName(int col){
 			return head[col];
 		}
-		public void addRow(ArrayList<Object> v){
+		public void addRow(ArrayList<String> v){
 			c.add(v);
 		}
 		public void removeRow(int row){

@@ -174,7 +174,7 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 			return head[col];
 		}
 
-		public void addRow(ArrayList<Object> v) {
+		public void addRow(ArrayList<String> v) {
 			c.add(v);
 		}
 
