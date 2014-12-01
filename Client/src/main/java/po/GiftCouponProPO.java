@@ -1,5 +1,6 @@
 package po;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -8,10 +9,14 @@ import po.MemberPO.MemberType;
 import po.PromotionPO.PromotionType;
 import businesslogic.promotionbl.coupon;
 
-public class GiftCouponProPO extends PromotionPO{
+public class GiftCouponProPO extends PromotionPO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<CouponPO> couponList;
 	private double totalValue;
-	public GiftCouponProPO(String id,Date startDate,Date endDate,MemberLevel l,MemberType mt,int release,
+	public GiftCouponProPO(String id,String startDate,String endDate,MemberLevel l,MemberType mt,int release,
 			ArrayList<CouponPO> coupon,double value)
 	{
 		super(id,startDate,endDate,PromotionType.GIFTCOUPON,l,mt,release);
