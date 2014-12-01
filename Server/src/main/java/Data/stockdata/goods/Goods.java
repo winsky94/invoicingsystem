@@ -1,11 +1,8 @@
 package Data.stockdata.goods;
 
-import java.io.File;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-
-import javax.swing.JTree;
 
 import po.GoodsPO;
 import Data.serutility.JXCFile;
@@ -19,8 +16,7 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 	JXCFile file;
 
 	public Goods() throws RemoteException {
-		file = new JXCFile(
-				"C:/Users/Administrator/Desktop/invoicingsystem/trunk/Server/src/main/java/stock.ser");
+		file = new JXCFile("src/main/java/stock.ser");
 	}
 
 	public int addGoods(GoodsPO po) throws RemoteException {
@@ -52,7 +48,7 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 
 		int i;
 		for (i = 0; i < a.size(); i++) {
-//			System.out.println(i);
+			// System.out.println(i);
 			GoodsPO b = (GoodsPO) a.get(i);
 			if (b.getGoodsID().equals(po.getGoodsID())) {
 				a.set(i, po);

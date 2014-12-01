@@ -22,8 +22,7 @@ public class GoodsClass extends UnicastRemoteObject implements
 
 	public GoodsClass() throws RemoteException {
 		super();
-		file = new JXCFile(
-				"C:/Users/Administrator/Desktop/invoicingsystem/trunk/Server/src/main/java/goodsClass.ser");
+		file = new JXCFile("src/main/java/goodsClass.ser");
 	}
 
 	public int addGoodsClass(GoodsClassPO po) throws RemoteException {
@@ -155,7 +154,7 @@ public class GoodsClass extends UnicastRemoteObject implements
 
 	public int recordClassTree(JTree tree) throws RemoteException {
 		// TODO 自动生成的方法存根
-		JXCFile f = new JXCFile("src/main/java/ClassTree.ser");
+		JXCFile f = new JXCFile("src/main/java/classtree.ser");
 		f.writeM(tree);
 		return 0;
 	}
