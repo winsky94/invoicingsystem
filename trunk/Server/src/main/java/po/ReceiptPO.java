@@ -62,6 +62,12 @@ public class ReceiptPO  implements Serializable{
 	public int getHurry() {
 		return hurry;
 	}
+	
+	public String getDate(){
+		String[] buffer=id.split("-");
+		String s=buffer[1];
+		return s;
+	}
 
 	public String getInfo() {
 		return info;
