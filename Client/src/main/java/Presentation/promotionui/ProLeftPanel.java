@@ -17,6 +17,7 @@ import businesslogic.userbl.User;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
+import Presentation.receiptui.ReceiptMgrPanel;
 import Presentation.uihelper.AboutPanel;
 import Presentation.uihelper.UIhelper;
 
@@ -108,7 +109,7 @@ public class ProLeftPanel extends JPanel implements ActionListener{
 		}else if(e.getSource()==view){
 			
 		}else if(e.getSource()==receipt){
-			
+			parent.setRightComponent(new ReceiptMgrPanel(parent));
 		}else if(e.getSource()==aboutBtn){
 			parent.setRightComponent(new AboutPanel());
 		}

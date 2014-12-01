@@ -14,12 +14,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 //rightPane 的顶上部分基本窗口操作按钮
 public class functionPane extends JPanel{
 	JPanel parent;
 	JLabel close,min,max,skin,help;
 	JFrame mainFrame;
 	int fsize;
+	Border border;
 	
 	Color color;//需要get
 	public functionPane(JFrame frame){
@@ -32,7 +34,12 @@ public class functionPane extends JPanel{
 		max=new JLabel(new ImageIcon("img/mainFrame/max.png"));//最大后后图标变化
 		skin=new JLabel(new ImageIcon("img/mainFrame/skin.png"));
 		help=new JLabel(new ImageIcon("img/mainFrame/help.png"));
-		
+		 border=BorderFactory.createLineBorder(new Color(0,0,0));
+		skin.setBorder(border);
+		max.setBorder(border);
+		min.setBorder(border);
+		close.setBorder(border);
+		help.setBorder(border);
 		close.addMouseListener(listen);
 		min.addMouseListener(listen);
 		max.addMouseListener(listen);
@@ -106,7 +113,7 @@ public class functionPane extends JPanel{
 
 		public void mouseExited(MouseEvent e) {
 			// TODO Auto-generated method stub
-			((JLabel)e.getSource()).setBorder(BorderFactory.createEmptyBorder());
+			((JLabel)e.getSource()).setBorder(border);
 			
 		}
     

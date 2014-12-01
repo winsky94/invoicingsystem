@@ -14,14 +14,19 @@ public class SaleReturnVO extends ReceiptVO{
 	private ArrayList<Commodity> saleReturnList;
 	private double[] total=new double[5];
 	private double[] discount=new double[4];
+	private String stockid;
 	public SaleReturnVO(String id,String user,SaleVO s,Date createDate, int status,
 			String info,int hurry){
 		super(id, s.getMemberName(),s.getMemberID(), user, ReceiptType.SALERETURN, createDate,
-				status, hurry,info, s.getStockid());
+				status, hurry,info);
 		this.total=s.getTotal();
 		this.discount=s.getDiscount();
 		this.clerk=s.getClerk();
 		this.saleReturnList=s.getSalesList();
+		this.stockid=s.getStockid();
+	}
+	public String getStockid() {
+		return stockid;
 	}
 	public String getClerk() {
 		return clerk;

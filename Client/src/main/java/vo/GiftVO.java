@@ -33,7 +33,7 @@ public class GiftVO extends ReceiptVO {
 		this.createDate = new Date();
 		this.status = 0;
 		this.info = info;
-		this.stockid = id;
+	
 	}
 
 	public String getMemberID() {

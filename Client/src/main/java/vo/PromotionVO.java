@@ -13,6 +13,7 @@ import po.PromotionPO.PromotionType;
 
 
 public class PromotionVO {
+	String id;
 	Date startDate,endDate;
 	PromotionType type;
 	MemberLevel level;
@@ -21,7 +22,7 @@ public class PromotionVO {
 	public PromotionVO(){
 		
 	}
-	public PromotionVO(Date startDate, Date endDate, PromotionType type,
+	public PromotionVO(String id,Date startDate, Date endDate, PromotionType type,
 			MemberLevel memberlevel,MemberType mtype) {
 	
 		this.startDate = startDate;
