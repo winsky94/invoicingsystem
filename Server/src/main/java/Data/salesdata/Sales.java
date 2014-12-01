@@ -208,13 +208,55 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return 0;
 	}
 	
-	public ArrayList<PurchasePO> findPurchase(String message,String type)
-			throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<PurchasePO> findPurchase(String message,String type) throws RemoteException {
+		ArrayList<PurchasePO> po=showPurchase();
+		ArrayList<PurchasePO> result=new ArrayList<PurchasePO>();
+		if(type.equals("时间区间")){
+			String qishi=message.substring(0,6);
+			String jiezhi=message.substring(6,12);
+			for(PurchasePO p:po){
+				if(qishi.compareTo(p.getDate())<=0&&p.getDate().compareTo(jiezhi)<=0)
+					result.add(p);
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else if(type.equals("商品名")){
+			for(PurchasePO p:po){
+				ArrayList<CommodityPO> c=p.getPurchaseList();
+				  for(CommodityPO cp:c){
+					  if(cp.getName().equals(message)){
+					      result.add(p);
+					      break;
+					  }
+				  }
+					
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else if(type.equals("客户")){
+			for(PurchasePO p:po){
+				if(p.getMemberName().equals(message))
+					result.add(p);
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else if(type.equals("仓库")){
+			for(PurchasePO p:po){
+				if(p.getStockID().equals(message))
+					result.add(p);
+			}
+			if(result.size()==0)
+				return null;
+		}
+		else{
+			return null;
+		}
+		return result;
 	}
-	public ArrayList<PurchaseReturnPO> findPurchaseReturn(String message,String type)
-			throws RemoteException {
+	public ArrayList<PurchaseReturnPO> findPurchaseReturn(String message,String type) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -222,8 +264,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public ArrayList<SaleReturnPO> findSaleReturn(String message,String type)
-			throws RemoteException {
+	public ArrayList<SaleReturnPO> findSaleReturn(String message,String type) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -235,7 +276,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			ArrayList<CommodityPO> al=new ArrayList<CommodityPO>();
 			CommodityPO item =new CommodityPO("0001-001-0001","飞利浦日光灯","SRO1",100,158,100,198,98,"这是个灯");
 			al.add(item);
-			a.createPurchase(new PurchasePO("JHD-20141201-00001","JHS-0000001","02","XS-00001",al,"这是个进货单", 1000,0,1));	
+			a.createPurchase(new PurchasePO("JHD-20141201-00001","JHS-0000001","马建国","02","XS-00001",al,"这是个进货单", 1000,0,1));	
 			System.out.println("Success!");
 			ArrayList<PurchasePO> pl=a.showPurchase();
 			for(PurchasePO po:pl){
