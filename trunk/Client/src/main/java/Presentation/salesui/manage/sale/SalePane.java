@@ -29,8 +29,6 @@ import Presentation.mainui.MainFrame;
 import Presentation.mainui.functionPane;
 import Presentation.mainui.outBorder;
 import Presentation.salesui.manage.CommodityTableModel;
-import Presentation.salesui.manage.CommodityTableModle;
-import Presentation.salesui.manage.CommodityTablelModle;
 import Presentation.stockui.ChooseGoodsDialog;
 import Presentation.uihelper.UIhelper;
 
