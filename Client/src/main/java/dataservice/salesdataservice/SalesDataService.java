@@ -1,5 +1,6 @@
 package dataservice.salesdataservice;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.PurchasePO;
@@ -28,4 +29,9 @@ public interface SalesDataService extends Remote{
 	public ArrayList<PurchaseReturnPO> findPurchaseReturn(String message);
 	public ArrayList<SalePO> findSale(String message);
 	public ArrayList<SaleReturnPO> findSaleReturn(String message);
+	
+	public ArrayList<PurchasePO> getPurchase() throws RemoteException;
+	public ArrayList<PurchaseReturnPO> getPurchaseReturn()throws RemoteException;
+	public ArrayList<SalePO> getSale() throws RemoteException;
+	public ArrayList<SaleReturnPO> getSaleReturn() throws RemoteException;
 }
