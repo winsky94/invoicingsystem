@@ -208,21 +208,21 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return 0;
 	}
 	
-	public ArrayList<PurchasePO> findPurchase(String message)
+	public ArrayList<PurchasePO> findPurchase(String message,String type)
 			throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public ArrayList<PurchaseReturnPO> findPurchaseReturn(String message)
+	public ArrayList<PurchaseReturnPO> findPurchaseReturn(String message,String type)
 			throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public ArrayList<SalePO> findSale(String message) throws RemoteException {
+	public ArrayList<SalePO> findSale(String message,String type) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public ArrayList<SaleReturnPO> findSaleReturn(String message)
+	public ArrayList<SaleReturnPO> findSaleReturn(String message,String type)
 			throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
@@ -237,7 +237,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			al.add(item);
 			a.createPurchase(new PurchasePO("JHD-20141201-00001","JHS-0000001","02","XS-00001",al,"这是个进货单", 1000,0,1));	
 			System.out.println("Success!");
-			ArrayList<PurchasePO> pl=a.getPurchase();
+			ArrayList<PurchasePO> pl=a.showPurchase();
 			for(PurchasePO po:pl){
 				System.out.println(po.getId()+" "+po.getDate()+" "+po.getPurchaseList().get(0).getName());
 			}
