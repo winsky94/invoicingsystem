@@ -17,9 +17,9 @@ public class SalePO extends ReceiptPO implements Serializable{
 	private double[] total=new double[5];//总计类数据
 
 	public SalePO(String clerk, ArrayList<CommodityPO> salesList, String id,
-			String memberID, String user,int status,
+			String memberID, String name,String user,int status,
 			int hurry, String info, String stockid, double[] discount,double[] total) {
-		super(id,memberID,user, ReceiptType.SALE,info,status,hurry);
+		super(id,memberID,name,user, ReceiptType.SALE,info,status,hurry);
 		this.clerk = clerk;
 		this.stockid=stockid;
 		this.salesList = salesList;

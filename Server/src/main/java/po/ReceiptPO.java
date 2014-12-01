@@ -10,6 +10,7 @@ public class ReceiptPO  implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String memberID;
+	private String memberName;
 	private String userID;
 	private ReceiptType type;
 	private int status;
@@ -20,10 +21,11 @@ public class ReceiptPO  implements Serializable{
 		this.type=type;
 	}
 	
-	public ReceiptPO(String id,String memberID,String userID, ReceiptType type,String info,int status,int hurry) {
+	public ReceiptPO(String id,String memberID,String memberName,String userID, ReceiptType type,String info,int status,int hurry) {
 
 		this.id = id;
 		this.memberID = memberID;
+		this.memberName=memberName;
 		this.userID = userID;
 		this.type = type;
 		
@@ -45,6 +47,10 @@ public class ReceiptPO  implements Serializable{
 		return memberID;
 	}
 
+	public String getMemberName(){
+		return memberName;
+	}
+	
 	public String getUserID() {
 		return userID;
 	}
