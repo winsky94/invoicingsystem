@@ -82,6 +82,13 @@ public class ReceiptPO  implements Serializable{
 	public void setInfo(String info) {
 		this.info = info;
 	}
+	
+	public String getDate(){
+		String[] buffer=id.split("-");
+		String s=buffer[1];
+		return s;
+	}
+
 
 	public enum ReceiptType implements Serializable{
 		 SALE,SALERETURN,PURCHASE,PURCHASERETURN,COLLECTION,PAYMENT,CASHLIST,

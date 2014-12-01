@@ -1,24 +1,26 @@
 package po;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
-
-import businesslogic.receiptbl.ReceiptType;
-import businesslogic.salesbl.Commodity;
-
 //double[] discount;pro/pre/money/toaldiscount;
 //double[] total; cost/origin/value/couponIncom/toPay
-public class SalePO extends ReceiptPO {
+public class SalePO extends ReceiptPO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String clerk;
+	private String stockid;
 	private ArrayList<CommodityPO> salesList;
 	private double[] discount=new double[4];//折让类数据
 	private double[] total=new double[5];//总计类数据
+
 	public SalePO(String clerk, ArrayList<CommodityPO> salesList, String id,
-			String memberName,String memberID, String user, Date createDate, int status,
+			String memberID, String user,int status,
 			int hurry, String info, String stockid, double[] discount,double[] total) {
-		super(id, memberName,memberID, user, ReceiptType.SALE, status, hurry,
-				info, stockid);
+		super(id,memberID,user, ReceiptType.SALE,info,status,hurry);
 		this.clerk = clerk;
+		this.stockid=stockid;
 		this.salesList = salesList;
 		this.discount=discount;
 		this.total=total;
@@ -26,6 +28,11 @@ public class SalePO extends ReceiptPO {
 	public String getClerk() {
 		return clerk;
 	}
+	
+	public String getStockID(){
+		return stockid;
+	}
+	
 	public ArrayList<CommodityPO> getSalesList() {
 		return salesList;
 	}
