@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Presentation.mainui.MainFrame;
+import Presentation.promotionui.addpromotion.AddCouponPanel;
 import Presentation.userui.UserMgrPanel;
 import businesslogic.userbl.User;
 import businesslogicservice.userblservice.UserBLService;
@@ -221,12 +222,5 @@ public class AddUserPanel extends JPanel{
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
 	}
-	
-	
-	
-	
-
-	
-
 	
 }
