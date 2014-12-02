@@ -65,8 +65,7 @@ public class ChooseGoodsDialog extends JDialog {
 		service=new GoodsController();
 		if(service.showGoods()!=null)
 			Refresh(service.showGoods());
-		else
-			System.out.println("goods null了");
+		
 		pnl.setBackground(Color.white);
 		// ------------classTree------------------------------------------
 		classTree = new JTree();
@@ -143,9 +142,10 @@ public class ChooseGoodsDialog extends JDialog {
 				dialogWidth * 8 / 100, dialogHeight * 5 / 100);
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ChooseGoodsDialog.this.father.addContent(rightTblMessage);
-				ChooseGoodsDialog.this.father.repaint();
-				ChooseGoodsDialog.this.father.revalidate();
+				
+				father.addContent(rightTblMessage);
+				//ChooseGoodsDialog.this.father.repaint();
+				//ChooseGoodsDialog.this.father.revalidate();
 				ChooseGoodsDialog.this.dispose();
 			}
 		});

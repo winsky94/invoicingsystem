@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import po.MemberPO.MemberType;
 import vo.MemberVO;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.ReceiptType;
@@ -52,6 +53,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 	MainFrame parent;
 	SalesBLService service;
 	public SalePane(MainFrame frame) throws Exception {
+		parent=frame;
 		service=new SalesController();
 		//parent = frame;
 		GridBagLayout gbl = new GridBagLayout();
@@ -112,9 +114,10 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		ArrayList<MemberVO> mvo=mem.showMembers();
 		String boxText[]=new String[mvo.size()+1];
 		idtxt=new String[mvo.size()];
-		boxText[0]="选择交易客户";
+		boxText[0]="选择交易客户";int j=0;
 		for(int i=0;i<mvo.size();i++)
-			{boxText[i+1]=mvo.get(i).getName();idtxt[i]=mvo.get(i).getMemberID();}
+			if(mvo.get(i).getmType()==MemberType.XSS)
+			{boxText[j+1]=mvo.get(i).getName();idtxt[j]=mvo.get(i).getMemberID();j++;}
 			
 		
 		XSSBox=new JComboBox<String>(boxText);
@@ -229,6 +232,8 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		exitBtn.setBackground(new Color(251, 147, 121));
 		exitBtn.addActionListener(this);
 		btnPnl.add(exitBtn);
+		
+	
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -248,4 +253,5 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 			e1.printStackTrace();
 		}
 	}
+	
 }
