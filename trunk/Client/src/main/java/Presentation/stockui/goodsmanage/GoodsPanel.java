@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -51,7 +52,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JButton addGoodsBtn, delGoodsBtn, modGoodsBtn, searchBtn;
+	MyButton addGoodsBtn, delGoodsBtn, modGoodsBtn, searchBtn;
 	JButton addGCBtn, delGCBtn, modGCBtn;
 	JTextField searchFld;
 	JTable goodsTable;
@@ -86,74 +87,27 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		// -----------upPnl--------------------------------------------------------
 		JPanel upPnl = new JPanel();
 		upPnl.setBackground(Color.white);
-		GridBagLayout upGbl = new GridBagLayout();
-		GridBagConstraints uc = new GridBagConstraints();
-		upPnl.setLayout(upGbl);
-		uc.insets = new Insets(3, 3, 3, 3);
-		uc.fill = GridBagConstraints.HORIZONTAL;
-		addGoodsBtn = new JButton("添加商品", new ImageIcon("img/stock/add.png"));
-		addGoodsBtn.setFont(new Font("微软雅黑", Font.BOLD, 14));
-		addGoodsBtn.setForeground(stockColor);
-		addGoodsBtn.setBorderPainted(false);
-		addGoodsBtn.setBackground(Color.white);
-		addGoodsBtn.setHorizontalAlignment(SwingConstants.LEFT);
-		addGoodsBtn.setFocusPainted(false);
+		addGoodsBtn = new MyButton("添加商品", new ImageIcon("img/stock/add.png"));
 		addGoodsBtn.addActionListener(new AddGoodsBtnListener());
-		uc.gridx = 0;
-		uc.gridy = 0;
-		uc.weightx = 0.05;
-		uc.weighty = 0.05;
-		upGbl.setConstraints(addGoodsBtn, uc);
 		upPnl.add(addGoodsBtn);
 		//
-		delGoodsBtn = new JButton("删除商品", new ImageIcon("img/stock/delete.png"));
-		delGoodsBtn.setFont(new Font("微软雅黑", Font.BOLD, 14));
-		delGoodsBtn.setForeground(stockColor);
-		delGoodsBtn.setBorderPainted(false);
-		delGoodsBtn.setBackground(Color.white);
-		delGoodsBtn.setHorizontalAlignment(SwingConstants.LEFT);
-		delGoodsBtn.setFocusPainted(false);
+		delGoodsBtn = new MyButton("删除商品", new ImageIcon("img/stock/delete.png"));
 		delGoodsBtn.addActionListener(new DelGoodsBtnListener());
-		uc.gridx = 1;
-		upGbl.setConstraints(delGoodsBtn, uc);
 		upPnl.add(delGoodsBtn);
 		//
-		modGoodsBtn = new JButton("修改商品信息", new ImageIcon(
+		modGoodsBtn = new MyButton("修改商品信息", new ImageIcon(
 				"img/stock/modify.png"));
-		modGoodsBtn.setFont(new Font("微软雅黑", Font.BOLD, 14));
-		modGoodsBtn.setForeground(stockColor);
-		modGoodsBtn.setBorderPainted(false);
-		modGoodsBtn.setBackground(Color.white);
-		modGoodsBtn.setHorizontalAlignment(SwingConstants.LEFT);
-		modGoodsBtn.setFocusPainted(false);
 		modGoodsBtn.addActionListener(new ModGoodsBtnListener());
-		uc.gridx = 2;
-		uc.insets = new Insets(3, 3, 3, 150);
-		upGbl.setConstraints(modGoodsBtn, uc);
 		upPnl.add(modGoodsBtn);
 		// ------------------------------------------
 		// 搜索框
-		searchFld = new JTextField();
-		searchFld.setFont(new Font("楷体", Font.BOLD, 13));
+		searchFld = new JTextField(6);
+		searchFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		searchFld.getDocument().addDocumentListener(new SearchFldListener());
-		uc.gridx = 3;
-		uc.gridwidth = 4;
-		uc.weightx = 0.8;
-		uc.insets = new Insets(3, 3, 3, 3);
-		upGbl.setConstraints(searchFld, uc);
 		upPnl.add(searchFld);
 		// 查找按钮
-		searchBtn = new JButton(new ImageIcon("img/stock/find.png"));
-		searchBtn.setForeground(stockColor);
-		searchBtn.setBorderPainted(false);
-		searchBtn.setBackground(Color.white);
-		searchBtn.setHorizontalAlignment(SwingConstants.LEFT);
-		searchBtn.setFocusPainted(false);
+		searchBtn = new MyButton(new ImageIcon("img/stock/find.png"));
 		searchBtn.addActionListener(new SearchBtnListener());
-		uc.gridx = 7;
-		uc.gridwidth = 1;
-		uc.weightx = 0.05;
-		upGbl.setConstraints(searchBtn, uc);
 		upPnl.add(searchBtn);
 		// -------------------------------------
 		c.gridx = 0;
@@ -726,7 +680,29 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		}
 
 	}
+	class MyButton extends JButton {
 
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		MyButton(String text, Icon icon) {
+			super(text, icon);
+			this.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+			this.setForeground(new Color(51, 125, 86));
+			this.setBorderPainted(false);
+			this.setBackground(Color.white);
+			this.setFocusPainted(false);
+		}
+
+		MyButton(Icon icon) {
+			super(icon);
+			this.setBorderPainted(false);
+			this.setBackground(Color.white);
+			this.setFocusPainted(false);
+		}
+	}
 	// end_yan-----------------------------------------------------------
 
 }
