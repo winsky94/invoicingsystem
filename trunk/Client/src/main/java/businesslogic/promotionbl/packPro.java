@@ -13,12 +13,22 @@ import businesslogic.stockbl.goods.Goods;
 public class packPro extends promotion{
 	
 
-	public int addPackPro(PackProVO vo){
+	public int add(PackProVO vo){
 		
 		return 0;
 	}
 	
-	public int DeletePackPro()
+	public int Delete(String id){
+		return 0;
+	}
+	public int Modify(PackProVO vo){
+		return 0;
+	}
 	
+	
+	public ArrayList<PackProVO> show(){
+		return null;
+	}
+
 
 }

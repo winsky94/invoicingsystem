@@ -20,7 +20,7 @@ public class StockOverOrLowVO extends ReceiptVO {
 		this.gap = num - exactNum;
 		this.user = user;
 		this.type = type;
-		this.createDate = new Date();
+		
 		this.status = 0;
 		this.info = info;
 		

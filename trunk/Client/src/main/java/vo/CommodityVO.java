@@ -43,7 +43,7 @@ public class CommodityVO {
 	public String getID(){
 		return id;
 	}
-	public void setPrice(double price) {
+	/*public void setPrice(double price) {
 		this.price = price;
 	}
 	public void setNum(int num) {
@@ -54,7 +54,15 @@ public class CommodityVO {
 	}
 	public void setTip(String tip) {
 		this.tip = tip;
+	}*/
+	
+	public double getLast_bid() {
+		return last_bid;
 	}
+	public double getCost() {
+		return cost;
+	}
+	
 	
 	
 }

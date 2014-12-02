@@ -15,9 +15,9 @@ public class SaleReturnVO extends ReceiptVO{
 	private double[] total=new double[5];
 	private double[] discount=new double[4];
 	private String stockid;
-	public SaleReturnVO(String id,String user,SaleVO s,Date createDate, int status,
+	public SaleReturnVO(String id,String user,SaleVO s,int status,
 			String info,int hurry){
-		super(id, s.getMemberName(),s.getMemberID(), user, ReceiptType.SALERETURN, createDate,
+		super(id, s.getMemberName(),s.getMemberID(), user, ReceiptType.SALERETURN, 
 				status, hurry,info);
 		this.total=s.getTotal();
 		this.discount=s.getDiscount();
