@@ -32,6 +32,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	}
 	
 	public ArrayList<PurchasePO> showPurchase() throws RemoteException{
+		file=new JXCFile("src/main/java/purchase.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -52,6 +53,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	}
 	
 	public ArrayList<PurchaseReturnPO> showPurchaseReturn()throws RemoteException{
+		file=new JXCFile("src/main/java/purchasereturn.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -72,6 +74,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	}
 	
 	public ArrayList<SalePO> showSale() throws RemoteException{
+		file=new JXCFile("src/main/java/sale.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -92,6 +95,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	}
 	
 	public ArrayList<SaleReturnPO> showSaleReturn() throws RemoteException{
+		file=new JXCFile("src/main/java/salereturn.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -106,6 +110,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	}
 	
 	public int updatePurchase(PurchasePO po) throws RemoteException{
+		file=new JXCFile("src/main/java/purchase.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	  //不存在该用户	
@@ -129,6 +134,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return 0;
 	}
 	public int updatePurchaseReturn(PurchaseReturnPO po) throws RemoteException {
+		file=new JXCFile("src/main/java/purchasereturn.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	  //不存在该用户	
@@ -151,6 +157,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return 0;
 	}
 	public int updateSale(SalePO po) throws RemoteException {
+		file=new JXCFile("src/main/java/sale.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	  //不存在该用户	
@@ -181,6 +188,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return 0;
 	}
 	public int updateSaleReturn(SaleReturnPO po) throws RemoteException {
+		file=new JXCFile("src/main/java/salereturn.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	  //不存在该用户	
@@ -510,11 +518,19 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			ArrayList<CommodityPO> al=new ArrayList<CommodityPO>();
 			CommodityPO item =new CommodityPO("0001-001-0001","飞利浦日光灯","SRO1",100,158,100,198,98,"这是个灯");
 			al.add(item);
-			a.createPurchase(new PurchasePO("JHD-20141201-00001","JHS-0000001","马建国","02","XS-00001",al,"这是个进货单", 1000,0,1));	
+//			a.createPurchase(new PurchasePO("JHD-20141201-00001","JHS-0000001","马建国","02","XS-00001",al,"这是个进货单", 1000,0,1));
+			double discount[]=new double[]{1,1,1,1};
+			double total[]=new double[]{2,2,2,2,2};
+			a.createSale(new SalePO("金大大",al,"XSD-20141202-00001","JHS-0000001","马建国","Lucy",1,1,"这是个销售单","02",discount,total));	
 			System.out.println("Success!");
-			ArrayList<PurchasePO> pl=a.showPurchase();
+/*			ArrayList<PurchasePO> pl=a.showPurchase();
 			for(PurchasePO po:pl){
 				System.out.println(po.getId()+" "+po.getDate()+" "+po.getPurchaseList().get(0).getName());
+			}
+*/
+			ArrayList<SalePO> pl=a.showSale();
+			for(SalePO po:pl){
+				System.out.println(po.getId()+" "+po.getDate()+" "+po.getSalesList().get(0).getName());
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();
