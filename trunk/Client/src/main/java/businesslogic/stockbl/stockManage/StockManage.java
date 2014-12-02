@@ -79,6 +79,11 @@ public class StockManage {
 		return result;
 	}
 
+	//库存盘点==
+	public ArrayList<GoodsPO> checkStock() {
+		return null;
+	}
+	
 	// 出库数量及金额记录
 	private String getOutRecord(String beginDate, String endDate) {
 		// 销售出库

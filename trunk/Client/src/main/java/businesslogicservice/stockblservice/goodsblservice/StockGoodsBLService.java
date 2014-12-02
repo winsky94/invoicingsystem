@@ -15,4 +15,6 @@ public interface StockGoodsBLService {
 	public ArrayList<GoodsPO> findGoods(String message);
 
 	public ArrayList<GoodsVO> showGoods();
+
+	public String getMaxID();
 }

@@ -139,6 +139,10 @@ public class Goods {
 		return result;
 	}
 
+	public String getMaxID(){
+		return service.getMaxID();
+	}
+	
 	public String getGoodsID() {
 		return goodsID;
 	}

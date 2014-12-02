@@ -1,4 +1,4 @@
-package Presentation.stockui.goodsmanage;
+package businesslogic.stockbl.goodsClass;
 
 import java.io.Serializable;
 import java.util.ArrayList;

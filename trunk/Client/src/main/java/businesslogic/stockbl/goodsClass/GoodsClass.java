@@ -58,7 +58,6 @@ public class GoodsClass {
 				isExist = true;
 			}
 		}
-
 		if (!isExist) {
 			GoodsClassPO upClass = manage.find(upClassName);
 			ArrayList<GoodsPO> goodsList = goodsService.showGoods();
@@ -85,6 +84,8 @@ public class GoodsClass {
 					}
 					GoodsClassPO po = new GoodsClassPO(classID, name,
 							upClassName);
+					System.out.println("GoodsClass.addGoodsClass():upclassName:"+upClassName);
+					System.out.println("GoodsClass.addGoodsClass():upclassName:"+po.getUpClassName());
 					return service.addGoodsClass(po);
 				} else {
 					return 1;// 上级分类下有商品，无法添加

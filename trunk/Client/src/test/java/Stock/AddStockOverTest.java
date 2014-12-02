@@ -5,7 +5,7 @@ import java.text.ParseException;
 
 import junit.framework.TestCase;
 import businesslogic.stockbl.goods.MockGoods;
-import businesslogic.stockbl.stockManage.StockOverOrLowReceipt;
+import businesslogic.stockbl.stockManage.StockOverOrLowManage;
 
 public class AddStockOverTest extends TestCase {
 	String goodsID;
@@ -27,7 +27,7 @@ public class AddStockOverTest extends TestCase {
 	}
 
 	public void testAddStockOver() throws RemoteException {
-		StockOverOrLowReceipt stockOverOrLowReceipt = new StockOverOrLowReceipt(
+		StockOverOrLowManage stockOverOrLowReceipt = new StockOverOrLowManage(
 				goodsName, size, num, exactNum);
 		double total = good.getGoods(goodsID).getPrice() * (num - exactNum);
 		assertEquals(total,

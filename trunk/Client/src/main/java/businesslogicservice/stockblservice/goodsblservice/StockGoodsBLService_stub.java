@@ -37,5 +37,10 @@ public class StockGoodsBLService_stub implements StockGoodsBLService {
 		return null;
 	}
 
+	public String getMaxID() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 
 }

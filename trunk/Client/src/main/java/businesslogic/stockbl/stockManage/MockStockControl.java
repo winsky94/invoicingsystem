@@ -7,7 +7,7 @@ import businesslogic.stockbl.goods.MockGoods;
 
 public class MockStockControl {
 	String num;
-	ArrayList<StockOverOrLowReceipt> stockOverOrLowReceiptlist;
+	ArrayList<StockOverOrLowManage> stockOverOrLowReceiptlist;
 	ArrayList<GiftReceipt> giftReceiptlist;
 	double goodsOverIncome;
 	double primeCostIncome;
@@ -15,7 +15,7 @@ public class MockStockControl {
 	double giftCost;
 
 	public MockStockControl() {
-		stockOverOrLowReceiptlist = new ArrayList<StockOverOrLowReceipt>();
+		stockOverOrLowReceiptlist = new ArrayList<StockOverOrLowManage>();
 		giftReceiptlist = new ArrayList<GiftReceipt>();
 		this.goodsOverIncome = 0;
 		this.primeCostIncome = 0;
@@ -23,14 +23,14 @@ public class MockStockControl {
 		this.giftCost = 0;
 	}
 
-	public int addStockOver(StockOverOrLowReceipt receipt) throws Exception {
+	public int addStockOver(StockOverOrLowManage receipt) throws Exception {
 		MockGoods good = new MockGoods("01010001", "飞利浦日光灯", "SR01", 10, 100,
 				200);
 		goodsOverIncome += receipt.getGap() * good.getPrice();
 		return 0;
 	}
 
-	public int addStockLow(StockOverOrLowReceipt receipt) throws Exception {
+	public int addStockLow(StockOverOrLowManage receipt) throws Exception {
 		MockGoods good = new MockGoods("01010001", "飞利浦日光灯", "SR01", 10, 100,
 				200);
 		goodsLowCost -= receipt.getGap() * good.getPrice();
