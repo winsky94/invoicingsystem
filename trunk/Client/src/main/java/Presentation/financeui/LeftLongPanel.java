@@ -50,23 +50,23 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		down.setLayout(new GridLayout(6,1));
 		
 		//
-		jb1=new JLeftButton("账户管理",new ImageIcon("img/finance/commodity-golden.png"),
+		jb1=new JLeftButton("账户管理",new ImageIcon("img/finance/accountMgr.png"),
 				color[0]);
 		jb1.addMouseListener(this);
 		jb1.addActionListener(this);
 		down.add(jb1);
-		jb2=new JLeftButton("制定单据",new ImageIcon("img/finance/account-left.png"),
+		jb2=new JLeftButton("制定单据",new ImageIcon("img/finance/receiptMgr.png"),
 				color[0]);
 		jb2.addActionListener(this);
 		jb2.addMouseListener(this);
 		down.add(jb2);
 		
-		jb3=new JLeftButton("查看报表",new ImageIcon("img/finance/manage-golden.png"),
+		jb3=new JLeftButton("查看报表",new ImageIcon("img/finance/showReport.png"),
 				color[0]);
 		jb3.addMouseListener(this);
 		down.add(jb3);
 		
-		jb4=new JLeftButton("期初建账",new ImageIcon("img/finance/manage2-golden.png"),
+		jb4=new JLeftButton("期初建账",new ImageIcon("img/finance/initialAccount.png"),
 				color[0]);
 		
 		jb4.addMouseListener(this);
