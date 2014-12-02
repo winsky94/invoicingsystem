@@ -12,11 +12,11 @@ public class DiscountProVO extends PromotionVO{
 	private ArrayList<GoodsVO>  goodsList;
 	private double totalValue,discountValue;//折后总额；
 	
-	public DiscountProVO(String id,String startDate,String endDate,MemberLevel l,MemberType mt,
+	public DiscountProVO(String id,String startDate,String endDate,MemberLevel l,
 			ArrayList<Double> count,
 			ArrayList<GoodsVO>  goods,double total,double discount)
 	{
-		super(id,startDate,endDate,PromotionType.DISCOUNT,l,mt);
+		super(id,startDate,endDate,PromotionType.DISCOUNT,l);
 		goodsList=goods;
 		countList=count;
 		totalValue=total;discountValue=discount;

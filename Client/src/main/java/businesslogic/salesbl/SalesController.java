@@ -39,9 +39,13 @@ public class SalesController implements SalesBLService{
 			String d=null;
 			switch(type){
 			case SALE:
-				id="XSD-";po=sale;break;
+				id="XSD-";d=sale.getNewID();break;
 			case PURCHASE:
-				id="JHD-";d=purchase.getId();break;
+				id="JHD-";d=purchase.getNewID();break;
+			case SALERETURN:
+				id="XSTHD-";d=saleReturn.getNewID();break;
+			default:
+				id="JHTHD-";id=purchaseReturn.getNewID();
 			
 				
 			}
@@ -51,20 +55,7 @@ public class SalesController implements SalesBLService{
 	}
 	
 	//通知审批
-	public int addSaleReceipt(ReceiptVO vo){
-		int result;
-		switch(vo.getType()){
-		case SALE:
-			result=
-		}
-		return 0;
-		
-	}
 	
-	public int ModifySaleReceipt(ReceiptVO vo ){
-		return 0;
-		
-	}
 
 	
 			
@@ -72,12 +63,12 @@ public class SalesController implements SalesBLService{
 	
 	public int modifySale(SaleVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return sale.Modify(vo);
 	}
-
+	
 	public int modifySaleReturn(SaleReturnVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return saleReturn.Modify(vo);
 	}
 
 	public ArrayList<PurchaseVO> showPurchase() {
@@ -100,36 +91,28 @@ public class SalesController implements SalesBLService{
 		return null;
 	}
 
-	public ArrayList<PurchaseVO> findPurchase(String message) {
+	public ArrayList<PurchaseVO> findPurchase(String message,String type) {
 		// TODO Auto-generated method stub
-		return null;
+		return purchase.find(message, type);
 	}
 
-	public ArrayList<PurchaseReturnVO> findPurchaseReturn(String message) {
+	public ArrayList<PurchaseReturnVO> findPurchaseReturn(String message,String type) {
 		// TODO Auto-generated method stub
-		return null;
+		return purchase.find(message, type);
 	}
 
-	public ArrayList<SaleVO> findSale(String message) {
+	public ArrayList<SaleVO> findSale(String message,String type) {
 		// TODO Auto-generated method stub
-		return null;
+		return sale.find(message, type);
 	}
 
-	public ArrayList<SaleReturnVO> findSaleReturn(String message) {
+	public ArrayList<SaleReturnVO> findSaleReturn(String message,String type) {
 		// TODO Auto-generated method stub
-		return null;
+		return saleReturn.find(message, type);
 	}
 	
 	
-	public SalePO saleVoToPo(ReceiptVO VO){
-		SaleVO vo=(SaleVO)VO;
-		SalePO po=new SalePO(vo.getClerk(),vo.getSalesList(),vo.getId(),
-				vo.getMemberName(),vo.getMemberID(),vo.getUser(),vo.getCreateDate(),
-				vo.getStatus(),vo.getHurry(),vo.getInfo(),vo.getStockid(),vo.getDiscount(),vo.getTotal());
-		
-		return po;
-		
-	}
+
 	
 	
 

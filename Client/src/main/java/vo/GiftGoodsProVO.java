@@ -10,10 +10,10 @@ import po.PromotionPO.PromotionType;
 public class GiftGoodsProVO  extends PromotionVO{
 	private ArrayList<GoodsVO> giftList;
 	private double totalValue;
-	public GiftGoodsProVO(String id,String startDate,String endDate,MemberLevel l,MemberType mt,
+	public GiftGoodsProVO(String id,String startDate,String endDate,MemberLevel l,
 			ArrayList<GoodsVO> list,double value)
 	{
-		super(id,startDate,endDate,PromotionType.GIFTGOODS,l,mt);
+		super(id,startDate,endDate,PromotionType.GIFTGOODS,l);
 		this.giftList=list;
 		this.totalValue=value;
 		

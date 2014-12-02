@@ -8,9 +8,11 @@ import java.util.ArrayList;
 
 import po.CommodityPO;
 import po.PurchasePO;
+import po.SalePO;
 import dataservice.salesdataservice.SalesDataService;
 import vo.CommodityVO;
 import vo.PurchaseVO;
+import vo.SaleVO;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.receiptbl.ReceiptType;
 import businesslogic.stockbl.goods.Goods;
@@ -36,10 +38,17 @@ public class Purchase extends Receipt {
 	
 	
 	
-	public PurchaseVO find(String message,String type){
+	public ArrayList<PurchaseVO> find(String message,String type){
 		
 		
-		return null;
+		ArrayList<PurchasePO> po=service.findPurchase(message, type);
+		if(po==null) return null;
+		else{
+			ArrayList<PurchaseVO> vo=new ArrayList<PurchaseVO>();
+			for(int i=0;i<po.size();i++)
+				vo.add(poToVo(po.get(i)));
+			return vo;
+		}
 	}
 	
 	public int ModifyPurchase(PurchaseVO vo){
@@ -62,25 +71,32 @@ public class Purchase extends Receipt {
 
 	
 	private PurchasePO voToPo(PurchaseVO vo){
-		ArrayList<CommodityPO> puList=new ArrayList<CommodityPO>();
+		ArrayList<CommodityPO> puList;
 		ArrayList<CommodityVO> List=vo.getPurchaseList();
-		for(int i=0;i<List.size();i++)
-			puList.add(com.voToPO(List.get(i)));
+		
+			puList=com.voTPo(List);
 		PurchasePO po=new PurchasePO(vo.getId(),vo.getMemberID(),vo.getMemberName(),
 				vo.getStockid(),vo.getUser(),puList,vo.getInfo(),vo.getTotalInAll(),
 				vo.getStatus(),vo.getHurry());
 		return po;
 	}
 	private PurchaseVO poToVo(PurchasePO po){
-		ArrayList<CommodityVO> puList=new ArrayList<CommodityVO>();
+		ArrayList<CommodityVO> puList;
 		ArrayList<CommodityPO> List=po.getPurchaseList();
-		for(int i=0;i<List.size();i++)
-			puList.add(com.poToVO(List.get(i)));
+		
+			puList=com.poTVo(List);
 		PurchaseVO vo=new PurchaseVO(po.getId(),po.getMemberID(),po.getMemberName(),
 				po.getStockID(),po.getUserID(),puList,po.getInfo(),po.getTotalInAll(),
 				po.getStatus(),po.getHurry());
 		return vo;
 		
+	}
+
+
+
+	public String getNewID() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

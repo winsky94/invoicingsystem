@@ -20,6 +20,15 @@ public class PurchaseReturnVO extends ReceiptVO {
 		this.stockid=stockid;
 	}
 	
+	public PurchaseReturnVO(String id,String MemName,String MemID,String user, int status,
+			String info,int hurry,ArrayList<CommodityVO> list,double total,String sid) {
+		super(id,MemName,MemID, user, ReceiptType.PURCHASERETURN,
+				status,hurry, info);
+		this.purchaseReturnList=list;
+		this.totalInAll=total;
+		this.stockid=sid;
+	}
+	
 	public String getStockid() {
 		return stockid;
 	}
