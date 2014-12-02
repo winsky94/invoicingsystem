@@ -139,10 +139,10 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==jb1){
-			frame.setRightComponent(new AccountPanel());		
+			frame.setRightComponent(new AccountPanel(frame));		
 		}
 		else if(e.getSource()==jb2){
-			frame.setRightComponent(new CollectionPanel(frame,color));	
+			frame.setRightComponent(new CollectionPanel(frame));	
 		}
 		else if(e.getSource()==jb5){			
 			frame.setLeftComponent(new LeftShortPanel(frame));

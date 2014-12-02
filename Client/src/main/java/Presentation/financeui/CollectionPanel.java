@@ -42,7 +42,7 @@ public class CollectionPanel extends JPanel implements ActionListener {
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
 		GridBagConstraints c = new GridBagConstraints();
-		c.insets = new Insets(3,40, 20,40);
+		c.insets = new Insets(3,40, 3,40);
 		c.fill = GridBagConstraints.BOTH;
 		// -----------------------------
 		JPanel btnPnl = new JPanel();
@@ -85,6 +85,7 @@ public class CollectionPanel extends JPanel implements ActionListener {
 		tab.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		tab.setBackground(Color.white);
 		tab.setForeground(new Color(242,125,5));
+		c.insets = new Insets(3,40, 20,40);
 		c.gridx = 0;
 		c.gridy = 2;
 		c.gridheight = GridBagConstraints.REMAINDER;
