@@ -30,7 +30,6 @@ public class GiftVO extends ReceiptVO {
 		this.num = num;
 		this.user = user;
 		this.type = type;
-		this.createDate = new Date();
 		this.status = 0;
 		this.info = info;
 	

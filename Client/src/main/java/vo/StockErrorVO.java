@@ -14,7 +14,6 @@ public class StockErrorVO extends ReceiptVO {
 		this.goodsSize = goodsSize;
 		this.user = user;
 		this.type = type;
-		this.createDate = new Date();
 		this.status = 0;
 		this.info = info;
 		

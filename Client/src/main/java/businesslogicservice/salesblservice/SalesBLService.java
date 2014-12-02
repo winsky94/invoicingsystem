@@ -20,8 +20,5 @@ public interface SalesBLService {
 	//
 	public ArrayList<PurchaseVO> findPurchase(String message);
 	
-	public double couponProfitCalc();
-	public double totalMoneyWeGot();
-	public double totalMoneyWePaid();
-	public double purchaseReturnProfitCalc();
+	public String getNewID(ReceiptType type);
 }

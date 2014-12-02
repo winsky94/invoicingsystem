@@ -14,9 +14,9 @@ public class SaleVO extends ReceiptVO {
 	private double[] total=new double[5];//总计类数据
 	private String stockid;
 	public SaleVO(String clerk, ArrayList<CommodityVO> salesList, String id,
-			String memberName,String memberID, String user, Date createDate, int status,
+			String memberName,String memberID, String user,  int status,
 			int hurry,String info, String stockid, double[] total,double[] discount) {
-		super(id, memberName,memberID, user, ReceiptType.SALE, createDate, status,hurry, info)
+		super(id, memberName,memberID, user, ReceiptType.SALE, status,hurry, info)
 			;
 		this.clerk = clerk;
 		this.salesList = salesList;

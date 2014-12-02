@@ -36,7 +36,7 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 	private double addDiscount;
 	private double toPay;
 	SalesDataService service;
-	
+	Commodity com;
 	public Sale(){
 		String host="localhost:1099";
 		String url="rmi://"+host+"/salesService";
@@ -45,10 +45,10 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 	
 	}
 	
-	public String getNewID(){
+	
+	
+	public int Add(SaleVO vo){
 		
-	}
-	public int addSale(SaleVO vo){
 		
 	}
 	
@@ -58,7 +58,7 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 	
 	
 	//先find获取原item的cost,total,原位置，修改后,存回list
-	public int  ModifySale(SaleVO vo){
+	public int  Modify(SaleVO vo){
 		int i=list.indexOf(find(nitem.getId()));
 		totalOrigin-=total;
 		updateData(-cost,-total);
@@ -71,12 +71,14 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 		
 	}
 
-
+	public ArrayList<SaleVO> show(){
+		
+	}
 
 	
 //使用了代金券 ，支出累加放sale还是stock
 	public int  useCoupon(String id) {
-		coupon cou=promotionController.find(id);
+		//coupon cou=promotionController.find(id);
 		if(cou==null||cou.getIsUse()) return 1;//改代金券编号无效
 		else {
 			if (this.totalValue >= cou.getValue()) {
@@ -123,5 +125,7 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 		
 
 	}
+	
+	public void 
 	
 }

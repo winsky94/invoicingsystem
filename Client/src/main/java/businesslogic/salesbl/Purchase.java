@@ -1,13 +1,15 @@
 package businesslogic.salesbl;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Date;
 
+import java.rmi.Naming;
+
+
+import java.util.ArrayList;
+
+import po.CommodityPO;
+import po.PurchasePO;
 import dataservice.salesdataservice.SalesDataService;
+import vo.CommodityVO;
 import vo.PurchaseVO;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.receiptbl.ReceiptType;
@@ -16,7 +18,7 @@ import businesslogic.stockbl.goods.MockGoods;
 
 
 public class Purchase extends Receipt {
-	
+	Commodity com;
 	SalesDataService service;
 	public Purchase() throws Exception{
 		String host="localhost:1099";
@@ -29,32 +31,55 @@ public class Purchase extends Receipt {
 
 	
 	public int AddPurchase(PurchaseVO vo){
-		return service.createPurchase()
+		return service.createPurchase(voToPo(vo));
 	}
 	
 	
 	
 	public PurchaseVO find(String message,String type){
 		
+		
+		return null;
 	}
 	
-	public void ModifyPurchase(double total,Commodity nItem){
-		int i=list.indexOf(find(nItem.getId()));
-		totalValue-=total;
-		list.set(i, nItem);
-		totalValue+=nItem.getTotal();
+	public int ModifyPurchase(PurchaseVO vo){
+		return service.updatePurchase(voToPo(vo));
 		
 	}
 	
 	public ArrayList<PurchaseVO>  show(){
-		
+		ArrayList<PurchasePO> po=service.showPurchase();
+		if(po==null) return null;
+		else{
+			ArrayList<PurchaseVO> vo=new ArrayList<PurchaseVO>();
+			for(int i=0;i<po.size();i++){
+				vo.add(poToVo(po.get(i)));
+			}
+			
+			return vo;
+		}
 	}
 
 	
 	private PurchasePO voToPo(PurchaseVO vo){
-		
+		ArrayList<CommodityPO> puList=new ArrayList<CommodityPO>();
+		ArrayList<CommodityVO> List=vo.getPurchaseList();
+		for(int i=0;i<List.size();i++)
+			puList.add(com.voToPO(List.get(i)));
+		PurchasePO po=new PurchasePO(vo.getId(),vo.getMemberID(),vo.getMemberName(),
+				vo.getStockid(),vo.getUser(),puList,vo.getInfo(),vo.getTotalInAll(),
+				vo.getStatus(),vo.getHurry());
+		return po;
 	}
-	private PurchaseVo poToVo(PurchasePO po){
+	private PurchaseVO poToVo(PurchasePO po){
+		ArrayList<CommodityVO> puList=new ArrayList<CommodityVO>();
+		ArrayList<CommodityPO> List=po.getPurchaseList();
+		for(int i=0;i<List.size();i++)
+			puList.add(com.poToVO(List.get(i)));
+		PurchaseVO vo=new PurchaseVO(po.getId(),po.getMemberID(),po.getMemberName(),
+				po.getStockID(),po.getUserID(),puList,po.getInfo(),po.getTotalInAll(),
+				po.getStatus(),po.getHurry());
+		return vo;
 		
 	}
 

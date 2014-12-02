@@ -10,37 +10,36 @@ import java.util.Date;
 
 
 
+
+
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
 import po.PromotionPO.PromotionType;
+import vo.GiftGoodsProVO;
+import vo.PackProVO;
 import businesslogic.stockbl.goods.Goods;
 import businesslogic.stockbl.goods.MockGoods;
 
 public class giftGoodPro extends promotion{	
 	private ArrayList<Goods> giftList;
 	private double totalValue;
-	
-	public void AddGoods(Goods good)
-	{
-		giftList.add(good);
-		totalValue+=((MockGoods)good).getPrice();
+	public int add(GiftGoodsProVO vo){
 		
+		return 0;
 	}
 	
-	public void deleteGoods(Goods good)
-	{
-		giftList.remove(good);
-		totalValue-=((MockGoods)good).getPrice();
+	public int Delete(String id){
+		return 0;
 	}
-
-	public double getTotalValue() {
-		return totalValue;
+	public int Modify(GiftGoodsProVO vo){
+		return 0;
 	}
 	
-	//是否合适
-	public ArrayList<Goods> getgiftList(){
-		return giftList;
+	
+	public ArrayList<GiftGoodsProVO> show(){
+		return null;
 	}
+	
 
 	
 }

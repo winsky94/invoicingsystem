@@ -11,9 +11,9 @@ public class PurchaseReturnVO extends ReceiptVO {
 	private ArrayList<CommodityVO> purchaseReturnList;
 	private double totalInAll;
 	private String stockid;
-	public PurchaseReturnVO(String id,String user,PurchaseVO p, Date createDate, int status,
+	public PurchaseReturnVO(String id,String user,PurchaseVO p,  int status,
 			String info,int hurry) {
-		super(id, p.getMemberName(),p.getMemberID(), user, ReceiptType.PURCHASERETURN, createDate,
+		super(id, p.getMemberName(),p.getMemberID(), user, ReceiptType.PURCHASERETURN,
 				status,hurry, info);
 		this.purchaseReturnList=p.getPurchaseList();
 		this.totalInAll=p.getTotalInAll();

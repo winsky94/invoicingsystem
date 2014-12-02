@@ -5,6 +5,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import po.PurchasePO;
 import po.ReceiptPO;
@@ -19,21 +20,33 @@ import vo.SaleVO;
 import businesslogic.receiptbl.ReceiptType;
 import businesslogicservice.salesblservice.SalesBLService;
 
-public class SalesController implements SalesBLService {
+public class SalesController implements SalesBLService{
 	Sale sale;
 	SaleReturn saleReturn;
 	Purchase purchase;
 	PurchaseReturn purchaseReturn;
 	
-	public SalesController(){
+	public SalesController() throws Exception{
 		sale=new Sale();
 		purchase=new Purchase();
 		purchaseReturn=new PurchaseReturn();
 		saleReturn=new SaleReturn();
 	}
 	public String getNewID(ReceiptType type){
-		
-		return null;
+		//获取当期日期变成String;
+			ArrayList<ReceiptPO> po;
+			String id=null;
+			String d=null;
+			switch(type){
+			case SALE:
+				id="XSD-";po=sale;break;
+			case PURCHASE:
+				id="JHD-";d=purchase.getId();break;
+			
+				
+			}
+			String date=getdate()+"-";
+			return id+date+d;
 		
 	}
 	
@@ -118,14 +131,7 @@ public class SalesController implements SalesBLService {
 		
 	}
 	
-	public PurchasePO purchaseVoToPo(ReceiptVO VO){
-		PurchaseVO vo=(PurchaseVO)VO;
-		PurchasePO po=new PurchasePO(vo.getPurchaseList(),vo.getId(),
-				vo.getMemberName(),vo.getMemberID(),vo.getUser(),vo.getCreateDate(),
-				vo.getStatus(),vo.getHurry(),vo.getInfo(),vo.getStockid(),vo.getTotalInAll());
-		
-		return po;
-	}
+	
 
 	public int modifySaleReceipt(ReceiptVO vo) {
 		// TODO Auto-generated method stub
@@ -142,26 +148,19 @@ public class SalesController implements SalesBLService {
 		return null;
 	}
 
-	public double couponProfitCalc() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
-	public double totalMoneyWeGot() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public static String getdate() {
+		Calendar c=Calendar.getInstance();
+		int year=c.get(Calendar.YEAR);
+		int month=c.get(Calendar.MONTH)+1;
+		int day=c.get(Calendar.DATE);
+		String d=year+""+month+day;
+		
 
-	public double totalMoneyWePaid() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public double purchaseReturnProfitCalc() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	
+	
+	return d;
+	}
 	
 	
 	
