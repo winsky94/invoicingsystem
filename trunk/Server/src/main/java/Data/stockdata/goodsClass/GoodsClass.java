@@ -27,9 +27,8 @@ public class GoodsClass extends UnicastRemoteObject implements
 
 	public int addGoodsClass(GoodsClassPO po) throws RemoteException {
 		// TODO 自动生成的方法存根
-		if (showGoodsClassInfo(po.getName()) == null) {
-			return 1;
-		}
+		System.out.println("GoodsClass.addGoodsClass():uclass："+po.getName());
+		System.out.println("GoodsClass.addGoodsClass():upclass："+po.getUpClass());
 		file.write(po);
 		return 0;
 	}
@@ -78,9 +77,10 @@ public class GoodsClass extends UnicastRemoteObject implements
 		if (a == null) {
 
 		} else {
-			int i;
-			for (i = 0; i < a.size(); i++) {
+			for (int i = 0; i < a.size(); i++) {
 				GoodsClassPO b = (GoodsClassPO) a.get(i);
+				System.out.println("GoodsClass.show():class:"+i+":"+b.getName());
+				System.out.println("GoodsClass.show():upc:"+b.getUpClass());
 				result.add(b);
 			}
 		}
