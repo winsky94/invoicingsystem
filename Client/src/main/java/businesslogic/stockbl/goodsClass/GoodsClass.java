@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import po.GoodsClassPO;
 import po.GoodsPO;
 import vo.GoodsClassVO;
+import vo.GoodsVO;
+import businesslogic.stockbl.goods.GoodsController;
+import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import dataservice.stockdataservice.goodsclassdataservice.StockGoodsClassDataService;
 import dataservice.stockdataservice.goodsdataservice.StockGoodsDataService;
 
@@ -125,12 +128,29 @@ public class GoodsClass {
 	public int modifyGoodsClass(GoodsClassVO oldVO) {
 		int result = -1;
 		try {
-			GoodsClassPO oldPO=service.showGoodsClassInfo(oldVO.getName());
-			GoodsClassPO newPO = new GoodsClassPO(oldPO.getID(), name, upClassName);
-			if(service.showGoodsClassInfo(name)==null){
+			GoodsClassPO oldPO = service.showGoodsClassInfo(oldVO.getName());
+			GoodsClassPO newPO = new GoodsClassPO(oldPO.getID(), name,
+					upClassName);
+			if (service.showGoodsClassInfo(name) == null) {
 				result = service.modifyGoodsClass(newPO);
+				
+				StockGoodsBLService controller = new GoodsController();
+				ArrayList<GoodsVO> list = new ArrayList<GoodsVO>();
+				list = controller.showGoods();
+				for(int i=0;i<list.size();i++){
+					GoodsVO vo=list.get(i);
+					if(vo.getGoodsClass().equals(oldVO.getName())){
+						vo.setGoodsClass(name);
+						controller.modifyGoods(vo);
+					}
+				}
 			}
+			else{
+				result=6;
+			}
+
 			
+
 		} catch (RemoteException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();

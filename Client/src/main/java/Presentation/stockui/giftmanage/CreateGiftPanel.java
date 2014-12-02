@@ -1,7 +1,6 @@
 package Presentation.stockui.giftmanage;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -36,15 +36,19 @@ public class CreateGiftPanel extends JPanel{
 	int dlgWidth = screenWidth * 28 / 100;
 	int dlgHeight = screenHeight * 60 / 100;
 	ChooseGoodsFatherPane pnl;
-	MainFrame parent;
-
-	public CreateGiftPanel(MainFrame frame) {
+//	MainFrame parent;
+//
+//	public CreateGiftPanel(MainFrame frame) {
+	
+	JFrame parent;
+	public CreateGiftPanel(JFrame frame){
 		parent=frame;
-
+	
 		pnl = new ChooseGoodsFatherPane();
 		this.add(pnl);
 		pnl.setBackground(Color.white);
 		pnl.setLayout(null);
+		pnl.setVisible(true);
 		// --------------------------------------------------
 		// -----------------------IDLabel------------------------------------
 		IDLbl = new JLabel();
@@ -122,7 +126,6 @@ public class CreateGiftPanel extends JPanel{
 		cancelBtn.setFocusPainted(false);
 		pnl.add(cancelBtn);
 		// --------------------------------------------------
-		
 	}
 
 	class NumFldListener implements DocumentListener {
@@ -140,4 +143,17 @@ public class CreateGiftPanel extends JPanel{
 		}
 
 	}
+	
+	
+	public static void main(String[] args) {
+		JFrame testFrame = new JFrame();
+		testFrame.setBounds(100, 50, 920, 600);
+		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		CreateGiftPanel gp = new CreateGiftPanel(testFrame);
+		gp.setBounds(0, 0, 920, 600);
+		testFrame.add(gp);
+		testFrame.setVisible(true);
+	}
+
 }

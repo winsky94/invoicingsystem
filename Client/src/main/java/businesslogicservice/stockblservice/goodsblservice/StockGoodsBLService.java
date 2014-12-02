@@ -16,5 +16,7 @@ public interface StockGoodsBLService {
 
 	public ArrayList<GoodsVO> showGoods();
 
+	public ArrayList<GoodsVO> showGoodsByClass(String className);
+	
 	public String getMaxID();
 }

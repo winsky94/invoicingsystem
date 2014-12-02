@@ -49,4 +49,10 @@ public class GoodsController implements StockGoodsBLService {
 		return good.getMaxID();
 	}
 
+	public ArrayList<GoodsVO> showGoodsByClass(String className) {
+		// TODO 自动生成的方法存根
+		Goods good = new Goods();
+		return good.showGoodsByClass(className);
+	}
+
 }

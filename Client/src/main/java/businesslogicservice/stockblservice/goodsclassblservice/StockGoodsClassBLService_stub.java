@@ -42,4 +42,14 @@ public class StockGoodsClassBLService_stub implements StockGoodsClassBLService{
 		return 0;
 	}
 
+	public int modifyGoodsClass(GoodsClassVO oldVO, GoodsClassVO newVO) {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
+	public GoodsClassVO showGoodsClassInfo(String name) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 }

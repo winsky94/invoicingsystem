@@ -433,7 +433,6 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 	public void treeNodesChanged(TreeModelEvent e) {
 		// TODO 自动生成的方法存根
-		System.out.println("tree node change!");
 		TreePath treePath = e.getTreePath();
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePath
 				.getLastPathComponent();
@@ -550,6 +549,19 @@ public class GoodsPanel extends JPanel implements ActionListener,
 				nodeName = treenode.toString();
 			} catch (NullPointerException ne) {
 			}
+
+			StockGoodsBLService goodsController = new GoodsController();
+			ArrayList<GoodsVO> list = goodsController
+					.showGoodsByClass(nodeName);
+
+			if (list.size() != 0) {
+				goodsModel = new GoodsModel(list);
+				goodsTable.setModel(goodsModel);
+			} else {
+				goodsModel = new GoodsModel();
+				goodsTable.setModel(goodsModel);
+			}
+
 		}
 	}
 

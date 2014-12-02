@@ -10,8 +10,10 @@ import java.util.ArrayList;
 
 import po.GoodsPO;
 import vo.GoodsVO;
+import businesslogic.stockbl.goodsClass.GoodsClassController;
 import businesslogic.stockbl.goodsClass.GoodsClassManage;
 import businesslogic.stockbl.stockManage.StockManage;
+import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBLService;
 import dataservice.stockdataservice.goodsdataservice.StockGoodsDataService;
 
 public class Goods {
@@ -67,7 +69,8 @@ public class Goods {
 
 		// 遍历文件中是否存在该商品
 		for (int i = 0; i < list.size(); i++) {
-			if (name.equals(list.get(i).getName())&&size.equals(list.get(i).getSize())) {
+			if (name.equals(list.get(i).getName())
+					&& size.equals(list.get(i).getSize())) {
 				isExist = true;
 				break;
 			}
@@ -84,7 +87,7 @@ public class Goods {
 				ID = "0000";
 			} else {
 				int tp = Integer.parseInt(maxID);
-				ID = nf.format(tp+1);
+				ID = nf.format(tp + 1);
 			}
 			goodsID = gClassManage.getID(gc) + "-" + size + "-" + ID;
 			GoodsPO po = new GoodsPO(goodsID, name, size, numInStock,
@@ -139,10 +142,30 @@ public class Goods {
 		return result;
 	}
 
-	public String getMaxID(){
+	public ArrayList<GoodsVO> showGoodsByClass(String className) {
+		ArrayList<GoodsVO> result = new ArrayList<GoodsVO>();
+		ArrayList<GoodsVO> list = showGoods();
+		StockGoodsClassBLService controller = new GoodsClassController();
+
+		String cn = className;
+		while (!cn.equals("灯具")) {
+			for (int i = 0; i < list.size(); i++) {
+				GoodsVO vo = list.get(i);
+				if (vo.getGoodsClass().equals(cn)) {
+					result.add(vo);
+				}
+			}
+			
+			cn=controller.showGoodsClassInfo(className).getUpClassName();
+		}
+
+		return result;
+	}
+
+	public String getMaxID() {
 		return service.getMaxID();
 	}
-	
+
 	public String getGoodsID() {
 		return goodsID;
 	}

@@ -57,6 +57,38 @@ public class GoodsVO {
 		return lastPrice;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public void setNumInStock(int numInStock) {
+		this.numInStock = numInStock;
+	}
+
+	public void setPurchasePrice(double purchasePrice) {
+		this.purchasePrice = purchasePrice;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public void setLastPurchasePrice(double lastPurchasePrice) {
+		this.lastPurchasePrice = lastPurchasePrice;
+	}
+
+	public void setLastPrice(double lastPrice) {
+		this.lastPrice = lastPrice;
+	}
+
+	public void setGoodsClass(String goodsClass) {
+		this.goodsClass = goodsClass;
+	}
+
 	public String getGoodsClass() {
 		return goodsClass;
 	}
