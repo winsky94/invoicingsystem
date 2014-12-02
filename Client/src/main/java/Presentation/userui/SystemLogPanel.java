@@ -31,27 +31,29 @@ public class SystemLogPanel extends JPanel{
 	LogModel lm;
 	public SystemLogPanel(JFrame myFather){
 		father=myFather;
-		this.setBackground(Color.white);
-		GridBagLayout gbl=new GridBagLayout();
-		this.setLayout(gbl);
+		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
-		c.insets = new Insets(3, 3, 3, 3);
-		c.fill=GridBagConstraints.HORIZONTAL;
-		//-------------------------------
-		JPanel tPnl=new JPanel();
-		tPnl.setBackground(Color.white);
-		tPnl.setLayout(new GridLayout(1,1));
-		JLabel title=new JLabel("查看系统日志");
-		title.setFont(new Font("楷体", Font.BOLD,30));
-		tPnl.add(title);
-		c.anchor=GridBagConstraints.CENTER;
-		c.gridx=0;
-		c.gridy=0;
-		c.gridwidth=GridBagConstraints.REMAINDER;
-		c.gridheight=2;
-		gbl.setConstraints(tPnl, c);
-		this.add(tPnl);
+		c.insets = new Insets(5, 40, 5, 40);
+		
+		this.setBackground(Color.white);
+		this.setLayout(gbl);
+		// -----------title------------------
+		JPanel titlePnl = new JPanel();
+		titlePnl.setBackground(Color.white);
+		titlePnl.setLayout(new GridLayout(1, 1));
+		JLabel title = new JLabel("查看系统日志");
+		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
+		titlePnl.add(title);
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridheight = 2;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.weightx = 1;
+		c.weighty = 0.08;
+		gbl.setConstraints(titlePnl, c);
+		this.add(titlePnl);
 		//--------------------------------
+		c.fill=GridBagConstraints.BOTH;
 		JPanel mPnl=new JPanel();
 		mPnl.setBackground(Color.white);
 		mPnl.setLayout(new GridLayout(1,2));
