@@ -41,6 +41,7 @@ public class DelProDialog extends JDialog{
 		submitBtn.setBounds(dlgWidth * 35 / 100, dlgHeight * 58 / 100,
 				dlgWidth * 30 / 100, dlgHeight * 16 / 100);
 		submitBtn.setFocusPainted(false);
+		submitBtn.setBackground(new Color(251, 147, 121));
 		pnl.add(submitBtn);
 		//
 		this.setTitle("删除确认");
