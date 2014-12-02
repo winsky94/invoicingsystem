@@ -3,7 +3,7 @@ package Presentation.financeui.moneyreceipt;
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
-
+//转账列表的TableModel,收款单和付款单公用
 public class TransferListModel extends AbstractTableModel{
 		/**
 		 * 
