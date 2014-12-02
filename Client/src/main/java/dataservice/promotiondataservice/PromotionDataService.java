@@ -11,6 +11,7 @@ public interface PromotionDataService extends Remote{
 	
 		public int Add(PromotionPO po)throws RemoteException;
 		public PromotionPO find(String id,PromotionType type)throws RemoteException;
+		public int Delete(String id,PromotionType type)throws RemoteException;;
 		public int Modify(PromotionPO po)throws RemoteException;
 		public ArrayList<PromotionPO>show()throws RemoteException;
 		public void init()throws RemoteException;//需要吗
