@@ -1,4 +1,5 @@
 package po;
+import java.io.Serializable;
 /*
  * 特价包
  */
@@ -6,7 +7,11 @@ import java.util.ArrayList;
 
 
 
-public class PackPO {
+public class PackPO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;//系统自动生成
 	private double totalValue;
 	private double packValue;

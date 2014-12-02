@@ -2,20 +2,22 @@ package po;
 /*
  * 商品赠送促销
  */
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
 import po.MemberPO.MemberLevel;
-import po.MemberPO.MemberType;
-import po.PromotionPO.PromotionType;
 
-public class GiftGoodProPO extends PromotionPO{
+public class GiftGoodProPO extends PromotionPO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<GoodsPO> giftList;
 	private double totalValue;
-	public GiftGoodProPO(String id,String startDate,String endDate,MemberLevel l,MemberType mt,
+	public GiftGoodProPO(String id,String startDate,String endDate,MemberLevel l,
 			ArrayList<GoodsPO> list,double value)
 	{
-		super(id,startDate,endDate,PromotionType.GIFTGOODS,l,mt);
+		super(id,startDate,endDate,PromotionType.GIFTGOODS,l);
 		this.giftList=list;
 		this.totalValue=value;
 		
