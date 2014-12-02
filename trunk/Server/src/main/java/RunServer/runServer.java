@@ -8,6 +8,8 @@ import java.rmi.registry.LocateRegistry;
 
 
 
+
+import Data.financedata.Account;
 import Data.financedata.Collection;
 import Data.memberdata.Member;
 import Data.promotiondata.Promotion;
@@ -40,6 +42,7 @@ public class runServer {
 			Collection collection=new Collection();
 			Sales sale=new Sales();
 			Promotion pro=new Promotion();
+			Account account=new Account();
 			Naming.rebind("promotionService",pro);
 			Naming.rebind("salesService",sale);
 			Naming.rebind("memberService",member);
@@ -47,6 +50,7 @@ public class runServer {
 			Naming.rebind("goodsClassService", gc);
 			Naming.rebind("goodsService", g);
 			Naming.rebind("collectionService", collection);
+			Naming.rebind("accountService",account);
 			
 			
 			
