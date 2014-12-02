@@ -11,7 +11,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import businesslogic.memberbl.Member;
+import businesslogic.salesbl.SaleList;
 import businesslogicservice.memberblservice.MemberBLService;
+import businesslogicservice.salesblservice.SaleListBLService;
 import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
@@ -30,21 +32,18 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	//JPanel leftPnl;
-	////int screenWidth = UIhelper.getScreenWidth();
-	//int screenHeight = UIhelper.getScreenHeight();
-	////int frameWidth = screenWidth * 85 / 100;
-	//int frameHeight = screenHeight * 85 / 100;
 
 	JLeftButton purchaseBtn, saleBtn, memberBtn,aboutBtn,backBtn;
-	//JPanel memberMgrPnl, purchaseMgrPnl, saleMgrPnl, aboutPnl,rightPnl;
 	Color salesColor;
 	MainFrame parent;
 	JPanel headPane;
 	MemberBLService service;
-	public SalesLeftPanel(MainFrame frame){
+	SaleListBLService saleservice;
+	public SalesLeftPanel(MainFrame frame) throws Exception{
 		salesColor=frame.getTheme()[0];
 		parent=frame;
+		
+		saleservice=new SaleList();
 		//===构造头像
 		GridBagLayout grid=new GridBagLayout();
 		GridBagConstraints c=new GridBagConstraints();
@@ -116,28 +115,36 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 	//JButton userInfoBtn,purchaseBtn, saleBtn, memberBtn,aboutBtn;
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		try {
 		if(e.getSource()==purchaseBtn){
-			parent.setRightComponent(new PurchaseMgrPanel(parent));
+			PurchaseMgrPanel pgr=new PurchaseMgrPanel(parent);
+			parent.setRightComponent(pgr);
+			if(saleservice.getAllPurchase()!=null)
+			
+					pgr.RefreshPurchaseList(saleservice.getAllPurchase());
 		}else if(e.getSource()==memberBtn){
 			MemberMgrPanel mgr=new MemberMgrPanel(parent);
-			try {
-				service=new Member();
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			service=new Member();
 			parent.setRightComponent(mgr);
 			if( service.showMembers()!=null)
 				mgr.RefreshMemberTable(service.showMembers());
 		}else if(e.getSource()==saleBtn){
-			parent.setRightComponent(new SaleMgrPanel(parent));
+			SaleMgrPanel sp=new SaleMgrPanel(parent);
+			parent.setRightComponent(sp);
+			if(saleservice.getAllSale()!=null)
+				sp.RefreshSaleTable(saleservice.getAllSale());
 			
 		}else if(e.getSource()==aboutBtn){
 			parent.setRightComponent(new AboutPanel());
 		}else if(e.getSource()==backBtn){
-			parent.setLeftComponent(new SaleLeftShortPanel(parent));
-		}
+			
+				parent.setLeftComponent(new SaleLeftShortPanel(parent));
 		
+		}
+		}catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 			
 		
 	}

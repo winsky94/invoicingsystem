@@ -23,6 +23,9 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
 
 import businesslogic.receiptbl.ReceiptType;
+import businesslogic.userbl.User;
+import businesslogicservice.userblservice.UserBLService;
+import vo.PurchaseReturnVO;
 import vo.PurchaseVO;
 import vo.ReceiptVO;
 import Presentation.mainui.MainFrame;
@@ -200,13 +203,40 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 			c.remove(row);
 		}
 	}
-	//加急置顶显示
+	//加急置顶显示  显示图标
 	//单据编号","日期","状态","类型","供应商","操作员","总额合计
-	public void RefreshPurchaseList(ArrayList<ReceiptVO> vo){
+	public void RefreshPurchaseList(ArrayList<ReceiptVO> vo) throws Exception{
+		UserBLService user=new User();
 		for(int i=0;i<vo.size();i++){
 			ReceiptVO v=vo.get(i);
 			ArrayList<String> line=new ArrayList<String>();
 			line.add(v.getId());
+			line.add(v.getDate());
+			int s=v.getStatus();
+			if(s==0){
+				line.add("待审批");
+			}else if(s==1)
+				line.add("审批不通过");
+			else if(s==2)
+				line.add("待执行");
+			else if(s==3)line.add("执行完毕");
+			String name=user.showUser(v.getUser()).getName();
+			if(v.getType()==ReceiptType.PURCHASE)
+			{
+				line.add("进货单");;
+			PurchaseVO pv=(PurchaseVO)v;line.add(v.getMemberName());line.add(name);
+				line.add(pv.getTotalInAll()+"");
+			}else{
+				line.add("进货退货单");
+				PurchaseReturnVO prv=(PurchaseReturnVO)v;
+				line.add(v.getMemberName());line.add(name);
+				line.add(prv.getTotalInAll()+"");
+			}
+			
+			c.add(line);
+			
+			
+			
 			
 				
 				

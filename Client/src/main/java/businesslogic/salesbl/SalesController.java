@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -111,45 +112,43 @@ public class SalesController implements SalesBLService{
 		return saleReturn.find(message, type);
 	}
 	
-	
-
-
-
-	public static String getdate() {
-		Calendar c=Calendar.getInstance();
-		int year=c.get(Calendar.YEAR);
-		int month=c.get(Calendar.MONTH)+1;
-		int day=c.get(Calendar.DATE);
-		String d=year+""+month+day;
-	return d;
-	}
 	public int addPurchase(PurchaseVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return purchase.AddPurchase(vo);
 	}
 	public int addPurchaseReturn(PurchaseReturnVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return purchaseReturn.AddPurchaseReturn(vo);
 	}
 	public int addSale(SaleVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return sale.Add(vo);
 	}
 	public int addSaleReturn(SaleReturnVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return saleReturn.add(vo);
 	}
 	public int modifyPurchase(PurchaseVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return purchase.ModifyPurchase(vo);
 	}
 	public int modifyPurchaseReturn(PurchaseReturnVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return purchaseReturn.ModifyPurchaseReturn(vo);
 	}
 	
 	
-	
+	public static String getdate() {
+		//Calendar c=Calendar.getInstance();
+		/*int year=c.get(Calendar.YEAR);
+		int month=c.get(Calendar.MONTH)+1;
+		int day=c.get(Calendar.DATE);
+		String d=year+""+month+day;*/
+		 Calendar rightNow = Calendar.getInstance();
+	        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+	        String sysDatetime = fmt.format(rightNow.getTime());   
+	return sysDatetime;
+	}
 	
 
 }

@@ -257,7 +257,7 @@ public class AddMemberPanel extends JPanel {
 				mtype = MemberType.JHS;
 			else
 				mtype = MemberType.XSS;
-			System.out.println(mtype);
+			
 
 			ID = service.getNewID(mtype);
 			IDLbl.setText("编号：" + ID);
