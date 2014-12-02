@@ -4,6 +4,7 @@ package businesslogic.salesbl;
 import java.rmi.Naming;
 
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import po.CommodityPO;
@@ -20,7 +21,7 @@ import businesslogic.stockbl.goods.MockGoods;
 
 
 public class Purchase extends Receipt {
-	Commodity com;
+	static Commodity com;
 	SalesDataService service;
 	public Purchase() throws Exception{
 		String host="localhost:1099";
@@ -70,7 +71,7 @@ public class Purchase extends Receipt {
 	}
 
 	
-	private PurchasePO voToPo(PurchaseVO vo){
+	public static PurchasePO voToPo(PurchaseVO vo){
 		ArrayList<CommodityPO> puList;
 		ArrayList<CommodityVO> List=vo.getPurchaseList();
 		
@@ -80,7 +81,7 @@ public class Purchase extends Receipt {
 				vo.getStatus(),vo.getHurry());
 		return po;
 	}
-	private PurchaseVO poToVo(PurchasePO po){
+	public static PurchaseVO poToVo(PurchasePO po){
 		ArrayList<CommodityVO> puList;
 		ArrayList<CommodityPO> List=po.getPurchaseList();
 		
@@ -96,7 +97,19 @@ public class Purchase extends Receipt {
 
 	public String getNewID() {
 		// TODO Auto-generated method stub
-		return null;
+		String id=null;
+		ArrayList<PurchasePO> po=service.showPurchase();
+		if(po==null) id="00001";
+		else{
+			int i=po.size();
+			Double d=Double.parseDouble(po.get(i-1).getId().substring(13)+1);
+			 NumberFormat nf = NumberFormat.getInstance();
+		     nf.setMinimumIntegerDigits(5); 
+		     nf.setGroupingUsed(false);
+		     id=nf.format(d);
+			
+		}
+		return id;
 	}
 
 	

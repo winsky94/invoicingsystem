@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,6 +12,7 @@ import dataservice.memberdataservice.MemberDataService;
 import dataservice.salesdataservice.SalesDataService;
 import po.MemberPO.MemberLevel;
 import po.CommodityPO;
+import po.PurchasePO;
 import po.SalePO;
 import po.UserPO;
 import po.UserPO.UserJob;
@@ -157,7 +159,19 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 
 	public String getNewID() {
 		// TODO Auto-generated method stub
-		return null;
+		String id=null;
+		ArrayList<SalePO> po=service.showSale();
+		if(po==null) id="00001";
+		else{
+			int i=po.size();
+			Double d=Double.parseDouble(po.get(i-1).getId().substring(13)+1);
+			 NumberFormat nf = NumberFormat.getInstance();
+		     nf.setMinimumIntegerDigits(5); 
+		     nf.setGroupingUsed(false);
+		     id=nf.format(d);
+			
+		}
+		return id;
 	}
 	
 }
