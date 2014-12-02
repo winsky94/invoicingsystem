@@ -1,7 +1,6 @@
 package Presentation.salesui.manage.purchase;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -9,8 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -20,14 +19,24 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import po.MemberPO.MemberType;
+import vo.MemberVO;
+import businesslogic.memberbl.Member;
+import businesslogic.receiptbl.ReceiptType;
+import businesslogic.salesbl.SaleList;
+import businesslogic.salesbl.SalesController;
+import businesslogicservice.memberblservice.MemberBLService;
+import businesslogicservice.salesblservice.SaleListBLService;
+import businesslogicservice.salesblservice.SalesBLService;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.outBorder;
 import Presentation.promotionui.addpromotion.AddBarginPanel;
+import Presentation.salesui.manage.SaleMgrPanel;
 import Presentation.stockui.ChooseGoodsDialog;
 import Presentation.uihelper.UIhelper;
 
-public class PurchasePane extends ChooseGoodsFatherPane {
+public class PurchasePane extends ChooseGoodsFatherPane implements ActionListener{
 
 	/**
 	 * 
@@ -42,8 +51,10 @@ public class PurchasePane extends ChooseGoodsFatherPane {
 	CommodityTableModel ctm;
 	JComboBox<String> JHSBox;
 	MainFrame parent;
-
-	public PurchasePane(MainFrame frame) {
+	String[] idtxt;//客户id
+	SalesBLService service;
+	public PurchasePane(MainFrame frame) throws Exception {
+		service=new SalesController();
 		parent = frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
@@ -90,7 +101,8 @@ public class PurchasePane extends ChooseGoodsFatherPane {
 		p3.setBackground(Color.white);
 		midPnl.add(p3);
 		//-------ID-----------------
-		IDLbl=new JLabel("编号：JHD-嗷嗷嗷嗷嗷");
+		String id=service.getNewID(ReceiptType.PURCHASE);
+		IDLbl=new JLabel("编号："+id);
 		IDLbl.setFont(font);
 		p1.add(IDLbl);
 		p1.add(new JLabel("     "));
@@ -98,14 +110,23 @@ public class PurchasePane extends ChooseGoodsFatherPane {
 		JLabel JHSLbl=new JLabel("进货商：");
 		JHSLbl.setFont(font);
 		p1.add(JHSLbl);
-		String boxText[]={"请给我加监听"};
+		;
+		MemberBLService mem=new Member();
+		ArrayList<MemberVO> mvo=mem.showMembers();
+		String boxText[]=new String[mvo.size()+1];
+		idtxt=new String[mvo.size()];
+		boxText[0]="选择交易客户";int j=0;
+		for(int i=0;i<mvo.size();i++)
+			if(mvo.get(i).getmType()==MemberType.JHS)
+			{boxText[j+1]=mvo.get(i).getName();idtxt[j]=mvo.get(i).getMemberID();j++;}
+			
 		JHSBox=new JComboBox<String>(boxText);
 		JHSBox.setBackground(Color.white);
 		JHSBox.setFont(font);
 		p1.add(JHSBox);
 		p1.add(new JLabel("     "));
 		//------操作员----------------
-		userLbl=new JLabel("操作员：我没有监听");
+		userLbl=new JLabel("操作员："+frame.getUser().getName());
 		userLbl.setFont(font);
 		p1.add(userLbl);
 		//-------仓库----------------
@@ -185,6 +206,26 @@ public class PurchasePane extends ChooseGoodsFatherPane {
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(251, 147, 121));
 		btnPnl.add(exitBtn);
+		exitBtn.addActionListener(this);
+		
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		try {
+		if(e.getSource()==exitBtn){
+			
+				SaleListBLService listservice=new SaleList();
+			
+			SaleMgrPanel sp=new SaleMgrPanel(parent);
+			parent.setRightComponent(sp);
+			if(listservice.getAllSale()!=null)
+				sp.RefreshSaleTable(listservice.getAllSale());
+		}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 }

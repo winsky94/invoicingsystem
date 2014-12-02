@@ -122,15 +122,7 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 		btnPnl.add(exitBtn);
 	}
 
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 920, 600);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AddAccountPanel gp = new AddAccountPanel(new MainFrame(new UserVO("1","1","1",UserJob.FINANCE,1)));
-		gp.setBounds(0, 0, 920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
-	}
+	
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==submitBtn){

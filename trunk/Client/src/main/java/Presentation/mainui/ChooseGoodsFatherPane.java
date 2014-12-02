@@ -14,13 +14,15 @@ public class ChooseGoodsFatherPane extends JPanel{
 	 */
 	int tag=0;
 	private static final long serialVersionUID = 1L;
-	public ArrayList<ArrayList<String>> c=new ArrayList<ArrayList<String>>();
+	public ArrayList<ArrayList<String>> c=new ArrayList<ArrayList<String>>();;
 	public double discount;
+	
 	
 	public void addContent(ArrayList<ArrayList<String>> toAdd){
 		for(int i=0;i<toAdd.size();i++){
 			c.add(toAdd.get(i));
 		}
+	
 		
 	}
 	public void setDiscount(double d){
@@ -35,9 +37,13 @@ public class ChooseGoodsFatherPane extends JPanel{
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-			String head[] = { "商品编号","名称", "型号","数量","单价","金额","备注" };
+			String head[] = { "商品编号","名称", "型号","数量","单价金额","备注" };
 			public int getRowCount() {
 				return c.size();
+			}
+			
+			public void addRow(ArrayList<String>  s) {
+				c.add(s);
 			}
 		 
 

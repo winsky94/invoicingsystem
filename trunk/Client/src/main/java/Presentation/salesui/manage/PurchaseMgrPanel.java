@@ -151,7 +151,12 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource()==purchaseBtn)
-			parent.setRightComponent(new PurchasePane(parent));
+			try {
+				parent.setRightComponent(new PurchasePane(parent));
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		else if(e.getSource()==purchaseReturnBtn)
 			parent.setRightComponent(new PurchaseReturnPane(parent));;
 	}
