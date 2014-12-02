@@ -9,7 +9,9 @@ public interface StockGoodsClassBLService {
 
 	public int deleteGoodsClass(GoodsClassVO vo);
 
-	public int modifyGoodsClass(GoodsClassVO vo);
+	public int modifyGoodsClass(GoodsClassVO oldVO, GoodsClassVO newVO);
 
 	public ArrayList<GoodsClassVO> show();
+
+	public GoodsClassVO showGoodsClassInfo(String name);
 }

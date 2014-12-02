@@ -1,27 +1,24 @@
 package Presentation.stockui.goodsmanage;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import Presentation.stockui.goodsmanage.AddGoodsPanel.NameFieldListener;
-import Presentation.stockui.goodsmanage.AddGoodsPanel.PPriceFieldListener;
-import Presentation.stockui.goodsmanage.AddGoodsPanel.SPriceFieldListener;
-import Presentation.stockui.goodsmanage.AddGoodsPanel.SizeFieldListener;
+import vo.GoodsVO;
 import Presentation.uihelper.UIhelper;
 
-public class ModGoodsDialog extends JDialog{
+public class ModGoodsPanel extends JPanel {
 
 	/**
-	 * 
+	 * 已经传过来了，@王宁，到时候直接获取数据加到相应的JTextField或者label（你看着办）就好了_yan
 	 */
 	private static final long serialVersionUID = 1L;
 	String IDtext, nameText, sizeText, pPriceText, sPriceText;
@@ -33,11 +30,10 @@ public class ModGoodsDialog extends JDialog{
 	int screenHeight = UIhelper.getScreenHeight();
 	int dlgWidth = screenWidth * 28 / 100;
 	int dlgHeight = screenHeight * 60 / 100;
-	Container pnl;
-	public ModGoodsDialog(){
-		pnl = this.getContentPane();
-		pnl.setBackground(Color.white);
-		pnl.setLayout(null);
+
+	public ModGoodsPanel(GoodsVO vo) {
+		this.setBackground(Color.white);
+		this.setLayout(null);
 		//
 		// -----------------------IDLabel------------------------------------
 		IDLbl = new JLabel();
@@ -47,13 +43,13 @@ public class ModGoodsDialog extends JDialog{
 		IDLbl.setText(IDtext);
 		IDLbl.setBounds(dlgWidth * 3 / 100, dlgHeight * 3 / 100,
 				dlgWidth * 60 / 100, dlgHeight * 6 / 100);
-		pnl.add(IDLbl);
+		this.add(IDLbl);
 		// -----------------------nameLabel------------------------------------
 		nameLbl = new JLabel("商品名:");
 		nameLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		nameLbl.setBounds(dlgWidth * 3 / 100, dlgHeight * 13 / 100,
 				dlgWidth * 30 / 100, dlgHeight * 6 / 100);
-		pnl.add(nameLbl);
+		this.add(nameLbl);
 		// ---------------------nameFld---------------------------------------
 		nameFld = new JTextField();
 		nameFld.setBorder(BorderFactory.createLineBorder(Color.gray));
@@ -61,13 +57,13 @@ public class ModGoodsDialog extends JDialog{
 		nameFld.setBounds(dlgWidth * 20 / 100, dlgHeight * 13 / 100,
 				dlgWidth * 60 / 100, dlgHeight * 6 / 100);
 		nameFld.getDocument().addDocumentListener(new NameFieldListener());
-		pnl.add(nameFld);
+		this.add(nameFld);
 		// -----------------------sizeLbl------------------------------------
 		sizeLbl = new JLabel("型号:");
 		sizeLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		sizeLbl.setBounds(dlgWidth * 3 / 100, dlgHeight * 23 / 100,
 				dlgWidth * 30 / 100, dlgHeight * 6 / 100);
-		pnl.add(sizeLbl);
+		this.add(sizeLbl);
 		// ---------------------sizeFld---------------------------------------
 		sizeFld = new JTextField();
 		sizeFld.setBorder(BorderFactory.createLineBorder(Color.gray));
@@ -75,13 +71,13 @@ public class ModGoodsDialog extends JDialog{
 		sizeFld.setBounds(dlgWidth * 20 / 100, dlgHeight * 23 / 100,
 				dlgWidth * 60 / 100, dlgHeight * 6 / 100);
 		sizeFld.getDocument().addDocumentListener(new SizeFieldListener());
-		pnl.add(sizeFld);
+		this.add(sizeFld);
 		// -----------------------defaultPurchasePriceLbl------------------------------------
 		defaultPurchasePriceLbl = new JLabel("默认进价:");
 		defaultPurchasePriceLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		defaultPurchasePriceLbl.setBounds(dlgWidth * 3 / 100,
 				dlgHeight * 33 / 100, dlgWidth * 30 / 100, dlgHeight * 6 / 100);
-		pnl.add(defaultPurchasePriceLbl);
+		this.add(defaultPurchasePriceLbl);
 		// ---------------------defaultPurchasePriceFld---------------------------------------
 		defaultPurchasePriceFld = new JTextField();
 		defaultPurchasePriceFld.setBorder(BorderFactory
@@ -91,13 +87,13 @@ public class ModGoodsDialog extends JDialog{
 				dlgHeight * 33 / 100, dlgWidth * 60 / 100, dlgHeight * 6 / 100);
 		defaultPurchasePriceFld.getDocument().addDocumentListener(
 				new PPriceFieldListener());
-		pnl.add(defaultPurchasePriceFld);
+		this.add(defaultPurchasePriceFld);
 		// -----------------------defaultSalePriceLbl------------------------------------
 		defaultSalePriceLbl = new JLabel("默认售价:");
 		defaultSalePriceLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		defaultSalePriceLbl.setBounds(dlgWidth * 3 / 100, dlgHeight * 43 / 100,
 				dlgWidth * 30 / 100, dlgHeight * 6 / 100);
-		pnl.add(defaultSalePriceLbl);
+		this.add(defaultSalePriceLbl);
 		// ---------------------defaultSalePriceFld---------------------------------------
 		defaultSalePriceFld = new JTextField();
 		defaultSalePriceFld.setBorder(BorderFactory
@@ -107,22 +103,18 @@ public class ModGoodsDialog extends JDialog{
 				dlgHeight * 43 / 100, dlgWidth * 60 / 100, dlgHeight * 6 / 100);
 		defaultSalePriceFld.getDocument().addDocumentListener(
 				new SPriceFieldListener());
-		pnl.add(defaultSalePriceFld);
+		this.add(defaultSalePriceFld);
 		// -------------------submitBtn---------------------------------------------
 		submitBtn = new JButton("确  定");
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setBounds(dlgWidth * 40 / 100, dlgHeight * 80 / 100,
 				dlgWidth * 20 / 100, dlgHeight * 6 / 100);
 		submitBtn.setFocusPainted(false);
-		pnl.add(submitBtn);
+		this.add(submitBtn);
 		//
-		this.setTitle("修改商品信息");
 		this.setBounds((screenWidth - dlgWidth) / 2,
 				(screenHeight - dlgHeight) / 2, dlgWidth, dlgHeight);
 
-		this.setResizable(false);
-		this.setModal(true);
-		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 	}
 
@@ -180,5 +172,17 @@ public class ModGoodsDialog extends JDialog{
 		public void removeUpdate(DocumentEvent d) {
 			sPriceText = defaultSalePriceFld.getText();
 		}
+	}
+
+	public static void main(String[] args) {
+		JFrame testFrame = new JFrame();
+		testFrame.setBounds(100, 50, 920, 600);
+		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		GoodsVO vo=new GoodsVO("0001-SR01-00001","飞利浦日光灯","SR01",0,10,12,10,12,"飞利浦");
+		ModGoodsPanel mgp = new ModGoodsPanel(vo);
+		mgp.setBounds(0, 0, 920, 600);
+		testFrame.add(mgp);
+		testFrame.setVisible(true);
 	}
 }

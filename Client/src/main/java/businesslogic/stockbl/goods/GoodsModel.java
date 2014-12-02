@@ -110,4 +110,10 @@ public class GoodsModel extends AbstractTableModel {
 		return (String) this.columnNames.get(column);
 	}
 
+	// 设置表格某些列可以双击修改
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		return true;
+
+	}
+
 }

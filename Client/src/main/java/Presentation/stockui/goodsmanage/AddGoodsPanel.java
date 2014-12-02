@@ -144,6 +144,7 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 			else{
 				//怎么返回上一级panel啊~~~~
 				//还要记得返回上级panel后new一个goodsModel刷新商品界面
+				parent.setRightComponent(new GoodsPanel(parent));
 			}
 		}
 //加一个取消按钮并增加监听
