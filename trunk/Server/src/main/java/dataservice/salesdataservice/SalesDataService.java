@@ -34,5 +34,6 @@ public interface SalesDataService extends Remote{
 	
 	public ArrayList<ReceiptPO> getAllPurchase() throws RemoteException;
 	public ArrayList<ReceiptPO> getAllSale() throws RemoteException;
+	public ReceiptPO findReceiptByID(String ID) throws RemoteException;
 	
 }
