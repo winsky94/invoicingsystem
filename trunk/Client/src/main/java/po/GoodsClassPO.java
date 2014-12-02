@@ -9,13 +9,12 @@ public class GoodsClassPO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	String ID;
 	String name;
-	String upClassName;
+	String upClass;
 
-
-	public GoodsClassPO(String id,String name, String upClassName) {
+	public GoodsClassPO(String id,String name, String upClass) {
 		this.ID=id;
 		this.name = name;
-		this.upClassName = upClassName;
+		this.upClass = upClass;
 
 	}
 
@@ -27,12 +26,12 @@ public class GoodsClassPO implements Serializable {
 		this.name = name;
 	}
 
-	public String getUpClassName() {
-		return upClassName;
+	public String getUpClass() {
+		return upClass;
 	}
 
-	public void setUpClass(String upClassName) {
-		this.upClassName = upClassName;
+	public void setUpClass(String upClass) {
+		this.upClass = upClass;
 	}
 
 	public String getID() {
