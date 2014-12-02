@@ -29,5 +29,10 @@ public class FinanceAccountDataService_stub implements FinanceAccountDataService
 	public ArrayList<AccountPO> showAll() {
 		System.out.println("Show all accouts success!");
 		return new ArrayList<AccountPO>();
+	}
+
+	public AccountPO findByName(String s) {
+		// TODO 自动生成的方法存根
+		return null;
 	}	
 }
