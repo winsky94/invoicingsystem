@@ -10,7 +10,7 @@ public class GoodsClassNode implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String UpClass;
-	private ArrayList<GoodsClassNode> children = new ArrayList<GoodsClassNode>();
+	ArrayList<GoodsClassNode> children = new ArrayList<GoodsClassNode>();
 
 	public GoodsClassNode(String name, String UpClass) {
 		this.name = name;

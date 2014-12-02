@@ -31,7 +31,6 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 
 		int i;
 		for (i = 0; i < a.size(); i++) {
-			System.out.println(i);
 			GoodsPO b = (GoodsPO) a.get(i);
 			if (b.getGoodsID().equals(po.getGoodsID())) {
 				a.remove(i);
