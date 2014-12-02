@@ -73,22 +73,22 @@ public class SalesController implements SalesBLService{
 
 	public ArrayList<PurchaseVO> showPurchase() {
 		// TODO Auto-generated method stub
-		return null;
+		return purchase.show();
 	}
 
 	public ArrayList<PurchaseReturnVO> showPurchaseReturn() {
 		// TODO Auto-generated method stub
-		return null;
+		return purchaseReturn.show();
 	}
 
 	public ArrayList<SaleVO> showSale() {
 		// TODO Auto-generated method stub
-		return null;
+		return sale.show();
 	}
 
 	public ArrayList<SaleReturnVO> showSaleReturn() {
 		// TODO Auto-generated method stub
-		return null;
+		return saleReturn.show();
 	}
 
 	public ArrayList<PurchaseVO> findPurchase(String message,String type) {
@@ -98,7 +98,7 @@ public class SalesController implements SalesBLService{
 
 	public ArrayList<PurchaseReturnVO> findPurchaseReturn(String message,String type) {
 		// TODO Auto-generated method stub
-		return purchase.find(message, type);
+		return purchaseReturn.find(message, type);
 	}
 
 	public ArrayList<SaleVO> findSale(String message,String type) {
@@ -113,23 +113,6 @@ public class SalesController implements SalesBLService{
 	
 	
 
-	
-	
-
-	public int modifySaleReceipt(ReceiptVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public ArrayList<ReceiptVO> show(ReceiptType type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ArrayList<ReceiptVO> showAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 	public static String getdate() {
@@ -138,12 +121,33 @@ public class SalesController implements SalesBLService{
 		int month=c.get(Calendar.MONTH)+1;
 		int day=c.get(Calendar.DATE);
 		String d=year+""+month+day;
-		
-
-	
-	
 	return d;
 	}
+	public int addPurchase(PurchaseVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int addPurchaseReturn(PurchaseReturnVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int addSale(SaleVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int addSaleReturn(SaleReturnVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int modifyPurchase(PurchaseVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public int modifyPurchaseReturn(PurchaseReturnVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 	
 	
 	

@@ -1,12 +1,14 @@
 package businesslogic.salesbl;
 
 import java.rmi.Naming;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import dataservice.salesdataservice.SalesDataService;
 import po.CommodityPO;
 import po.PurchasePO;
+import po.PurchaseReturnPO;
 import po.SalePO;
 import po.SaleReturnPO;
 import vo.CommodityVO;
@@ -18,7 +20,7 @@ import businesslogic.receiptbl.ReceiptType;
 
 public class SaleReturn extends Receipt {
 
-	Commodity com;
+	static Commodity com;
 	SalesDataService service;
 	public SaleReturn() throws Exception{
 		String host="localhost:1099";
@@ -50,7 +52,19 @@ public class SaleReturn extends Receipt {
 
 	public String getNewID() {
 		// TODO Auto-generated method stub
-		return null;
+		String id=null;
+		ArrayList<SaleReturnPO> po=service.showSaleReturn();
+		if(po==null) id="00001";
+		else{
+			int i=po.size();
+			Double d=Double.parseDouble(po.get(i-1).getId().substring(15)+1);
+			 NumberFormat nf = NumberFormat.getInstance();
+		     nf.setMinimumIntegerDigits(5); 
+		     nf.setGroupingUsed(false);
+		     id=nf.format(d);
+			
+		}
+		return id;
 	}
 	
 	
@@ -67,7 +81,7 @@ public class SaleReturn extends Receipt {
 	}
 	
 	
-	public SaleReturnVO poToVo(SaleReturnPO po){
+	public static SaleReturnVO poToVo(SaleReturnPO po){
 		ArrayList<CommodityPO> list=po.getSalesreturnList();
 		ArrayList<CommodityVO>  rList=com.poTVo(list);
 		SaleReturnVO vo=new SaleReturnVO(po.getId(),po.getMemberName(),

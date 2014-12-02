@@ -1,6 +1,7 @@
 package businesslogic.salesbl;
 
 import java.rmi.Naming;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,7 +18,7 @@ import businesslogic.receiptbl.ReceiptType;
 public class PurchaseReturn extends Receipt {
 	private double total;
 
-	Commodity com;
+	static Commodity com;
 	SalesDataService service;
 	public PurchaseReturn() throws Exception{
 		String host="localhost:1099";
@@ -77,7 +78,7 @@ public class PurchaseReturn extends Receipt {
 	
 	//String id,String MemName,String MemID,String user, int status,
 	//String info,int hurry,ArrayList<CommodityVO> list,double total,String sid) {
-	private PurchaseReturnVO poToVo(PurchaseReturnPO po){
+	static PurchaseReturnVO poToVo(PurchaseReturnPO po){
 		ArrayList<CommodityVO> puList;
 		ArrayList<CommodityPO> List=po.getPurchaseReturnList();
 		
@@ -93,7 +94,19 @@ public class PurchaseReturn extends Receipt {
 
 	public String getNewID() {
 		// TODO Auto-generated method stub
-		return "";
+		String id=null;
+		ArrayList<PurchaseReturnPO> po=service.showPurchaseReturn();
+		if(po==null) id="00001";
+		else{
+			int i=po.size();
+			Double d=Double.parseDouble(po.get(i-1).getId().substring(15)+1);
+			 NumberFormat nf = NumberFormat.getInstance();
+		     nf.setMinimumIntegerDigits(5); 
+		     nf.setGroupingUsed(false);
+		     id=nf.format(d);
+			
+		}
+		return id;
 	}
 	//进货退货，需检查库存！
 	
