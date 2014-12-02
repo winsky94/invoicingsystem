@@ -23,11 +23,14 @@ import javax.swing.JTextField;
 import vo.MemberVO;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.ReceiptType;
+import businesslogic.salesbl.SaleList;
 import businesslogic.salesbl.SalesController;
 import businesslogicservice.memberblservice.MemberBLService;
+import businesslogicservice.salesblservice.SaleListBLService;
 import businesslogicservice.salesblservice.SalesBLService;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
+import Presentation.salesui.manage.SaleMgrPanel;
 import Presentation.stockui.ChooseGoodsDialog;
 
 public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
@@ -224,11 +227,25 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(251, 147, 121));
+		exitBtn.addActionListener(this);
 		btnPnl.add(exitBtn);
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-
+		try {
+		if(e.getSource()==exitBtn){
+			
+				SaleListBLService listservice=new SaleList();
+			
+			SaleMgrPanel sp=new SaleMgrPanel(parent);
+			parent.setRightComponent(sp);
+			if(listservice.getAllSale()!=null)
+				sp.RefreshSaleTable(listservice.getAllSale());
+		}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }

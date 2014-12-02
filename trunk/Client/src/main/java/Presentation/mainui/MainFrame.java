@@ -35,12 +35,9 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 	JPanel function;
 	Color[] color = new Color[2];
 
-	public static void main(String[] args) {
-		UserVO userVO = new UserVO("1", "1", "1", UserJob.STOCK, 1);
-		new MainFrame(userVO);
-	}
+	
 
-	public MainFrame(UserVO myuser) {
+	public MainFrame(UserVO myuser) throws Exception {
 		this.setSize(1100, 600);
 
 		this.setLocation(150, 100);

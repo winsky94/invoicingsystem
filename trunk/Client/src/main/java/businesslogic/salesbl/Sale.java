@@ -27,7 +27,7 @@ import businesslogic.userbl.User;
 
 public class Sale extends Receipt {  //单据总值包含代金券金额
 	// 要默认业务员 
-	private String clerk;
+	/*private String clerk;
 	private ArrayList<CommodityVO> list;
 	private double discountValue;//折让金额
 	private double cost;//销售成本，商品总值
@@ -37,7 +37,7 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 	private double proValue;//促销让利；
 	private double preValue;//会员让利
 	private double addDiscount;
-	private double toPay;
+	private double toPay;*/
 	SalesDataService service;
 	static Commodity com;
 	public Sale() throws Exception{

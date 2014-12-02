@@ -32,10 +32,10 @@ public class SaleLeftShortPanel extends JPanel implements ActionListener{
 	MemberBLService service;
 	JLeftButton purchaseBtn, saleBtn, memberBtn,aboutBtn,backBtn;
 	SaleListBLService  saleservice;
-	public SaleLeftShortPanel(MainFrame frame) throws Exception{
+	public SaleLeftShortPanel(MainFrame frame) {
 		salesColor=frame.getTheme()[0];
 		parent=frame;
-		saleservice=new SaleList();
+	
 		//===构造头像
 		GridBagLayout grid=new GridBagLayout();
 		GridBagConstraints c=new GridBagConstraints();
@@ -101,29 +101,40 @@ public class SaleLeftShortPanel extends JPanel implements ActionListener{
 	
 
 	public void actionPerformed(ActionEvent e) {
+		try {
+			saleservice=new SaleList();
+		
 		// TODO Auto-generated method stub
 		if(e.getSource()==backBtn)
 			parent.setLeftComponent(new SalesLeftPanel(parent));
 		else if(e.getSource()==aboutBtn)
 			parent.setRightComponent(new AboutPanel());
-		else if(e.getSource()==saleBtn)
-			parent.setRightComponent(new SaleMgrPanel(parent));
+		else if(e.getSource()==saleBtn){
+			SaleMgrPanel sp=new SaleMgrPanel(parent);
+			parent.setRightComponent(sp);
+			if(saleservice.getAllSale()!=null)
+				sp.RefreshSaleTable(saleservice.getAllSale());
+		}
 		else if(e.getSource()==memberBtn){
 			MemberMgrPanel mgr=new MemberMgrPanel(parent);
-			try {
-				service=new Member();
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			service=new Member();
 			parent.setRightComponent(mgr);
 			if(service.showMembers()!=null)
 				mgr.RefreshMemberTable(service.showMembers());
 		
 			
 		}else if(e.getSource()==purchaseBtn){
-			
-			parent.setRightComponent(new PurchaseMgrPanel(parent));}
+			PurchaseMgrPanel pgr=new PurchaseMgrPanel(parent);
+			parent.setRightComponent(pgr);
+			if(saleservice.getAllPurchase()!=null)
+				
+					pgr.RefreshPurchaseList(saleservice.getAllPurchase());
+				
+		}
+		}catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 	//	else if(e.getSource())
 		
 	}

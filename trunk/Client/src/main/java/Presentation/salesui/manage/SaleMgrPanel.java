@@ -23,6 +23,14 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
 
+import businesslogic.receiptbl.ReceiptType;
+import businesslogic.userbl.User;
+import businesslogicservice.userblservice.UserBLService;
+import vo.PurchaseReturnVO;
+import vo.PurchaseVO;
+import vo.ReceiptVO;
+import vo.SaleReturnVO;
+import vo.SaleVO;
 import Presentation.mainui.MainFrame;
 import Presentation.salesui.manage.PurchaseMgrPanel.MyButton;
 import Presentation.salesui.manage.PurchaseMgrPanel.SearchBtnListener;
@@ -139,6 +147,7 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		if (e.getSource() == saleBtn) {
 			try {
+		
 				parent.setRightComponent(new SalePane(parent));
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
@@ -148,6 +157,8 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 			parent.setRightComponent(new SaleReturnPane(parent));
 
 	}
+	
+
 
 	class MyButton extends JButton {
 
@@ -205,4 +216,48 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 			c.remove(row);
 		}
 	}
+	// "单据编号", "日期", "状态", "类型", "销售商", "操作员", "折让前金额",
+	//"折让后金额" 
+	public void RefreshSaleTable(ArrayList<ReceiptVO> vo) throws Exception{
+		UserBLService user=new User();
+		for(int i=0;i<vo.size();i++){
+			ReceiptVO v=vo.get(i);
+			ArrayList<String> line=new ArrayList<String>();
+			line.add(v.getId());
+			line.add(v.getDate());
+			int s=v.getStatus();
+			if(s==0){
+				line.add("待审批");
+			}else if(s==1)
+				line.add("审批不通过");
+			else if(s==2)
+				line.add("待执行");
+			else if(s==3)line.add("执行完毕");
+			String name=user.showUser(v.getUser()).getName();
+			if(v.getType()==ReceiptType.SALE)
+			{
+				line.add("销售单");;
+			SaleVO pv=(SaleVO)v;line.add(v.getMemberName());line.add(name);
+				line.add(pv.getTotalOrigin()+"");line.add(pv.getTotalValue()+"");
+			}else{
+				line.add("销售退货单");
+				SaleReturnVO prv=(SaleReturnVO)v;
+				line.add(v.getMemberName());line.add(name);
+				line.add(prv.getTotal()[1]+"");line.add(prv.getTotal()[2]+"");
+			}
+			
+			c.add(line);
+			
+			
+			
+			
+				
+				
+				
+			
+		}
+	}
 }
+
+
+
