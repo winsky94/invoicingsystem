@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -34,7 +33,8 @@ public class AccountPanel extends JPanel implements ActionListener{
 	JScrollPane jsp;
 	String keyWord;
 	MainFrame parent;
-    public AccountPanel(JFrame frame){
+    public AccountPanel(MainFrame frame){
+    	parent=frame;
     	this.setBackground(Color.white);
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
@@ -145,15 +145,5 @@ public class AccountPanel extends JPanel implements ActionListener{
 			this.setBackground(Color.white);
 			this.setFocusPainted(false);
 		}
-	}
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 920, 600);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		AccountPanel gp = new AccountPanel(testFrame);
-		gp.setBounds(0, 0, 920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
 	}
 }
