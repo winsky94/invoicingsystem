@@ -72,7 +72,7 @@ public class PromotionPO implements Serializable{
 
 
 
-	public enum PromotionType {
+	public enum PromotionType  implements Serializable{
 		GIFTGOODS,GIFTCOUPON,PACK,DISCOUNT
 	}
 
