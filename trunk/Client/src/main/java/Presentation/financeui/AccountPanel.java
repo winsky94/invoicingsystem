@@ -12,12 +12,18 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
+import vo.AccountVO;
+import Presentation.financeui.account.AddAccountPanel;
+import Presentation.financeui.account.DelAccountDialog;
+import Presentation.financeui.account.ModAccountPanel;
 import Presentation.mainui.MainFrame;
 
 public class AccountPanel extends JPanel implements ActionListener{
@@ -97,8 +103,44 @@ public class AccountPanel extends JPanel implements ActionListener{
     	
     }
 	public void actionPerformed(ActionEvent e) {
-		
-		
+		if(e.getSource()==addBtn){
+			parent.setRightComponent(new AddAccountPanel(parent));
+		}
+		else if(e.getSource()==delBtn){
+			int[] i = table.getSelectedRows();
+			ArrayList<String> name = new ArrayList<String>();
+			if (i.length > 0) {
+				for (int j = 0; j < i.length; j++)
+					name.add((String)table.getValueAt(i[j], 0));
+
+				JDialog delDlg = new DelAccountDialog(name, parent);
+			} else {
+				JOptionPane.showMessageDialog(null, "请选择账户", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			}
+		}
+		else if(e.getSource()==modBtn){
+			int i = table.getSelectedRow();
+			if (i >= 0) {
+				String name = (String) table.getValueAt(i, 0);
+
+				try {
+
+					parent.setRightComponent(new ModAccountPanel(name,parent));
+
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			} else {
+				JOptionPane.showMessageDialog(null, "请选择账户", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			}
+		}
+		else if(e.getSource()==refreshBtn){
+			
+		}
 	}
 	class AccountTableModel extends AbstractTableModel {
 		/**
@@ -151,6 +193,15 @@ public class AccountPanel extends JPanel implements ActionListener{
 			this.setBorderPainted(false);
 			this.setBackground(Color.white);
 			this.setFocusPainted(false);
+		}
+	}
+	
+	public void RefreshAccountTable(ArrayList<AccountVO> vo){
+		for (AccountVO VO : vo) {
+			ArrayList<String> lineInfo = new ArrayList<String>();
+			lineInfo.add(VO.getName());
+			lineInfo.add(String.valueOf(VO.getMoney()));
+			c.add(lineInfo);
 		}
 	}
 }
