@@ -134,6 +134,7 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==submitBtn){
+			name=nameFld.getText();
 			if (name == null || name.equals("")) {
 				JOptionPane.showMessageDialog(null, "请输入账户名称！", "提示",
 						JOptionPane.CLOSED_OPTION);
