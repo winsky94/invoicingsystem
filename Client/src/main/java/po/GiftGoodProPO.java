@@ -1,14 +1,18 @@
 package po;
 
+/*
+ * 商品赠送促销
+ */
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
 import po.MemberPO.MemberLevel;
-import po.MemberPO.MemberType;
-import po.PromotionPO.PromotionType;
-import businesslogic.stockbl.goods.Goods;
 
-public class GiftGoodProPO extends PromotionPO{
+public class GiftGoodProPO extends PromotionPO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<GoodsPO> giftList;
 	private double totalValue;
 	public GiftGoodProPO(String id,String startDate,String endDate,MemberLevel l,
@@ -31,7 +35,6 @@ public class GiftGoodProPO extends PromotionPO{
 	public void setTotalValue(double totalValue) {
 		this.totalValue = totalValue;
 	}
-	
 	
 	
 }

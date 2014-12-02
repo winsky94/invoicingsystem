@@ -1,24 +1,30 @@
 package po;
 
+/*
+ * 特价包促销
+ */
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
 import po.MemberPO.MemberLevel;
-import po.MemberPO.MemberType;
 
 
-public class PackProPO extends PromotionPO{
+public class PackProPO extends PromotionPO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<PackPO> packList;
 	private double totalValue;
 	private double packValue;
 
 	public PackProPO(String id,String startDate,String endDate,MemberLevel l,
-			 ArrayList<PackPO> pack,double value,double pvalue)
+			 ArrayList<PackPO> pack,double value,double packv)
 	{
 		super(id,startDate,endDate,PromotionType.PACK,l);
 		packList=pack;
 		totalValue=value;
-		this.packValue=pvalue;
+		packValue=packv;
 	}
 
 	public ArrayList<PackPO> getPackList() {
@@ -29,7 +35,7 @@ public class PackProPO extends PromotionPO{
 		this.packList=list;
 	}
 	
-	public void settotalValue(double value)
+	public void totalValue(double value)
 	{
 		this.totalValue=value;
 	}
@@ -38,13 +44,12 @@ public class PackProPO extends PromotionPO{
 		return totalValue;
 	}
 	
-	public void setPackValue(double value){
-		this.packValue=value;
-	}
-	public double getPackValue() {
+	public double getPackValue(){
 		return packValue;
 	}
 	
+	public void setPackValue(double value){
+		this.packValue=value;
+	}
 
-	
 }
