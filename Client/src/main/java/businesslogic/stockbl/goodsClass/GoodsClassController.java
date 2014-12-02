@@ -18,6 +18,7 @@ public class GoodsClassController implements StockGoodsClassBLService,Serializab
 
 	public int addGoodsClass(GoodsClassVO vo) {
 		// TODO 自动生成的方法存根
+		System.out.println("GoodsClassController.addGoodsClass()父节点："+vo.getUpClassName());
 		GoodsClass gc = new GoodsClass(vo.getName(), vo.getUpClassName());
 		int result=0;
 		try {

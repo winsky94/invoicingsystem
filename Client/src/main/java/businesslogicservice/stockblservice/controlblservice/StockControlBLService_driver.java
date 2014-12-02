@@ -7,8 +7,7 @@ import businesslogic.receiptbl.ReceiptType;
 public class StockControlBLService_driver {
 	public void drive(StockControlBLService_stub stockControlBLService) {
 		StockOverOrLowVO stockOverOrLowVO = new StockOverOrLowVO("飞利浦日光灯",
-				"SR01", 100, 99, "小赵,000001", ReceiptType.STOCKLOW, "",
-				"00002");
+				"SR01", 100, 99, "小赵,000001", ReceiptType.STOCKLOW, "");
 
 		StockErrorVO stockErrorVO = new StockErrorVO("飞利浦日光灯", "SR01",
 				"小赵,000001", ReceiptType.STOCKERROR, "", "00002");

@@ -37,7 +37,7 @@ public class GoodsClassManage {
 
 	public GoodsClassPO find(String name) {
 		if (name.equals("灯具")) {
-			return new GoodsClassPO("0000", "灯具", "");
+			return new GoodsClassPO("0000", "灯具", "根");
 		} else {
 			GoodsClassPO po = null;
 			boolean isExist = false;
@@ -76,6 +76,7 @@ public class GoodsClassManage {
 		ArrayList<GoodsClassVO> result = new ArrayList<GoodsClassVO>();
 		for (int i = 0; i < list.size(); i++) {
 			GoodsClassPO po = list.get(i);
+			System.out.println("GoodsClassManage.show():upclassName:"+po.getUpClassName());
 			GoodsClassVO vo = goodsClassPOToVO(po);
 			result.add(vo);
 		}
@@ -83,6 +84,7 @@ public class GoodsClassManage {
 	}
 
 	private GoodsClassVO goodsClassPOToVO(GoodsClassPO po) {
+		System.out.println("GoodsClassManage.goodsClassPOToVO():po.getUpClass:"+po.getUpClassName());
 		GoodsClassVO vo = new GoodsClassVO(po.getName(), po.getUpClassName());
 		return vo;
 	}

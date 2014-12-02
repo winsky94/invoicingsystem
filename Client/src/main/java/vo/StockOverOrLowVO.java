@@ -12,8 +12,7 @@ public class StockOverOrLowVO extends ReceiptVO {
 	int gap;
 
 	public StockOverOrLowVO(String goodsName, String size, int num,
-			int exactNum, String user, ReceiptType type, String info,
-			String stockid) {
+			int exactNum, String user, ReceiptType type, String info) {
 		this.goodsName = goodsName;
 		this.size = size;
 		this.num = num;

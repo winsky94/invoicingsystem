@@ -10,7 +10,7 @@ import po.StockOverOrLowPO;
 import businesslogic.receiptbl.Receipt;
 import dataservice.stockdataservice.controldataservice.StockControlDataService;
 
-public class StockOverReceipt extends Receipt {
+public class StockLowReceipt extends Receipt {
 	private String goodName;
 	private String size;
 	private int num;
@@ -20,7 +20,7 @@ public class StockOverReceipt extends Receipt {
 	private String host;
 	private String url;
 
-	public StockOverReceipt() {
+	public StockLowReceipt() {
 		host = "localhost:1099";
 		url = "rmi://" + host + "/userService";
 		try {
@@ -37,11 +37,11 @@ public class StockOverReceipt extends Receipt {
 		}
 	}
 
-	public StockOverReceipt(String id, String memberName, String memberID,
-			String userID, int hurry, String info,  String goodName,
+	public StockLowReceipt(String id, String memberName, String memberID,
+			String userID, int hurry, String info, String goodName,
 			String size, int num, int exactNum) {
-		super(id, memberName, memberID, userID, ReceiptType.STOCKOVER, hurry,
-				2, info);
+		super(id, memberName, memberID, userID, ReceiptType.STOCKLOW, hurry, 2,
+				info);
 		host = "localhost:1099";
 		url = "rmi://" + host + "/stockManageService";
 		try {
@@ -68,7 +68,7 @@ public class StockOverReceipt extends Receipt {
 		StockOverOrLowPO po = new StockOverOrLowPO(super.getId(),
 				super.getmemberName(), super.getMemberID(), super.getUserID(),
 				ReceiptType.STOCKOVER, 1, super.getHurry(), super.getInfo(),
-				 goodName, size, num, exactNum);
+				goodName, size, num, exactNum);
 		return service.addStockOverOrLow(po);
 	}
 

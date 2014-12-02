@@ -9,13 +9,17 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
+import vo.GoodsVO;
+import businesslogic.stockbl.goods.GoodsController;
+import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import Presentation.uihelper.UIhelper;
 
 public class DelGoodsDialog extends JDialog {
 
 	/**
-	 * 没写监听！
+	 * 取消按钮要做麽==_yan
 	 */
 	private static final long serialVersionUID = 1L;
 	JButton submitBtn;
@@ -25,8 +29,10 @@ public class DelGoodsDialog extends JDialog {
 	int dlgWidth = screenWidth * 25 / 100;
 	int dlgHeight = screenHeight * 25 / 100;
 	Container pnl;
+	GoodsVO vo;
 
-	public DelGoodsDialog() {
+	public DelGoodsDialog(GoodsVO vo) {
+		this.vo=vo;
 		pnl = this.getContentPane();
 		pnl.setBackground(Color.white);
 		pnl.setLayout(null);
@@ -58,6 +64,11 @@ public class DelGoodsDialog extends JDialog {
 	class SubmitBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
+			StockGoodsBLService controller=new GoodsController();
+			int result=controller.deleteGoods(vo);
+			if(result!=0){
+				JOptionPane.showMessageDialog(null, "             删除失败",null,JOptionPane.WARNING_MESSAGE);
+			}
 			DelGoodsDialog.this.dispose();
 
 		}

@@ -43,5 +43,10 @@ public class GoodsController implements StockGoodsBLService {
 		Goods good = new Goods();
 		return good.showGoods();
 	}
+	
+	public String getMaxID(){
+		Goods good = new Goods();
+		return good.getMaxID();
+	}
 
 }

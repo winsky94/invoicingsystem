@@ -17,7 +17,7 @@ import businesslogic.salesbl.MockSaleList;
 import businesslogic.stockbl.gift.GiftReceipt;
 import businesslogic.stockbl.goods.MockGoods;
 import businesslogic.stockbl.stockManage.MockStockControl;
-import businesslogic.stockbl.stockManage.StockOverOrLowReceipt;
+import businesslogic.stockbl.stockManage.StockOverOrLowManage;
 
 public class BSLTest extends TestCase {
 	private BSL bsList;
@@ -25,10 +25,10 @@ public class BSLTest extends TestCase {
 	private MockSaleItem item1,item2;
 	private MockGoods good, good1, good2, good3;
 	private MockCoupon coupon;
-	private StockOverOrLowReceipt stockOver;
+	private StockOverOrLowManage stockOver;
 	private MockStockControl stockControl;
 	private CommodityList list;
-	private StockOverOrLowReceipt stockLow;
+	private StockOverOrLowManage stockLow;
 	private MockMember member;
 	private GiftReceipt gift;
 	private MockSaleList saleList1,saleList2;
@@ -39,7 +39,7 @@ public class BSLTest extends TestCase {
 		good2 = new MockGoods("01010001", "飞利浦日光灯", "SR02", 10, 85, 200);
 		sale1 = new MockSale("00001");
 		sale2 = new MockSale("00002");
-		stockOver = new StockOverOrLowReceipt("飞利浦日光灯", "SR01", 100, 90);
+		stockOver = new StockOverOrLowManage("飞利浦日光灯", "SR01", 100, 90);
 		stockControl = new MockStockControl();
 		list = new CommodityList();
 		coupon = new MockCoupon("20141015-0001", 1000);
@@ -90,7 +90,7 @@ public class BSLTest extends TestCase {
 		assertEquals(200.0, salesPrimeCost);
 		
 		// 库存报损支出
-		stockLow = new StockOverOrLowReceipt("飞利浦日光灯", "SR01", 95, 100);
+		stockLow = new StockOverOrLowManage("飞利浦日光灯", "SR01", 95, 100);
 		stockControl.addStockLow(stockLow);
 		double goodsLowCost = stockControl.getGoodsLowCost();
 		assertEquals(1000.0, goodsLowCost);

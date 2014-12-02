@@ -32,10 +32,10 @@ public class StockControlBLService_stub  implements StockControlBLService {
 		return 0;
 	}
 	
-	public ArrayList<GoodsPO> showStock(String beginDate, String endDate) {
+	public ArrayList<String> showStock(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		System.out.println("show stock succeed!");
-		return new ArrayList<GoodsPO>();
+		return new ArrayList<String>();
 	}
 
 	public ArrayList<GoodsPO> checkStock() {
@@ -53,6 +53,11 @@ public class StockControlBLService_stub  implements StockControlBLService {
 	public double getPrimeCostIncome() {
 		// TODO 自动生成的方法存根
 		System.out.println("return prime cost income succeed!");
+		return 0;
+	}
+
+	public double getGiftCost() {
+		// TODO 自动生成的方法存根
 		return 0;
 	}
 }
