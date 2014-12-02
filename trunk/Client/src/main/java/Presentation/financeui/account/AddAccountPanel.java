@@ -8,7 +8,6 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,19 +17,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import businesslogic.financebl.Account;
-import businesslogic.memberbl.MemAccountInfo;
-import businesslogic.memberbl.MemBaseInfo;
-import businesslogic.memberbl.MemContactInfo;
 import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
-import businesslogicservice.memberblservice.MemberBLService;
-import po.MemberPO.MemberLevel;
 import po.UserPO.UserJob;
 import vo.AccountVO;
-import vo.MemberVO;
 import vo.UserVO;
 import Presentation.financeui.AccountPanel;
 import Presentation.mainui.MainFrame;
-import Presentation.memberui.MemberMgrPanel;
 
 public class AddAccountPanel extends JPanel implements ActionListener{
 
@@ -43,8 +35,15 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 	MainFrame parent;
 	FinanceAccountBLService service;
 	String name;
-
-	public AddAccountPanel(MainFrame frame) {
+	
+	JPanel titlePnl;
+	JLabel title;
+	JPanel mPnl;
+	JPanel namePnl;
+	JLabel nameLbl;
+	JPanel btnPnl;
+    AddListener add;
+	public AddAccountPanel(MainFrame frame)  throws Exception{
 		service=new Account();
 		parent=frame;
 		GridBagLayout gbl = new GridBagLayout();
@@ -54,10 +53,10 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 		this.setLayout(gbl);
 
 		// ----------------------------
-		JPanel titlePnl = new JPanel();
+		titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("添加账户");
+		title = new JLabel("添加账户");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
@@ -71,7 +70,7 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 		// ------------------------------
 		c.insets = new Insets(1, 80, 20, 80);
 		c.fill = GridBagConstraints.BOTH;
-		JPanel mPnl = new JPanel();
+		mPnl = new JPanel();
 		mPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 2;
@@ -84,10 +83,10 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 		mPnl.setLayout(new GridLayout(3, 1));
 		mPnl.add(new JLabel());
 		// ------------------------------
-		JPanel namePnl = new JPanel();
+		namePnl = new JPanel();
 		namePnl.setBackground(Color.white);
 		mPnl.add(namePnl);
-		JLabel nameLbl = new JLabel("账户名：      ");
+		nameLbl = new JLabel("账户名：      ");
 		nameLbl.setFont(new Font("微软雅黑", Font.PLAIN, 15));
 		namePnl.add(nameLbl);
 		nameFld = new JTextField(23);
@@ -96,7 +95,7 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 		mPnl.add(new JLabel());
 		// -----------------------------
 		// -------buttons-----------------
-		JPanel btnPnl = new JPanel();
+		btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 7;
@@ -111,7 +110,8 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
-		submitBtn.addActionListener(this);
+		add=new AddListener();
+		submitBtn.addActionListener(add);
 		btnPnl.add(submitBtn);
 		btnPnl.add(new JLabel("          "));
 		exitBtn = new JButton("取消");
@@ -122,10 +122,26 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 		btnPnl.add(exitBtn);
 	}
 
-	
+	public static void main(String[] args) {
+		JFrame testFrame = new JFrame();
+		testFrame.setBounds(100, 50, 920, 600);
+		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		AddAccountPanel gp;
+		try {
+			gp = new AddAccountPanel(new MainFrame(new UserVO("1","1","1",UserJob.FINANCE,1)));
+			gp.setBounds(0, 0, 920, 600);
+			testFrame.add(gp);
+			testFrame.setVisible(true);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==submitBtn){
+	class AddListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent arg0) {
 			name=nameFld.getText();
 			if (name == null || name.equals("")) {
 				JOptionPane.showMessageDialog(null, "请输入账户名称！", "提示",
@@ -144,8 +160,13 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 				Update();
 			}
 			
+			
 		}
-		else if(e.getSource()==exitBtn){
+		
+	}
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource()==exitBtn){
 			Update();
 		}
 		
