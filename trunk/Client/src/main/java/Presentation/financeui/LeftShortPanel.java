@@ -98,10 +98,10 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource()==jb1){
-			frame.setRightComponent(new AccountPanel());		
+			frame.setRightComponent(new AccountPanel(frame));		
 		}
 		else if(arg0.getSource()==jb2){
-			frame.setRightComponent(new CollectionPanel(frame,color));	
+			frame.setRightComponent(new CollectionPanel(frame));	
 		}
 		else if(arg0.getSource()==jb5){			
 			frame.setRightComponent(new AboutPanel());
