@@ -529,7 +529,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			a.createPurchase(new PurchasePO("JHD-20141201-00001","JHS-0000001","马建国","02","XS-00001",al,"这是个进货单", 1000,0,1));
 			double discount[]=new double[]{1,1,1,1};
 			double total[]=new double[]{2,2,2,2,2};
-			a.createSale(new SalePO("金大大",al,"XSD-20141202-00001","JHS-0000001","马建国","Lucy",1,1,"这是个销售单","02",discount,total));	
+			a.createSale(new SalePO("金大大",al,"XSD-20141202-00001","JHS-0000001","马建国","XS-00001",1,1,"这是个销售单","02",discount,total));	
 			System.out.println("Success!");
 			ArrayList<PurchasePO> pl=a.showPurchase();
 			for(PurchasePO po:pl){
