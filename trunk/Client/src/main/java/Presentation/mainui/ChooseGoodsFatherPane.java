@@ -21,6 +21,7 @@ public class ChooseGoodsFatherPane extends JPanel{
 		for(int i=0;i<toAdd.size();i++){
 			c.add(toAdd.get(i));
 		}
+		
 	}
 	public void setDiscount(double d){
 		this.discount=d;
@@ -30,6 +31,10 @@ public class ChooseGoodsFatherPane extends JPanel{
 		
 		
 		
+			/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 			String head[] = { "商品编号","名称", "型号","数量","单价","金额","备注" };
 			public int getRowCount() {
 				return c.size();

@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,6 +20,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import vo.MemberVO;
+import businesslogic.memberbl.Member;
+import businesslogic.receiptbl.ReceiptType;
+import businesslogic.salesbl.SalesController;
+import businesslogicservice.memberblservice.MemberBLService;
+import businesslogicservice.salesblservice.SalesBLService;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
 import Presentation.stockui.ChooseGoodsDialog;
@@ -37,11 +44,12 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 	JScrollPane jsp;
 	CommodityTableModel ctm;
 	JTable table;
+	String[] idtxt;
 	JButton submitBtn, couponBtn, addGoodsBtn, delGoodsBtn, exitBtn;
 	MainFrame parent;
-
-	public SalePane(MainFrame frame) {
-
+	SalesBLService service;
+	public SalePane(MainFrame frame) throws Exception {
+		service=new SalesController();
 		//parent = frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
@@ -85,8 +93,10 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		midPnl.add(p1);
 		midPnl.add(p2);
 		midPnl.add(p3);
+		
 		//--------ID----------------
-		IDLbl=new JLabel("ID：嗷嗷嗷嗷嗷");
+		String id=service.getNewID(ReceiptType.SALE);
+		IDLbl=new JLabel("ID："+id);
 		IDLbl.setFont(font);
 		p1.add(IDLbl);
 		p1.add(new JLabel("      "));
@@ -94,7 +104,16 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		JLabel memberLbl=new JLabel("客户：");
 		memberLbl.setFont(font);
 		p1.add(memberLbl);
-		String boxText[]={"给我加监听"};
+		
+		MemberBLService mem=new Member();
+		ArrayList<MemberVO> mvo=mem.showMembers();
+		String boxText[]=new String[mvo.size()+1];
+		idtxt=new String[mvo.size()];
+		boxText[0]="选择交易客户";
+		for(int i=0;i<mvo.size();i++)
+			{boxText[i+1]=mvo.get(i).getName();idtxt[i]=mvo.get(i).getMemberID();}
+			
+		
 		XSSBox=new JComboBox<String>(boxText);
 		XSSBox.setFont(font);
 		XSSBox.setBackground(Color.white);
@@ -117,7 +136,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		p2.add(stockFld);
 		p2.add(new JLabel("      "));
 		//------操作员----------------
-		userLbl=new JLabel("操作员：嗷嗷嗷");
+		userLbl=new JLabel("操作员："+frame.getUser().getName());
 		userLbl.setFont(font);
 		p2.add(userLbl);
 		p2.add(new JLabel("      "));

@@ -22,6 +22,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
 
+import businesslogic.receiptbl.ReceiptType;
+import vo.PurchaseVO;
 import vo.ReceiptVO;
 import Presentation.mainui.MainFrame;
 import Presentation.salesui.manage.purchase.PurchasePane;
@@ -198,4 +200,19 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 			c.remove(row);
 		}
 	}
+	//加急置顶显示
+	//单据编号","日期","状态","类型","供应商","操作员","总额合计
+	public void RefreshPurchaseList(ArrayList<ReceiptVO> vo){
+		for(int i=0;i<vo.size();i++){
+			ReceiptVO v=vo.get(i);
+			ArrayList<String> line=new ArrayList<String>();
+			line.add(v.getId());
+			
+				
+				
+				
+			
+		}
+	}
 }
+

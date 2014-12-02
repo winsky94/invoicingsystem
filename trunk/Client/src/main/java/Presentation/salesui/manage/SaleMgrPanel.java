@@ -138,7 +138,12 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == saleBtn) {
-			parent.setRightComponent(new SalePane(parent));
+			try {
+				parent.setRightComponent(new SalePane(parent));
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} else if (e.getSource() == saleReturnBtn)
 			parent.setRightComponent(new SaleReturnPane(parent));
 
