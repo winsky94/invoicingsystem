@@ -54,22 +54,22 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 		down.setLayout(new GridLayout(6,1));
 		
 		
-		jb1=new JLeftButton(new ImageIcon("img/finance/commodity-golden.png")
+		jb1=new JLeftButton(new ImageIcon("img/finance/accountMgr.png")
 		,color[0]);
 		
 		jb1.addMouseListener(this);
 		jb1.addActionListener(this);
-		jb2=new JLeftButton(new ImageIcon("img/finance/account-golden.png"),
+		jb2=new JLeftButton(new ImageIcon("img/finance/receiptMgr.png"),
 				color[0]);
 		jb2.addActionListener(this);
 		jb2.addMouseListener(this);
 		
-		jb3=new JLeftButton(new ImageIcon("img/finance/manage-golden.png"),color[0]);
+		jb3=new JLeftButton(new ImageIcon("img/finance/showReport.png"),color[0]);
 	
 		jb3.addMouseListener(this);
 		
 		
-		jb4=new JLeftButton(new ImageIcon("img/finance/manage2-golden.png"),color[0]);
+		jb4=new JLeftButton(new ImageIcon("img/finance/initialAccount.png"),color[0]);
 		jb4.addActionListener(this);
 		jb4.addMouseListener(this);
 		
