@@ -32,11 +32,9 @@ public class PromotionPO implements Serializable{
 	}
 
 
-
 	public String getEndDate() {
 		return endDate;
 	}
-
 
 
 	public PromotionType getType() {
@@ -54,8 +52,6 @@ public class PromotionPO implements Serializable{
 	public MemberType getMtype() {
 		return mtype;
 	}
-
-
 
 
 
