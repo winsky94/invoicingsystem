@@ -462,6 +462,46 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 
 	}
 	
+	public ReceiptPO findReceiptByID(String ID) throws RemoteException{
+		ArrayList<PurchasePO> a1=showPurchase();
+		if(a1==null)
+			return null;
+		for(ReceiptPO po:a1){
+			if(po.getId().equals(ID)){
+				return po;
+			}
+		}
+		
+		ArrayList<PurchaseReturnPO> a2=showPurchaseReturn();
+		if(a2==null)
+			return null;
+		for(PurchaseReturnPO po:a2){
+			if(po.getId().equals(ID)){
+				return po;
+			}
+		}
+		
+		ArrayList<SalePO> a3=showSale();
+		if(a3==null)
+			return null;
+		for(SalePO po:a3){
+			if(po.getId().equals(ID)){
+				return po;
+			}
+		}
+		
+		ArrayList<SaleReturnPO> a4=showSaleReturn();
+		if(a4==null)
+			return null;
+		for(SaleReturnPO po:a4){
+			if(po.getId().equals(ID)){
+				return po;
+			}
+		}
+		  
+		  return null;
+	}
+	
 	
 	public static void main(String[] args){
 		Sales a;
