@@ -52,4 +52,9 @@ public class StockGoodsDataService_stub implements StockGoodsDataService {
 		// TODO 自动生成的方法存根
 		return null;
 	}
+
+	public GoodsPO findByID(String id) throws RemoteException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
 }
