@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +27,7 @@ public class StockPanel extends JPanel {
 	JTabbedPane tab;
 	JScrollPane jsp1,jsp2,jsp3;
 	JTable inventoryTbl, overflowTbl, lossTbl;
-	MyButton overflowBtn, lossBtn, stockBtn, exportBtn;
+	MyButton overflowBtn, lossBtn, stockBtn, exportBtn,refreshBtn;
 	MainFrame frame;
 	Color[] color;
 
@@ -67,6 +66,12 @@ public class StockPanel extends JPanel {
 				"img/stock/inventory.png"));
 		stockBtn.addActionListener(new StockBtnListener());
 		btnPnl.add(stockBtn);
+		//--------refresh----------------
+		refreshBtn=new MyButton("刷新",new ImageIcon("img/stock/refresh.png"));
+		btnPnl.add(refreshBtn);
+		//---------export----------------
+		exportBtn=new MyButton("导出库存快照",new ImageIcon("img/stock/export.png"));
+		btnPnl.add(exportBtn);
 		// -----------JTabbedPane----------------------------
 		tab = new JTabbedPane();
 		tab.setFont(new Font("微软雅黑", Font.PLAIN, 14));
