@@ -28,6 +28,8 @@ import javax.swing.JTree;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -160,7 +162,6 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 		// ---------goodsClassTree-------------------
 		createGoodsClass(getTreeData());
-		System.out.println("GoodsPanel.GoodsPanel():" + getTreeData().size());
 		tree.setBackground(Color.white);
 		tree.setBorder(BorderFactory.createLineBorder(Color.gray));
 		c.fill = GridBagConstraints.BOTH;
@@ -213,6 +214,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 		// ----------goodsTable------------------
 		goodsModel = new GoodsModel();
+		goodsModel.addTableModelListener(new MyTableModelListener());
 		goodsTable = new JTable(goodsModel);
 		goodsTable.setBackground(Color.white);
 		jspTable = new JScrollPane(goodsTable);
@@ -308,6 +310,18 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 	}
 
+	//对表格的监听，用于修改商品信息
+	class MyTableModelListener implements TableModelListener{
+
+		public void tableChanged(TableModelEvent arg0) {
+			// TODO 自动生成的方法存根
+			goodsModel=new GoodsModel();
+			goodsTable.setModel(goodsModel);
+		}
+
+		
+	}
+	
 	// tree---------------------------------------------------------------------
 	private void createGoodsClass(ArrayList<GoodsClassVO> list) {
 		GoodsClassNode root = createTreeRoot(list);
@@ -346,23 +360,13 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 	public ArrayList<GoodsClassVO> getTreeData() {
 		ArrayList<GoodsClassVO> result = new ArrayList<GoodsClassVO>();
-
 		StockGoodsClassBLService controller = new GoodsClassController();
 		result = controller.show();
-System.out.println("GoodsPanel.getTreeData()");
-		for(int i=0;i<result.size();i++){
-			System.out.println(result.get(i).getName());
-		}
-		
 		return result;
 	}
 
 	public void makeTree(GoodsClassNode root, ArrayList<GoodsClassVO> list) {
 		for (int i = 0; i < list.size(); i++) {
-			System.out
-					.println("GoodsPanel.makeTree()节点:" + list.get(i).getName());
-			System.out.println("GoodsPanel.makeTree()父节点："
-					+ list.get(i).getUpClassName());
 			if (list.get(i).getUpClassName().equals(root.getName())) {
 				GoodsClassNode child = new GoodsClassNode(
 						list.get(i).getName(), list.get(i).getUpClassName());
@@ -449,7 +453,6 @@ System.out.println("GoodsPanel.getTreeData()");
 			// 取得新节点的父节点
 			parentNode = (DefaultMutableTreeNode) (parentPath
 					.getLastPathComponent());
-System.out.println("GoodsPanel.actionPerformed():parentNode"+parentNode.toString());
 			new AddGoodsClassDialog(this, parentNode.toString());
 			DefaultMutableTreeNode newNode = addNode;
 			if (newNode != null) {
@@ -458,7 +461,6 @@ System.out.println("GoodsPanel.actionPerformed():parentNode"+parentNode.toString
 
 			GoodsClassVO vo = new GoodsClassVO(newNode.toString(),
 					parentNode.toString());
-			System.out.println("GoodsPanel.actionPerformed():vo.upclass"+vo.getUpClassName());
 			int result = controller.addGoodsClass(vo);
 			if (result == 0) {
 				// 由DefaultTreeModel的insertNodeInto（）方法增加新节点
