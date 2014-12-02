@@ -3,7 +3,6 @@ package businesslogic.stockbl.goods;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import po.GoodsPO;
 import vo.GoodsVO;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 
@@ -33,7 +32,7 @@ public class GoodsController implements StockGoodsBLService {
 		return good.modifyGoods(vo.getGoodsID());
 	}
 
-	public ArrayList<GoodsPO> findGoods(String message) {
+	public ArrayList<GoodsVO> findGoods(String message) {
 		// TODO 自动生成的方法存根
 		Goods good = new Goods();
 		return good.findGoods(message);

@@ -266,11 +266,11 @@ public class GoodsPanel extends JPanel implements ActionListener,
 						.getValueAt(rownum, 7));
 
 				String goodsClass = goodsController.findGoods(id).get(0)
-						.getGoodsClassName();
+						.getGoodsClass();
 				GoodsVO vo = new GoodsVO(id, name, size, num, purchasePrice,
 						price, lastPurchasePrice, lastPrice, goodsClass);
 
-				new DelGoodsDialog(vo);
+				new ModGoodsPanel(vo);
 
 				// 重新再获得数据模型,刷新界面
 				goodsModel = new GoodsModel();
@@ -299,6 +299,10 @@ public class GoodsPanel extends JPanel implements ActionListener,
 	class SearchBtnListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			ArrayList<GoodsVO> list=goodsController.findGoods(keyWord);
+			
+			goodsModel=new GoodsModel(list);
+			goodsTable.setModel(goodsModel);
 		}
 
 	}
