@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import businesslogic.receiptbl.ReceiptType;
-import businesslogic.salesbl.Commodity;
+
 
 
 public class PurchaseReturnVO extends ReceiptVO {
-	private ArrayList<Commodity> purchaseReturnList;
+	private ArrayList<CommodityVO> purchaseReturnList;
 	private double totalInAll;
 	private String stockid;
 	public PurchaseReturnVO(String id,String user,PurchaseVO p, Date createDate, int status,
@@ -23,7 +23,7 @@ public class PurchaseReturnVO extends ReceiptVO {
 	public String getStockid() {
 		return stockid;
 	}
-	public  ArrayList<Commodity> getPurchaseReturnList() {
+	public  ArrayList<CommodityVO> getPurchaseReturnList() {
 		return purchaseReturnList;
 	}
 
@@ -32,7 +32,7 @@ public class PurchaseReturnVO extends ReceiptVO {
 	}
 
 
-	public void setPurchaseReturnList(ArrayList<Commodity> purchaseReturnList) {
+	public void setPurchaseReturnList(ArrayList<CommodityVO> purchaseReturnList) {
 		this.purchaseReturnList = purchaseReturnList;
 	}
 

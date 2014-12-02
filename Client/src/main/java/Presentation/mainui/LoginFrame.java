@@ -241,30 +241,7 @@ public class LoginFrame extends JFrame {
 	}
 
 	
-	// 下面的类是用户名文本域的事件监听器
-	/*class idFieldListener implements DocumentListener {
-
-		public void insertUpdate(DocumentEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		public void removeUpdate(DocumentEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		public void changedUpdate(DocumentEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-	}
 	
-	
-
-	}*/
-
 	
 
 	// 下面的类是按钮的事件监听器

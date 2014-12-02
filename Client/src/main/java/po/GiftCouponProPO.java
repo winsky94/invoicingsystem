@@ -7,7 +7,7 @@ import java.util.Date;
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
 import po.PromotionPO.PromotionType;
-import businesslogic.promotionbl.coupon;
+
 
 public class GiftCouponProPO extends PromotionPO implements Serializable{
 	/**

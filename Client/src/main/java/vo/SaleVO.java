@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import businesslogic.receiptbl.ReceiptType;
-import businesslogic.salesbl.Commodity;
 
 //double[] discount;pro/pre/money/toaldiscount;
 //double[] total; cost/origin/value/couponIncom/toPay
 public class SaleVO extends ReceiptVO {
 	private String clerk,operator;
-	private ArrayList<Commodity> salesList;
+	private ArrayList<CommodityVO> salesList;
 	private double[] discount=new double[4];//折让类数据
 	private double[] total=new double[5];//总计类数据
 	private String stockid;
-	public SaleVO(String clerk, ArrayList<Commodity> salesList, String id,
+	public SaleVO(String clerk, ArrayList<CommodityVO> salesList, String id,
 			String memberName,String memberID, String user, Date createDate, int status,
 			int hurry,String info, String stockid, double[] total,double[] discount) {
 		super(id, memberName,memberID, user, ReceiptType.SALE, createDate, status,hurry, info)
@@ -33,7 +32,7 @@ public class SaleVO extends ReceiptVO {
 	public String getClerk() {
 		return clerk;
 	}
-	public ArrayList<Commodity> getSalesList() {
+	public ArrayList<CommodityVO> getSalesList() {
 		return salesList;
 	}
 	public double getTotalOrigin() {
@@ -77,7 +76,7 @@ public class SaleVO extends ReceiptVO {
 		this.discount=discount;
 	}
 	
-	public void setSaleList(ArrayList<Commodity> list){
+	public void setSaleList(ArrayList<CommodityVO> list){
 		this.salesList=list;
 	}
 }

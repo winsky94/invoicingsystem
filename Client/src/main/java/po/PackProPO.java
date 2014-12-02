@@ -29,7 +29,7 @@ public class PackProPO extends PromotionPO{
 		this.packList=list;
 	}
 	
-	public void totalValue(double value)
+	public void settotalValue(double value)
 	{
 		this.totalValue=value;
 	}
@@ -41,6 +41,10 @@ public class PackProPO extends PromotionPO{
 	public void setPackValue(double value){
 		this.packValue=value;
 	}
+	public double getPackValue() {
+		return packValue;
+	}
+	
 
 	
 }
