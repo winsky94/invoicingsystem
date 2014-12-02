@@ -40,7 +40,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 	JButton submitBtn, couponBtn, addGoodsBtn, delGoodsBtn, exitBtn;
 	MainFrame parent;
 
-	public SalePane(/*MainFrame frame*/) {
+	public SalePane(MainFrame frame) {
 
 		//parent = frame;
 		GridBagLayout gbl = new GridBagLayout();
@@ -211,14 +211,5 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 
-	}
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 920, 600);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		SalePane gp = new SalePane();
-		gp.setBounds(0, 0, 920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
 	}
 }
