@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import businesslogic.receiptbl.ReceiptType;
-import businesslogic.salesbl.Commodity;
+
 
 
 
 public class SaleReturnVO extends ReceiptVO{
 	private String clerk;
-	private ArrayList<Commodity> saleReturnList;
+	private ArrayList<CommodityVO> saleReturnList;
 	private double[] total=new double[5];
 	private double[] discount=new double[4];
 	private String stockid;
@@ -31,7 +31,7 @@ public class SaleReturnVO extends ReceiptVO{
 	public String getClerk() {
 		return clerk;
 	}
-	public ArrayList<Commodity> getSaleReturnList() {
+	public ArrayList<CommodityVO> getSaleReturnList() {
 		return saleReturnList;
 	}
 	

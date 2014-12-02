@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import businesslogic.receiptbl.ReceiptType;
-import businesslogic.salesbl.Commodity;
 
 
 
 public class PurchaseVO extends ReceiptVO {
-	private ArrayList<Commodity> purchaseList;
+	private ArrayList<CommodityVO> purchaseList;
 	private double totalInAll;
 	private String stockid;
-	public PurchaseVO(ArrayList<Commodity> purchaseList, String id,
+	public PurchaseVO(ArrayList<CommodityVO> purchaseList, String id,
 			String memberName,String memberID, String user,Date createDate,
 			int status, int hurry,String info, String stockid,double totalInAll) {
 		super(id, memberName,memberID, user,ReceiptType.PURCHASE, createDate, status,hurry,info);
@@ -21,7 +20,7 @@ public class PurchaseVO extends ReceiptVO {
 		this.stockid=stockid;
 	}
 
-	public ArrayList<Commodity> getPurchaseList() {
+	public ArrayList<CommodityVO> getPurchaseList() {
 		return purchaseList;
 	}
 
@@ -32,7 +31,7 @@ public class PurchaseVO extends ReceiptVO {
 		return stockid;
 	}
 	
-	public void setPurchaseList(ArrayList<Commodity> list){
+	public void setPurchaseList(ArrayList<CommodityVO> list){
 		this.purchaseList=list;
 	}
 	public void setTotalValue(double value){
