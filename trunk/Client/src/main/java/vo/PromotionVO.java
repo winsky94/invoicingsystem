@@ -17,17 +17,17 @@ public class PromotionVO {
 	String startDate,endDate;
 	PromotionType type;
 	MemberLevel level;
-	MemberType mtype;
+
 	int release;//发布
 	
 	public PromotionVO(String id,String startDate, String endDate, PromotionType type,
-			MemberLevel memberlevel,MemberType mtype) {
+			MemberLevel memberlevel) {
 	
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.type = type;
 		this.level = memberlevel;
-		this.mtype=mtype;
+	
 	}
 	public String getId() {
 		return id;

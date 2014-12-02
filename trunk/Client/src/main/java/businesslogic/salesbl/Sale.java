@@ -10,14 +10,15 @@ import java.util.Date;
 import dataservice.memberdataservice.MemberDataService;
 import dataservice.salesdataservice.SalesDataService;
 import po.MemberPO.MemberLevel;
+import po.CommodityPO;
+import po.SalePO;
 import po.UserPO;
 import po.UserPO.UserJob;
 import vo.CommodityVO;
 import vo.PromotionVO;
 import vo.SaleVO;
 import businesslogic.memberbl.Member;
-import businesslogic.promotionbl.coupon;
-import businesslogic.promotionbl.promotionController;
+import businesslogic.promotionbl.giftCouponPro;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.receiptbl.ReceiptType;
 import businesslogic.userbl.User;
@@ -36,8 +37,8 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 	private double addDiscount;
 	private double toPay;
 	SalesDataService service;
-	Commodity com;
-	public Sale(){
+	static Commodity com;
+	public Sale() throws Exception{
 		String host="localhost:1099";
 		String url="rmi://"+host+"/salesService";
 	
@@ -49,7 +50,7 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 	
 	public int Add(SaleVO vo){
 		
-		
+		return service.createSale(voToPo(vo));
 	}
 	
 	
@@ -59,42 +60,45 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 	
 	//先find获取原item的cost,total,原位置，修改后,存回list
 	public int  Modify(SaleVO vo){
-		int i=list.indexOf(find(nitem.getId()));
-		totalOrigin-=total;
-		updateData(-cost,-total);
-		list.set(i, nitem);
-		totalOrigin+=nitem.getTotal();
-		updateData(nitem.getCost(),nitem.getTotal());
+		return service.updateSale(voToPo(vo));
 	}
 	
-	public SaleVO find(String message,type){
+	public ArrayList<SaleVO> find(String message,String type){
+		ArrayList<SalePO> po=service.findSale(message, type);
+		if(po==null) return null;
+		else{
+			ArrayList<SaleVO> vo=new ArrayList<SaleVO>();
+			for(int i=0;i<po.size();i++)
+				vo.add(poToVo(po.get(i)));
+			return vo;
+		}
 		
 	}
 
 	public ArrayList<SaleVO> show(){
-		
+		ArrayList<SalePO> po=service.showSale();
+		if(po==null) return null;
+		else{
+			ArrayList<SaleVO> vo=new ArrayList<SaleVO>();
+			for(int i=0;i<po.size();i++)
+				vo.add(poToVo(po.get(i)));
+			return vo;
+		}
 	}
 
 	
-//使用了代金券 ，支出累加放sale还是stock
-	public int  useCoupon(String id) {
+//使用了代金券 ，支出累加放sale还是stock -1不存在  -2无效 过期
+	public double  useCoupon(String id) {
 		//coupon cou=promotionController.find(id);
-		if(cou==null||cou.getIsUse()) return 1;//改代金券编号无效
-		else {
-			if (this.totalValue >= cou.getValue()) {
-				this.toPay=this.totalValue - cou.getValue();
-			} else {
-				couponIncome = cou.getValue() - this.totalValue;
-				this.toPay = 0;
-			}
-			cou.Use();
-			return 0;
-		}
+		giftCouponPro pro=new giftCouponPro();
+		return pro.getCouponValue(id);
+		
 	}
 
 	//算入折让
 	public PromotionVO MatchProMotion(SaleVO vo) {
 	
+		return null;
 	}
 
 	//算入折让  网络放这儿合适否？
@@ -126,6 +130,34 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 
 	}
 	
-	public void 
+	public static SalePO voToPo(SaleVO vo){
+		ArrayList<CommodityPO> saList;
+		ArrayList<CommodityVO> List=vo.getSalesList();
+		
+			saList=com.voTPo(List);
+		SalePO po=new SalePO(vo.getClerk(),saList,vo.getId(),vo.getMemberID(),
+				vo.getMemberName(),vo.getUser(),vo.getStatus(),vo.getHurry(),
+				vo.getInfo(),vo.getStockid(),vo.getDiscount(),vo.getTotal());
+		return po;
+	}
+
+	
+	public static SaleVO  poToVo(SalePO po){
+		ArrayList<CommodityVO> saList;
+		ArrayList<CommodityPO> List=po.getSalesList();
+		
+			saList=com.poTVo(List);
+		SaleVO vo=new SaleVO(po.getClerk(),saList,po.getId(),po.getMemberName(),po.getMemberID(),
+				po.getUserID(),po.getStatus(),po.getHurry(),po.getInfo(),po.getStockID(),
+				po.getTotal(),po.getDiscount());
+		return vo;
+	}
+
+
+
+	public String getNewID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

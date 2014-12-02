@@ -17,14 +17,6 @@ public class PurchaseList {
 			service=(SalesDataService)Naming.lookup(url);
 		
 		}
-		
-	
-	
-	public void AddPurchase(Purchase purchase){
-		this.purchseList.add(purchase);
-		this.purchaseIncome+=purchase.getTotalValue();
-		
-	}
 	
 	public double getPurchaseInCome(){
 		return this.purchaseIncome;

@@ -1,5 +1,7 @@
 package businesslogic.salesbl;
 
+import java.util.ArrayList;
+
 import po.CommodityPO;
 import vo.CommodityVO;
 
@@ -20,5 +22,22 @@ public class Commodity {
 				vo.getLast_bid(), vo.getNum(),vo.getTotal(),vo.getCost(),vo.getTip());
 		return po;
 	}
+	
+	public static ArrayList<CommodityPO> voTPo(ArrayList<CommodityVO> vo){
+		ArrayList<CommodityPO> List=new ArrayList<CommodityPO>();
+	
+		for(int i=0;i<vo.size();i++)
+			List.add(voToPO(vo.get(i)));
+		return List;
+	}
+	
+	
+public static ArrayList<CommodityVO> poTVo(ArrayList<CommodityPO> po){
+	ArrayList<CommodityVO> List=new ArrayList<CommodityVO>();
+	
+	for(int i=0;i<po.size();i++)
+		List.add(poToVO(po.get(i)));
+	return List;}
+	
 
 }

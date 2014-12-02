@@ -14,10 +14,10 @@ public class PackProVO extends PromotionVO{
 	private double totalValue;
 	private double packValue;
 
-	public PackProVO(String id,String startDate,String endDate,MemberLevel l,MemberType mt,
+	public PackProVO(String id,String startDate,String endDate,MemberLevel l,
 			 ArrayList<PackVO> pack,double value,double pvalue)
 	{
-		super(id,startDate,endDate,PromotionType.PACK,l,mt);
+		super(id,startDate,endDate,PromotionType.PACK,l);
 		packList=pack;
 		totalValue=value;
 		this.packValue=pvalue;
