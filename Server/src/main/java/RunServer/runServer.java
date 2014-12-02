@@ -5,11 +5,12 @@ import java.rmi.registry.LocateRegistry;
 
 
 
-
+import javax.swing.JOptionPane;
 
 
 
 import Data.financedata.Account;
+
 import Data.financedata.Collection;
 import Data.memberdata.Member;
 import Data.promotiondata.Promotion;
@@ -52,7 +53,7 @@ public class runServer {
 			Naming.rebind("collectionService", collection);
 			Naming.rebind("accountService",account);
 			
-			
+			JOptionPane.showMessageDialog(null, "服务器已运行！","提示",JOptionPane.INFORMATION_MESSAGE);
 			
 
 		} catch (Exception e) {
