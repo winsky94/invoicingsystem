@@ -1,124 +1,205 @@
 package Presentation.financeui;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
+import java.util.ArrayList;
 
-import javax.swing.*;
-import javax.swing.border.EtchedBorder;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 
 import Presentation.mainui.MainFrame;
 
-public class CollectionPanel extends JPanel implements ActionListener{
-	//JLabel timeNow;
-	JTable jt;
-	CollectionModel cm=new CollectionModel();
-	JScrollPane jspp;
-	//Timer t;
-	JPanel jp1,jp2;
-	JButton jb1,jb2,jb3,jb4,jb5,jb6;
-	JTextField jtf;
-	
-	MainFrame frame;
-	Color[] color;
-	
-	public CollectionPanel(MainFrame myframe,Color[] mycolor){
-		
-		frame=myframe;
-		color=mycolor;
-		
-		this.setLayout(new BorderLayout());
-		
-		jb1=new JButton("收款单");
-		jb1.setIcon(new ImageIcon("img/finance/account-golden.png"));
-		jb1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		jb1.setFocusPainted(false);
-		jb1.setContentAreaFilled(false);
-		jb1.setBorder(null);
-		jb1.setBackground(new Color(255,255,255));
-		jb1.addActionListener(this);
-		jb2=new JButton("付款单");
-		jb2.setIcon(new ImageIcon("img/finance/account-golden.png"));
-		jb2.setBorder(null);
-		jb2.setContentAreaFilled(false);
-		jb2.setBackground(new Color(255,255,255));
-		jb2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		jb3=new JButton("现金费用单");
-		jb3.setIcon(new ImageIcon("img/finance/account-golden.png"));
-		jb3.setBorder(null);
-		jb3.setContentAreaFilled(false);
-		jb3.setBackground(new Color(255,255,255));
-		jb3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		jb4=new JButton("添加");
-		jb4.setIcon(new ImageIcon("img/finance/add-golden.png"));
-		jb4.setBorder(null);
-		jb4.setContentAreaFilled(false);
-		jb4.setBackground(new Color(255,255,255));
-		jb4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		jb4.addActionListener(this);
-		jb6=new JButton("查看");
-		jb6.setIcon(new ImageIcon("img/finance/salelist-golden.png"));
-		jb6.setBorder(null);
-		jb6.setContentAreaFilled(false);
-		jb6.setBackground(new Color(255,255,255));
-		jb6.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		jtf=new JTextField(6);
-		jb5=new JButton();
-		jb5.setIcon(new ImageIcon("img/finance/find-golden.png"));
-		jb5.setBorder(null);
-		jb5.setContentAreaFilled(false);
-		jb5.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
-		jp1=new JPanel();
-		jp1.add(jb1);
-		jp1.add(jb2);
-		jp1.add(jb3);
-		jp1.add(jb4);
-		jp1.add(jb6);
-		jp1.add(new JPanel());
-		jp1.add(jtf);		
-		jp1.add(jb5);
-		this.add(jp1,BorderLayout.NORTH);
-
-		jt=new JTable(cm);
-		jspp=new JScrollPane(jt);
-		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();// 设置table内容居中
-		tcr.setHorizontalAlignment(SwingConstants.CENTER);// 这句和上句作用一样
-		jt.setDefaultRenderer(Object.class, tcr);
-		jt.getColumnModel().getColumn(0).setPreferredWidth(130);
-		jt.getColumnModel().getColumn(1).setPreferredWidth(200);
-		jp2=new JPanel();
-		jp2.setLayout(new BorderLayout());
-		jp2.add(jspp);
-		jp2.add(new Panel(),BorderLayout.WEST);
-		jp2.add(new Panel(),BorderLayout.EAST);
-		this.add(jp2);
+public class CollectionPanel extends JPanel implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	JTabbedPane tab;
+	JTable t1, t2, t3;
+	CollectionModel cm1, cm2;
+	CashModel cashm;
+	JScrollPane jsp1,jsp2,jsp3;
+	ArrayList<ArrayList<String>> c1 = new ArrayList<ArrayList<String>>();
+	ArrayList<ArrayList<String>> c2 = new ArrayList<ArrayList<String>>();
+	ArrayList<ArrayList<String>> c3 = new ArrayList<ArrayList<String>>();
+	//--------------------------
+	MyButton collectionBtn,payBtn,cashBtn,refreshBtn,detailBtn;
+	MainFrame parent;
+	public CollectionPanel(MainFrame frame) {
+		parent=frame;
 		this.setBackground(Color.white);
-		
-		/*jp3=new JPanel();
-		t=new Timer(1000,this);//每隔一秒触发ActionEvent事件
-		t.start();//启动计时器
-//		timeNow=new JLabel(Calendar.getInstance().getTime().toString());
-		timeNow=new JLabel(Calendar.getInstance().getTime().toLocaleString());
-		jp3.add(timeNow);
-		jp3.setBorder(new EtchedBorder(EtchedBorder.RAISED));
-        this.add(jp3,BorderLayout.SOUTH);*/
+		GridBagLayout gbl = new GridBagLayout();
+		this.setLayout(gbl);
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(3,40, 20,40);
+		c.fill = GridBagConstraints.BOTH;
+		// -----------------------------
+		JPanel btnPnl = new JPanel();
+		btnPnl.setBackground(Color.white);
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridheight = 2;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.weightx = 1;
+		c.weighty = 0.1;
+		gbl.setConstraints(btnPnl, c);
+		this.add(btnPnl);
+		//------制定收款单-----------------
+		collectionBtn = new MyButton("制定收款单", new ImageIcon(
+				"img/finance/receipts.png"));
+		collectionBtn.addActionListener(this);
+		btnPnl.add(collectionBtn);
+		//-----制定付款单--------------------
+		payBtn = new MyButton("制定付款单", new ImageIcon(
+				"img/finance/receipts.png"));
+		payBtn.addActionListener(this);
+		btnPnl.add(payBtn);
+		//------制定现金费用单-----------------
+		cashBtn = new MyButton("制定现金费用单",
+				new ImageIcon("img/finance/receipts.png"));
+		cashBtn.addActionListener(this);
+		btnPnl.add(cashBtn);
+		//-------刷新------------------------
+		refreshBtn = new MyButton("刷新", new ImageIcon(
+				"img/finance/refresh.png"));
+		refreshBtn.addActionListener(this);
+		btnPnl.add(refreshBtn);
+		//------查看详情----------------------
+		detailBtn = new MyButton("查看详情", new ImageIcon(
+				"img/finance/details.png"));
+		detailBtn.addActionListener(this);
+		btnPnl.add(detailBtn);
+		//--------tab-----------------
+		tab = new JTabbedPane();
+		tab.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+		tab.setBackground(Color.white);
+		tab.setForeground(new Color(242,125,5));
+		c.gridx = 0;
+		c.gridy = 2;
+		c.gridheight = GridBagConstraints.REMAINDER;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.weightx = 1;
+		c.weighty = 1;
+		gbl.setConstraints(tab, c);
+		this.add(tab);
+		//------收款单-----------------
+		cm1 = new CollectionModel(c1);
+		t1 = new JTable(cm1);
+		jsp1 = new JScrollPane(t1);
+		tab.add("收款单", jsp1);
+		//------付款单-----------------
+		cm2 = new CollectionModel(c2);
+		t2 = new JTable(cm2);
+		jsp2 = new JScrollPane(t2);
+		tab.add("付款单", jsp2);
+		//-------现金费用单-------------
+		cashm = new CashModel();
+		t3 = new JTable(cashm);
+		jsp3 = new JScrollPane(t3);
+		tab.add("现金费用单", jsp3);
 	}
 
-	public void addRow(String[] buffer){
-		cm.addRow(buffer);
-    	jt.revalidate();
-	}
-	
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==jb4){
-			frame.setRightComponent(new AddCollectionPanel(frame,this,color));
+
+	}
+	class MyButton extends JButton {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		MyButton(String text, Icon icon) {
+			super(text, icon);
+			this.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+			this.setForeground(new Color(242,125,5));
+			this.setBorderPainted(false);
+			this.setBackground(Color.white);
+			this.setFocusPainted(false);
 		}
-		//this.timeNow.setText(Calendar.getInstance().getTime().toLocaleString());
-		
+
+		MyButton(Icon icon) {
+			super(icon);
+			this.setBorderPainted(false);
+			this.setBackground(Color.white);
+			this.setFocusPainted(false);
+		}
 	}
 	
-}
+	class CashModel extends AbstractTableModel{
 
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		String head[]={"编号","状态","日期","操作员","银行账户","总额"};
+		public int getRowCount() {
+			return c3.size();
+		}
+
+		public int getColumnCount() {
+			return head.length;
+		}
+
+		public String getValueAt(int row, int col) {
+			return c3.get(row).get(col);
+		}
+		public String getColumnName(int col){
+			return head[col];
+		}
+		public void addRow(ArrayList<String> v) {
+
+			c3.add(v);
+		}
+
+		public void removeRow(int row) {
+			c3.remove(row);
+		}
+		
+	}
+	class CollectionModel extends AbstractTableModel{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		String head[]={"编号","状态","日期","供应商","销售商","操作员","总额汇总"};
+		ArrayList<ArrayList<String>> c = new ArrayList<ArrayList<String>>();
+		public CollectionModel(ArrayList<ArrayList<String>> content){
+			this.c=content;
+		}
+		public int getRowCount() {
+			return c.size();
+		}
+
+		public int getColumnCount() {
+			return head.length;
+		}
+
+		public String getValueAt(int row, int col) {
+			return c.get(row).get(col);
+		}
+		public String getColumnName(int col){
+			return head[col];
+		}
+		public void addRow(ArrayList<String> v) {
+
+			c.add(v);
+		}
+
+		public void removeRow(int row) {
+			c.remove(row);
+		}
+	}
+}
