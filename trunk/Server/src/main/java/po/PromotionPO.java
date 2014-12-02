@@ -3,7 +3,6 @@ package po;
 import java.io.Serializable;
 
 import po.MemberPO.MemberLevel;
-import po.MemberPO.MemberType;
 
 public class PromotionPO implements Serializable{
 	/**
@@ -14,16 +13,14 @@ public class PromotionPO implements Serializable{
 	String startDate,endDate;
 	PromotionType type;
 	MemberLevel level;
-	MemberType mtype;
 
 	
 	public PromotionPO(String id,String startDate, String endDate, PromotionType type,
-			MemberLevel level, MemberType mtype) {		
+			MemberLevel level) {		
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.type = type;
 		this.level = level;
-		this.mtype = mtype;
 		this.id=id;
 	}
 
@@ -51,15 +48,6 @@ public class PromotionPO implements Serializable{
 
 
 
-	public MemberType getMtype() {
-		return mtype;
-	}
-
-
-
-	
-
-
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
@@ -78,13 +66,6 @@ public class PromotionPO implements Serializable{
 
 
 
-	public void setMtype(MemberType mtype) {
-		this.mtype = mtype;
-	}
-
-
-
-	
 
 
 
