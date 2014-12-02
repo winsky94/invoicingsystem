@@ -1,5 +1,6 @@
 package businesslogic.stockbl.goods;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.GoodsPO;
@@ -38,7 +39,7 @@ public class GoodsController implements StockGoodsBLService {
 		return good.findGoods(message);
 	}
 
-	public GoodsVO findByID(String id) {
+	public GoodsVO findByID(String id) throws RemoteException {
 		// TODO 自动生成的方法存根
 		Goods good = new Goods();
 		return good.findByID(id);

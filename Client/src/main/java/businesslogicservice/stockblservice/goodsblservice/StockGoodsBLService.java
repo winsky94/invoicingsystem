@@ -1,5 +1,6 @@
 package businesslogicservice.stockblservice.goodsblservice;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.GoodsPO;
@@ -14,7 +15,7 @@ public interface StockGoodsBLService {
 
 	public ArrayList<GoodsPO> findGoods(String message);
 	
-	public GoodsVO findByID(String id);
+	public GoodsVO findByID(String id) throws RemoteException;
 
 	public ArrayList<GoodsVO> showGoods();
 

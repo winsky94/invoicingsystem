@@ -128,7 +128,7 @@ public class Goods {
 		return service.findGoods(message);
 	}
 
-	public GoodsVO findByID(String id) {
+	public GoodsVO findByID(String id) throws RemoteException{
 		GoodsPO po = service.findByID(id);
 		GoodsVO vo = null;
 		if (po != null) {
