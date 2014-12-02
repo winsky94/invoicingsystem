@@ -76,7 +76,7 @@ public class GoodsClassManage {
 		ArrayList<GoodsClassVO> result = new ArrayList<GoodsClassVO>();
 		for (int i = 0; i < list.size(); i++) {
 			GoodsClassPO po = list.get(i);
-			System.out.println("GoodsClassManage.show():upclassName:"+po.getUpClassName());
+			System.out.println("GoodsClassManage.show():upclassName:"+po.getUpClass());
 			GoodsClassVO vo = goodsClassPOToVO(po);
 			result.add(vo);
 		}
@@ -84,8 +84,8 @@ public class GoodsClassManage {
 	}
 
 	private GoodsClassVO goodsClassPOToVO(GoodsClassPO po) {
-		System.out.println("GoodsClassManage.goodsClassPOToVO():po.getUpClass:"+po.getUpClassName());
-		GoodsClassVO vo = new GoodsClassVO(po.getName(), po.getUpClassName());
+		System.out.println("GoodsClassManage.goodsClassPOToVO():po.getUpClass:"+po.getUpClass());
+		GoodsClassVO vo = new GoodsClassVO(po.getName(), po.getUpClass());
 		return vo;
 	}
 

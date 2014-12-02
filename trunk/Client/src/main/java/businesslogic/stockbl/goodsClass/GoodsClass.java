@@ -85,7 +85,7 @@ public class GoodsClass {
 					GoodsClassPO po = new GoodsClassPO(classID, name,
 							upClassName);
 					System.out.println("GoodsClass.addGoodsClass():upclassName:"+upClassName);
-					System.out.println("GoodsClass.addGoodsClass():upclassName:"+po.getUpClassName());
+					System.out.println("GoodsClass.addGoodsClass():upclassName:"+po.getUpClass());
 					return service.addGoodsClass(po);
 				} else {
 					return 1;// 上级分类下有商品，无法添加
