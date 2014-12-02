@@ -1,13 +1,12 @@
 package po;
 
+/*
+ * 代金券赠送促销
+ */
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
 import po.MemberPO.MemberLevel;
-import po.MemberPO.MemberType;
-import po.PromotionPO.PromotionType;
-
 
 public class GiftCouponProPO extends PromotionPO implements Serializable{
 	/**
@@ -15,7 +14,7 @@ public class GiftCouponProPO extends PromotionPO implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<CouponPO> couponList;
-	private double totalValue;
+	private double totalValue; //代金券总值
 	public GiftCouponProPO(String id,String startDate,String endDate,MemberLevel l,
 			ArrayList<CouponPO> coupon,double value)
 	{
@@ -35,7 +34,6 @@ public class GiftCouponProPO extends PromotionPO implements Serializable{
 	public void setTotalValue(double totalValue) {
 		this.totalValue = totalValue;
 	}
-	
 	
 	
 }
