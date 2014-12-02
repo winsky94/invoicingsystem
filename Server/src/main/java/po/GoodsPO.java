@@ -18,6 +18,10 @@ public class GoodsPO implements Serializable {
 	double lastPrice;
 	String goodsClass;
 
+	public GoodsPO() {
+
+	}
+
 	public GoodsPO(String goodsID, String name, String size, int numInStock,
 			int virtualnumInStock, double purchasePrice, double price,
 			double lastPurchasePrice, double lastPrice, String goodsClass) {
@@ -101,11 +105,11 @@ public class GoodsPO implements Serializable {
 		this.lastPrice = lastPrice;
 	}
 
-	public String getGoodsClass() {
+	public String getGoodsClassName() {
 		return goodsClass;
 	}
 
-	public void setGoodsClass(String goodsClass) {
+	public void setGoodsClassName(String goodsClass) {
 		this.goodsClass = goodsClass;
 	}
 }
