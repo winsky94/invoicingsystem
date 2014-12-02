@@ -46,6 +46,7 @@ public class DelMemberDialog extends JDialog{
 				dialogHeight*50/100, dialogWidth*50/100, dialogHeight*15/100);
 		sureBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		sureBtn.setFocusPainted(false);
+		sureBtn.setBackground(new Color(251, 147, 121));
 		pnl.add(sureBtn);
 		
 		sureBtn.addActionListener(new ActionListener(){
