@@ -10,5 +10,5 @@ public interface FinanceAccountDataService {
     public int modifyAccount(AccountPO po,String name);
     public ArrayList<AccountPO> findAccount(String s);
     public ArrayList<AccountPO> showAll();
-    public AccountPO findByName(String s);
+    public AccountPO findByName(String s); 
 }

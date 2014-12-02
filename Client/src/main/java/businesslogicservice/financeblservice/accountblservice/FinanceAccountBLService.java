@@ -11,5 +11,5 @@ public interface FinanceAccountBLService {
     public int modifyAccount(AccountVO vo,String name);
     public ArrayList<AccountVO> findAccount(String s);
     public ArrayList<AccountVO> showAll();
-    public AccountVO findByName(String s) throws RemoteException;
+    public AccountVO findByName(String s) throws RemoteException; 
 }
