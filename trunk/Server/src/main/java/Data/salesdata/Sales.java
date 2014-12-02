@@ -453,7 +453,6 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		  return all;
 
 	}
-	
 	public ArrayList<ReceiptPO> getAllPurchase() throws RemoteException{
 		ArrayList<ReceiptPO> all=new ArrayList<ReceiptPO>();
 		ArrayList<PurchasePO> a1=showPurchase();
