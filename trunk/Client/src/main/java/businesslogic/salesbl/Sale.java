@@ -90,7 +90,7 @@ public class Sale extends Receipt {  //单据总值包含代金券金额
 
 	
 //使用了代金券 ，支出累加放sale还是stock -1不存在  -2无效 过期
-	public double  useCoupon(String id) {
+	public double  useCoupon(String id) throws Exception {
 		//coupon cou=promotionController.find(id);
 		giftCouponPro pro=new giftCouponPro();
 		return pro.getCouponValue(id);
