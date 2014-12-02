@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -33,9 +34,10 @@ public class UserMgrPanel extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	Font font=new Font("微软雅黑", Font.PLAIN, 14);
 	Color userColor=new Color(61,49,35);
 	MainFrame father;
-	JButton addBtn, delBtn, modBtn;
+	MyButton addBtn, delBtn, modBtn;
 	UserTableModel utm;
 	ArrayList<ArrayList<String>> c=new ArrayList<ArrayList<String>>();
 	JScrollPane jsp;
@@ -52,12 +54,7 @@ public class UserMgrPanel extends JPanel{
 		top.setBackground(Color.white);
 		top.setLayout(new GridLayout(1,5));
 		//
-		addBtn=new JButton("增加用户",new ImageIcon("img/user/add.png"));
-		addBtn.setFont(new Font("微软雅黑", Font.BOLD, 14));
-		addBtn.setForeground(userColor);
-		addBtn.setBorderPainted(false);
-		addBtn.setBackground(Color.white);
-		addBtn.setFocusPainted(false);
+		addBtn=new MyButton("增加用户",new ImageIcon("img/user/add.png"));
 		addBtn.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -71,12 +68,7 @@ public class UserMgrPanel extends JPanel{
 		});
 		top.add(addBtn);
 		//
-		delBtn=new JButton("删除用户",new ImageIcon("img/user/del.png"));
-		delBtn.setFont(new Font("微软雅黑", Font.BOLD, 14));
-		delBtn.setForeground(userColor);
-		delBtn.setBorderPainted(false);
-		delBtn.setBackground(Color.white);
-		delBtn.setFocusPainted(false);
+		delBtn=new MyButton("删除用户",new ImageIcon("img/user/del.png"));
 		delBtn.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				int[] i=userTbl.getSelectedRows();
@@ -93,12 +85,7 @@ public class UserMgrPanel extends JPanel{
 		});
 		top.add(delBtn);
 		//
-		modBtn=new JButton("修改用户信息",new ImageIcon("img/user/modify.png"));
-		modBtn.setFont(new Font("微软雅黑", Font.BOLD, 14));
-		modBtn.setForeground(userColor);
-		modBtn.setBorderPainted(false);
-		modBtn.setBackground(Color.white);
-		modBtn.setFocusPainted(false);
+		modBtn=new MyButton("修改用户信息",new ImageIcon("img/user/modify.png"));
 		modBtn.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -165,6 +152,26 @@ public class UserMgrPanel extends JPanel{
 				  }
 				 
 	}
+	class MyButton extends JButton {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 
-	
+		MyButton(String text, Icon icon) {
+			super(text, icon);
+			this.setFont(font);
+			this.setForeground(userColor);
+			this.setBorderPainted(false);
+			this.setBackground(Color.white);
+			this.setFocusPainted(false);
+		}
+
+		MyButton(Icon icon) {
+			super(icon);
+			this.setBorderPainted(false);
+			this.setBackground(Color.white);
+			this.setFocusPainted(false);
+		}
+	}
 }
