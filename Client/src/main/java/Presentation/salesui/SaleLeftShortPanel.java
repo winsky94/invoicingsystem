@@ -11,8 +11,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import businesslogic.memberbl.Member;
+import businesslogic.salesbl.SaleList;
 import businesslogic.userbl.User;
 import businesslogicservice.memberblservice.MemberBLService;
+import businesslogicservice.salesblservice.SaleListBLService;
 import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
@@ -29,9 +31,11 @@ public class SaleLeftShortPanel extends JPanel implements ActionListener{
 	Color salesColor;
 	MemberBLService service;
 	JLeftButton purchaseBtn, saleBtn, memberBtn,aboutBtn,backBtn;
-	public SaleLeftShortPanel(MainFrame frame){
+	SaleListBLService  saleservice;
+	public SaleLeftShortPanel(MainFrame frame) throws Exception{
 		salesColor=frame.getTheme()[0];
 		parent=frame;
+		saleservice=new SaleList();
 		//===构造头像
 		GridBagLayout grid=new GridBagLayout();
 		GridBagConstraints c=new GridBagConstraints();
@@ -117,8 +121,9 @@ public class SaleLeftShortPanel extends JPanel implements ActionListener{
 				mgr.RefreshMemberTable(service.showMembers());
 		
 			
-		}else if(e.getSource()==purchaseBtn)
-			parent.setRightComponent(new PurchaseMgrPanel(parent));
+		}else if(e.getSource()==purchaseBtn){
+			
+			parent.setRightComponent(new PurchaseMgrPanel(parent));}
 	//	else if(e.getSource())
 		
 	}
