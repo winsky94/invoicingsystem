@@ -103,28 +103,18 @@ public class GoodsClass extends UnicastRemoteObject implements
 	}
 
 	public GoodsClassPO showGoodsClassInfo(String name) throws RemoteException {
-		/*
-		 * ArrayList<Object> a=file.read(); for(Object b:a){ GoodsClassPO
-		 * c=(GoodsClassPO)b; if(c.getName()==name) return c; }
-		 */
-		GoodsClassPO po = new GoodsClassPO("0001", "飞利浦", "日光灯");
-
-		return po;
-	}
-
-	class Branch {
-		DefaultMutableTreeNode r;
-
-		public Branch(String[] data) {
-			r = new DefaultMutableTreeNode(data[0]);
-			for (int i = 1; i < data.length; i++) {
-				r.add(new DefaultMutableTreeNode(data[i]));
+		GoodsClassPO po = null;
+		ArrayList<Object> a = file.read();
+		if (a != null) {
+			for (Object b : a) {
+				GoodsClassPO c = (GoodsClassPO) b;
+				if (c.getName().equals(name)) {
+					po = c;
+					break;
+				}
 			}
 		}
 
-		public DefaultMutableTreeNode node() {
-			return r;
-		}
+		return po;
 	}
-
 }

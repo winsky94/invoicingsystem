@@ -34,4 +34,9 @@ public class StockGoodsClassDataService_stub implements
 		// TODO 自动生成的方法存根
 		return null;
 	}
+
+	public GoodsClassPO showGoodsClassInfo(String name) throws RemoteException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
 }

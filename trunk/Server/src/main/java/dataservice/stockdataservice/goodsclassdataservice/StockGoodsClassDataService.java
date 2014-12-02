@@ -18,4 +18,6 @@ public interface StockGoodsClassDataService extends Remote {
 	public ArrayList<GoodsClassPO> show() throws RemoteException;
 
 	public String getMaxID() throws RemoteException;
+	
+	public GoodsClassPO showGoodsClassInfo(String name) throws RemoteException;
 }

@@ -15,12 +15,14 @@ public interface StockGoodsDataService extends Remote {
 
 	public ArrayList<GoodsPO> findGoods(String message) throws RemoteException;
 
+	public GoodsPO findByID(String id) throws RemoteException;
+
 	public ArrayList<GoodsPO> showStock(String beginDate, String endDate)
 			throws RemoteException;
 
 	public ArrayList<GoodsPO> checkStock() throws RemoteException;
 
 	public String getMaxID() throws RemoteException;
-	
+
 	public ArrayList<GoodsPO> showGoods() throws RemoteException;
 }
