@@ -20,7 +20,7 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 	 */
 	private static final long serialVersionUID = 1L;
 	JPanel headPane;
-	JLeftButton jb1,jb2,jb3,jb4,jb5,backBtn;
+	JLeftButton accountBtn,receiptBtn,showReportBtn,initialBtn,aboutBtn,backBtn;
 	MainFrame frame;
 	Color[] color;
 	
@@ -54,32 +54,32 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 		down.setLayout(new GridLayout(6,1));
 		
 		
-		jb1=new JLeftButton(new ImageIcon("img/finance/accountMgr.png")
+		accountBtn=new JLeftButton(new ImageIcon("img/finance/accountMgr.png")
 		,color[0]);
 		
-		jb1.addMouseListener(this);
-		jb1.addActionListener(this);
-		jb2=new JLeftButton(new ImageIcon("img/finance/receiptMgr.png"),
+		accountBtn.addMouseListener(this);
+		accountBtn.addActionListener(this);
+		receiptBtn=new JLeftButton(new ImageIcon("img/finance/receiptMgr.png"),
 				color[0]);
-		jb2.addActionListener(this);
-		jb2.addMouseListener(this);
+		receiptBtn.addActionListener(this);
+		receiptBtn.addMouseListener(this);
 		
-		jb3=new JLeftButton(new ImageIcon("img/finance/showReport.png"),color[0]);
+		showReportBtn=new JLeftButton(new ImageIcon("img/finance/showReport.png"),color[0]);
 	
-		jb3.addMouseListener(this);
+		showReportBtn.addMouseListener(this);
 		
 		
-		jb4=new JLeftButton(new ImageIcon("img/finance/initialAccount.png"),color[0]);
-		jb4.addActionListener(this);
-		jb4.addMouseListener(this);
+		initialBtn=new JLeftButton(new ImageIcon("img/finance/initialAccount.png"),color[0]);
+		initialBtn.addActionListener(this);
+		initialBtn.addMouseListener(this);
 		
-		down.add(jb1);down.add(jb2);
-		down.add(jb3);down.add(jb4);
-		jb5 = new JLeftButton(new ImageIcon("img/icon-about.png"),
+		down.add(accountBtn);down.add(receiptBtn);
+		down.add(showReportBtn);down.add(initialBtn);
+		aboutBtn = new JLeftButton(new ImageIcon("img/icon-about.png"),
 				color[0]);
 	
-		jb5.addActionListener(this);
-		down.add(jb5);
+		aboutBtn.addActionListener(this);
+		down.add(aboutBtn);
 		
 		backBtn = new JLeftButton(new ImageIcon("img/mainFrame/backLong.png"),
 				color[0]);
@@ -97,13 +97,13 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource()==jb1){
+		if(arg0.getSource()==accountBtn){
 			frame.setRightComponent(new AccountPanel(frame));		
 		}
-		else if(arg0.getSource()==jb2){
+		else if(arg0.getSource()==receiptBtn){
 			frame.setRightComponent(new CollectionPanel(frame));	
 		}
-		else if(arg0.getSource()==jb5){			
+		else if(arg0.getSource()==aboutBtn){			
 			frame.setRightComponent(new AboutPanel());
 		}
 		else if(arg0.getSource()==backBtn){			
@@ -118,26 +118,26 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		if(e.getSource()==jb1)
-			jb1.setBackground(color[1]);
-		else if(e.getSource()==jb2)
-			jb2.setBackground(color[1]);
-		else if(e.getSource()==jb3)
-			jb3.setBackground(color[1]);
-		else if(e.getSource()==jb4)
-			jb4.setBackground(color[1]);
+		if(e.getSource()==accountBtn)
+			accountBtn.setBackground(color[1]);
+		else if(e.getSource()==receiptBtn)
+			receiptBtn.setBackground(color[1]);
+		else if(e.getSource()==showReportBtn)
+			showReportBtn.setBackground(color[1]);
+		else if(e.getSource()==initialBtn)
+			initialBtn.setBackground(color[1]);
 		
 	}
 
 	public void mouseExited(MouseEvent e) {
-		if(e.getSource()==jb1)
-			jb1.setBackground(color[0]);
-		else if(e.getSource()==jb2)
-			jb2.setBackground(color[0]);
-		else if(e.getSource()==jb3)
-			jb3.setBackground(color[0]);
-		else if(e.getSource()==jb4)
-			jb4.setBackground(color[0]);
+		if(e.getSource()==accountBtn)
+			accountBtn.setBackground(color[0]);
+		else if(e.getSource()==receiptBtn)
+			receiptBtn.setBackground(color[0]);
+		else if(e.getSource()==showReportBtn)
+			showReportBtn.setBackground(color[0]);
+		else if(e.getSource()==initialBtn)
+			initialBtn.setBackground(color[0]);
 		
 		
 	}
