@@ -33,6 +33,10 @@ public class PromotionPO implements Serializable{
 	public String getEndDate() {
 		return endDate;
 	}
+	
+	public String getID(){
+		return id;
+	}
 
 	public String getDate(){
 		String[] buffer=id.split("-");
