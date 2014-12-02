@@ -22,6 +22,13 @@ public class CommodityPO  implements Serializable{
 		this.tip = tip;
 	}
 	
+	public double getLast_bid() {
+		return last_bid;
+	}
+
+	public double getCost() {
+		return cost;
+	}
 	public String getID(){
 		return id;
 	}
