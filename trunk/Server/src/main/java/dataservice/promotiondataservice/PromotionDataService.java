@@ -12,5 +12,5 @@ public interface PromotionDataService extends Remote{
 	public int Modify(PromotionPO po)throws RemoteException;
 	public ArrayList<PromotionPO>show()throws RemoteException;
 	public void init()throws RemoteException;
-
+	
 }
