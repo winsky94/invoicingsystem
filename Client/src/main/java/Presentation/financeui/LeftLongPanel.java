@@ -1,23 +1,30 @@
 package Presentation.financeui;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 import vo.UserVO;
-import businesslogic.userbl.User;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import Presentation.uihelper.AboutPanel;
 
 public class LeftLongPanel extends JPanel implements ActionListener,MouseListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JPanel headPane;
-	JLeftButton jb1,jb2,jb3,jb4,jb5,aboutBtn;
+	JLeftButton accountBtn,collectionBtn,reportBtn,initialBtn,foldBtn,aboutBtn;
 	MainFrame frame;
 	Color[] color;
 	
@@ -50,27 +57,27 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		down.setLayout(new GridLayout(6,1));
 		
 		//
-		jb1=new JLeftButton("账户管理",new ImageIcon("img/finance/accountMgr.png"),
+		accountBtn=new JLeftButton("账户管理",new ImageIcon("img/finance/accountMgr.png"),
 				color[0]);
-		jb1.addMouseListener(this);
-		jb1.addActionListener(this);
-		down.add(jb1);
-		jb2=new JLeftButton("制定单据",new ImageIcon("img/finance/receiptMgr.png"),
+		accountBtn.addMouseListener(this);
+		accountBtn.addActionListener(this);
+		down.add(accountBtn);
+		collectionBtn=new JLeftButton("制定单据",new ImageIcon("img/finance/receiptMgr.png"),
 				color[0]);
-		jb2.addActionListener(this);
-		jb2.addMouseListener(this);
-		down.add(jb2);
+		collectionBtn.addActionListener(this);
+		collectionBtn.addMouseListener(this);
+		down.add(collectionBtn);
 		
-		jb3=new JLeftButton("查看报表",new ImageIcon("img/finance/showReport.png"),
+		reportBtn=new JLeftButton("查看报表",new ImageIcon("img/finance/showReport.png"),
 				color[0]);
-		jb3.addMouseListener(this);
-		down.add(jb3);
+		reportBtn.addMouseListener(this);
+		down.add(reportBtn);
 		
-		jb4=new JLeftButton("期初建账",new ImageIcon("img/finance/initialAccount.png"),
+		initialBtn=new JLeftButton("期初建账",new ImageIcon("img/finance/initialAccount.png"),
 				color[0]);
 		
-		jb4.addMouseListener(this);
-		down.add(jb4);
+		initialBtn.addMouseListener(this);
+		down.add(initialBtn);
 		
 		aboutBtn = new JLeftButton("关于系统", new ImageIcon("img/icon-about.png"),
 				color[0]);
@@ -81,12 +88,12 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		
 		
 		
-		jb5=new JLeftButton("收起菜单",new ImageIcon("img/mainFrame/back.png"),
+		foldBtn=new JLeftButton("收起菜单",new ImageIcon("img/mainFrame/back.png"),
 				color[0]);
-		jb5.addActionListener(this);
+		foldBtn.addActionListener(this);
 		c.gridx=0;c.gridy=8;
-		grid.setConstraints(jb5, c);
-		this.add(jb5);
+		grid.setConstraints(foldBtn, c);
+		this.add(foldBtn);
 		this.setBackground(color[0]);
 		
     
@@ -102,26 +109,26 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 
 
 	public void mouseEntered(MouseEvent e) {
-		if(e.getSource()==jb1)
-			jb1.setBackground(color[1]);
-		else if(e.getSource()==jb2)
-			jb2.setBackground(color[1]);
-		else if(e.getSource()==jb3)
-			jb3.setBackground(color[1]);
-		else if(e.getSource()==jb4)
-			jb4.setBackground(color[1]);
+		if(e.getSource()==accountBtn)
+			accountBtn.setBackground(color[1]);
+		else if(e.getSource()==collectionBtn)
+			collectionBtn.setBackground(color[1]);
+		else if(e.getSource()==reportBtn)
+			reportBtn.setBackground(color[1]);
+		else if(e.getSource()==initialBtn)
+			initialBtn.setBackground(color[1]);
 	}
 
 
 	public void mouseExited(MouseEvent e) {
-		if(e.getSource()==jb1)
-			jb1.setBackground(color[0]);
-		else if(e.getSource()==jb2)
-			jb2.setBackground(color[0]);
-		else if(e.getSource()==jb3)
-			jb3.setBackground(color[0]);
-		else if(e.getSource()==jb4)
-			jb4.setBackground(color[0]);
+		if(e.getSource()==accountBtn)
+			accountBtn.setBackground(color[0]);
+		else if(e.getSource()==collectionBtn)
+			collectionBtn.setBackground(color[0]);
+		else if(e.getSource()==reportBtn)
+			reportBtn.setBackground(color[0]);
+		else if(e.getSource()==initialBtn)
+			initialBtn.setBackground(color[0]);
 	}
 		
 
@@ -138,13 +145,13 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==jb1){
+		if(e.getSource()==accountBtn){
 			frame.setRightComponent(new AccountPanel(frame));		
 		}
-		else if(e.getSource()==jb2){
+		else if(e.getSource()==collectionBtn){
 			frame.setRightComponent(new CollectionPanel(frame));	
 		}
-		else if(e.getSource()==jb5){			
+		else if(e.getSource()==foldBtn){			
 			frame.setLeftComponent(new LeftShortPanel(frame));
 		}
 		else if(e.getSource()==aboutBtn)
