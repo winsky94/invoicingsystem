@@ -25,7 +25,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTree;
-import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
@@ -52,7 +51,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	MyButton addGoodsBtn, delGoodsBtn, modGoodsBtn, searchBtn;
+	MyButton addGoodsBtn, delGoodsBtn, modGoodsBtn, searchBtn,refreshBtn;
 	JButton addGCBtn, delGCBtn, modGCBtn;
 	JTextField searchFld;
 	JTable goodsTable;
@@ -85,38 +84,40 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(3, 3, 3, 3);
 		// -----------upPnl--------------------------------------------------------
-		JPanel upPnl = new JPanel();
-		upPnl.setBackground(Color.white);
+		JPanel btnPnl = new JPanel();
+		btnPnl.setBackground(Color.white);
 		addGoodsBtn = new MyButton("添加商品", new ImageIcon("img/stock/add.png"));
 		addGoodsBtn.addActionListener(new AddGoodsBtnListener());
-		upPnl.add(addGoodsBtn);
+		btnPnl.add(addGoodsBtn);
 		//
 		delGoodsBtn = new MyButton("删除商品", new ImageIcon("img/stock/delete.png"));
 		delGoodsBtn.addActionListener(new DelGoodsBtnListener());
-		upPnl.add(delGoodsBtn);
+		btnPnl.add(delGoodsBtn);
 		//
 		modGoodsBtn = new MyButton("修改商品信息", new ImageIcon(
 				"img/stock/modify.png"));
 		modGoodsBtn.addActionListener(new ModGoodsBtnListener());
-		upPnl.add(modGoodsBtn);
-		// ------------------------------------------
+		btnPnl.add(modGoodsBtn);
+		// --------------------------
+		refreshBtn=new MyButton("刷新",new ImageIcon("img/stock/refresh.png"));
+		btnPnl.add(refreshBtn);
 		// 搜索框
 		searchFld = new JTextField(6);
 		searchFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		searchFld.getDocument().addDocumentListener(new SearchFldListener());
-		upPnl.add(searchFld);
+		btnPnl.add(searchFld);
 		// 查找按钮
 		searchBtn = new MyButton(new ImageIcon("img/stock/find.png"));
 		searchBtn.addActionListener(new SearchBtnListener());
-		upPnl.add(searchBtn);
+		btnPnl.add(searchBtn);
 		// -------------------------------------
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.gridheight = 1;
 		c.fill = GridBagConstraints.HORIZONTAL;
-		gbl.setConstraints(upPnl, c);
-		this.add(upPnl);
+		gbl.setConstraints(btnPnl, c);
+		this.add(btnPnl);
 
 		// ---------goodsClassTree-------------------
 		createGoodsClass(getTreeData());
