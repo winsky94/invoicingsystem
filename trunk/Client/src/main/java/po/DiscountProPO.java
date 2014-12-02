@@ -11,11 +11,11 @@ public class DiscountProPO extends PromotionPO{
 	private ArrayList<GoodsPO>  goodsList;
 	private double totalValue,discountValue;//折后总额；
 	
-	public DiscountProPO(String id,String startDate,String endDate,MemberLevel l,MemberType mt,
+	public DiscountProPO(String id,String startDate,String endDate,MemberLevel l,
 			ArrayList<Double> count,
 			ArrayList<GoodsPO>  goods,double total,double discount)
 	{
-		super(id,startDate,endDate,PromotionType.DISCOUNT,l,mt);
+		super(id,startDate,endDate,PromotionType.DISCOUNT,l);
 		goodsList=goods;
 		countList=count;
 		totalValue=total;discountValue=discount;
