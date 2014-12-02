@@ -233,6 +233,9 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		exitBtn.addActionListener(this);
 		btnPnl.add(exitBtn);
 		
+		
+		
+		
 	
 	}
 
@@ -252,6 +255,15 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	}
+	
+	public void RefreshTable(ArrayList<ArrayList<String>> s){
+		for(int i=0;i<s.size();i++)
+		{
+			s.get(i).add("");s.get(i).add("");
+			this.c.add(s.get(i));
+		}
+		
 	}
 	
 }

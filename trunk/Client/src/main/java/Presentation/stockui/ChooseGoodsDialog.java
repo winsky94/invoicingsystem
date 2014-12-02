@@ -24,6 +24,7 @@ import vo.MemberVO;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import Presentation.mainui.ChooseGoodsFatherPane;
+import Presentation.salesui.manage.sale.SalePane;
 import Presentation.uihelper.UIhelper;
 
 public class ChooseGoodsDialog extends JDialog {
@@ -45,6 +46,7 @@ public class ChooseGoodsDialog extends JDialog {
 	ChosenTblModel ctm;
 	GoodsTblModel gtm;
 	ArrayList<ArrayList<String>> leftTblMessage=new ArrayList<ArrayList<String>>();
+	//ChooseGoodsFatherPane father;
 	ChooseGoodsFatherPane father;
 	//
 	JButton submitBtn, exitBtn, addBtn, delBtn;
@@ -143,9 +145,11 @@ public class ChooseGoodsDialog extends JDialog {
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				
 				father.addContent(rightTblMessage);
-				//ChooseGoodsDialog.this.father.repaint();
-				//ChooseGoodsDialog.this.father.revalidate();
+				//father.RefreshTable(s);
+				ChooseGoodsDialog.this.father.repaint();
+				ChooseGoodsDialog.this.father.revalidate();
 				ChooseGoodsDialog.this.dispose();
 			}
 		});
