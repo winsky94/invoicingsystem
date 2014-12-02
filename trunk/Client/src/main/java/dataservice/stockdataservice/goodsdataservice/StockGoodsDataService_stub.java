@@ -50,4 +50,9 @@ public class StockGoodsDataService_stub implements StockGoodsDataService {
 		return null;
 	}
 
+	public GoodsPO findByID(String id) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 }

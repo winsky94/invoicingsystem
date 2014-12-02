@@ -494,6 +494,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		}
 	}
 
+	//点击分类节点的监听
 	class MouseHandle extends MouseAdapter {
 		public void mousePressed(MouseEvent e) {
 			try {
@@ -508,14 +509,9 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			StockGoodsBLService goodsController = new GoodsController();
 			ArrayList<GoodsVO> list = goodsController
 					.showGoodsByClass(nodeName);
-
-			if (list.size() != 0) {
-				goodsModel = new GoodsModel(list);
-				goodsTable.setModel(goodsModel);
-			} else {
-				goodsModel = new GoodsModel();
-				goodsTable.setModel(goodsModel);
-			}
+			
+			goodsModel = new GoodsModel(list);
+			goodsTable.setModel(goodsModel);
 
 		}
 	}
