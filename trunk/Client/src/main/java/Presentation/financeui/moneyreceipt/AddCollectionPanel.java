@@ -21,7 +21,8 @@ import javax.swing.JTextField;
 
 public class AddCollectionPanel extends JPanel {
 	/**
-	 * 
+	 * 创建收款单
+	 * 没加监听
 	 */
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
@@ -131,7 +132,7 @@ public class AddCollectionPanel extends JPanel {
 		JLabel accountLbl = new JLabel("银行账户：");
 		accountLbl.setFont(font);
 		item1.add(accountLbl);
-		accountFld = new JTextField(13);
+		accountFld = new JTextField(10);
 		accountFld.setFont(font);
 		item1.add(accountFld);
 		// ---money--------
@@ -158,7 +159,7 @@ public class AddCollectionPanel extends JPanel {
 			}
 		});
 		item2.add(addBtn);
-		delBtn = new JButton("从列表删除");
+		delBtn = new JButton("从表中删除");
 		delBtn.setFont(font);
 		delBtn.setBackground(new Color(204, 242, 239));
 		delBtn.setFocusPainted(false);
