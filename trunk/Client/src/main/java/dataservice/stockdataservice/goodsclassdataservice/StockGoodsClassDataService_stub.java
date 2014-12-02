@@ -2,8 +2,6 @@ package dataservice.stockdataservice.goodsclassdataservice;
 
 import java.util.ArrayList;
 
-import javax.swing.JTree;
-
 import po.GoodsClassPO;
 
 public class StockGoodsClassDataService_stub implements
@@ -37,16 +35,6 @@ public class StockGoodsClassDataService_stub implements
 	}
 
 	public ArrayList<GoodsClassPO> showAllPO() {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-	public int recordClassTree(JTree tree) {
-		// TODO 自动生成的方法存根
-		return 0;
-	}
-
-	public JTree getClassTree() {
 		// TODO 自动生成的方法存根
 		return null;
 	}

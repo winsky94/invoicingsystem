@@ -411,25 +411,11 @@ public class GoodsPanel extends JPanel implements ActionListener,
 	public void treeNodesInserted(TreeModelEvent e) {
 		// TODO 自动生成的方法存根
 		System.out.println("监听插入节点");
-		// try {
-		// System.out.println("插入后存储树");
-		// controller.recordClassTree(tree);
-		// } catch (RemoteException e1) {
-		// // TODO 自动生成的 catch 块
-		// e1.printStackTrace();
-		// }
 	}
 
 	public void treeNodesRemoved(TreeModelEvent e) {
 		// TODO 自动生成的方法存根
 		System.out.println("监听删除节点");
-		// try {
-		// System.out.println("删除后存储树");
-		// controller.recordClassTree(tree);
-		// } catch (RemoteException e1) {
-		// // TODO 自动生成的 catch 块
-		// e1.printStackTrace();
-		// }
 	}
 
 	public void treeStructureChanged(TreeModelEvent e) {
@@ -442,7 +428,6 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		// TODO 自动生成的方法存根
 		if (e.getActionCommand().equals("添加分类")) {
 			DefaultMutableTreeNode parentNode = null;
-
 			TreePath parentPath = tree.getSelectionPath();
 
 			if (parentPath == null) {
@@ -470,13 +455,6 @@ public class GoodsPanel extends JPanel implements ActionListener,
 				// tree的scrollPathToVisible()方法在使Tree会自动展开文件夹以便显示所加入的新节点。若没加这行则加入的新节点
 				// 会被 包在文件夹中，你必须自行展开文件夹才看得到。
 				tree.scrollPathToVisible(new TreePath(newNode.getPath()));
-				try {
-					System.out.println("插入后存储树");
-					controller.recordClassTree(tree);
-				} catch (RemoteException e1) {
-					// TODO 自动生成的 catch 块
-					e1.printStackTrace();
-				}
 
 			} else {
 				JOptionPane.showMessageDialog(null, "添加失败", null,
@@ -497,15 +475,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 						// 由DefaultTreeModel的removeNodeFromParent()方法删除节点，包含它的子节点。
 						System.out.println("删除节点");
 						treeModel.removeNodeFromParent(selectionNode);
-
-						try {
-							System.out.println("删除后存储树");
-							controller.recordClassTree(tree);
-						} catch (RemoteException e1) {
-							// TODO 自动生成的 catch 块
-							e1.printStackTrace();
-						}
-
+						treeModel.reload();
 					} else {
 						JOptionPane.showMessageDialog(null, "删除失败", null,
 								JOptionPane.ERROR_MESSAGE);
