@@ -3,11 +3,14 @@ package Data.salesdata;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Collections;
 
+import Data.datafactory.SequenceOfReceiptPO;
 import Data.serutility.JXCFile;
 import po.CommodityPO;
 import po.PurchasePO;
 import po.PurchaseReturnPO;
+import po.ReceiptPO;
 import po.SalePO;
 import po.SaleReturnPO;
 import dataservice.salesdataservice.SalesDataService;
@@ -418,6 +421,47 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		}
 		return result;
 	}
+	
+	public ArrayList<ReceiptPO> getAllSale() throws RemoteException{
+		ArrayList<ReceiptPO> all=new ArrayList<ReceiptPO>();
+		ArrayList<SalePO> a1=showSale();
+		for(SalePO po:a1){
+			all.add(po);
+		}
+		ArrayList<SaleReturnPO> a2=showSaleReturn();
+		for(SaleReturnPO po:a2){
+			all.add(po);
+		}
+		
+		if(all.size()==0)
+			return null;
+		
+		  Collections.sort(all,new SequenceOfReceiptPO());
+		  
+		  return all;
+
+	}
+	
+	public ArrayList<ReceiptPO> getAllPurchase() throws RemoteException{
+		ArrayList<ReceiptPO> all=new ArrayList<ReceiptPO>();
+		ArrayList<PurchasePO> a1=showPurchase();
+		for(PurchasePO po:a1){
+			all.add(po);
+		}
+		ArrayList<PurchaseReturnPO> a2=showPurchaseReturn();
+		for(PurchaseReturnPO po:a2){
+			all.add(po);
+		}
+		
+		if(all.size()==0)
+			return null;
+		
+		  Collections.sort(all,new SequenceOfReceiptPO());
+		  
+		  return all;
+
+	}
+	
 	
 	public static void main(String[] args){
 		Sales a;
