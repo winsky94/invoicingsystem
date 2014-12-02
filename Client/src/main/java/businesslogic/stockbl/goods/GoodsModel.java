@@ -35,9 +35,10 @@ public class GoodsModel extends AbstractTableModel {
 				hang.add(String.valueOf(vo.getPrice()));
 				hang.add(String.valueOf(vo.getLastPurchasePrice()));
 				hang.add(String.valueOf(vo.getLastPrice()));
+				// 加入到rowData
+				rowData.add(hang);
 			}
-			// 加入到rowData
-			rowData.add(hang);
+			
 		}
 	}
 

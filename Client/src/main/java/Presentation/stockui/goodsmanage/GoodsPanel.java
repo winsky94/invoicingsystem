@@ -51,7 +51,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	MyButton addGoodsBtn, delGoodsBtn, modGoodsBtn, searchBtn,refreshBtn;
+	MyButton addGoodsBtn, delGoodsBtn, modGoodsBtn, searchBtn, refreshBtn;
 	JButton addGCBtn, delGCBtn, modGCBtn;
 	JTextField searchFld;
 	JTable goodsTable;
@@ -90,7 +90,8 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		addGoodsBtn.addActionListener(new AddGoodsBtnListener());
 		btnPnl.add(addGoodsBtn);
 		//
-		delGoodsBtn = new MyButton("删除商品", new ImageIcon("img/stock/delete.png"));
+		delGoodsBtn = new MyButton("删除商品",
+				new ImageIcon("img/stock/delete.png"));
 		delGoodsBtn.addActionListener(new DelGoodsBtnListener());
 		btnPnl.add(delGoodsBtn);
 		//
@@ -99,7 +100,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		modGoodsBtn.addActionListener(new ModGoodsBtnListener());
 		btnPnl.add(modGoodsBtn);
 		// --------------------------
-		refreshBtn=new MyButton("刷新",new ImageIcon("img/stock/refresh.png"));
+		refreshBtn = new MyButton("刷新", new ImageIcon("img/stock/refresh.png"));
 		btnPnl.add(refreshBtn);
 		// 搜索框
 		searchFld = new JTextField(6);
@@ -494,7 +495,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		}
 	}
 
-	//点击分类节点的监听
+	// 点击分类节点显示节点下的商品信息的监听
 	class MouseHandle extends MouseAdapter {
 		public void mousePressed(MouseEvent e) {
 			try {
@@ -507,12 +508,14 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			}
 
 			StockGoodsBLService goodsController = new GoodsController();
-			ArrayList<GoodsVO> list = goodsController
-					.showGoodsByClass(nodeName);
-			
+			ArrayList<GoodsVO> list = new ArrayList<GoodsVO>();
+			if (!nodeName.equals("灯具")) {
+				list = goodsController.showGoodsByClass(nodeName);
+			} else {
+				list = goodsController.showGoods();
+			}
 			goodsModel = new GoodsModel(list);
 			goodsTable.setModel(goodsModel);
-
 		}
 	}
 
@@ -677,6 +680,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		}
 
 	}
+
 	class MyButton extends JButton {
 
 		/**
