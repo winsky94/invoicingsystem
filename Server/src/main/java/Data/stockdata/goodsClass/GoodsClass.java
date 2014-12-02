@@ -4,7 +4,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import po.GoodsClassPO;
@@ -126,44 +125,6 @@ public class GoodsClass extends UnicastRemoteObject implements
 		public DefaultMutableTreeNode node() {
 			return r;
 		}
-	}
-
-	public ArrayList<GoodsClassPO> showAllPO() throws RemoteException {
-		// TODO 自动生成的方法存根
-		ArrayList<GoodsClassPO> result = new ArrayList<GoodsClassPO>();
-		// ArrayList<Object> a = file.read();
-		// if (a == null) {
-		// return result;
-		// } else {
-		// for (Object b : a) {
-		// GoodsClassPO c = (GoodsClassPO) b;
-		// result.add(c);
-		// }
-		//
-		// return result;
-		// }
-
-		GoodsClassPO po = new GoodsClassPO("00001", "飞利浦", "灯具");
-		result.add(po);
-		return result;
-	}
-
-	public int recordClassTree(JTree tree) throws RemoteException {
-		// TODO 自动生成的方法存根
-		JXCFile f = new JXCFile("src/main/java/classtree.ser");
-		f.writeM(tree);
-		return 0;
-	}
-
-	public JTree getClassTree() throws RemoteException {
-		// TODO 自动生成的方法存根
-		JXCFile f = new JXCFile("src/main/java/ClassTree.ser");
-		JTree tree = null;
-		ArrayList<Object> a = f.read();
-		if (a != null) {
-			tree = (JTree) f.read().get(0);
-		}
-		return tree;
 	}
 
 }
