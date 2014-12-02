@@ -104,15 +104,21 @@ public class AccountPanel extends JPanel implements ActionListener{
     }
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==addBtn){
-			parent.setRightComponent(new AddAccountPanel(parent));
+			try {
+				parent.setRightComponent(new AddAccountPanel(parent));
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		else if(e.getSource()==delBtn){
 			int[] i = table.getSelectedRows();
-			ArrayList<String> name = new ArrayList<String>();
+			ArrayList<AccountVO> name = new ArrayList<AccountVO>();
 			if (i.length > 0) {
-				for (int j = 0; j < i.length; j++)
-					name.add((String)table.getValueAt(i[j], 0));
-
+				for (int j = 0; j < i.length; j++){
+					AccountVO n=new AccountVO((String)table.getValueAt(i[j], 0),Double.parseDouble((String)table.getValueAt(i[j], 1)));
+					name.add(n);
+				}
 				JDialog delDlg = new DelAccountDialog(name, parent);
 			} else {
 				JOptionPane.showMessageDialog(null, "请选择账户", "提示",
