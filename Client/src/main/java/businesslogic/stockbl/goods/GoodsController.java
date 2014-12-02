@@ -38,6 +38,12 @@ public class GoodsController implements StockGoodsBLService {
 		return good.findGoods(message);
 	}
 
+	public GoodsVO findByID(String id) {
+		// TODO 自动生成的方法存根
+		Goods good = new Goods();
+		return good.findByID(id);
+	}
+	
 	public ArrayList<GoodsVO> showGoods() {
 		// TODO 自动生成的方法存根
 		Goods good = new Goods();
@@ -54,5 +60,7 @@ public class GoodsController implements StockGoodsBLService {
 		Goods good = new Goods();
 		return good.showGoodsByClass(className);
 	}
+
+	
 
 }

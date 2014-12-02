@@ -47,5 +47,10 @@ public class StockGoodsBLService_stub implements StockGoodsBLService {
 		return null;
 	}
 
+	public GoodsVO findByID(String id) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 
 }

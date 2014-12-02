@@ -13,6 +13,8 @@ public interface StockGoodsBLService {
 	public int modifyGoods(GoodsVO vo);
 
 	public ArrayList<GoodsPO> findGoods(String message);
+	
+	public GoodsVO findByID(String id);
 
 	public ArrayList<GoodsVO> showGoods();
 

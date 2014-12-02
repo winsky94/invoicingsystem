@@ -128,6 +128,18 @@ public class Goods {
 		return service.findGoods(message);
 	}
 
+	public GoodsVO findByID(String id) {
+		GoodsPO po = service.findByID(id);
+		GoodsVO vo = null;
+		if (po != null) {
+			vo = new GoodsVO(po.getGoodsID(), po.getName(), po.getSize(),
+					po.getNumInStock(), po.getPurchasePrice(), po.getPrice(),
+					po.getLastPurchasePrice(), po.getPrice(),
+					po.getGoodsClassName());
+		}
+		return vo;
+	}
+
 	public ArrayList<GoodsVO> showGoods() {
 		ArrayList<GoodsPO> list = service.showGoods();
 		ArrayList<GoodsVO> result = new ArrayList<GoodsVO>();
@@ -155,8 +167,8 @@ public class Goods {
 					result.add(vo);
 				}
 			}
-			
-			cn=controller.showGoodsClassInfo(className).getUpClassName();
+
+			cn = controller.showGoodsClassInfo(className).getUpClassName();
 		}
 
 		return result;
