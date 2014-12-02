@@ -34,15 +34,29 @@ public class GoodsClassController implements StockGoodsClassBLService,
 		return gc.deleteGoodsClass();
 	}
 
-	public int modifyGoodsClass(GoodsClassVO vo) {
+	public int modifyGoodsClass(GoodsClassVO oldVO,GoodsClassVO newVO) {
 		// TODO 自动生成的方法存根
-		GoodsClass gc = new GoodsClass(vo.getName(), vo.getUpClassName());
-		return gc.modifyGoodsClass();
+		GoodsClass gc = new GoodsClass(newVO.getName(),newVO.getUpClassName());
+		return gc.modifyGoodsClass(oldVO);
 	}
 
 	public ArrayList<GoodsClassVO> show() {
 		// TODO 自动生成的方法存根
 		GoodsClassManage manage = new GoodsClassManage();
 		return manage.show();
+	}
+
+	public GoodsClassVO showGoodsClassInfo(String name) {
+		// TODO 自动生成的方法存根
+		GoodsClassManage manage = new GoodsClassManage();
+		GoodsClassVO vo = null;
+
+		try {
+			vo = manage.showGoodsClassInfo(name);
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return vo;
 	}
 }

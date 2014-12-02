@@ -122,11 +122,15 @@ public class GoodsClass {
 		}
 	}
 
-	public int modifyGoodsClass() {
-		GoodsClassPO po = new GoodsClassPO("1", name, upClassName);
-		int result = 0;
+	public int modifyGoodsClass(GoodsClassVO oldVO) {
+		int result = -1;
 		try {
-			result = service.modifyGoodsClass(po);
+			GoodsClassPO oldPO=service.showGoodsClassInfo(oldVO.getName());
+			GoodsClassPO newPO = new GoodsClassPO(oldPO.getID(), name, upClassName);
+			if(service.showGoodsClassInfo(name)==null){
+				result = service.modifyGoodsClass(newPO);
+			}
+			
 		} catch (RemoteException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();

@@ -1,5 +1,6 @@
 package dataservice.stockdataservice.goodsclassdataservice;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.GoodsClassPO;
@@ -35,6 +36,11 @@ public class StockGoodsClassDataService_stub implements
 	}
 
 	public ArrayList<GoodsClassPO> showAllPO() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	public GoodsClassPO showGoodsClassInfo(String name) throws RemoteException {
 		// TODO 自动生成的方法存根
 		return null;
 	}

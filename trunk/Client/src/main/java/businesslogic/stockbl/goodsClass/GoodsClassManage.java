@@ -6,11 +6,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import javax.swing.JTree;
-
 import po.GoodsClassPO;
 import vo.GoodsClassVO;
-import yanTest.JXCFile;
 import dataservice.stockdataservice.goodsclassdataservice.StockGoodsClassDataService;
 
 public class GoodsClassManage {
@@ -91,39 +88,9 @@ public class GoodsClassManage {
 		return find(name).getID();
 	}
 
-	public JTree getClassTree() {
-		// TODO 自动生成的方法存根
-		JTree resultJTree = null;
-//		try {
-//			resultJTree = service.getClassTree();
-//		} catch (RemoteException e) {
-//			// TODO 自动生成的 catch 块
-//			e.printStackTrace();
-//		}
-		
-		JXCFile file=new JXCFile("classTree.ser");
-		ArrayList<Object> a=file.read();
-		if(a!=null){
-			resultJTree=(JTree) a.get(0);
-		}
-		else{
-			System.out.println("goodsclassmanage:"+"本地获取树失败");
-		}
- 		return resultJTree;
-	}
-
-	public int recordClassTree(JTree tree) {
-		// TODO 自动生成的方法存根
-		int result = 0;
-//		try {
-//			result = service.recordClassTree(tree);
-//		} catch (RemoteException e) {
-//			// TODO 自动生成的 catch 块
-//			e.printStackTrace();
-//		}
-		
-		JXCFile file=new JXCFile("classTree.ser");
-		file.writeM(tree);
-		return result;
+	public GoodsClassVO showGoodsClassInfo(String name) throws RemoteException {
+		GoodsClassPO po=service.showGoodsClassInfo(name);
+		GoodsClassVO vo=goodsClassPOToVO(po);
+		return vo;
 	}
 }

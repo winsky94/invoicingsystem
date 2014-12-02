@@ -8,9 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -40,12 +39,14 @@ import javax.swing.tree.TreePath;
 import vo.GoodsClassVO;
 import vo.GoodsVO;
 import Presentation.mainui.MainFrame;
+import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.stockbl.goods.GoodsModel;
 import businesslogic.stockbl.goodsClass.GoodsClassController;
+import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBLService;
 
 public class GoodsPanel extends JPanel implements ActionListener,
-		TreeModelListener, MouseListener {
+		TreeModelListener {
 	/**
 	 * 
 	 */
@@ -62,18 +63,21 @@ public class GoodsPanel extends JPanel implements ActionListener,
 	JScrollPane treeJsp = null;
 	JTree tree = null;
 	StockGoodsClassBLService controller;
+	StockGoodsBLService goodsController;
 	DefaultTreeModel treeModel = null;
 	String nodeName = null;// 原有节点名称
 
 	GoodsClassNode newNode = null;
 	DefaultMutableTreeNode addNode = null;
-	public DefaultMutableTreeNode updateNode=null;
+	public DefaultMutableTreeNode updateNode = null;
 
 	static MainFrame parent;
 
 	public GoodsPanel(MainFrame frame) {
 		parent = frame;
 		controller = new GoodsClassController();
+		goodsController = new GoodsController();
+
 		this.setBackground(Color.white);
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
@@ -241,48 +245,81 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			// 取得商品分类
 			String GoodsClass = ((DefaultMutableTreeNode) (parentPath
 					.getLastPathComponent())).toString();
-			parent.setRightComponent(new AddGoodsPanel(parent,GoodsClass));
+			parent.setRightComponent(new AddGoodsPanel(parent, GoodsClass));
 
 			// 重新再获得数据模型,刷新界面
-			goodsModel=new GoodsModel();
+			goodsModel = new GoodsModel();
 			goodsTable.setModel(goodsModel);
-			
+
 		}
 
 	}
 
 	class DelGoodsBtnListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			int rownum=goodsTable.getSelectedRow();
-			if(rownum==-1){
-				JOptionPane.showMessageDialog(null, "           请选择一行商品",null,JOptionPane.WARNING_MESSAGE);
-			}
-			else{
-				String id=(String) goodsModel.getValueAt(rownum, 0);
-				String name=(String) goodsModel.getValueAt(rownum, 1);
-				String size=(String) goodsModel.getValueAt(rownum, 2);
-				int num=Integer.parseInt((String)goodsModel.getValueAt(rownum, 3));
-				double purchasePrice=Double.parseDouble((String)goodsModel.getValueAt(rownum, 4));
-				double price=Double.parseDouble((String)goodsModel.getValueAt(rownum, 5));
-				double lastPurchasePrice=Double.parseDouble((String)goodsModel.getValueAt(rownum, 6));
-				double lastPrice=Double.parseDouble((String)goodsModel.getValueAt(rownum, 7));
-				GoodsVO vo =new GoodsVO(id, name, size, num, purchasePrice, price, lastPurchasePrice, lastPrice, "");
-				
+			int rownum = goodsTable.getSelectedRow();
+			if (rownum == -1) {
+				JOptionPane.showMessageDialog(null, "           请选择一行商品", null,
+						JOptionPane.WARNING_MESSAGE);
+			} else {
+				String id = (String) goodsModel.getValueAt(rownum, 0);
+				String name = (String) goodsModel.getValueAt(rownum, 1);
+				String size = (String) goodsModel.getValueAt(rownum, 2);
+				int num = Integer.parseInt((String) goodsModel.getValueAt(
+						rownum, 3));
+				double purchasePrice = Double.parseDouble((String) goodsModel
+						.getValueAt(rownum, 4));
+				double price = Double.parseDouble((String) goodsModel
+						.getValueAt(rownum, 5));
+				double lastPurchasePrice = Double
+						.parseDouble((String) goodsModel.getValueAt(rownum, 6));
+				double lastPrice = Double.parseDouble((String) goodsModel
+						.getValueAt(rownum, 7));
+				GoodsVO vo = new GoodsVO(id, name, size, num, purchasePrice,
+						price, lastPurchasePrice, lastPrice, "");
+
 				new DelGoodsDialog(vo);
-				
+
 				// 重新再获得数据模型,刷新界面
-				goodsModel=new GoodsModel();
+				goodsModel = new GoodsModel();
 				goodsTable.setModel(goodsModel);
 			}
 		}
 
-
 	}
-	
 
 	class ModGoodsBtnListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			new ModGoodsDialog();
+			int rownum = goodsTable.getSelectedRow();
+			if (rownum == -1) {
+				JOptionPane.showMessageDialog(null, "           请选择一行商品", null,
+						JOptionPane.WARNING_MESSAGE);
+			} else {
+				String id = (String) goodsModel.getValueAt(rownum, 0);
+				String name = (String) goodsModel.getValueAt(rownum, 1);
+				String size = (String) goodsModel.getValueAt(rownum, 2);
+				int num = Integer.parseInt((String) goodsModel.getValueAt(
+						rownum, 3));
+				double purchasePrice = Double.parseDouble((String) goodsModel
+						.getValueAt(rownum, 4));
+				double price = Double.parseDouble((String) goodsModel
+						.getValueAt(rownum, 5));
+				double lastPurchasePrice = Double
+						.parseDouble((String) goodsModel.getValueAt(rownum, 6));
+				double lastPrice = Double.parseDouble((String) goodsModel
+						.getValueAt(rownum, 7));
+
+				String goodsClass = goodsController.findGoods(id).get(0)
+						.getGoodsClassName();
+				GoodsVO vo = new GoodsVO(id, name, size, num, purchasePrice,
+						price, lastPurchasePrice, lastPrice, goodsClass);
+
+				new DelGoodsDialog(vo);
+
+				// 重新再获得数据模型,刷新界面
+				goodsModel = new GoodsModel();
+				goodsTable.setModel(goodsModel);
+			}
 		}
 
 	}
@@ -310,18 +347,17 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 	}
 
-	//对表格的监听，用于修改商品信息
-	class MyTableModelListener implements TableModelListener{
+	// 对表格的监听，用于修改商品信息
+	class MyTableModelListener implements TableModelListener {
 
 		public void tableChanged(TableModelEvent arg0) {
 			// TODO 自动生成的方法存根
-			goodsModel=new GoodsModel();
+			goodsModel = new GoodsModel();
 			goodsTable.setModel(goodsModel);
 		}
 
-		
 	}
-	
+
 	// tree---------------------------------------------------------------------
 	private void createGoodsClass(ArrayList<GoodsClassVO> list) {
 		GoodsClassNode root = createTreeRoot(list);
@@ -329,7 +365,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		tree = new JTree(Troot);
 		treeModel = (DefaultTreeModel) tree.getModel();
 		tree.setEditable(true);
-		tree.addMouseListener(this);
+		tree.addMouseListener(new MouseHandle());
 		treeModel.addTreeModelListener(this);
 
 		treeJsp = new JScrollPane(tree);
@@ -406,6 +442,15 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			node = (DefaultMutableTreeNode) node.getChildAt(index[0]);
 		} catch (NullPointerException exc) {
 		}
+
+		GoodsClassVO oldVO = controller.showGoodsClassInfo(nodeName);
+		GoodsClassVO newVO = new GoodsClassVO((String) node.getUserObject(),
+				oldVO.getUpClassName());
+		int result = controller.modifyGoodsClass(oldVO, newVO);
+		if (result != 0) {
+			System.out.println("GoodsPanel.treeNodesChanged()修改不成功噢~");
+		}
+
 	}
 
 	public void treeNodesInserted(TreeModelEvent e) {
@@ -423,7 +468,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 	}
 
-	//关于分类的增加删除的监听
+	// 关于分类的增加删除的监听
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自动生成的方法存根
 		if (e.getActionCommand().equals("添加分类")) {
@@ -442,23 +487,23 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			DefaultMutableTreeNode newNode = addNode;
 			if (newNode != null) {
 				newNode.setAllowsChildren(true);
-			}
 
-			GoodsClassVO vo = new GoodsClassVO(newNode.toString(),
-					parentNode.toString());
-			int result = controller.addGoodsClass(vo);
-			if (result == 0) {
-				// 由DefaultTreeModel的insertNodeInto（）方法增加新节点
-				treeModel.insertNodeInto(newNode, parentNode,
-						parentNode.getChildCount());
+				GoodsClassVO vo = new GoodsClassVO(newNode.toString(),
+						parentNode.toString());
+				int result = controller.addGoodsClass(vo);
+				if (result == 0) {
+					// 由DefaultTreeModel的insertNodeInto（）方法增加新节点
+					treeModel.insertNodeInto(newNode, parentNode,
+							parentNode.getChildCount());
 
-				// tree的scrollPathToVisible()方法在使Tree会自动展开文件夹以便显示所加入的新节点。若没加这行则加入的新节点
-				// 会被 包在文件夹中，你必须自行展开文件夹才看得到。
-				tree.scrollPathToVisible(new TreePath(newNode.getPath()));
+					// tree的scrollPathToVisible()方法在使Tree会自动展开文件夹以便显示所加入的新节点。若没加这行则加入的新节点
+					// 会被 包在文件夹中，你必须自行展开文件夹才看得到。
+					tree.scrollPathToVisible(new TreePath(newNode.getPath()));
 
-			} else {
-				JOptionPane.showMessageDialog(null, "添加失败", null,
-						JOptionPane.ERROR_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "添加失败", null,
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		} else if (e.getActionCommand().equals("删除分类")) {
 			TreePath treepath = tree.getSelectionPath();
@@ -482,7 +527,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 					}
 				}
 			}
-		} else if (e.getActionCommand().equals("修改分类!!!!")) {//这个后期可以取消了，我直接在节点上改
+		} else if (e.getActionCommand().equals("修改分类!!!!")) {// 这个后期可以取消了，我直接在节点上改
 			// 下面一行，由DefaultTreeModel的getRoot()方法取得根节点.
 			DefaultMutableTreeNode rootNode = (DefaultMutableTreeNode) treeModel
 					.getRoot();
@@ -495,30 +540,17 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		}
 	}
 
-
-	public void mouseClicked(MouseEvent e) {
-		// TODO 自动生成的方法存根
-
-	}
-
-	public void mouseEntered(MouseEvent e) {
-		// TODO 自动生成的方法存根
-
-	}
-
-	public void mouseExited(MouseEvent e) {
-		// TODO 自动生成的方法存根
-
-	}
-
-	public void mousePressed(MouseEvent e) {
-		// TODO 自动生成的方法存根
-
-	}
-
-	public void mouseReleased(MouseEvent e) {
-		// TODO 自动生成的方法存根
-
+	class MouseHandle extends MouseAdapter {
+		public void mousePressed(MouseEvent e) {
+			try {
+				JTree tree = (JTree) e.getSource();
+				int rowLocation = tree.getRowForLocation(e.getX(), e.getY());
+				TreePath treepath = tree.getPathForRow(rowLocation);
+				TreeNode treenode = (TreeNode) treepath.getLastPathComponent();
+				nodeName = treenode.toString();
+			} catch (NullPointerException ne) {
+			}
+		}
 	}
 
 	class AddGoodsClassDialog extends JDialog implements ActionListener {
@@ -584,8 +616,8 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			if (e.getSource() == okjb) {
 				if (fatherClassjtf.getText().trim().equals("")
 						|| classjtf.getText().trim().equals("")) {
-					JOptionPane.showMessageDialog(this, "        请填写全部信息！", "Error",
-							JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(this, "        请填写全部信息！",
+							"Error", JOptionPane.WARNING_MESSAGE);
 					return;
 				}
 				father.newNode = new GoodsClassNode(classjtf.getText().trim(),
@@ -600,7 +632,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		}
 
 	}
-	
+
 	class UpdateGoodsClassDialog extends JDialog implements ActionListener {
 		private static final long serialVersionUID = 1L;
 		JLabel oldClassDjl = null;
@@ -612,7 +644,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 		GoodsPanel father = null;
 
-		public UpdateGoodsClassDialog(GoodsPanel father,String parent) {
+		public UpdateGoodsClassDialog(GoodsPanel father, String parent) {
 			this.father = father;
 
 			Font font = new Font("仿宋", Font.BOLD, 16);
