@@ -95,7 +95,10 @@ public class ReceiptPO  implements Serializable{
 	public String getDate(){
 		String[] buffer=id.split("-");
 		String s=buffer[1];
-		return s;
+		String year=s.substring(0,4);
+		String month=s.substring(4,6);
+		String day=s.substring(6,8);
+		return year+"/"+month+"/"+day;
 	}
 
 

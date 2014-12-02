@@ -38,6 +38,10 @@ public class PromotionPO implements Serializable{
 		return s;
 	}
 
+	public String getID(){
+		return id;
+	}
+	
 	public PromotionType getType() {
 		return type;
 	}
