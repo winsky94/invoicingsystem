@@ -3,7 +3,6 @@ package businesslogicservice.stockblservice.goodsblservice;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import po.GoodsPO;
 import vo.GoodsVO;
 
 public interface StockGoodsBLService {
@@ -13,7 +12,7 @@ public interface StockGoodsBLService {
 
 	public int modifyGoods(GoodsVO vo);
 
-	public ArrayList<GoodsPO> findGoods(String message);
+	public ArrayList<GoodsVO> findGoods(String message);
 	
 	public GoodsVO findByID(String id) throws RemoteException;
 

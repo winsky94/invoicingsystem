@@ -2,7 +2,6 @@ package businesslogicservice.stockblservice.goodsblservice;
 
 import java.util.ArrayList;
 
-import po.GoodsPO;
 import vo.GoodsVO;
 
 public class StockGoodsBLService_stub implements StockGoodsBLService {
@@ -25,7 +24,7 @@ public class StockGoodsBLService_stub implements StockGoodsBLService {
 		return 0;
 	}
 
-	public ArrayList<GoodsPO> findGoods(String message) {
+	public ArrayList<GoodsVO> findGoods(String message) {
 		// TODO 自动生成的方法存根
 		System.out.println("find goods succeed!");
 		return null;

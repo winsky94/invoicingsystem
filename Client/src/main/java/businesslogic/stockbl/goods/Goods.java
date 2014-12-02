@@ -105,7 +105,7 @@ public class Goods {
 	}
 
 	public int modifyGoods(String id) {
-		GoodsPO oldPO = findGoods(id).get(0);
+		GoodsPO oldPO = service.findGoods(id).get(0);
 		GoodsPO po = new GoodsPO(id, name, size, numInStock, virtualnumInStock,
 				purchasePrice, price, lastPurchasePrice, lastPrice, gc);
 		if (oldPO.getPurchasePrice() != po.getPurchasePrice()) {
@@ -124,8 +124,18 @@ public class Goods {
 		return service.modifyGoods(po);
 	}
 
-	public ArrayList<GoodsPO> findGoods(String message) {
-		return service.findGoods(message);
+	public ArrayList<GoodsVO> findGoods(String message) {
+		ArrayList<GoodsPO> list=service.findGoods(message);
+		ArrayList<GoodsVO> result =new ArrayList<GoodsVO>();
+		for(int i=0;i<list.size();i++){
+			GoodsPO po=list.get(i);
+			GoodsVO vo=new GoodsVO(po.getGoodsID(), po.getName(), po.getSize(),
+					po.getNumInStock(), po.getPurchasePrice(), po.getPrice(),
+					po.getLastPurchasePrice(), po.getPrice(),
+					po.getGoodsClassName());
+			result.add(vo);
+		}
+		return result;
 	}
 
 	public GoodsVO findByID(String id) throws RemoteException{
