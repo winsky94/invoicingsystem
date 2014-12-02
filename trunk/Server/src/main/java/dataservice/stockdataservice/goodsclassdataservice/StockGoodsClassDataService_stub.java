@@ -3,8 +3,6 @@ package dataservice.stockdataservice.goodsclassdataservice;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import javax.swing.JTree;
-
 import po.GoodsClassPO;
 
 public class StockGoodsClassDataService_stub implements
@@ -33,21 +31,6 @@ public class StockGoodsClassDataService_stub implements
 	}
 
 	public String getMaxID() throws RemoteException {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-	public ArrayList<GoodsClassPO> showAllPO() throws RemoteException {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-	public int recordClassTree(JTree tree) throws RemoteException {
-		// TODO 自动生成的方法存根
-		return 0;
-	}
-
-	public JTree getClassTree() throws RemoteException {
 		// TODO 自动生成的方法存根
 		return null;
 	}
