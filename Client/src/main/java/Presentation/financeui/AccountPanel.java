@@ -122,6 +122,13 @@ public class AccountPanel extends JPanel implements ActionListener{
 		public String getColumnName(int col) {
 			return head[col];
 		}
+		public void addRow(ArrayList<String> v) {
+			c.add(v);
+		}
+
+		public void removeRow(int row) {
+			c.remove(row);
+		}
 	}
 	class MyButton extends JButton {
 
