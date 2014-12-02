@@ -11,10 +11,10 @@ import businesslogic.stockbl.goods.Goods;
 public class GiftGoodProPO extends PromotionPO{
 	private ArrayList<GoodsPO> giftList;
 	private double totalValue;
-	public GiftGoodProPO(String id,String startDate,String endDate,MemberLevel l,MemberType mt,
+	public GiftGoodProPO(String id,String startDate,String endDate,MemberLevel l,
 			ArrayList<GoodsPO> list,double value)
 	{
-		super(id,startDate,endDate,PromotionType.GIFTGOODS,l,mt);
+		super(id,startDate,endDate,PromotionType.GIFTGOODS,l);
 		this.giftList=list;
 		this.totalValue=value;
 		
