@@ -6,14 +6,33 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class AddAccountPanel extends JPanel {
+import businesslogic.financebl.Account;
+import businesslogic.memberbl.MemAccountInfo;
+import businesslogic.memberbl.MemBaseInfo;
+import businesslogic.memberbl.MemContactInfo;
+import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
+import businesslogicservice.memberblservice.MemberBLService;
+import po.MemberPO.MemberLevel;
+import po.UserPO.UserJob;
+import vo.AccountVO;
+import vo.MemberVO;
+import vo.UserVO;
+import Presentation.financeui.AccountPanel;
+import Presentation.mainui.MainFrame;
+import Presentation.memberui.MemberMgrPanel;
+
+public class AddAccountPanel extends JPanel implements ActionListener{
 
 	/**
 	 * 
@@ -21,8 +40,13 @@ public class AddAccountPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JTextField nameFld;
 	JButton submitBtn, exitBtn;
+	MainFrame parent;
+	FinanceAccountBLService service;
+	String name;
 
-	public AddAccountPanel() {
+	public AddAccountPanel(MainFrame frame) {
+		service=new Account();
+		parent=frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(20, 80, 1, 80);
@@ -87,12 +111,14 @@ public class AddAccountPanel extends JPanel {
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
+		submitBtn.addActionListener(this);
 		btnPnl.add(submitBtn);
 		btnPnl.add(new JLabel("          "));
 		exitBtn = new JButton("取消");
 		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(251, 147, 121));
+		exitBtn.addActionListener(this);
 		btnPnl.add(exitBtn);
 	}
 
@@ -100,9 +126,42 @@ public class AddAccountPanel extends JPanel {
 		JFrame testFrame = new JFrame();
 		testFrame.setBounds(100, 50, 920, 600);
 		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AddAccountPanel gp = new AddAccountPanel();
+		AddAccountPanel gp = new AddAccountPanel(new MainFrame(new UserVO("1","1","1",UserJob.FINANCE,1)));
 		gp.setBounds(0, 0, 920, 600);
 		testFrame.add(gp);
 		testFrame.setVisible(true);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==submitBtn){
+			if (name == null || name.equals("")) {
+				JOptionPane.showMessageDialog(null, "请输入账户名称！", "提示",
+						JOptionPane.CLOSED_OPTION);
+			} else {
+				AccountVO vo = new AccountVO(nameFld.getText(),0);
+				int result = service.addAccount(vo);
+				// 改
+				if (result == 0) {
+					JOptionPane.showMessageDialog(null, "添加账户成功！", "提示",
+							JOptionPane.CLOSED_OPTION);
+				} else {
+					JOptionPane.showMessageDialog(null, "添加账户失败！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+				}
+				Update();
+			}
+			
+		}
+		else if(e.getSource()==exitBtn){
+			Update();
+		}
+		
+	}
+	
+	public void Update() {
+		AccountPanel mgr = new AccountPanel(parent);
+		parent.setRightComponent(mgr);
+		if (service.showAll()!= null)
+			mgr.RefreshAccountTable(service.showAll());
 	}
 }

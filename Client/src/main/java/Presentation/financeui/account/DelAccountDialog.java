@@ -3,11 +3,13 @@ package Presentation.financeui.account;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 
+import Presentation.mainui.MainFrame;
 import Presentation.uihelper.UIhelper;
 
 public class DelAccountDialog extends JDialog{
@@ -21,7 +23,7 @@ public class DelAccountDialog extends JDialog{
 	int screenHeight = UIhelper.getScreenHeight();
 	int dialogWidth = screenWidth /4;
 	int dialogHeight = screenHeight / 4;
-	public DelAccountDialog(){
+	public DelAccountDialog(final ArrayList<String> ID,MainFrame frame){
 		Container pnl=this.getContentPane();
 		pnl.setBackground(Color.white);
 		pnl.setLayout(null);
@@ -50,6 +52,6 @@ public class DelAccountDialog extends JDialog{
 		this.setVisible(true);
 	}
 	public static void main(String[] args){
-		JDialog Del=new DelAccountDialog();
+//		JDialog Del=new DelAccountDialog();
 	}
 }

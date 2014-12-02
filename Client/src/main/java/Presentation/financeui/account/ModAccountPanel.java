@@ -1,5 +1,11 @@
 package Presentation.financeui.account;
 
-public class ModAccountPanel {
+import javax.swing.JPanel;
 
+import Presentation.mainui.MainFrame;
+
+public class ModAccountPanel extends JPanel{
+	public ModAccountPanel(String id,MainFrame frame) throws Exception{
+		
+	}
 }
