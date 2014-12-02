@@ -1,5 +1,8 @@
 package businesslogic.promotionbl;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +12,11 @@ import java.util.Date;
 
 
 
+
+
+
+import dataservice.promotiondataservice.PromotionDataService;
+import dataservice.salesdataservice.SalesDataService;
 import businesslogicservice.promotionblservice.PromotionBLService;
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
@@ -17,21 +25,25 @@ import vo.GiftVO;
 import vo.PromotionVO;
 import vo.SaleVO;
 //release 去掉？？？当前促销是否还有效？
-public class promotion implements PromotionBLService{
+public abstract class  promotion implements PromotionBLService{
 	
+	PromotionDataService service;
+	public promotion() throws Exception{
+		String host="localhost:1099";
+		String url="rmi://"+host+"/promotionService";
 	
+		service=(PromotionDataService)Naming.lookup(url);
+	
+	}
 
 	
 	//发布和添加？
-	public int Add(PromotionVO vo){
-		
-		return 0;
-	}
+	public abstract int Add(PromotionVO vo);
 	
-	public int Modify(PromotionVO vo){
-		
-		return 0;
-	}
+	public abstract int Modify(PromotionVO vo);
+	
+	public abstract int Delete(String id,PromotionType type);
+	
 	
 	public PromotionVO Match(SaleVO vo){
 		
