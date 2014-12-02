@@ -12,17 +12,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
-import Presentation.mainui.ChooseGoodsFatherPane.CommodityTableModel;
-import Presentation.salesui.manage.purchase.PurchasePane;
 import Presentation.stockui.ChooseGoodsDialog;
 
 public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
@@ -32,19 +30,19 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
-	JLabel IDLbl, userLbl, totalOriginLbl, discountValueLbl, couponValueLbl,
+	JLabel IDLbl, userLbl, totalOriginLbl,
 			totalToPayLbl;
 	JComboBox<String> XSSBox;
 	JTextField clerkFld, stockFld, discountMoneyFld, remarkFld;
 	JScrollPane jsp;
 	CommodityTableModel ctm;
 	JTable table;
-	JButton submitBtn, addCouponBtn, addGoodsBtn, delGoodsBtn, exitBtn;
+	JButton submitBtn, couponBtn, addGoodsBtn, delGoodsBtn, exitBtn;
 	MainFrame parent;
 
-	public SalePane(MainFrame frame) {
+	public SalePane(/*MainFrame frame*/) {
 
-		parent = frame;
+		//parent = frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 10, 5, 10);
@@ -77,6 +75,83 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		c.weighty = 0.3;
 		gbl.setConstraints(midPnl, c);
 		this.add(midPnl);
+		midPnl.setLayout(new GridLayout(3, 1));
+		JPanel p1=new JPanel();
+		JPanel p2=new JPanel();
+		JPanel p3=new JPanel();
+		p1.setBackground(Color.white);
+		p2.setBackground(Color.white);
+		p3.setBackground(Color.white);
+		midPnl.add(p1);
+		midPnl.add(p2);
+		midPnl.add(p3);
+		//--------ID----------------
+		IDLbl=new JLabel("ID：嗷嗷嗷嗷嗷");
+		IDLbl.setFont(font);
+		p1.add(IDLbl);
+		p1.add(new JLabel("      "));
+		//--------客户---------------
+		JLabel memberLbl=new JLabel("客户：");
+		memberLbl.setFont(font);
+		p1.add(memberLbl);
+		String boxText[]={"给我加监听"};
+		XSSBox=new JComboBox<String>(boxText);
+		XSSBox.setFont(font);
+		XSSBox.setBackground(Color.white);
+		p1.add(XSSBox);
+		p1.add(new JLabel("      "));
+		//-------业务员---------------
+		JLabel clerkLbl=new JLabel("业务员：");
+		clerkLbl.setFont(font);
+		p1.add(clerkLbl);
+		clerkFld=new JTextField(4);
+		clerkFld.setFont(font);
+		p1.add(clerkFld);
+		
+		//-------仓库----------------
+		JLabel stockLbl=new JLabel("仓库：");
+		stockLbl.setFont(font);
+		p2.add(stockLbl);
+		stockFld=new JTextField(4);
+		clerkFld.setFont(font);
+		p2.add(stockFld);
+		p2.add(new JLabel("      "));
+		//------操作员----------------
+		userLbl=new JLabel("操作员：嗷嗷嗷");
+		userLbl.setFont(font);
+		p2.add(userLbl);
+		p2.add(new JLabel("      "));
+		//------备注------------------
+		JLabel remarkLbl=new JLabel("备注：");
+		remarkLbl.setFont(font);
+		p2.add(remarkLbl);
+		remarkFld=new JTextField(12);
+		remarkFld.setFont(font);
+		p2.add(remarkFld);
+		//------折让-----------------
+		JLabel discountLbl=new JLabel("折让：");
+		discountLbl.setFont(font);
+		p3.add(discountLbl);
+		discountMoneyFld=new JTextField(6);
+		discountMoneyFld.setFont(font);
+		p3.add(discountMoneyFld);
+		p3.add(new JLabel("      "));
+		//------代金券----------------
+		couponBtn=new JButton("已使用代金券监听元");
+		couponBtn.setBackground(new Color(206,226,236));
+		couponBtn.setFont(font);
+		couponBtn.setFocusPainted(false);
+		p3.add(couponBtn);
+		p3.add(new JLabel("      "));
+		//------折前-----------------
+		totalOriginLbl=new JLabel("折前总价：嗷嗷嗷嗷");
+		totalOriginLbl.setFont(font);
+		p3.add(totalOriginLbl);
+		p3.add(new JLabel("      "));
+		//------折后-----------------
+		totalToPayLbl=new JLabel("折后总价：嗷嗷嗷嗷");
+		totalToPayLbl.setFont(font);
+		p3.add(totalToPayLbl);
 		// ------table--------------
 		ctm = new CommodityTableModel();
 		table = new JTable(ctm);
@@ -136,5 +211,14 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+	public static void main(String[] args) {
+		JFrame testFrame = new JFrame();
+		testFrame.setBounds(100, 50, 920, 600);
+		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		SalePane gp = new SalePane();
+		gp.setBounds(0, 0, 920, 600);
+		testFrame.add(gp);
+		testFrame.setVisible(true);
 	}
 }
