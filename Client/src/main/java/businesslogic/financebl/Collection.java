@@ -38,14 +38,14 @@ public class Collection extends Receipt implements CollectionBLService{
  		service=(CollectionDataService)Naming.lookup(url);
      }
     
-	 public Collection(String id,  String memberID,
+/*	 public Collection(String id,  String memberID,
 			String memberName,String userID,Date date, int hurry, int status,
 			String info,String sid,double Money) throws Exception{
 		super(id,memberID,memberName, userID, ReceiptType.COLLECTION, date, hurry, status, info,sid);
 		// TODO Auto-generated constructor stub
 		this.totalMoney=Money;
 	}
-
+*/
 
 	
 
