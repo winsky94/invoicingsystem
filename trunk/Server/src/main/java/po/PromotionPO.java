@@ -34,6 +34,11 @@ public class PromotionPO implements Serializable{
 		return endDate;
 	}
 
+	public String getDate(){
+		String[] buffer=id.split("-");
+		String s=buffer[1];
+		return s;
+	}
 
 
 	public PromotionType getType() {
