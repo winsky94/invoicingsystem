@@ -32,5 +32,5 @@ public interface SalesDataService extends Remote{
 	
 	public ArrayList<ReceiptPO> getAllPurchase();
 	public ArrayList<ReceiptPO> getAllSale();
-	
+	public ReceiptPO findReceiptByID(String ID);
 }
