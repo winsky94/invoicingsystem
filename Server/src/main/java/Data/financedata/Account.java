@@ -15,7 +15,7 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JXCFile file;
+	JXCFile file; 
 
 	public Account() throws RemoteException {
 		super();
@@ -70,6 +70,19 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 	}
 
 	private AccountPO myFindAccount(String s){
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return null;
+		for(Object b:a){
+			AccountPO c=(AccountPO)b;
+			if(c.getName().equals(s))
+				return c;
+		}
+					
+		return null; //不存在该用户
+	}
+	
+	public AccountPO findByName(String s) throws RemoteException {
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -145,6 +158,7 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 			e.printStackTrace();
 		}
 	}
+
 	
 }
 
