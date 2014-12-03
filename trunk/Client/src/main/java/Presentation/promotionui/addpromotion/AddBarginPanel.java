@@ -194,7 +194,7 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 		String head[] = { "商品编号", "商品名", "型号", "数量", "默认单价" };
 
 		public int getRowCount() {
-			return c.size();
+			return cmContent.size();
 		}
 
 		public int getColumnCount() {
@@ -202,7 +202,7 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 		}
 
 		public Object getValueAt(int row, int col) {
-			return c.get(row).get(col);
+			return cmContent.get(row).get(col);
 		}
 
 		public String getColumnName(int col) {
@@ -211,11 +211,11 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 
 		public void addRow(ArrayList<String> v) {
 
-			c.add(v);
+			cmContent.add(v);
 		}
 
 		public void removeRow(int row) {
-			c.remove(row);
+			cmContent.remove(row);
 		}
 	}
 

@@ -1,21 +1,20 @@
 package businesslogic.promotionbl;
 
-import java.rmi.RemoteException;
+
 import java.util.ArrayList;
-import java.util.Date;
+
 
 import po.CouponPO;
 import po.GiftCouponProPO;
-import po.MemberPO.MemberLevel;
-import po.MemberPO.MemberType;
 import po.PromotionPO;
 import po.PromotionPO.PromotionType;
 import vo.CouponVO;
-import vo.DiscountProVO;
+
 import vo.GiftCouponProVO;
-import vo.GiftGoodsProVO;
+
 import vo.PromotionVO;
-import businesslogic.stockbl.goods.Goods;
+import vo.SaleVO;
+
 //同类型 界面处理 放在同一行
 public class giftCouponPro extends promotion{
 	
@@ -101,6 +100,18 @@ public class giftCouponPro extends promotion{
 				vo.getEndDate(),vo.getMemberlevel(),cpo,vo.getTotalValue());
 		return po;
 		
+	}
+
+	@Override
+	public String getNewID(PromotionType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PromotionVO Match(SaleVO vo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

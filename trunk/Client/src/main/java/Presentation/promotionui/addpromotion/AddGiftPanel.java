@@ -198,7 +198,7 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 		private static final long serialVersionUID = 1L;
 		String head[]={"商品编号","商品名","型号","默认单价"};
 		public int getRowCount() {
-			return c.size();
+			return cmContent.size();
 		}
 
 		public int getColumnCount() {
@@ -206,16 +206,16 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 		}
 
 		public Object getValueAt(int row, int col) {
-			return c.get(row).get(col);
+			return cmContent.get(row).get(col);
 		}
 		public String getColumnName(int col){
 			return head[col];
 		}
 		public void addRow(ArrayList<String> v){
-			c.add(v);
+			cmContent.add(v);
 		}
 		public void removeRow(int row){
-			c.remove(row);
+			cmContent.remove(row);
 		}
 	}
 	public static void main(String[] args) {
