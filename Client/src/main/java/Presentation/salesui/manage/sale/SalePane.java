@@ -260,7 +260,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		for(int i=0;i<s.size();i++)
 		{
 			s.get(i).add("");s.get(i).add("");
-			this.c.add(s.get(i));
+			this.cmContent.add(s.get(i));
 		}
 		
 	}
