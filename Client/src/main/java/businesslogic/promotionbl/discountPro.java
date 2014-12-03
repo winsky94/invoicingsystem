@@ -66,13 +66,10 @@ public class discountPro extends promotion{
 	//ArrayList<Double> count,
 	//ArrayList<GoodsPO>  goods,double total,double discount
 	private DiscountProPO voToPo(DiscountProVO vo){
-		ArrayList<GoodsVO> gpo=vo.getGoodsList();
-		ArrayList<GoodsPO> gvo=new ArrayList<GoodsPO>();
-		for(int i=0;i<gpo.size();i++)
-			gvo.add()
+		
 		
 		DiscountProPO po=new DiscountProPO(vo.getId(),vo.getStartDate(),vo.getEndDate(),
-				vo.getMemberlevel(),vo.getCountList(),vo.getGoodsList(),vo.getTotalValue(),
+				vo.getMemberlevel(),vo.getCountList(),,vo.getTotalValue(),
 				vo.getDiscountValue());
 		return po;
 	}
