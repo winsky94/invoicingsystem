@@ -2,10 +2,13 @@ package Presentation.stockui.goodsmanage;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,10 +18,9 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import vo.GoodsVO;
+import Presentation.mainui.MainFrame;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
-import Presentation.mainui.MainFrame;
-import Presentation.uihelper.UIhelper;
 
 public class AddGoodsPanel extends JPanel implements ActionListener {
 
@@ -26,113 +28,148 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String IDtext, nameText, sizeText, pPriceText, sPriceText, classText;
-	JLabel IDLbl, nameLbl, sizeLbl, defaultPurchasePriceLbl,
-			defaultSalePriceLbl;
-	JTextField nameFld, sizeFld, defaultPurchasePriceFld, defaultSalePriceFld;
-	JButton submitBtn;
-	int screenWidth = UIhelper.getScreenWidth();
-	int screenHeight = UIhelper.getScreenHeight();
-	int dlgWidth = screenWidth * 28 / 100;
-	int dlgHeight = screenHeight * 60 / 100;
+	Font font = new Font("微软雅黑", Font.PLAIN, 15);
+	JButton submitBtn, exitBtn;
+	String classText,nameText, sizeText, pPriceText, sPriceText;
+	JTextField nameFld, sizeFld, purchasePriceFld, salePriceFld;
 	MainFrame parent;
 
 	public AddGoodsPanel(MainFrame frame, String goodsClass) {
 		parent = frame;
 		classText = goodsClass;
+		GridBagLayout gbl = new GridBagLayout();
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(5, 40, 5, 40);
 		this.setBackground(Color.white);
-		this.setLayout(null);
-		//
-		// -----------------------IDLabel------------------------------------
-		IDLbl = new JLabel();
-		IDLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
-		// 这里要有一个方法来创建String，使得编号自动生成
-		// StockGoodsBLService controller=new GoodsController();
-		// String currentID=controller.getMaxID();
-		// //类编号-size-ID——bl层自己实现了
-		IDtext = "编号：系统自动分配噢~";
-		IDLbl.setText(IDtext);
-		IDLbl.setBounds(dlgWidth * 3 / 100, dlgHeight * 3 / 100,
-				dlgWidth * 60 / 100, dlgHeight * 6 / 100);
-		this.add(IDLbl);
-		// -----------------------nameLabel------------------------------------
-		nameLbl = new JLabel("商品名:");
-		nameLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
-		nameLbl.setBounds(dlgWidth * 3 / 100, dlgHeight * 13 / 100,
-				dlgWidth * 30 / 100, dlgHeight * 6 / 100);
-		this.add(nameLbl);
-		// ---------------------nameFld---------------------------------------
-		nameFld = new JTextField();
-		nameFld.setBorder(BorderFactory.createLineBorder(Color.gray));
-		nameFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-		nameFld.setBounds(dlgWidth * 20 / 100, dlgHeight * 13 / 100,
-				dlgWidth * 60 / 100, dlgHeight * 6 / 100);
+		this.setLayout(gbl);
+		// -----------title------------------
+		JPanel titlePnl = new JPanel();
+		titlePnl.setBackground(Color.white);
+		titlePnl.setLayout(new GridLayout(1, 1));
+		JLabel title = new JLabel("添加商品");
+		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
+		titlePnl.add(title);
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridheight = 2;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.weightx = 1;
+		c.weighty = 0.2;
+		gbl.setConstraints(titlePnl, c);
+		this.add(titlePnl);
+		//------------------------------
+		JPanel blankPnl = new JPanel();
+		blankPnl.setBackground(Color.white);
+		c.gridx = 0;
+		c.gridy = 2;
+		c.gridheight = 2;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.weightx = 1;
+		c.weighty = 0.2;
+		gbl.setConstraints(blankPnl, c);
+		this.add(blankPnl);
+		// -----------------------------
+		c.fill = GridBagConstraints.BOTH;
+		JPanel mPnl = new JPanel();
+		mPnl.setBackground(Color.white);
+		c.gridx = 0;
+		c.gridy = 4;
+		c.gridheight = 6;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.weightx = 1;
+		c.weighty = 1;
+		gbl.setConstraints(mPnl, c);
+		this.add(mPnl);
+		mPnl.setLayout(new GridLayout(4, 1));
+		// -------name-----------------
+		JPanel namePnl = new JPanel();
+		namePnl.setBackground(Color.white);
+		mPnl.add(namePnl);
+		JLabel nameLbl = new JLabel("商品名：");
+		nameLbl.setFont(font);
+		namePnl.add(nameLbl);
+		nameFld = new JTextField(10);
+		nameFld.setFont(font);
 		nameFld.getDocument().addDocumentListener(new NameFieldListener());
-		this.add(nameFld);
-		// -----------------------sizeLbl------------------------------------
-		sizeLbl = new JLabel("型号:");
-		sizeLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
-		sizeLbl.setBounds(dlgWidth * 3 / 100, dlgHeight * 23 / 100,
-				dlgWidth * 30 / 100, dlgHeight * 6 / 100);
-		this.add(sizeLbl);
-		// ---------------------sizeFld---------------------------------------
-		sizeFld = new JTextField();
-		sizeFld.setBorder(BorderFactory.createLineBorder(Color.gray));
-		sizeFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-		sizeFld.setBounds(dlgWidth * 20 / 100, dlgHeight * 23 / 100,
-				dlgWidth * 60 / 100, dlgHeight * 6 / 100);
+		namePnl.add(nameFld);
+		// -------size-----------------
+		JPanel sizePnl = new JPanel();
+		sizePnl.setBackground(Color.white);
+		mPnl.add(sizePnl);
+		JLabel sizeLbl = new JLabel("型号：");
+		sizeLbl.setFont(font);
+		sizePnl.add(sizeLbl);
+		sizeFld = new JTextField(6);
+		sizeFld.setFont(font);
 		sizeFld.getDocument().addDocumentListener(new SizeFieldListener());
-		this.add(sizeFld);
-		// -----------------------defaultPurchasePriceLbl------------------------------------
-		defaultPurchasePriceLbl = new JLabel("默认进价:");
-		defaultPurchasePriceLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
-		defaultPurchasePriceLbl.setBounds(dlgWidth * 3 / 100,
-				dlgHeight * 33 / 100, dlgWidth * 30 / 100, dlgHeight * 6 / 100);
-		this.add(defaultPurchasePriceLbl);
-		// ---------------------defaultPurchasePriceFld---------------------------------------
-		defaultPurchasePriceFld = new JTextField();
-		defaultPurchasePriceFld.setBorder(BorderFactory
-				.createLineBorder(Color.gray));
-		defaultPurchasePriceFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-		defaultPurchasePriceFld.setBounds(dlgWidth * 20 / 100,
-				dlgHeight * 33 / 100, dlgWidth * 60 / 100, dlgHeight * 6 / 100);
-		defaultPurchasePriceFld.getDocument().addDocumentListener(
+		sizePnl.add(sizeFld);
+		// -------purchasePrice-----------------
+		JPanel purchasePricePnl = new JPanel();
+		purchasePricePnl.setBackground(Color.white);
+		mPnl.add(purchasePricePnl);
+		JLabel purchasePriceLbl = new JLabel("默认进价：");
+		purchasePriceLbl.setFont(font);
+		purchasePricePnl.add(purchasePriceLbl);
+		purchasePriceFld = new JTextField(6);
+		purchasePriceFld.setFont(font);
+		purchasePriceFld.getDocument().addDocumentListener(
 				new PPriceFieldListener());
-		this.add(defaultPurchasePriceFld);
-		// -----------------------defaultSalePriceLbl------------------------------------
-		defaultSalePriceLbl = new JLabel("默认售价:");
-		defaultSalePriceLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
-		defaultSalePriceLbl.setBounds(dlgWidth * 3 / 100, dlgHeight * 43 / 100,
-				dlgWidth * 30 / 100, dlgHeight * 6 / 100);
-		this.add(defaultSalePriceLbl);
-		// ---------------------defaultSalePriceFld---------------------------------------
-		defaultSalePriceFld = new JTextField();
-		defaultSalePriceFld.setBorder(BorderFactory
-				.createLineBorder(Color.gray));
-		defaultSalePriceFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-		defaultSalePriceFld.setBounds(dlgWidth * 20 / 100,
-				dlgHeight * 43 / 100, dlgWidth * 60 / 100, dlgHeight * 6 / 100);
-		defaultSalePriceFld.getDocument().addDocumentListener(
+		purchasePricePnl.add(purchasePriceFld);
+		// -------salePrice-----------------
+		JPanel salePricePnl = new JPanel();
+		salePricePnl.setBackground(Color.white);
+		mPnl.add(salePricePnl);
+		JLabel salePriceLbl = new JLabel("默认售价：");
+		salePriceLbl.setFont(font);
+		salePricePnl.add(salePriceLbl);
+		salePriceFld = new JTextField(6);
+		salePriceFld.setFont(font);
+		salePriceFld.getDocument().addDocumentListener(
 				new SPriceFieldListener());
-		this.add(defaultSalePriceFld);
-		// -------------------submitBtn---------------------------------------------
-		submitBtn = new JButton("确  定");
+		salePricePnl.add(salePriceFld);
+		// -------buttons-----------------
+		JPanel btnPnl = new JPanel();
+		btnPnl.setBackground(Color.white);
+		c.gridx = 0;
+		c.gridy = 10;
+		c.gridheight = 2;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.weightx = 1;
+		c.weighty = 0.1;
+		gbl.setConstraints(btnPnl, c);
+		this.add(btnPnl);
+		// -------------------------------
+		submitBtn = new JButton("确定");
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-		submitBtn.setBounds(dlgWidth * 40 / 100, dlgHeight * 80 / 100,
-				dlgWidth * 20 / 100, dlgHeight * 6 / 100);
 		submitBtn.setFocusPainted(false);
+		submitBtn.setBackground(new Color(166, 210, 121));
 		submitBtn.addActionListener(this);
-		this.add(submitBtn);
-		this.setVisible(true);
-		//
-
+		btnPnl.add(submitBtn);
+		btnPnl.add(new JLabel("          "));
+		exitBtn = new JButton("取消");
+		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+		exitBtn.setFocusPainted(false);
+		exitBtn.setBackground(new Color(251, 147, 121));
+		exitBtn.addActionListener(this);
+		btnPnl.add(exitBtn);
+		//------------------
+		JPanel blankPnl2 = new JPanel();
+		blankPnl2.setBackground(Color.white);
+		c.gridx = 0;
+		c.gridy = 12;
+		c.gridheight = 2;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.weightx = 1;
+		c.weighty = 0.2;
+		gbl.setConstraints(blankPnl2, c);
+		this.add(blankPnl2);
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自动生成的方法存根
 		if (e.getSource() == submitBtn) {
 			StockGoodsBLService controller = new GoodsController();			
-			GoodsVO vo = new GoodsVO(IDtext, nameText, sizeText, 0,
+			GoodsVO vo = new GoodsVO("", nameText, sizeText, 0,
 					Double.parseDouble(pPriceText),
 					Double.parseDouble(sPriceText), 0, 0, classText);
 			int result=controller.addGoods(vo);
@@ -142,15 +179,15 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 				return;
 			}
 			else{
+				//貌似已解决？？12.3
 				//怎么返回上一级panel啊~~~~
 				//还要记得返回上级panel后new一个goodsModel刷新商品界面
 				parent.setRightComponent(new GoodsPanel(parent));
 			}
 		}
-//加一个取消按钮并增加监听
-		// else if(e.getSource()==){
-		//
-		// }
+		 else if(e.getSource()==exitBtn){
+			 parent.setRightComponent(new GoodsPanel(parent));
+		 }
 	}
 
 	class NameFieldListener implements DocumentListener {
@@ -183,29 +220,30 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 
 	class PPriceFieldListener implements DocumentListener {
 		public void changedUpdate(DocumentEvent d) {
-			pPriceText = defaultPurchasePriceFld.getText();
+			pPriceText = purchasePriceFld.getText();
 		}
 
 		public void insertUpdate(DocumentEvent d) {
-			pPriceText = defaultPurchasePriceFld.getText();
+			pPriceText = purchasePriceFld.getText();
 		}
 
 		public void removeUpdate(DocumentEvent d) {
-			pPriceText = defaultPurchasePriceFld.getText();
+			pPriceText = purchasePriceFld.getText();
 		}
 	}
 
 	class SPriceFieldListener implements DocumentListener {
 		public void changedUpdate(DocumentEvent d) {
-			sPriceText = defaultSalePriceFld.getText();
+			sPriceText = salePriceFld.getText();
 		}
 
 		public void insertUpdate(DocumentEvent d) {
-			sPriceText = defaultSalePriceFld.getText();
+			sPriceText = salePriceFld.getText();
 		}
 
 		public void removeUpdate(DocumentEvent d) {
-			sPriceText = defaultSalePriceFld.getText();
+			sPriceText = salePriceFld.getText();
 		}
 	}
+
 }
