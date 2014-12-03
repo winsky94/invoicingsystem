@@ -3,10 +3,13 @@ package businesslogic.promotionbl;
 import java.util.ArrayList;
 import java.util.Date;
 
+import po.DiscountProPO;
+import po.GoodsPO;
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
 import po.PromotionPO.PromotionType;
 import vo.DiscountProVO;
+import vo.GoodsVO;
 import vo.PackProVO;
 import vo.PromotionVO;
 import businesslogic.stockbl.goods.Goods;
@@ -57,5 +60,19 @@ public class discountPro extends promotion{
 		return 0;
 	}
 	
+	//String id,String startDate,String endDate,MemberLevel l,
+	//ArrayList<Double> count,
+	//ArrayList<GoodsPO>  goods,double total,double discount
+	private DiscountProPO voToPo(DiscountProVO vo){
+		
+		DiscountProPO po=new DiscountProPO(vo.getId(),vo.getStartDate(),vo.getEndDate(),
+				vo.getMemberlevel(),vo.getCountList(),vo.getGoodsList(),vo.getTotalValue(),
+				vo.getDiscountValue());
+		return po;
+	}
+	
+	//String id,String startDate,String endDate,MemberLevel l,
+//	ArrayList<Double> count,
+	//ArrayList<GoodsVO>  goods,double total,double discount
 	
 }
