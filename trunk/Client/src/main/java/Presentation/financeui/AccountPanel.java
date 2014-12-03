@@ -7,6 +7,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
@@ -20,6 +23,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
+import businesslogic.financebl.Account;
+import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
 import vo.AccountVO;
 import Presentation.financeui.account.AddAccountPanel;
 import Presentation.financeui.account.DelAccountDialog;
@@ -44,19 +49,19 @@ public class AccountPanel extends JPanel implements ActionListener{
     	this.setBackground(Color.white);
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
-		GridBagConstraints c = new GridBagConstraints();
-		c.insets = new Insets(3,50, 3,50);
-		c.fill = GridBagConstraints.BOTH;
+		GridBagConstraints wn = new GridBagConstraints();
+		wn.insets = new Insets(3,50, 3,50);
+		wn.fill = GridBagConstraints.BOTH;
 		// -----------------------------
 		JPanel btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
-		c.gridx = 0;
-		c.gridy = 0;
-		c.gridheight = 2;
-		c.gridwidth = GridBagConstraints.REMAINDER;
-		c.weightx = 1;
-		c.weighty = 0.1;
-		gbl.setConstraints(btnPnl, c);
+		wn.gridx = 0;
+		wn.gridy = 0;
+		wn.gridheight = 2;
+		wn.gridwidth = GridBagConstraints.REMAINDER;
+		wn.weightx = 1;
+		wn.weighty = 0.1;
+		gbl.setConstraints(btnPnl, wn);
 		this.add(btnPnl);
 		//------增-----------------------
 		addBtn = new MyButton("添加账户", new ImageIcon(
@@ -92,13 +97,13 @@ public class AccountPanel extends JPanel implements ActionListener{
 		atm = new AccountTableModel();
 		table = new JTable(atm);
 		jsp = new JScrollPane(table);
-		c.gridx = 0;
-		c.gridy = 2;
-		c.gridheight = 6;
-		c.gridwidth = GridBagConstraints.REMAINDER;
-		c.weightx = 1;
-		c.weighty = 1;
-		gbl.setConstraints(jsp, c);
+		wn.gridx = 0;
+		wn.gridy = 2;
+		wn.gridheight = 6;
+		wn.gridwidth = GridBagConstraints.REMAINDER;
+		wn.weightx = 1;
+		wn.weighty = 1;
+		gbl.setConstraints(jsp, wn);
 		this.add(jsp);
     	
     }
@@ -145,7 +150,47 @@ public class AccountPanel extends JPanel implements ActionListener{
 			}
 		}
 		else if(e.getSource()==refreshBtn){
+			try {
+				FinanceAccountBLService service=new Account();
+				AccountPanel mgr = new AccountPanel(parent);
+				parent.setRightComponent(mgr);
+				if (service.showAll()!= null)
+					mgr.RefreshAccountTable(service.showAll());
+			} catch (MalformedURLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (NotBoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
+		}
+		else if(e.getSource()==searchBtn){		
+			try {
+				FinanceAccountBLService service=new Account();
+				AccountPanel mgr = new AccountPanel(parent);
+				parent.setRightComponent(mgr);
+				String s=searchFld.getText();
+				if(s=="")
+					JOptionPane.showMessageDialog(null, "请输入查找名称", "提示",JOptionPane.WARNING_MESSAGE);
+				AccountVO vo=service.findByName(s);
+				ArrayList<AccountVO> al=new ArrayList<AccountVO>();
+				if(vo!=null)
+					al.add(vo);
+					mgr.RefreshAccountTable(al);
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (MalformedURLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (NotBoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 	class AccountTableModel extends AbstractTableModel {

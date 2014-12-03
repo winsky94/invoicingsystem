@@ -51,6 +51,8 @@ public class Account implements FinanceAccountBLService{
 	
 	public AccountVO findByName(String s) throws RemoteException {
 		AccountPO po=service.findByName(s);
+		if(po==null)
+			return null;
 		AccountVO vo=poToVo(po); 
 		return vo;
 	}
