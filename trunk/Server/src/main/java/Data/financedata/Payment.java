@@ -43,6 +43,49 @@ public class Payment extends UnicastRemoteObject implements PaymentDataService{
 		
 	}
 	
+	public PaymentPO findByID(String id){
+		try {
+			ArrayList<PaymentPO> po=getPayment();
+			if(po==null)
+				return null;
+			for(PaymentPO p:po){
+				if(p.getId().equals(id))
+					return p;
+			}
+			
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+	
+	public ArrayList<PaymentPO> findByMember(String s){
+		ArrayList<PaymentPO> al=new ArrayList<PaymentPO>();
+		try {
+			ArrayList<PaymentPO> po=getPayment();
+			if(po==null)
+				return null;
+			for(PaymentPO p:po){
+				if(p.getSupplier().equals(s)||p.getSeller().equals(s))
+					al.add(p);
+			}
+			
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(al.size()==0)
+			return null;
+		
+		return al;
+		
+	}
+	
+	
 	public int getNum() throws RemoteException{
 		return num;
 	}
@@ -54,14 +97,14 @@ public class Payment extends UnicastRemoteObject implements PaymentDataService{
 			ArrayList<TransferItemPO> al=new ArrayList<TransferItemPO>();
 			TransferItemPO item =new TransferItemPO("WYT",100,"He");
 			al.add(item);
-			a.createPayment(new PaymentPO("FKD-20141129-000001","王雅婷","王雅婷","Lucy",al,100));	
+			a.createPayment(new PaymentPO("FKD-20141129-000001","王雅婷","王雅婷","Lucy",al,100,1,1));	
 			System.out.println("Success!");
 
     		ArrayList<PaymentPO> al2=a.getPayment();
 			System.out.println(al2.size());
 			for(PaymentPO b:al2){
 				ArrayList<TransferItemPO> c=b.getTransferlist();
-				System.out.println(b.getID()+b.getSupplier()+b.getSeller()+b.getUser()+c.get(0).getMoney()+b.getTotalMoney());				
+				System.out.println(b.getId()+b.getSupplier()+b.getSeller()+b.getUserID()+c.get(0).getMoney()+b.getTotalMoney());				
 			}
 	
 		} catch (RemoteException e) {

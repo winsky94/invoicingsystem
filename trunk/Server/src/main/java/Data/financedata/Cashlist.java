@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import Data.serutility.JXCFile;
 import po.CashlistPO;
 import po.ClauseItemPO;
+import po.PaymentPO;
 import dataservice.financedataservice.listdataservice.CashlistDataService;
 
 public class Cashlist extends UnicastRemoteObject implements CashlistDataService{
@@ -41,6 +42,25 @@ public class Cashlist extends UnicastRemoteObject implements CashlistDataService
 		
 	}
 	
+	public CashlistPO findByID(String id){
+		try {
+			ArrayList<CashlistPO> po=getCashlist();
+			if(po==null)
+				return null;
+			for(CashlistPO p:po){
+				if(p.getId().equals(id))
+					return p;
+			}
+			
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+	
 	public int getNum() throws RemoteException{
 		return num;
 	}
@@ -52,14 +72,14 @@ public class Cashlist extends UnicastRemoteObject implements CashlistDataService
 			ArrayList<ClauseItemPO> al=new ArrayList<ClauseItemPO>();
 			ClauseItemPO item =new ClauseItemPO("王雅婷拿去吃饭的",100,"He");
 			al.add(item);
-			a.createCashlist(new CashlistPO("XJFYD-20141129-000001","Lucy","王雅婷",al,100));	
+			a.createCashlist(new CashlistPO("XJFYD-20141129-000001","Lucy","王雅婷",al,100,1,1));	
 			System.out.println("Success!");
 
     		ArrayList<CashlistPO> al2=a.getCashlist();
 			System.out.println(al2.size());
 			for(CashlistPO b:al2){
 				ArrayList<ClauseItemPO> c=b.getClauselist();
-				System.out.println(b.getID()+b.getUser()+b.getAccount()+c.get(0).getMoney()+b.getTotalMoney());				
+				System.out.println(b.getId()+b.getUserID()+b.getAccount()+c.get(0).getMoney()+b.getTotalMoney());				
 			}
 	
 		} catch (RemoteException e) {

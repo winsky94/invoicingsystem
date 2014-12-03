@@ -52,6 +52,48 @@ public class Collection extends UnicastRemoteObject implements CollectionDataSer
 		
 	}
 	
+	public CollectionPO findByID(String id){
+		try {
+			ArrayList<CollectionPO> po=getCollection();
+			if(po==null)
+				return null;
+			for(CollectionPO p:po){
+				if(p.getId().equals(id))
+					return p;
+			}
+			
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+	
+	public ArrayList<CollectionPO> findByMember(String s){
+		ArrayList<CollectionPO> al=new ArrayList<CollectionPO>();
+		try {
+			ArrayList<CollectionPO> po=getCollection();
+			if(po==null)
+				return null;
+			for(CollectionPO p:po){
+				if(p.getSupplier().equals(s)||p.getSeller().equals(s))
+					al.add(p);
+			}
+			
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(al.size()==0)
+			return null;
+		
+		return al;
+		
+	}
+	
 	public int getNum() throws RemoteException{
 		return num;
 	}
@@ -63,7 +105,7 @@ public class Collection extends UnicastRemoteObject implements CollectionDataSer
 			ArrayList<TransferItemPO> al=new ArrayList<TransferItemPO>();
 			TransferItemPO item =new TransferItemPO("WYT",100,"He");
 			al.add(item);
-			a.createCollection(new CollectionPO("SKD-20141129-000001","王雅婷","王雅婷","Lucy",al,100));	
+			a.createCollection(new CollectionPO("SKD-20141129-000001","王雅婷","王雅婷","Lucy",al,100,1,1));	
 			System.out.println("Success!");
 
 		} catch (RemoteException e) {
