@@ -113,7 +113,12 @@ public class GiftManage {
 	// 获取某段时间内的商品赠送清单
 	public ArrayList<GiftPO> getGiftList(String beginDate, String endDate) {
 		ArrayList<GiftPO> list = new ArrayList<GiftPO>();
-		list = service.getGiftList(beginDate, endDate);
+		try {
+			list = service.getGiftList(beginDate, endDate);
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 		return list;
 	}
 
@@ -121,7 +126,12 @@ public class GiftManage {
 	public int getGiftNum(String beginDate, String endDate) {
 		int num = 0;
 		ArrayList<GiftPO> list = new ArrayList<GiftPO>();
-		list = service.getGiftList(beginDate, endDate);
+		try {
+			list = service.getGiftList(beginDate, endDate);
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 		for (GiftPO po : list) {
 			for (CommodityPO commodity : po.getGiftList()) {
 				num += commodity.getNum();
@@ -135,7 +145,12 @@ public class GiftManage {
 	public double getGiftMoney(String beginDate, String endDate) {
 		double money = 0;
 		ArrayList<GiftPO> list = new ArrayList<GiftPO>();
-		list = service.getGiftList(beginDate, endDate);
+		try {
+			list = service.getGiftList(beginDate, endDate);
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 		for (GiftPO po : list) {
 			for (CommodityPO commodity : po.getGiftList()) {
 				money += commodity.getCost();

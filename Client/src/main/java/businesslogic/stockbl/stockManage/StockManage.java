@@ -97,7 +97,13 @@ public class StockManage {
 		// 库存赠送出库
 		int gNum = 0;
 		double gMoney = 0;
-		ArrayList<GiftPO> gl = giftService.getGiftList(beginDate, endDate);
+		ArrayList<GiftPO> gl=new ArrayList<GiftPO>();
+		try {
+			gl = giftService.getGiftList(beginDate, endDate);
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 		for (int i = 0; i < gl.size(); i++) {
 			ArrayList<CommodityPO> list=gl.get(i).getGiftList();
 			for(int j=0;j<list.size();j++){
