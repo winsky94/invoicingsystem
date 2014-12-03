@@ -8,17 +8,17 @@ import po.MemberPO.MemberType;
 import po.PromotionPO.PromotionType;
 
 public class GiftGoodsProVO  extends PromotionVO{
-	private ArrayList<GoodsVO> giftList;
+	private ArrayList<CommodityVO> giftList;
 	private double totalValue;
 	public GiftGoodsProVO(String id,String startDate,String endDate,MemberLevel l,
-			ArrayList<GoodsVO> list,double value)
+			ArrayList<CommodityVO> list,double value)
 	{
 		super(id,startDate,endDate,PromotionType.GIFTGOODS,l);
 		this.giftList=list;
 		this.totalValue=value;
 		
 	}
-	public ArrayList<GoodsVO> getGiftList() {
+	public ArrayList<CommodityVO> getGiftList() {
 		return giftList;
 	}
 	public double getTotalValue() {
