@@ -13,6 +13,7 @@ public class ChooseGoodsFatherPane extends JPanel{
 	 * 
 	 */
 	int tag=0;
+	public MainFrame parent;
 	private static final long serialVersionUID = 1L;
 	public ArrayList<ArrayList<String>> c=new ArrayList<ArrayList<String>>();;
 	public double discount;
@@ -37,7 +38,7 @@ public class ChooseGoodsFatherPane extends JPanel{
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-			String head[] = { "商品编号","名称", "型号","数量","单价金额","备注" };
+			String head[] = { "商品编号","名称", "型号","数量","单价","金额","备注" };
 			public int getRowCount() {
 				return c.size();
 			}

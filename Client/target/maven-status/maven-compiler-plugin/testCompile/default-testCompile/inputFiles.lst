@@ -15,15 +15,14 @@ E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Finance\FinanceListBL
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\User\UserDataService_DriverTest.java
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Stock\AddGiftReceiptTest.java
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Stock\StockGoodsClassDataService_DriverTest.java
-E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Stock\StockErrorBLService_DriverTest.java
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Finance\FinanceAccountDataService_DriverTest.java
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Finance\FinanceInitBLService_DriverTest.java
-E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Stock\StockErrorDataService_DriverTest.java
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Receipt\RedExtruTest.java
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Promotion\PromotionDataService_DriverTest.java
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Member\MemberDataService_DriverTest.java
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Sales\createSaleTest.java
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Receipt\ApproveReceiptTest.java
+E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Stock\StockControlDataService_DriverTest.java
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Stock\StockGoodsBLService_DriverTest.java
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Stock\StockGoodsDataService_DriverTest.java
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Member\MemberBLService_DriverTest.java
@@ -33,5 +32,6 @@ E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Finance\FinanceBSLDat
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Stock\AddStockOverTest.java
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Receipt\ReceiptBLService_DriverTest.java
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Promotion\PromotionBLService_DriverTest.java
+E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Stock\StockControlBLService_DriverTest.java
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\Finance\FinanceBSLBLService_DriverTest.java
 E:\Java Project\eclipse\workspace\JXC\Client\src\test\java\User\UserBLService_DriverTest.java
