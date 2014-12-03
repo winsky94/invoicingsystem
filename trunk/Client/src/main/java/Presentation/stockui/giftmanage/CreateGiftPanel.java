@@ -2,6 +2,10 @@ package Presentation.stockui.giftmanage;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,149 +15,167 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
+import Presentation.promotionui.addpromotion.AddBarginPanel;
 import Presentation.stockui.ChooseGoodsDialog;
-import Presentation.uihelper.UIhelper;
 
-public class CreateGiftPanel extends JPanel{
-	/**
-	 * 问题：无法使goodsText动态改变
-	 */
+public class CreateGiftPanel extends ChooseGoodsFatherPane implements ActionListener{
+
 	private static final long serialVersionUID = 1L;
-	String IDtext, goodsText;
-	int num;
-	JLabel IDLbl, goodsLbl, numLbl;
-	JTextField numFld;
+	Font font = new Font("微软雅黑", Font.PLAIN, 15);
+	JScrollPane jsp;
+	JTable table;
+	// GiftTableModel gtm;
 	JComboBox<String> memberBox;
-	JButton submitBtn, goodsBtn,cancelBtn;
-	int screenWidth = UIhelper.getScreenWidth();
-	int screenHeight = UIhelper.getScreenHeight();
-	int dlgWidth = screenWidth * 28 / 100;
-	int dlgHeight = screenHeight * 60 / 100;
-	ChooseGoodsFatherPane pnl;
-//	MainFrame parent;
-//
-//	public CreateGiftPanel(MainFrame frame) {
-	
-	JFrame parent;
-	public CreateGiftPanel(JFrame frame){
-		parent=frame;
-	
-		pnl = new ChooseGoodsFatherPane();
-		this.add(pnl);
-		pnl.setBackground(Color.white);
-		pnl.setLayout(null);
-		pnl.setVisible(true);
-		// --------------------------------------------------
-		// -----------------------IDLabel------------------------------------
-		IDLbl = new JLabel();
-		IDLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
-		// 这里要有一个方法来创建String，使得编号自动生成
-		IDtext = "编号：XXXX-XXX-XXXX";
-		IDLbl.setText(IDtext);
-		IDLbl.setBounds(dlgWidth * 3 / 100, dlgHeight * 3 / 100,
-				dlgWidth * 60 / 100, dlgHeight * 6 / 100);
-		pnl.add(IDLbl);
-		// ----------------member------------------------------------
+	JButton submitBtn, addBtn, delBtn, exitBtn;
+	MainFrame father;
+
+	public CreateGiftPanel(MainFrame myFather) {
+		father = myFather;
+		GridBagLayout gbl = new GridBagLayout();
+		GridBagConstraints cons = new GridBagConstraints();
+		cons.insets = new Insets(5, 40, 5, 40);
+		this.setBackground(Color.white);
+		this.setLayout(gbl);
+		// -----------title------------------
+		JPanel titlePnl = new JPanel();
+		titlePnl.setBackground(Color.white);
+		titlePnl.setLayout(new GridLayout(1, 1));
+		JLabel title = new JLabel("创建库存赠送单");
+		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
+		titlePnl.add(title);
+		cons.gridx = 0;
+		cons.gridy = 0;
+		cons.gridheight = 2;
+		cons.gridwidth = GridBagConstraints.REMAINDER;
+		cons.weightx = 1;
+		cons.weighty = 0.1;
+		gbl.setConstraints(titlePnl, cons);
+		this.add(titlePnl);
+		// ------------------------------------
+		cons.fill=GridBagConstraints.BOTH;
+		JPanel memberPnl = new JPanel();
+		memberPnl.setBackground(Color.white);
 		JLabel memberLbl = new JLabel("客户：");
-		memberLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
-		memberLbl.setBounds(dlgWidth * 3 / 100, dlgHeight * 13 / 100,
-				dlgWidth * 30 / 100, dlgHeight * 6 / 100);
-		pnl.add(memberLbl);
-		//
-		memberBox = new JComboBox<String>();
-		memberBox.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+		memberLbl.setFont(font);
+		memberPnl.add(memberLbl);
+		String boxText[]={"我要加监听"};
+		memberBox=new JComboBox<String>(boxText);
 		memberBox.setBackground(Color.white);
-		memberBox.setBounds(dlgWidth * 18 / 100, dlgHeight * 13 / 100,
-				dlgWidth * 49 / 100, dlgHeight * 5 / 100);
-		pnl.add(memberBox);
-		// ---------------goods----------------------------------------
-		JLabel gLbl = new JLabel("赠送商品：");
-		gLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
-		gLbl.setBounds(dlgWidth * 3 / 100, dlgHeight * 23 / 100,
-				dlgWidth * 20 / 100, dlgHeight * 6 / 100);
-		pnl.add(gLbl);
-		goodsLbl = new JLabel();
-//		goodsText = pnl.content.get(0).get(0) + " " + pnl.content.get(0).get(1)
-//				+ " " + pnl.content.get(0).get(2);
-		goodsLbl.setText(goodsText);
-		goodsLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
-		goodsLbl.setBounds(dlgWidth * 15 / 100, dlgHeight * 23 / 100,
-				dlgWidth * 85 / 100, dlgHeight * 6 / 100);
-		pnl.add(goodsLbl);
-		// ----------------num--------------------------------
-		JLabel numLbl = new JLabel("数量：");
-		numLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
-		numLbl.setBounds(dlgWidth * 3 / 100, dlgHeight * 33 / 100,
-				dlgWidth * 20 / 100, dlgHeight * 6 / 100);
-		pnl.add(numLbl);
-		numFld = new JTextField();
-		numFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-		numFld.setBounds(dlgWidth * 15 / 100, dlgHeight * 33 / 100,
-				dlgWidth * 20 / 100, dlgHeight * 5 / 100);
-		numFld.getDocument().addDocumentListener(new NumFldListener());
-		// 这个listener已经写好了，直接获取number就行
-		pnl.add(numFld);
-		// -------------------buttons-----------------------
-		goodsBtn = new JButton("选择商品");
-		goodsBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-		goodsBtn.setBounds(dlgWidth * 20 / 100, dlgHeight * 80 / 100,
-				dlgWidth * 25 / 100, dlgHeight * 8 / 100);
-		goodsBtn.setFocusPainted(false);
-		goodsBtn.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				JDialog adlg = new ChooseGoodsDialog(pnl);
-			}
-		});
-		pnl.add(goodsBtn);
-		submitBtn = new JButton("确  定");
+		memberBox.setFont(font);
+		memberPnl.add(memberBox);
+		cons.gridx = 0;
+		cons.gridy = 2;
+		cons.gridheight = 1;
+		cons.gridwidth = GridBagConstraints.REMAINDER;
+		cons.weightx = 1;
+		cons.weighty = 0.1;
+		gbl.setConstraints(memberPnl, cons);
+		this.add(memberPnl);
+		//---------table--------------------------
+		table=new JTable();
+		jsp=new JScrollPane(table);
+		cons.gridx = 0;
+		cons.gridy = 4;
+		cons.gridheight = 5;
+		cons.gridwidth = GridBagConstraints.REMAINDER;
+		cons.weightx = 1;
+		cons.weighty = 1;
+		gbl.setConstraints(jsp, cons);
+		this.add(jsp);
+		// -------buttons-----------------
+		JPanel btnPnl = new JPanel();
+		btnPnl.setBackground(Color.white);
+		cons.gridx = 0;
+		cons.gridy = 9;
+		cons.gridheight = 2;
+		cons.gridwidth = GridBagConstraints.REMAINDER;
+		cons.weightx = 1;
+		cons.weighty = 0.1;
+		gbl.setConstraints(btnPnl, cons);
+		this.add(btnPnl);
+		//
+		addBtn = new JButton("添加商品");
+		addBtn.setFont(font);
+		addBtn.setBackground(Color.white);
+		addBtn.setFocusPainted(false);
+		addBtn.addActionListener(this);
+		btnPnl.add(addBtn);
+		delBtn = new JButton("删除商品");
+		delBtn.setFont(font);
+		delBtn.setBackground(Color.white);
+		delBtn.setFocusPainted(false);
+		delBtn.addActionListener(this);
+		btnPnl.add(delBtn);
+		submitBtn = new JButton("确定");
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-		submitBtn.setBounds(dlgWidth * 55 / 100, dlgHeight * 80 / 100,
-				dlgWidth * 25 / 100, dlgHeight * 8 / 100);
 		submitBtn.setFocusPainted(false);
-		pnl.add(submitBtn);
+		submitBtn.setBackground(new Color(166, 210, 121));
+		submitBtn.addActionListener(this);
+		btnPnl.add(submitBtn);
+		exitBtn = new JButton("取消");
+		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+		exitBtn.setFocusPainted(false);
+		exitBtn.setBackground(new Color(251, 147, 121));
+		exitBtn.addActionListener(this);
+		btnPnl.add(exitBtn);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==exitBtn){
+			father.setRightComponent(new GiftPanel(father));
+		}
 		
-		cancelBtn = new JButton("取 消");
-		cancelBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-		cancelBtn.setBounds(dlgWidth * 55 / 100, dlgHeight * 80 / 100,
-				dlgWidth * 25 / 100, dlgHeight * 8 / 100);
-		cancelBtn.setFocusPainted(false);
-		pnl.add(cancelBtn);
-		// --------------------------------------------------
 	}
 
-	class NumFldListener implements DocumentListener {
-
-		public void insertUpdate(DocumentEvent e) {
-			num = new Integer(numFld.getText());
-		}
-
-		public void removeUpdate(DocumentEvent e) {
-			num = new Integer(numFld.getText());
-		}
-
-		public void changedUpdate(DocumentEvent e) {
-			num = new Integer(numFld.getText());
-		}
-
-	}
+	// class GiftTableModel extends AbstractTableModel {
+	//
+	// /**
+	// *
+	// */
+	// private static final long serialVersionUID = 1L;
+	// String head[] = { "商品编号", "商品名", "型号", "库存数量", "赠送数量" };
+	//
+	// public int getRowCount() {
+	// return c.size();
+	// }
+	//
+	// public int getColumnCount() {
+	// return head.length;
+	// }
+	//
+	// public String getValueAt(int row, int col) {
+	// return c.get(row).get(col);
+	// }
+	//
+	// public String getColumnName(int col) {
+	// return head[col];
+	// }
+	//
+	// public void addRow(ArrayList<String> v) {
+	//
+	// c.add(v);
+	// }
+	//
+	// public void removeRow(int row) {
+	// c.remove(row);
+	// }
+	//
+	// public boolean isCellEditable(int row, int col) {
+	// if (col == 4)
+	// return true;
+	// else
+	// return false;
+	// }
+	//
+	// public void setValueAt(String value, int row, int col) {
+	// c = value;
+	// fireTableCellUpdated(row, col);
+	// }
+	// }
 	
-	
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 920, 600);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		CreateGiftPanel gp = new CreateGiftPanel(testFrame);
-		gp.setBounds(0, 0, 920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
-	}
-
 }
