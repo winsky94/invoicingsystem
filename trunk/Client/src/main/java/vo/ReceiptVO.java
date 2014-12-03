@@ -12,14 +12,12 @@ public class ReceiptVO {
 	int hurry;
 	String info;
 
+	public ReceiptVO() {
 
-	public ReceiptVO(){
-		
 	}
-	
+
 	public ReceiptVO(String id, String memberName, String memberID,
-			String user, ReceiptType type,  int status,
-			int hurry, String info) {
+			String user, ReceiptType type, int status, int hurry, String info) {
 
 		this.id = id;
 		this.memberName = memberName;
@@ -29,7 +27,7 @@ public class ReceiptVO {
 		this.status = status;
 		this.hurry = hurry;
 		this.info = info;
-		
+
 	}
 
 	public String getId() {
@@ -52,8 +50,6 @@ public class ReceiptVO {
 		return type;
 	}
 
-
-
 	public int getStatus() {
 		return status;
 	}
@@ -65,16 +61,14 @@ public class ReceiptVO {
 	public String getInfo() {
 		return info;
 	}
-	
-	public String getDate(){
-		String[] buffer=id.split("-");
-		String s=buffer[1];
-		String year=s.substring(0,4);
-		String month=s.substring(4,6);
-		String day=s.substring(6,8);
-		return year+"/"+month+"/"+day;
-	}
 
-	
+	public String getDate() {
+		String[] buffer = id.split("-");
+		String s = buffer[1];
+		String year = s.substring(0, 4);
+		String month = s.substring(4, 6);
+		String day = s.substring(6, 8);
+		return year + "/" + month + "/" + day;
+	}
 
 }
