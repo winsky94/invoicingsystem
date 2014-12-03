@@ -16,9 +16,9 @@ public class PackPO implements Serializable{
 	private double totalValue;
 	private double packValue;
 	private ArrayList<Integer> num;
-	private ArrayList<GoodsPO> combine;
+	private ArrayList<CommodityPO> combine;
 	public PackPO(String id, double totalValue, double packValue,
-			ArrayList<Integer> num, ArrayList<GoodsPO> combine) {
+			ArrayList<Integer> num, ArrayList<CommodityPO> combine) {
 	
 		this.id = id;
 		this.totalValue = totalValue;
@@ -38,7 +38,7 @@ public class PackPO implements Serializable{
 	public ArrayList<Integer> getNum() {
 		return num;
 	}
-	public ArrayList<GoodsPO> getCombine() {
+	public ArrayList<CommodityPO> getCombine() {
 		return combine;
 	}
 	public void setTotalValue(double totalValue) {
@@ -47,7 +47,7 @@ public class PackPO implements Serializable{
 	public void setPackValue(double packValue) {
 		this.packValue = packValue;
 	}
-	public void setPack(ArrayList<Integer> num,ArrayList<GoodsPO> combine) {
+	public void setPack(ArrayList<Integer> num,ArrayList<CommodityPO> combine) {
 		this.num = num;
 		this.combine = combine;
 	}
