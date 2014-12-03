@@ -27,9 +27,9 @@ public class ModAccountPanel extends AddAccountPanel{
 					AccountVO VO=new AccountVO(vo.getName(),vo.getMoney());
 					int result=service.modifyAccount(VO,nameFld.getText());
 				if(result==0){
-					JOptionPane.showMessageDialog(null,"修改客户成功！","提示",JOptionPane.CLOSED_OPTION);
+					JOptionPane.showMessageDialog(null,"修改账户成功！","提示",JOptionPane.CLOSED_OPTION);
 				}else{
-					JOptionPane.showMessageDialog(null,"修改客户失败！","提示",JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null,"修改账户失败！","提示",JOptionPane.WARNING_MESSAGE);
 				}
 				Update();
 					

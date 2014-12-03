@@ -8,10 +8,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import businesslogic.financebl.Account;
+import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
 import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
@@ -146,7 +151,24 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==accountBtn){
-			frame.setRightComponent(new AccountPanel(frame));		
+			AccountPanel mgr=new AccountPanel(frame);
+			FinanceAccountBLService service;
+			try {
+				service = new Account();
+				frame.setRightComponent(mgr);
+				if( service.showAll()!=null)
+					mgr.RefreshAccountTable(service.showAll());
+			} catch (MalformedURLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (NotBoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 		}
 		else if(e.getSource()==collectionBtn){
 			frame.setRightComponent(new CollectionPanel(frame));	
