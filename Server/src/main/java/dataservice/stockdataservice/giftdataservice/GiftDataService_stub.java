@@ -32,4 +32,9 @@ public class GiftDataService_stub implements GiftDataService {
 		return null;
 	}
 
+	public String getMaxID() throws RemoteException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 }

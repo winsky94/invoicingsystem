@@ -5,18 +5,23 @@ import java.rmi.registry.LocateRegistry;
 
 
 
+
+
 import javax.swing.JOptionPane;
 
 
 
-import Data.financedata.Account;
 
+
+import Data.financedata.Account;
 import Data.financedata.Collection;
 import Data.memberdata.Member;
 import Data.promotiondata.Promotion;
 import Data.salesdata.Sales;
+import Data.stockdata.gift.Gift;
 import Data.stockdata.goods.Goods;
 import Data.stockdata.goodsClass.GoodsClass;
+import Data.stockdata.stockManage.StockController;
 import Data.userdata.User;
 
 
@@ -44,6 +49,8 @@ public class runServer {
 			Sales sale=new Sales();
 			Promotion pro=new Promotion();
 			Account account=new Account();
+			StockController controller=new StockController();
+			Gift giftService=new Gift();
 			Naming.rebind("promotionService",pro);
 			Naming.rebind("salesService",sale);
 			Naming.rebind("memberService",member);
@@ -52,6 +59,8 @@ public class runServer {
 			Naming.rebind("goodsService", g);
 			Naming.rebind("collectionService", collection);
 			Naming.rebind("accountService",account);
+			Naming.rebind("stockManageService",controller);
+			Naming.rebind("giftService",giftService);//我加了由此向上的两个绑定——12.04_yan
 			
 			JOptionPane.showMessageDialog(null, "服务器已运行！","提示",JOptionPane.INFORMATION_MESSAGE);
 			

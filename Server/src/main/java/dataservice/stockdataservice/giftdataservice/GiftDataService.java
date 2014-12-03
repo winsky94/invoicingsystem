@@ -15,5 +15,9 @@ public interface GiftDataService extends Remote {
 	public ArrayList<GiftPO> getGiftList() throws RemoteException;
 
 	// 获取某段时间内的商品赠送清单
-	public ArrayList<GiftPO> getGiftList(String beginDate, String endDate) throws RemoteException;
+	public ArrayList<GiftPO> getGiftList(String beginDate, String endDate)
+			throws RemoteException;
+
+	// 获取现在记录中最大的赠送单编号
+	public String getMaxID() throws RemoteException;
 }
