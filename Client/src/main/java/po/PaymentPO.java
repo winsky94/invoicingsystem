@@ -10,30 +10,21 @@ public class PaymentPO extends ReceiptPO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String ID;
 	String supplier;
     String seller;
-    String user;
     ArrayList<TransferItemPO> transferlist=new ArrayList<TransferItemPO>();
     double totalMoney;
        
-    public PaymentPO(){
-   	 this(null,null,null,null,null,0);
-    }
+
     
-    public PaymentPO(String a,String b,String f,String c,ArrayList<TransferItemPO> d,double e){
-   	 super(ReceiptType.PAYMENT);
-   	 ID=a;
+    public PaymentPO(String id,String b,String f,String user,ArrayList<TransferItemPO> d,double e,int istatus,int ihurry){
+   	 super(id,ReceiptType.PAYMENT,user,istatus,ihurry);
    	 supplier=b;
    	 seller=f;
-   	 user=c;
    	 transferlist=d;
    	 totalMoney=e;
     }
-    
-    public String getID(){
-   	 return ID;
-    }
+  
     
    
     public String getSupplier(){
@@ -44,9 +35,7 @@ public class PaymentPO extends ReceiptPO implements Serializable{
     	return seller;
     }
     
-    public String getUser(){
-   	 return user;
-    }
+
     
     public ArrayList<TransferItemPO> getTransferlist(){
    	 return transferlist;

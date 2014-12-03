@@ -3,6 +3,10 @@ package po;
 import java.io.Serializable;
 
 public class TransferItemPO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String account;
 	double money;
 	String info;
