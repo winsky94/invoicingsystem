@@ -19,19 +19,19 @@ public class RedExtrusion extends UnicastRemoteObject implements RedExtrusionDat
 		if(type==ReceiptType.COLLECTION){
 			Collection c=new Collection();
 			CollectionPO p=(CollectionPO)po;
-			CollectionPO p2=new CollectionPO(p.getID(),p.getSupplier(),p.getSeller(),p.getUser(),p.getTransferlist(),p.getTotalMoney()*(-1));
+			CollectionPO p2=new CollectionPO(p.getId(),p.getSupplier(),p.getSeller(),p.getUserID(),p.getTransferlist(),p.getTotalMoney()*(-1),p.getStatus(),p.getHurry());
 			c.createCollection(p2);			
 		}
 		else if(type==ReceiptType.PAYMENT){
 			Payment p=new Payment();
 			PaymentPO pp=(PaymentPO)po;
-			PaymentPO pp2=new PaymentPO(pp.getID(),pp.getSupplier(),pp.getSeller(),pp.getUser(),pp.getTransferlist(),pp.getTotalMoney()*(-1));
+			PaymentPO pp2=new PaymentPO(pp.getId(),pp.getSupplier(),pp.getSeller(),pp.getUserID(),pp.getTransferlist(),pp.getTotalMoney()*(-1),pp.getStatus(),pp.getHurry());
             p.createPayment(pp2);
 		}
 		else if(type==ReceiptType.CASHLIST){
 			Cashlist c=new Cashlist();
 			CashlistPO p=(CashlistPO)po;
-			CashlistPO p2=new CashlistPO(p.getID(),p.getUser(),p.getAccount(),p.getClauselist(),p.getTotalMoney()*(-1));
+			CashlistPO p2=new CashlistPO(p.getId(),p.getUserID(),p.getAccount(),p.getClauselist(),p.getTotalMoney()*(-1),p.getStatus(),p.getHurry());
             c.createCashlist(p2);
 		}
 		return 0;
@@ -41,21 +41,21 @@ public class RedExtrusion extends UnicastRemoteObject implements RedExtrusionDat
 		if(type==ReceiptType.COLLECTION){
 			Collection c=new Collection();
 			CollectionPO p=(CollectionPO)po;
-			CollectionPO p2=new CollectionPO(p.getID(),p.getSupplier(),p.getSeller(),p.getUser(),p.getTransferlist(),p.getTotalMoney()*(-1));
+			CollectionPO p2=new CollectionPO(p.getId(),p.getSupplier(),p.getSeller(),p.getUserID(),p.getTransferlist(),p.getTotalMoney()*(-1),p.getStatus(),p.getHurry());
 			c.createCollection(p2);	
 			return p;
 		}
 		else if(type==ReceiptType.PAYMENT){
 			Payment p=new Payment();
 			PaymentPO pp=(PaymentPO)po;
-			PaymentPO pp2=new PaymentPO(pp.getID(),pp.getSupplier(),pp.getSeller(),pp.getUser(),pp.getTransferlist(),pp.getTotalMoney()*(-1));
+			PaymentPO pp2=new PaymentPO(pp.getId(),pp.getSupplier(),pp.getSeller(),pp.getUserID(),pp.getTransferlist(),pp.getTotalMoney()*(-1),pp.getStatus(),pp.getHurry());
             p.createPayment(pp2);
             return pp;
 		}
 		else if(type==ReceiptType.CASHLIST){
 			Cashlist c=new Cashlist();
 			CashlistPO p=(CashlistPO)po;
-			CashlistPO p2=new CashlistPO(p.getID(),p.getUser(),p.getAccount(),p.getClauselist(),p.getTotalMoney()*(-1));
+			CashlistPO p2=new CashlistPO(p.getId(),p.getUserID(),p.getAccount(),p.getClauselist(),p.getTotalMoney()*(-1),p.getStatus(),p.getHurry());
             c.createCashlist(p2);
             return p;
 		}
