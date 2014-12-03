@@ -5,8 +5,8 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -18,14 +18,20 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
+import vo.GoodsClassVO;
 import vo.GoodsVO;
-import vo.MemberVO;
-import businesslogic.stockbl.goods.GoodsController;
-import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import Presentation.mainui.ChooseGoodsFatherPane;
-import Presentation.salesui.manage.sale.SalePane;
+import Presentation.stockui.goodsmanage.GoodsClassNode;
 import Presentation.uihelper.UIhelper;
+import businesslogic.stockbl.goods.GoodsController;
+import businesslogic.stockbl.goodsClass.GoodsClassController;
+import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
+import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBLService;
 
 public class ChooseGoodsDialog extends JDialog {
 
@@ -50,7 +56,7 @@ public class ChooseGoodsDialog extends JDialog {
 	ChooseGoodsFatherPane father;
 	//
 	JButton submitBtn, exitBtn, addBtn, delBtn;
-	JTree classTree;
+	JTree tree;
 	JScrollPane jspLeft, jspRight;
 	JTable goodsTbl, chosenTbl;
 	Container pnl;
@@ -59,8 +65,16 @@ public class ChooseGoodsDialog extends JDialog {
 	int screenHeight = UIhelper.getScreenHeight();
 	int dialogWidth = screenWidth * 2 / 3;
 	int dialogHeight = screenHeight * 2 / 3;
-
+	//
+	StockGoodsClassBLService controller;
+	JScrollPane treeJsp = null;
+	DefaultTreeModel treeModel = null;
+	String nodeName = null;// 原有节点名称
+	GoodsClassNode newNode = null;
+	
+	
 	public ChooseGoodsDialog(ChooseGoodsFatherPane myFather) {
+		controller=new GoodsClassController();
 		father=myFather;
 		pnl = this.getContentPane();
 		pnl.setLayout(null);
@@ -70,11 +84,12 @@ public class ChooseGoodsDialog extends JDialog {
 		
 		pnl.setBackground(Color.white);
 		// ------------classTree------------------------------------------
-		classTree = new JTree();
-		classTree.setBorder(BorderFactory.createLineBorder(Color.gray));
-		classTree.setBounds(dialogWidth * 2 / 100, dialogHeight * 5 / 100,
+//		tree = new JTree();
+		createGoodsClass(getTreeData());
+		tree.setBorder(BorderFactory.createLineBorder(Color.gray));
+		tree.setBounds(dialogWidth * 2 / 100, dialogHeight * 5 / 100,
 				dialogWidth * 18 / 100, dialogHeight * 85 / 100);
-		pnl.add(classTree);
+		pnl.add(tree);
 		// -----------goodsTbl-------------------------------------------
 		gtm=new GoodsTblModel();
 		goodsTbl = new JTable(gtm);
@@ -179,6 +194,90 @@ public class ChooseGoodsDialog extends JDialog {
 	}
 
 	
+	//tree
+	private void createGoodsClass(ArrayList<GoodsClassVO> list) {
+		GoodsClassNode root = createTreeRoot(list);
+		DefaultMutableTreeNode Troot = createGoodsClassNode(root);
+		tree = new JTree(Troot);
+		treeModel = (DefaultTreeModel) tree.getModel();
+		tree.setEditable(true);
+		tree.addMouseListener(new MouseHandle());
+//		treeModel.addTreeModelListener(this);
+
+		treeJsp = new JScrollPane(tree);
+		treeJsp.setBorder(null);
+		treeJsp.setLocation(0, 0);
+		treeJsp.setSize(110, 400);
+	}
+
+	private DefaultMutableTreeNode createGoodsClassNode(GoodsClassNode root) {
+		DefaultMutableTreeNode Troot = null;
+		if (root != null)
+			Troot = new DefaultMutableTreeNode(root.getName());
+		else
+			return null;
+		for (int i = 0; i < root.children.size(); i++) {
+			DefaultMutableTreeNode Tnode = createGoodsClassNode(root.children
+					.get(i));
+			Troot.add(Tnode);
+		}
+		return Troot;
+	}
+
+	private GoodsClassNode createTreeRoot(ArrayList<GoodsClassVO> list) {
+		GoodsClassNode root = new GoodsClassNode("灯具", "根");
+		makeTree(root, list);
+		return root;
+	}
+
+	public ArrayList<GoodsClassVO> getTreeData() {
+		ArrayList<GoodsClassVO> result = new ArrayList<GoodsClassVO>();
+		StockGoodsClassBLService controller = new GoodsClassController();
+		result = controller.show();
+		return result;
+	}
+
+	public void makeTree(GoodsClassNode root, ArrayList<GoodsClassVO> list) {
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getUpClassName().equals(root.getName())) {
+				GoodsClassNode child = new GoodsClassNode(
+						list.get(i).getName(), list.get(i).getUpClassName());
+				root.children.add(child);
+				list.remove(i);
+				i--;
+			}
+		}
+
+		for (int i = 0; i < root.children.size(); i++) {
+			makeTree(root.children.get(i), list);
+		}
+
+	}
+
+	//点击分类名显示该分类下的商品
+	class MouseHandle extends MouseAdapter {
+		public void mousePressed(MouseEvent e) {
+			try {
+				JTree tree = (JTree) e.getSource();
+				int rowLocation = tree.getRowForLocation(e.getX(), e.getY());
+				TreePath treepath = tree.getPathForRow(rowLocation);
+				TreeNode treenode = (TreeNode) treepath.getLastPathComponent();
+				nodeName = treenode.toString();
+			} catch (NullPointerException ne) {
+			}
+
+			StockGoodsBLService goodsController = new GoodsController();
+			ArrayList<GoodsVO> list = new ArrayList<GoodsVO>();
+			if (!nodeName.equals("灯具")) {
+				list = goodsController.showGoodsByClass(nodeName);
+			} else {
+				list = goodsController.showGoods();
+			}
+			Refresh(list);
+			goodsTbl.revalidate();
+		}
+	}
+	//end_tree
 	
 	class GoodsTblModel extends AbstractTableModel {
 		/**
@@ -209,6 +308,7 @@ public class ChooseGoodsDialog extends JDialog {
 		}
 	}
 	public void Refresh(ArrayList<GoodsVO> VO){
+		leftTblMessage=new ArrayList<ArrayList<String>>();
 		 for(GoodsVO vo:VO){
 			 ArrayList<String> line=new ArrayList<String>();
 			 line.add(vo.getGoodsClass());
