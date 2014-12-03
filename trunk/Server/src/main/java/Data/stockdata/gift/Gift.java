@@ -4,8 +4,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-import Data.serutility.JXCFile;
 import po.GiftPO;
+import Data.serutility.JXCFile;
 import dataservice.stockdataservice.giftdataservice.GiftDataService;
 
 public class Gift extends UnicastRemoteObject implements GiftDataService {
@@ -63,13 +63,33 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 		ArrayList<GiftPO> result = new ArrayList<GiftPO>();
 		list = getGiftList();
 
-		for(GiftPO po:list){
-			if((beginDate.compareTo(po.getDate())<=0)&&(endDate.compareTo(po.getDate())>=0)){
+		for (GiftPO po : list) {
+			if ((beginDate.compareTo(po.getDate()) <= 0)
+					&& (endDate.compareTo(po.getDate()) >= 0)) {
 				result.add(po);
 			}
 		}
-		
+
 		return result;
+	}
+
+	public String getMaxID() throws RemoteException {
+		// TODO 自动生成的方法存根
+		ArrayList<GiftPO> list = getGiftList();
+		String result = "";
+		if (list.size() != 0) {
+			result = list.get(0).getId();
+
+			for (int i = 0; i < list.size(); i++) {
+				if (result.compareTo(list.get(i).getId()) < 0) {
+					result = list.get(i).getId();
+				}
+
+			}
+			return result;
+		} else {
+			return null;
+		}
 	}
 
 }
