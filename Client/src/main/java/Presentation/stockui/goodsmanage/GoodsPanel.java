@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -265,8 +266,13 @@ public class GoodsPanel extends JPanel implements ActionListener,
 				double lastPrice = Double.parseDouble((String) goodsModel
 						.getValueAt(rownum, 7));
 
-				String goodsClass = goodsController.findGoods(id).get(0)
-						.getGoodsClass();
+				String goodsClass = null;
+				try {
+					goodsClass = goodsController.findByID(id).getGoodsClass();
+				} catch (RemoteException e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
 				GoodsVO vo = new GoodsVO(id, name, size, num, purchasePrice,
 						price, lastPurchasePrice, lastPrice, goodsClass);
 

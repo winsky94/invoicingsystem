@@ -13,6 +13,8 @@ import po.PurchasePO;
 import po.ReceiptPO.ReceiptType;
 import po.SalePO;
 import po.StockOverOrLowPO;
+import vo.GoodsVO;
+import vo.StockOverOrLowVO;
 import businesslogic.stockbl.goods.Goods;
 import dataservice.salesdataservice.SalesDataService;
 import dataservice.stockdataservice.controldataservice.StockControlDataService;
@@ -20,7 +22,7 @@ import dataservice.stockdataservice.giftdataservice.GiftDataService;
 import dataservice.stockdataservice.goodsdataservice.StockGoodsDataService;
 
 public class StockManage {
-	private double primeCostIncome=0;
+	private double primeCostIncome = 0;
 	private StockControlDataService service;
 	private StockGoodsDataService goodsService;
 	private GiftDataService giftService;
@@ -36,7 +38,7 @@ public class StockManage {
 		url = "rmi://" + host + "/stockManageService";
 		url2 = "rmi://" + host + "/goodsService";
 		url3 = "rmi://" + host + "/giftService";
-		url4 = "rmi://" + host + "/saleService";
+		url4 = "rmi://" + host + "/salesService";
 		try {
 			service = (StockControlDataService) Naming.lookup(url);
 			goodsService = (StockGoodsDataService) Naming.lookup(url2);
@@ -52,6 +54,36 @@ public class StockManage {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
+	}
+
+	//显示库存报溢单
+	public ArrayList<StockOverOrLowVO> showStockOverReceipt() {
+		ArrayList<StockOverOrLowPO> list = new ArrayList<StockOverOrLowPO>();
+		ArrayList<StockOverOrLowPO> OverLsit=new ArrayList<StockOverOrLowPO>();
+		ArrayList<StockOverOrLowVO> result = new ArrayList<StockOverOrLowVO>();
+		list = service.getStockOverOrLowPO();
+		for(StockOverOrLowPO po : list){
+			if(po.getType().equals(ReceiptType.STOCKOVER)){
+				OverLsit.add(po);
+			}
+		}
+		result=POToVO(OverLsit);
+		return result;
+	}
+
+	//显示库存报损单
+	public ArrayList<StockOverOrLowVO> showStockLowReceipt() {
+		ArrayList<StockOverOrLowPO> list = new ArrayList<StockOverOrLowPO>();
+		ArrayList<StockOverOrLowPO> lowLsit=new ArrayList<StockOverOrLowPO>();
+		ArrayList<StockOverOrLowVO> result = new ArrayList<StockOverOrLowVO>();
+		list = service.getStockOverOrLowPO();
+		for(StockOverOrLowPO po : list){
+			if(po.getType().equals(ReceiptType.STOCKLOW)){
+				lowLsit.add(po);
+			}
+		}
+		result=POToVO(lowLsit);
+		return result;
 	}
 
 	// 库存查看
@@ -77,7 +109,8 @@ public class StockManage {
 	}
 
 	// 库存盘点==
-	public ArrayList<GoodsPO> checkStock() {
+	public ArrayList<GoodsVO> checkStock() {
+
 		return null;
 	}
 
@@ -97,7 +130,7 @@ public class StockManage {
 		// 库存赠送出库
 		int gNum = 0;
 		double gMoney = 0;
-		ArrayList<GiftPO> gl=new ArrayList<GiftPO>();
+		ArrayList<GiftPO> gl = new ArrayList<GiftPO>();
 		try {
 			gl = giftService.getGiftList(beginDate, endDate);
 		} catch (RemoteException e) {
@@ -105,12 +138,12 @@ public class StockManage {
 			e.printStackTrace();
 		}
 		for (int i = 0; i < gl.size(); i++) {
-			ArrayList<CommodityPO> list=gl.get(i).getGiftList();
-			for(int j=0;j<list.size();j++){
+			ArrayList<CommodityPO> list = gl.get(i).getGiftList();
+			for (int j = 0; j < list.size(); j++) {
 				gNum += list.get(j).getNum();
 				gMoney += list.get(j).getCost();
 			}
-			
+
 		}
 
 		// 库存报损
@@ -212,7 +245,7 @@ public class StockManage {
 
 	// 库存调价(未完成==)
 	public int changePrime(Goods good, Goods newGood) {
-		
+
 		primeCostIncome += (good.getPurchasePrice() - newGood
 				.getPurchasePrice()) * newGood.getNumInStock();
 		return 0;
@@ -268,9 +301,10 @@ public class StockManage {
 		try {
 			ArrayList<GiftPO> list = giftService.getGiftList();
 			for (int i = 0; i < list.size(); i++) {
-				ArrayList<CommodityPO> commodityList=list.get(i).getGiftList();
-				for(int j=0;j<commodityList.size();j++){
-					giftCost +=commodityList.get(j).getCost();
+				ArrayList<CommodityPO> commodityList = list.get(i)
+						.getGiftList();
+				for (int j = 0; j < commodityList.size(); j++) {
+					giftCost += commodityList.get(j).getCost();
 				}
 			}
 		} catch (RemoteException e) {
@@ -280,4 +314,16 @@ public class StockManage {
 
 		return giftCost;
 	}
+
+	private ArrayList<StockOverOrLowVO> POToVO(ArrayList<StockOverOrLowPO> list) {
+		ArrayList<StockOverOrLowVO> result = new ArrayList<StockOverOrLowVO>();
+		for (StockOverOrLowPO po : list) {
+			StockOverOrLowVO vo = new StockOverOrLowVO(po.getGoodsName(),
+					po.getSize(), po.getNum(), po.getExactNum(),
+					po.getUserID(), ReceiptType.STOCKOVER, po.getInfo());
+			result.add(vo);
+		}
+		return result;
+	}
+
 }

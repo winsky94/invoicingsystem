@@ -25,23 +25,22 @@ public class StockPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	Color stockColor = new Color(51, 125, 86);
 	JTabbedPane tab;
-	JScrollPane jsp1,jsp2,jsp3;
+	JScrollPane jsp1, jsp2, jsp3;
 	JTable inventoryTbl, overflowTbl, lossTbl;
-	MyButton overflowBtn, lossBtn, stockBtn, exportBtn,refreshBtn;
+	MyButton overflowBtn, lossBtn, stockBtn, exportBtn, refreshBtn;
 	MainFrame frame;
 	Color[] color;
 
 	public StockPanel(MainFrame myframe) {
-	frame=myframe;
-		color=frame.getTheme();
-	
+		frame = myframe;
+		color = frame.getTheme();
 		this.setBackground(Color.white);
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.insets = new Insets(3, 40, 3, 40);
-		//---------btnPnl-----------------
+		// ---------btnPnl-----------------
 		JPanel btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
@@ -59,18 +58,19 @@ public class StockPanel extends JPanel {
 		btnPnl.add(overflowBtn);
 		// -------------lossBtn-----------------------------------
 		lossBtn = new MyButton("创建库存报损单", new ImageIcon("img/stock/delete.png"));
-		lossBtn.addActionListener(new LossBtnListener());		
+		lossBtn.addActionListener(new LossBtnListener());
 		btnPnl.add(lossBtn);
 		// -----------stockBtn---------------------------------
-		stockBtn = new MyButton("库存查看", new ImageIcon(
-				"img/stock/inventory.png"));
+		stockBtn = new MyButton("库存查看",
+				new ImageIcon("img/stock/inventory.png"));
 		stockBtn.addActionListener(new StockBtnListener());
 		btnPnl.add(stockBtn);
-		//--------refresh----------------
-		refreshBtn=new MyButton("刷新",new ImageIcon("img/stock/refresh.png"));
+		// --------refresh----------------
+		refreshBtn = new MyButton("刷新", new ImageIcon("img/stock/refresh.png"));
 		btnPnl.add(refreshBtn);
-		//---------export----------------
-		exportBtn=new MyButton("导出库存快照",new ImageIcon("img/stock/export.png"));
+		// ---------export----------------
+		exportBtn = new MyButton("导出库存快照",
+				new ImageIcon("img/stock/export.png"));
 		btnPnl.add(exportBtn);
 		// -----------JTabbedPane----------------------------
 		tab = new JTabbedPane();
@@ -87,51 +87,53 @@ public class StockPanel extends JPanel {
 		this.add(tab);
 		// ---------------inventoryTbl---------------------------
 		inventoryTbl = new JTable();
-		jsp1=new JScrollPane(inventoryTbl);
+		jsp1 = new JScrollPane(inventoryTbl);
 		tab.add("库存盘点", jsp1);
 		// --------------overflowTbl--------------------------------
 		overflowTbl = new JTable();
-		jsp2=new JScrollPane(overflowTbl);
+		jsp2 = new JScrollPane(overflowTbl);
 		tab.add("库存报溢表", jsp2);
 		// --------------lossTbl--------------------------------
 		lossTbl = new JTable();
-		jsp3=new JScrollPane(lossTbl);
+		jsp3 = new JScrollPane(lossTbl);
 		tab.add("库存报损表", jsp3);
 	}
-	class OverflowBtnListener implements ActionListener{
+
+	class OverflowBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			frame.setRightComponent(new OverflowPanel(frame,color));
-			
-		}
-		
-	}
-	class LossBtnListener implements ActionListener{
+			frame.setRightComponent(new OverflowPanel(frame, color));
 
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
 		}
-		
+
 	}
-	class StockBtnListener implements ActionListener{
+
+	class LossBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			
-		}
-		
-	}
-	/*public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 800, 500);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		StockPanel gp = new StockPanel();
-		gp.setBounds(0, 0, 1000, 700);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
-	}*/
+		}
+
+	}
+
+	class StockBtnListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+	}
+
+	/*
+	 * public static void main(String[] args) { JFrame testFrame = new JFrame();
+	 * testFrame.setBounds(100, 50, 800, 500);
+	 * testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	 * 
+	 * StockPanel gp = new StockPanel(); gp.setBounds(0, 0, 1000, 700);
+	 * testFrame.add(gp); testFrame.setVisible(true); }
+	 */
 	class MyButton extends JButton {
 
 		/**
