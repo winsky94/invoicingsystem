@@ -1,43 +1,31 @@
 package po;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class GiftPO extends ReceiptPO implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	MemberPO member;
-	GoodsPO goods;
-	int num;
+	private ArrayList<CommodityPO> giftList;
 
-	public GiftPO(MemberPO member, GoodsPO goods, int num) {
-		this.member = member;
-		this.goods = goods;
-		this.num = num;
+	public GiftPO() {
+
 	}
 
-	public MemberPO getMember() {
-		return member;
+	public GiftPO(String id, String memberID, String membername, String userID,
+			String info, int status, int hurry, ArrayList<CommodityPO> giftList) {
+		super(id, memberID, membername, userID, ReceiptType.GIFT, info, status,
+				hurry);
+		this.giftList = giftList;
 	}
 
-	public void setMember(MemberPO member) {
-		this.member = member;
+	public ArrayList<CommodityPO> getGiftList() {
+		return giftList;
 	}
 
-	public GoodsPO getGoods() {
-		return goods;
-	}
-
-	public void setGoods(GoodsPO goods) {
-		this.goods = goods;
-	}
-
-	public int getNum() {
-		return num;
-	}
-
-	public void setNum(int num) {
-		this.num = num;
+	public void setGiftList(ArrayList<CommodityPO> giftList) {
+		this.giftList = giftList;
 	}
 }
