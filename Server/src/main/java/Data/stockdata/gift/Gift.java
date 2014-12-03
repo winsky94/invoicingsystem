@@ -15,7 +15,7 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 	private static final long serialVersionUID = 1L;
 	JXCFile file;
 
-	protected Gift() throws RemoteException {
+	public Gift() throws RemoteException {
 		file = new JXCFile("src/main/java/gift.ser");
 	}
 
