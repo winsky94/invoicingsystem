@@ -36,9 +36,12 @@ public class ReceiptPO  implements Serializable{
 	}
 	
 
-	public ReceiptPO(ReceiptType type) {
+	public ReceiptPO(String id,ReceiptType type,String user,int status,int hurry){
+		this.id=id;
 		this.type=type;
-
+		this.userID=user;
+		this.status=status;
+		this.hurry=hurry;
 	}
 
 	public String getId() {
