@@ -270,7 +270,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 				GoodsVO vo = new GoodsVO(id, name, size, num, purchasePrice,
 						price, lastPurchasePrice, lastPrice, goodsClass);
 
-				new ModGoodsPanel(vo);
+				new ModGoodsPanel(parent,vo);
 
 				// 重新再获得数据模型,刷新界面
 				goodsModel = new GoodsModel();
