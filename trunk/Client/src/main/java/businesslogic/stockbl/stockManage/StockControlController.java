@@ -2,8 +2,8 @@ package businesslogic.stockbl.stockManage;
 
 import java.util.ArrayList;
 
-import po.GoodsPO;
 import po.ReceiptPO.ReceiptType;
+import vo.GoodsVO;
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
 import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
@@ -52,9 +52,10 @@ public class StockControlController implements StockControlBLService {
 	}
 
 	//库存盘点====
-	public ArrayList<GoodsPO> checkStock() {
+	public ArrayList<GoodsVO> checkStock() {
 		// TODO 自动生成的方法存根
-		return null;
+		StockManage manage=new StockManage();
+		return manage.checkStock();
 	}
 
 	// 销售检查库存是否充足
@@ -75,5 +76,15 @@ public class StockControlController implements StockControlBLService {
 		// TODO 自动生成的方法存根
 		StockManage manage = new StockManage();
 		return manage.getGiftCost();
+	}
+
+	public ArrayList<StockOverOrLowVO> showStockOverReceipt() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	public ArrayList<StockOverOrLowVO> showStockLowReceipt() {
+		// TODO 自动生成的方法存根
+		return null;
 	}
 }

@@ -10,19 +10,19 @@ public class GoodsController implements StockGoodsBLService {
 
 	public int addGoods(GoodsVO vo) {
 		// TODO 自动生成的方法存根
-		Goods good =VOToGoods(vo);
+		Goods good = VOToGoods(vo);
 		return good.addGoods();
 	}
 
 	public int deleteGoods(GoodsVO vo) {
 		// TODO 自动生成的方法存根
-		Goods good =VOToGoods(vo);
+		Goods good = VOToGoods(vo);
 		return good.deleteGoods(vo.getGoodsID());
 	}
 
 	public int modifyGoods(GoodsVO vo) {
 		// TODO 自动生成的方法存根
-		Goods good =VOToGoods(vo);
+		Goods good = VOToGoods(vo);
 		return good.modifyGoods(vo.getGoodsID());
 	}
 
@@ -37,14 +37,14 @@ public class GoodsController implements StockGoodsBLService {
 		Goods good = new Goods();
 		return good.findByID(id);
 	}
-	
+
 	public ArrayList<GoodsVO> showGoods() {
 		// TODO 自动生成的方法存根
 		Goods good = new Goods();
 		return good.showGoods();
 	}
-	
-	public String getMaxID(){
+
+	public String getMaxID() {
 		Goods good = new Goods();
 		return good.getMaxID();
 	}
@@ -55,7 +55,7 @@ public class GoodsController implements StockGoodsBLService {
 		return good.showGoodsByClass(className);
 	}
 
-	public Goods VOToGoods(GoodsVO vo){
+	private Goods VOToGoods(GoodsVO vo) {
 		Goods goods = new Goods(vo.getGoodsID(), vo.getName(), vo.getSize(),
 				vo.getGoodsClass(), vo.getNumInStock(), vo.getPurchasePrice(),
 				vo.getPrice(), vo.getLastPurchasePrice(), vo.getLastPrice());

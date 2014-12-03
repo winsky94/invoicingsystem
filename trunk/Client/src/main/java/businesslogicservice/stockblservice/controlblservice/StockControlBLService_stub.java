@@ -2,11 +2,11 @@ package businesslogicservice.stockblservice.controlblservice;
 
 import java.util.ArrayList;
 
-import po.GoodsPO;
+import vo.GoodsVO;
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
 
-public class StockControlBLService_stub  implements StockControlBLService {
+public class StockControlBLService_stub implements StockControlBLService {
 
 	public int addStockOverOrLow(StockOverOrLowVO vo) {
 		// TODO 自动生成的方法存根
@@ -31,19 +31,19 @@ public class StockControlBLService_stub  implements StockControlBLService {
 		System.out.println("return goods low cost succeed!");
 		return 0;
 	}
-	
+
 	public ArrayList<String> showStock(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		System.out.println("show stock succeed!");
 		return new ArrayList<String>();
 	}
 
-	public ArrayList<GoodsPO> checkStock() {
+	public ArrayList<GoodsVO> checkStock() {
 		// TODO 自动生成的方法存根
 		System.out.println("check stock succeed!");
-		return new ArrayList<GoodsPO>();
+		return new ArrayList<GoodsVO>();
 	}
-	
+
 	public boolean isEnough(String ID, int num) {
 		// TODO 自动生成的方法存根
 		System.out.println("check stock is enough succeed!");
@@ -59,5 +59,15 @@ public class StockControlBLService_stub  implements StockControlBLService {
 	public double getGiftCost() {
 		// TODO 自动生成的方法存根
 		return 0;
+	}
+
+	public ArrayList<StockOverOrLowVO> showStockOverReceipt() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	public ArrayList<StockOverOrLowVO> showStockLowReceipt() {
+		// TODO 自动生成的方法存根
+		return null;
 	}
 }

@@ -8,25 +8,19 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import businesslogic.stockbl.goods.GoodsController;
-import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import vo.GoodsVO;
 import Presentation.mainui.MainFrame;
-import Presentation.promotionui.addpromotion.AddCouponPanel;
-import Presentation.stockui.goodsmanage.AddGoodsPanel.NameFieldListener;
-import Presentation.stockui.goodsmanage.AddGoodsPanel.PPriceFieldListener;
-import Presentation.stockui.goodsmanage.AddGoodsPanel.SPriceFieldListener;
-import Presentation.stockui.goodsmanage.AddGoodsPanel.SizeFieldListener;
+import businesslogic.stockbl.goods.GoodsController;
+import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 
 public class ModGoodsPanel extends JPanel implements ActionListener {
 
@@ -38,7 +32,7 @@ public class ModGoodsPanel extends JPanel implements ActionListener {
 	GoodsVO vo;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JButton submitBtn, exitBtn;
-	String  pPriceText, sPriceText;
+	String pPriceText, sPriceText;
 	JTextField nameFld, sizeFld, purchasePriceFld, salePriceFld;
 	JLabel IDLbl, lastPurchasePriceLbl, lastSalePriceLbl;
 
@@ -120,6 +114,7 @@ public class ModGoodsPanel extends JPanel implements ActionListener {
 		lastSalePriceLbl.setFont(font);
 		lastSalePricePnl.add(lastSalePriceLbl);
 		// -------purchasePrice-----------------
+		pPriceText=String.valueOf(vo.getPurchasePrice()); 
 		JPanel purchasePricePnl = new JPanel();
 		purchasePricePnl.setBackground(Color.white);
 		mPnl.add(purchasePricePnl);
@@ -133,6 +128,7 @@ public class ModGoodsPanel extends JPanel implements ActionListener {
 				new PPriceFieldListener());
 		purchasePricePnl.add(purchasePriceFld);
 		// -------salePrice-----------------
+		sPriceText=String.valueOf(vo.getPrice());
 		JPanel salePricePnl = new JPanel();
 		salePricePnl.setBackground(Color.white);
 		mPnl.add(salePricePnl);
@@ -184,11 +180,24 @@ public class ModGoodsPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == submitBtn) {
-			//监听
+			// 监听
+			StockGoodsBLService controller = new GoodsController();
+			try {
+				GoodsVO oldVO = controller.findByID(vo.getGoodsID());
+				oldVO.setPurchasePrice(Double.parseDouble(pPriceText));
+				oldVO.setPrice(Double.parseDouble(sPriceText));
+				controller.modifyGoods(oldVO);
+				
+				parent.setRightComponent(new GoodsPanel(parent));
+				
+			} catch (RemoteException e1) {
+				// TODO 自动生成的 catch 块
+				e1.printStackTrace();
+			}
+
+		} else if (e.getSource() == exitBtn) {
+			parent.setRightComponent(new GoodsPanel(parent));
 		}
-		 else if(e.getSource()==exitBtn){
-			 parent.setRightComponent(new GoodsPanel(parent));
-		 }
 
 	}
 
