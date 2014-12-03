@@ -3,7 +3,7 @@ package businesslogic.stockbl.gift;
 import businesslogic.memberbl.Member;
 import businesslogic.stockbl.goods.Goods;
 
-public class MockGift extends Gift{
+public class MockGift extends GiftController{
 	Member member;
 	Goods goods;
 	

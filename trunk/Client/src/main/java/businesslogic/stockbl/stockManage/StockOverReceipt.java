@@ -41,7 +41,7 @@ public class StockOverReceipt extends Receipt {
 			String userID, int hurry, String info,  String goodName,
 			String size, int num, int exactNum) {
 		super(id, memberName, memberID, userID, ReceiptType.STOCKOVER, hurry,
-				2, info);
+				0, info);
 		host = "localhost:1099";
 		url = "rmi://" + host + "/stockManageService";
 		try {
@@ -67,7 +67,7 @@ public class StockOverReceipt extends Receipt {
 	public int add() {
 		StockOverOrLowPO po = new StockOverOrLowPO(super.getId(),
 				super.getmemberName(), super.getMemberID(), super.getUserID(),
-				ReceiptType.STOCKOVER, 1, super.getHurry(), super.getInfo(),
+				ReceiptType.STOCKOVER, 0, super.getHurry(), super.getInfo(),
 				 goodName, size, num, exactNum);
 		return service.addStockOverOrLow(po);
 	}

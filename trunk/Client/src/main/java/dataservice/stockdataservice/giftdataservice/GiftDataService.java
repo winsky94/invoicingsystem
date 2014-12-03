@@ -11,8 +11,6 @@ public interface GiftDataService extends Remote {
 
 	public int dealGift(GiftPO po) throws RemoteException;
 
-	public double getAccount(GiftPO po) throws RemoteException;
-
 	// 获取所有库存赠送清单
 	public ArrayList<GiftPO> getGiftList() throws RemoteException;
 

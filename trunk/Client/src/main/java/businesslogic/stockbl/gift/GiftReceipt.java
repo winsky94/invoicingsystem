@@ -1,46 +1,114 @@
 package businesslogic.stockbl.gift;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import businesslogic.memberbl.Member;
+import po.CommodityPO;
+import po.GiftPO;
+import vo.CommodityVO;
 import businesslogic.receiptbl.Receipt;
-import businesslogic.stockbl.goods.Goods;
+import dataservice.stockdataservice.giftdataservice.GiftDataService;
 
-public class GiftReceipt extends Receipt{
-	Member member;
-	ArrayList<Goods> giftList;
-	double total;
-	
-	public GiftReceipt(){
-		giftList=new ArrayList<Goods>();
+public class GiftReceipt extends Receipt {
+	private ArrayList<CommodityVO> giftVOList;
+	private double total;
+	private String host;
+	private String url;
+	private GiftDataService service;
+
+	public GiftReceipt() {
+		giftVOList = new ArrayList<CommodityVO>();
+		host = "localhost:1099";
+		url = "rmi://" + host + "/giftService";
+		try {
+			service = (GiftDataService) Naming.lookup(url);
+		} catch (MalformedURLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 	}
-	
-	public GiftReceipt(Member member){
-		this.member=member;
-		giftList=new ArrayList<Goods>();
+
+	public GiftReceipt(String id, String memberID, String memberName,
+			String userID, po.ReceiptPO.ReceiptType type, int hurry,
+			int status, String info) {
+		super(id, memberID, memberName, userID, po.ReceiptPO.ReceiptType.GIFT,
+				hurry, status, info);
+		giftVOList = new ArrayList<CommodityVO>();
+		host = "localhost:1099";
+		url = "rmi://" + host + "/giftService";
+		try {
+			service = (GiftDataService) Naming.lookup(url);
+		} catch (MalformedURLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 	}
-	
-	public int addGood(Goods good){
-		giftList.add(good);
-		total+=good.getPrice();
+
+	// 创建库存赠送单
+	public int add() {
+		int result = -1;
+		ArrayList<CommodityPO> list = new ArrayList<CommodityPO>();
+		list = VOToPO(giftVOList);
+		GiftPO po = new GiftPO(super.getId(), super.getmemberName(),
+				getMemberID(), super.getUserID(), super.getInfo(), 0,
+				super.getHurry(), list);
+		try {
+			result = service.addGift(po);
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 向赠送单列表里增加商品
+	public int addGift(CommodityVO vo) {
+		giftVOList.add(vo);
+		total += vo.getPrice();
 		return 0;
 	}
-	
-	public int deleteGood(Goods good){
-		giftList.remove(good);
-		total-=good.getPrice();
+
+	// 从赠送单列表里删除商品
+	public int deleteGood(CommodityVO vo) {
+		giftVOList.remove(vo);
+		total -= vo.getPrice();
 		return 0;
 	}
-	
-	public ArrayList<Goods> getGiftList(){
-		return giftList;
+
+	public ArrayList<CommodityVO> getGiftVOList() {
+		return giftVOList;
 	}
-	
-	public double getTotal(){
+
+	public double getTotal() {
 		return total;
 	}
-	
-	public Member getMember(){
-		return member;
+
+	// 将赠送商品列表由vo转为po
+	private ArrayList<CommodityPO> VOToPO(ArrayList<CommodityVO> list) {
+		ArrayList<CommodityPO> result = new ArrayList<CommodityPO>();
+		for (int i = 0; i < list.size(); i++) {
+			CommodityVO vo = list.get(i);
+			CommodityPO po = new CommodityPO(vo.getID(), vo.getName(),
+					vo.getType(), vo.getPrice(), vo.getLast_bid(), vo.getNum(),
+					vo.getTotal(), vo.getCost(), vo.getTip());
+			result.add(po);
+		}
+
+		return result;
 	}
 }
