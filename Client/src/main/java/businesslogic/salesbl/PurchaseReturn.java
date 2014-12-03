@@ -3,17 +3,13 @@ package businesslogic.salesbl;
 import java.rmi.Naming;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import po.CommodityPO;
-import po.PurchasePO;
 import po.PurchaseReturnPO;
 import vo.CommodityVO;
 import vo.PurchaseReturnVO;
-import vo.PurchaseVO;
-import dataservice.salesdataservice.SalesDataService;
 import businesslogic.receiptbl.Receipt;
-import businesslogic.receiptbl.ReceiptType;
+import dataservice.salesdataservice.SalesDataService;
 //进货 退货单必须为逆操作，总经理只能审批通过与否
 public class PurchaseReturn extends Receipt {
 	private double total;

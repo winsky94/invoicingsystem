@@ -1,8 +1,6 @@
 package vo;
 
-import java.util.Date;
-
-import businesslogic.receiptbl.ReceiptType;
+import po.ReceiptPO.ReceiptType;
 
 public class GiftVO extends ReceiptVO {
 	String goodsName;
@@ -17,11 +15,7 @@ public class GiftVO extends ReceiptVO {
 
 	public GiftVO(String goodsName, String goodsID, String goodsSize,
 			double goodsPrice, String memberID, GoodsVO goods, int num,
-			String user, ReceiptType type, String info, String stockid) {
-
-		// SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-		// String timeNow = df.format(new Date());
-
+			String user, String info, String stockid) {
 		this.goodsName = goodsName;
 		this.goodsID = goodsID;
 		this.goodsSize = goodsSize;
@@ -29,10 +23,10 @@ public class GiftVO extends ReceiptVO {
 		this.memberID = memberID;
 		this.num = num;
 		this.user = user;
-		this.type = type;
+		this.type = ReceiptType.GIFT;
 		this.status = 0;
 		this.info = info;
-	
+
 	}
 
 	public String getMemberID() {

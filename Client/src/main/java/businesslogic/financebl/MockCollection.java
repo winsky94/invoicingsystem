@@ -1,9 +1,6 @@
 package businesslogic.financebl;
 
 import java.util.ArrayList;
-import java.util.Date;
-
-import businesslogic.receiptbl.ReceiptType;
 
 /*
  * 收款单Mock  

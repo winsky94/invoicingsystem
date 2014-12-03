@@ -6,24 +6,17 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-import dataservice.memberdataservice.MemberDataService;
-import dataservice.salesdataservice.SalesDataService;
-import po.MemberPO.MemberLevel;
 import po.CommodityPO;
-import po.PurchasePO;
+import po.MemberPO.MemberLevel;
 import po.SalePO;
-import po.UserPO;
-import po.UserPO.UserJob;
 import vo.CommodityVO;
 import vo.PromotionVO;
 import vo.SaleVO;
 import businesslogic.memberbl.Member;
 import businesslogic.promotionbl.giftCouponPro;
 import businesslogic.receiptbl.Receipt;
-import businesslogic.receiptbl.ReceiptType;
-import businesslogic.userbl.User;
+import dataservice.salesdataservice.SalesDataService;
 
 public class Sale extends Receipt {  //单据总值包含代金券金额
 	// 要默认业务员 

@@ -2,22 +2,15 @@ package businesslogic.salesbl;
 
 
 import java.rmi.Naming;
-
-
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import po.CommodityPO;
 import po.PurchasePO;
-import po.SalePO;
-import dataservice.salesdataservice.SalesDataService;
 import vo.CommodityVO;
 import vo.PurchaseVO;
-import vo.SaleVO;
 import businesslogic.receiptbl.Receipt;
-import businesslogic.receiptbl.ReceiptType;
-import businesslogic.stockbl.goods.Goods;
-import businesslogic.stockbl.goods.MockGoods;
+import dataservice.salesdataservice.SalesDataService;
 
 
 public class Purchase extends Receipt {

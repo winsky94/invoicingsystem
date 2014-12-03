@@ -1,8 +1,8 @@
 package businesslogicservice.stockblservice.controlblservice;
 
+import po.ReceiptPO.ReceiptType;
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
-import businesslogic.receiptbl.ReceiptType;
 
 public class StockControlBLService_driver {
 	public void drive(StockControlBLService_stub stockControlBLService) {
