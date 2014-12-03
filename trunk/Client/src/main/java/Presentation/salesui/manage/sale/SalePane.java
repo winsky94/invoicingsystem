@@ -49,7 +49,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 	JTable table;
 	String[] idtxt;
 	JButton submitBtn, couponBtn, addGoodsBtn, delGoodsBtn, exitBtn;
-	MainFrame parent;
+//	public MainFrame parent;
 	SalesBLService service;
 	public SalePane(MainFrame frame) throws Exception {
 		parent=frame;

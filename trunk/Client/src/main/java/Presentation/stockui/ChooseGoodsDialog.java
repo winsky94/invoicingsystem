@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -125,7 +126,7 @@ public class ChooseGoodsDialog extends JDialog {
 				int[] row=goodsTbl.getSelectedRows();
 				if(row.length>0){
 				for(int i=0;i<row.length;i++)
-					ctm.addRow(leftTblMessage.get(i));			
+					ctm.addRow(leftTblMessage.get(row[i]));			
 				chosenTbl.revalidate();
 				}else 
 					JOptionPane.showMessageDialog(null, "请选择商品！","提示",JOptionPane.WARNING_MESSAGE);;
@@ -140,12 +141,18 @@ public class ChooseGoodsDialog extends JDialog {
 		delBtn.setBorderPainted(false);
 		delBtn.setBackground(Color.white);
 		delBtn.setBounds(dialogWidth * 55 / 100, dialogHeight * 35 / 100,
-				dialogWidth * 5 / 100, dialogHeight * 5 / 100);
+		dialogWidth * 5 / 100, dialogHeight * 5 / 100);
+		//只能一行一行删除？
 		delBtn.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
+				if(chosenTbl.getSelectedRow()>=0){
 				ctm.removeRow(chosenTbl.getSelectedRow());
-				chosenTbl.revalidate();
+				chosenTbl.revalidate();}
+				else 
+					JOptionPane.showMessageDialog(null, "请选择商品！","提示",JOptionPane.WARNING_MESSAGE);;
+				
+			
 			}
 			
 		});
@@ -159,12 +166,23 @@ public class ChooseGoodsDialog extends JDialog {
 				dialogWidth * 8 / 100, dialogHeight * 5 / 100);
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(rightTblMessage.size()>0){
+				ArrayList<Object> good=new ArrayList<Object>();
+				try {
+				for(int i=0;i<rightTblMessage.size();i++)
+					{String id=rightTblMessage.get(i).get(0);
+					
+						good.add(service.findByID(id));}
+						
+						
+					} catch (RemoteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				
-				
-				father.addContent(rightTblMessage);
-				//father.RefreshTable(s);
-				ChooseGoodsDialog.this.father.repaint();
-				ChooseGoodsDialog.this.father.revalidate();
+				father.parent.setRightComponent(father);
+				father.RefreshCTable(good);}
+			
 				ChooseGoodsDialog.this.dispose();
 			}
 		});
@@ -311,7 +329,7 @@ public class ChooseGoodsDialog extends JDialog {
 		leftTblMessage=new ArrayList<ArrayList<String>>();
 		 for(GoodsVO vo:VO){
 			 ArrayList<String> line=new ArrayList<String>();
-			 line.add(vo.getGoodsClass());
+			 line.add(vo.getGoodsID());
 			 line.add(vo.getName());
 			 line.add(vo.getSize());
 			 line.add(Double.toString(vo.getPrice()));
