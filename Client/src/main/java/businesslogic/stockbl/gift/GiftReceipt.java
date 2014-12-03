@@ -4,6 +4,8 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import po.CommodityPO;
@@ -64,7 +66,26 @@ public class GiftReceipt extends Receipt {
 		int result = -1;
 		ArrayList<CommodityPO> list = new ArrayList<CommodityPO>();
 		list = VOToPO(giftVOList);
-		GiftPO po = new GiftPO(super.getId(), super.getmemberName(),
+		
+		//生成编号
+		String id="";
+		String maxID = null;
+		try {
+			maxID=service.getMaxID();
+		} catch (RemoteException e1) {
+			// TODO 自动生成的 catch 块
+			e1.printStackTrace();
+		}
+		if(maxID==null){
+			id="0000";
+		}
+		else{
+			NumberFormat nf = new DecimalFormat("0000");
+			int tp = Integer.parseInt(maxID);
+			id = nf.format(tp + 1);
+		}
+		
+		GiftPO po = new GiftPO(id, super.getmemberName(),
 				getMemberID(), super.getUserID(), super.getInfo(), 0,
 				super.getHurry(), list);
 		try {
