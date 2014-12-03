@@ -8,8 +8,10 @@ import Data.financedata.Cashlist;
 import Data.financedata.Collection;
 import Data.financedata.Payment;
 import Data.salesdata.Sales;
+import Data.stockdata.gift.Gift;
 import po.CashlistPO;
 import po.CollectionPO;
+import po.GiftPO;
 import po.PaymentPO;
 import po.PurchasePO;
 import po.PurchaseReturnPO;
@@ -56,7 +58,8 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
         		result=s.createSaleReturn((SaleReturnPO)po);
         }
         else if(po.getType()==ReceiptType.STOCKERROR){
-        	
+        	Gift g=new Gift();
+        	result=g.addGift((GiftPO)po);
         }
         else if(po.getType()==ReceiptType.STOCKLOW){
         	
@@ -75,49 +78,42 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
 	}
 
 	public ReceiptPO find(String id) throws RemoteException {
-            ReceiptPO result;
+
             String[] buffer=id.split("-");
             String s=buffer[0];
 	        if(s.equals("SKD")){
 	        	Collection c=new Collection();
-	        	result=c.;
+	        	return c.findByID(id);
 	        }
-	        else if(po.getType()==ReceiptType.PAYMENT){
+	        else if(s.equals("FKD")){
 	        	Payment p=new Payment();
-	        	result=p.createPayment((PaymentPO)po);
+	        	return p.findByID(id);
 	        }
-	        else if(po.getType()==ReceiptType.CASHLIST){
+	        else if(s.equals("XJFYD")){
 	        	Cashlist c=new Cashlist();
-	        	result=c.createCashlist((CashlistPO)po);
+	        	return c.findByID(id);
 	        }
-	        else if(po.getType()==ReceiptType.PURCHASE||po.getType()==ReceiptType.PURCHASERETURN||po.getType()==ReceiptType.SALE||po.getType()==ReceiptType.SALERETURN){
-	        	Sales s=new Sales();
-	        	if(po.getType()==ReceiptType.PURCHASE)
-	        		result=s.createPurchase((PurchasePO)po);
-	        	else if(po.getType()==ReceiptType.PURCHASERETURN)
-	        		result=s.createPurchaseReturn((PurchaseReturnPO)po);
-	        	else if(po.getType()==ReceiptType.SALE)
-	        		result=s.createSale((SalePO)po);
-	        	else
-	        		result=s.createSaleReturn((SaleReturnPO)po);
+	        else if(s.equals("JHD")||s.equals("JHTHD")||s.equals("XSD")||s.equals("XSTHD")){
+	        	Sales sale=new Sales();
+	        		return sale.findReceiptByID(id);
 	        }
-	        else if(po.getType()==ReceiptType.STOCKERROR){
+	        else if(s.equals("")){
 	        	
 	        }
-	        else if(po.getType()==ReceiptType.STOCKLOW){
+	        else if(s.equals("")){
 	        	
 	        }
-	        else if(po.getType()==ReceiptType.STOCKOVER){
+	        else if(s.equals("")){
 	        	
 	        }
-	        else if(po.getType()==ReceiptType.GIFT){
+	        else if(s.equals("")){
 	        	
 	        }
 	        else{
-	        	return 1;
+	        	return null;
 	        }
-	        	
-			return result;
+	        
+	       return null;
 	}
 
 	public int Modify(ReceiptPO po) throws RemoteException {
@@ -125,15 +121,52 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
 		return 0;
 	}
 
-	public ArrayList<ReceiptPO> show() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<ReceiptPO> showAll() throws RemoteException {
+		ArrayList<ReceiptPO> al=new ArrayList<ReceiptPO>();
+		Collection c=new Collection();
+		if(c.getCollection()!=null)
+			for(CollectionPO p:(c.getCollection())){
+				al.add(p);
+			}
+		Payment p=new Payment();
+		if(p.getPayment()!=null)
+			for(PaymentPO pp:(p.getPayment())){
+				al.add(pp);
+			}
+		Cashlist cc=new Cashlist();
+		if(cc.getCashlist()!=null)
+			for(CashlistPO pp:(cc.getCashlist())){
+				al.add(pp);
+			}
+		Sales sa=new Sales();
+		if(sa.getAllPurchase()!=null){
+			for(ReceiptPO pp:(sa.getAllPurchase())){
+				al.add(pp);
+			}
+		}
+		if(sa.getAllSale()!=null){
+			for(ReceiptPO pp:(sa.getAllSale())){
+				al.add(pp);
+			}
+		}
+		Gift g=new Gift();
+		if(g.getGiftList()!=null){
+			for(GiftPO pp:(g.getGiftList())){
+				al.add(pp);
+			}
+		}
+		
+		
+		
+		
+		
+		
+		if(al.size()==0)
+			return null;
+		
+		return al;
 	}
 
-	public void init() throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public double getNum(ReceiptType type, String date) throws RemoteException {
 		int num=0;
@@ -141,7 +174,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
 			Collection c=new Collection();
 			ArrayList<CollectionPO> a=c.getCollection();
 			for(CollectionPO po:a){
-				String s=po.getID();
+				String s=po.getId();
 				String[] buffer=s.split("-");
 				String d=buffer[1];
 				if(d.equals(date));
@@ -152,7 +185,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
 			Payment c=new Payment();
 			ArrayList<PaymentPO> a=c.getPayment();
 			for(PaymentPO po:a){
-				String s=po.getID();
+				String s=po.getId();
 				String[] buffer=s.split("-");
 				String d=buffer[1];
 				if(d.equals(date));
@@ -163,7 +196,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
 			Cashlist c=new Cashlist();
 			ArrayList<CashlistPO> a=c.getCashlist();
 			for(CashlistPO po:a){
-				String s=po.getID();
+				String s=po.getId();
 				String[] buffer=s.split("-");
 				String d=buffer[1];
 				if(d.equals(date));
@@ -172,6 +205,15 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
 		}
 		
 		return num;
+	}
+
+	public ArrayList<ReceiptPO> show(ReceiptType type) throws RemoteException {
+		if(type==ReceiptType.COLLECTION){
+			Collection c=new Collection();
+			return c.getCollection();
+		}
+		
+		return null;
 	}
       
 }
