@@ -1,24 +1,15 @@
 package businesslogic.salesbl;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import po.PurchasePO;
 import po.ReceiptPO;
-import po.SalePO;
-import dataservice.salesdataservice.SalesDataService;
-import dataservice.userdataservice.UserDataService;
+import po.ReceiptPO.ReceiptType;
 import vo.PurchaseReturnVO;
 import vo.PurchaseVO;
-import vo.ReceiptVO;
 import vo.SaleReturnVO;
 import vo.SaleVO;
-import businesslogic.receiptbl.ReceiptType;
 import businesslogicservice.salesblservice.SalesBLService;
 
 public class SalesController implements SalesBLService{

@@ -12,25 +12,23 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
 
-import businesslogic.receiptbl.ReceiptType;
-import businesslogic.userbl.User;
-import businesslogicservice.userblservice.UserBLService;
+import po.ReceiptPO.ReceiptType;
 import vo.PurchaseReturnVO;
 import vo.PurchaseVO;
 import vo.ReceiptVO;
 import Presentation.mainui.MainFrame;
 import Presentation.salesui.manage.purchase.PurchasePane;
 import Presentation.salesui.manage.purchase.PurchaseReturnPane;
+import businesslogic.userbl.User;
+import businesslogicservice.userblservice.UserBLService;
 
 
 public class PurchaseMgrPanel extends JPanel implements ActionListener{

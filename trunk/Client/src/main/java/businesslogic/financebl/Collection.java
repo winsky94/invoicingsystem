@@ -1,7 +1,7 @@
 package businesslogic.financebl;
 
+import java.rmi.Naming;
 import java.util.ArrayList;
-import java.util.Date;
 
 import po.CollectionPO;
 import po.TransferItemPO;
@@ -9,15 +9,7 @@ import vo.CollectionVO;
 import vo.TransferItemVO;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.Receipt;
-import businesslogic.receiptbl.ReceiptType;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
-
-import java.rmi.Naming;
-import java.rmi.RMISecurityManager;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-
 import dataservice.financedataservice.listdataservice.CollectionDataService;
 
 

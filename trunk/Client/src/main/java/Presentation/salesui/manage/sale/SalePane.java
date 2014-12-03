@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -21,18 +20,18 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import po.MemberPO.MemberType;
+import po.ReceiptPO.ReceiptType;
 import vo.MemberVO;
+import Presentation.mainui.ChooseGoodsFatherPane;
+import Presentation.mainui.MainFrame;
+import Presentation.salesui.manage.SaleMgrPanel;
+import Presentation.stockui.ChooseGoodsDialog;
 import businesslogic.memberbl.Member;
-import businesslogic.receiptbl.ReceiptType;
 import businesslogic.salesbl.SaleList;
 import businesslogic.salesbl.SalesController;
 import businesslogicservice.memberblservice.MemberBLService;
 import businesslogicservice.salesblservice.SaleListBLService;
 import businesslogicservice.salesblservice.SalesBLService;
-import Presentation.mainui.ChooseGoodsFatherPane;
-import Presentation.mainui.MainFrame;
-import Presentation.salesui.manage.SaleMgrPanel;
-import Presentation.stockui.ChooseGoodsDialog;
 
 public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 

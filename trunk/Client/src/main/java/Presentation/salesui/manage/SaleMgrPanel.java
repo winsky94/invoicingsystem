@@ -12,31 +12,23 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
 
-import businesslogic.receiptbl.ReceiptType;
-import businesslogic.userbl.User;
-import businesslogicservice.userblservice.UserBLService;
-import vo.PurchaseReturnVO;
-import vo.PurchaseVO;
+import po.ReceiptPO.ReceiptType;
 import vo.ReceiptVO;
 import vo.SaleReturnVO;
 import vo.SaleVO;
 import Presentation.mainui.MainFrame;
-import Presentation.salesui.manage.PurchaseMgrPanel.MyButton;
-import Presentation.salesui.manage.PurchaseMgrPanel.SearchBtnListener;
-import Presentation.salesui.manage.PurchaseMgrPanel.SearchFldListener;
 import Presentation.salesui.manage.sale.SalePane;
 import Presentation.salesui.manage.sale.SaleReturnPane;
+import businesslogic.userbl.User;
+import businesslogicservice.userblservice.UserBLService;
 
 public class SaleMgrPanel extends JPanel implements ActionListener {
 	/**

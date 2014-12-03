@@ -1,11 +1,9 @@
 package businesslogicservice.salesblservice;
 import java.util.ArrayList;
 
-
-import businesslogic.receiptbl.ReceiptType;
+import po.ReceiptPO.ReceiptType;
 import vo.PurchaseReturnVO;
 import vo.PurchaseVO;
-
 import vo.SaleReturnVO;
 import vo.SaleVO;
 

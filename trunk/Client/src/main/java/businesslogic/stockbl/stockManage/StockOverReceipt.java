@@ -22,7 +22,7 @@ public class StockOverReceipt extends Receipt {
 
 	public StockOverReceipt() {
 		host = "localhost:1099";
-		url = "rmi://" + host + "/userService";
+		url = "rmi://" + host + "/stockManageService";
 		try {
 			service = (StockControlDataService) Naming.lookup(url);
 		} catch (MalformedURLException e) {

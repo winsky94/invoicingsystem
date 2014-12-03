@@ -1,8 +1,6 @@
 package vo;
 
-import java.util.Date;
-
-import businesslogic.receiptbl.ReceiptType;
+import po.ReceiptPO.ReceiptType;
 
 public class ReceiptVO {
 	String id;

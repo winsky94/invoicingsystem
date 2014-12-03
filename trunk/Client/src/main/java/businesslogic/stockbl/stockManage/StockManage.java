@@ -10,9 +10,9 @@ import po.CommodityPO;
 import po.GiftPO;
 import po.GoodsPO;
 import po.PurchasePO;
+import po.ReceiptPO.ReceiptType;
 import po.SalePO;
 import po.StockOverOrLowPO;
-import businesslogic.receiptbl.ReceiptType;
 import businesslogic.stockbl.goods.Goods;
 import dataservice.salesdataservice.SalesDataService;
 import dataservice.stockdataservice.controldataservice.StockControlDataService;
@@ -79,11 +79,11 @@ public class StockManage {
 		return result;
 	}
 
-	//库存盘点==
+	// 库存盘点==
 	public ArrayList<GoodsPO> checkStock() {
 		return null;
 	}
-	
+
 	// 出库数量及金额记录
 	private String getOutRecord(String beginDate, String endDate) {
 		// 销售出库
