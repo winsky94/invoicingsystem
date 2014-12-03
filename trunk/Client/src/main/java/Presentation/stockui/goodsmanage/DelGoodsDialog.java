@@ -45,6 +45,7 @@ public class DelGoodsDialog extends JDialog {
 		// -------------------submitBtn---------------------------------------------
 		submitBtn = new JButton("确定删除");
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		submitBtn.setBackground(new Color(251, 147, 121));
 		submitBtn.setBounds(dlgWidth * 35 / 100, dlgHeight * 58 / 100,
 				dlgWidth * 30 / 100, dlgHeight * 16 / 100);
 		submitBtn.setFocusPainted(false);
