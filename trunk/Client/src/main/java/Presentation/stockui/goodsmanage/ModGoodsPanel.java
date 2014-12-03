@@ -86,6 +86,7 @@ public class ModGoodsPanel extends JPanel implements ActionListener {
 		nameLbl.setFont(font);
 		namePnl.add(nameLbl);
 		nameFld = new JTextField(vo.getName());
+		nameFld.setBackground(Color.white);
 		nameFld.setFont(font);
 		nameFld.setEditable(false);
 		;
@@ -99,6 +100,7 @@ public class ModGoodsPanel extends JPanel implements ActionListener {
 		sizePnl.add(sizeLbl);
 		sizeFld = new JTextField(vo.getSize());
 		sizeFld.setFont(font);
+		sizeFld.setBackground(Color.white);
 		sizeFld.setEditable(false);
 		sizePnl.add(sizeFld);
 		// -------lastPurchasePricePnl-----------------
