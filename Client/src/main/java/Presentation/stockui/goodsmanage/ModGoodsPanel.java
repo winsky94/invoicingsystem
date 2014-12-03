@@ -112,7 +112,7 @@ public class ModGoodsPanel extends JPanel implements ActionListener {
 		JPanel lastSalePricePnl = new JPanel();
 		lastSalePricePnl.setBackground(Color.white);
 		mPnl.add(lastSalePricePnl);
-		lastSalePriceLbl = new JLabel("最近售价：" + vo.getLastPurchasePrice());
+		lastSalePriceLbl = new JLabel("最近售价：" + vo.getLastPrice());
 		lastSalePriceLbl.setFont(font);
 		lastSalePricePnl.add(lastSalePriceLbl);
 		// -------purchasePrice-----------------
