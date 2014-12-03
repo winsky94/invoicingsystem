@@ -9,31 +9,15 @@ public class CashlistPO extends ReceiptPO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	 String ID;
-     String user;
      String account;
      ArrayList<ClauseItemPO> clauselist=new ArrayList<ClauseItemPO>();
      double totalMoney;
      
-     public CashlistPO(){
-    	 this(null,null,null,null,0);
-     }
-     
-     public CashlistPO(String a,String b,String c,ArrayList<ClauseItemPO> d,double e){
-    	 super(ReceiptType.CASHLIST);
-    	 ID=a;
-    	 user=b;
+     public CashlistPO(String id,String user,String c,ArrayList<ClauseItemPO> d,double e,int status,int hurry){
+    	 super(id,ReceiptType.CASHLIST,user,status,hurry);
     	 account=c;
     	 clauselist=d;
     	 totalMoney=e;
-     }
-     
-     public String getID(){
-    	 return ID;
-     }
-     
-     public String getUser(){
-    	 return user;
      }
      
      public String getAccount(){

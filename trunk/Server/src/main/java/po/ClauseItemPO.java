@@ -3,7 +3,11 @@ package po;
 import java.io.Serializable;
 
 public class ClauseItemPO implements Serializable{
-	 String name;
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	String name;
 	 double money;
 	 String info;
 	 
