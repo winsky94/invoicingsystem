@@ -51,6 +51,9 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 	}
 
 	public int modifyAccount(AccountPO po,String name) {
+		if(myFindAccount(name)!=null){
+			return 1;
+		}
        ArrayList<Object> a=file.read();
 		
 		if(a==null)
@@ -125,7 +128,7 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 		Account a;
 		try {
 			a=new Account();
-			AccountPO b=new AccountPO("刘钦",0);
+/*			AccountPO b=new AccountPO("刘钦",0);
 			a.addAccount(b);
 			AccountPO c = new AccountPO("Lucy18", 10000);
 			a.addAccount(c);
@@ -141,12 +144,14 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 			System.out.println(a.deleteAccount(j));
 			buffer=a.showAll();	
 			System.out.println("-----------------我是萌萌哒的分隔线---------------------");
+*/			
+			ArrayList<AccountPO> buffer=a.showAll();
 			for(AccountPO po:buffer){
 				System.out.println("name:"+po.getName()+" money:"+po.getMoney());
 			}
 		
-			AccountPO k = new AccountPO("Lucy18", 10000);
-			a.modifyAccount(k, "Lucy");
+			AccountPO k = new AccountPO("妞妞", 10000);
+			System.out.println(a.modifyAccount(k, "端午"));
 			buffer=a.showAll();	
 			System.out.println("-----------------我是萌萌哒的分隔线---------------------");
 			for(AccountPO po:buffer){
