@@ -15,13 +15,15 @@ public class ChooseGoodsFatherPane extends JPanel{
 	int tag=0;
 	public MainFrame parent;
 	private static final long serialVersionUID = 1L;
-	public ArrayList<ArrayList<String>> c=new ArrayList<ArrayList<String>>();;
+	
+	//商品清单内容
+	public ArrayList<ArrayList<String>> cmContent=new ArrayList<ArrayList<String>>();;
 	public double discount;
 	
 	
 	public void addContent(ArrayList<ArrayList<String>> toAdd){
 		for(int i=0;i<toAdd.size();i++){
-			c.add(toAdd.get(i));
+			cmContent.add(toAdd.get(i));
 		}
 	
 		
@@ -40,11 +42,11 @@ public class ChooseGoodsFatherPane extends JPanel{
 		private static final long serialVersionUID = 1L;
 			String head[] = { "商品编号","名称", "型号","数量","单价","金额","备注" };
 			public int getRowCount() {
-				return c.size();
+				return cmContent.size();
 			}
 			
 			public void addRow(ArrayList<String>  s) {
-				c.add(s);
+				cmContent.add(s);
 			}
 		 
 
@@ -53,7 +55,7 @@ public class ChooseGoodsFatherPane extends JPanel{
 			}
 
 			public String getValueAt(int row, int col) {
-				return c.get(row).get(col);
+				return cmContent.get(row).get(col);
 			}
 			public String getColumnName(int col){
 				return head[col];
@@ -80,7 +82,7 @@ public class ChooseGoodsFatherPane extends JPanel{
 						p=Double.toString(vo.getLastPurchasePrice());
 					line.add(p);line.add(p);
 					line.add("");
-					c.add(line);
+					cmContent.add(line);
 				}}else{
 					for(int i=0;i<VO.size();i++){
 						 ArrayList<String> line=new ArrayList<String>();
@@ -91,7 +93,7 @@ public class ChooseGoodsFatherPane extends JPanel{
 						line.add(Double.toString(vo.getNum()));
 						line.add(Double.toString(vo.getTotal()));
 						line.add(vo.getTip());
-						c.add(line);
+						cmContent.add(line);
 					}
 				}
 	 }

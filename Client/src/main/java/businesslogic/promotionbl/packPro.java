@@ -8,6 +8,7 @@ import po.MemberPO.MemberType;
 import po.PromotionPO.PromotionType;
 import vo.PackProVO;
 import vo.PromotionVO;
+import vo.SaleVO;
 import businesslogic.stockbl.goods.Goods;
 
 //特价包促销
@@ -52,6 +53,18 @@ public class packPro extends promotion{
 	public int Delete(String id, PromotionType type) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public String getNewID(PromotionType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PromotionVO Match(SaleVO vo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

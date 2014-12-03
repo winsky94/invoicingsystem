@@ -9,12 +9,12 @@ import po.PromotionPO.PromotionType;
 
 public class DiscountProVO extends PromotionVO{
 	private ArrayList<Double> countList;
-	private ArrayList<GoodsVO>  goodsList;
+	private ArrayList<CommodityVO>  goodsList;
 	private double totalValue,discountValue;//折后总额；
 	
 	public DiscountProVO(String id,String startDate,String endDate,MemberLevel l,
 			ArrayList<Double> count,
-			ArrayList<GoodsVO>  goods,double total,double discount)
+			ArrayList<CommodityVO>  goods,double total,double discount)
 	{
 		super(id,startDate,endDate,PromotionType.DISCOUNT,l);
 		goodsList=goods;
@@ -26,7 +26,7 @@ public class DiscountProVO extends PromotionVO{
 		return countList;
 	}
 
-	public ArrayList<GoodsVO> getGoodsList() {
+	public ArrayList<CommodityVO> getGoodsList() {
 		return goodsList;
 	}
 

@@ -25,7 +25,7 @@ import vo.GiftVO;
 import vo.PromotionVO;
 import vo.SaleVO;
 //release 去掉？？？当前促销是否还有效？
-public abstract class  promotion implements PromotionBLService{
+public abstract  class  promotion implements PromotionBLService{
 	
 	PromotionDataService service;
 	public promotion() throws Exception{
@@ -35,7 +35,7 @@ public abstract class  promotion implements PromotionBLService{
 		service=(PromotionDataService)Naming.lookup(url);
 	
 	}
-
+	public abstract String getNewID(PromotionType type);
 	
 	//发布和添加？
 	public abstract int Add(PromotionVO vo);
@@ -45,10 +45,7 @@ public abstract class  promotion implements PromotionBLService{
 	public abstract int Delete(String id,PromotionType type);
 	
 	
-	public PromotionVO Match(SaleVO vo){
-		
-		return null;
-	}
+	public abstract PromotionVO Match(SaleVO vo);
 	
 	//自动生成库存赠送但
 	public GiftVO Present(PromotionVO vo){

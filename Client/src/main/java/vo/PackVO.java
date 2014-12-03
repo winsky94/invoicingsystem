@@ -9,9 +9,9 @@ public class PackVO {
 	private double totalValue;
 	private double packValue;
 	private ArrayList<Integer> num;
-	private ArrayList<GoodsVO> combine;
+	private ArrayList<CommodityVO> combine;
 	public PackVO(String id, double totalValue, double packValue,
-			ArrayList<Integer> num, ArrayList<GoodsVO> combine) {
+			ArrayList<Integer> num, ArrayList<CommodityVO> combine) {
 	
 		this.id = id;
 		this.totalValue = totalValue;
@@ -31,7 +31,7 @@ public class PackVO {
 	public ArrayList<Integer> getNum() {
 		return num;
 	}
-	public ArrayList<GoodsVO> getCombine() {
+	public ArrayList<CommodityVO> getCombine() {
 		return combine;
 	}
 }

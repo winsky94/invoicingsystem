@@ -13,6 +13,7 @@ import vo.GoodsVO;
 import vo.PackProVO;
 import vo.PromotionVO;
 import businesslogic.stockbl.goods.Goods;
+import businesslogic.stockbl.goods.GoodsController;
 
 public class discountPro extends promotion{
 	
@@ -20,6 +21,7 @@ public class discountPro extends promotion{
 	
 	public discountPro() throws Exception {
 		super();
+		GoodsController good=new GoodsController();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -64,6 +66,10 @@ public class discountPro extends promotion{
 	//ArrayList<Double> count,
 	//ArrayList<GoodsPO>  goods,double total,double discount
 	private DiscountProPO voToPo(DiscountProVO vo){
+		ArrayList<GoodsVO> gpo=vo.getGoodsList();
+		ArrayList<GoodsPO> gvo=new ArrayList<GoodsPO>();
+		for(int i=0;i<gpo.size();i++)
+			gvo.add()
 		
 		DiscountProPO po=new DiscountProPO(vo.getId(),vo.getStartDate(),vo.getEndDate(),
 				vo.getMemberlevel(),vo.getCountList(),vo.getGoodsList(),vo.getTotalValue(),

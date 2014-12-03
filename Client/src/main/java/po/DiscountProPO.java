@@ -14,12 +14,12 @@ public class DiscountProPO extends PromotionPO implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Double> countList;
-	private ArrayList<GoodsPO>  goodsList;
+	private ArrayList<CommodityPO>  goodsList;
 	private double totalValue,discountValue;//折后总额；
 	
 	public DiscountProPO(String id,String startDate,String endDate,MemberLevel l,
 			ArrayList<Double> count,
-			ArrayList<GoodsPO>  goods,double total,double discount)
+			ArrayList<CommodityPO>  goods,double total,double discount)
 	{
 		super(id,startDate,endDate,PromotionType.DISCOUNT,l);
 		goodsList=goods;
@@ -31,7 +31,7 @@ public class DiscountProPO extends PromotionPO implements Serializable{
 		return countList;
 	}
 
-	public ArrayList<GoodsPO> getGoodsList() {
+	public ArrayList<CommodityPO> getGoodsList() {
 		return goodsList;
 	}
 
@@ -44,7 +44,7 @@ public class DiscountProPO extends PromotionPO implements Serializable{
 	}
 	
 	public void setDiscount(ArrayList<Double> count,
-	ArrayList<GoodsPO>  goods){
+	ArrayList<CommodityPO>  goods){
 		this.countList=count;
 		this.goodsList=goods;
 	}
