@@ -1,0 +1,161 @@
+package businesslogic.stockbl.gift;
+
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+
+import po.CommodityPO;
+import po.GiftPO;
+import vo.CommodityVO;
+import vo.GoodsVO;
+import businesslogic.stockbl.goods.GoodsController;
+import businesslogic.stockbl.stockManage.StockControlController;
+import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
+import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
+import dataservice.stockdataservice.giftdataservice.GiftDataService;
+
+public class GiftManage {
+	private GiftDataService service;
+	private String host;
+	private String url1;
+
+	public GiftManage() {
+		host = "localhost:1099";
+		url1 = "rmi://" + host + "/giftService";
+		try {
+			service = (GiftDataService) Naming.lookup(url1);
+		} catch (MalformedURLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+	}
+
+	// 库存赠送单的处理
+	public int excute(GiftReceipt receipt) {
+		StockControlBLService controller = new StockControlController();
+		boolean isAble = true;// 库存是否满足
+		ArrayList<CommodityVO> list = receipt.getGiftVOList();
+		for (int i = 0; i < list.size(); i++) {
+			CommodityVO vo = list.get(i);
+			boolean isEnough = controller.isEnough(vo.getID(), vo.getNum());
+			if (!isEnough) {
+				isAble = false;
+				break;
+			}
+		}
+		if (isAble) {
+			// 减少库存数量
+			StockGoodsBLService goodsController = new GoodsController();
+			for (int i = 0; i < list.size(); i++) {
+				CommodityVO vo = list.get(i);
+				GoodsVO good = null;
+				try {
+					good = goodsController.findByID(vo.getID());
+				} catch (RemoteException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+				good.setNumInStock(good.getNumInStock() - vo.getNum());
+				goodsController.modifyGoods(good);
+			}
+
+			// 调用服务器端处理库存赠送单
+			GiftPO po = new GiftPO(receipt.getId(), receipt.getMemberID(),
+					receipt.getmemberName(), receipt.getUserID(),
+					receipt.getInfo(), 2, receipt.getHurry(), VOToPO(list));
+			int result = -1;
+			try {
+				result = service.dealGift(po);
+			} catch (RemoteException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+			return result;
+		} else {
+			return 7;
+		}
+
+	}
+
+	// 修改库存赠送单==未完
+	public GiftReceipt modify() {
+		return null;
+	}
+
+	// 商品赠送支出
+	public double getGiftCost() {
+		ArrayList<GiftPO> list = new ArrayList<GiftPO>();
+		double giftCost = 0;
+		try {
+			list = service.getGiftList();
+			for (int i = 0; i < list.size(); i++) {
+				ArrayList<CommodityPO> commodityList = list.get(i)
+						.getGiftList();
+				for (int j = 0; j < commodityList.size(); j++) {
+					giftCost += commodityList.get(j).getCost();
+				}
+			}
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return giftCost;
+	}
+
+	// 获取某段时间内的商品赠送清单
+	public ArrayList<GiftPO> getGiftList(String beginDate, String endDate) {
+		ArrayList<GiftPO> list = new ArrayList<GiftPO>();
+		list = service.getGiftList(beginDate, endDate);
+		return list;
+	}
+
+	// 获得某段时间内的商品赠送总量
+	public int getGiftNum(String beginDate, String endDate) {
+		int num = 0;
+		ArrayList<GiftPO> list = new ArrayList<GiftPO>();
+		list = service.getGiftList(beginDate, endDate);
+		for (GiftPO po : list) {
+			for (CommodityPO commodity : po.getGiftList()) {
+				num += commodity.getNum();
+			}
+		}
+
+		return num;
+	}
+
+	// 获得某段时间内的商品赠送总额
+	public double getGiftMoney(String beginDate, String endDate) {
+		double money = 0;
+		ArrayList<GiftPO> list = new ArrayList<GiftPO>();
+		list = service.getGiftList(beginDate, endDate);
+		for (GiftPO po : list) {
+			for (CommodityPO commodity : po.getGiftList()) {
+				money += commodity.getCost();
+			}
+		}
+
+		return money;
+	}
+
+	// 将赠送商品列表由vo转为po
+	private ArrayList<CommodityPO> VOToPO(ArrayList<CommodityVO> list) {
+		ArrayList<CommodityPO> result = new ArrayList<CommodityPO>();
+		for (int i = 0; i < list.size(); i++) {
+			CommodityVO vo = list.get(i);
+			CommodityPO po = new CommodityPO(vo.getID(), vo.getName(),
+					vo.getType(), vo.getPrice(), vo.getLast_bid(), vo.getNum(),
+					vo.getTotal(), vo.getCost(), vo.getTip());
+			result.add(po);
+		}
+
+		return result;
+	}
+}

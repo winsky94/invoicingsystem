@@ -20,10 +20,7 @@ import dataservice.stockdataservice.giftdataservice.GiftDataService;
 import dataservice.stockdataservice.goodsdataservice.StockGoodsDataService;
 
 public class StockManage {
-	private double goodsOverIncome;
-	private double primeCostIncome;
-	private double goodsLowCost;
-	private double giftCost;
+	private double primeCostIncome=0;
 	private StockControlDataService service;
 	private StockGoodsDataService goodsService;
 	private GiftDataService giftService;
@@ -102,8 +99,12 @@ public class StockManage {
 		double gMoney = 0;
 		ArrayList<GiftPO> gl = giftService.getGiftList(beginDate, endDate);
 		for (int i = 0; i < gl.size(); i++) {
-			gNum += gl.get(i).getNum();
-			gMoney += (gl.get(i).getGoods().getPrice() * gl.get(i).getNum());
+			ArrayList<CommodityPO> list=gl.get(i).getGiftList();
+			for(int j=0;j<list.size();j++){
+				gNum += list.get(j).getNum();
+				gMoney += list.get(j).getCost();
+			}
+			
 		}
 
 		// 库存报损
@@ -136,7 +137,7 @@ public class StockManage {
 			ArrayList<CommodityPO> purchaseList = pl.get(i).getPurchaseList();
 			for (int j = 0; j < purchaseList.size(); j++) {
 				pNum += purchaseList.get(j).getNum();
-				pMoney += purchaseList.get(j).getTotal();
+				pMoney += purchaseList.get(j).getCost();
 			}
 		}
 
@@ -192,7 +193,7 @@ public class StockManage {
 			ArrayList<CommodityPO> purchaseList = pl.get(i).getPurchaseList();
 			for (int j = 0; j < purchaseList.size(); j++) {
 				pNum += purchaseList.get(j).getNum();
-				pMoney += purchaseList.get(j).getTotal();
+				pMoney += purchaseList.get(j).getCost();
 			}
 		}
 
@@ -205,6 +206,7 @@ public class StockManage {
 
 	// 库存调价(未完成==)
 	public int changePrime(Goods good, Goods newGood) {
+		
 		primeCostIncome += (good.getPurchasePrice() - newGood
 				.getPurchasePrice()) * newGood.getNumInStock();
 		return 0;
@@ -220,7 +222,7 @@ public class StockManage {
 		}
 	}
 
-	// 获得库存调价收入
+	// 获得库存调价收入(未完成==)
 	public double getPrimeCostIncome() {
 
 		return primeCostIncome;
@@ -228,7 +230,7 @@ public class StockManage {
 
 	// 获得库存报溢收入
 	public double getGoodsOverIncome() {
-		goodsOverIncome = 0;
+		double goodsOverIncome = 0;
 		ArrayList<StockOverOrLowPO> list = service.getStockOverOrLowPO();
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getType().equals(ReceiptType.STOCKOVER)) {
@@ -242,7 +244,7 @@ public class StockManage {
 
 	// 获得库存报损支出
 	public double getGoodsLowCost() {
-		goodsLowCost = 0;
+		double goodsLowCost = 0;
 		ArrayList<StockOverOrLowPO> list = service.getStockOverOrLowPO();
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getType().equals(ReceiptType.STOCKLOW)) {
@@ -256,12 +258,14 @@ public class StockManage {
 
 	// 获得商品赠送支出
 	public double getGiftCost() {
-		giftCost = 0;
+		double giftCost = 0;
 		try {
 			ArrayList<GiftPO> list = giftService.getGiftList();
 			for (int i = 0; i < list.size(); i++) {
-				giftCost += (list.get(i).getGoods().getPrice() * list.get(i)
-						.getNum());
+				ArrayList<CommodityPO> commodityList=list.get(i).getGiftList();
+				for(int j=0;j<commodityList.size();j++){
+					giftCost +=commodityList.get(j).getCost();
+				}
 			}
 		} catch (RemoteException e) {
 			// TODO 自动生成的 catch 块

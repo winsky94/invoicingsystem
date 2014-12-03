@@ -188,6 +188,12 @@ public class Goods {
 		return service.getMaxID();
 	}
 
+	
+	
+	
+	
+	
+	
 	public String getGoodsID() {
 		return goodsID;
 	}

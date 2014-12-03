@@ -3,16 +3,11 @@ package dataservice.stockdataservice.giftdataservice;
 import java.rmi.RemoteException;
 
 import po.GiftPO;
-import po.GoodsPO;
-import po.MemberPO;
 
 
 public class GiftDataService_driver {
 	public void drive(GiftDataService_stub giftDataService_stub) {
-		GoodsPO goodsPO = new GoodsPO();
-		MemberPO memberPO = new MemberPO(null, null, null, null, null, null,
-				null, null, null, 0, 0, 0, 0);
-		GiftPO po =new GiftPO(memberPO,goodsPO,1);
+		GiftPO po =new GiftPO();
 	
 		try {
 			giftDataService_stub.addGift(po);
