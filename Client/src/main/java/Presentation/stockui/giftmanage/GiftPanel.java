@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -58,7 +56,7 @@ public class GiftPanel extends JPanel {
 			}
 		});
 		topPnl.add(giftBtn);
-		refreshBtn=new MyButton("刷新",new ImageIcon("img/stock/refresh.png"));
+		refreshBtn = new MyButton("刷新", new ImageIcon("img/stock/refresh.png"));
 		topPnl.add(refreshBtn);
 		// ---------------------------------------------
 		c.gridx = 0;

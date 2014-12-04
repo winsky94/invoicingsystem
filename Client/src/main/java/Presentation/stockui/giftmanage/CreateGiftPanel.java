@@ -8,22 +8,30 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import po.GiftPO;
+import po.MemberPO.MemberType;
+import vo.GiftVO;
+import vo.MemberVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
-import Presentation.promotionui.addpromotion.AddBarginPanel;
 import Presentation.stockui.ChooseGoodsDialog;
+import businesslogic.memberbl.Member;
+import businesslogicservice.memberblservice.MemberBLService;
 
-public class CreateGiftPanel extends ChooseGoodsFatherPane implements ActionListener{
+public class CreateGiftPanel extends ChooseGoodsFatherPane implements
+		ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
@@ -57,14 +65,32 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements ActionList
 		gbl.setConstraints(titlePnl, cons);
 		this.add(titlePnl);
 		// ------------------------------------
-		cons.fill=GridBagConstraints.BOTH;
+		cons.fill = GridBagConstraints.BOTH;
 		JPanel memberPnl = new JPanel();
 		memberPnl.setBackground(Color.white);
 		JLabel memberLbl = new JLabel("客户：");
 		memberLbl.setFont(font);
 		memberPnl.add(memberLbl);
-		String boxText[]={"我要加监听"};
-		memberBox=new JComboBox<String>(boxText);
+
+		// 给下拉框加入内容
+		ArrayList<MemberVO> member = new ArrayList<MemberVO>();
+		try {
+			MemberBLService memberController = new Member();
+			member = memberController.show(MemberType.XSS);
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		ArrayList<String> userList = new ArrayList<String>();
+		userList.add("请选择用户");
+		for (int i = 0; i < member.size(); i++) {
+			userList.add(member.get(i).getMemberID() + " "
+					+ member.get(i).getName());
+		}
+		String boxText[] = (String[]) userList
+				.toArray(new String[member.size()]);
+
+		memberBox = new JComboBox<String>(boxText);
 		memberBox.setBackground(Color.white);
 		memberBox.setFont(font);
 		memberPnl.add(memberBox);
@@ -76,9 +102,9 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements ActionList
 		cons.weighty = 0.1;
 		gbl.setConstraints(memberPnl, cons);
 		this.add(memberPnl);
-		//---------table--------------------------
-		table=new JTable();
-		jsp=new JScrollPane(table);
+		// ---------table--------------------------
+		table = new JTable();
+		jsp = new JScrollPane(table);
 		cons.gridx = 0;
 		cons.gridy = 4;
 		cons.gridheight = 5;
@@ -126,12 +152,27 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements ActionList
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==exitBtn){
+		if (e.getSource() == exitBtn) {
 			father.setRightComponent(new GiftPanel(father));
-		}
-		
-	}
+		} else if (e.getSource() == addBtn) {
+			new ChooseGoodsDialog(CreateGiftPanel.this);
+		} else if (e.getSource() == delBtn) {
 
+		} else if (e.getSource() == submitBtn) {
+			String mwmberData = memberBox.getSelectedItem().toString();
+			// 要先判断有木有选择客户信息
+			String data[] = mwmberData.split(" ");
+			String ID = data[0];
+			String name = data[1];
+			String user = father.getUser().getID();
+			// GiftVO vo = new GiftVO("", name, ID, user, status, hurry, info,
+			// cmContent);
+			// user怎么获得,status, hurry, info怎么搞
+			System.out.println("CreateGiftPanel.actionPerformed():"
+					+ cmContent.size());
+		}
+
+	}
 	// class GiftTableModel extends AbstractTableModel {
 	//
 	// /**
@@ -177,5 +218,5 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements ActionList
 	// fireTableCellUpdated(row, col);
 	// }
 	// }
-	
+
 }
