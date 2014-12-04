@@ -149,6 +149,29 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 		  return buffer;
 	}
 	
+	public ArrayList<MemberPO> show(MemberType type)throws RemoteException{
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return null;
+		
+		ArrayList<MemberPO> buffer=new ArrayList<MemberPO>();
+		for(Object b:a){
+			MemberPO c=(MemberPO)b;
+			buffer.add(c);
+		}
+		
+		ArrayList<MemberPO> result=new ArrayList<MemberPO>();
+			for(MemberPO po:buffer){
+				if(po.getmType()==type)
+					result.add(po);					
+			}
+		
+		if(result.size()==0)
+			return null;
+		
+		  return result;
+	}
+	
 	public int getNum(MemberType type){
 		ArrayList<Object> a=file.read();
 		int num=0;
