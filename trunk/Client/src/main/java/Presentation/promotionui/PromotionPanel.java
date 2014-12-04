@@ -31,6 +31,7 @@ import Presentation.promotionui.addpromotion.AddBarginPanel;
 import Presentation.promotionui.addpromotion.AddCouponPanel;
 import Presentation.promotionui.addpromotion.AddDiscountPanel;
 import Presentation.promotionui.addpromotion.AddGiftPanel;
+import Presentation.uihelper.MyDateFormat;
 
 public class PromotionPanel extends JPanel {
 	/**
@@ -170,12 +171,13 @@ public class PromotionPanel extends JPanel {
 	}
 
 	public void RefreshProTable(ArrayList<PromotionVO> vo){
+		
 		for(int i=0;i<vo.size();i++){
 			ArrayList<String> line=new ArrayList<String>();
 			PromotionVO v=vo.get(i);
 			line.add(v.getId());
-			line.add(v.getStartDate());
-			line.add(v.getEndDate());
+			line.add(MyDateFormat.FomatDate(v.getStartDate()));
+			line.add(MyDateFormat.FomatDate(v.getEndDate()));
 			line.add(getChangeProType.getProTypeString(v.getType()));
 			c.add(line);
 		}

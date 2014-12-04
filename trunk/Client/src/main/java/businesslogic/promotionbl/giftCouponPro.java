@@ -96,6 +96,11 @@ public class giftCouponPro extends promotion{
 	public int Add(PromotionVO vo) {
 		// TODO Auto-generated method stub
 		GiftCouponProVO v=(GiftCouponProVO)vo;
+		ArrayList<CouponVO> cvo=v.getCouponList();
+		System.out.println(v.getId());
+		String[] cid=getCouponId(cvo.size());
+		for(int i=0;i<cid.length;i++)
+			cvo.get(i).setId(cid[i]);
 		return service.Add(voToPo(v));
 	}
 	
@@ -152,7 +157,7 @@ public class giftCouponPro extends promotion{
 		     nf.setGroupingUsed(false);
 		     id=nf.format(d);
 		}
-
+		
 		return "DJQ-"+getdate()+"-"+id;
 	}
 
