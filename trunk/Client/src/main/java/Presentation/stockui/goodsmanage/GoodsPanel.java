@@ -233,7 +233,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 				double lastPrice = Double.parseDouble((String) goodsModel
 						.getValueAt(rownum, 7));
 				GoodsVO vo = new GoodsVO(id, name, size, num, purchasePrice,
-						price, lastPurchasePrice, lastPrice, "");
+						price, lastPurchasePrice, lastPrice, "", "");
 
 				new DelGoodsDialog(vo);
 
@@ -267,16 +267,20 @@ public class GoodsPanel extends JPanel implements ActionListener,
 						.getValueAt(rownum, 7));
 
 				String goodsClass = null;
+				String manufactoryDate = null;
 				try {
 					goodsClass = goodsController.findByID(id).getGoodsClass();
+					manufactoryDate = goodsController.findByID(id)
+							.getManufactureDate();
 				} catch (RemoteException e1) {
 					// TODO 自动生成的 catch 块
 					e1.printStackTrace();
 				}
 				GoodsVO vo = new GoodsVO(id, name, size, num, purchasePrice,
-						price, lastPurchasePrice, lastPrice, goodsClass);
+						price, lastPurchasePrice, lastPrice, goodsClass,
+						manufactoryDate);
 
-				parent.setRightComponent(new ModGoodsPanel(parent,vo));
+				parent.setRightComponent(new ModGoodsPanel(parent, vo));
 
 				// 重新再获得数据模型,刷新界面
 				goodsModel = new GoodsModel();
@@ -305,9 +309,9 @@ public class GoodsPanel extends JPanel implements ActionListener,
 	class SearchBtnListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			ArrayList<GoodsVO> list=goodsController.findGoods(keyWord);
-			
-			goodsModel=new GoodsModel(list);
+			ArrayList<GoodsVO> list = goodsController.findGoods(keyWord);
+
+			goodsModel = new GoodsModel(list);
 			goodsTable.setModel(goodsModel);
 		}
 

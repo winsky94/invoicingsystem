@@ -10,10 +10,11 @@ public class GoodsVO {
 	double lastPurchasePrice;
 	double lastPrice;
 	String goodsClass;
+	String manufactureDate;
 
 	public GoodsVO(String goodsID, String name, String size, int numInStock,
 			double purchasePrice, double price, double lastPurchasePrice,
-			double lastPrice, String goodsClass) {
+			double lastPrice, String goodsClass, String manufactureDate) {
 		GoodsID = goodsID;
 		this.name = name;
 		this.size = size;
@@ -23,6 +24,7 @@ public class GoodsVO {
 		this.lastPurchasePrice = lastPurchasePrice;
 		this.lastPrice = lastPrice;
 		this.goodsClass = goodsClass;
+		this.manufactureDate = manufactureDate;
 	}
 
 	public String getGoodsID() {
@@ -91,5 +93,13 @@ public class GoodsVO {
 
 	public String getGoodsClass() {
 		return goodsClass;
+	}
+
+	public String getManufactureDate() {
+		return manufactureDate;
+	}
+
+	public void setManufactureDate(String manufactureDate) {
+		this.manufactureDate = manufactureDate;
 	}
 }

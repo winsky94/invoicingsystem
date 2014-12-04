@@ -6,7 +6,9 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import po.CommodityPO;
 import po.GiftPO;
@@ -66,28 +68,26 @@ public class GiftReceipt extends Receipt {
 		int result = -1;
 		ArrayList<CommodityPO> list = new ArrayList<CommodityPO>();
 		list = VOToPO(giftVOList);
-		
-		//生成编号
-		String id="";
+
+		// 生成编号
+		String id = "KCZSD-" + getDate() + "-";
 		String maxID = null;
 		try {
-			maxID=service.getMaxID();
+			maxID = service.getMaxID();
 		} catch (RemoteException e1) {
 			// TODO 自动生成的 catch 块
 			e1.printStackTrace();
 		}
-		if(maxID==null){
-			id="0000";
-		}
-		else{
-			NumberFormat nf = new DecimalFormat("0000");
+		if (maxID == null) {
+			id += "00001";
+		} else {
+			NumberFormat nf = new DecimalFormat("00000");
 			int tp = Integer.parseInt(maxID);
-			id = nf.format(tp + 1);
+			id += nf.format(tp + 1);
 		}
-		
-		GiftPO po = new GiftPO(id, super.getmemberName(),
-				getMemberID(), super.getUserID(), super.getInfo(), 0,
-				super.getHurry(), list);
+
+		GiftPO po = new GiftPO(id, super.getmemberName(), getMemberID(),
+				super.getUserID(), super.getInfo(), 0, super.getHurry(), list);
 		try {
 			result = service.addGift(po);
 		} catch (RemoteException e) {
@@ -131,5 +131,13 @@ public class GiftReceipt extends Receipt {
 		}
 
 		return result;
+	}
+
+	private String getDate() {
+		Calendar rightNow = Calendar.getInstance();
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+		String sysDatetime = fmt.format(rightNow.getTime());
+
+		return sysDatetime;
 	}
 }

@@ -65,6 +65,7 @@ public class StockOverReceipt extends Receipt {
 	}
 
 	public int add() {
+		//编号在StockOverOrLowManage里面已经生成好了传过来的
 		StockOverOrLowPO po = new StockOverOrLowPO(super.getId(),
 				super.getmemberName(), super.getMemberID(), super.getUserID(),
 				ReceiptType.STOCKOVER, 0, super.getHurry(), super.getInfo(),
@@ -72,6 +73,10 @@ public class StockOverReceipt extends Receipt {
 		return service.addStockOverOrLow(po);
 	}
 
+	
+	
+	
+	
 	public String getGoodName() {
 		return goodName;
 	}
