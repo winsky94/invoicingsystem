@@ -1,7 +1,6 @@
 package dataservice.promotiondataservice;
 
 import java.rmi.Remote;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.PromotionPO;
@@ -17,7 +16,7 @@ public interface PromotionDataService extends Remote{
 		public ArrayList<PromotionPO>show(PromotionType type);
 		//促销有不同类型存储在不同的ser文件里  所以data层需要判断po的PromotionType  做不同的转换
 		//存入 不同的文件   to小小黄
-		
+
 
 	
 }
