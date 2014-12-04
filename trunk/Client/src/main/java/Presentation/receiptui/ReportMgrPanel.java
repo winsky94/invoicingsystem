@@ -72,7 +72,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener{
 		exportBtn.addActionListener(this);
 		btnPnl.add(exportBtn);
 		//-----搜索框---------------
-		findFld=new JTextField(9);
+		findFld=new JTextField(13);
 		findFld.setFont(font);
 		findFld.getDocument().addDocumentListener(new DocumentListener() {
 			
@@ -96,7 +96,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener{
 		findBtn=new MyButton(new ImageIcon("img/promotion/find.png"));
 		btnPnl.add(findBtn);
 		//-----筛选按钮-------------
-		filterBtn=new MyButton("筛选条件");
+		filterBtn=new MyButton("展开筛选条件");
 		btnPnl.add(filterBtn);
 		//-----tab-----------------
 		tab=new JTabbedPane();
