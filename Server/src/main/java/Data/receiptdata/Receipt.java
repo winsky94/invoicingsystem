@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import Data.financedata.Cashlist;
 import Data.financedata.Collection;
 import Data.financedata.Payment;
+import Data.financedata.RedExtrusion;
 import Data.salesdata.Sales;
 import Data.stockdata.gift.Gift;
 import po.CashlistPO;
@@ -33,50 +34,15 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
 	}
 	
 	public int Add(ReceiptPO po) throws RemoteException {
-        int result=0;
-        if(po.getType()==ReceiptType.COLLECTION){
-        	Collection c=new Collection();
-        	result=c.createCollection((CollectionPO)po);
-        }
-        else if(po.getType()==ReceiptType.PAYMENT){
-        	Payment p=new Payment();
-        	result=p.createPayment((PaymentPO)po);
-        }
-        else if(po.getType()==ReceiptType.CASHLIST){
-        	Cashlist c=new Cashlist();
-        	result=c.createCashlist((CashlistPO)po);
-        }
-        else if(po.getType()==ReceiptType.PURCHASE||po.getType()==ReceiptType.PURCHASERETURN||po.getType()==ReceiptType.SALE||po.getType()==ReceiptType.SALERETURN){
-        	Sales s=new Sales();
-        	if(po.getType()==ReceiptType.PURCHASE)
-        		result=s.createPurchase((PurchasePO)po);
-        	else if(po.getType()==ReceiptType.PURCHASERETURN)
-        		result=s.createPurchaseReturn((PurchaseReturnPO)po);
-        	else if(po.getType()==ReceiptType.SALE)
-        		result=s.createSale((SalePO)po);
-        	else
-        		result=s.createSaleReturn((SaleReturnPO)po);
-        }
-        else if(po.getType()==ReceiptType.STOCKERROR){
-        	Gift g=new Gift();
-        	result=g.addGift((GiftPO)po);
-        }
-        else if(po.getType()==ReceiptType.STOCKLOW){
-        	
-        }
-        else if(po.getType()==ReceiptType.STOCKOVER){
-        	
-        }
-        else if(po.getType()==ReceiptType.GIFT){
-        	
-        }
-        else{
-        	return 1;
-        }
-        	
-		return result;
+       RedExtrusion r=new RedExtrusion();
+       return r.createRedExtrusion(po);
 	}
 
+	public ReceiptPO addAndCopy(ReceiptPO po) throws RemoteException{
+		RedExtrusion r=new RedExtrusion();
+		return r.createRedExtrusionAndCopy(po);
+	}
+	
 	public ReceiptPO find(String id) throws RemoteException {
 
             String[] buffer=id.split("-");
