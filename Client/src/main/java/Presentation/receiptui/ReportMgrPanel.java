@@ -21,6 +21,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.XLSFilter;
 import Presentation.receiptui.tablemodels.OperationHistoryTableModel;
 import Presentation.receiptui.tablemodels.OperationStatementTableModel;
 import Presentation.receiptui.tablemodels.SaleDetailTableModel;

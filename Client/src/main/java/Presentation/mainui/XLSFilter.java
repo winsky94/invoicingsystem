@@ -1,4 +1,4 @@
-package Presentation.receiptui;
+package Presentation.mainui;
 
 import java.io.File;
 
