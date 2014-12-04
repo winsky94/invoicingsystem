@@ -4,8 +4,11 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+
 
 
 
@@ -65,6 +68,14 @@ public abstract  class  promotion implements PromotionBLService{
 		return null;
 	}
 	
+	
+
+	public static String getdate() {
+		 Calendar rightNow = Calendar.getInstance();
+	        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+	        String sysDatetime = fmt.format(rightNow.getTime());   
+	return sysDatetime;
+	}
 	
 	
 }

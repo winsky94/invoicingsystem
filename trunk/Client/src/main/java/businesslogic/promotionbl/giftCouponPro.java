@@ -1,7 +1,11 @@
 package businesslogic.promotionbl;
 
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+
+
+
 
 
 import po.CouponPO;
@@ -9,9 +13,7 @@ import po.GiftCouponProPO;
 import po.PromotionPO;
 import po.PromotionPO.PromotionType;
 import vo.CouponVO;
-
 import vo.GiftCouponProVO;
-
 import vo.PromotionVO;
 import vo.SaleVO;
 
@@ -112,6 +114,23 @@ public class giftCouponPro extends promotion{
 	public PromotionVO Match(SaleVO vo) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public String getNewID() {
+		// TODO Auto-generated method stub
+		String id=null;
+		ArrayList<PromotionPO> gpp=service.show(PromotionType.GIFTCOUPON);
+		if(gpp==null) id="001";
+		else{
+			int i=gpp.size();
+			Double d=Double.parseDouble(gpp.get(i-1).getID().substring(13)+1);
+			 NumberFormat nf = NumberFormat.getInstance();
+		     nf.setMinimumIntegerDigits(3); 
+		     nf.setGroupingUsed(false);
+		     id=nf.format(d);
+		}
+
+		return "DJQ-"+getdate()+"-"+id;
 	}
 	
 

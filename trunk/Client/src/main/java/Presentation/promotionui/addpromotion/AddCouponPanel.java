@@ -7,7 +7,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.print.PrintService;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -15,20 +19,30 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import vo.CouponVO;
+import vo.GiftCouponProVO;
+import businesslogic.promotionbl.giftCouponPro;
+import businesslogicservice.promotionblservice.PromotionBLService;
+import Presentation.mainui.MainFrame;
+import Presentation.promotionui.PromotionPanel;
 import Presentation.uihelper.DateChooser;
 
-public class AddCouponPanel extends JPanel {
+public class AddCouponPanel extends JPanel implements ActionListener{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	String startDate,endDate;
+	double totalValue;
 	JFrame father;
 	DateChooser from, to;
 	JTextField limitFld, priceFld, totalFld;
 	JComboBox<String> memberGradeBox;
 	JButton submitBtn, exitBtn;
-
+	PromotionBLService service;
+	ArrayList<CouponVO> couponlist;
+	
 	public AddCouponPanel(JFrame myFather) {
 		father = myFather;
 		GridBagLayout gbl = new GridBagLayout();
@@ -146,6 +160,7 @@ public class AddCouponPanel extends JPanel {
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
+		submitBtn.addActionListener(this);
 		btnPnl.add(submitBtn);
 		btnPnl.add(new JLabel("          "));
 		exitBtn = new JButton("取消");
@@ -153,6 +168,7 @@ public class AddCouponPanel extends JPanel {
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(251, 147, 121));
 		btnPnl.add(exitBtn);
+		exitBtn.addActionListener(this);
 	}
 
 	public static void main(String[] args) {
@@ -163,5 +179,23 @@ public class AddCouponPanel extends JPanel {
 		gp.setBounds(0, 0, 920, 600);
 		testFrame.add(gp);
 		testFrame.setVisible(true);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==exitBtn){
+			PromotionPanel proPanel=new PromotionPanel((MainFrame)father);
+			((MainFrame)father).setRightComponent(proPanel);
+		}
+		else if(e.getSource()==submitBtn){
+			try {
+				service=new giftCouponPro();
+				String id=service.getNewID();
+				GiftCouponProVO vo=new GiftCouponProVO(id,);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 }

@@ -12,6 +12,7 @@ import vo.DiscountProVO;
 import vo.GoodsVO;
 import vo.PackProVO;
 import vo.PromotionVO;
+import vo.SaleVO;
 import businesslogic.stockbl.goods.Goods;
 import businesslogic.stockbl.goods.GoodsController;
 
@@ -72,6 +73,22 @@ public class discountPro extends promotion{
 				vo.getMemberlevel(),vo.getCountList(),,vo.getTotalValue(),
 				vo.getDiscountValue());
 		return po;
+	}
+
+
+
+	@Override
+	public String getNewID(PromotionType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public PromotionVO Match(SaleVO vo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	//String id,String startDate,String endDate,MemberLevel l,
