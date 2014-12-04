@@ -168,7 +168,7 @@ public class LoginFrame extends JFrame {
 		JPanel portraitPanel = new JPanel();
         
 		mainPanel.setVisible(true);
-	mainPanel.setLayout(null);
+		mainPanel.setLayout(null);
 		// 向mainPanel添加组件
 		
 		//pane.add(image);
