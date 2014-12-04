@@ -13,7 +13,7 @@ public class OverflowPanel extends JPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JButton submitBtn,cancelBtn;
+	JButton submitBtn,exitBtn;
 	JLabel titleLbl;
 	public OverflowPanel(MainFrame frame,Color color[]){
 		
