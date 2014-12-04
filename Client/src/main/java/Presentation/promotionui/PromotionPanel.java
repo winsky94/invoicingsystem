@@ -25,6 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import vo.PromotionVO;
 import Presentation.mainui.MainFrame;
 import Presentation.promotionui.addpromotion.AddBarginPanel;
 import Presentation.promotionui.addpromotion.AddCouponPanel;
@@ -168,6 +169,17 @@ public class PromotionPanel extends JPanel {
 		this.add(jsp);
 	}
 
+	public void RefreshProTable(ArrayList<PromotionVO> vo){
+		for(int i=0;i<vo.size();i++){
+			ArrayList<String> line=new ArrayList<String>();
+			PromotionVO v=vo.get(i);
+			line.add(v.getId());
+			line.add(v.getStartDate());
+			line.add(v.getEndDate());
+			line.add(getChangeProType.getProTypeString(v.getType()));
+			c.add(line);
+		}
+	}
 	class PromotionTableModel extends AbstractTableModel {
 
 		/**
