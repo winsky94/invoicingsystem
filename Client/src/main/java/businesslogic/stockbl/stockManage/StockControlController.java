@@ -3,7 +3,6 @@ package businesslogic.stockbl.stockManage;
 import java.util.ArrayList;
 
 import po.ReceiptPO.ReceiptType;
-import vo.GoodsVO;
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
 import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
@@ -13,13 +12,16 @@ public class StockControlController implements StockControlBLService {
 	public int addStockOverOrLow(StockOverOrLowVO vo) {
 		// TODO 自动生成的方法存根
 		StockOverOrLowManage manage = new StockOverOrLowManage();
-		if(vo.getType().equals(ReceiptType.STOCKOVER)){
-			return manage.addStockOverReceipt(vo.getId(), vo.getMemberName(),
-				vo.getMemberID(), vo.getUser(), vo.getHurry(), vo.getInfo());
-		}
-		else{
-			return manage.addStockLowReceipt(vo.getId(), vo.getMemberName(),
-					vo.getMemberID(), vo.getUser(), vo.getHurry(), vo.getInfo());
+		if (vo.getType().equals(ReceiptType.STOCKOVER)) {
+			return manage
+					.addStockOverReceipt(vo.getId(), vo.getMemberName(),
+							vo.getMemberID(), vo.getUser(), vo.getHurry(),
+							vo.getInfo());
+		} else {
+			return manage
+					.addStockLowReceipt(vo.getId(), vo.getMemberName(),
+							vo.getMemberID(), vo.getUser(), vo.getHurry(),
+							vo.getInfo());
 		}
 	}
 
@@ -43,7 +45,7 @@ public class StockControlController implements StockControlBLService {
 		return manage.getGoodsLowCost();
 	}
 
-	//库存查看
+	// 库存查看
 	public ArrayList<String> showStock(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		StockManage manage = new StockManage();
@@ -51,10 +53,10 @@ public class StockControlController implements StockControlBLService {
 
 	}
 
-	//库存盘点====
-	public ArrayList<GoodsVO> checkStock() {
+	// 库存盘点(库存均价)
+	public ArrayList<ArrayList<String>> checkStock() {
 		// TODO 自动生成的方法存根
-		StockManage manage=new StockManage();
+		StockManage manage = new StockManage();
 		return manage.checkStock();
 	}
 
@@ -65,7 +67,7 @@ public class StockControlController implements StockControlBLService {
 		return manage.isEnough(ID, num);
 	}
 
-	//商品调价收入==
+	// 商品调价收入==
 	public double getPrimeCostIncome() {
 		// TODO 自动生成的方法存根
 		return 0;
@@ -78,13 +80,17 @@ public class StockControlController implements StockControlBLService {
 		return manage.getGiftCost();
 	}
 
+	//显示库存报溢单
 	public ArrayList<StockOverOrLowVO> showStockOverReceipt() {
 		// TODO 自动生成的方法存根
-		return null;
+		StockManage manage = new StockManage();
+		return manage.showStockOverReceipt();
 	}
 
+	//显示库存报损单
 	public ArrayList<StockOverOrLowVO> showStockLowReceipt() {
 		// TODO 自动生成的方法存根
-		return null;
+		StockManage manage = new StockManage();
+		return manage.showStockLowReceipt();
 	}
 }

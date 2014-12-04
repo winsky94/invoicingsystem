@@ -14,13 +14,6 @@ public class StockControlDataService_driver {
 		StockErrorPO stockErrorPO = new StockErrorPO("飞利浦日光灯", "SR01");
 		stockControlDataService.addStockOverOrLow(stockOverOrLowPO);
 		stockControlDataService.addStockError(stockErrorPO);
-		stockControlDataService.goodsOverIncome();
-		stockControlDataService.goodsLowCost();
-		stockControlDataService.showStock("2014年10月1日", "2014年10月17日");
-
-		stockControlDataService.checkStock();
-		stockControlDataService.isEnough("00001", 10);
-		stockControlDataService.PrimeCostIncome();
 	}
 
 	public static void main(String[] args) throws RemoteException {

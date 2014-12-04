@@ -4,7 +4,11 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import po.CommodityPO;
 import po.GiftPO;
@@ -13,7 +17,6 @@ import po.PurchasePO;
 import po.ReceiptPO.ReceiptType;
 import po.SalePO;
 import po.StockOverOrLowPO;
-import vo.GoodsVO;
 import vo.StockOverOrLowVO;
 import businesslogic.stockbl.goods.Goods;
 import dataservice.salesdataservice.SalesDataService;
@@ -56,33 +59,33 @@ public class StockManage {
 		}
 	}
 
-	//显示库存报溢单
+	// 显示库存报溢单
 	public ArrayList<StockOverOrLowVO> showStockOverReceipt() {
 		ArrayList<StockOverOrLowPO> list = new ArrayList<StockOverOrLowPO>();
-		ArrayList<StockOverOrLowPO> OverLsit=new ArrayList<StockOverOrLowPO>();
+		ArrayList<StockOverOrLowPO> OverLsit = new ArrayList<StockOverOrLowPO>();
 		ArrayList<StockOverOrLowVO> result = new ArrayList<StockOverOrLowVO>();
 		list = service.getStockOverOrLowPO();
-		for(StockOverOrLowPO po : list){
-			if(po.getType().equals(ReceiptType.STOCKOVER)){
+		for (StockOverOrLowPO po : list) {
+			if (po.getType().equals(ReceiptType.STOCKOVER)) {
 				OverLsit.add(po);
 			}
 		}
-		result=POToVO(OverLsit);
+		result = POToVO(OverLsit);
 		return result;
 	}
 
-	//显示库存报损单
+	// 显示库存报损单
 	public ArrayList<StockOverOrLowVO> showStockLowReceipt() {
 		ArrayList<StockOverOrLowPO> list = new ArrayList<StockOverOrLowPO>();
-		ArrayList<StockOverOrLowPO> lowLsit=new ArrayList<StockOverOrLowPO>();
+		ArrayList<StockOverOrLowPO> lowLsit = new ArrayList<StockOverOrLowPO>();
 		ArrayList<StockOverOrLowVO> result = new ArrayList<StockOverOrLowVO>();
 		list = service.getStockOverOrLowPO();
-		for(StockOverOrLowPO po : list){
-			if(po.getType().equals(ReceiptType.STOCKLOW)){
+		for (StockOverOrLowPO po : list) {
+			if (po.getType().equals(ReceiptType.STOCKLOW)) {
 				lowLsit.add(po);
 			}
 		}
-		result=POToVO(lowLsit);
+		result = POToVO(lowLsit);
 		return result;
 	}
 
@@ -108,10 +111,32 @@ public class StockManage {
 		return result;
 	}
 
-	// 库存盘点==
-	public ArrayList<GoodsVO> checkStock() {
-		
-		return null;
+	// 库存盘点(库存均价)
+	public ArrayList<ArrayList<String>> checkStock() {
+		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+
+		ArrayList<GoodsPO> goodsList = goodsService.showGoods();
+		if (goodsList != null) {
+			int i=0;
+			for (GoodsPO po : goodsList) {
+				ArrayList<String> tp = new ArrayList<String>();
+				//包括当天的各种商品的名称，型号，库存数量，库存均价，批次，[盘点时，相当于设置了一个截止点，这个点就是批次（日期）批号（序号），这是系统根据当前盘点时间产生的。]批号，出厂日期，并且显示行号
+				//行号、商品名称、型号、库存数量、库存均价、批次、批号、出厂日期
+				NumberFormat nf = new DecimalFormat("00000");
+				String hang = nf.format(i);
+				tp.add(hang);//行号
+				tp.add(po.getName());//名称
+				tp.add(po.getSize());//型号
+				tp.add(String.valueOf(po.getNumInStock()));//库存数量
+				tp.add(String.valueOf(po.getPurchasePrice()));//库存均价
+				tp.add(getDate());//批次
+				tp.add(hang);//批号
+				tp.add(po.getManufactureDate());//出厂日期
+				result.add(tp);
+			}
+		}
+
+		return result;
 	}
 
 	// 出库数量及金额记录
@@ -326,4 +351,12 @@ public class StockManage {
 		return result;
 	}
 
+	private String getDate() {
+		Calendar rightNow = Calendar.getInstance();
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+		String sysDatetime = fmt.format(rightNow.getTime());
+
+		return sysDatetime;
+	}
+	
 }
