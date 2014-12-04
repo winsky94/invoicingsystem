@@ -12,6 +12,6 @@ public interface PromotionDataService extends Remote{
 	public PromotionPO find(String id,PromotionType type)throws RemoteException;
 	public int Delete(String id,PromotionType type)throws RemoteException;;
 	public int Modify(PromotionPO po)throws RemoteException;
-	public ArrayList<PromotionPO>show()throws RemoteException;
-	
+	public ArrayList<PromotionPO>showAll()throws RemoteException;
+	public ArrayList<PromotionPO> show(PromotionType type) throws RemoteException;
 }

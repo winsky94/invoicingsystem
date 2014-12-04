@@ -82,6 +82,12 @@ public class ReceiptPO  implements Serializable{
 		String day=s.substring(6,8);
 		return year+"/"+month+"/"+day;
 	}
+	
+	public String myGetDate(){
+		String[] buffer=id.split("-");
+		String s=buffer[1];
+		return s;
+	}
 
 	public String getInfo() {
 		return info;
