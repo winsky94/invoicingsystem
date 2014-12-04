@@ -52,6 +52,7 @@ public class AddCouponPanel extends JPanel {
 		gbl.setConstraints(titlePnl, c);
 		this.add(titlePnl);
 		// -----------------------------
+		c.fill=GridBagConstraints.BOTH;
 		JPanel mPnl = new JPanel();
 		mPnl.setBackground(Color.white);
 		c.gridx = 0;
@@ -120,7 +121,7 @@ public class AddCouponPanel extends JPanel {
 		JPanel totalPnl = new JPanel();
 		totalPnl.setBackground(Color.white);
 		funcPnl.add(totalPnl);
-		JLabel totalLbl = new JLabel("总额限制：");
+		JLabel totalLbl = new JLabel("数量：");
 		totalLbl.setFont(new Font("微软雅黑", Font.BOLD, 15));
 		totalPnl.add(totalLbl);
 		totalFld = new JTextField(11);
