@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import po.MemberPO.MemberLevel;
 import vo.CouponVO;
 import vo.GiftCouponProVO;
 import businesslogic.promotionbl.giftCouponPro;
@@ -34,6 +35,7 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	String startDate,endDate;
+	MemberLevel level;
 	double totalValue;
 	JFrame father;
 	DateChooser from, to;
@@ -189,9 +191,12 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 		}
 		else if(e.getSource()==submitBtn){
 			try {
+				startDate=from.getDate();
+				endDate=to.getDate();
+				level=MemberLevel[memberGradeBox.getSelectedIndex()];
 				service=new giftCouponPro();
 				String id=service.getNewID();
-				GiftCouponProVO vo=new GiftCouponProVO(id,);
+				GiftCouponProVO vo=new GiftCouponProVO(id,startDate,endDate,);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

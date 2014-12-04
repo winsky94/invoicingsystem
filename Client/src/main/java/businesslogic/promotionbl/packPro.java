@@ -67,6 +67,11 @@ public class packPro extends promotion{
 		return null;
 	}
 
+	public String getNewID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 

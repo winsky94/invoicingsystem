@@ -15,6 +15,7 @@ import java.util.Date;
 
 
 
+
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
 import po.PromotionPO.PromotionType;
@@ -77,6 +78,11 @@ public class giftGoodPro extends promotion{
 
 	@Override
 	public PromotionVO Match(SaleVO vo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getNewID() {
 		// TODO Auto-generated method stub
 		return null;
 	}
