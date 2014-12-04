@@ -17,6 +17,7 @@ import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import Presentation.receiptui.ReceiptMgrPanel;
+import Presentation.receiptui.ReportMgrPanel;
 import Presentation.uihelper.AboutPanel;
 public class ProLeftShortPanel extends JPanel implements ActionListener{
 	JLabel head;
@@ -99,7 +100,7 @@ public class ProLeftShortPanel extends JPanel implements ActionListener{
 		}else if(e.getSource()==backBtn){
 			parent.setLeftComponent(new ProLeftPanel(parent));
 		}else if(e.getSource()==view){
-			
+			parent.setRightComponent(new ReportMgrPanel(parent));
 		}else if(e.getSource()==receipt){
 			parent.setRightComponent(new ReceiptMgrPanel(parent));
 		}else if(e.getSource()==aboutBtn){

@@ -1,25 +1,22 @@
 package Presentation.promotionui;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
-import po.UserPO.UserJob;
 import vo.UserVO;
-import businesslogic.userbl.User;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import Presentation.receiptui.ReceiptMgrPanel;
+import Presentation.receiptui.ReportMgrPanel;
 import Presentation.uihelper.AboutPanel;
-import Presentation.uihelper.UIhelper;
 
 public class ProLeftPanel extends JPanel implements ActionListener{
 	
@@ -107,6 +104,7 @@ public class ProLeftPanel extends JPanel implements ActionListener{
 		}else if(e.getSource()==backBtn){
 			parent.setLeftComponent(new ProLeftShortPanel(parent));
 		}else if(e.getSource()==view){
+			parent.setRightComponent(new ReportMgrPanel(parent));
 			
 		}else if(e.getSource()==receipt){
 			parent.setRightComponent(new ReceiptMgrPanel(parent));
