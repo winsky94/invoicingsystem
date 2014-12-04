@@ -315,49 +315,123 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
 			return null;
 		for(ReceiptPO po:al){
 			if(po.getType()==ReceiptType.COLLECTION){
-				
+				if(s.equals(((CollectionPO)po).getSupplier())||s.equals(((CollectionPO)po).getSeller()))
+					result.add(po);
 			}
-		}
-	}
-	public ArrayList<ReceiptPO> AccurateFind(String[] message)throws RemoteException {
-		//时间区间,单据类型，客户，业务员，仓库
-		ArrayList<ReceiptPO> al=showAll();
-		ArrayList<ReceiptPO> result=new ArrayList<ReceiptPO>();
-		String startDate=message[0].substring(0,8);
-		String endDate=message[0].substring(8,16);
-		for(ReceiptPO po:al){
-			if(startDate.compareTo(po.myGetDate())<0&&po.myGetDate().compareTo(endDate)<0){
-				if(po.getType().equals(message[1])){
-					if(message[1].equals(ReceiptType.COLLECTION)){
-						if(message[2].equals(((CollectionPO)po).getSupplier())||message[2].equals(((CollectionPO)po).getSeller())){
-							if(message[3].equals(po.getUserID())){
-								result.add(po);
-							}
-						}
-					}
-					else if(message[1].equals(ReceiptType.PAYMENT)){
-						if(message[2].equals(((PaymentPO)po).getSupplier())||message[2].equals(((PaymentPO)po).getSeller())){
-							if(message[3].equals(po.getUserID())){
-								result.add(po);
-							}
-						}
-					}
-					else if(message[1].equals(ReceiptType.CASHLIST)){
-							return null;
-				    }
-					else{
-						if(message[2].equals(po.getMemberID())){
-							if(message[3].equals(po.getUserID())){
-								result.add(po);
-							}
-						}
-					}
-				}
+			else if(po.getType()==ReceiptType.PAYMENT){
+				if(s.equals(((PaymentPO)po).getSupplier())||s.equals(((PaymentPO)po).getSeller()))
+					result.add(po);
+			}
+			else if(po.getType()==ReceiptType.CASHLIST){
+				continue;
+			}
+			else{
+				if(s.equals(po.getMemberID()))
+					result.add(po);
 			}
 		}
 		if(result.size()==0)
-		   return null;
+			return null;
+					
+		return result;	
+	}
+	
+	public ArrayList<ReceiptPO> findByUser(String s) throws RemoteException{
+		ArrayList<ReceiptPO> result=new ArrayList<ReceiptPO>();
+		ArrayList<ReceiptPO> al=showAll();
+		if(al==null)
+			return null;
+		for(ReceiptPO po:al){
+			if(po.getUserID().equals(s))
+				result.add(po);
+		}
+		if(result.size()==0)
+			return null;
+	    return result;
+	}
+	
+	
+	public ArrayList<ReceiptPO> findByWarehouse(String s) throws RemoteException{
+		ArrayList<ReceiptPO> result=new ArrayList<ReceiptPO>();
+		ArrayList<ReceiptPO> al=showAll();
+		if(al==null)
+			return null;
+		for(ReceiptPO po:al){
+			if(po.getType()==ReceiptType.PURCHASE){
+				if(((PurchasePO)po).getStockID().equals(s))
+					result.add(po);
+			}
+			else if(po.getType()==ReceiptType.PURCHASERETURN){
+				if(((PurchaseReturnPO)po).getStockID().equals(s))
+					result.add(po);
+			}
+			else if(po.getType()==ReceiptType.SALE){
+				if(((SalePO)po).getStockID().equals(s))
+					result.add(po);
+			}
+			else if(po.getType()==ReceiptType.SALERETURN){
+				if(((SaleReturnPO)po).getStockID().equals(s))
+					result.add(po);
+			}
+		}
+		if(al.size()==0)
+			return null;
 		return result;
+	}
+	
+	public ArrayList<ReceiptPO> intersection(ArrayList<ReceiptPO> a1,ArrayList<ReceiptPO> a2){
+		ArrayList<ReceiptPO> result=new ArrayList<ReceiptPO>();
+		if(a1==null||a2==null)
+			return null;
+		for(int i=0;i<a1.size();i++)
+			for(int j=0;j<a2.size();j++){
+				if(a1.get(i).getId().equals(a2.get(j).getId())){
+					result.add(a1.get(i));
+					break;
+				} 
+			}
+		if(result.size()==0)
+			return null;
+		return result;
+	}
+	
+	public ArrayList<ReceiptPO> AccurateFind(String[] message)throws RemoteException {
+		//时间区间,单据类型，客户，业务员，仓库
+		ArrayList<ReceiptPO> a1;
+		ArrayList<ReceiptPO> a2;
+		ArrayList<ReceiptPO> a3;
+		ArrayList<ReceiptPO> a4;
+		ArrayList<ReceiptPO> a5;
+		ArrayList<ReceiptPO> result;
+		if(message[0]!=null)
+			a1=findByTime(message[0]);
+		else
+			a1=null;
+		
+		if(message[1]!=null)
+			a2=show(ReceiptType.valueOf(message[1]));
+		else
+			a2=null;
+		
+		if(message[2]!=null)
+			a3=findByMember(message[2]);
+		else
+			a3=null;
+		
+		if(message[3]!=null)
+			a4=findByUser(message[3]);
+		else
+			a4=null;
+		
+		if(message[4]!=null)
+			a5=findByWarehouse(message[4]);
+		else
+			a5=null;
+		
+		result=intersection(a1,intersection(a2,intersection(a3,intersection(a4,a5))));
+		
+		return result;
+			
 	}
       
 }
