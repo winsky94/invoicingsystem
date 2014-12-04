@@ -39,11 +39,12 @@ public class StockControl extends UnicastRemoteObject implements
 			throws RemoteException {
 		// TODO 自动生成的方法存根
 		ArrayList<StockOverOrLowPO> result = new ArrayList<StockOverOrLowPO>();
-		ArrayList<Object> list = new ArrayList<Object>();
-		list = overOrLowFile.read();
+		ArrayList<Object> list = overOrLowFile.read();
 
-		for (Object po : list) {
-			result.add((StockOverOrLowPO) po);
+		if (list != null) {
+			for (Object po : list) {
+				result.add((StockOverOrLowPO) po);
+			}
 		}
 
 		return result;
