@@ -18,6 +18,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
 import vo.StockOverOrLowVO;
+import businesslogic.stockbl.stockManage.CheckModel;
 import businesslogic.stockbl.stockManage.LowModel;
 import businesslogic.stockbl.stockManage.OverModel;
 import businesslogic.stockbl.stockManage.StockControlController;
@@ -95,7 +96,8 @@ public class StockPanel extends JPanel {
 		StockControlBLService controller=new StockControlController();
 		// ---------------inventoryTbl---------------------------
 		inventoryTbl = new JTable();
-		
+		CheckModel cm=new CheckModel();
+		inventoryTbl.setModel(cm);
 		jsp1 = new JScrollPane(inventoryTbl);
 		tab.add("库存盘点", jsp1);
 		// --------------overflowTbl--------------------------------

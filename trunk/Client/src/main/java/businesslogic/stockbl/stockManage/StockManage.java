@@ -111,28 +111,29 @@ public class StockManage {
 		return result;
 	}
 
-	// 库存盘点(库存均价)
+	// 库存盘点(库存均价==)
 	public ArrayList<ArrayList<String>> checkStock() {
 		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
 
 		ArrayList<GoodsPO> goodsList = goodsService.showGoods();
 		if (goodsList != null) {
-			int i=0;
+			int i = 0;
 			for (GoodsPO po : goodsList) {
 				ArrayList<String> tp = new ArrayList<String>();
-				//包括当天的各种商品的名称，型号，库存数量，库存均价，批次，[盘点时，相当于设置了一个截止点，这个点就是批次（日期）批号（序号），这是系统根据当前盘点时间产生的。]批号，出厂日期，并且显示行号
-				//行号、商品名称、型号、库存数量、库存均价、批次、批号、出厂日期
+				// 包括当天的各种商品的名称，型号，库存数量，库存均价，批次，[盘点时，相当于设置了一个截止点，这个点就是批次（日期）批号（序号），这是系统根据当前盘点时间产生的。]批号，出厂日期，并且显示行号
+				// 行号、商品名称、型号、库存数量、库存均价、批次、批号、出厂日期
 				NumberFormat nf = new DecimalFormat("00000");
 				String hang = nf.format(i);
-				tp.add(hang);//行号
-				tp.add(po.getName());//名称
-				tp.add(po.getSize());//型号
-				tp.add(String.valueOf(po.getNumInStock()));//库存数量
-				tp.add(String.valueOf(po.getPurchasePrice()));//库存均价
-				tp.add(getDate());//批次
-				tp.add(hang);//批号
-				tp.add(po.getManufactureDate());//出厂日期
+				tp.add(hang);// 行号
+				tp.add(po.getName());// 名称
+				tp.add(po.getSize());// 型号
+				tp.add(String.valueOf(po.getNumInStock()));// 库存数量
+				tp.add(String.valueOf(po.getPurchasePrice()));// 库存均价
+				tp.add(getDate());// 批次
+				tp.add(hang);// 批号
+				tp.add(po.getManufactureDate());// 出厂日期
 				result.add(tp);
+				i++;
 			}
 		}
 
@@ -358,5 +359,5 @@ public class StockManage {
 
 		return sysDatetime;
 	}
-	
+
 }
