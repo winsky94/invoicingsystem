@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -193,14 +194,28 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 			try {
 				startDate=from.getDate();
 				endDate=to.getDate();
-				level=MemberLevel[memberGradeBox.getSelectedIndex()];
+				level= MemberLevel.valueOf((String) memberGradeBox.getSelectedItem());
 				service=new giftCouponPro();
 				String id=service.getNewID();
-				GiftCouponProVO vo=new GiftCouponProVO(id,startDate,endDate,);
+				GiftCouponProVO vo=new GiftCouponProVO(id,startDate,endDate,level,
+						couponlist,totalValue);
+				if(service.Add(vo)==0)
+					{JOptionPane.showConfirmDialog(null, "策略添加成功");
+					
+						
+					}
+				else
+					JOptionPane.showMessageDialog(null, "添加失败","提示",JOptionPane.WARNING_MESSAGE);
+					
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
+	}
+	
+	public void update(){
+		PromotionPanel proPanel=new PromotionPanel((MainFrame)father);
+		((MainFrame)father).setRightComponent(proPanel);
 	}
 }

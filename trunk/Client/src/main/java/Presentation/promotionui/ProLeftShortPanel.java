@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import businesslogicservice.promotionblservice.PromotionBLService;
 import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
@@ -19,13 +20,16 @@ import Presentation.mainui.headPane;
 import Presentation.receiptui.ReceiptMgrPanel;
 import Presentation.receiptui.ReportMgrPanel;
 import Presentation.uihelper.AboutPanel;
+import businesslogic.promotionbl.promotion;
 public class ProLeftShortPanel extends JPanel implements ActionListener{
 	JLabel head;
 	JLeftButton receipt,promotion,view,backBtn,aboutBtn;
 	Color color;
 	headPane headPane;
 	MainFrame parent;
-	public ProLeftShortPanel(MainFrame frame){
+	PromotionBLService service;
+	public ProLeftShortPanel(MainFrame frame) throws Exception{
+		service=new promotion();
 		parent=frame;
 		UserVO user=parent.getUser();
 		color=parent.getTheme()[0];
@@ -93,18 +97,28 @@ public class ProLeftShortPanel extends JPanel implements ActionListener{
 		
 	}
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		try {	// TODO Auto-generated method stub
 		if(e.getSource()==promotion){
 			//promotion.setBackground(parent.getTheme()[1]);;
-			parent.setRightComponent(new PromotionPanel(parent));
+			PromotionPanel pp=new PromotionPanel(parent);
+			parent.setRightComponent(pp);
+			if(service.Show()!=null){
+				pp.RefreshProTable(service.Show());
+			}
 		}else if(e.getSource()==backBtn){
-			parent.setLeftComponent(new ProLeftPanel(parent));
+			
+				parent.setLeftComponent(new ProLeftPanel(parent));
+			
 		}else if(e.getSource()==view){
 			parent.setRightComponent(new ReportMgrPanel(parent));
 		}else if(e.getSource()==receipt){
 			parent.setRightComponent(new ReceiptMgrPanel(parent));
 		}else if(e.getSource()==aboutBtn){
 			parent.setRightComponent(new AboutPanel());
+		}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 	

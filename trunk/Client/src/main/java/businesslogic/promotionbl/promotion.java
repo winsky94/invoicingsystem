@@ -18,17 +18,20 @@ import java.util.Date;
 
 
 
+
+
 import dataservice.promotiondataservice.PromotionDataService;
 import dataservice.salesdataservice.SalesDataService;
 import businesslogicservice.promotionblservice.PromotionBLService;
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
+import po.PromotionPO;
 import po.PromotionPO.PromotionType;
 import vo.GiftVO;
 import vo.PromotionVO;
 import vo.SaleVO;
 //release 去掉？？？当前促销是否还有效？
-public abstract  class  promotion implements PromotionBLService{
+public  class promotion implements PromotionBLService{
 	
 	PromotionDataService service;
 	public promotion() throws Exception{
@@ -41,14 +44,14 @@ public abstract  class  promotion implements PromotionBLService{
 	public String getNewID(PromotionType type){return null;};
 	
 	//发布和添加？
-	public abstract int Add(PromotionVO vo);
+	public  int Add(PromotionVO vo){return 0;};
 	
-	public abstract int Modify(PromotionVO vo);
+	public  int Modify(PromotionVO vo){return 0;};
 	
-	public abstract int Delete(String id,PromotionType type);
+	public  int Delete(String id,PromotionType type){return 0;};
 	
 	
-	public abstract PromotionVO Match(SaleVO vo);
+	public PromotionVO Match(SaleVO vo){return null;};
 	
 	//自动生成库存赠送但
 	public GiftVO Present(PromotionVO vo){
@@ -58,8 +61,16 @@ public abstract  class  promotion implements PromotionBLService{
 	}
 	//子类不重写
 	public ArrayList<PromotionVO> Show(){
+		ArrayList<PromotionPO> po=service.showAll();
+		if(po==null) return null;
+		else{
+			ArrayList<PromotionVO> vo=new ArrayList<PromotionVO>();
+			for(int i=0;i<po.size();i++)
+				vo.add(poToVo(po.get(i)));
+
+			return vo;
+		}
 		
-		return null;
 	}
 	
 	//查看某条记录
@@ -76,6 +87,14 @@ public abstract  class  promotion implements PromotionBLService{
 	        String sysDatetime = fmt.format(rightNow.getTime());   
 	return sysDatetime;
 	}
+	public String getNewID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
-	
+	public PromotionVO poToVo(PromotionPO po){
+		PromotionVO vo=new PromotionVO(po.getID(),po.getStartDate(),po.getEndDate(),
+				po.getType(),po.getLevel());
+		return vo;
+	}
 }

@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import businesslogicservice.promotionblservice.PromotionBLService;
 import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
@@ -26,11 +27,12 @@ public class ProLeftPanel extends JPanel implements ActionListener{
 	JPanel headPane;
 	Color color;
 	MainFrame parent;
-	
-	public ProLeftPanel(MainFrame frame){
+	PromotionBLService service;
+	public ProLeftPanel(MainFrame frame) throws Exception{
 		parent=frame;
 		//setSize(frame.getWidth()*225/1000,frame.getHeight());
 		//去掉
+		service=new businesslogic.promotionbl.promotion();
 		UserVO user=parent.getUser();
 		color=parent.getTheme()[0];
 		GridBagLayout grid=new GridBagLayout();
@@ -98,11 +100,18 @@ public class ProLeftPanel extends JPanel implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e){
+		try {
 		if(e.getSource()==promotion){
 			//promotion.setBackground(parent.getTheme()[1]);;
-			parent.setRightComponent(new PromotionPanel(parent));
+			PromotionPanel pp=new PromotionPanel(parent);
+			parent.setRightComponent(pp);
+			if(service.Show()!=null){
+				pp.RefreshProTable(service.Show());
+			}
 		}else if(e.getSource()==backBtn){
-			parent.setLeftComponent(new ProLeftShortPanel(parent));
+			
+				parent.setLeftComponent(new ProLeftShortPanel(parent));
+			
 		}else if(e.getSource()==view){
 			parent.setRightComponent(new ReportMgrPanel(parent));
 			
@@ -110,6 +119,10 @@ public class ProLeftPanel extends JPanel implements ActionListener{
 			parent.setRightComponent(new ReceiptMgrPanel(parent));
 		}else if(e.getSource()==aboutBtn){
 			parent.setRightComponent(new AboutPanel());
+		}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 	}
