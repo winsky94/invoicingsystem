@@ -58,7 +58,8 @@ public class GoodsController implements StockGoodsBLService {
 	private Goods VOToGoods(GoodsVO vo) {
 		Goods goods = new Goods(vo.getGoodsID(), vo.getName(), vo.getSize(),
 				vo.getGoodsClass(), vo.getNumInStock(), vo.getPurchasePrice(),
-				vo.getPrice(), vo.getLastPurchasePrice(), vo.getLastPrice());
+				vo.getPrice(), vo.getLastPurchasePrice(), vo.getLastPrice(),
+				vo.getManufactureDate());
 		return goods;
 	}
 

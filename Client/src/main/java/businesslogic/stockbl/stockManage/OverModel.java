@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 import vo.StockOverOrLowVO;
+import businesslogic.userbl.User;
 import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
+import businesslogicservice.userblservice.UserBLService;
 
 public class OverModel extends AbstractTableModel {
 
@@ -32,7 +34,7 @@ public class OverModel extends AbstractTableModel {
 				hang.add(vo.getGoodsName());
 				hang.add(vo.getSize());
 				hang.add(String.valueOf(vo.getGap()));
-				hang.add(vo.getUser());
+				hang.add(getUserNameByID(vo.getUser()));
 				hang.add(vo.getDate());
 				// 加入到rowData
 				rowData.add(hang);
@@ -55,7 +57,7 @@ public class OverModel extends AbstractTableModel {
 			hang.add(vo.getGoodsName());
 			hang.add(vo.getSize());
 			hang.add(String.valueOf(vo.getGap()));
-			hang.add(vo.getUser());
+			hang.add(getUserNameByID(vo.getUser()));
 			hang.add(vo.getDate());
 
 			// 加入到rowData
@@ -63,6 +65,21 @@ public class OverModel extends AbstractTableModel {
 		}
 	}
 
+	//根据单据的userID找到userName
+	private String getUserNameByID(String id){
+		String userName="";
+		try {
+			UserBLService controller=new User();
+			userName=controller.showUser(id).getName();
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return userName;
+		
+	}
+	
+	
 	public void addRow(ArrayList<String> v) {
 		rowData.add(v);
 	}

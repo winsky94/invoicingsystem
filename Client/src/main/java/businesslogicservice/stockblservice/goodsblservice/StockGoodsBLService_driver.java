@@ -5,7 +5,7 @@ import vo.GoodsVO;
 public class StockGoodsBLService_driver {
 	public void drive(StockGoodsBLService_stub stockGoodsBLService) {
 		GoodsVO goodsVO = new GoodsVO("00001", "飞利浦日光灯", "SR01", 10, 100, 150,
-				100, 150,null);
+				100, 150, null, null);
 
 		stockGoodsBLService.addGoods(goodsVO);
 		stockGoodsBLService.deleteGoods(goodsVO);

@@ -27,6 +27,7 @@ public class Goods {
 	private double price;
 	private double lastPurchasePrice;
 	private double lastPrice;
+	private String manufactoryDate;
 	private StockGoodsDataService service;
 
 	public Goods() {
@@ -49,7 +50,7 @@ public class Goods {
 
 	public Goods(String goodsID, String name, String size, String gc,
 			int numInStock, double purchasePrice, double price,
-			double latPurchasePrice, double lastPrice) {
+			double latPurchasePrice, double lastPrice, String manufactoryDate) {
 		this();
 		this.goodsID = goodsID;
 		this.name = name;
@@ -61,6 +62,7 @@ public class Goods {
 		this.purchasePrice = purchasePrice;
 		this.lastPrice = lastPrice;
 		this.lastPurchasePrice = latPurchasePrice;
+		this.manufactoryDate = manufactoryDate;
 	}
 
 	public int addGoods() {
@@ -92,7 +94,7 @@ public class Goods {
 			goodsID = gClassManage.getID(gc) + "-" + size + "-" + ID;
 			GoodsPO po = new GoodsPO(goodsID, name, size, numInStock,
 					virtualnumInStock, purchasePrice, price, lastPurchasePrice,
-					lastPrice, gc);
+					lastPrice, gc, manufactoryDate);
 			return service.addGoods(po);
 		}
 	}
@@ -100,52 +102,54 @@ public class Goods {
 	public int deleteGoods(String id) {
 		GoodsPO po = new GoodsPO(goodsID, name, size, numInStock,
 				virtualnumInStock, purchasePrice, price, lastPurchasePrice,
-				lastPrice, gc);
+				lastPrice, gc, manufactoryDate);
 		return service.deleteGoods(po);
 	}
 
 	public int modifyGoods(String id) {
 		GoodsPO oldPO = service.findGoods(id).get(0);
 		GoodsPO po = new GoodsPO(id, name, size, numInStock, virtualnumInStock,
-				purchasePrice, price, lastPurchasePrice, lastPrice, gc);
+				purchasePrice, price, lastPurchasePrice, lastPrice, gc,
+				manufactoryDate);
 		if (oldPO.getPurchasePrice() != po.getPurchasePrice()) {
 			StockManage manage = new StockManage();
 			Goods good = new Goods(oldPO.getGoodsID(), oldPO.getName(),
 					oldPO.getSize(), oldPO.getGoodsClassName(),
 					oldPO.getNumInStock(), oldPO.getPurchasePrice(),
 					oldPO.getPrice(), oldPO.getLastPurchasePrice(),
-					oldPO.getLastPrice());
+					oldPO.getLastPrice(), oldPO.getManufactureDate());
 			Goods newGood = new Goods(po.getGoodsID(), po.getName(),
 					po.getSize(), po.getGoodsClassName(), po.getNumInStock(),
 					po.getPurchasePrice(), po.getPrice(),
-					po.getLastPurchasePrice(), po.getLastPrice());
+					po.getLastPurchasePrice(), po.getLastPrice(),
+					po.getManufactureDate());
 			manage.changePrime(good, newGood);
 		}
 		return service.modifyGoods(po);
 	}
 
 	public ArrayList<GoodsVO> findGoods(String message) {
-		ArrayList<GoodsPO> list=service.findGoods(message);
-		ArrayList<GoodsVO> result =new ArrayList<GoodsVO>();
-		for(int i=0;i<list.size();i++){
-			GoodsPO po=list.get(i);
-			GoodsVO vo=new GoodsVO(po.getGoodsID(), po.getName(), po.getSize(),
-					po.getNumInStock(), po.getPurchasePrice(), po.getPrice(),
-					po.getLastPurchasePrice(), po.getPrice(),
-					po.getGoodsClassName());
+		ArrayList<GoodsPO> list = service.findGoods(message);
+		ArrayList<GoodsVO> result = new ArrayList<GoodsVO>();
+		for (int i = 0; i < list.size(); i++) {
+			GoodsPO po = list.get(i);
+			GoodsVO vo = new GoodsVO(po.getGoodsID(), po.getName(),
+					po.getSize(), po.getNumInStock(), po.getPurchasePrice(),
+					po.getPrice(), po.getLastPurchasePrice(), po.getPrice(),
+					po.getGoodsClassName(), po.getManufactureDate());
 			result.add(vo);
 		}
 		return result;
 	}
 
-	public GoodsVO findByID(String id) throws RemoteException{
+	public GoodsVO findByID(String id) throws RemoteException {
 		GoodsPO po = service.findByID(id);
 		GoodsVO vo = null;
 		if (po != null) {
 			vo = new GoodsVO(po.getGoodsID(), po.getName(), po.getSize(),
 					po.getNumInStock(), po.getPurchasePrice(), po.getPrice(),
 					po.getLastPurchasePrice(), po.getPrice(),
-					po.getGoodsClassName());
+					po.getGoodsClassName(), po.getManufactureDate());
 		}
 		return vo;
 	}
@@ -158,7 +162,8 @@ public class Goods {
 			GoodsVO vo = new GoodsVO(po.getGoodsID(), po.getName(),
 					po.getSize(), po.getNumInStock(), po.getPurchasePrice(),
 					po.getPrice(), po.getLastPurchasePrice(),
-					po.getLastPrice(), po.getGoodsClassName());
+					po.getLastPrice(), po.getGoodsClassName(),
+					po.getManufactureDate());
 			result.add(vo);
 		}
 		return result;
@@ -188,12 +193,6 @@ public class Goods {
 		return service.getMaxID();
 	}
 
-	
-	
-	
-	
-	
-	
 	public String getGoodsID() {
 		return goodsID;
 	}
@@ -260,6 +259,14 @@ public class Goods {
 
 	public void setLastPurchasePrice(double lastPurchasePrice) {
 		this.lastPurchasePrice = lastPurchasePrice;
+	}
+
+	public String getManufactoryDate() {
+		return manufactoryDate;
+	}
+
+	public void setManufactoryDate(String manufactoryDate) {
+		this.manufactoryDate = manufactoryDate;
 	}
 
 	public void setLastPrice(double lastPrice) {

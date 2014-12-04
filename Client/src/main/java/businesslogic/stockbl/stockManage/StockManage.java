@@ -110,7 +110,7 @@ public class StockManage {
 
 	// 库存盘点==
 	public ArrayList<GoodsVO> checkStock() {
-
+		
 		return null;
 	}
 
