@@ -183,7 +183,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 		return 0;
 	}
 
-	public ArrayList<PromotionPO> show() throws RemoteException {
+	public ArrayList<PromotionPO> showAll() throws RemoteException {
 		ArrayList<PromotionPO> all=new ArrayList<PromotionPO>();
 		ArrayList<PackProPO> a1=getPackPro();
 		if(a1!=null){
@@ -205,6 +205,8 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 		  }
 		}
 		
+		
+		
 		ArrayList<GiftGoodProPO> a4=getGiftGoodPro();
 		if(a4!=null){
 		  for(GiftGoodProPO po:a4){
@@ -218,6 +220,47 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 		  Collections.sort(all,new SequenceOfPromotionPO());
 		  
 		  return all;
+	}
+
+	public ArrayList<PromotionPO> show(PromotionType type) throws RemoteException{
+		ArrayList<PromotionPO> result=new ArrayList<PromotionPO>();
+		if(type==PromotionType.PACK){
+			ArrayList<PackProPO> p=getPackPro();
+			if(p==null)
+				return null;
+			for(PackProPO po:p){
+				result.add(po);
+			}
+		}
+		else if(type==PromotionType.DISCOUNT){
+			ArrayList<DiscountProPO> p=getDiscountPro();
+			if(p==null)
+				return null;
+			for(DiscountProPO po:p){
+				result.add(po);
+			}
+		}
+		else if(type==PromotionType.GIFTCOUPON){
+			ArrayList<GiftCouponProPO> p=getGiftCouponPro();
+			if(p==null)
+				return null;
+			for(GiftCouponProPO po:p){
+				result.add(po);
+			}
+		}
+		else if(type==PromotionType.GIFTGOODS){
+			ArrayList<GiftGoodProPO> p=getGiftGoodPro();
+			if(p==null)
+				return null;
+			for(GiftGoodProPO po:p){
+				result.add(po);
+			}
+		}
+		else{
+			return null;
+		}
+		
+		return null;
 	}
 	
 	public ArrayList<PackProPO> getPackPro() throws RemoteException{

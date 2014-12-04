@@ -43,7 +43,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
 		return r.createRedExtrusionAndCopy(po);
 	}
 	
-	public ReceiptPO find(String id) throws RemoteException {
+	public ReceiptPO findById(String id) throws RemoteException {
 
             String[] buffer=id.split("-");
             String s=buffer[0];
@@ -264,6 +264,100 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
 		}
 		
 		return null;
+	}
+
+	public int Batch(String[] id, int status) {
+        for(int i=0;i<id.length;i++){
+        	try {
+				ReceiptPO p=findById(id[i]);
+				p.setStatus(status);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+
+		return 0;
+	}
+
+	public int Approve(String id, int status) {
+		ReceiptPO p;
+		try {
+			p = findById(id);
+			p.setStatus(status);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+	public ArrayList<ReceiptPO> findByTime(String s) throws RemoteException{
+		ArrayList<ReceiptPO> al;
+		ArrayList<ReceiptPO> result=new ArrayList<ReceiptPO>();
+			al = showAll();
+			if(al==null)
+				return null;
+			String startDate=s.substring(0,8);
+			String endDate=s.substring(8,16);
+			for(ReceiptPO po:al){
+				if(startDate.compareTo(po.myGetDate())<0&&po.myGetDate().compareTo(endDate)<0)
+					result.add(po);	
+			}
+		     return result;
+	}
+	
+	public ArrayList<ReceiptPO> findByMember(String s) throws RemoteException{
+		ArrayList<ReceiptPO> result=new ArrayList<ReceiptPO>();
+		ArrayList<ReceiptPO> al=showAll();
+		if(al==null)
+			return null;
+		for(ReceiptPO po:al){
+			if(po.getType()==ReceiptType.COLLECTION){
+				
+			}
+		}
+	}
+	public ArrayList<ReceiptPO> AccurateFind(String[] message)throws RemoteException {
+		//时间区间,单据类型，客户，业务员，仓库
+		ArrayList<ReceiptPO> al=showAll();
+		ArrayList<ReceiptPO> result=new ArrayList<ReceiptPO>();
+		String startDate=message[0].substring(0,8);
+		String endDate=message[0].substring(8,16);
+		for(ReceiptPO po:al){
+			if(startDate.compareTo(po.myGetDate())<0&&po.myGetDate().compareTo(endDate)<0){
+				if(po.getType().equals(message[1])){
+					if(message[1].equals(ReceiptType.COLLECTION)){
+						if(message[2].equals(((CollectionPO)po).getSupplier())||message[2].equals(((CollectionPO)po).getSeller())){
+							if(message[3].equals(po.getUserID())){
+								result.add(po);
+							}
+						}
+					}
+					else if(message[1].equals(ReceiptType.PAYMENT)){
+						if(message[2].equals(((PaymentPO)po).getSupplier())||message[2].equals(((PaymentPO)po).getSeller())){
+							if(message[3].equals(po.getUserID())){
+								result.add(po);
+							}
+						}
+					}
+					else if(message[1].equals(ReceiptType.CASHLIST)){
+							return null;
+				    }
+					else{
+						if(message[2].equals(po.getMemberID())){
+							if(message[3].equals(po.getUserID())){
+								result.add(po);
+							}
+						}
+					}
+				}
+			}
+		}
+		if(result.size()==0)
+		   return null;
+		return result;
 	}
       
 }
