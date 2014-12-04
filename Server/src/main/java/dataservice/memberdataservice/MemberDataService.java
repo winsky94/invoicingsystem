@@ -14,4 +14,5 @@ public interface MemberDataService extends Remote{
 	public ArrayList<MemberPO> showAll() throws RemoteException; 
 	public MemberPO findByID(String ID) throws RemoteException;
 	public int getNum(MemberType type) throws RemoteException;
+	public ArrayList<MemberPO> show(MemberType type)throws RemoteException;
 }
