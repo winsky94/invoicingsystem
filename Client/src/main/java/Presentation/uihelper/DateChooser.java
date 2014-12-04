@@ -77,10 +77,12 @@ public class DateChooser extends JPanel{
    //     return select.getTime();
         SimpleDateFormat df=new SimpleDateFormat("yyyyMMdd");
 		String dateString=df.format(select.getTime());
-		System.out.println(dateString);
+		//System.out.println(dateString);
 		return dateString;
 	
     }
+    
+   
     
     //根据初始化的日期,初始化面板
     private void initPanel(){

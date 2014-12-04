@@ -22,7 +22,7 @@ public class PromotionVO {
 	
 	public PromotionVO(String id,String startDate, String endDate, PromotionType type,
 			MemberLevel memberlevel) {
-	
+		this.id=id;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.type = type;
@@ -43,6 +43,10 @@ public class PromotionVO {
 	}
 	public MemberLevel getMemberlevel() {
 		return level;
+	}
+	
+	public String getID(){
+		return id;
 	}
 	
 	

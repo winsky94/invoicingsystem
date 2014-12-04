@@ -24,6 +24,7 @@ import po.MemberPO.MemberLevel;
 import vo.CouponVO;
 import vo.GiftCouponProVO;
 import businesslogic.promotionbl.giftCouponPro;
+import businesslogic.promotionbl.promotion;
 import businesslogicservice.promotionblservice.PromotionBLService;
 import Presentation.mainui.MainFrame;
 import Presentation.promotionui.PromotionPanel;
@@ -35,7 +36,7 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String startDate,endDate;
+	String startDate,endDate,id;
 	MemberLevel level;
 	double totalValue;
 	JFrame father;
@@ -48,6 +49,7 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 	
 	public AddCouponPanel(JFrame myFather) {
 		father = myFather;
+		couponlist=new ArrayList<CouponVO>();
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 5, 5, 5);
@@ -187,8 +189,12 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource()==exitBtn){
-			PromotionPanel proPanel=new PromotionPanel((MainFrame)father);
-			((MainFrame)father).setRightComponent(proPanel);
+			try {
+				update();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		else if(e.getSource()==submitBtn){
 			try {
@@ -196,11 +202,16 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 				endDate=to.getDate();
 				level= MemberLevel.valueOf((String) memberGradeBox.getSelectedItem());
 				service=new giftCouponPro();
-				String id=service.getNewID();
+				totalValue=Double.parseDouble(limitFld.getText());
+				double value=Double.parseDouble(priceFld.getText());
+				for(int i=0;i<Integer.parseInt(totalFld.getText());i++)
+					couponlist.add(new CouponVO("",value,false));
+				id=service.getNewID();
 				GiftCouponProVO vo=new GiftCouponProVO(id,startDate,endDate,level,
 						couponlist,totalValue);
 				if(service.Add(vo)==0)
-					{JOptionPane.showConfirmDialog(null, "策略添加成功");
+					{JOptionPane.showMessageDialog(null, "策略添加成功","提示",JOptionPane.WARNING_MESSAGE);
+					update();
 					
 						
 					}
@@ -214,8 +225,11 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 		}
 	}
 	
-	public void update(){
+	public void update() throws Exception{
 		PromotionPanel proPanel=new PromotionPanel((MainFrame)father);
 		((MainFrame)father).setRightComponent(proPanel);
+		service=new promotion();
+		if(service.Show()!=null)
+			proPanel.RefreshProTable(service.Show());
 	}
 }
