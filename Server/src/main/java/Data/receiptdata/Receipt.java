@@ -208,9 +208,93 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
 	}
 
 	public ArrayList<ReceiptPO> show(ReceiptType type) throws RemoteException {
+		ArrayList<ReceiptPO> al=new ArrayList<ReceiptPO>();
 		if(type==ReceiptType.COLLECTION){
 			Collection c=new Collection();
-			return c.getCollection();
+			ArrayList<CollectionPO> cc=c.getCollection();
+			if(cc==null)
+				return null;
+			for(CollectionPO p:cc){
+				al.add(p);
+			}
+			return al;
+		}
+		else if(type==ReceiptType.PAYMENT){
+			Payment c=new Payment();
+			ArrayList<PaymentPO> pp=c.getPayment();
+			if(pp==null)
+				return null;
+			for(PaymentPO p:pp){
+				al.add(p);
+			}
+			return al;
+		}
+		else if(type==ReceiptType.CASHLIST){
+			Cashlist c=new Cashlist();
+			ArrayList<CashlistPO> pp=c.getCashlist();
+			if(pp==null)
+				return null;
+			for(CashlistPO p:pp){
+				al.add(p);
+			}
+			return al;
+		}
+		else if(type==ReceiptType.GIFT){
+			Gift c=new Gift();
+			ArrayList<GiftPO> pp=c.getGiftList();
+			if(pp==null)
+				return null;
+			for(GiftPO p:pp){
+				al.add(p);
+			}
+			return al;
+		}
+		else if(type==ReceiptType.PURCHASE||type==ReceiptType.PURCHASERETURN||type==ReceiptType.SALE||type==ReceiptType.SALERETURN){
+			Sales s=new Sales();
+			if(type==ReceiptType.PURCHASE){
+				ArrayList<PurchasePO> pp=s.showPurchase();
+				if(pp==null)
+					return null;
+				for(PurchasePO p:pp){
+					al.add(p);
+				}
+			}
+			else if(type==ReceiptType.PURCHASERETURN){
+				ArrayList<PurchaseReturnPO> pp=s.showPurchaseReturn();
+				if(pp==null)
+					return null;
+				for(PurchaseReturnPO p:pp){
+					al.add(p);
+				}
+			}
+			else if(type==ReceiptType.SALE){
+				ArrayList<SalePO> pp=s.showSale();
+				if(pp==null)
+					return null;
+				for(SalePO p:pp){
+					al.add(p);
+				}
+			}
+			else if(type==ReceiptType.SALERETURN){
+				ArrayList<SaleReturnPO> pp=s.showSaleReturn();
+				if(pp==null)
+					return null;
+				for(SaleReturnPO p:pp){
+					al.add(p);
+				}
+			}
+			else if(type==ReceiptType.STOCKERROR){
+				
+			}
+			else if(type==ReceiptType.STOCKLOW){
+				
+			}
+			else if(type==ReceiptType.STOCKOVER){
+				
+			}
+			else{
+				return null;
+			}
 		}
 		
 		return null;
