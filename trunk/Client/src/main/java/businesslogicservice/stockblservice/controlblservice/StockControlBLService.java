@@ -2,7 +2,6 @@ package businesslogicservice.stockblservice.controlblservice;
 
 import java.util.ArrayList;
 
-import vo.GoodsVO;
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
 
@@ -25,7 +24,7 @@ public interface StockControlBLService {
 
 	public ArrayList<String> showStock(String beginDate, String endDate);
 
-	public ArrayList<GoodsVO> checkStock();
+	public ArrayList<ArrayList<String>> checkStock();
 
 	public boolean isEnough(String ID, int num);
 

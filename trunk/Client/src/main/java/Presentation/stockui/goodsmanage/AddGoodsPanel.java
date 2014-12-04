@@ -30,7 +30,7 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JButton submitBtn, exitBtn;
-	String classText,nameText, sizeText, pPriceText, sPriceText;
+	String classText, nameText, sizeText, pPriceText, sPriceText;
 	JTextField nameFld, sizeFld, purchasePriceFld, salePriceFld;
 	MainFrame parent;
 
@@ -57,7 +57,7 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 		c.weighty = 0.2;
 		gbl.setConstraints(titlePnl, c);
 		this.add(titlePnl);
-		//------------------------------
+		// ------------------------------
 		JPanel blankPnl = new JPanel();
 		blankPnl.setBackground(Color.white);
 		c.gridx = 0;
@@ -152,7 +152,7 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 		exitBtn.setBackground(new Color(251, 147, 121));
 		exitBtn.addActionListener(this);
 		btnPnl.add(exitBtn);
-		//------------------
+		// ------------------
 		JPanel blankPnl2 = new JPanel();
 		blankPnl2.setBackground(Color.white);
 		c.gridx = 0;
@@ -168,26 +168,26 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自动生成的方法存根
 		if (e.getSource() == submitBtn) {
-			StockGoodsBLService controller = new GoodsController();			
+			StockGoodsBLService controller = new GoodsController();
+			String manufactoryDate = " ";
 			GoodsVO vo = new GoodsVO("", nameText, sizeText, 0,
 					Double.parseDouble(pPriceText),
-					Double.parseDouble(sPriceText), 0, 0, classText);
-			int result=controller.addGoods(vo);
-			if(result!=0){
+					Double.parseDouble(sPriceText), 0, 0, classText,
+					manufactoryDate);
+			int result = controller.addGoods(vo);
+			if (result != 0) {
 				JOptionPane.showMessageDialog(null, "            该商品已存在", null,
 						JOptionPane.WARNING_MESSAGE);
 				return;
-			}
-			else{
-				//貌似已解决？？12.3
-				//怎么返回上一级panel啊~~~~
-				//还要记得返回上级panel后new一个goodsModel刷新商品界面
+			} else {
+				// 貌似已解决？？12.3
+				// 怎么返回上一级panel啊~~~~
+				// 还要记得返回上级panel后new一个goodsModel刷新商品界面
 				parent.setRightComponent(new GoodsPanel(parent));
 			}
+		} else if (e.getSource() == exitBtn) {
+			parent.setRightComponent(new GoodsPanel(parent));
 		}
-		 else if(e.getSource()==exitBtn){
-			 parent.setRightComponent(new GoodsPanel(parent));
-		 }
 	}
 
 	class NameFieldListener implements DocumentListener {
