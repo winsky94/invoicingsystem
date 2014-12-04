@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -160,6 +161,15 @@ public class ReportMgrPanel extends JPanel implements ActionListener{
 	}
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(e.getSource()==exportBtn)
+		{JFileChooser jfc=new JFileChooser(System.getProperty("user.home"));
+		jfc.setFileFilter(new XLSFilter());
+		jfc.setDialogTitle("导出");
+		if(jfc.showSaveDialog(this)==JFileChooser.APPROVE_OPTION){
+			//saveXLSContents(jfc.getSelectedFile().getAbsolutePath());
+		}
+		}
 	}
+	
+	
 }

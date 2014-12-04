@@ -14,12 +14,14 @@ import java.util.Date;
 
 
 
+
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
 import po.PromotionPO.PromotionType;
 import vo.GiftGoodsProVO;
 import vo.PackProVO;
 import vo.PromotionVO;
+import vo.SaleVO;
 import businesslogic.stockbl.goods.Goods;
 import businesslogic.stockbl.goods.MockGoods;
 
@@ -65,6 +67,18 @@ public class giftGoodPro extends promotion{
 	public int Delete(String id, PromotionType type) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public String getNewID(PromotionType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PromotionVO Match(SaleVO vo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 
