@@ -75,7 +75,7 @@ public class DateChooser extends JPanel{
      */
     public String getDate(){
    //     return select.getTime();
-        SimpleDateFormat df=new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat df=new SimpleDateFormat("yyyyMMdd");
 		String dateString=df.format(select.getTime());
 		System.out.println(dateString);
 		return dateString;

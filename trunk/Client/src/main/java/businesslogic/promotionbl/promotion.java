@@ -38,7 +38,7 @@ public abstract  class  promotion implements PromotionBLService{
 		service=(PromotionDataService)Naming.lookup(url);
 	
 	}
-	public abstract String getNewID(PromotionType type);
+	public String getNewID(PromotionType type){return null;};
 	
 	//发布和添加？
 	public abstract int Add(PromotionVO vo);

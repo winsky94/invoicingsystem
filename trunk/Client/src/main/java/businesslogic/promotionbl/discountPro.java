@@ -16,7 +16,7 @@ import vo.SaleVO;
 import businesslogic.stockbl.goods.Goods;
 import businesslogic.stockbl.goods.GoodsController;
 
-public class discountPro extends promotion{
+public  class discountPro extends promotion{
 	
 	//private double totalValue,discountValue;//折后总额；
 	
@@ -87,6 +87,13 @@ public class discountPro extends promotion{
 
 	@Override
 	public PromotionVO Match(SaleVO vo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	public String getNewID() {
 		// TODO Auto-generated method stub
 		return null;
 	}

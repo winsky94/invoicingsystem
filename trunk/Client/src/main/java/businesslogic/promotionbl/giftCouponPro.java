@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 
 
+
 import po.CouponPO;
 import po.GiftCouponProPO;
 import po.PromotionPO;
@@ -47,7 +48,34 @@ public class giftCouponPro extends promotion{
 		return 1;//该代金券id存在
 	}
 	
-	
+	public String[] getCouponId(int n){
+		 NumberFormat nf = NumberFormat.getInstance();
+	     nf.setMinimumIntegerDigits(5); 
+	     nf.setGroupingUsed(false);
+	     String date=getdate();
+		String[] result=new String[n];
+		ArrayList<PromotionPO> po=service.show(PromotionType.GIFTCOUPON);
+		if(po==null){
+			for(int i=1;i<=n;i++)
+				result[i-1]=date+nf.format(i);
+		}else{
+			GiftCouponProPO gpv=(GiftCouponProPO)po.get(po.size()-1);
+			int size=gpv.getCouponList().size();
+			String id=gpv.getCouponList().get(size-1).getId();
+			
+		if(date.equals(id.substring(0, 8)))
+		{	id=id.substring(8);
+			double d=Double.parseDouble(id)+1;
+			for(int i=0;i<n;i++)
+				result[i]=date+nf.format(d++);}
+		else{
+			for(int i=1;i<=n;i++)
+				result[i-1]=date+nf.format(i);
+		}
+		}
+		
+		return result;
+	}
 	
 	public ArrayList<GiftCouponProVO> show(){
 		ArrayList<PromotionPO> po=service.show(PromotionType.GIFTCOUPON);
@@ -62,7 +90,8 @@ public class giftCouponPro extends promotion{
 		}
 		
 	}
-
+	
+		
 	@Override
 	public int Add(PromotionVO vo) {
 		// TODO Auto-generated method stub
@@ -105,12 +134,6 @@ public class giftCouponPro extends promotion{
 	}
 
 	@Override
-	public String getNewID(PromotionType type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public PromotionVO Match(SaleVO vo) {
 		// TODO Auto-generated method stub
 		return null;
@@ -132,6 +155,7 @@ public class giftCouponPro extends promotion{
 
 		return "DJQ-"+getdate()+"-"+id;
 	}
-	
+
+
 
 }
