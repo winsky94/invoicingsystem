@@ -21,7 +21,7 @@ import Data.salesdata.Sales;
 import Data.stockdata.gift.Gift;
 import Data.stockdata.goods.Goods;
 import Data.stockdata.goodsClass.GoodsClass;
-import Data.stockdata.stockManage.StockController;
+import Data.stockdata.stockManage.StockControl;
 import Data.userdata.User;
 
 
@@ -49,7 +49,7 @@ public class runServer {
 			Sales sale=new Sales();
 			Promotion pro=new Promotion();
 			Account account=new Account();
-			StockController controller=new StockController();
+			StockControl controller=new StockControl();
 			Gift giftService=new Gift();
 			Naming.rebind("promotionService",pro);
 			Naming.rebind("salesService",sale);
