@@ -18,6 +18,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import Presentation.financeui.moneyreceipt.AddCollectionPanel;
 import Presentation.mainui.MainFrame;
 
 public class CollectionPanel extends JPanel implements ActionListener {
@@ -112,7 +113,9 @@ public class CollectionPanel extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-
+          if(e.getSource()==collectionBtn){
+        	  parent.setRightComponent(new AddCollectionPanel(parent));
+          }
 	}
 	class MyButton extends JButton {
 

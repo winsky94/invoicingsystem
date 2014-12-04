@@ -13,4 +13,5 @@ public interface MemberDataService extends Remote{
 	public ArrayList<MemberPO> showAll();
 	public MemberPO findByID(String ID);
 	public int getNum(MemberType type);
+	public ArrayList<MemberPO> show(MemberType type);
 }

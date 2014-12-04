@@ -3,30 +3,25 @@ package Presentation.financeui.moneyreceipt;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 
-public class AddCollectionPanel extends CollectionAndPaymentPanel {
+import Presentation.mainui.MainFrame;
+
+public class AddCollectionPanel extends CollectionAndPaymentPanel implements ActionListener{
 	/**
 	 * 创建收款单
 	 * 没加监听
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public AddCollectionPanel() {
+	public AddCollectionPanel(MainFrame frame) {
+		super(frame);
 		// -----------title------------------
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
@@ -43,6 +38,9 @@ public class AddCollectionPanel extends CollectionAndPaymentPanel {
 		gbl.setConstraints(titlePnl, c);
 		this.add(titlePnl);
 		
+		
+		submitBtn.addActionListener(this);
+		exitBtn.addActionListener(this);
 
 	}
 
@@ -51,9 +49,15 @@ public class AddCollectionPanel extends CollectionAndPaymentPanel {
 		testFrame.setBounds(100, 50, 920, 600);
 		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		AddCollectionPanel gp = new AddCollectionPanel();
+/*		AddCollectionPanel gp = new AddCollectionPanel();
 		gp.setBounds(0, 0, 920, 600);
 		testFrame.add(gp);
 		testFrame.setVisible(true);
+*/
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

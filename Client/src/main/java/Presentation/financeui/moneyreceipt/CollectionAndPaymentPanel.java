@@ -8,6 +8,9 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -18,6 +21,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
+
+import po.MemberPO.MemberType;
+import businesslogic.memberbl.Member;
+import businesslogicservice.memberblservice.MemberBLService;
+import Presentation.mainui.MainFrame;
 
 public class CollectionAndPaymentPanel extends JPanel{
 	/**
@@ -36,7 +44,9 @@ public class CollectionAndPaymentPanel extends JPanel{
 	GridBagLayout gbl = new GridBagLayout();
 	GridBagConstraints c = new GridBagConstraints();
 	JButton submitBtn, exitBtn, addBtn, delBtn;
-	public CollectionAndPaymentPanel(){
+	MainFrame parent;
+	public CollectionAndPaymentPanel(MainFrame frame){
+		parent=frame;
 		c.insets = new Insets(5, 40, 5, 40);
 		this.setBackground(Color.white);
 		this.setLayout(gbl);
@@ -175,6 +185,19 @@ public class CollectionAndPaymentPanel extends JPanel{
 				JLabel supplierLbl = new JLabel("供应商：");
 				supplierLbl.setFont(font);
 				supplierPnl.add(supplierLbl);
+				try {
+					MemberBLService member=new Member();
+					member.show(MemberType.JHS);
+				} catch (MalformedURLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (NotBoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				String supplierText[] = { "请给我加上监听" };
 				supplierBox = new JComboBox<String>(supplierText);
 				supplierBox.setFont(font);

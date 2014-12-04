@@ -70,6 +70,16 @@ public class Member implements MemberBLService{
 		return vo;
 	}
 	
+	public ArrayList<MemberVO> show(MemberType type) {
+		ArrayList<MemberPO> po=service.show(type);
+		if(po==null)
+			return null;
+		
+		return poToVo(po);
+	}
+
+	
+	
 	//一百元一个积分
 	public void updatePoints(double price){
 		bInfo.points+=(price/100);
@@ -149,7 +159,7 @@ public class Member implements MemberBLService{
 		return poToVo(service.findByID(ID));
 	}
 
-	
+
 	
 
 }
