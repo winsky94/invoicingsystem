@@ -17,6 +17,7 @@ public class GoodsPO implements Serializable {
 	double lastPurchasePrice;
 	double lastPrice;
 	String goodsClass;
+	String manufactureDate;
 
 	public GoodsPO() {
 
@@ -24,7 +25,8 @@ public class GoodsPO implements Serializable {
 
 	public GoodsPO(String goodsID, String name, String size, int numInStock,
 			int virtualnumInStock, double purchasePrice, double price,
-			double lastPurchasePrice, double lastPrice, String goodsClass) {
+			double lastPurchasePrice, double lastPrice, String goodsClass,
+			String manufactureDate) {
 		GoodsID = goodsID;
 		this.name = name;
 		this.size = size;
@@ -35,6 +37,7 @@ public class GoodsPO implements Serializable {
 		this.lastPurchasePrice = lastPurchasePrice;
 		this.lastPrice = lastPrice;
 		this.goodsClass = goodsClass;
+		this.manufactureDate=manufactureDate;
 	}
 
 	public String getGoodsID() {
@@ -111,5 +114,13 @@ public class GoodsPO implements Serializable {
 
 	public void setGoodsClassName(String goodsClass) {
 		this.goodsClass = goodsClass;
+	}
+
+	public String getManufactureDate() {
+		return manufactureDate;
+	}
+
+	public void setManufactureDate(String manufactureDate) {
+		this.manufactureDate = manufactureDate;
 	}
 }
