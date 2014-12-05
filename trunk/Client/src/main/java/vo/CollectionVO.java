@@ -2,31 +2,26 @@ package vo;
 
 import java.util.ArrayList;
 
+import po.BSLPO;
+import po.ReceiptPO.ReceiptType;
+
 public class CollectionVO extends ReceiptVO{
-	 String ID;
-     String supplier;
+	 String supplier;
      String seller;
-     String user;
      ArrayList<TransferItemVO> transferlist=new ArrayList<TransferItemVO>();
      double totalMoney;
-   //  BSLVO vo;
+     BSLPO vo;
         
-     public CollectionVO(){
-    	 this(null,null,null,null,null,0);
-     }
      
-     public CollectionVO(String a,String b,String j,String c,ArrayList<TransferItemVO> d,double e){
-    	 ID=a;
-    	 supplier=b;
-    	 seller=j;
-    	 user=c;
+     public CollectionVO(String id,String su,String se,String user,ArrayList<TransferItemVO> d,double e,int istatus,int ihurry){
+    	 super(id,ReceiptType.COLLECTION,user,istatus,ihurry);
+    	 supplier=su;
+    	 seller=se;
     	 transferlist=d;
     	 totalMoney=e;
      }
      
-     public String getID(){
-    	 return ID;
-     }
+     
      
      public String getSupplier(){
     	 return supplier;
@@ -35,12 +30,7 @@ public class CollectionVO extends ReceiptVO{
      public String getSeller(){
     	 return seller;
      }
-     
-     
-     public String getUser(){
-    	 return user;
-     }
-     
+
      public ArrayList<TransferItemVO> getTransferlist(){
     	 return transferlist;
      }
@@ -51,8 +41,5 @@ public class CollectionVO extends ReceiptVO{
      
      
   
-  
-  
 }
-
 

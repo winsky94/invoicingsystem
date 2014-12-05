@@ -10,6 +10,6 @@ public class RedExtrusionBLService_stub implements RedExtrusionBLService{
 
 	public ReceiptVO createRedExtrusionAndCopy(ReceiptVO vo) {
 		System.out.println("Create red extrusion and copy success!");
-		return new ReceiptVO();
+		return new ReceiptVO(null, null, null, 0, 0);
 	}
 }

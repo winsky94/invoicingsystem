@@ -1,6 +1,7 @@
 package Presentation.financeui;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -18,7 +19,12 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import businesslogic.userbl.User;
+import businesslogicservice.userblservice.UserBLService;
+import vo.CollectionVO;
+import Presentation.financeui.moneyreceipt.AddCashReceiptPanel;
 import Presentation.financeui.moneyreceipt.AddCollectionPanel;
+import Presentation.financeui.moneyreceipt.AddPaymentPanel;
 import Presentation.mainui.MainFrame;
 
 public class CollectionPanel extends JPanel implements ActionListener {
@@ -36,6 +42,7 @@ public class CollectionPanel extends JPanel implements ActionListener {
 	ArrayList<ArrayList<String>> c3 = new ArrayList<ArrayList<String>>();
 	//--------------------------
 	MyButton collectionBtn,payBtn,cashBtn,refreshBtn,detailBtn;
+	ArrayList<ArrayList<String>> c = new ArrayList<ArrayList<String>>();
 	MainFrame parent;
 	public CollectionPanel(MainFrame frame) {
 		parent=frame;
@@ -60,26 +67,31 @@ public class CollectionPanel extends JPanel implements ActionListener {
 		collectionBtn = new MyButton("制定收款单", new ImageIcon(
 				"img/finance/receipts.png"));
 		collectionBtn.addActionListener(this);
+	    collectionBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnPnl.add(collectionBtn);
 		//-----制定付款单--------------------
 		payBtn = new MyButton("制定付款单", new ImageIcon(
 				"img/finance/receipts.png"));
 		payBtn.addActionListener(this);
+		payBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnPnl.add(payBtn);
 		//------制定现金费用单-----------------
 		cashBtn = new MyButton("制定现金费用单",
 				new ImageIcon("img/finance/receipts.png"));
 		cashBtn.addActionListener(this);
+		cashBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnPnl.add(cashBtn);
 		//-------刷新------------------------
 		refreshBtn = new MyButton("刷新", new ImageIcon(
 				"img/finance/refresh.png"));
 		refreshBtn.addActionListener(this);
+		refreshBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnPnl.add(refreshBtn);
 		//------查看详情----------------------
 		detailBtn = new MyButton("查看详情", new ImageIcon(
 				"img/finance/details.png"));
 		detailBtn.addActionListener(this);
+		detailBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnPnl.add(detailBtn);
 		//--------tab-----------------
 		tab = new JTabbedPane();
@@ -115,6 +127,18 @@ public class CollectionPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
           if(e.getSource()==collectionBtn){
         	  parent.setRightComponent(new AddCollectionPanel(parent));
+          }
+          else if(e.getSource()==payBtn){
+        	  parent.setRightComponent(new AddPaymentPanel(parent));
+          }
+          else if(e.getSource()==cashBtn){
+        	  parent.setRightComponent(new AddCashReceiptPanel(parent));
+          }
+          else if(e.getSource()==refreshBtn){
+        	  
+          }
+          else if(e.getSource()==refreshBtn){
+        	  
           }
 	}
 	class MyButton extends JButton {
@@ -179,9 +203,9 @@ public class CollectionPanel extends JPanel implements ActionListener {
 		 */
 		private static final long serialVersionUID = 1L;
 		String head[]={"编号","状态","日期","供应商","销售商","操作员","总额汇总"};
-		ArrayList<ArrayList<String>> c = new ArrayList<ArrayList<String>>();
+
 		public CollectionModel(ArrayList<ArrayList<String>> content){
-			this.c=content;
+			c=content;
 		}
 		public int getRowCount() {
 			return c.size();
@@ -204,6 +228,21 @@ public class CollectionPanel extends JPanel implements ActionListener {
 
 		public void removeRow(int row) {
 			c.remove(row);
+		}
+	}
+	
+	public void RefreshCollectionTable(ArrayList<CollectionVO> vo) throws Exception{
+		for (CollectionVO VO : vo) {
+			ArrayList<String> lineInfo = new ArrayList<String>();
+			lineInfo.add(VO.getId());
+			lineInfo.add(String.valueOf(VO.getStatus()));
+			lineInfo.add(VO.getDate());
+			lineInfo.add(VO.getSupplier());
+			lineInfo.add(VO.getSeller());
+			UserBLService user=new User();
+			lineInfo.add(user.showUser(VO.getUser()).getName());
+			lineInfo.add(String.valueOf(VO.getTotalMoney()));
+			c.add(lineInfo);
 		}
 	}
 }

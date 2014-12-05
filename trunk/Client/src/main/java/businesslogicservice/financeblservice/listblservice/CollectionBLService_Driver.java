@@ -5,7 +5,7 @@ import vo.CollectionVO;
 
 public class CollectionBLService_Driver {
 	public void drive(CollectionBLService fbs){
-	     fbs.createCollection(new CollectionVO());
+	     fbs.createCollection(new CollectionVO(null, null, null, null, null, 0, 0, 0));
 	    }
 		
 	    public static void main(String args[]){

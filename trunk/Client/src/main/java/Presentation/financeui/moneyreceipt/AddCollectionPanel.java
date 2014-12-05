@@ -6,11 +6,18 @@ import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import businesslogic.financebl.Collection;
+import businesslogicservice.financeblservice.listblservice.CollectionBLService;
+import vo.CollectionVO;
+import vo.TransferItemVO;
+import Presentation.financeui.CollectionPanel;
 import Presentation.mainui.MainFrame;
 
 public class AddCollectionPanel extends CollectionAndPaymentPanel implements ActionListener{
@@ -19,9 +26,12 @@ public class AddCollectionPanel extends CollectionAndPaymentPanel implements Act
 	 * 没加监听
 	 */
 	private static final long serialVersionUID = 1L;
-
+    ArrayList<TransferItemVO> tra=new ArrayList<TransferItemVO>();
+    CollectionBLService service;
+	
 	public AddCollectionPanel(MainFrame frame) {
 		super(frame);
+		
 		// -----------title------------------
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
@@ -57,7 +67,50 @@ public class AddCollectionPanel extends CollectionAndPaymentPanel implements Act
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+	  
+		if(e.getSource()==submitBtn){
+			if(tra.size()==0){
+				JOptionPane.showMessageDialog(null, "请输入转账列表", "提示",JOptionPane.WARNING_MESSAGE);
+			}
+			else{
+			CollectionVO vo=new CollectionVO(ID,(String)supplierBox.getSelectedItem(),(String)sellerBox.getSelectedItem(),parent.getUser().getID(),tra,totalMoney,0,1);
+
+			try {
+				service = new Collection();
+				int result=service.createCollection(vo);
+				if (result == 0) {
+					JOptionPane.showMessageDialog(null, "创建收款单成功！", "提示",
+							JOptionPane.CLOSED_OPTION);
+				} else {
+					JOptionPane.showMessageDialog(null, "创建收款单失败！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+				}
+				Update();
+				
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			}
+		}
+		else if(e.getSource()==exitBtn){
+			Update();
+			
+		}
+		
+	}
+	
+	public void Update() {
+		CollectionPanel mgr = new CollectionPanel(parent);
+		parent.setRightComponent(mgr);
+		try {
+			service=new Collection();
+			if (service.getCollection()!= null)
+				mgr.RefreshCollectionTable(service.getCollection());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 }
