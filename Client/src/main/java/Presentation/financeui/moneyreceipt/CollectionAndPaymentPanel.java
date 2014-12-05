@@ -164,6 +164,9 @@ public class CollectionAndPaymentPanel extends JPanel{
 				addBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(e.getSource()==addBtn){
+							if(moneyFld.getText().equals("")||remarkFld.getText().equals(""))
+								JOptionPane.showMessageDialog(null, "请输入信息", "提示",JOptionPane.WARNING_MESSAGE);
+							else{
 							TransferItemVO item=new TransferItemVO((String)accountBox.getSelectedItem(),Double.parseDouble(moneyFld.getText()),remarkFld.getText());
 							tra.add(item);
 							ArrayList<String> buffer=new ArrayList<String>();
@@ -173,10 +176,11 @@ public class CollectionAndPaymentPanel extends JPanel{
 							tlm.addRow(buffer);
 							table.revalidate();
 							accountBox.setSelectedIndex(0);
-							moneyFld.setText("");
-							remarkFld.setText("");
 							totalMoney+=Double.parseDouble(moneyFld.getText());
 							totalLbl.setText("总额汇总:"+totalMoney);
+							moneyFld.setText("");
+							remarkFld.setText("");
+							}
 						}
 					}
 				});
