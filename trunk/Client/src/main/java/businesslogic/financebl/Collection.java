@@ -2,14 +2,20 @@ package businesslogic.financebl;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import po.CollectionPO;
+import po.SalePO;
 import po.TransferItemPO;
 import vo.CollectionVO;
 import vo.TransferItemVO;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.Receipt;
+import businesslogic.utilitybl.getDate;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import dataservice.financedataservice.listdataservice.CollectionDataService;
 
@@ -57,6 +63,22 @@ public class Collection extends Receipt implements CollectionBLService{
     }
     */
 	
+     public String getNewID() {
+    	 String id=null;
+ 		ArrayList<CollectionPO> po=service.getCollection();
+ 		if(po==null) id="00001";
+ 		else{
+ 			int i=po.size();
+ 			Double d=Double.parseDouble(po.get(i-1).getId().substring(13))+1;
+ 			 NumberFormat nf = NumberFormat.getInstance();
+ 		     nf.setMinimumIntegerDigits(5); 
+ 		     nf.setGroupingUsed(false);
+ 		     id=nf.format(d);
+ 			
+ 		}
+ 		return "SKD-"+getDate.getdate()+"-"+id;
+ 	}
+     
     public void excute(Member mb,MockAccount account){
     	MockCollection collect=(MockCollection)this;
     	double money=-collect.getMoneyByOrder(0);
@@ -74,15 +96,11 @@ public class Collection extends Receipt implements CollectionBLService{
 	}
 	
 	public ArrayList<CollectionVO> getCollection(){
-		ArrayList<CollectionPO> po;
-		try {
-			po = service.getCollection();
-			return poToVo(po);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        return null;
+		ArrayList<CollectionPO>	po = service.getCollection();
+		if(po==null) return null;
+		
+		else return poToVo(po);
+		
 	}
 	
 	public CollectionPO voToPo(CollectionVO vo){
@@ -100,6 +118,7 @@ public class Collection extends Receipt implements CollectionBLService{
 		CollectionPO po=new CollectionPO(vo.getId(),vo.getSupplier(),vo.getSeller(),vo.getUser(),b,vo.getTotalMoney(),vo.getStatus(),vo.getHurry());
 		return po;
 	}
+
 	
 	public CollectionVO poToVo(CollectionPO po){
 		if(po==null)
