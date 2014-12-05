@@ -66,8 +66,7 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 		for (i = 0; i < a.size(); i++) {
 			GoodsPO b = (GoodsPO) a.get(i);
 			// 定义模糊查找的范围：编号、名称、型号(暂时)
-			String tp = "" + b.getGoodsID() + "," + b.getName() + ","
-					+ b.getSize();
+			String tp = "" + b.getGoodsID() + b.getName() + b.getSize();
 			if (tp.contains(message)) {
 				result.add(b);
 			}
@@ -79,19 +78,19 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 	public GoodsPO findByID(String id) throws RemoteException {
 		// TODO 自动生成的方法存根
 		GoodsPO result = null;
-		ArrayList<Object> list=new ArrayList<Object>();
-		list=file.read();
-		for(int i=0;i<list.size();i++){
-			GoodsPO po=(GoodsPO) list.get(i);
-			if(po.getGoodsID().equals(id)){
-				result=po;
+		ArrayList<Object> list = new ArrayList<Object>();
+		list = file.read();
+		for (int i = 0; i < list.size(); i++) {
+			GoodsPO po = (GoodsPO) list.get(i);
+			if (po.getGoodsID().equals(id)) {
+				result = po;
 				break;
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	public ArrayList<GoodsPO> showGoods() throws RemoteException {
 		// TODO 自动生成的方法存根
 		ArrayList<GoodsPO> result = new ArrayList<GoodsPO>();
@@ -141,7 +140,5 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 		}
 
 	}
-
-	
 
 }

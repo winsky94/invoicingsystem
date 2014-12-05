@@ -392,12 +392,12 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 	public static void main(String[] args)throws Exception{
 		Promotion p=new Promotion();
 		ArrayList<GiftCouponProPO> t;
-		t=p.getGiftCouponPro();
-		for(GiftCouponProPO po:t){
-			System.out.println(po.getStartDate()+po.getTotalValue());
-		}
+//		t=p.getGiftCouponPro();
+//		for(GiftCouponProPO po:t){
+//			System.out.println(po.getStartDate()+po.getTotalValue());
+//		}
 		System.out.println("---------------------------------------");
-		System.out.println(p.Add(new GiftCouponProPO("a","b","c",MemberLevel.ONE,new ArrayList<CouponPO>(),100)));
+		System.out.println(p.Add(new GiftCouponProPO("DJQ-20141205-001","b","c",MemberLevel.ONE,new ArrayList<CouponPO>(),100)));
 		t=p.getGiftCouponPro();
 		for(GiftCouponProPO po:t){
 			System.out.println(po.getStartDate()+po.getTotalValue());
