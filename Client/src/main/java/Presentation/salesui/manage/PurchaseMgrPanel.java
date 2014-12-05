@@ -27,7 +27,9 @@ import vo.ReceiptVO;
 import Presentation.mainui.MainFrame;
 import Presentation.salesui.manage.purchase.PurchasePane;
 import Presentation.salesui.manage.purchase.PurchaseReturnPane;
+import businesslogic.salesbl.SaleList;
 import businesslogic.userbl.User;
+import businesslogicservice.salesblservice.SaleListBLService;
 import businesslogicservice.userblservice.UserBLService;
 
 
@@ -44,9 +46,11 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 	JTable purchaseTbl;
 	JScrollPane jsp;
 	PurchaseMgrModel pmm;
+	SaleListBLService listservice;
 	ArrayList<ArrayList<String>> c=new ArrayList<ArrayList<String>>();
-	public PurchaseMgrPanel(MainFrame frame) {
+	public PurchaseMgrPanel(MainFrame frame) throws Exception {
 		parent=frame;
+		listservice=new SaleList();
 		this.setBackground(Color.WHITE);
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
@@ -247,5 +251,11 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 			
 		}
 	}
+	
+	public void RefreshPanel() throws Exception{
+		if(listservice.getAllSale()!=null)
+			PurchaseMgrPanel.this.RefreshPurchaseList(listservice.getAllPurchase());
+	}
+	
 }
 
