@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -23,8 +24,13 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
 import po.MemberPO.MemberType;
+import vo.TransferItemVO;
 import businesslogic.memberbl.Member;
+import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
+import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.memberblservice.MemberBLService;
+import Presentation.financeui.AccountPanel;
+import Presentation.financeui.CollectionPanel;
 import Presentation.mainui.MainFrame;
 
 public class CollectionAndPaymentPanel extends JPanel{
@@ -35,8 +41,9 @@ public class CollectionAndPaymentPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JLabel IDLbl, userLbl, totalLbl;
-	JTextField accountFld, moneyFld, remarkFld;
-	JComboBox<String> supplierBox, sellerBox;
+//	JTextField accountFld, moneyFld, remarkFld;
+	JTextField moneyFld, remarkFld;
+	JComboBox<String> supplierBox, sellerBox,accountBox;
 	JScrollPane jsp;
 	JTable table;
 	TransferListModel tlm;
@@ -45,6 +52,9 @@ public class CollectionAndPaymentPanel extends JPanel{
 	GridBagConstraints c = new GridBagConstraints();
 	JButton submitBtn, exitBtn, addBtn, delBtn;
 	MainFrame parent;
+	String ID="嗷嗷嗷嗷嗷";
+    ArrayList<TransferItemVO> tra=new ArrayList<TransferItemVO>();
+    double totalMoney=0;
 	public CollectionAndPaymentPanel(MainFrame frame){
 		parent=frame;
 		c.insets = new Insets(5, 40, 5, 40);
@@ -125,9 +135,14 @@ public class CollectionAndPaymentPanel extends JPanel{
 				JLabel accountLbl = new JLabel("银行账户：");
 				accountLbl.setFont(font);
 				item1.add(accountLbl);
-				accountFld = new JTextField(10);
-				accountFld.setFont(font);
-				item1.add(accountFld);
+//				accountFld = new JTextField(10);
+//				accountFld.setFont(font);
+//				item1.add(accountFld);
+				String accountText[] = { "请给我加上监听" };
+				accountBox = new JComboBox<String>(accountText);
+				accountBox.setFont(font);
+				accountBox.setBackground(Color.white);
+				item1.add(accountBox);
 				// ---money--------
 				JLabel moneyLbl = new JLabel("转账金额：");
 				moneyLbl.setFont(font);
@@ -148,7 +163,21 @@ public class CollectionAndPaymentPanel extends JPanel{
 				addBtn.setFocusPainted(false);
 				addBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						// 监听！！！！
+						if(e.getSource()==addBtn){
+							TransferItemVO item=new TransferItemVO((String)accountBox.getSelectedItem(),Double.parseDouble(moneyFld.getText()),remarkFld.getText());
+							tra.add(item);
+							ArrayList<String> buffer=new ArrayList<String>();
+							buffer.add((String)accountBox.getSelectedItem());
+							buffer.add(moneyFld.getText());
+							buffer.add(remarkFld.getText());
+							tlm.addRow(buffer);
+							table.revalidate();
+							accountBox.setSelectedIndex(0);
+							moneyFld.setText("");
+							remarkFld.setText("");
+							totalMoney+=Double.parseDouble(moneyFld.getText());
+							totalLbl.setText("总额汇总:"+totalMoney);
+						}
 					}
 				});
 				item2.add(addBtn);
@@ -158,7 +187,21 @@ public class CollectionAndPaymentPanel extends JPanel{
 				delBtn.setFocusPainted(false);
 				delBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						// 监听！！！！！！！
+						if(e.getSource()==delBtn){
+							int seleted=table.getSelectedRow();
+							if(seleted<0){
+								JOptionPane.showMessageDialog(null, "请选择一行", "提示",
+										JOptionPane.WARNING_MESSAGE);
+							}
+							else{
+								tlm.removeRow(seleted);
+								table.revalidate();
+								TransferItemVO item=new TransferItemVO(tlm.getValueAt(seleted, 0),Double.parseDouble(tlm.getValueAt(seleted, 1)),tlm.getValueAt(seleted, 2));
+								tra.remove(item);
+								totalMoney-=Double.parseDouble(tlm.getValueAt(seleted, 1));
+								totalLbl.setText("总额汇总:"+totalMoney);
+							}
+						}
 					}
 				});
 				item2.add(delBtn);
@@ -167,7 +210,7 @@ public class CollectionAndPaymentPanel extends JPanel{
 				// -----------ID---------------------
 				JPanel IDPnl = new JPanel();
 				IDPnl.setBackground(Color.white);
-				IDLbl = new JLabel("ID:嗷嗷嗷嗷嗷");
+				IDLbl = new JLabel("ID"+ID);
 				IDLbl.setFont(font);
 				IDPnl.add(IDLbl);
 				right.add(IDPnl);
@@ -218,7 +261,7 @@ public class CollectionAndPaymentPanel extends JPanel{
 				//--------总额汇总------------------
 				JPanel moneyPnl = new JPanel();
 				moneyPnl.setBackground(Color.white);
-				totalLbl = new JLabel("总额汇总:嗷嗷嗷嗷");
+				totalLbl = new JLabel("总额汇总:"+totalMoney);
 				totalLbl.setFont(font);
 				moneyPnl.add(totalLbl);
 				right.add(moneyPnl);
@@ -284,4 +327,6 @@ public class CollectionAndPaymentPanel extends JPanel{
 		}
 
 	}
+	
+
 }

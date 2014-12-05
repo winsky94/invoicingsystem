@@ -12,8 +12,12 @@ public class ReceiptVO {
 	int hurry;
 	String info;
 
-	public ReceiptVO() {
-
+	public ReceiptVO(String id,ReceiptType type,String user,int status,int hurry){
+		this.id=id;
+		this.type=type;
+		this.user=user;
+		this.status=status;
+		this.hurry=hurry;
 	}
 
 	public ReceiptVO(String id, String memberName, String memberID,

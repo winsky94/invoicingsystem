@@ -20,6 +20,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
+import Presentation.mainui.MainFrame;
+
 public class AddCashReceiptPanel extends JPanel {
 
 	/**
@@ -35,8 +37,10 @@ public class AddCashReceiptPanel extends JPanel {
 	JLabel IDLbl, userLbl, totalLbl;
 	JButton submitBtn, exitBtn, addBtn, delBtn;
 	JTextField nameFld, moneyFld, remarkFld;
+	MainFrame parent;
 
-	public AddCashReceiptPanel() {
+	public AddCashReceiptPanel(MainFrame frame) {
+		parent=frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);
@@ -224,9 +228,10 @@ public class AddCashReceiptPanel extends JPanel {
 		testFrame.setBounds(100, 50, 920, 600);
 		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		AddCashReceiptPanel gp = new AddCashReceiptPanel();
+/*		AddCashReceiptPanel gp = new AddCashReceiptPanel();
 		gp.setBounds(0, 0, 920, 600);
 		testFrame.add(gp);
 		testFrame.setVisible(true);
+*/
 	}
 }

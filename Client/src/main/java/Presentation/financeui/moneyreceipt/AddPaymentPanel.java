@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Presentation.mainui.MainFrame;
+
 public class AddPaymentPanel extends CollectionAndPaymentPanel {
 
 	/**
@@ -17,7 +19,8 @@ public class AddPaymentPanel extends CollectionAndPaymentPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public AddPaymentPanel() {
+	public AddPaymentPanel(MainFrame parent) {
+		super(parent);
 		// -----------title------------------
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
@@ -40,9 +43,10 @@ public class AddPaymentPanel extends CollectionAndPaymentPanel {
 		testFrame.setBounds(100, 50, 920, 600);
 		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		AddPaymentPanel gp = new AddPaymentPanel();
+/*		AddPaymentPanel gp = new AddPaymentPanel();
 		gp.setBounds(0, 0, 920, 600);
 		testFrame.add(gp);
 		testFrame.setVisible(true);
+*/
 	}
 }

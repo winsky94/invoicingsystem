@@ -1,6 +1,7 @@
 package businesslogic.financebl;
 
 import java.rmi.Naming;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.CollectionPO;
@@ -66,6 +67,27 @@ public class Collection extends Receipt implements CollectionBLService{
     	
     }
 	public int createCollection(CollectionVO vo) {
+		
+		CollectionPO po=voToPo(vo);
+		return service.createCollection(po);
+//		System.out.println(vo.getID()+" "+vo.getSupplier()+" "+vo.getSeller()+" "+vo.getUser()+" "+b.get(0).getAccount()+" "+vo.getTotalMoney());		
+	}
+	
+	public ArrayList<CollectionVO> getCollection(){
+		ArrayList<CollectionPO> po;
+		try {
+			po = service.getCollection();
+			return poToVo(po);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return null;
+	}
+	
+	public CollectionPO voToPo(CollectionVO vo){
+		if(vo==null)
+			return null;
 		 ArrayList<TransferItemVO> a=vo.getTransferlist();
 		 ArrayList<TransferItemPO> b=new ArrayList<TransferItemPO>();
 		 TransferItemPO po1;
@@ -75,11 +97,45 @@ public class Collection extends Receipt implements CollectionBLService{
 			 b.add(po1);
 		 }
 	
-		CollectionPO po=new CollectionPO(vo.getID(),vo.getSupplier(),vo.getSeller(),vo.getUser(),b,vo.getTotalMoney());
-		service.createCollection(po);
-		System.out.println(vo.getID()+" "+vo.getSupplier()+" "+vo.getSeller()+" "+vo.getUser()+" "+b.get(0).getAccount()+" "+vo.getTotalMoney());
-		
-		return 0;
+		CollectionPO po=new CollectionPO(vo.getId(),vo.getSupplier(),vo.getSeller(),vo.getUser(),b,vo.getTotalMoney(),vo.getStatus(),vo.getHurry());
+		return po;
+	}
+	
+	public CollectionVO poToVo(CollectionPO po){
+		if(po==null)
+			return null;
+		 ArrayList<TransferItemPO> a=po.getTransferlist();
+		 ArrayList<TransferItemVO> b=new ArrayList<TransferItemVO>();
+		 TransferItemVO vo1;
+		 for(int i=0;i<a.size();i++){
+			 TransferItemPO po1=a.get(i);
+			 vo1=new TransferItemVO(po1.getAccount(),po1.getMoney(),po1.getInfo());
+			 b.add(vo1);
+		 }
+	
+		CollectionVO vo=new CollectionVO(po.getId(),po.getSupplier(),po.getSeller(),po.getUserID(),b,po.getTotalMoney(),po.getStatus(),po.getHurry());
+		return vo;
+	}
+	
+	public ArrayList<CollectionPO> voToPo(ArrayList<CollectionVO> vo){
+		if(vo==null)
+			return null;
+		ArrayList<CollectionPO> po=new ArrayList<CollectionPO>();
+		for(CollectionVO v:vo){
+			CollectionPO p=voToPo(v);
+			po.add(p);
+		}
+		return po;
 	}
 
+	public ArrayList<CollectionVO> poToVo(ArrayList<CollectionPO> po){
+		if(po==null)
+			return null;
+		ArrayList<CollectionVO> vo=new ArrayList<CollectionVO>();
+		for(CollectionPO p:po){
+			CollectionVO v=poToVo(p);
+			vo.add(v);
+		}
+		return vo;
+	}
 }
