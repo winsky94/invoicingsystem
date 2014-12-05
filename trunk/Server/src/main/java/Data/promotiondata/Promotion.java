@@ -7,11 +7,13 @@ import java.util.Collections;
 
 import Data.datafactory.SequenceOfPromotionPO;
 import Data.serutility.JXCFile;
+import po.CouponPO;
 import po.DiscountProPO;
 import po.GiftCouponProPO;
 import po.GiftGoodProPO;
 import po.PackProPO;
 import po.PromotionPO;
+import po.MemberPO.MemberLevel;
 import po.PromotionPO.PromotionType;
 import dataservice.promotiondataservice.PromotionDataService;
 /*
@@ -387,5 +389,19 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 		return 0;
 	}
 	
+	public static void main(String[] args)throws Exception{
+		Promotion p=new Promotion();
+		ArrayList<GiftCouponProPO> t;
+		t=p.getGiftCouponPro();
+		for(GiftCouponProPO po:t){
+			System.out.println(po.getStartDate()+po.getTotalValue());
+		}
+		System.out.println("---------------------------------------");
+		System.out.println(p.Add(new GiftCouponProPO("a","b","c",MemberLevel.ONE,new ArrayList<CouponPO>(),100)));
+		t=p.getGiftCouponPro();
+		for(GiftCouponProPO po:t){
+			System.out.println(po.getStartDate()+po.getTotalValue());
+		}
+	}
 
 }
