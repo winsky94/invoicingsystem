@@ -23,8 +23,8 @@ public class GoodsModel extends AbstractTableModel {
 		rowData = new ArrayList<ArrayList<String>>();
 
 		if (list.size() != 0) {
-			ArrayList<String> hang = new ArrayList<String>();
 			for (int i = 0; i < list.size(); i++) {
+				ArrayList<String> hang = new ArrayList<String>();
 				GoodsVO vo = list.get(i);
 				hang.add(vo.getGoodsID());
 				hang.add(vo.getName());
@@ -37,7 +37,7 @@ public class GoodsModel extends AbstractTableModel {
 				// 加入到rowData
 				rowData.add(hang);
 			}
-			
+
 		}
 	}
 

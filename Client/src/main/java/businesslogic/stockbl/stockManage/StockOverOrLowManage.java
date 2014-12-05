@@ -44,13 +44,18 @@ public class StockOverOrLowManage {
 		StockControlBLService controller = new StockControlController();
 		ArrayList<StockOverOrLowVO> overList = controller
 				.showStockOverReceipt();
-		if (overList == null) {
+		if (overList.size() == 0) {
 			exactID += "00001";
 		} else {
-			String maxID = overList.get(overList.size() - 1).getId();
+			String maxID;
+			String tpID = overList.get(overList.size() - 1).getId();
+			String tempID[] = tpID.split("-");
+			maxID = tempID[2];
 			for (int i = 0; i < overList.size(); i++) {
-				if (maxID.compareTo(overList.get(i).getId()) < 0) {
-					maxID = overList.get(i).getId();
+				String currnetID = overList.get(i).getId();
+				String detailID[] = currnetID.split("-");
+				if (maxID.compareTo(detailID[2]) < 0) {
+					maxID = detailID[2];
 				}
 			}
 			NumberFormat nf = new DecimalFormat("00000");
@@ -58,7 +63,6 @@ public class StockOverOrLowManage {
 			String temp = nf.format(tp + 1);
 			exactID += temp;
 		}
-
 		StockOverReceipt receipt = new StockOverReceipt(exactID, memberName,
 				memberID, userID, hurry, info, goodName, size, num, exactNum);
 		// 向系统库存中添加商品
@@ -77,14 +81,19 @@ public class StockOverOrLowManage {
 		// 生成编号
 		String exactID = "KCBSD-" + getDate() + "-";
 		StockControlBLService controller = new StockControlController();
-		ArrayList<StockOverOrLowVO> lowList = controller.showStockOverReceipt();
-		if (lowList == null) {
+		ArrayList<StockOverOrLowVO> lowList = controller.showStockLowReceipt();
+		if (lowList.size() == 0) {
 			exactID += "00001";
 		} else {
-			String maxID = lowList.get(lowList.size() - 1).getId();
+			String maxID;
+			String tpID = lowList.get(lowList.size() - 1).getId();
+			String tempID[] = tpID.split("-");
+			maxID = tempID[2];
 			for (int i = 0; i < lowList.size(); i++) {
-				if (maxID.compareTo(lowList.get(i).getId()) < 0) {
-					maxID = lowList.get(i).getId();
+				String currnetID = lowList.get(i).getId();
+				String detailID[] = currnetID.split("-");
+				if (maxID.compareTo(detailID[2]) < 0) {
+					maxID = detailID[2];
 				}
 			}
 			NumberFormat nf = new DecimalFormat("00000");

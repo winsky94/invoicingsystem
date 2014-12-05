@@ -11,7 +11,8 @@ public class StockControlController implements StockControlBLService {
 
 	public int addStockOverOrLow(StockOverOrLowVO vo) {
 		// TODO 自动生成的方法存根
-		StockOverOrLowManage manage = new StockOverOrLowManage();
+		StockOverOrLowManage manage = new StockOverOrLowManage(
+				vo.getGoodsName(), vo.getSize(), vo.getNum(), vo.getExactNum());
 		if (vo.getType().equals(ReceiptType.STOCKOVER)) {
 			return manage
 					.addStockOverReceipt(vo.getId(), vo.getMemberName(),
@@ -80,14 +81,14 @@ public class StockControlController implements StockControlBLService {
 		return manage.getGiftCost();
 	}
 
-	//显示库存报溢单
+	// 显示库存报溢单
 	public ArrayList<StockOverOrLowVO> showStockOverReceipt() {
 		// TODO 自动生成的方法存根
 		StockManage manage = new StockManage();
 		return manage.showStockOverReceipt();
 	}
 
-	//显示库存报损单
+	// 显示库存报损单
 	public ArrayList<StockOverOrLowVO> showStockLowReceipt() {
 		// TODO 自动生成的方法存根
 		StockManage manage = new StockManage();
