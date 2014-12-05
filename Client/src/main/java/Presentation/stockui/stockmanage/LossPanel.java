@@ -165,9 +165,14 @@ public class LossPanel extends ChooseGoodsFatherPane implements ActionListener {
 							.getText()));
 			StockControlBLService controller = new StockControlController();
 			controller.addStockOverOrLow(vo);
-			parent.setRightComponent(new StockPanel(parent));
+			
+			StockPanel sp = new StockPanel(parent);
+			sp.tab.setSelectedIndex(2);
+			parent.setRightComponent(sp);
 		} else if (e.getActionCommand().equals("取消")) {
-			parent.setRightComponent(new StockPanel(parent));
+			StockPanel sp = new StockPanel(parent);
+			sp.tab.setSelectedIndex(2);
+			parent.setRightComponent(sp);
 		}
 	}
 }

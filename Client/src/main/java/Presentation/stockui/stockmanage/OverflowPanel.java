@@ -163,9 +163,14 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 							.getText()));
 			StockControlBLService controller = new StockControlController();
 			controller.addStockOverOrLow(vo);
-			parent.setRightComponent(new StockPanel(parent));
+
+			StockPanel sp = new StockPanel(parent);
+			sp.tab.setSelectedIndex(1);
+			parent.setRightComponent(sp);
 		} else if (e.getActionCommand().equals("取消")) {
-			parent.setRightComponent(new StockPanel(parent));
+			StockPanel sp = new StockPanel(parent);
+			sp.tab.setSelectedIndex(1);
+			parent.setRightComponent(sp);
 		}
 	}
 

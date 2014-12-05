@@ -1,11 +1,16 @@
 package Presentation.stockui.stockmanage;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,9 +21,11 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import Presentation.uihelper.DateChooser;
+import businesslogic.stockbl.stockManage.StockControlController;
+import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
 
 //库存查看
-public class StockShowPanel extends JPanel {
+public class StockShowPanel extends JPanel implements ActionListener {
 
 	/**
 	 * 
@@ -52,7 +59,7 @@ public class StockShowPanel extends JPanel {
 		gbl.setConstraints(titlePnl, c);
 		this.add(titlePnl);
 		// -----------时间段--------------
-		c.fill=GridBagConstraints.BOTH;
+		c.fill = GridBagConstraints.BOTH;
 		JPanel timePnl = new JPanel();
 		timePnl.setBackground(Color.white);
 		JPanel fP = new JPanel();
@@ -76,10 +83,14 @@ public class StockShowPanel extends JPanel {
 		c.weighty = 0.1;
 		gbl.setConstraints(timePnl, c);
 		this.add(timePnl);
-		//------table---------------
-		sstm=new StockShowTableModel();
-		table=new JTable(sstm);
-		jsp=new JScrollPane(table);
+		// ------table---------------
+		ArrayList<String> list = new ArrayList<String>();
+		StockControlBLService controller = new StockControlController();
+		list = controller.showStock(from.getDate(), to.getDate());
+
+		sstm = new StockShowTableModel(list);
+		table = new JTable(sstm);
+		jsp = new JScrollPane(table);
 		c.gridx = 0;
 		c.gridy = 2;
 		c.gridheight = 6;
@@ -113,8 +124,19 @@ public class StockShowPanel extends JPanel {
 	}
 
 	public static void main(String[] args) {
+
 		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 920, 600);
+
+		testFrame.setSize(800, 400);
+		int windowWidth = testFrame.getWidth();
+		int windowHeight = testFrame.getHeight();
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		Dimension screenSize = kit.getScreenSize();
+		int screenWidth = screenSize.width;
+		int screenHeight = screenSize.height;
+		testFrame.setLocation(screenWidth / 2 - windowWidth / 2, screenHeight
+				/ 2 - windowHeight / 2);
+
 		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		StockShowPanel gp = new StockShowPanel();
@@ -122,27 +144,59 @@ public class StockShowPanel extends JPanel {
 		testFrame.add(gp);
 		testFrame.setVisible(true);
 	}
-	class StockShowTableModel extends AbstractTableModel{
 
-		/**
-		 * 没实现
-		 */
+	class StockShowTableModel extends AbstractTableModel {
+
 		private static final long serialVersionUID = 1L;
+		ArrayList<ArrayList<String>> rowData;
+		String columnNames[] = { "类型", "数量", "金额" };// 列名
 
+		public StockShowTableModel(ArrayList<String> list) {
+			rowData = new ArrayList<ArrayList<String>>();
+
+			for (int i = 0; i < list.size(); i++) {
+				ArrayList<String> hang = new ArrayList<String>();
+				String detail[] = list.get(i).split(";");
+				hang.add(detail[0]);
+				hang.add(detail[1]);
+				hang.add(detail[2]);
+
+				// 加入到rowData
+				rowData.add(hang);
+			}
+		}
+
+		// 得到共有多少行
 		public int getRowCount() {
-			// TODO Auto-generated method stub
-			return 0;
+			// TODO 自动生成的方法存根
+			return this.rowData.size();
 		}
 
+		// 得到共有多少列
 		public int getColumnCount() {
-			// TODO Auto-generated method stub
-			return 0;
+			// TODO 自动生成的方法存根
+			return columnNames.length;
 		}
 
+		// 得到某行某列的数据
 		public Object getValueAt(int rowIndex, int columnIndex) {
-			// TODO Auto-generated method stub
-			return null;
+			// TODO 自动生成的方法存根
+			return ((ArrayList<String>) this.rowData.get(rowIndex))
+					.get(columnIndex);
 		}
-		
+
+		// 得到列名称
+		public String getColumnName(int column) {
+			// TODO 自动生成的方法存根
+			return columnNames[column];
+		}
+
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		// TODO 自动生成的方法存根
+		if (e.getActionCommand().equals("确定")) {
+
+		}
 	}
 }

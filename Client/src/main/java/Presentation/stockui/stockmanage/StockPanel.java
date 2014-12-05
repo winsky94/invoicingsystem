@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -140,7 +141,14 @@ public class StockPanel extends JPanel {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			JFrame testFrame = new JFrame();
+			testFrame.setBounds(100, 50, 920, 600);
+			testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+			StockShowPanel gp = new StockShowPanel();
+			gp.setBounds(0, 0, 920, 600);
+			testFrame.add(gp);
+			testFrame.setVisible(true);
 		}
 
 	}

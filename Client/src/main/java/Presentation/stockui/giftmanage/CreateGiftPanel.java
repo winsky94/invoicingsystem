@@ -199,9 +199,6 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 			GiftVO vo = new GiftVO("", name, ID, user, 4, 0, "", commodityList);
 			GiftBLService giftService = new GiftController();
 			giftService.addGift(vo);
-			
-			
 		}
-
 	}
 }
