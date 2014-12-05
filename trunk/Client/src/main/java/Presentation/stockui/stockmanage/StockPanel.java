@@ -121,7 +121,7 @@ public class StockPanel extends JPanel {
 	class OverflowBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			frame.setRightComponent(new OverflowPanel(frame, color));
+			frame.setRightComponent(new OverflowPanel(frame));
 
 		}
 
