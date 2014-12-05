@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Presentation.mainui.ChooseGoodsFatherPane;
+import Presentation.mainui.MainFrame;
 import Presentation.stockui.ChooseGoodsDialog;
 
 public class OverflowPanel extends ChooseGoodsFatherPane implements
@@ -28,8 +29,10 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 	JButton submitBtn, exitBtn, addGoodsBtn;
 	JTextField overflowFld;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
+	MainFrame father;
 	JLabel IDLbl,nameLbl,sizeLbl,numLbl;
-	public OverflowPanel() {
+	public OverflowPanel(MainFrame frame) {
+		father=frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);
@@ -137,16 +140,6 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 
 	}
 
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 920, 600);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		OverflowPanel gp = new OverflowPanel();
-		gp.setBounds(0, 0, 920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
-	}
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
