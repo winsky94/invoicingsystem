@@ -47,7 +47,7 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 	 */
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
-	JLabel IDLbl, userLbl, totalLbl;
+	JLabel IDLbl, userLbl, totalLbl,title;
 	JTextField stockFld, remarkFld;
 	JButton submitBtn, exitBtn, addGoodsBtn, delGoodsBtn;
 	JScrollPane jsp;
@@ -74,7 +74,7 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("创建进货单");
+		 title = new JLabel("创建进货单");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
@@ -201,7 +201,18 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		delGoodsBtn.setFocusPainted(false);
 		delGoodsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// 监听！！！！！！！
+				int[] row=table.getSelectedRows();
+				if(row.length>0){
+					for(int i=0;i<row.length;i++)
+						{totalMoney-=Double.parseDouble(cmContent.get(row[i]).get(5));
+						totalLbl.setText("总计："+totalMoney+"元");
+						cmContent.remove(row[i]);last_bid.remove(i);
+					//	parent.setRightComponent(PurchasePane.this);
+						table.revalidate();
+						}
+				}
+				else 
+					JOptionPane.showMessageDialog(null, "请选择要删除的商品","提示",JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		btnPnl.add(delGoodsBtn);
@@ -241,8 +252,10 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 	 public void RefreshCTable(ArrayList<Object> VO){
 			if(VO.get(0) instanceof GoodsVO)
 				{for(int i=0;i<VO.size();i++){
-					 ArrayList<String> line=new ArrayList<String>();
+					ArrayList<String> line=new ArrayList<String>();
 					GoodsVO vo=(GoodsVO)VO.get(i);
+					int exist=findExistLine(vo.getGoodsID());
+					if(exist<0){
 					line.add(vo.getGoodsID());
 					line.add(vo.getName());
 					line.add(vo.getSize());
@@ -253,6 +266,13 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 					line.add("");
 					last_bid.add(vo.getLastPurchasePrice());
 					cmContent.add(line);
+					}
+					else{
+						String newNum=cmContent.get(exist).get(3);
+						int num=Integer.parseInt(newNum)+1;
+						cmContent.get(exist).set(3,num+"" );
+					}
+					
 				}}else{
 					for(int i=0;i<VO.size();i++){
 						 ArrayList<String> line=new ArrayList<String>();
@@ -308,6 +328,16 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 					JOptionPane.showMessageDialog(null, "创建失败！","提示",JOptionPane.WARNING_MESSAGE);
 		}
 		 
+	 }
+	 
+	 
+	 
+	 private int findExistLine(String id){
+		 for(int i=0;i<cmContent.size();i++){
+			 if(id.equals(cmContent.get(i).get(0)))
+					 return i;
+		 }
+		 return -1;
 	 }
 
 }
