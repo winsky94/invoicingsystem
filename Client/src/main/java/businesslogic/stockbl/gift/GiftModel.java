@@ -1,64 +1,57 @@
-package businesslogic.stockbl.goods;
-
-//商品表格的model
+package businesslogic.stockbl.gift;
 
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import vo.GoodsVO;
+import vo.GiftVO;
+import businesslogicservice.stockblservice.giftblservice.GiftBLService;
 
-public class GoodsModel extends AbstractTableModel {
+public class GiftModel extends AbstractTableModel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	ArrayList<ArrayList<String>> rowData;
-	String columnNames[] = { "编号", "名称", "型号", "数量", "进价", "售价", "最近进价", "最近售价" };// 列名
+	String columnNames[] = { "编号", "日期", "客户编号", "客户姓名", "赠送种数", "状态" };
 
 	// 做一个构造函数，用于初始化数据表模型
-	public GoodsModel(ArrayList<GoodsVO> list) {
+	public GiftModel(ArrayList<GiftVO> list) {
 		rowData = new ArrayList<ArrayList<String>>();
 
 		if (list.size() != 0) {
 			ArrayList<String> hang = new ArrayList<String>();
 			for (int i = 0; i < list.size(); i++) {
-				GoodsVO vo = list.get(i);
-				hang.add(vo.getGoodsID());
-				hang.add(vo.getName());
-				hang.add(vo.getSize());
-				hang.add(String.valueOf(vo.getNumInStock()));
-				hang.add(String.valueOf(vo.getPurchasePrice()));
-				hang.add(String.valueOf(vo.getPrice()));
-				hang.add(String.valueOf(vo.getLastPurchasePrice()));
-				hang.add(String.valueOf(vo.getLastPrice()));
+				GiftVO vo = list.get(i);
+				hang.add(vo.getId());
+				hang.add(vo.getDate());
+				hang.add(vo.getMemberID());
+				hang.add(vo.getMemberName());
+				hang.add(String.valueOf(vo.getGiftList().size()));
+				hang.add("执行完毕");
+
 				// 加入到rowData
 				rowData.add(hang);
 			}
-			
+
 		}
 	}
 
-	public GoodsModel() {
+	public GiftModel() {
 		rowData = new ArrayList<ArrayList<String>>();
 
-		ArrayList<GoodsVO> list = new ArrayList<GoodsVO>();
-		GoodsController controller = new GoodsController();
-		list = controller.showGoods();
+		ArrayList<GiftVO> list = new ArrayList<GiftVO>();
+		GiftBLService controller = new GiftController();
+		list = controller.getGiftList();
 
 		for (int i = 0; i < list.size(); i++) {
 			ArrayList<String> hang = new ArrayList<String>();
-			GoodsVO vo = list.get(i);
-			hang.add(vo.getGoodsID());
-			hang.add(vo.getName());
-			hang.add(vo.getSize());
-			hang.add(String.valueOf(vo.getNumInStock()));
-			hang.add(String.valueOf(vo.getPurchasePrice()));
-			hang.add(String.valueOf(vo.getPrice()));
-			hang.add(String.valueOf(vo.getLastPurchasePrice()));
-			hang.add(String.valueOf(vo.getLastPrice()));
+			GiftVO vo = list.get(i);
+			hang.add(vo.getId());
+			hang.add(vo.getDate());
+			hang.add(vo.getMemberID());
+			hang.add(vo.getMemberName());
+			hang.add(String.valueOf(vo.getGiftList().size()));
+			hang.add("执行完毕");
 
 			// 加入到rowData
 			rowData.add(hang);
@@ -103,5 +96,4 @@ public class GoodsModel extends AbstractTableModel {
 		return true;
 
 	}
-
 }

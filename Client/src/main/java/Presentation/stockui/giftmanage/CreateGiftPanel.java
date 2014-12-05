@@ -8,27 +8,29 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.MalformedURLException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import po.GiftPO;
 import po.MemberPO.MemberType;
+import vo.CommodityVO;
 import vo.GiftVO;
+import vo.GoodsVO;
 import vo.MemberVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
 import Presentation.stockui.ChooseGoodsDialog;
 import businesslogic.memberbl.Member;
+import businesslogic.stockbl.gift.GiftCommodityListModel;
+import businesslogic.stockbl.gift.GiftController;
 import businesslogicservice.memberblservice.MemberBLService;
+import businesslogicservice.stockblservice.giftblservice.GiftBLService;
 
 public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 		ActionListener {
@@ -37,13 +39,14 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JScrollPane jsp;
 	JTable table;
-	// GiftTableModel gtm;
+	GiftCommodityListModel gcm;
 	JComboBox<String> memberBox;
 	JButton submitBtn, addBtn, delBtn, exitBtn;
-	MainFrame father;
+	// MainFrame father;
+	public ArrayList<CommodityVO> commodityList = new ArrayList<CommodityVO>();
 
 	public CreateGiftPanel(MainFrame myFather) {
-		father = myFather;
+		parent = myFather;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints cons = new GridBagConstraints();
 		cons.insets = new Insets(5, 40, 5, 40);
@@ -151,72 +154,53 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 		btnPnl.add(exitBtn);
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == exitBtn) {
-			father.setRightComponent(new GiftPanel(father));
-		} else if (e.getSource() == addBtn) {
-			new ChooseGoodsDialog(CreateGiftPanel.this);
-		} else if (e.getSource() == delBtn) {
+	public void RefreshCTable(ArrayList<Object> VO) {
 
-		} else if (e.getSource() == submitBtn) {
-			String mwmberData = memberBox.getSelectedItem().toString();
-			// 要先判断有木有选择客户信息
-			String data[] = mwmberData.split(" ");
-			String ID = data[0];
-			String name = data[1];
-			String user = father.getUser().getID();
-			// GiftVO vo = new GiftVO("", name, ID, user, status, hurry, info,
-			// cmContent);
-			// user怎么获得,status, hurry, info怎么搞
-			System.out.println("CreateGiftPanel.actionPerformed():"
-					+ cmContent.size());
+		for (int i = 0; i < VO.size(); i++) {
+			GoodsVO goodsVO = (GoodsVO) VO.get(i);
+			CommodityVO commodityVO = new CommodityVO(goodsVO.getGoodsID(),
+					goodsVO.getName(), goodsVO.getSize(), goodsVO.getPrice(),
+					goodsVO.getLastPurchasePrice(), 0, 0, 0, "");
+
+			commodityList.add(commodityVO);
 		}
 
 	}
-	// class GiftTableModel extends AbstractTableModel {
-	//
-	// /**
-	// *
-	// */
-	// private static final long serialVersionUID = 1L;
-	// String head[] = { "商品编号", "商品名", "型号", "库存数量", "赠送数量" };
-	//
-	// public int getRowCount() {
-	// return c.size();
-	// }
-	//
-	// public int getColumnCount() {
-	// return head.length;
-	// }
-	//
-	// public String getValueAt(int row, int col) {
-	// return c.get(row).get(col);
-	// }
-	//
-	// public String getColumnName(int col) {
-	// return head[col];
-	// }
-	//
-	// public void addRow(ArrayList<String> v) {
-	//
-	// c.add(v);
-	// }
-	//
-	// public void removeRow(int row) {
-	// c.remove(row);
-	// }
-	//
-	// public boolean isCellEditable(int row, int col) {
-	// if (col == 4)
-	// return true;
-	// else
-	// return false;
-	// }
-	//
-	// public void setValueAt(String value, int row, int col) {
-	// c = value;
-	// fireTableCellUpdated(row, col);
-	// }
-	// }
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == exitBtn) {
+			parent.setRightComponent(new GiftPanel(parent));
+		} else if (e.getSource() == addBtn) {
+			new ChooseGoodsDialog(CreateGiftPanel.this);
+
+			gcm = new GiftCommodityListModel(commodityList);
+			table.setModel(gcm);
+		} else if (e.getSource() == delBtn) {
+			int rownum = table.getSelectedRow();
+			if (rownum == -1) {
+				JOptionPane.showMessageDialog(null, "           请选择一行赠品", null,
+						JOptionPane.WARNING_MESSAGE);
+			} else {
+				gcm.removeRow(rownum);
+				table.revalidate();
+			}
+		} else if (e.getSource() == submitBtn) {
+			String memberData = memberBox.getSelectedItem().toString();
+			// 要先判断有木有选择客户信息
+			if (memberData.equals("请选择用户")) {
+				JOptionPane.showMessageDialog(null, "请选择赠送客户！", null,
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+
+			String data[] = memberData.split(" ");
+			String ID = data[0];
+			String name = data[1];
+			String user = parent.getUser().getID();
+			GiftVO vo = new GiftVO("", name, ID, user, 4, 0, "", commodityList);
+			GiftBLService giftService = new GiftController();
+			giftService.addGift(vo);
+		}
+
+	}
 }

@@ -2,7 +2,6 @@ package businesslogicservice.stockblservice.controlblservice;
 
 import java.util.ArrayList;
 
-import vo.GoodsVO;
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
 
@@ -38,10 +37,10 @@ public class StockControlBLService_stub implements StockControlBLService {
 		return new ArrayList<String>();
 	}
 
-	public ArrayList<GoodsVO> checkStock() {
+	public ArrayList<ArrayList<String>> checkStock() {
 		// TODO 自动生成的方法存根
 		System.out.println("check stock succeed!");
-		return new ArrayList<GoodsVO>();
+		return new ArrayList<ArrayList<String>>();
 	}
 
 	public boolean isEnough(String ID, int num) {

@@ -10,8 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -30,9 +28,10 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 	JTextField overflowFld;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	MainFrame father;
-	JLabel IDLbl,nameLbl,sizeLbl,numLbl;
+	JLabel IDLbl, nameLbl, sizeLbl, numLbl;
+
 	public OverflowPanel(MainFrame frame) {
-		father=frame;
+		father = frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);
@@ -67,42 +66,42 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 		gbl.setConstraints(mid, c);
 		this.add(mid);
 		mid.add(new JLabel());
-		//---------商品编号-----------------
-		JPanel IDPnl=new JPanel();
+		// ---------商品编号-----------------
+		JPanel IDPnl = new JPanel();
 		IDPnl.setBackground(Color.white);
 		mid.add(IDPnl);
-		IDLbl=new JLabel("商品编号：____________");
+		IDLbl = new JLabel("商品编号：____________");
 		IDLbl.setFont(font);
 		IDPnl.add(IDLbl);
-		//--------商品名-------------------
-		JPanel namePnl=new JPanel();
+		// --------商品名-------------------
+		JPanel namePnl = new JPanel();
 		namePnl.setBackground(Color.white);
 		mid.add(namePnl);
-		nameLbl=new JLabel("商品名：XXXXX");
+		nameLbl = new JLabel("商品名：XXXXX");
 		nameLbl.setFont(font);
 		namePnl.add(nameLbl);
-		//--------型号--------------------
-		JPanel sizePnl=new JPanel();
+		// --------型号--------------------
+		JPanel sizePnl = new JPanel();
 		sizePnl.setBackground(Color.white);
 		mid.add(sizePnl);
-		sizeLbl=new JLabel("型号：XXXXX");
+		sizeLbl = new JLabel("型号：XXXXX");
 		sizeLbl.setFont(font);
 		sizePnl.add(sizeLbl);
-		//-------库存数量-------------------
-		JPanel numPnl=new JPanel();
+		// -------库存数量-------------------
+		JPanel numPnl = new JPanel();
 		numPnl.setBackground(Color.white);
 		mid.add(numPnl);
-		numLbl=new JLabel("库存数量：XXXX");
+		numLbl = new JLabel("库存数量：XXXX");
 		numLbl.setFont(font);
 		numPnl.add(numLbl);
-		//--------报溢数量-----------------
-		JPanel overflowPnl=new JPanel();
+		// --------报溢数量-----------------
+		JPanel overflowPnl = new JPanel();
 		overflowPnl.setBackground(Color.white);
 		mid.add(overflowPnl);
-		JLabel overflowLbl=new JLabel("报溢数量：");
+		JLabel overflowLbl = new JLabel("实际数量：");
 		overflowLbl.setFont(font);
 		overflowPnl.add(overflowLbl);
-		overflowFld=new JTextField(6);
+		overflowFld = new JTextField(6);
 		overflowFld.setFont(font);
 		overflowPnl.add(overflowFld);
 		// -------buttons-----------------
@@ -123,7 +122,7 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 		addGoodsBtn.setFocusPainted(false);
 		addGoodsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JDialog addGoodsDlg = new ChooseGoodsDialog(OverflowPanel.this);
+				new ChooseGoodsDialog(OverflowPanel.this);
 			}
 		});
 		btnPnl.add(addGoodsBtn);
@@ -139,7 +138,6 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 		btnPnl.add(exitBtn);
 
 	}
-
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
