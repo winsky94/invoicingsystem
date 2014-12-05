@@ -25,6 +25,7 @@ public class StockControl extends UnicastRemoteObject implements
 
 	public int addStockOverOrLow(StockOverOrLowPO po) throws RemoteException {
 		// TODO 自动生成的方法存根
+		System.out.println("StockControl.addStockOverOrLow():id:" + po.getId());
 		overOrLowFile.write(po);
 		return 0;
 	}
