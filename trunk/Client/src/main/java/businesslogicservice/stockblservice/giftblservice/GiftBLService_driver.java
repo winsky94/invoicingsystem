@@ -4,7 +4,7 @@ import vo.GiftVO;
 
 public class GiftBLService_driver {
 	public void drive(GiftBLService_stub giftService_stub) {
-		GiftVO giftVO = new GiftVO(null, null, null, null, 0, 0, null);
+		GiftVO giftVO = new GiftVO(null, null, null, null, 0, 0, null, null);
 
 		giftService_stub.addGift(giftVO);
 		giftService_stub.dealGift(giftVO);

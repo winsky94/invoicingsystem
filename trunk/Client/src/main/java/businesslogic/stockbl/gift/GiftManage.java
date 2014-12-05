@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import po.CommodityPO;
 import po.GiftPO;
 import vo.CommodityVO;
+import vo.GiftVO;
 import vo.GoodsVO;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.stockbl.stockManage.StockControlController;
@@ -110,7 +111,21 @@ public class GiftManage {
 		return giftCost;
 	}
 
-	// 获取某段时间内的商品赠送清单
+	// 获取所有库存赠送清单
+	public ArrayList<GiftVO> getGiftList() {
+		ArrayList<GiftVO> result = new ArrayList<GiftVO>();
+		ArrayList<GiftPO> list = new ArrayList<GiftPO>();
+		try {
+			list = service.getGiftList();
+			result = POToVO(list);
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	// 获取某段时间内的库存赠送清单
 	public ArrayList<GiftPO> getGiftList(String beginDate, String endDate) {
 		ArrayList<GiftPO> list = new ArrayList<GiftPO>();
 		try {
@@ -171,6 +186,31 @@ public class GiftManage {
 			result.add(po);
 		}
 
+		return result;
+	}
+
+	// 将赠送商品列表由po转为vo
+	private ArrayList<CommodityVO> commodityPOToVO(ArrayList<CommodityPO> list) {
+		ArrayList<CommodityVO> result = new ArrayList<CommodityVO>();
+		for (CommodityPO po : list) {
+			CommodityVO vo = new CommodityVO(po.getID(), po.getName(),
+					po.getTip(), po.getPrice(), po.getLast_bid(), po.getNum(),
+					po.getTotal(), po.getCost(), po.getTip());
+			result.add(vo);
+		}
+		return result;
+	}
+
+	// 将库存赠送列表由po转为vo
+	private ArrayList<GiftVO> POToVO(ArrayList<GiftPO> list) {
+		ArrayList<GiftVO> result = new ArrayList<GiftVO>();
+		for (GiftPO po : list) {
+			GiftVO vo = new GiftVO(po.getId(), po.getMemberName(),
+					po.getMemberID(), po.getUserID(), po.getStatus(),
+					po.getHurry(), po.getInfo(),
+					commodityPOToVO(po.getGiftList()));
+			result.add(vo);
+		}
 		return result;
 	}
 }

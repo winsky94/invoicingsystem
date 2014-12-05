@@ -36,26 +36,32 @@ public class GiftController extends Receipt implements GiftBLService {
 
 	public double getGiftCost() {
 		// TODO 自动生成的方法存根
-		GiftManage manage=new GiftManage();
+		GiftManage manage = new GiftManage();
 		return manage.getGiftCost();
 	}
 
 	public ArrayList<GiftPO> getGiftList(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
-		GiftManage manage=new GiftManage();
+		GiftManage manage = new GiftManage();
 		return manage.getGiftList(beginDate, endDate);
 	}
 
 	public int getGiftNum(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
-		GiftManage manage=new GiftManage();
+		GiftManage manage = new GiftManage();
 		return manage.getGiftNum(beginDate, endDate);
 	}
 
 	public double getGiftMoney(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
-		GiftManage manage=new GiftManage();
+		GiftManage manage = new GiftManage();
 		return manage.getGiftMoney(beginDate, endDate);
+	}
+
+	public ArrayList<GiftVO> getGiftList() {
+		// TODO 自动生成的方法存根
+		GiftManage manage = new GiftManage();
+		return manage.getGiftList();
 	}
 
 }

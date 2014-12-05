@@ -15,10 +15,10 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
 
 import Presentation.mainui.MainFrame;
 import Presentation.uihelper.DateChooser;
+import businesslogic.stockbl.gift.GiftModel;
 
 public class GiftPanel extends JPanel {
 	/**
@@ -30,7 +30,7 @@ public class GiftPanel extends JPanel {
 	DateChooser fromDC, toDC;
 	JScrollPane jsp;
 	JTable giftTbl;
-	GiftTblModel gtm;
+	GiftModel gm;
 	ArrayList<ArrayList<String>> c = new ArrayList<ArrayList<String>>();
 	Color color = new Color(51, 125, 86);
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
@@ -67,8 +67,8 @@ public class GiftPanel extends JPanel {
 		gbl.setConstraints(topPnl, c);
 		this.add(topPnl);
 		// ----------------------------------------------
-		gtm = new GiftTblModel();
-		giftTbl = new JTable(gtm);
+		gm = new GiftModel();
+		giftTbl = new JTable(gm);
 		jsp = new JScrollPane(giftTbl);
 		c.gridx = 0;
 		c.gridy = 1;
@@ -77,40 +77,6 @@ public class GiftPanel extends JPanel {
 		c.gridheight = c.gridwidth = GridBagConstraints.REMAINDER;
 		gbl.setConstraints(jsp, c);
 		this.add(jsp);
-	}
-
-	/*
-	 * public static void main(String[] args){ MainFrame testFrame = new
-	 * MainFrame(); testFrame.setBounds(100, 50, 900, 550);
-	 * testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	 * 
-	 * JPanel gp = new GiftPanel(testFrame); gp.setBounds(0, 0, 1000, 700);
-	 * testFrame.add(gp); testFrame.setVisible(true); }
-	 */
-	class GiftTblModel extends AbstractTableModel {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-		String head[] = { "赠送单编号", "日期", "审批状态", "商品编号", "商品名", "型号", "数量",
-				"客户编号", "客户名" };
-
-		public int getRowCount() {
-			return c.size();
-		}
-
-		public int getColumnCount() {
-			return head.length;
-		}
-
-		public Object getValueAt(int row, int col) {
-			return c.get(row).get(col);
-		}
-
-		public String getColumnName(int col) {
-			return head[col];
-		}
-
 	}
 
 	class MyButton extends JButton {
