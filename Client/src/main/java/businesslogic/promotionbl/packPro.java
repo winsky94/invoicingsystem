@@ -25,9 +25,7 @@ public class packPro extends promotion{
 		return 0;
 	}
 	
-	public int Delete(String id){
-		return 0;
-	}
+
 	public int Modify(PackProVO vo){
 		return 0;
 	}
@@ -50,9 +48,9 @@ public class packPro extends promotion{
 	}
 
 	@Override
-	public int Delete(String id, PromotionType type) {
+	public int Delete(String id) {
 		// TODO Auto-generated method stub
-		return 0;
+		return service.Delete(id, PromotionType.PACK);
 	}
 
 	@Override

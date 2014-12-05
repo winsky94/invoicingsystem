@@ -20,6 +20,7 @@ import java.util.Date;
 
 
 
+
 import dataservice.promotiondataservice.PromotionDataService;
 import dataservice.salesdataservice.SalesDataService;
 import businesslogicservice.promotionblservice.PromotionBLService;
@@ -48,8 +49,7 @@ public  class promotion implements PromotionBLService{
 	
 	public  int Modify(PromotionVO vo){return 0;};
 	
-	public  int Delete(String id,PromotionType type){return 0;};
-	
+
 	
 	public PromotionVO Match(SaleVO vo){return null;};
 	
@@ -96,5 +96,9 @@ public  class promotion implements PromotionBLService{
 		PromotionVO vo=new PromotionVO(po.getID(),po.getStartDate(),po.getEndDate(),
 				po.getType(),po.getLevel());
 		return vo;
+	}
+	public int Delete(String id) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

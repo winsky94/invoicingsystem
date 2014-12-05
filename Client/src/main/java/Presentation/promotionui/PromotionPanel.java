@@ -19,12 +19,14 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import po.PromotionPO.PromotionType;
 import vo.PromotionVO;
 import Presentation.mainui.MainFrame;
 import Presentation.promotionui.addpromotion.AddBarginPanel;
@@ -43,7 +45,7 @@ public class PromotionPanel extends JPanel {
 	JTable proTbl;
 	JScrollPane jsp;
 	PromotionTableModel ptm;
-	ArrayList<ArrayList<String>> c = new ArrayList<ArrayList<String>>();
+	ArrayList<ArrayList<String>> content = new ArrayList<ArrayList<String>>();
 	MyButton addBtn, delBtn, modBtn, refreshBtn, detailBtn;
 	Color color = new Color(115, 46, 126);
 
@@ -117,7 +119,18 @@ public class PromotionPanel extends JPanel {
 		delBtn = new MyButton("删除策略", new ImageIcon("img/promotion/del.png"));
 		delBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JDialog delDlg = new DelProDialog();
+				int[] row=proTbl.getSelectedRows();
+				if(row.length>0){
+					PromotionType[] type=new PromotionType[row.length];
+					String[] id=new String[row.length];
+					for(int i=0;i<row.length;i++){
+						ArrayList<String> info=content.get(row[i]);
+						id[i]=info.get(0);
+						type[i]=getChangeProType.getProType(info.get(3));
+							
+					}
+					JDialog delDlg = new DelProDialog(id, type,father);}
+				else JOptionPane.showMessageDialog(null, "请选择要删除的促销策略");
 			}
 		});
 		top.add(delBtn);
@@ -179,7 +192,7 @@ public class PromotionPanel extends JPanel {
 			line.add(MyDateFormat.FomatDate(v.getStartDate()));
 			line.add(MyDateFormat.FomatDate(v.getEndDate()));
 			line.add(getChangeProType.getProTypeString(v.getType()));
-			c.add(line);
+			content.add(line);
 		}
 	}
 	class PromotionTableModel extends AbstractTableModel {
@@ -191,7 +204,7 @@ public class PromotionPanel extends JPanel {
 		String head[] = { "编号", "促销起始时间", "促销中止时间", "促销策略类型" };
 
 		public int getRowCount() {
-			return c.size();
+			return content.size();
 		}
 
 		public int getColumnCount() {
@@ -199,7 +212,7 @@ public class PromotionPanel extends JPanel {
 		}
 
 		public Object getValueAt(int row, int col) {
-			return c.get(row).get(col);
+			return content.get(row).get(col);
 		}
 
 		public String getColumnName(int col) {

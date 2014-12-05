@@ -113,7 +113,7 @@ public class giftCouponPro extends promotion{
 	}
 
 	@Override
-	public int Delete(String id, PromotionType type) {
+	public int Delete(String id) {
 		// TODO Auto-generated method stub
 		return service.Delete(id, PromotionType.GIFTCOUPON);
 	}

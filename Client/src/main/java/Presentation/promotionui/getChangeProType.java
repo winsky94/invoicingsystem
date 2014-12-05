@@ -15,5 +15,15 @@ public class getChangeProType {
 			return "特价包";
 	}
 	
+	public static PromotionType getProType(String type){
+		if(type.equals("特价包"))
+			return PromotionType.PACK;
+		else if(type.equals("商品折扣"))
+			return PromotionType.DISCOUNT;
+		else if(type.equals("商品赠送"))
+			return PromotionType.GIFTGOODS;
+		else return PromotionType.GIFTCOUPON;
+	}
+	
 
 }
