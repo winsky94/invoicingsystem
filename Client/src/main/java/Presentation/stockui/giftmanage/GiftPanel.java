@@ -20,13 +20,13 @@ import Presentation.mainui.MainFrame;
 import Presentation.uihelper.DateChooser;
 import businesslogic.stockbl.gift.GiftModel;
 
-public class GiftPanel extends JPanel {
+public class GiftPanel extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	MainFrame father;
-	MyButton giftBtn, refreshBtn;
+	MyButton giftBtn, refreshBtn,detailBtn;
 	DateChooser fromDC, toDC;
 	JScrollPane jsp;
 	JTable giftTbl;
@@ -50,12 +50,11 @@ public class GiftPanel extends JPanel {
 		topPnl.setBackground(Color.white);
 		// ----------------------------------------
 		giftBtn = new MyButton("创建库存赠送单", new ImageIcon("img/stock/gift.png"));
-		giftBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				father.setRightComponent(new CreateGiftPanel(father));
-			}
-		});
+		giftBtn.addActionListener(this);
 		topPnl.add(giftBtn);
+		detailBtn=new MyButton("查看详情",new ImageIcon("img/stock/detail.png"));
+		detailBtn.addActionListener(this);
+		topPnl.add(detailBtn);
 		refreshBtn = new MyButton("刷新", new ImageIcon("img/stock/refresh.png"));
 		topPnl.add(refreshBtn);
 		// ---------------------------------------------
@@ -95,5 +94,15 @@ public class GiftPanel extends JPanel {
 			setFocusPainted(false);
 		}
 
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==giftBtn){
+			father.setRightComponent(new CreateGiftPanel(father));
+		}
+		if(e.getSource()==detailBtn){
+			father.setRightComponent(new GiftDetailPanel(father));
+		}
+		
 	}
 }
