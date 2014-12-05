@@ -9,6 +9,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -49,7 +50,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 	MyCheckBox nameBox, memberBox, clerkBox, stockBox;
 	JComboBox<String> receiptTypeBox;
 	//
-	JTabbedPane tab;
+	JTabbedPane tab,toptab;
 	SaleDetailTableModel sdtm;// 销售明细表
 	OperationHistoryTableModel ohtm;// 经验历程表
 	OperationStatementTableModel ostm;// 经营情况表
@@ -64,34 +65,34 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(1, 10, 1, 10);
 		c.fill = GridBagConstraints.BOTH;
-		// -----------------------------
-		JPanel btnPnl = new JPanel();
-		btnPnl.setBackground(Color.white);
+		//------toptab------------------
+		toptab=new JTabbedPane();
+		toptab.setBackground(Color.white);
+		toptab.setFont(font);
+		toptab.setForeground(color);
+		toptab.setBorder(BorderFactory.createLineBorder(Color.GREEN));
 		c.gridx = 0;
 		c.gridy = 0;
-		c.gridheight = 1;
+		c.gridheight = 2;
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.weightx = 1;
 		c.weighty = 0.1;
-		gbl.setConstraints(btnPnl, c);
-		this.add(btnPnl);
-		btnPnl.setLayout(new GridLayout(2, 1));
-		JPanel top = new JPanel();
-		JPanel bottom = new JPanel();
-		top.setBackground(Color.white);
-		bottom.setBackground(Color.white);
-		btnPnl.add(top);
-		btnPnl.add(bottom);
+		gbl.setConstraints(toptab, c);
+		this.add(toptab);
+		// -----------------------------
+		JPanel btnPnl = new JPanel();
+		btnPnl.setBackground(Color.white);
+		toptab.add("主页",btnPnl);
 		// ------刷新按钮------------
 		refreshBtn = new MyButton("刷新", new ImageIcon(
 				"img/promotion/refresh.png"));
 		refreshBtn.addActionListener(this);
-		top.add(refreshBtn);
+		btnPnl.add(refreshBtn);
 		// -----导出按钮-------------
 		exportBtn = new MyButton("导出",
 				new ImageIcon("img/promotion/export.png"));
 		exportBtn.addActionListener(this);
-		top.add(exportBtn);
+		btnPnl.add(exportBtn);
 		// -----搜索框---------------
 		findFld = new JTextField(13);
 		findFld.setFont(font);
@@ -112,50 +113,53 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 
 			}
 		});
-		top.add(findFld);
+		btnPnl.add(findFld);
 		// -----搜索按钮-------------
 		findBtn = new MyButton(new ImageIcon("img/promotion/find.png"));
-		top.add(findBtn);
+		btnPnl.add(findBtn);
 		// ----日期--------------
 		JLabel fromLbl = new JLabel("起始时间：");
 		fromLbl.setFont(font);
 		fromLbl.setForeground(color);
 		from = new DateChooser();
-		top.add(fromLbl);
-		top.add(from);
+		btnPnl.add(fromLbl);
+		btnPnl.add(from);
 		JLabel toLbl = new JLabel("截止时间：");
 		toLbl.setFont(font);
 		toLbl.setForeground(color);
 		to = new DateChooser();
-		top.add(toLbl);
-		top.add(to);
+		btnPnl.add(toLbl);
+		btnPnl.add(to);
 		// -----筛选按钮-------------
+		JPanel filterPnl=new JPanel();
+		filterPnl.setBackground(Color.white);
+		toptab.add("筛选",filterPnl);
 		// -----四大复选框-----------
 		JLabel rangeLbl = new JLabel("筛选范围：   ");
 		rangeLbl.setFont(font);
 		rangeLbl.setForeground(color);
-		bottom.add(rangeLbl);
+		filterPnl.add(rangeLbl);
 		//
 		nameBox = new MyCheckBox("商品名");
 
-		bottom.add(nameBox);
+		filterPnl.add(nameBox);
 		memberBox = new MyCheckBox("客户");
-		bottom.add(memberBox);
+		filterPnl.add(memberBox);
 		clerkBox = new MyCheckBox("业务员");
-		bottom.add(clerkBox);
+		filterPnl.add(clerkBox);
 		stockBox = new MyCheckBox("仓库");
-		bottom.add(stockBox);
+		filterPnl.add(stockBox);
 		// -----单据类型------------
 		JLabel typeLbl = new JLabel("筛选指定类型的单据：");
 		typeLbl.setFont(font);
 		typeLbl.setForeground(color);
-		bottom.add(typeLbl);
+		filterPnl.add(typeLbl);
 		String typeText[] = { "全部", "销售类", "进货类", "财务类", "库存类" };
 		receiptTypeBox = new JComboBox<String>(typeText);
 		receiptTypeBox.setBackground(Color.white);
 		receiptTypeBox.setFont(font);
 		receiptTypeBox.setForeground(color);
-		bottom.add(receiptTypeBox);
+		filterPnl.add(receiptTypeBox);
 		// -----tab-----------------
 		
 		tab = new JTabbedPane();
@@ -163,8 +167,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		tab.setForeground(color);
 		tab.setFont(font);
 		c.gridx = 0;
-		c.gridy = 1;
-		c.gridheight = 5;
+		c.gridy = 2;
+		c.gridheight = 6;
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.weightx = 1;
 		c.weighty = 1.5;
