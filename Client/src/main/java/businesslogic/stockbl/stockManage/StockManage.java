@@ -25,7 +25,6 @@ import dataservice.stockdataservice.giftdataservice.GiftDataService;
 import dataservice.stockdataservice.goodsdataservice.StockGoodsDataService;
 
 public class StockManage {
-	private double primeCostIncome = 0;
 	private StockControlDataService service;
 	private StockGoodsDataService goodsService;
 	private GiftDataService giftService;
@@ -269,12 +268,14 @@ public class StockManage {
 		return purchase;
 	}
 
-	// 库存调价(未完成==)
+	// 库存调价(未测试==)
 	public int changePrime(Goods good, Goods newGood) {
-
+		double primeCostIncome = 0;
 		primeCostIncome += (good.getPurchasePrice() - newGood
 				.getPurchasePrice()) * newGood.getNumInStock();
-		return 0;
+		String record = getDate() + ";" + primeCostIncome;
+
+		return service.recordPrimeCostIncome(record);
 	}
 
 	// 检查库存是否充足满足销售需求
@@ -287,10 +288,21 @@ public class StockManage {
 		}
 	}
 
-	// 获得库存调价收入(未完成==)
-	public double getPrimeCostIncome() {
+	// 获得库存调价收入(未测试==)
+	public double getPrimeCostIncome(String beginDate, String endDate) {
+		ArrayList<String> list = new ArrayList<String>();
+		list = service.getPrimeCostIncome();
+		double result = 0;
 
-		return primeCostIncome;
+		for(String s:list){
+			String record[]=s.split(";");
+			String date=record[0];
+			String money=record[1];
+			if(date.compareTo(beginDate)>=0&&date.compareTo(endDate)<=0){
+				result+=Double.parseDouble(money);
+			}
+		}
+		return result;
 	}
 
 	// 获得库存报溢收入

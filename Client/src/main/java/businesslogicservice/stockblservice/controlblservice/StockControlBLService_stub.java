@@ -49,7 +49,7 @@ public class StockControlBLService_stub implements StockControlBLService {
 		return true;
 	}
 
-	public double getPrimeCostIncome() {
+	public double getPrimeCostIncome(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		System.out.println("return prime cost income succeed!");
 		return 0;

@@ -26,7 +26,7 @@ public class GiftPanel extends JPanel implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	MainFrame father;
-	MyButton giftBtn, refreshBtn,detailBtn;
+	MyButton giftBtn, refreshBtn, detailBtn;
 	DateChooser fromDC, toDC;
 	JScrollPane jsp;
 	JTable giftTbl;
@@ -52,7 +52,7 @@ public class GiftPanel extends JPanel implements ActionListener {
 		giftBtn = new MyButton("创建库存赠送单", new ImageIcon("img/stock/gift.png"));
 		giftBtn.addActionListener(this);
 		topPnl.add(giftBtn);
-		detailBtn=new MyButton("查看详情",new ImageIcon("img/stock/detail.png"));
+		detailBtn = new MyButton("查看详情", new ImageIcon("img/stock/detail.png"));
 		detailBtn.addActionListener(this);
 		topPnl.add(detailBtn);
 		refreshBtn = new MyButton("刷新", new ImageIcon("img/stock/refresh.png"));
@@ -97,12 +97,14 @@ public class GiftPanel extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==giftBtn){
+		if (e.getSource() == giftBtn) {
 			father.setRightComponent(new CreateGiftPanel(father));
+			gm = new GiftModel();
+			giftTbl = new JTable(gm);
 		}
-		if(e.getSource()==detailBtn){
+		if (e.getSource() == detailBtn) {
 			father.setRightComponent(new GiftDetailPanel(father));
 		}
-		
+
 	}
 }

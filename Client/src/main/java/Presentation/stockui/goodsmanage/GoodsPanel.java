@@ -28,8 +28,6 @@ import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -130,7 +128,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		c.gridx = 0;
 		c.gridy = 1;
 		c.gridheight = 5;
-		c.gridwidth = 2;// 由2改为1，将树的panel调小、、、、yan
+		c.gridwidth = 2;
 		c.weightx = 0.05;
 		c.weighty = 50;
 		gbl.setConstraints(tree, c);
@@ -175,7 +173,6 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 		// ----------goodsTable------------------
 		goodsModel = new GoodsModel();
-		goodsModel.addTableModelListener(new MyTableModelListener());
 		goodsTable = new JTable(goodsModel);
 		goodsTable.setBackground(Color.white);
 		jspTable = new JScrollPane(goodsTable);
@@ -312,17 +309,6 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			ArrayList<GoodsVO> list = goodsController.findGoods(keyWord);
 
 			goodsModel = new GoodsModel(list);
-			goodsTable.setModel(goodsModel);
-		}
-
-	}
-
-	// 对表格的监听，用于修改商品信息
-	class MyTableModelListener implements TableModelListener {
-
-		public void tableChanged(TableModelEvent arg0) {
-			// TODO 自动生成的方法存根
-			goodsModel = new GoodsModel();
 			goodsTable.setModel(goodsModel);
 		}
 

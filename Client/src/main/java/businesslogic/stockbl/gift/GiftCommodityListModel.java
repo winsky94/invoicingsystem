@@ -66,4 +66,20 @@ public class GiftCommodityListModel extends AbstractTableModel {
 		// TODO 自动生成的方法存根
 		return columnNames[column];
 	}
+
+	// 设置表格某些列可以双击修改
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		if (columnIndex == 3) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void setValueAt(Object value, int row, int col) {
+		ArrayList<String> hang = rowData.get(row);
+		hang.set(col, (String) value);
+		rowData.set(row, hang);
+		fireTableCellUpdated(row, col);
+	}
 }

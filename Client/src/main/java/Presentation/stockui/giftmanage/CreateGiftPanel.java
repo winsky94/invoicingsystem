@@ -174,6 +174,7 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 
 			gcm = new GiftCommodityListModel(commodityList);
 			table.setModel(gcm);
+			parent.setRightComponent(new GiftPanel(parent));
 		} else if (e.getSource() == delBtn) {
 			int rownum = table.getSelectedRow();
 			if (rownum == -1) {
@@ -197,6 +198,9 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 			String name = data[1];
 			String user = parent.getUser().getID();
 			GiftVO vo = new GiftVO("", name, ID, user, 4, 0, "", commodityList);
+			System.out
+					.println("CreateGiftPanel.actionPerformed():commodityList:"
+							+ commodityList.size());
 			GiftBLService giftService = new GiftController();
 			giftService.addGift(vo);
 		}

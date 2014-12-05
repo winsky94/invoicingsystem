@@ -59,4 +59,16 @@ public class StockControlDataService_stub implements StockControlDataService {
 		// TODO 自动生成的方法存根
 		return null;
 	}
+
+	public int recordPrimeCostIncome(String primeCostIncome) {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
+	public ArrayList<String> getPrimeCostIncome() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	
 }

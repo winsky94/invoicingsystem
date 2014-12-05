@@ -29,7 +29,7 @@ public interface StockControlBLService {
 	public boolean isEnough(String ID, int num);
 
 	// 商品调价收入
-	public double getPrimeCostIncome();
+	public double getPrimeCostIncome(String beginDate, String endDate);
 
 	// 获得商品赠送支出
 	public double getGiftCost();
