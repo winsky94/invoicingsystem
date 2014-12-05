@@ -50,7 +50,7 @@ public class SaleReturn extends Receipt {
 		if(po==null) id="00001";
 		else{
 			int i=po.size();
-			Double d=Double.parseDouble(po.get(i-1).getId().substring(15)+1);
+			Double d=Double.parseDouble(po.get(i-1).getId().substring(15))+1;
 			 NumberFormat nf = NumberFormat.getInstance();
 		     nf.setMinimumIntegerDigits(5); 
 		     nf.setGroupingUsed(false);
