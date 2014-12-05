@@ -46,4 +46,9 @@ public class GiftBLService_stub implements GiftBLService {
 		return 0;
 	}
 
+	public ArrayList<GiftVO> getGiftList() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 }
