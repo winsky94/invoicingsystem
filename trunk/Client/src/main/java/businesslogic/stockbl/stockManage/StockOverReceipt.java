@@ -38,7 +38,7 @@ public class StockOverReceipt extends Receipt {
 	}
 
 	public StockOverReceipt(String id, String memberName, String memberID,
-			String userID, int hurry, String info,  String goodName,
+			String userID, int hurry, String info, String goodName,
 			String size, int num, int exactNum) {
 		super(id, memberName, memberID, userID, ReceiptType.STOCKOVER, hurry,
 				0, info);
@@ -65,18 +65,14 @@ public class StockOverReceipt extends Receipt {
 	}
 
 	public int add() {
-		//编号在StockOverOrLowManage里面已经生成好了传过来的
+		// 编号在StockOverOrLowManage里面已经生成好了传过来的
 		StockOverOrLowPO po = new StockOverOrLowPO(super.getId(),
 				super.getmemberName(), super.getMemberID(), super.getUserID(),
 				ReceiptType.STOCKOVER, 0, super.getHurry(), super.getInfo(),
-				 goodName, size, num, exactNum);
+				goodName, size, num, exactNum);
 		return service.addStockOverOrLow(po);
 	}
 
-	
-	
-	
-	
 	public String getGoodName() {
 		return goodName;
 	}

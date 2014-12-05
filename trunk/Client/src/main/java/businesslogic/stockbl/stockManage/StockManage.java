@@ -344,9 +344,10 @@ public class StockManage {
 	private ArrayList<StockOverOrLowVO> POToVO(ArrayList<StockOverOrLowPO> list) {
 		ArrayList<StockOverOrLowVO> result = new ArrayList<StockOverOrLowVO>();
 		for (StockOverOrLowPO po : list) {
-			StockOverOrLowVO vo = new StockOverOrLowVO(po.getGoodsName(),
-					po.getSize(), po.getNum(), po.getExactNum(),
-					po.getUserID(), ReceiptType.STOCKOVER, po.getInfo());
+			StockOverOrLowVO vo = new StockOverOrLowVO(po.getId(),
+					po.getUserID(), po.getType(), po.getStatus(),
+					po.getHurry(), po.getInfo(), po.getGoodsName(),
+					po.getSize(), po.getNum(), po.getExactNum());
 			result.add(vo);
 		}
 		return result;

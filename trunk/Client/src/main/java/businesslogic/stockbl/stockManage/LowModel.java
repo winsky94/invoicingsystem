@@ -27,8 +27,8 @@ public class LowModel extends AbstractTableModel {
 		rowData = new ArrayList<ArrayList<String>>();
 
 		if (list.size() != 0) {
-			ArrayList<String> hang = new ArrayList<String>();
 			for (int i = 0; i < list.size(); i++) {
+				ArrayList<String> hang = new ArrayList<String>();
 				StockOverOrLowVO vo = list.get(i);
 				hang.add(vo.getId());
 				hang.add(vo.getGoodsName());

@@ -27,8 +27,8 @@ public class OverModel extends AbstractTableModel {
 		rowData = new ArrayList<ArrayList<String>>();
 
 		if (list.size() != 0) {
-			ArrayList<String> hang = new ArrayList<String>();
 			for (int i = 0; i < list.size(); i++) {
+				ArrayList<String> hang = new ArrayList<String>();
 				StockOverOrLowVO vo = list.get(i);
 				hang.add(vo.getId());
 				hang.add(vo.getGoodsName());
@@ -65,21 +65,20 @@ public class OverModel extends AbstractTableModel {
 		}
 	}
 
-	//根据单据的userID找到userName
-	private String getUserNameByID(String id){
-		String userName="";
+	// 根据单据的userID找到userName
+	private String getUserNameByID(String id) {
+		String userName = "";
 		try {
-			UserBLService controller=new User();
-			userName=controller.showUser(id).getName();
+			UserBLService controller = new User();
+			userName = controller.showUser(id).getName();
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 		return userName;
-		
+
 	}
-	
-	
+
 	public void addRow(ArrayList<String> v) {
 		rowData.add(v);
 	}

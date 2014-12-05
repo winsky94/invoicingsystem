@@ -92,27 +92,27 @@ public class StockPanel extends JPanel {
 		c.weighty = 1;
 		gbl.setConstraints(tab, c);
 		this.add(tab);
-		// 
-		StockControlBLService controller=new StockControlController();
+		//
+		StockControlBLService controller = new StockControlController();
 		// ---------------inventoryTbl---------------------------
 		inventoryTbl = new JTable();
-		CheckModel cm=new CheckModel();
+		CheckModel cm = new CheckModel();
 		inventoryTbl.setModel(cm);
 		jsp1 = new JScrollPane(inventoryTbl);
 		tab.add("库存盘点", jsp1);
 		// --------------overflowTbl--------------------------------
 		overflowTbl = new JTable();
-		ArrayList<StockOverOrLowVO> overList=new ArrayList<StockOverOrLowVO>();
-		overList=controller.showStockOverReceipt();
-		OverModel om=new OverModel(overList);
+		ArrayList<StockOverOrLowVO> overList = new ArrayList<StockOverOrLowVO>();
+		overList = controller.showStockOverReceipt();
+		OverModel om = new OverModel(overList);
 		overflowTbl.setModel(om);
 		jsp2 = new JScrollPane(overflowTbl);
 		tab.add("库存报溢表", jsp2);
 		// --------------lossTbl--------------------------------
 		lossTbl = new JTable();
-		ArrayList<StockOverOrLowVO> lowList=new ArrayList<StockOverOrLowVO>();
-		lowList=controller.showStockOverReceipt();
-		LowModel lm=new LowModel(lowList);
+		ArrayList<StockOverOrLowVO> lowList = new ArrayList<StockOverOrLowVO>();
+		lowList = controller.showStockLowReceipt();
+		LowModel lm = new LowModel(lowList);
 		lossTbl.setModel(lm);
 		jsp3 = new JScrollPane(lossTbl);
 		tab.add("库存报损表", jsp3);

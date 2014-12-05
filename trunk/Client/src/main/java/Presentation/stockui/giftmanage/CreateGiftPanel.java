@@ -42,7 +42,6 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 	GiftCommodityListModel gcm;
 	JComboBox<String> memberBox;
 	JButton submitBtn, addBtn, delBtn, exitBtn;
-	// MainFrame father;
 	public ArrayList<CommodityVO> commodityList = new ArrayList<CommodityVO>();
 
 	public CreateGiftPanel(MainFrame myFather) {
@@ -200,6 +199,8 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 			GiftVO vo = new GiftVO("", name, ID, user, 4, 0, "", commodityList);
 			GiftBLService giftService = new GiftController();
 			giftService.addGift(vo);
+			
+			
 		}
 
 	}

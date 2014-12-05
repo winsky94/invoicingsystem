@@ -8,15 +8,21 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import po.ReceiptPO.ReceiptType;
+import vo.GoodsVO;
+import vo.StockOverOrLowVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
 import Presentation.stockui.ChooseGoodsDialog;
+import businesslogic.stockbl.stockManage.StockControlController;
+import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
 
 public class OverflowPanel extends ChooseGoodsFatherPane implements
 		ActionListener {
@@ -25,13 +31,13 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 	 */
 	private static final long serialVersionUID = 1L;
 	JButton submitBtn, exitBtn, addGoodsBtn;
-	JTextField overflowFld;
+	JTextField exactNumFld;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
-	MainFrame father;
 	JLabel IDLbl, nameLbl, sizeLbl, numLbl;
+	GoodsVO goodsVO;
 
 	public OverflowPanel(MainFrame frame) {
-		father = frame;
+		parent = frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);
@@ -41,7 +47,7 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("仓库报溢");
+		JLabel title = new JLabel("库存报溢");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
@@ -98,12 +104,12 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 		JPanel overflowPnl = new JPanel();
 		overflowPnl.setBackground(Color.white);
 		mid.add(overflowPnl);
-		JLabel overflowLbl = new JLabel("实际数量：");
-		overflowLbl.setFont(font);
-		overflowPnl.add(overflowLbl);
-		overflowFld = new JTextField(6);
-		overflowFld.setFont(font);
-		overflowPnl.add(overflowFld);
+		JLabel exactNumLbl = new JLabel("实际数量：");
+		exactNumLbl.setFont(font);
+		overflowPnl.add(exactNumLbl);
+		exactNumFld = new JTextField(6);
+		exactNumFld.setFont(font);
+		overflowPnl.add(exactNumFld);
 		// -------buttons-----------------
 		JPanel btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
@@ -123,15 +129,21 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 		addGoodsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new ChooseGoodsDialog(OverflowPanel.this);
+				IDLbl.setText("商品编号：" + goodsVO.getGoodsID());
+				nameLbl.setText("商品名：" + goodsVO.getName());
+				sizeLbl.setText("型号：" + goodsVO.getSize());
+				numLbl.setText("库存数量：" + goodsVO.getNumInStock());
 			}
 		});
 		btnPnl.add(addGoodsBtn);
 		submitBtn = new JButton("确定");
+		submitBtn.addActionListener(this);
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
 		btnPnl.add(submitBtn);
 		exitBtn = new JButton("取消");
+		exitBtn.addActionListener(this);
 		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(251, 147, 121));
@@ -141,6 +153,23 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		if (e.getActionCommand().equals("确定")) {
+			// 监测实际库存是否填写合格
 
+			StockOverOrLowVO vo = new StockOverOrLowVO("", parent.getUser()
+					.getID(), ReceiptType.STOCKOVER, 4, 0, "",
+					goodsVO.getName(), goodsVO.getSize(),
+					goodsVO.getNumInStock(), Integer.parseInt(exactNumFld
+							.getText()));
+			StockControlBLService controller = new StockControlController();
+			controller.addStockOverOrLow(vo);
+			parent.setRightComponent(new StockPanel(parent));
+		} else if (e.getActionCommand().equals("取消")) {
+			parent.setRightComponent(new StockPanel(parent));
+		}
+	}
+
+	public void RefreshCTable(ArrayList<Object> VO) {
+		goodsVO = (GoodsVO) VO.get(0);
 	}
 }
