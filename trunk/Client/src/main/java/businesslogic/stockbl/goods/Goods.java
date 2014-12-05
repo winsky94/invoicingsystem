@@ -129,15 +129,18 @@ public class Goods {
 	}
 
 	public ArrayList<GoodsVO> findGoods(String message) {
-		ArrayList<GoodsPO> list = service.findGoods(message);
 		ArrayList<GoodsVO> result = new ArrayList<GoodsVO>();
-		for (int i = 0; i < list.size(); i++) {
-			GoodsPO po = list.get(i);
-			GoodsVO vo = new GoodsVO(po.getGoodsID(), po.getName(),
-					po.getSize(), po.getNumInStock(), po.getPurchasePrice(),
-					po.getPrice(), po.getLastPurchasePrice(), po.getPrice(),
-					po.getGoodsClassName(), po.getManufactureDate());
-			result.add(vo);
+		if (message != null) {
+			ArrayList<GoodsPO> list = service.findGoods(message);
+			for (int i = 0; i < list.size(); i++) {
+				GoodsPO po = list.get(i);
+				GoodsVO vo = new GoodsVO(po.getGoodsID(), po.getName(),
+						po.getSize(), po.getNumInStock(),
+						po.getPurchasePrice(), po.getPrice(),
+						po.getLastPurchasePrice(), po.getPrice(),
+						po.getGoodsClassName(), po.getManufactureDate());
+				result.add(vo);
+			}
 		}
 		return result;
 	}
