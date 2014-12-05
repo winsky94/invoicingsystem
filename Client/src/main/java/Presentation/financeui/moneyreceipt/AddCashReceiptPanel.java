@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -38,7 +39,7 @@ public class AddCashReceiptPanel extends JPanel {
 	JButton submitBtn, exitBtn, addBtn, delBtn;
 	JTextField nameFld, moneyFld, remarkFld;
 	MainFrame parent;
-
+	JCheckBox hurryBox;
 	public AddCashReceiptPanel(MainFrame frame) {
 		parent=frame;
 		GridBagLayout gbl = new GridBagLayout();
@@ -93,6 +94,12 @@ public class AddCashReceiptPanel extends JPanel {
 		JPanel down = new JPanel();
 		down.setBackground(Color.white);
 		infoPnl.add(down);
+		//------加急---------------
+		hurryBox=new JCheckBox("加急");
+		hurryBox.setFont(font);
+		hurryBox.setFocusPainted(false);
+		up.add(hurryBox);
+		up.add(new JLabel("     "));
 		// ------ID----------------
 		IDLbl = new JLabel("ID:嗷嗷嗷嗷");
 		IDLbl.setFont(font);
