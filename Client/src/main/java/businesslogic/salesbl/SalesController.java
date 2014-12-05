@@ -10,9 +10,10 @@ import vo.PurchaseReturnVO;
 import vo.PurchaseVO;
 import vo.SaleReturnVO;
 import vo.SaleVO;
+import businesslogicservice.salesblservice.PurchaseBLService;
 import businesslogicservice.salesblservice.SalesBLService;
 
-public class SalesController implements SalesBLService{
+public class SalesController implements SalesBLService,PurchaseBLService{
 	Sale sale;
 	SaleReturn saleReturn;
 	Purchase purchase;
@@ -130,11 +131,7 @@ public class SalesController implements SalesBLService{
 	
 	
 	public static String getdate() {
-		//Calendar c=Calendar.getInstance();
-		/*int year=c.get(Calendar.YEAR);
-		int month=c.get(Calendar.MONTH)+1;
-		int day=c.get(Calendar.DATE);
-		String d=year+""+month+day;*/
+	
 		 Calendar rightNow = Calendar.getInstance();
 	        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
 	        String sysDatetime = fmt.format(rightNow.getTime());   

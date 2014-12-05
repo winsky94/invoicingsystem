@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -24,15 +25,18 @@ import po.ReceiptPO.ReceiptType;
 import vo.CommodityVO;
 import vo.GoodsVO;
 import vo.MemberVO;
+import vo.PurchaseVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
 import Presentation.salesui.manage.CommodityTableModel;
+import Presentation.salesui.manage.PurchaseMgrPanel;
 import Presentation.salesui.manage.SaleMgrPanel;
 import Presentation.stockui.ChooseGoodsDialog;
 import businesslogic.memberbl.Member;
 import businesslogic.salesbl.SaleList;
 import businesslogic.salesbl.SalesController;
 import businesslogicservice.memberblservice.MemberBLService;
+import businesslogicservice.salesblservice.PurchaseBLService;
 import businesslogicservice.salesblservice.SaleListBLService;
 import businesslogicservice.salesblservice.SalesBLService;
 
@@ -53,7 +57,10 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 	ArrayList<ArrayList<String>> cmContent;
 	JComboBox<String> JHSBox;
 	String[] idtxt;//客户id
-	SalesBLService service;
+	PurchaseBLService service;
+	purchaseSubmitListener psl;
+	String id;
+	ArrayList<Double> last_bid=new ArrayList<Double>();
 	public PurchasePane(MainFrame frame) throws Exception {
 		service=new SalesController();
 		parent = frame;
@@ -102,7 +109,7 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		p3.setBackground(Color.white);
 		midPnl.add(p3);
 		//-------ID-----------------
-		String id=service.getNewID(ReceiptType.PURCHASE);
+		 id=service.getNewID(ReceiptType.PURCHASE);
 		IDLbl=new JLabel("编号："+id);
 		IDLbl.setFont(font);
 		p1.add(IDLbl);
@@ -111,7 +118,6 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		JLabel JHSLbl=new JLabel("进货商：");
 		JHSLbl.setFont(font);
 		p1.add(JHSLbl);
-		;
 		MemberBLService mem=new Member();
 		ArrayList<MemberVO> mvo=mem.showMembers();
 		String boxText[]=new String[mvo.size()+1];
@@ -150,9 +156,10 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		tableLbl.setFont(new Font("微软雅黑", Font.PLAIN, 21));
 		p3.add(tableLbl);
 		//-------合计----------------
-		totalLbl=new JLabel("总计：____________");
+		totalLbl=new JLabel("总计:___________");
 		totalLbl.setFont(font);
 		p3.add(totalLbl);
+
 		// ------table--------------
 		ctm=new CommodityTableModel();
 		table=new JTable(ctm);
@@ -202,6 +209,8 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
+		psl=new purchaseSubmitListener();
+		submitBtn.addActionListener(psl);
 		btnPnl.add(submitBtn);
 		exitBtn = new JButton("取消");
 		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
@@ -239,9 +248,10 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 					line.add(vo.getSize());
 					line.add("1");//可改动
 					String p;
-					p=Double.toString(vo.getLastPurchasePrice());
+					p=Double.toString(vo.getPurchasePrice());
 					line.add(p);line.add(p);
 					line.add("");
+					last_bid.add(vo.getLastPurchasePrice());
 					cmContent.add(line);
 				}}else{
 					for(int i=0;i<VO.size();i++){
@@ -253,13 +263,51 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 						line.add(Double.toString(vo.getNum()));
 						line.add(Double.toString(vo.getTotal()));
 						line.add(vo.getTip());
+						
 						cmContent.add(line);
 					}
 				}
 			for(int i=0;i<cmContent.size();i++)
 				totalMoney+=Double.parseDouble(cmContent.get(i).get(5));
-			totalLbl.setText("总计： "+totalMoney+" 元");
+			totalLbl.setText("总计："+totalMoney+"元");
 			
+	 }
+	 
+	 class purchaseSubmitListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			ArrayList<CommodityVO> cmlist=new ArrayList<CommodityVO>();
+			for(int j=0;j<table.getRowCount();j++){
+				ArrayList<String> line=cmContent.get(j);
+				double cost=Double.parseDouble(line.get(4))*last_bid.get(j);
+				CommodityVO cv=new CommodityVO(line.get(0),line.get(1),
+						line.get(2),Double.parseDouble(line.get(4)),last_bid.get(j),
+						Integer.parseInt(line.get(3)),
+						Double.parseDouble(line.get(5)),cost,line.get(6));
+				cmlist.add(cv);
+			}
+			int i=JHSBox.getSelectedIndex();
+			String mem=JHSBox.getSelectedItem().toString();
+			PurchaseVO vo=new PurchaseVO(id,idtxt[i],mem,stockFld.getText(),parent.getUser().getID(),
+					cmlist,remarkFld.getText(),totalMoney,0,1);
+			int result=service.addPurchase(vo);
+			if(result==0)
+				{JOptionPane.showMessageDialog(null, "进货单创建成功");
+					PurchaseMgrPanel pmg;
+					try {
+						pmg = new PurchaseMgrPanel(parent);
+					
+					parent.setRightComponent(pmg);
+					pmg.RefreshPanel();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}else
+					JOptionPane.showMessageDialog(null, "创建失败！","提示",JOptionPane.WARNING_MESSAGE);
+		}
+		 
 	 }
 
 }

@@ -151,7 +151,7 @@ public class giftCouponPro extends promotion{
 		if(gpp==null) id="001";
 		else{
 			int i=gpp.size();
-			Double d=Double.parseDouble(gpp.get(i-1).getID().substring(13)+1);
+			Double d=Double.parseDouble(gpp.get(i-1).getID().substring(13))+1;
 			 NumberFormat nf = NumberFormat.getInstance();
 		     nf.setMinimumIntegerDigits(3); 
 		     nf.setGroupingUsed(false);
