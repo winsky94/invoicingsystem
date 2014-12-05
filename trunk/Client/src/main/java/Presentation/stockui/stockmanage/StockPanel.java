@@ -130,7 +130,7 @@ public class StockPanel extends JPanel {
 	class LossBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			frame.setRightComponent(new LossPanel(frame));
 
 		}
 
