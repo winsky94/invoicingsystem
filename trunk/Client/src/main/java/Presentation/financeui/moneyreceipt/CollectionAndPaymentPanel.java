@@ -14,6 +14,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,13 +26,9 @@ import javax.swing.table.AbstractTableModel;
 
 import po.MemberPO.MemberType;
 import vo.TransferItemVO;
-import businesslogic.memberbl.Member;
-import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
-import businesslogicservice.financeblservice.listblservice.CollectionBLService;
-import businesslogicservice.memberblservice.MemberBLService;
-import Presentation.financeui.AccountPanel;
-import Presentation.financeui.CollectionPanel;
 import Presentation.mainui.MainFrame;
+import businesslogic.memberbl.Member;
+import businesslogicservice.memberblservice.MemberBLService;
 
 public class CollectionAndPaymentPanel extends JPanel{
 	/**
@@ -52,6 +49,7 @@ public class CollectionAndPaymentPanel extends JPanel{
 	GridBagConstraints c = new GridBagConstraints();
 	JButton submitBtn, exitBtn, addBtn, delBtn;
 	MainFrame parent;
+	JCheckBox hurryBox;
 	String ID="嗷嗷嗷嗷嗷";
     ArrayList<TransferItemVO> tra=new ArrayList<TransferItemVO>();
     double totalMoney=0;
@@ -269,6 +267,15 @@ public class CollectionAndPaymentPanel extends JPanel{
 				totalLbl.setFont(font);
 				moneyPnl.add(totalLbl);
 				right.add(moneyPnl);
+				//------加急---------------
+				JPanel hurryPnl=new JPanel();
+				hurryPnl.setBackground(Color.white);
+				right.add(hurryPnl);
+				hurryBox=new JCheckBox("加急");
+				hurryBox.setFont(font);
+				hurryBox.setFocusPainted(false);
+				hurryBox.setBackground(Color.white);
+				hurryPnl.add(hurryBox);
 				// -------buttons-----------------
 				JPanel btnPnl = new JPanel();
 				btnPnl.setBackground(Color.white);

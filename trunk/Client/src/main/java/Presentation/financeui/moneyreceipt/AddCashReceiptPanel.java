@@ -98,6 +98,7 @@ public class AddCashReceiptPanel extends JPanel {
 		hurryBox=new JCheckBox("加急");
 		hurryBox.setFont(font);
 		hurryBox.setFocusPainted(false);
+		hurryBox.setBackground(Color.white);
 		up.add(hurryBox);
 		up.add(new JLabel("     "));
 		// ------ID----------------
@@ -230,15 +231,4 @@ public class AddCashReceiptPanel extends JPanel {
 		}
 	}
 
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 920, 600);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-/*		AddCashReceiptPanel gp = new AddCashReceiptPanel();
-		gp.setBounds(0, 0, 920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
-*/
-	}
 }
