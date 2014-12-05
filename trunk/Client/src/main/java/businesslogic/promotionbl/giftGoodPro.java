@@ -40,9 +40,7 @@ public class giftGoodPro extends promotion{
 		return 0;
 	}
 	
-	public int Delete(String id){
-		return 0;
-	}
+	
 	public int Modify(GiftGoodsProVO vo){
 		return 0;
 	}
@@ -65,9 +63,9 @@ public class giftGoodPro extends promotion{
 	}
 
 	@Override
-	public int Delete(String id, PromotionType type) {
+	public int Delete(String id) {
 		// TODO Auto-generated method stub
-		return 0;
+		return service.Delete(id, PromotionType.GIFTGOODS);
 	}
 
 	@Override
