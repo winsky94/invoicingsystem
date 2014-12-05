@@ -68,10 +68,11 @@ public class StockControlController implements StockControlBLService {
 		return manage.isEnough(ID, num);
 	}
 
-	// 商品调价收入==
-	public double getPrimeCostIncome() {
+	// 商品调价收入(未测试==)
+	public double getPrimeCostIncome(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
-		return 0;
+		StockManage manage=new StockManage();
+		return manage.getPrimeCostIncome(beginDate, endDate);
 	}
 
 	// 获得商品赠送支出

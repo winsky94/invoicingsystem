@@ -6,7 +6,8 @@ import vo.StockOverOrLowVO;
 
 public class StockControlBLService_driver {
 	public void drive(StockControlBLService_stub stockControlBLService) {
-		StockOverOrLowVO stockOverOrLowVO = new StockOverOrLowVO(null, null, null, 0, 0, null, null, null, 0, 0);
+		StockOverOrLowVO stockOverOrLowVO = new StockOverOrLowVO(null, null,
+				null, 0, 0, null, null, null, 0, 0);
 
 		StockErrorVO stockErrorVO = new StockErrorVO("飞利浦日光灯", "SR01",
 				"小赵,000001", ReceiptType.STOCKERROR, "", "00002");
@@ -17,7 +18,7 @@ public class StockControlBLService_driver {
 		stockControlBLService.showStock("", "");
 		stockControlBLService.checkStock();
 		stockControlBLService.isEnough("00001", 10);
-		stockControlBLService.getPrimeCostIncome();
+		stockControlBLService.getPrimeCostIncome(null, null);
 	}
 
 	public static void main(String[] args) {

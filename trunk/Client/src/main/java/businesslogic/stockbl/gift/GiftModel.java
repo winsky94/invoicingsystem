@@ -12,7 +12,7 @@ public class GiftModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 
 	ArrayList<ArrayList<String>> rowData;
-	String columnNames[] = { "编号", "日期", "客户编号", "客户姓名", "赠送种数", "状态" };
+	String columnNames[] = { "编号", "日期", "客户编号", "客户姓名", "赠品种数", "状态" };
 
 	// 做一个构造函数，用于初始化数据表模型
 	public GiftModel(ArrayList<GiftVO> list) {
@@ -42,7 +42,7 @@ public class GiftModel extends AbstractTableModel {
 		ArrayList<GiftVO> list = new ArrayList<GiftVO>();
 		GiftBLService controller = new GiftController();
 		list = controller.getGiftList();
-
+System.out.println("GiftModel.GiftModel():size"+list.size());
 		for (int i = 0; i < list.size(); i++) {
 			ArrayList<String> hang = new ArrayList<String>();
 			GiftVO vo = list.get(i);
@@ -89,11 +89,5 @@ public class GiftModel extends AbstractTableModel {
 	public String getColumnName(int column) {
 		// TODO 自动生成的方法存根
 		return columnNames[column];
-	}
-
-	// 设置表格某些列可以双击修改
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return true;
-
 	}
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -154,13 +155,20 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals("确定")) {
-			// 监测实际库存是否填写合格
+			// 监测实际库存是否填写合法
+			int exactNum = 0;
+			try {
+				exactNum = Integer.parseInt(exactNumFld.getText());
+			} catch (NumberFormatException nfe) {
+				JOptionPane.showMessageDialog(null, "         请确定你的输入合法噢~",
+						null, JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 
 			StockOverOrLowVO vo = new StockOverOrLowVO("", parent.getUser()
 					.getID(), ReceiptType.STOCKOVER, 4, 0, "",
 					goodsVO.getName(), goodsVO.getSize(),
-					goodsVO.getNumInStock(), Integer.parseInt(exactNumFld
-							.getText()));
+					goodsVO.getNumInStock(), exactNum);
 			StockControlBLService controller = new StockControlController();
 			controller.addStockOverOrLow(vo);
 

@@ -168,6 +168,22 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自动生成的方法存根
 		if (e.getSource() == submitBtn) {
+			//监测默认进价和默认售价输入是否合法
+			try {
+				Double.parseDouble(pPriceText);
+			} catch (NumberFormatException nfe) {
+				JOptionPane.showMessageDialog(null, "         请确定你的输入合法噢~",
+						null, JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			try {
+				Double.parseDouble(sPriceText);
+			} catch (NumberFormatException nfe) {
+				JOptionPane.showMessageDialog(null, "         请确定你的输入合法噢~",
+						null, JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			
 			StockGoodsBLService controller = new GoodsController();
 			String manufactoryDate = " ";
 			GoodsVO vo = new GoodsVO("", nameText, sizeText, 0,
@@ -180,9 +196,6 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 						JOptionPane.WARNING_MESSAGE);
 				return;
 			} else {
-				// 貌似已解决？？12.3
-				// 怎么返回上一级panel啊~~~~
-				// 还要记得返回上级panel后new一个goodsModel刷新商品界面
 				parent.setRightComponent(new GoodsPanel(parent));
 			}
 		} else if (e.getSource() == exitBtn) {
