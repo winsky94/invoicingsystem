@@ -3,14 +3,11 @@ package dataservice.stockdataservice.giftdataservice;
 import java.rmi.RemoteException;
 
 import po.GiftPO;
-import po.GoodsPO;
-import po.MemberPO;
-
 
 public class GiftDataService_driver {
 	public void drive(GiftDataService_stub giftDataService_stub) {
-		GiftPO po =new GiftPO();
-	
+		GiftPO po = new GiftPO();
+
 		try {
 			giftDataService_stub.addGift(po);
 			giftDataService_stub.dealGift(po);
@@ -19,8 +16,9 @@ public class GiftDataService_driver {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-		
+
 	}
+
 	public static void main(String[] args) throws RemoteException {
 		// TODO 自动生成的方法存根
 		GiftDataService_stub giftDataService = new GiftDataService_stub();

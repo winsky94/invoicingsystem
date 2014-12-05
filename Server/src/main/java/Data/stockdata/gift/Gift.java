@@ -52,7 +52,7 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 			GiftPO po = (GiftPO) list.get(i);
 			result.add(po);
 		}
-
+		System.out.println("Gift.getGiftList():size:" + result.size());
 		return result;
 	}
 
