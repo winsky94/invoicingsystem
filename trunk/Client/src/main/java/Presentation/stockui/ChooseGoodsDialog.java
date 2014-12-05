@@ -125,8 +125,14 @@ public class ChooseGoodsDialog extends JDialog {
 				//System.out.println(selected.get(0).get(1));
 				int[] row=goodsTbl.getSelectedRows();
 				if(row.length>0){
-				for(int i=0;i<row.length;i++)
-					ctm.addRow(leftTblMessage.get(row[i]));			
+				for(int i=0;i<row.length;i++){
+					int exist=FindInRight(leftTblMessage.get(row[i]).get(0));
+					if(exist<0){
+						ctm.addRow(leftTblMessage.get(row[i]));	}
+					else
+						JOptionPane.showMessageDialog(null, "该商品已选择！","提示",JOptionPane.WARNING_MESSAGE);
+				
+					}
 				chosenTbl.revalidate();
 				}else 
 					JOptionPane.showMessageDialog(null, "请选择商品！","提示",JOptionPane.WARNING_MESSAGE);;
@@ -367,8 +373,16 @@ public class ChooseGoodsDialog extends JDialog {
 		}
 	}
 
-public ArrayList<ArrayList<String>> getGoods(){
+	public ArrayList<ArrayList<String>> getGoods(){
 		return rightTblMessage;
+	}
+	
+	public int FindInRight(String id){
+		for(int i=0;i<rightTblMessage.size();i++){
+			if(id.equals(rightTblMessage.get(i).get(0)))
+				return i;
+		}
+		return -1;
 	}
 
 }

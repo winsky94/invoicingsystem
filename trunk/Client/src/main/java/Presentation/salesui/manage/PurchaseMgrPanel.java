@@ -152,15 +152,22 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		try {
 		if(e.getSource()==purchaseBtn)
-			try {
+			
 				parent.setRightComponent(new PurchasePane(parent));
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			
 		else if(e.getSource()==purchaseReturnBtn)
-			parent.setRightComponent(new PurchaseReturnPane(parent));;
+		{	int t=purchaseTbl.getSelectedRow();
+			if(t>=0){
+				String pid=c.get(t).get(0);
+				parent.setRightComponent(new PurchaseReturnPane(parent,pid));
+				}}
+			
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	class MyButton extends JButton{
 
