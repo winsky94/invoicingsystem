@@ -27,6 +27,7 @@ import vo.SaleVO;
 import Presentation.mainui.MainFrame;
 import Presentation.salesui.manage.sale.SalePane;
 import Presentation.salesui.manage.sale.SaleReturnPane;
+import businesslogic.salesbl.SaleList;
 import businesslogic.userbl.User;
 import businesslogicservice.userblservice.UserBLService;
 
@@ -43,9 +44,10 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 	JTextField searchFld;
 	String keyWord;
 	MainFrame parent;
-
-	public SaleMgrPanel(MainFrame frame) {
+	businesslogicservice.salesblservice.SaleListBLService listservice;
+	public SaleMgrPanel(MainFrame frame) throws Exception {
 		parent = frame;
+		listservice=new SaleList();
 		this.setBackground(Color.WHITE);
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
@@ -248,6 +250,11 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 				
 			
 		}
+	}
+	
+	public void RefreshPanel() throws Exception{
+		if(listservice.getAllSale()!=null)
+			SaleMgrPanel.this.RefreshSaleTable(listservice.getAllSale());
 	}
 }
 

@@ -67,6 +67,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		c.fill = GridBagConstraints.BOTH;
 		//------toptab------------------
 		toptab=new JTabbedPane();
+		
+		//toptab.setUI(ui);
 		toptab.setBackground(Color.white);
 		toptab.setFont(font);
 		toptab.setForeground(color);
@@ -83,6 +85,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		JPanel btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		toptab.add("主页",btnPnl);
+		
 		// ------刷新按钮------------
 		refreshBtn = new MyButton("刷新", new ImageIcon(
 				"img/promotion/refresh.png"));

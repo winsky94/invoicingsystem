@@ -21,9 +21,12 @@ import javax.swing.JTextField;
 
 import po.MemberPO.MemberType;
 import po.ReceiptPO.ReceiptType;
+import vo.CommodityVO;
+import vo.GoodsVO;
 import vo.MemberVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
+import Presentation.salesui.manage.CommodityTableModel;
 import Presentation.salesui.manage.SaleMgrPanel;
 import Presentation.stockui.ChooseGoodsDialog;
 import businesslogic.memberbl.Member;
@@ -45,9 +48,10 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 	JButton submitBtn, exitBtn, addGoodsBtn, delGoodsBtn;
 	JScrollPane jsp;
 	JTable table;
+	double totalMoney;
 	CommodityTableModel ctm;
+	ArrayList<ArrayList<String>> cmContent;
 	JComboBox<String> JHSBox;
-	MainFrame parent;
 	String[] idtxt;//客户id
 	SalesBLService service;
 	public PurchasePane(MainFrame frame) throws Exception {
@@ -146,12 +150,13 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		tableLbl.setFont(new Font("微软雅黑", Font.PLAIN, 21));
 		p3.add(tableLbl);
 		//-------合计----------------
-		totalLbl=new JLabel("总计：加监听呀加监听");
+		totalLbl=new JLabel("总计：____________");
 		totalLbl.setFont(font);
 		p3.add(totalLbl);
 		// ------table--------------
 		ctm=new CommodityTableModel();
 		table=new JTable(ctm);
+		cmContent=ctm.getContent();
 		jsp=new JScrollPane(table);
 		c.gridx = 0;
 		c.gridy = 5;
@@ -212,17 +217,49 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		try {
 		if(e.getSource()==exitBtn){
 			
-				SaleListBLService listservice=new SaleList();
-			
-			SaleMgrPanel sp=new SaleMgrPanel(parent);
+			SaleMgrPanel sp = new SaleMgrPanel(parent);
+		
 			parent.setRightComponent(sp);
-			if(listservice.getAllSale()!=null)
-				sp.RefreshSaleTable(listservice.getAllSale());
-		}
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
+				sp.RefreshPanel();}
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	
 	}
+	
+	 public void RefreshCTable(ArrayList<Object> VO){
+			if(VO.get(0) instanceof GoodsVO)
+				{for(int i=0;i<VO.size();i++){
+					 ArrayList<String> line=new ArrayList<String>();
+					GoodsVO vo=(GoodsVO)VO.get(i);
+					line.add(vo.getGoodsID());
+					line.add(vo.getName());
+					line.add(vo.getSize());
+					line.add("1");//可改动
+					String p;
+					p=Double.toString(vo.getLastPurchasePrice());
+					line.add(p);line.add(p);
+					line.add("");
+					cmContent.add(line);
+				}}else{
+					for(int i=0;i<VO.size();i++){
+						 ArrayList<String> line=new ArrayList<String>();
+						CommodityVO vo=(CommodityVO)VO.get(i);
+						line.add(vo.getID());
+						line.add(vo.getName());
+						line.add(vo.getType());
+						line.add(Double.toString(vo.getNum()));
+						line.add(Double.toString(vo.getTotal()));
+						line.add(vo.getTip());
+						cmContent.add(line);
+					}
+				}
+			for(int i=0;i<cmContent.size();i++)
+				totalMoney+=Double.parseDouble(cmContent.get(i).get(5));
+			totalLbl.setText("总计： "+totalMoney+" 元");
+			
+	 }
 
 }

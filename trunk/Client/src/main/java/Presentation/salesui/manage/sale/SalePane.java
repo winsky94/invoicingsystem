@@ -21,16 +21,19 @@ import javax.swing.JTextField;
 
 import po.MemberPO.MemberType;
 import po.ReceiptPO.ReceiptType;
+import vo.CommodityVO;
+import vo.GoodsVO;
 import vo.MemberVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
+import Presentation.salesui.manage.CommodityTableModel;
 import Presentation.salesui.manage.SaleMgrPanel;
 import Presentation.stockui.ChooseGoodsDialog;
 import businesslogic.memberbl.Member;
 import businesslogic.salesbl.SaleList;
 import businesslogic.salesbl.SalesController;
 import businesslogicservice.memberblservice.MemberBLService;
-import businesslogicservice.salesblservice.SaleListBLService;
+
 import businesslogicservice.salesblservice.SalesBLService;
 
 public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
@@ -49,6 +52,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 	JTable table;
 	String[] idtxt;
 	JButton submitBtn, couponBtn, addGoodsBtn, delGoodsBtn, exitBtn;
+	
 //	public MainFrame parent;
 	SalesBLService service;
 	public SalePane(MainFrame frame) throws Exception {
@@ -178,6 +182,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		p3.add(totalToPayLbl);
 		// ------table--------------
 		ctm = new CommodityTableModel();
+		cmContent=ctm.getContent();
 		table = new JTable(ctm);
 		jsp = new JScrollPane(table);
 		c.gridx = 0;
@@ -243,12 +248,10 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		try {
 		if(e.getSource()==exitBtn){
 			
-				SaleListBLService listservice=new SaleList();
-			
 			SaleMgrPanel sp=new SaleMgrPanel(parent);
 			parent.setRightComponent(sp);
-			if(listservice.getAllSale()!=null)
-				sp.RefreshSaleTable(listservice.getAllSale());
+			sp.RefreshPanel();
+			
 		}
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
@@ -256,13 +259,33 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		}
 	}
 	
-	public void RefreshTable(ArrayList<ArrayList<String>> s){
-		for(int i=0;i<s.size();i++)
-		{
-			s.get(i).add("");s.get(i).add("");
-			this.cmContent.add(s.get(i));
-		}
-		
-	}
+	 public void RefreshCTable(ArrayList<Object> VO){
+			if(VO.get(0) instanceof GoodsVO)
+				{for(int i=0;i<VO.size();i++){
+					 ArrayList<String> line=new ArrayList<String>();
+					GoodsVO vo=(GoodsVO)VO.get(i);
+					line.add(vo.getGoodsID());
+					line.add(vo.getName());
+					line.add(vo.getSize());
+					line.add("1");//可改动
+					String p;
+					p=Double.toString(vo.getPrice());
+					line.add(p);line.add(p);
+					line.add("");
+					cmContent.add(line);
+				}}else{
+					for(int i=0;i<VO.size();i++){
+						 ArrayList<String> line=new ArrayList<String>();
+						CommodityVO vo=(CommodityVO)VO.get(i);
+						line.add(vo.getID());
+						line.add(vo.getName());
+						line.add(vo.getType());
+						line.add(Double.toString(vo.getNum()));
+						line.add(Double.toString(vo.getTotal()));
+						line.add(vo.getTip());
+						cmContent.add(line);
+					}
+				}
+	 }
 	
 }
