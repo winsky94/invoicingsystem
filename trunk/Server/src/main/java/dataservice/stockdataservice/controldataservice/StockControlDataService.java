@@ -13,23 +13,14 @@ public interface StockControlDataService extends Remote {
 
 	public int addStockError(StockErrorPO po) throws RemoteException;
 
-	// // 商品报溢收入
-	// public double goodsOverIncome() throws RemoteException;
-	//
-	// // 商品报损支出
-	// public double goodsLowCost() throws RemoteException;
-	//
-	// public ArrayList<GoodsPO> showStock(String beginDate, String endDate)
-	// throws RemoteException;
-	//
-	// public ArrayList<GoodsPO> checkStock() throws RemoteException;
-	//
-	// // 库存充足检查
-	// public boolean isEnough(String goodsID, int num) throws RemoteException;
-	//
-	// // 商品调价收入
-	// public double PrimeCostIncome() throws RemoteException;
-
 	// 获得所有库存报溢报损单
-	public ArrayList<StockOverOrLowPO> getStockOverOrLowPO() throws RemoteException;
+	public ArrayList<StockOverOrLowPO> getStockOverOrLowPO()
+			throws RemoteException;
+
+	// 记录库存调价收入
+	public int recordPrimeCostIncome(String primeCostIncome)
+			throws RemoteException;
+
+	// 获得库存调价收入
+	public ArrayList<String> getPrimeCostIncome() throws RemoteException;
 }

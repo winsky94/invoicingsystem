@@ -57,4 +57,15 @@ public class StockControlDataService_stub implements StockControlDataService {
 		return null;
 	}
 
+	public int recordPrimeCostIncome(String primeCostIncome)
+			throws RemoteException {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
+	public ArrayList<String> getPrimeCostIncome() throws RemoteException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 }
