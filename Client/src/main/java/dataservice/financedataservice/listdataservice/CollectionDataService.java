@@ -8,6 +8,6 @@ import po.CollectionPO;
 
 public interface CollectionDataService extends Remote{
 	public int createCollection (CollectionPO po);
-	public ArrayList<CollectionPO> getCollection() throws RemoteException;
+	public ArrayList<CollectionPO> getCollection() ;
 	public int getNum() throws RemoteException;
 }
