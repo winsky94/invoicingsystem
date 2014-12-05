@@ -17,16 +17,20 @@ public class ReceiptPO  implements Serializable{
 	private int hurry;
 	private String info;
 
-	public ReceiptPO(){
-		this(null,null,null,null,null,null,0,0);
+	public ReceiptPO(String id,ReceiptType type,String user,int status,int hurry){
+		this.id=id;
+		this.type=type;
+		this.userID=user;
+		this.status=status;
+		this.hurry=hurry;
 	}
 	
 	
-	public ReceiptPO(String id,String memberID,String membername,String userID, ReceiptType type,String info,int status,int hurry) {
+	public ReceiptPO(String id,String memberID,String memberName,String userID, ReceiptType type,String info,int status,int hurry) {
 
 		this.id = id;
 		this.memberID = memberID;
-		this.memberName=membername;
+		this.memberName=memberName;
 		this.userID = userID;
 		this.type = type;
 		
@@ -34,14 +38,9 @@ public class ReceiptPO  implements Serializable{
 		this.hurry = hurry;
 		this.info = info;
 	}
-	
 
-	public ReceiptPO(String id,ReceiptType type,String user,int status,int hurry){
-		this.id=id;
-		this.type=type;
-		this.userID=user;
-		this.status=status;
-		this.hurry=hurry;
+	public ReceiptPO() {
+
 	}
 
 	public String getId() {
@@ -52,11 +51,11 @@ public class ReceiptPO  implements Serializable{
 	public String getMemberID() {
 		return memberID;
 	}
-	
+
 	public String getMemberName(){
 		return memberName;
 	}
-
+	
 	public String getUserID() {
 		return userID;
 	}
@@ -73,6 +72,21 @@ public class ReceiptPO  implements Serializable{
 
 	public int getHurry() {
 		return hurry;
+	}
+	
+	public String getDate(){
+		String[] buffer=id.split("-");
+		String s=buffer[1];
+		String year=s.substring(0,4);
+		String month=s.substring(4,6);
+		String day=s.substring(6,8);
+		return year+"/"+month+"/"+day;
+	}
+	
+	public String myGetDate(){
+		String[] buffer=id.split("-");
+		String s=buffer[1];
+		return s;
 	}
 
 	public String getInfo() {
@@ -94,19 +108,10 @@ public class ReceiptPO  implements Serializable{
 	public void setInfo(String info) {
 		this.info = info;
 	}
-	
-	public String getDate(){
-		String[] buffer=id.split("-");
-		String s=buffer[1];
-		String year=s.substring(0,4);
-		String month=s.substring(4,6);
-		String day=s.substring(6,8);
-		return year+"/"+month+"/"+day;
-	}
-
 
 	public enum ReceiptType implements Serializable{
 		 SALE,SALERETURN,PURCHASE,PURCHASERETURN,COLLECTION,PAYMENT,CASHLIST,
 		   GIFT,STOCKERROR,STOCKOVER,STOCKLOW
 	}
+	
 }
