@@ -308,7 +308,7 @@ public class ChooseGoodsDialog extends JDialog {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		String head[] = { "商品编号", "商品名", "型号","单价" };
+		String head[] = { "商品编号", "商品名", "型号","单价","进价" };
 		public int getRowCount() {
 			return leftTblMessage.size();
 		}
@@ -339,6 +339,7 @@ public class ChooseGoodsDialog extends JDialog {
 			 line.add(vo.getName());
 			 line.add(vo.getSize());
 			 line.add(Double.toString(vo.getPrice()));
+			 line.add(Double.toString(vo.getPurchasePrice()));
 			 leftTblMessage.add(line);
 		 }
 	}
@@ -349,7 +350,7 @@ public class ChooseGoodsDialog extends JDialog {
 		 */
 		//需要更多 吗  检测库存数量何时？？
 		private static final long serialVersionUID = 1L;
-		String head[] = { "商品编号", "商品名", "型号","单价" };
+		String head[] = { "商品编号", "商品名", "型号","单价" ,"进价"};
 
 		public int getRowCount() {
 			return rightTblMessage.size();

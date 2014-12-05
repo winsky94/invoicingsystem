@@ -18,6 +18,12 @@ private static final long serialVersionUID = 1L;
 		return cmContent.size();
 	}
 	
+	public boolean isCellEditable(int row,int column){
+		if(column==3||column==4)
+			return true;
+		else
+			return false;
+	}
 	public void addRow(ArrayList<String>  s) {
 		cmContent.add(s);
 	}

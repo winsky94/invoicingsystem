@@ -1,5 +1,6 @@
 package businesslogic.salesbl;
 
+import java.security.Provider.Service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,7 +39,7 @@ public class SalesController implements SalesBLService,PurchaseBLService{
 			case SALERETURN:
 				id="XSTHD-";d=saleReturn.getNewID();break;
 			default:
-				id="JHTHD-";id=purchaseReturn.getNewID();
+				id="JHTHD-";d=purchaseReturn.getNewID();
 			
 				
 			}
@@ -136,6 +137,10 @@ public class SalesController implements SalesBLService,PurchaseBLService{
 	        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
 	        String sysDatetime = fmt.format(rightNow.getTime());   
 	return sysDatetime;
+	}
+	public PurchaseVO FindByID(String id) {
+		// TODO Auto-generated method stub
+		return purchase.find(id);
 	}
 	
 

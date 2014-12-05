@@ -19,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 import po.MemberPO.MemberType;
 import po.ReceiptPO.ReceiptType;
@@ -173,6 +175,9 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		c.weighty = 1;
 		gbl.setConstraints(jsp, c);
 		this.add(jsp);
+		table.setCellEditor(anEditor);
+		table.setDefaultRenderer(columnClass, renderer);
+		
 		// -------buttons-----------------
 		JPanel btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
@@ -230,6 +235,16 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		btnPnl.add(exitBtn);
 		exitBtn.addActionListener(this);
 		
+		table.getModel().addTableModelListener(new TableModelListener(){
+
+			public void tableChanged(TableModelEvent e) {
+				// TODO Auto-generated method stub
+				
+				
+			}
+			
+		});
+		
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -237,7 +252,7 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		try {
 		if(e.getSource()==exitBtn){
 			
-			SaleMgrPanel sp = new SaleMgrPanel(parent);
+			PurchaseMgrPanel sp = new PurchaseMgrPanel(parent);
 		
 			parent.setRightComponent(sp);
 		
@@ -270,7 +285,10 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 					else{
 						String newNum=cmContent.get(exist).get(3);
 						int num=Integer.parseInt(newNum)+1;
+						String price=cmContent.get(exist).get(4);
+						Double toal=num*Double.parseDouble(price);
 						cmContent.get(exist).set(3,num+"" );
+						cmContent.get(exist).set(5,toal+"");
 					}
 					
 				}}else{
@@ -281,12 +299,14 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 						line.add(vo.getName());
 						line.add(vo.getType());
 						line.add(Double.toString(vo.getNum()));
+						line.add(Double.toString(vo.getPrice()));
 						line.add(Double.toString(vo.getTotal()));
 						line.add(vo.getTip());
 						
 						cmContent.add(line);
 					}
 				}
+			totalMoney=0;
 			for(int i=0;i<cmContent.size();i++)
 				totalMoney+=Double.parseDouble(cmContent.get(i).get(5));
 			totalLbl.setText("总计："+totalMoney+"元");
