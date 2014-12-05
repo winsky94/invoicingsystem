@@ -9,6 +9,8 @@ import vo.PurchaseVO;
 public interface PurchaseBLService {
 	
 	public String getNewID(ReceiptType type);
+	
+	public PurchaseVO FindByID(String id);
 	public int addPurchase(PurchaseVO vo);
 	public int addPurchaseReturn(PurchaseReturnVO vo);
 	

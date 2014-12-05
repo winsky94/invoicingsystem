@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -158,11 +159,14 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 				parent.setRightComponent(new PurchasePane(parent));
 			
 		else if(e.getSource()==purchaseReturnBtn)
-		{	int t=purchaseTbl.getSelectedRow();
+		{	int t=table.getSelectedRow();
 			if(t>=0){
 				String pid=c.get(t).get(0);
 				parent.setRightComponent(new PurchaseReturnPane(parent,pid));
-				}}
+				}
+			else JOptionPane.showMessageDialog(null, "请选择一条进货单进行退货!","提示",JOptionPane.WARNING_MESSAGE);
+			
+		}
 			
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block

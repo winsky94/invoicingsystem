@@ -7,8 +7,10 @@ import java.util.ArrayList;
 
 import po.CommodityPO;
 import po.PurchasePO;
+import po.ReceiptPO;
 import vo.CommodityVO;
 import vo.PurchaseVO;
+import vo.ReceiptVO;
 import businesslogic.receiptbl.Receipt;
 import dataservice.salesdataservice.SalesDataService;
 
@@ -45,6 +47,16 @@ public class Purchase extends Receipt {
 		}
 	}
 	
+	
+	public PurchaseVO find(String id){
+		ReceiptPO po=service.findReceiptByID(id);
+		if(po==null) return null;
+		else{
+			PurchasePO ppo=(PurchasePO)po;
+			return poToVo(ppo);
+		}
+		
+	}
 	public int ModifyPurchase(PurchaseVO vo){
 		return service.updatePurchase(voToPo(vo));
 		
