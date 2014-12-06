@@ -5,9 +5,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 import javax.swing.*;
 
+import businesslogic.financebl.Account;
+import businesslogic.financebl.Collection;
+import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
+import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
@@ -98,10 +105,36 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource()==accountBtn){
-			frame.setRightComponent(new AccountPanel(frame));		
+			AccountPanel mgr=new AccountPanel(frame);
+			FinanceAccountBLService service;
+			try {
+				service = new Account();
+				frame.setRightComponent(mgr);
+				if( service.showAll()!=null)
+					mgr.RefreshAccountTable(service.showAll());
+			} catch (MalformedURLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (NotBoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}	
 		}
 		else if(arg0.getSource()==receiptBtn){
-			frame.setRightComponent(new CollectionPanel(frame));	
+			CollectionPanel mgr = new CollectionPanel(frame);
+			CollectionBLService service;
+			frame.setRightComponent(mgr);
+			try {
+				service=new Collection();
+				if (service.getCollection()!= null)
+					mgr.RefreshCollectionTable(service.getCollection());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		else if(arg0.getSource()==aboutBtn){			
 			frame.setRightComponent(new AboutPanel());

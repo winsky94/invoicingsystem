@@ -22,6 +22,7 @@ import javax.swing.table.AbstractTableModel;
 import businesslogic.userbl.User;
 import businesslogicservice.userblservice.UserBLService;
 import vo.CollectionVO;
+import vo.PaymentVO;
 import Presentation.financeui.moneyreceipt.AddCashReceiptPanel;
 import Presentation.financeui.moneyreceipt.AddCollectionPanel;
 import Presentation.financeui.moneyreceipt.AddPaymentPanel;
@@ -42,7 +43,7 @@ public class CollectionPanel extends JPanel implements ActionListener {
 	ArrayList<ArrayList<String>> c3 = new ArrayList<ArrayList<String>>();
 	//--------------------------
 	MyButton collectionBtn,payBtn,cashBtn,refreshBtn,detailBtn;
-	ArrayList<ArrayList<String>> c = new ArrayList<ArrayList<String>>();
+//	ArrayList<ArrayList<String>> c = new ArrayList<ArrayList<String>>();
 	MainFrame parent;
 	public CollectionPanel(MainFrame frame) {
 		parent=frame;
@@ -110,16 +111,19 @@ public class CollectionPanel extends JPanel implements ActionListener {
 		//------收款单-----------------
 		cm1 = new CollectionModel(c1);
 		t1 = new JTable(cm1);
+		t1.getColumnModel().getColumn(0).setPreferredWidth(100);
 		jsp1 = new JScrollPane(t1);
 		tab.add("收款单", jsp1);
 		//------付款单-----------------
 		cm2 = new CollectionModel(c2);
 		t2 = new JTable(cm2);
+		t2.getColumnModel().getColumn(0).setPreferredWidth(100);
 		jsp2 = new JScrollPane(t2);
 		tab.add("付款单", jsp2);
 		//-------现金费用单-------------
 		cashm = new CashModel();
 		t3 = new JTable(cashm);
+		t3.getColumnModel().getColumn(0).setPreferredWidth(100);
 		jsp3 = new JScrollPane(t3);
 		tab.add("现金费用单", jsp3);
 	}
@@ -201,6 +205,7 @@ public class CollectionPanel extends JPanel implements ActionListener {
 		/**
 		 * 
 		 */
+		ArrayList<ArrayList<String>> c = new ArrayList<ArrayList<String>>();
 		private static final long serialVersionUID = 1L;
 		String head[]={"编号","状态","日期","供应商","销售商","操作员","总额汇总"};
 
@@ -242,7 +247,22 @@ public class CollectionPanel extends JPanel implements ActionListener {
 			UserBLService user=new User();
 			lineInfo.add(user.showUser(VO.getUser()).getName());
 			lineInfo.add(String.valueOf(VO.getTotalMoney()));
-			c.add(lineInfo);
+			c1.add(lineInfo);
+		}
+	}
+	
+	public void RefreshPaymentTable(ArrayList<PaymentVO> vo) throws Exception{
+		for (PaymentVO VO : vo) {
+			ArrayList<String> lineInfo = new ArrayList<String>();
+			lineInfo.add(VO.getId());
+			lineInfo.add(String.valueOf(VO.getStatus()));
+			lineInfo.add(VO.getDate());
+			lineInfo.add(VO.getSupplier());
+			lineInfo.add(VO.getSeller());
+			UserBLService user=new User();
+			lineInfo.add(user.showUser(VO.getUser()).getName());
+			lineInfo.add(String.valueOf(VO.getTotalMoney()));
+			c2.add(lineInfo);
 		}
 	}
 }
