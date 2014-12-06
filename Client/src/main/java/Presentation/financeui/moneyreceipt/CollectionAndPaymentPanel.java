@@ -25,9 +25,13 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
 import po.MemberPO.MemberType;
+import vo.AccountVO;
+import vo.MemberVO;
 import vo.TransferItemVO;
 import Presentation.mainui.MainFrame;
+import businesslogic.financebl.Account;
 import businesslogic.memberbl.Member;
+import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
 import businesslogicservice.memberblservice.MemberBLService;
 
 public class CollectionAndPaymentPanel extends JPanel {
@@ -49,7 +53,8 @@ public class CollectionAndPaymentPanel extends JPanel {
 	JButton submitBtn, exitBtn, addBtn, delBtn;
 	MainFrame parent;
 	JCheckBox hurryBox;
-	String ID = "嗷嗷嗷嗷嗷";
+	String ID;
+	String user;
 	ArrayList<TransferItemVO> tra = new ArrayList<TransferItemVO>();
 	double totalMoney = 0;
 
@@ -136,8 +141,38 @@ public class CollectionAndPaymentPanel extends JPanel {
 		// accountFld = new JTextField(10);
 		// accountFld.setFont(font);
 		// item1.add(accountFld);
-		String accountText[] = { "请给我加上监听" };
-		accountBox = new JComboBox<String>(accountText);
+		
+		ArrayList<String> st=new ArrayList<String>();
+		FinanceAccountBLService fin=null;
+		try {
+			fin=new Account();
+			
+		} catch (MalformedURLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (RemoteException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (NotBoundException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		ArrayList<AccountVO> account=fin.showAll();
+		if(account==null){
+			String accountText[] = { "当前无账户可选" };
+			accountBox = new JComboBox<String>(accountText);
+			accountBox.setEditable(false);
+		}
+		else{
+			for(AccountVO vo:account){
+			    st.add(vo.getName());
+		    }
+		    String accountText[] =new String[st.size()]; 
+		    for(int i=0;i<st.size();i++){
+		    	accountText[i]=st.get(i);
+		    }
+		    accountBox = new JComboBox<String>(accountText);
+		}
 		accountBox.setFont(font);
 		accountBox.setBackground(Color.white);
 		item1.add(accountBox);
@@ -220,14 +255,15 @@ public class CollectionAndPaymentPanel extends JPanel {
 		// -----------ID---------------------
 		JPanel IDPnl = new JPanel();
 		IDPnl.setBackground(Color.white);
-		IDLbl = new JLabel("ID" + ID);
+		IDLbl = new JLabel("ID: " + ID);
 		IDLbl.setFont(font);
 		IDPnl.add(IDLbl);
 		right.add(IDPnl);
 		// -----------user---------------------
 		JPanel userPnl = new JPanel();
 		userPnl.setBackground(Color.white);
-		userLbl = new JLabel("操作员:嗷嗷嗷嗷");
+		user=parent.getUser().getName();
+		userLbl = new JLabel("操作员: "+user);
 		userLbl.setFont(font);
 		userPnl.add(userLbl);
 		right.add(userPnl);
@@ -238,21 +274,40 @@ public class CollectionAndPaymentPanel extends JPanel {
 		JLabel supplierLbl = new JLabel("供应商：");
 		supplierLbl.setFont(font);
 		supplierPnl.add(supplierLbl);
+	//_____________
+		ArrayList<String> mn1=new ArrayList<String>();
+		MemberBLService mem=null;
 		try {
-			MemberBLService member = new Member();
-			member.show(MemberType.JHS);
-		} catch (MalformedURLException e1) {
+			mem=new Member();
+			
+		} catch (MalformedURLException e2) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (RemoteException e1) {
+			e2.printStackTrace();
+		} catch (RemoteException e2) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (NotBoundException e1) {
+			e2.printStackTrace();
+		} catch (NotBoundException e2) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e2.printStackTrace();
 		}
-		String supplierText[] = { "请给我加上监听" };
-		supplierBox = new JComboBox<String>(supplierText);
+		ArrayList<MemberVO> member1=mem.show(MemberType.JHS);
+		if(member1==null){
+			String supplierText[] = { "当前无供应商可选" };
+			supplierBox = new JComboBox<String>(supplierText);
+			supplierBox.setEditable(false);
+		}
+		else{
+			for(MemberVO vo:member1){
+			    mn1.add(vo.getName());
+		    }
+		    String supplierText[] =new String[mn1.size()]; 
+		    for(int i=0;i<mn1.size();i++){
+		    	supplierText[i]=mn1.get(i);
+		    }
+		    supplierBox = new JComboBox<String>(supplierText);
+		}
+    //_____________
+		
 		supplierBox.setFont(font);
 		supplierBox.setBackground(Color.white);
 		supplierPnl.add(supplierBox);
@@ -263,8 +318,26 @@ public class CollectionAndPaymentPanel extends JPanel {
 		JLabel sellerLbl = new JLabel("销售商：");
 		sellerLbl.setFont(font);
 		sellerPnl.add(sellerLbl);
-		String sellerText[] = { "请给我加上监听" };
-		sellerBox = new JComboBox<String>(sellerText);
+//______________
+		ArrayList<MemberVO> member2=mem.show(MemberType.XSS);
+		ArrayList<String> mn2=new ArrayList<String>();
+		if(member2==null){
+			String sellerText[] = { "当前无销售商可选" };
+			sellerBox = new JComboBox<String>(sellerText);
+			sellerBox.setEditable(false);
+		}
+		else{
+			for(MemberVO vo:member2){
+			    mn2.add(vo.getName());
+		    }
+		    String sellerText[] =new String[mn2.size()]; 
+		    for(int i=0;i<mn2.size();i++){
+		    	sellerText[i]=mn2.get(i);
+		    }
+		    sellerBox = new JComboBox<String>(sellerText);
+		}
+//______________
+		
 		sellerBox.setFont(font);
 		sellerBox.setBackground(Color.white);
 		sellerPnl.add(sellerBox);
