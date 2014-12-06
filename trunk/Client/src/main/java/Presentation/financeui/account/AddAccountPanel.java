@@ -30,7 +30,7 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JTextField nameFld;
+	JTextField nameFld,moneyFld;
 	JButton submitBtn, exitBtn;
 	MainFrame parent;
 	FinanceAccountBLService service;
@@ -39,8 +39,8 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 	JPanel titlePnl;
 	JLabel title;
 	JPanel mPnl;
-	JPanel namePnl;
-	JLabel nameLbl;
+	JPanel namePnl,moneyPnl;
+	JLabel nameLbl,moneyLbl;
 	JPanel btnPnl;
     AddListener add;
 	public AddAccountPanel(MainFrame frame)  throws Exception{
@@ -51,7 +51,7 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 		c.insets = new Insets(20, 80, 1, 80);
 		this.setBackground(Color.white);
 		this.setLayout(gbl);
-
+		Font font=new Font("微软雅黑", Font.PLAIN, 15);
 		// ----------------------------
 		titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
@@ -80,18 +80,28 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 		c.weighty = 0.8;
 		gbl.setConstraints(mPnl, c);
 		this.add(mPnl);
-		mPnl.setLayout(new GridLayout(3, 1));
+		mPnl.setLayout(new GridLayout(4, 1));
 		mPnl.add(new JLabel());
 		// ------------------------------
 		namePnl = new JPanel();
 		namePnl.setBackground(Color.white);
 		mPnl.add(namePnl);
 		nameLbl = new JLabel("账户名：      ");
-		nameLbl.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+		nameLbl.setFont(font);
 		namePnl.add(nameLbl);
 		nameFld = new JTextField(23);
-		nameFld.setFont(new Font("微软雅黑", Font.PLAIN, 15));
+		nameFld.setFont(font);
 		namePnl.add(nameFld);
+		//------------------------------
+		moneyPnl=new JPanel();
+		moneyPnl.setBackground(Color.white);
+		mPnl.add(moneyPnl);
+		moneyLbl = new JLabel("金额：      ");
+		moneyLbl.setFont(font);
+		moneyPnl.add(moneyLbl);
+		moneyFld = new JTextField(12);
+		moneyFld.setFont(font);
+		moneyPnl.add(moneyFld);
 		mPnl.add(new JLabel());
 		// -----------------------------
 		// -------buttons-----------------
