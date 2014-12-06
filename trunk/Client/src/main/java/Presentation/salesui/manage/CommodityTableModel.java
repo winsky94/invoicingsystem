@@ -19,7 +19,7 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	public boolean isCellEditable(int row,int column){
-		if(column==3||column==4)
+		if(column==3||column==4||column==6)
 			return true;
 		else
 			return false;
@@ -39,7 +39,10 @@ private static final long serialVersionUID = 1L;
 	public String getColumnName(int col){
 		return head[col];
 	}
-	
+	 public void setValueAt(Object value, int row, int column){  
+        cmContent.get(row).set(column,(String)value ); 
+        fireTableCellUpdated(row, column);
+}  
 	
 	
 	public ArrayList<ArrayList<String>> getContent(){
