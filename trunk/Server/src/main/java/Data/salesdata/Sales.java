@@ -523,6 +523,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		Sales a;
 		try {
 			a = new Sales();
+			a.showPurchase();
 			ArrayList<CommodityPO> al=new ArrayList<CommodityPO>();
 			CommodityPO item =new CommodityPO("0001-001-0001","飞利浦日光灯","SRO1",100,158,100,198,98,"这是个灯");
 			al.add(item);

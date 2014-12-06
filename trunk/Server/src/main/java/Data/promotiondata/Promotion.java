@@ -101,6 +101,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 	}
 
 	public int Modify(PromotionPO po) throws RemoteException {
+		ArrayList<Object> all=new ArrayList<Object>();
 		if(po.getType()==PromotionType.PACK){
 			PackProPO it=(PackProPO)po;
 			ArrayList<PackProPO> al=getPackPro();
@@ -117,8 +118,10 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 					break;
 				}
 			}
+			for(int i=0;i<al.size();i++)
+				all.add(al.get(i));
 			file=new JXCFile("src/main/java/pack.ser");
-			file.writeM(al);
+			file.writeM(all);
 		}
 		else if(po.getType()==PromotionType.DISCOUNT){
 			DiscountProPO it=(DiscountProPO)po;
@@ -138,8 +141,10 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 					break;
 				}
 			}
+			for(int i=0;i<al.size();i++)
+				all.add(al.get(i));
 			file=new JXCFile("src/main/java/discount.ser");
-			file.writeM(al);
+			file.writeM(all);
 		}
 		else if(po.getType()==PromotionType.GIFTCOUPON){
 			GiftCouponProPO it=(GiftCouponProPO)po;
@@ -157,8 +162,10 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 					break;
 				}
 			}
+			for(int i=0;i<al.size();i++)
+				all.add(al.get(i));
 			file=new JXCFile("src/main/java/giftcoupon.ser");
-			file.writeM(al);
+			file.writeM(all);
 		}
 		else if(po.getType()==PromotionType.GIFTGOODS){
 			GiftGoodProPO it=(GiftGoodProPO)po;
@@ -176,8 +183,10 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 					break;
 				}
 			}
+			for(int i=0;i<al.size();i++)
+				all.add(al.get(i));
 			file=new JXCFile("src/main/java/giftgoods.ser");
-			file.writeM(al);
+			file.writeM(all);
 		}
 		else{
 			return 1;
@@ -262,7 +271,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 			return null;
 		}
 		
-		return null;
+		return result;
 	}
 	
 	public ArrayList<PackProPO> getPackPro() throws RemoteException{
@@ -280,6 +289,8 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 		return buffer;
 	}
 	
+	
+	//有可能因为ArrayList里嵌套ArrayList的原因
 	public ArrayList<GiftCouponProPO> getGiftCouponPro() throws RemoteException{
 		file=new JXCFile("src/main/java/giftcoupon.ser");
 		ArrayList<Object> a=file.read();
@@ -288,6 +299,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 		
 		ArrayList<GiftCouponProPO> buffer=new ArrayList<GiftCouponProPO>();
 		for(Object b:a){
+			
 			GiftCouponProPO po=(GiftCouponProPO)b;
 			buffer.add(po);
 		}
@@ -326,6 +338,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 	}
 
 	public int Delete(String id, PromotionType type) throws RemoteException {
+		ArrayList<Object> all=new ArrayList<Object>();
 		if(type==PromotionType.PACK){
 			ArrayList<PackProPO> al=getPackPro();
 			if(al==null)
@@ -337,8 +350,10 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 					break;
 				}
 			}
+			for(int i=0;i<al.size();i++)
+				all.add(al.get(i));
 			file=new JXCFile("src/main/java/pack.ser");
-			file.writeM(al);
+			file.writeM(all);;
 		}
 		else if(type==PromotionType.DISCOUNT){
 			ArrayList<DiscountProPO> al=getDiscountPro();
@@ -352,8 +367,10 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 					break;
 				}
 			}
+			for(int i=0;i<al.size();i++)
+				all.add(al.get(i));
 			file=new JXCFile("src/main/java/discount.ser");
-			file.writeM(al);
+			file.write(all);
 		}
 		else if(type==PromotionType.GIFTCOUPON){
 			ArrayList<GiftCouponProPO> al=getGiftCouponPro();
@@ -361,13 +378,15 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 				return 1;
 			for(int i=0;i<al.size();i++){
 				GiftCouponProPO p=al.get(i);
-				if(p.equals(id)){
+				if(p.getID().equals(id)){
 					al.remove(i);
 					break;
 				}
 			}
+			for(int i=0;i<al.size();i++)
+				all.add(al.get(i));
 			file=new JXCFile("src/main/java/giftcoupon.ser");
-			file.writeM(al);
+			file.writeM(all);
 		}
 		else if(type==PromotionType.GIFTGOODS){
 			ArrayList<GiftGoodProPO> al=getGiftGoodPro();
@@ -380,8 +399,10 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 					break;
 				}
 			}
+			for(int i=0;i<al.size();i++)
+				all.add(al.get(i));
 			file=new JXCFile("src/main/java/giftgoods.ser");
-			file.writeM(al);
+			file.writeM(all);
 		}
 		else{
 			return 1;
@@ -392,11 +413,20 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 	public static void main(String[] args)throws Exception{
 		Promotion p=new Promotion();
 		ArrayList<GiftCouponProPO> t;
-//		t=p.getGiftCouponPro();
-//		for(GiftCouponProPO po:t){
-//			System.out.println(po.getStartDate()+po.getTotalValue());
-//		}
+		
+	t=p.getGiftCouponPro();
+	//p.show(PromotionType.GIFTCOUPON);
+	p.Delete("DJQ-20141207-001", PromotionType.GIFTCOUPON);
+	for(GiftCouponProPO po:t){
+			System.out.println(po.getStartDate()+po.getTotalValue());
+		}
 		System.out.println("---------------------------------------");
+
+		ArrayList<CouponPO> cp=new ArrayList<CouponPO>();
+		int i=p.Add(new GiftCouponProPO("a","b","c",MemberLevel.ONE,cp,100));
+		System.out.println(i);
+
+		System.out.println(p.Add(new GiftCouponProPO("DJQ-20141205-001","b","c",MemberLevel.ONE,new ArrayList<CouponPO>(),100)));
 		ArrayList<CouponPO> pp=new ArrayList<CouponPO>();
 		CouponPO ppp=new CouponPO("1111",100,false);
 		pp.add(ppp);
@@ -404,6 +434,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 		System.out.println(p.Add(new GiftCouponProPO("DJQ-20141206-002","b","c",MemberLevel.ONE,pp,100)));
 		int result=p.Delete("DJQ-20141206-002",PromotionType.GIFTCOUPON);
 		System.out.println(result);
+
 		t=p.getGiftCouponPro();
 		for(GiftCouponProPO po:t){
 			System.out.println(po.getStartDate()+po.getTotalValue());
