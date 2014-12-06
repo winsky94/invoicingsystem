@@ -6,7 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,7 +15,6 @@ import javax.swing.JPanel;
 import businesslogic.financebl.Collection;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import vo.CollectionVO;
-import vo.TransferItemVO;
 import Presentation.financeui.CollectionPanel;
 import Presentation.mainui.MainFrame;
 
@@ -26,11 +24,18 @@ public class AddCollectionPanel extends CollectionAndPaymentPanel implements Act
 	 * 没加监听
 	 */
 	private static final long serialVersionUID = 1L;
-    ArrayList<TransferItemVO> tra=new ArrayList<TransferItemVO>();
     CollectionBLService service;
 	
 	public AddCollectionPanel(MainFrame frame) {
 		super(frame);
+		
+		try {
+			service=new Collection();
+			ID=service.getNewID();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// -----------title------------------
 		JPanel titlePnl = new JPanel();
@@ -51,6 +56,8 @@ public class AddCollectionPanel extends CollectionAndPaymentPanel implements Act
 		
 		submitBtn.addActionListener(this);
 		exitBtn.addActionListener(this);
+		ID=service.getNewID();
+		IDLbl.setText("ID:"+ID);
 
 	}
 
@@ -73,7 +80,10 @@ public class AddCollectionPanel extends CollectionAndPaymentPanel implements Act
 				JOptionPane.showMessageDialog(null, "请输入转账列表", "提示",JOptionPane.WARNING_MESSAGE);
 			}
 			else{
-			CollectionVO vo=new CollectionVO(ID,(String)supplierBox.getSelectedItem(),(String)sellerBox.getSelectedItem(),parent.getUser().getID(),tra,totalMoney,0,1);
+			int isHurry=0;
+			if(hurryBox.isSelected())
+				isHurry=1;
+			CollectionVO vo=new CollectionVO(ID,(String)supplierBox.getSelectedItem(),(String)sellerBox.getSelectedItem(),parent.getUser().getID(),tra,totalMoney,0,isHurry);
 
 			try {
 				service = new Collection();
