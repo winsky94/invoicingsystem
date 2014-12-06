@@ -67,15 +67,11 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 		list = getGiftList();
 
 		for (GiftPO po : list) {
-			System.out.println(beginDate);
-			System.out.println(po.getDate());
-			System.out.println(beginDate.compareTo(po.getDate()));
 			if ((beginDate.compareTo(po.getDate().replace("/", "")) <= 0)
 					&& (endDate.compareTo(po.getDate().replace("/", "")) >= 0)) {
 				result.add(po);
 			}
 		}
-		System.out.println("Gift.getGiftList():num:" + result.size());
 		return result;
 	}
 
