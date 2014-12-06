@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -19,7 +20,11 @@ import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.table.AbstractTableModel;
 
+import businesslogic.stockbl.goods.GoodsController;
+import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
+import vo.GoodsVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
+import Presentation.stockui.ChooseGoodsDialog;
 import Presentation.uihelper.UIhelper;
 
 public class DiscountDialog extends JDialog{
@@ -37,6 +42,7 @@ public class DiscountDialog extends JDialog{
 	ArrayList<ArrayList<String>> leftTblMessage=new ArrayList<ArrayList<String>>();
 	ChooseGoodsFatherPane father;
 	//
+	StockGoodsBLService service;
 	JButton submitBtn, exitBtn, addBtn, delBtn;
 	JTree classTree;
 	JScrollPane jspLeft, jspRight;
@@ -48,6 +54,7 @@ public class DiscountDialog extends JDialog{
 	int dialogHeight = screenHeight * 2 / 3;
 	public DiscountDialog(ChooseGoodsFatherPane myFather) {
 		father=myFather;
+		service=new GoodsController();
 		pnl = this.getContentPane();
 		pnl.setLayout(null);
 		pnl.setBackground(Color.white);
@@ -170,7 +177,25 @@ public class DiscountDialog extends JDialog{
 				dialogWidth * 8 / 100, dialogHeight * 5 / 100);
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DiscountDialog.this.father.RefreshCTable(rightTblMessage);
+				
+				if(rightTblMessage.size()>0){
+					ArrayList<Object> good=new ArrayList<Object>();
+					try {
+					for(int i=0;i<rightTblMessage.size();i++)
+						{String id=rightTblMessage.get(i).get(0);
+						
+							good.add(service.findByID(id));}
+							
+							
+						} catch (RemoteException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					
+					father.parent.setRightComponent(father);
+					father.RefreshCTable(good);}
+				
+					DiscountDialog.this.dispose();
 			
 			}
 		});
@@ -203,7 +228,7 @@ public class DiscountDialog extends JDialog{
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		String head[] = { "商品编号", "商品名", "型号" };
+		String head[] = { "商品编号", "商品名", "型号" ,"售价"};
 		public int getRowCount() {
 			return leftTblMessage.size();
 		}
@@ -254,5 +279,17 @@ public class DiscountDialog extends JDialog{
 		public String getColumnName(int column) {
 			return head[column];
 		}
+	}
+	
+	public void Refresh(ArrayList<GoodsVO> VO){
+		leftTblMessage=new ArrayList<ArrayList<String>>();
+		 for(GoodsVO vo:VO){
+			 ArrayList<String> line=new ArrayList<String>();
+			 line.add(vo.getGoodsID());
+			 line.add(vo.getName());
+			 line.add(vo.getSize());
+			 line.add(Double.toString(vo.getPrice()));
+			 leftTblMessage.add(line);
+		 }
 	}
 }
