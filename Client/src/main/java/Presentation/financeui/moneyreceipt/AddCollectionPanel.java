@@ -22,7 +22,7 @@ import Presentation.mainui.MainFrame;
 public class AddCollectionPanel extends CollectionAndPaymentPanel implements ActionListener{
 	/**
 	 * 创建收款单
-	 * 没加监听
+	 * 加了监听
 	 */
 	private static final long serialVersionUID = 1L;
     CollectionBLService service;
