@@ -16,7 +16,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import businesslogic.financebl.Account;
+import businesslogic.financebl.Collection;
 import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
+import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
@@ -171,7 +173,17 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 			
 		}
 		else if(e.getSource()==collectionBtn){
-			frame.setRightComponent(new CollectionPanel(frame));	
+			CollectionPanel mgr = new CollectionPanel(frame);
+			CollectionBLService service;
+			frame.setRightComponent(mgr);
+			try {
+				service=new Collection();
+				if (service.getCollection()!= null)
+					mgr.RefreshCollectionTable(service.getCollection());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		else if(e.getSource()==foldBtn){			
 			frame.setLeftComponent(new LeftShortPanel(frame));
