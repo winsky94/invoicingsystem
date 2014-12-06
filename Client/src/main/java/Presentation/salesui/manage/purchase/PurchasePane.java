@@ -175,8 +175,7 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		c.weighty = 1;
 		gbl.setConstraints(jsp, c);
 		this.add(jsp);
-		table.setCellEditor(anEditor);
-		table.setDefaultRenderer(columnClass, renderer);
+		
 		
 		// -------buttons-----------------
 		JPanel btnPnl = new JPanel();
@@ -234,12 +233,33 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		exitBtn.setBackground(new Color(251, 147, 121));
 		btnPnl.add(exitBtn);
 		exitBtn.addActionListener(this);
-		
-		table.getModel().addTableModelListener(new TableModelListener(){
+		table.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+		ctm.addTableModelListener(new TableModelListener(){
 
 			public void tableChanged(TableModelEvent e) {
 				// TODO Auto-generated method stub
 				
+				
+				int i=e.getLastRow();
+				
+				int j=e.getColumn();
+				int num=0;double price=0;
+				if(j!=6){
+				if(j==3){
+					 num=Integer.parseInt((String) table.getValueAt(i, j));
+					 price=Double.parseDouble(cmContent.get(i).get(j+1));
+				}else if(j==4){
+					price=Double.parseDouble(cmContent.get(i).get(j));
+					num=Integer.parseInt((String)table.getValueAt(i, j-1));
+				}
+				totalMoney-=Double.parseDouble((String) table.getValueAt(i, j+2));
+				totalMoney+=price*num;
+				totalLbl.setText("总计:"+totalMoney+"元");
+				table.setValueAt(price*num+"", i, j+2);
+				table.revalidate();
+				
+				
+				}
 				
 			}
 			
