@@ -175,6 +175,20 @@ public class GiftManage {
 		return money;
 	}
 
+	// 根据ID查找库存赠送单
+	public GiftVO findByID(String id) {
+		// TODO 自动生成的方法存根
+		GiftVO vo = null;
+		try {
+			GiftPO po = service.findByID(id);
+			vo = giftPOToVO(po);
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return vo;
+	}
+
 	// 将赠送商品列表由vo转为po
 	private ArrayList<CommodityPO> VOToPO(ArrayList<CommodityVO> list) {
 		ArrayList<CommodityPO> result = new ArrayList<CommodityPO>();
@@ -194,7 +208,7 @@ public class GiftManage {
 		ArrayList<CommodityVO> result = new ArrayList<CommodityVO>();
 		for (CommodityPO po : list) {
 			CommodityVO vo = new CommodityVO(po.getID(), po.getName(),
-					po.getTip(), po.getPrice(), po.getLast_bid(), po.getNum(),
+					po.getType(), po.getPrice(), po.getLast_bid(), po.getNum(),
 					po.getTotal(), po.getCost(), po.getTip());
 			result.add(vo);
 		}
@@ -205,12 +219,16 @@ public class GiftManage {
 	private ArrayList<GiftVO> POToVO(ArrayList<GiftPO> list) {
 		ArrayList<GiftVO> result = new ArrayList<GiftVO>();
 		for (GiftPO po : list) {
-			GiftVO vo = new GiftVO(po.getId(), po.getMemberName(),
-					po.getMemberID(), po.getUserID(), po.getStatus(),
-					po.getHurry(), po.getInfo(),
-					commodityPOToVO(po.getGiftList()));
+			GiftVO vo = giftPOToVO(po);
 			result.add(vo);
 		}
 		return result;
+	}
+
+	private GiftVO giftPOToVO(GiftPO po) {
+		GiftVO vo = new GiftVO(po.getId(), po.getMemberName(),
+				po.getMemberID(), po.getUserID(), po.getStatus(),
+				po.getHurry(), po.getInfo(), commodityPOToVO(po.getGiftList()));
+		return vo;
 	}
 }

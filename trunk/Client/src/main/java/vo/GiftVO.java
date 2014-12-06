@@ -11,7 +11,6 @@ public class GiftVO extends ReceiptVO {
 			int status, int hurry, String info, ArrayList<CommodityVO> giftList) {
 		super(id, memberName, memberID, user, ReceiptType.GIFT, status, hurry,
 				info);
-		giftList = new ArrayList<CommodityVO>();
 		this.giftList = giftList;
 	}
 

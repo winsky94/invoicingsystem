@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import vo.GiftVO;
 import Presentation.mainui.MainFrame;
 import businesslogic.stockbl.gift.GiftCommodityListModel;
 
@@ -32,7 +33,7 @@ public class GiftDetailPanel extends JPanel {
 	JButton exitBtn;
 	MainFrame father;
 
-	public GiftDetailPanel(MainFrame frame) {
+	public GiftDetailPanel(MainFrame frame, GiftVO giftVO) {
 		father = frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints cons = new GridBagConstraints();
@@ -58,7 +59,8 @@ public class GiftDetailPanel extends JPanel {
 		cons.fill = GridBagConstraints.BOTH;
 		JPanel memberPnl = new JPanel();
 		memberPnl.setBackground(Color.white);
-		memberLbl = new JLabel("客户：请传入VO");
+		memberLbl = new JLabel("客户:" + giftVO.getMemberID() + " "
+				+ giftVO.getMemberName());
 		memberLbl.setFont(font);
 		memberPnl.add(memberLbl);
 		cons.gridx = 0;
@@ -70,7 +72,9 @@ public class GiftDetailPanel extends JPanel {
 		gbl.setConstraints(memberPnl, cons);
 		this.add(memberPnl);
 		// ---------table--------------------------
-		table = new JTable();
+		GiftCommodityListModel gcm = new GiftCommodityListModel(
+				giftVO.getGiftList());
+		table = new JTable(gcm);
 		jsp = new JScrollPane(table);
 		cons.gridx = 0;
 		cons.gridy = 3;

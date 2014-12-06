@@ -24,4 +24,6 @@ public interface GiftBLService {
 
 	// 获得某段时间内的商品赠送总额
 	public double getGiftMoney(String beginDate, String endDate);
+
+	public GiftVO findByID(String id);
 }

@@ -160,7 +160,6 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 			CommodityVO commodityVO = new CommodityVO(goodsVO.getGoodsID(),
 					goodsVO.getName(), goodsVO.getSize(), goodsVO.getPrice(),
 					goodsVO.getLastPurchasePrice(), 0, 0, 0, "");
-
 			commodityList.add(commodityVO);
 		}
 
@@ -170,11 +169,10 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 		if (e.getSource() == exitBtn) {
 			parent.setRightComponent(new GiftPanel(parent));
 		} else if (e.getSource() == addBtn) {
-			new ChooseGoodsDialog(CreateGiftPanel.this);
-
+			ChooseGoodsDialog cgd = new ChooseGoodsDialog(CreateGiftPanel.this);
+			cgd.dispose();
 			gcm = new GiftCommodityListModel(commodityList);
 			table.setModel(gcm);
-			parent.setRightComponent(new GiftPanel(parent));
 		} else if (e.getSource() == delBtn) {
 			int rownum = table.getSelectedRow();
 			if (rownum == -1) {
@@ -193,16 +191,29 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 				return;
 			}
 
+			// 修改赠品数量后，需要重新更新commodityList
+			int rowCount = gcm.getRowCount();
+			ArrayList<CommodityVO> recordList = new ArrayList<CommodityVO>();
+			
+			for (int i = 0; i < rowCount; i++) {
+				CommodityVO oldVO = commodityList.get(i);
+				int num = Integer.parseInt((String) gcm.getValueAt(i, 3));
+				CommodityVO vo = new CommodityVO(oldVO.getID(),
+						oldVO.getName(), oldVO.getType(), oldVO.getPrice(),
+						oldVO.getLast_bid(), num, oldVO.getNum(),
+						oldVO.getCost(), oldVO.getTip());
+				recordList.add(vo);
+			}
+
 			String data[] = memberData.split(" ");
 			String ID = data[0];
 			String name = data[1];
 			String user = parent.getUser().getID();
-			GiftVO vo = new GiftVO("", name, ID, user, 4, 0, "", commodityList);
-			System.out
-					.println("CreateGiftPanel.actionPerformed():commodityList:"
-							+ commodityList.size());
+			GiftVO vo = new GiftVO("", name, ID, user, 4, 0, "", recordList);
 			GiftBLService giftService = new GiftController();
 			giftService.addGift(vo);
+
+			parent.setRightComponent(new GiftPanel(parent));
 		}
 	}
 }

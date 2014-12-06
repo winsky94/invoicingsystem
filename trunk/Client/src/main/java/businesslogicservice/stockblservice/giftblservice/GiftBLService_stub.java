@@ -51,4 +51,9 @@ public class GiftBLService_stub implements GiftBLService {
 		return null;
 	}
 
+	public GiftVO findByID(String id) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 }

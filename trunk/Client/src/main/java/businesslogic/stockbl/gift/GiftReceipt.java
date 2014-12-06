@@ -43,10 +43,10 @@ public class GiftReceipt extends Receipt {
 
 	public GiftReceipt(String id, String memberID, String memberName,
 			String userID, po.ReceiptPO.ReceiptType type, int hurry,
-			int status, String info) {
+			int status, String info, ArrayList<CommodityVO> giftList) {
 		super(id, memberID, memberName, userID, po.ReceiptPO.ReceiptType.GIFT,
 				hurry, status, info);
-		giftVOList = new ArrayList<CommodityVO>();
+		giftVOList = giftList;
 		host = "localhost:1099";
 		url = "rmi://" + host + "/giftService";
 		try {

@@ -46,4 +46,9 @@ public class GiftDataService_stub implements GiftDataService {
 		return null;
 	}
 
+	public GiftPO findByID(String id) throws RemoteException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 }
