@@ -16,4 +16,9 @@ public class CollectionBLService_stub implements CollectionBLService{
 		return null;
 	}
 
+	public String getNewID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
