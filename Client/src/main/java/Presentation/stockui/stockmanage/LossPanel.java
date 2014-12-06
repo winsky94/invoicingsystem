@@ -76,7 +76,7 @@ public class LossPanel extends ChooseGoodsFatherPane implements ActionListener {
 		JPanel IDPnl = new JPanel();
 		IDPnl.setBackground(Color.white);
 		mid.add(IDPnl);
-		IDLbl = new JLabel("商品编号：____________");
+		IDLbl = new JLabel("商品编号：XXXXX");
 		IDLbl.setFont(font);
 		IDPnl.add(IDLbl);
 		// --------商品名-------------------

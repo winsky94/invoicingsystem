@@ -20,4 +20,6 @@ public interface StockControlDataService extends Remote {
 
 	// 获得库存调价收入
 	public ArrayList<String> getPrimeCostIncome();
+
+	public String getMaxID();
 }

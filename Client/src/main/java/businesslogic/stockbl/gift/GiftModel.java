@@ -5,14 +5,16 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 import vo.GiftVO;
+import businesslogic.userbl.User;
 import businesslogicservice.stockblservice.giftblservice.GiftBLService;
+import businesslogicservice.userblservice.UserBLService;
 
 public class GiftModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
 
 	ArrayList<ArrayList<String>> rowData;
-	String columnNames[] = { "编号", "日期", "客户编号", "客户姓名", "赠品种数", "状态" };
+	String columnNames[] = { "编号", "日期", "客户编号", "客户姓名", "赠品种数", "状态", "创建者" };
 
 	// 做一个构造函数，用于初始化数据表模型
 	public GiftModel(ArrayList<GiftVO> list) {
@@ -28,6 +30,15 @@ public class GiftModel extends AbstractTableModel {
 				hang.add(vo.getMemberName());
 				hang.add(String.valueOf(vo.getGiftList().size()));
 				hang.add("执行完毕");
+				String userName = "";
+				try {
+					UserBLService userController = new User();
+					userName = userController.showUser(vo.getUser()).getName();
+				} catch (Exception e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+				hang.add(userName);
 
 				// 加入到rowData
 				rowData.add(hang);
@@ -51,6 +62,15 @@ public class GiftModel extends AbstractTableModel {
 			hang.add(vo.getMemberName());
 			hang.add(String.valueOf(vo.getGiftList().size()));
 			hang.add("执行完毕");
+			String userName = "";
+			try {
+				UserBLService userController = new User();
+				userName = userController.showUser(vo.getUser()).getName();
+			} catch (Exception e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+			hang.add(userName);
 
 			// 加入到rowData
 			rowData.add(hang);

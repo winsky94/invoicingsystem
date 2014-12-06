@@ -4,6 +4,10 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import po.ReceiptPO.ReceiptType;
 import po.StockOverOrLowPO;
@@ -65,8 +69,18 @@ public class StockLowReceipt extends Receipt {
 	}
 
 	public int add() {
-		//编号在StockOverOrLowManage里面已经生成好了传过来的
-		StockOverOrLowPO po = new StockOverOrLowPO(super.getId(),
+		// 生成编号
+		String exactID = "KCBYD-" + getDate() + "-";
+		String maxID = service.getMaxID();
+
+		if (maxID == null) {
+			exactID += "00001";
+		} else {
+			NumberFormat nf = new DecimalFormat("00000");
+			int tp = Integer.parseInt(maxID);
+			exactID += nf.format(tp + 1);
+		}
+		StockOverOrLowPO po = new StockOverOrLowPO(exactID,
 				super.getmemberName(), super.getMemberID(), super.getUserID(),
 				ReceiptType.STOCKLOW, 1, super.getHurry(), super.getInfo(),
 				goodName, size, num, exactNum);
@@ -111,5 +125,13 @@ public class StockLowReceipt extends Receipt {
 
 	public void setGap(int gap) {
 		this.gap = gap;
+	}
+
+	private String getDate() {
+		Calendar rightNow = Calendar.getInstance();
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+		String sysDatetime = fmt.format(rightNow.getTime());
+
+		return sysDatetime;
 	}
 }

@@ -146,10 +146,17 @@ public class StockManage {
 		double sMoney = 0;// 出库金额
 		ArrayList<SalePO> sl = saleService.showSale();
 		for (int i = 0; i < sl.size(); i++) {
-			ArrayList<CommodityPO> purchaseList = sl.get(i).getSalesList();
-			for (int j = 0; j < purchaseList.size(); j++) {
-				sNum += purchaseList.get(j).getNum();
-				sMoney += purchaseList.get(j).getTotal();
+			if (sl.get(i).getStatus() == 3) {
+				String date = sl.get(i).getDate().replace("/", "");
+				if ((beginDate.compareTo(date) <= 0)
+						&& (endDate.compareTo(date) >= 0)) {
+					ArrayList<CommodityPO> purchaseList = sl.get(i)
+							.getSalesList();
+					for (int j = 0; j < purchaseList.size(); j++) {
+						sNum += purchaseList.get(j).getNum();
+						sMoney += purchaseList.get(j).getTotal();
+					}
+				}
 			}
 		}
 		// 库存赠送出库
@@ -168,7 +175,6 @@ public class StockManage {
 				gNum += list.get(j).getNum();
 				gMoney += list.get(j).getCost();
 			}
-
 		}
 
 		// 库存报损
@@ -198,10 +204,17 @@ public class StockManage {
 		double pMoney = 0;
 		ArrayList<PurchasePO> pl = saleService.showPurchase();
 		for (int i = 0; i < pl.size(); i++) {
-			ArrayList<CommodityPO> purchaseList = pl.get(i).getPurchaseList();
-			for (int j = 0; j < purchaseList.size(); j++) {
-				pNum += purchaseList.get(j).getNum();
-				pMoney += purchaseList.get(j).getCost();
+			if (pl.get(i).getStatus() == 3) {
+				String date = pl.get(i).getDate().replace("/", "");
+				if ((beginDate.compareTo(date) <= 0)
+						&& (endDate.compareTo(date) >= 0)) {
+					ArrayList<CommodityPO> purchaseList = pl.get(i)
+							.getPurchaseList();
+					for (int j = 0; j < purchaseList.size(); j++) {
+						pNum += purchaseList.get(j).getNum();
+						pMoney += purchaseList.get(j).getCost();
+					}
+				}
 			}
 		}
 
@@ -233,10 +246,17 @@ public class StockManage {
 		double sMoney = 0;// 销售金额
 		ArrayList<SalePO> sl = saleService.showSale();
 		for (int i = 0; i < sl.size(); i++) {
-			ArrayList<CommodityPO> purchaseList = sl.get(i).getSalesList();
-			for (int j = 0; j < purchaseList.size(); j++) {
-				sNum += purchaseList.get(j).getNum();
-				sMoney += purchaseList.get(j).getTotal();
+			if (sl.get(i).getStatus() == 3) {
+				String date = sl.get(i).getDate().replace("/", "");
+				if ((beginDate.compareTo(date) <= 0)
+						&& (endDate.compareTo(date) >= 0)) {
+					ArrayList<CommodityPO> purchaseList = sl.get(i)
+							.getSalesList();
+					for (int j = 0; j < purchaseList.size(); j++) {
+						sNum += purchaseList.get(j).getNum();
+						sMoney += purchaseList.get(j).getTotal();
+					}
+				}
 			}
 		}
 
@@ -254,10 +274,17 @@ public class StockManage {
 		double pMoney = 0;
 		ArrayList<PurchasePO> pl = saleService.showPurchase();
 		for (int i = 0; i < pl.size(); i++) {
-			ArrayList<CommodityPO> purchaseList = pl.get(i).getPurchaseList();
-			for (int j = 0; j < purchaseList.size(); j++) {
-				pNum += purchaseList.get(j).getNum();
-				pMoney += purchaseList.get(j).getCost();
+			if (pl.get(i).getStatus() == 3) {
+				String date = pl.get(i).getDate().replace("/", "");
+				if ((beginDate.compareTo(date) <= 0)
+						&& (endDate.compareTo(date) >= 0)) {
+					ArrayList<CommodityPO> purchaseList = pl.get(i)
+							.getPurchaseList();
+					for (int j = 0; j < purchaseList.size(); j++) {
+						pNum += purchaseList.get(j).getNum();
+						pMoney += purchaseList.get(j).getCost();
+					}
+				}
 			}
 		}
 
@@ -294,12 +321,12 @@ public class StockManage {
 		list = service.getPrimeCostIncome();
 		double result = 0;
 
-		for(String s:list){
-			String record[]=s.split(";");
-			String date=record[0];
-			String money=record[1];
-			if(date.compareTo(beginDate)>=0&&date.compareTo(endDate)<=0){
-				result+=Double.parseDouble(money);
+		for (String s : list) {
+			String record[] = s.split(";");
+			String date = record[0];
+			String money = record[1];
+			if (date.compareTo(beginDate) >= 0 && date.compareTo(endDate) <= 0) {
+				result += Double.parseDouble(money);
 			}
 		}
 		return result;
