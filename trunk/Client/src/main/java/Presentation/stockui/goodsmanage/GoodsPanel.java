@@ -100,6 +100,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		btnPnl.add(modGoodsBtn);
 		// --------------------------
 		refreshBtn = new MyButton("刷新", new ImageIcon("img/stock/refresh.png"));
+		refreshBtn.addActionListener(new Refresh());
 		btnPnl.add(refreshBtn);
 		// 搜索框
 		searchFld = new JTextField(6);
@@ -704,6 +705,16 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			this.setFocusPainted(false);
 		}
 	}
+
 	// end_yan-----------------------------------------------------------
 
+	class Refresh implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			// TODO 自动生成的方法存根
+			goodsModel = new GoodsModel();
+			goodsTable.setModel(goodsModel);
+		}
+
+	}
 }

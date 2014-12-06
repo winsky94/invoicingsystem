@@ -194,14 +194,21 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 			// 修改赠品数量后，需要重新更新commodityList
 			int rowCount = gcm.getRowCount();
 			ArrayList<CommodityVO> recordList = new ArrayList<CommodityVO>();
-			
+
 			for (int i = 0; i < rowCount; i++) {
 				CommodityVO oldVO = commodityList.get(i);
-				int num = Integer.parseInt((String) gcm.getValueAt(i, 3));
+				int num = 0;
+				try {
+					num = Integer.parseInt((String) gcm.getValueAt(i, 3));
+				} catch (NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(null, "      请注意你的输入是否合法噢~ ",
+							null, JOptionPane.WARNING_MESSAGE);
+				}
+				double cost = oldVO.getPrice() * num;
 				CommodityVO vo = new CommodityVO(oldVO.getID(),
 						oldVO.getName(), oldVO.getType(), oldVO.getPrice(),
-						oldVO.getLast_bid(), num, oldVO.getNum(),
-						oldVO.getCost(), oldVO.getTip());
+						oldVO.getLast_bid(), num, oldVO.getNum(), cost,
+						oldVO.getTip());
 				recordList.add(vo);
 			}
 
