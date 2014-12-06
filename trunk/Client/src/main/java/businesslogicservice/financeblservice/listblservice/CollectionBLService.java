@@ -7,4 +7,5 @@ import vo.CollectionVO;
 public interface CollectionBLService {
 	public int createCollection(CollectionVO vo);
 	public ArrayList<CollectionVO> getCollection();
+	public String getNewID();
 }
