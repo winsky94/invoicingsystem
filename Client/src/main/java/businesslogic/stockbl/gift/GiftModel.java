@@ -42,7 +42,6 @@ public class GiftModel extends AbstractTableModel {
 		ArrayList<GiftVO> list = new ArrayList<GiftVO>();
 		GiftBLService controller = new GiftController();
 		list = controller.getGiftList();
-System.out.println("GiftModel.GiftModel():size"+list.size());
 		for (int i = 0; i < list.size(); i++) {
 			ArrayList<String> hang = new ArrayList<String>();
 			GiftVO vo = list.get(i);

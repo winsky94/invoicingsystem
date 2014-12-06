@@ -15,7 +15,7 @@ public class GiftPO extends ReceiptPO implements Serializable {
 	}
 
 	public GiftPO(String id, String memberID, String membername, String userID,
-			String info, int status, int hurry,ArrayList<CommodityPO> giftList) {
+			String info, int status, int hurry, ArrayList<CommodityPO> giftList) {
 		super(id, memberID, membername, userID, ReceiptType.GIFT, info, status,
 				hurry);
 		this.giftList = giftList;

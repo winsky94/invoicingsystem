@@ -12,9 +12,9 @@ public class GiftController extends Receipt implements GiftBLService {
 
 	public int addGift(GiftVO vo) {
 		// TODO 自动生成的方法存根
-		GiftReceipt receipt = new GiftReceipt(vo.getId(), vo.getMemberID(),
-				vo.getMemberName(), vo.getUser(), ReceiptType.GIFT,
-				vo.getHurry(), vo.getStatus(), vo.getInfo());
+		GiftReceipt receipt = new GiftReceipt(vo.getId(), vo.getMemberName(),
+				vo.getMemberID(), vo.getUser(), ReceiptType.GIFT,
+				vo.getHurry(), vo.getStatus(), vo.getInfo(), vo.getGiftList());
 		return receipt.add();
 	}
 
@@ -30,7 +30,7 @@ public class GiftController extends Receipt implements GiftBLService {
 
 		GiftReceipt receipt = new GiftReceipt(vo.getId(), vo.getMemberID(),
 				vo.getMemberName(), vo.getUser(), ReceiptType.GIFT,
-				vo.getHurry(), 2, vo.getInfo());
+				vo.getHurry(), 2, vo.getInfo(), vo.getGiftList());
 		return manage.excute(receipt);
 	}
 
@@ -64,4 +64,8 @@ public class GiftController extends Receipt implements GiftBLService {
 		return manage.getGiftList();
 	}
 
+	public GiftVO findByID(String id) {
+		GiftManage manage = new GiftManage();
+		return manage.findByID(id);
+	}
 }

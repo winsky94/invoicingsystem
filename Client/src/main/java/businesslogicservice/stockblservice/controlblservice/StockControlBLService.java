@@ -10,12 +10,12 @@ public interface StockControlBLService {
 
 	public int addStockError(StockErrorVO vo);
 
-	//显示库存报溢单
+	// 显示库存报溢单
 	public ArrayList<StockOverOrLowVO> showStockOverReceipt();
-	
-	//显示库存报损溢单
+
+	// 显示库存报损溢单
 	public ArrayList<StockOverOrLowVO> showStockLowReceipt();
-	
+
 	// 商品报溢收入
 	public double getGoodsOverIncome();
 

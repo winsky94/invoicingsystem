@@ -12,13 +12,17 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import vo.GiftVO;
 import Presentation.mainui.MainFrame;
 import Presentation.uihelper.DateChooser;
+import businesslogic.stockbl.gift.GiftController;
 import businesslogic.stockbl.gift.GiftModel;
+import businesslogicservice.stockblservice.giftblservice.GiftBLService;
 
 public class GiftPanel extends JPanel implements ActionListener {
 	/**
@@ -99,12 +103,21 @@ public class GiftPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == giftBtn) {
 			father.setRightComponent(new CreateGiftPanel(father));
+
 			gm = new GiftModel();
 			giftTbl = new JTable(gm);
 		}
 		if (e.getSource() == detailBtn) {
-			father.setRightComponent(new GiftDetailPanel(father));
+			int rownum = giftTbl.getSelectedRow();
+			if (rownum == -1) {
+				JOptionPane.showMessageDialog(null, "           请选择一个赠送单",
+						null, JOptionPane.WARNING_MESSAGE);
+			} else {
+				String id = (String) giftTbl.getValueAt(rownum, 0);
+				GiftBLService controller = new GiftController();
+				GiftVO vo = controller.findByID(id);
+				father.setRightComponent(new GiftDetailPanel(father, vo));
+			}
 		}
-
 	}
 }

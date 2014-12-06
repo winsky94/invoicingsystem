@@ -9,8 +9,8 @@ public class StockControlBLService_driver {
 		StockOverOrLowVO stockOverOrLowVO = new StockOverOrLowVO(null, null,
 				null, 0, 0, null, null, null, 0, 0);
 
-		StockErrorVO stockErrorVO = new StockErrorVO("飞利浦日光灯", "SR01",
-				"小赵,000001", ReceiptType.STOCKERROR, "", "00002");
+		StockErrorVO stockErrorVO = new StockErrorVO("", "", 0, 0,
+				ReceiptType.STOCKERROR, "", "", "");
 		stockControlBLService.addStockOverOrLow(stockOverOrLowVO);
 		stockControlBLService.addStockError(stockErrorVO);
 		stockControlBLService.getGoodsOverIncome();
