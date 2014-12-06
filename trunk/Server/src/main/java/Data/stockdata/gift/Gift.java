@@ -2,7 +2,9 @@ package Data.stockdata.gift;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import po.GiftPO;
 import Data.serutility.JXCFile;
@@ -65,33 +67,51 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 		list = getGiftList();
 
 		for (GiftPO po : list) {
-			if ((beginDate.compareTo(po.getDate()) <= 0)
-					&& (endDate.compareTo(po.getDate()) >= 0)) {
+			System.out.println(beginDate);
+			System.out.println(po.getDate());
+			System.out.println(beginDate.compareTo(po.getDate()));
+			if ((beginDate.compareTo(po.getDate().replace("/", "")) <= 0)
+					&& (endDate.compareTo(po.getDate().replace("/", "")) >= 0)) {
 				result.add(po);
 			}
 		}
-
+		System.out.println("Gift.getGiftList():num:" + result.size());
 		return result;
 	}
 
 	public String getMaxID() throws RemoteException {
 		// TODO 自动生成的方法存根
 		ArrayList<GiftPO> list = getGiftList();
+
 		String result = "";
 		if (list.size() != 0) {
-			String id = "";
-			id = list.get(list.size() - 1).getId();
-			String tempID[] = id.split("-");
-			result = tempID[2];
+			String todaty = getDate();
+			boolean hasExist = false;
 			for (int i = 0; i < list.size(); i++) {
 				String tpID = list.get(i).getId();
 				String temID[] = tpID.split("-");
-				if (result.compareTo(temID[2]) < 0) {
-					result = temID[2];
+				if (todaty.equals(temID[1])) {
+					hasExist = true;
+					break;
 				}
-
 			}
-			return result;
+			if (hasExist) {
+				String id = "";
+				id = list.get(list.size() - 1).getId();
+				String tempID[] = id.split("-");
+				result = tempID[2];
+				for (int i = 0; i < list.size(); i++) {
+					String tpID = list.get(i).getId();
+					String temID[] = tpID.split("-");
+					if (result.compareTo(temID[2]) < 0) {
+						result = temID[2];
+					}
+
+				}
+				return result;
+			} else {
+				return null;
+			}
 		} else {
 			return null;
 		}
@@ -109,5 +129,13 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 			}
 		}
 		return po;
+	}
+
+	private String getDate() {
+		Calendar rightNow = Calendar.getInstance();
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+		String sysDatetime = fmt.format(rightNow.getTime());
+
+		return sysDatetime;
 	}
 }

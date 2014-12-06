@@ -2,7 +2,9 @@ package Data.stockdata.stockManage;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import po.StockErrorPO;
 import po.StockOverOrLowPO;
@@ -100,4 +102,48 @@ public class StockControl extends UnicastRemoteObject implements
 		return record;
 	}
 
+	public String getMaxID() throws RemoteException {
+		String result = "";
+		ArrayList<StockOverOrLowPO> list = getStockOverOrLowPO();
+		if (list.size() == 0) {
+			return null;
+		} else {
+			String todaty = getDate();
+			boolean hasExist = false;
+			for (int i = 0; i < list.size(); i++) {
+				String tpID = list.get(i).getId();
+				String temID[] = tpID.split("-");
+				if (todaty.equals(temID[1])) {
+					hasExist = true;
+					break;
+				}
+			}
+			if (hasExist) {
+				String id = "";
+				id = list.get(list.size() - 1).getId();
+				String tempID[] = id.split("-");
+				result = tempID[2];
+				for (int i = 0; i < list.size(); i++) {
+					String tpID = list.get(i).getId();
+					String temID[] = tpID.split("-");
+					if (result.compareTo(temID[2]) < 0) {
+						result = temID[2];
+					}
+
+				}
+				return result;
+			} else {
+				return null;
+			}
+		}
+
+	}
+
+	private String getDate() {
+		Calendar rightNow = Calendar.getInstance();
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+		String sysDatetime = fmt.format(rightNow.getTime());
+
+		return sysDatetime;
+	}
 }

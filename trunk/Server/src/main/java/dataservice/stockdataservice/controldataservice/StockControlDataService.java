@@ -23,4 +23,6 @@ public interface StockControlDataService extends Remote {
 
 	// 获得库存调价收入
 	public ArrayList<String> getPrimeCostIncome() throws RemoteException;
+
+	public String getMaxID() throws RemoteException;
 }
