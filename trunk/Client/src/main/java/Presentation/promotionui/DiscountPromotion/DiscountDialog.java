@@ -1,4 +1,4 @@
-package Presentation.promotionui.addpromotion;
+package Presentation.promotionui.DiscountPromotion;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -170,10 +170,8 @@ public class DiscountDialog extends JDialog{
 				dialogWidth * 8 / 100, dialogHeight * 5 / 100);
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DiscountDialog.this.father.addContent(rightTblMessage);
-				DiscountDialog.this.father.repaint();
-				DiscountDialog.this.father.revalidate();
-				DiscountDialog.this.dispose();
+				DiscountDialog.this.father.RefreshCTable(rightTblMessage);
+			
 			}
 		});
 		pnl.add(submitBtn);

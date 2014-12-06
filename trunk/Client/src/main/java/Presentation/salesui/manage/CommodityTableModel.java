@@ -2,6 +2,7 @@ package Presentation.salesui.manage;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 public class CommodityTableModel extends AbstractTableModel{
@@ -40,8 +41,29 @@ private static final long serialVersionUID = 1L;
 		return head[col];
 	}
 	 public void setValueAt(Object value, int row, int column){  
-        cmContent.get(row).set(column,(String)value ); 
-        fireTableCellUpdated(row, column);
+		 double v=0;
+		 if(column==6){
+			 cmContent.get(row).set(column,(String)value ); 
+				fireTableCellUpdated(row, column);
+		 }
+		 else{
+		 if(((String)value).equals(""))
+			 JOptionPane.showMessageDialog(null, "请输入合法数值!");
+		 else{
+			 try{
+			  v=Double.parseDouble((String)value);
+			  if(v<=0)
+					 JOptionPane.showMessageDialog(null, "请输入合法数值!"); 
+			 else{
+					 cmContent.get(row).set(column,(String)value ); 
+					fireTableCellUpdated(row, column);}
+					
+			 }
+			 catch(Exception e){
+				 JOptionPane.showMessageDialog(null, "请输入数字!");
+			 }
+			}}
+			
 }  
 	
 	

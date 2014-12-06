@@ -49,7 +49,7 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 	 */
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
-	JLabel IDLbl, userLbl, totalLbl,title;
+	JLabel IDLbl, userLbl, totalLbl,title,JHSLbl;
 	JTextField stockFld, remarkFld;
 	JButton submitBtn, exitBtn, addGoodsBtn, delGoodsBtn;
 	JScrollPane jsp;
@@ -61,7 +61,7 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 	String[] idtxt;//客户id
 	PurchaseBLService service;
 	purchaseSubmitListener psl;
-	String id;
+	String id;JPanel  btnPnl,p1;
 	ArrayList<Double> last_bid=new ArrayList<Double>();
 	public PurchasePane(MainFrame frame) throws Exception {
 		service=new SalesController();
@@ -101,7 +101,7 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		this.add(midPnl);
 		//--------------------------
 		midPnl.setLayout(new GridLayout(3, 1));
-		JPanel p1=new JPanel();
+		 p1=new JPanel();
 		p1.setBackground(Color.white);
 		midPnl.add(p1);
 		JPanel p2=new JPanel();
@@ -117,7 +117,7 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		p1.add(IDLbl);
 		p1.add(new JLabel("     "));
 		//------供应商---------------
-		JLabel JHSLbl=new JLabel("进货商：");
+		JHSLbl=new JLabel("进货商：");
 		JHSLbl.setFont(font);
 		p1.add(JHSLbl);
 		MemberBLService mem=new Member();
@@ -178,7 +178,7 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		
 		
 		// -------buttons-----------------
-		JPanel btnPnl = new JPanel();
+		 btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 9;
@@ -248,14 +248,20 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 				if(j==3){
 					 num=Integer.parseInt((String) table.getValueAt(i, j));
 					 price=Double.parseDouble(cmContent.get(i).get(j+1));
+					 totalMoney-=Double.parseDouble((String) table.getValueAt(i, j+2));
+					 table.setValueAt(price*num+"", i, j+2);
+					
 				}else if(j==4){
 					price=Double.parseDouble(cmContent.get(i).get(j));
 					num=Integer.parseInt((String)table.getValueAt(i, j-1));
+					totalMoney-=Double.parseDouble((String) table.getValueAt(i, j+1));
+					 table.setValueAt(price*num+"", i, j+1);
 				}
-				totalMoney-=Double.parseDouble((String) table.getValueAt(i, j+2));
-				totalMoney+=price*num;
+				
+				 totalMoney+=price*num;
 				totalLbl.setText("总计:"+totalMoney+"元");
-				table.setValueAt(price*num+"", i, j+2);
+				
+				
 				table.revalidate();
 				
 				

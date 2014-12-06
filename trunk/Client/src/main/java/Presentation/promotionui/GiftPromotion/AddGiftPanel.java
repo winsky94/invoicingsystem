@@ -1,4 +1,4 @@
-package Presentation.promotionui.addpromotion;
+package Presentation.promotionui.GiftPromotion;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -22,7 +22,6 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
 import Presentation.mainui.ChooseGoodsFatherPane;
-import Presentation.promotionui.addpromotion.AddBarginPanel.AddBarginModel;
 import Presentation.stockui.ChooseGoodsDialog;
 import Presentation.uihelper.DateChooser;
 

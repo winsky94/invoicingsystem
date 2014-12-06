@@ -46,9 +46,8 @@ public  class promotion implements PromotionBLService{
 	
 	//发布和添加？
 	public  int Add(PromotionVO vo){return 0;};
-	
 	public  int Modify(PromotionVO vo){return 0;};
-	
+	public PromotionVO findByID(String id){return null;};
 
 	
 	public PromotionVO Match(SaleVO vo){return null;};

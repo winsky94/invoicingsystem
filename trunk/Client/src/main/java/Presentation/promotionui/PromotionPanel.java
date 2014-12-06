@@ -29,10 +29,10 @@ import javax.swing.table.AbstractTableModel;
 import po.PromotionPO.PromotionType;
 import vo.PromotionVO;
 import Presentation.mainui.MainFrame;
-import Presentation.promotionui.addpromotion.AddBarginPanel;
-import Presentation.promotionui.addpromotion.AddCouponPanel;
-import Presentation.promotionui.addpromotion.AddDiscountPanel;
-import Presentation.promotionui.addpromotion.AddGiftPanel;
+import Presentation.promotionui.BarginPromotion.AddBarginPanel;
+import Presentation.promotionui.CouponPromotion.AddCouponPanel;
+import Presentation.promotionui.DiscountPromotion.AddDiscountPanel;
+import Presentation.promotionui.GiftPromotion.AddGiftPanel;
 import Presentation.uihelper.MyDateFormat;
 
 public class PromotionPanel extends JPanel {

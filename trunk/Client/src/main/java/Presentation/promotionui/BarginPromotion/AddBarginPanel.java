@@ -1,4 +1,4 @@
-package Presentation.promotionui.addpromotion;
+package Presentation.promotionui.BarginPromotion;
 
 import java.awt.Color;
 import java.awt.Font;

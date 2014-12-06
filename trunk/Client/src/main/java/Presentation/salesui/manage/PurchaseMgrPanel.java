@@ -28,6 +28,7 @@ import vo.ReceiptVO;
 import Presentation.mainui.MainFrame;
 import Presentation.salesui.manage.purchase.PurchasePane;
 import Presentation.salesui.manage.purchase.PurchaseReturnPane;
+import Presentation.salesui.manage.purchase.ViewPurchasePanel;
 import businesslogic.salesbl.SaleList;
 import businesslogic.userbl.User;
 import businesslogicservice.salesblservice.SaleListBLService;
@@ -166,6 +167,13 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 				}
 			else JOptionPane.showMessageDialog(null, "请选择一条进货单进行退货!","提示",JOptionPane.WARNING_MESSAGE);
 			
+		}else if(e.getSource()==detailBtn){
+			int t=table.getSelectedRow();
+			if(t>=0){
+				String pid=c.get(t).get(0);
+				parent.setRightComponent(new ViewPurchasePanel(parent,pid));
+			}
+			else JOptionPane.showMessageDialog(null, "请选择一条进货单进行查看!","提示",JOptionPane.WARNING_MESSAGE);
 		}
 			
 		} catch (Exception e1) {

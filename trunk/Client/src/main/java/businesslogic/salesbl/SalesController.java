@@ -1,6 +1,5 @@
 package businesslogic.salesbl;
 
-import java.security.Provider.Service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,8 +12,9 @@ import vo.SaleReturnVO;
 import vo.SaleVO;
 import businesslogicservice.salesblservice.PurchaseBLService;
 import businesslogicservice.salesblservice.SalesBLService;
+import businesslogicservice.salesblservice.viewInfoService;
 
-public class SalesController implements SalesBLService,PurchaseBLService{
+public class SalesController implements SalesBLService,PurchaseBLService,viewInfoService{
 	Sale sale;
 	SaleReturn saleReturn;
 	Purchase purchase;
@@ -138,7 +138,7 @@ public class SalesController implements SalesBLService,PurchaseBLService{
 	        String sysDatetime = fmt.format(rightNow.getTime());   
 	return sysDatetime;
 	}
-	public PurchaseVO FindByID(String id) {
+	public PurchaseVO PFindByID(String id) {
 		// TODO Auto-generated method stub
 		return purchase.find(id);
 	}

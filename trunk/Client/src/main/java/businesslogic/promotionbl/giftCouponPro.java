@@ -161,6 +161,11 @@ public class giftCouponPro extends promotion{
 		return "DJQ-"+getdate()+"-"+id;
 	}
 
-
+	public PromotionVO findByID(String id){
+		GiftCouponProPO gpo=(GiftCouponProPO)service.find(id, PromotionType.GIFTCOUPON);
+		if(gpo==null) return null;
+		else return poToVo(gpo);
+		
+	}
 
 }

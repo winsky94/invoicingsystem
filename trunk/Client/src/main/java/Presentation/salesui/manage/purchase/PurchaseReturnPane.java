@@ -41,7 +41,7 @@ public class PurchaseReturnPane extends  ChooseGoodsFatherPane{
 		p=new PurchasePane(parent);
 		this.add(p,BorderLayout.CENTER);
 		p.title.setText("创建进货退货单");
-		pvo=p.service.FindByID(id);
+		pvo=p.service.PFindByID(id);
 		pid=p.service.getNewID(ReceiptType.PURCHASERETURN);
 		p.IDLbl.setText("编号："+pid);
 		p.JHSBox.setSelectedItem(pvo.getMemberName());

@@ -1,5 +1,5 @@
 package businesslogicservice.promotionblservice;
 
-public class PromotionMatchService {
+public interface PromotionMatchService {
 
 }
