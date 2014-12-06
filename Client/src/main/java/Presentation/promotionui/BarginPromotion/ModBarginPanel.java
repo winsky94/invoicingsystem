@@ -1,4 +1,4 @@
-package Presentation.promotionui.modpromotion;
+package Presentation.promotionui.BarginPromotion;
 
 import Presentation.mainui.ChooseGoodsFatherPane;
 

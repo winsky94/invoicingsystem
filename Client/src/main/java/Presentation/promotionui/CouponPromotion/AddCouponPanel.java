@@ -1,4 +1,4 @@
-package Presentation.promotionui.addpromotion;
+package Presentation.promotionui.CouponPromotion;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -41,7 +41,9 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 	double totalValue;
 	JFrame father;
 	DateChooser from, to;
-	JTextField limitFld, priceFld, totalFld;
+	 JTextField limitFld , priceFld;
+	JTextField totalFld;
+
 	JComboBox<String> memberGradeBox;
 	JButton submitBtn, exitBtn;
 	PromotionBLService service;
