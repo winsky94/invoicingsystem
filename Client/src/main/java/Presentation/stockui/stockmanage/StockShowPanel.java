@@ -115,35 +115,9 @@ public class StockShowPanel extends JPanel implements ActionListener {
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
 		btnPnl.add(submitBtn);
-		btnPnl.add(new JLabel());
-		exitBtn = new JButton("取消");
-		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-		exitBtn.setFocusPainted(false);
-		exitBtn.setBackground(new Color(251, 147, 121));
-		btnPnl.add(exitBtn);
 	}
 
-	public static void main(String[] args) {
-
-		JFrame testFrame = new JFrame();
-
-		testFrame.setSize(800, 400);
-		int windowWidth = testFrame.getWidth();
-		int windowHeight = testFrame.getHeight();
-		Toolkit kit = Toolkit.getDefaultToolkit();
-		Dimension screenSize = kit.getScreenSize();
-		int screenWidth = screenSize.width;
-		int screenHeight = screenSize.height;
-		testFrame.setLocation(screenWidth / 2 - windowWidth / 2, screenHeight
-				/ 2 - windowHeight / 2);
-
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		StockShowPanel gp = new StockShowPanel();
-		gp.setBounds(0, 0, 920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
-	}
+	
 
 	class StockShowTableModel extends AbstractTableModel {
 
