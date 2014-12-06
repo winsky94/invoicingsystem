@@ -48,11 +48,12 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 		ArrayList<Object> list = new ArrayList<Object>();
 		list = file.read();
 		ArrayList<GiftPO> result = new ArrayList<GiftPO>();
-		for (int i = 0; i < result.size(); i++) {
-			GiftPO po = (GiftPO) list.get(i);
-			result.add(po);
+		if (list != null) {
+			for (int i = 0; i < list.size(); i++) {
+				GiftPO po = (GiftPO) list.get(i);
+				result.add(po);
+			}
 		}
-		System.out.println("Gift.getGiftList():size:" + result.size());
 		return result;
 	}
 
@@ -78,11 +79,15 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 		ArrayList<GiftPO> list = getGiftList();
 		String result = "";
 		if (list.size() != 0) {
-			result = list.get(0).getId();
-
+			String id = "";
+			id = list.get(list.size() - 1).getId();
+			String tempID[] = id.split("-");
+			result = tempID[2];
 			for (int i = 0; i < list.size(); i++) {
-				if (result.compareTo(list.get(i).getId()) < 0) {
-					result = list.get(i).getId();
+				String tpID = list.get(i).getId();
+				String temID[] = tpID.split("-");
+				if (result.compareTo(temID[2]) < 0) {
+					result = temID[2];
 				}
 
 			}
@@ -92,4 +97,17 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 		}
 	}
 
+	public GiftPO findByID(String id) throws RemoteException {
+		GiftPO po = null;
+		ArrayList<GiftPO> list = getGiftList();
+		if (list != null) {
+			for (GiftPO p : list) {
+				if (p.getId().equals(id)) {
+					po = p;
+					break;
+				}
+			}
+		}
+		return po;
+	}
 }
