@@ -397,7 +397,13 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 //			System.out.println(po.getStartDate()+po.getTotalValue());
 //		}
 		System.out.println("---------------------------------------");
-		System.out.println(p.Add(new GiftCouponProPO("DJQ-20141205-001","b","c",MemberLevel.ONE,new ArrayList<CouponPO>(),100)));
+		ArrayList<CouponPO> pp=new ArrayList<CouponPO>();
+		CouponPO ppp=new CouponPO("1111",100,false);
+		pp.add(ppp);
+		System.out.println(p.Add(new GiftCouponProPO("DJQ-20141205-001","b","c",MemberLevel.ONE,pp,100)));
+		System.out.println(p.Add(new GiftCouponProPO("DJQ-20141206-002","b","c",MemberLevel.ONE,pp,100)));
+		int result=p.Delete("DJQ-20141206-002",PromotionType.GIFTCOUPON);
+		System.out.println(result);
 		t=p.getGiftCouponPro();
 		for(GiftCouponProPO po:t){
 			System.out.println(po.getStartDate()+po.getTotalValue());
