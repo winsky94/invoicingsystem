@@ -35,6 +35,7 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 	MainFrame parent;
 	FinanceAccountBLService service;
 	String name;
+	String money;
 	
 	JPanel titlePnl;
 	JLabel title;
@@ -153,11 +154,12 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 
 		public void actionPerformed(ActionEvent arg0) {
 			name=nameFld.getText();
-			if (name == null || name.equals("")) {
-				JOptionPane.showMessageDialog(null, "请输入账户名称！", "提示",
+			money=moneyFld.getText();
+			if (name.equals("")||money.equals("")) {
+				JOptionPane.showMessageDialog(null, "请输入完整信息！", "提示",
 						JOptionPane.CLOSED_OPTION);
 			} else {
-				AccountVO vo = new AccountVO(nameFld.getText(),0);
+				AccountVO vo = new AccountVO(name,Double.parseDouble(money));
 				int result = service.addAccount(vo);
 				// 改
 				if (result == 0) {
