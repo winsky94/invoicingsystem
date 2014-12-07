@@ -14,4 +14,9 @@ public class CashlistBLService_stub implements CashlistBLService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public String getNewID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -20,6 +20,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import businesslogic.userbl.User;
+import businesslogic.utilitybl.getStatus;
 import businesslogicservice.userblservice.UserBLService;
 import vo.CashlistVO;
 import vo.CollectionVO;
@@ -241,7 +242,7 @@ public class CollectionPanel extends JPanel implements ActionListener {
 		for (CollectionVO VO : vo) {
 			ArrayList<String> lineInfo = new ArrayList<String>();
 			lineInfo.add(VO.getId());
-			lineInfo.add(String.valueOf(VO.getStatus()));
+			lineInfo.add(getStatus.getstatus(VO.getStatus()));
 			lineInfo.add(VO.getDate());
 			lineInfo.add(VO.getSupplier());
 			lineInfo.add(VO.getSeller());
@@ -256,7 +257,8 @@ public class CollectionPanel extends JPanel implements ActionListener {
 		for (PaymentVO VO : vo) {
 			ArrayList<String> lineInfo = new ArrayList<String>();
 			lineInfo.add(VO.getId());
-			lineInfo.add(String.valueOf(VO.getStatus()));
+			new getStatus();
+			lineInfo.add(getStatus.getstatus(VO.getStatus()));
 			lineInfo.add(VO.getDate());
 			lineInfo.add(VO.getSupplier());
 			lineInfo.add(VO.getSeller());
@@ -271,7 +273,7 @@ public class CollectionPanel extends JPanel implements ActionListener {
 		for (CashlistVO VO : vo) {
 			ArrayList<String> lineInfo = new ArrayList<String>();
 			lineInfo.add(VO.getId());
-			lineInfo.add(String.valueOf(VO.getStatus()));
+			lineInfo.add(getStatus.getstatus(VO.getStatus()));
 			lineInfo.add(VO.getDate());
 			UserBLService user=new User();
 			lineInfo.add(user.showUser(VO.getUser()).getName());
