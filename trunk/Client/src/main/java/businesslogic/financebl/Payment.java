@@ -31,27 +31,28 @@ public class Payment extends Receipt implements PaymentBLService{
  		service=(PaymentDataService)Naming.lookup(url);
      }
          
-	public String getNewID() {
-   	    String id=null;
+	public String getNewID(){
+
+   	  String id=null;
 		ArrayList<PaymentPO> po;
 		try {
 			po = service.getPayment();
-			if(po==null) id="00001";
-			else{
-				int i=po.size();
-				Double d=Double.parseDouble(po.get(i-1).getId().substring(13))+1;
-				 NumberFormat nf = NumberFormat.getInstance();
-			     nf.setMinimumIntegerDigits(5); 
-			     nf.setGroupingUsed(false);
-			     id=nf.format(d);
-				
-			}
+		if(po==null) id="00001";
+		else{
+			int i=po.size();
+			String date=po.get(i-1).getId().substring(4, 12);
+			if(!date.equals(getDate.getdate())){
+			Double d=Double.parseDouble(po.get(i-1).getId().substring(13))+1;
+			 NumberFormat nf = NumberFormat.getInstance();
+		     nf.setMinimumIntegerDigits(5); 
+		     nf.setGroupingUsed(false);
+		     id=nf.format(d);}
+			else id="00001";}
+		
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		return "FKD-"+getDate.getdate()+"-"+id;
 	}
 

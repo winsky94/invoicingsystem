@@ -4,7 +4,6 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -69,11 +68,14 @@ public class Collection extends Receipt implements CollectionBLService{
  		if(po==null) id="00001";
  		else{
  			int i=po.size();
+ 			String date=po.get(i-1).getId().substring(4, 12);
+			if(!date.equals(getDate.getdate())){
  			Double d=Double.parseDouble(po.get(i-1).getId().substring(13))+1;
  			 NumberFormat nf = NumberFormat.getInstance();
  		     nf.setMinimumIntegerDigits(5); 
  		     nf.setGroupingUsed(false);
- 		     id=nf.format(d);
+ 		     id=nf.format(d);}
+			else id="00001";
  			
  		}
  		return "SKD-"+getDate.getdate()+"-"+id;

@@ -15,11 +15,14 @@ public class CashList extends Receipt{
 			if(po==null) id="00001";
 			else{
 				int i=po.size();
+				String date=po.get(i-1).getId().substring(6, 14);
+				if(!date.equals(getDate.getdate())){
 				Double d=Double.parseDouble(po.get(i-1).getId().substring(15))+1;
 				 NumberFormat nf = NumberFormat.getInstance();
 			     nf.setMinimumIntegerDigits(5); 
 			     nf.setGroupingUsed(false);
-			     id=nf.format(d);
+			     id=nf.format(d);}
+				else id="00001";
 				
 			}
 			return "XJFYD-"+getDate.getdate()+"-"+id;

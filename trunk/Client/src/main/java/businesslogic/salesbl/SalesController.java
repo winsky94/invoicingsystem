@@ -10,6 +10,7 @@ import vo.PurchaseReturnVO;
 import vo.PurchaseVO;
 import vo.SaleReturnVO;
 import vo.SaleVO;
+import businesslogic.utilitybl.getDate;
 import businesslogicservice.salesblservice.PurchaseBLService;
 import businesslogicservice.salesblservice.SalesBLService;
 import businesslogicservice.salesblservice.viewInfoService;
@@ -43,7 +44,7 @@ public class SalesController implements SalesBLService,PurchaseBLService,viewInf
 			
 				
 			}
-			String date=getdate()+"-";
+			String date=getDate.getdate()+"-";
 			return id+date+d;
 		
 	}
@@ -131,13 +132,7 @@ public class SalesController implements SalesBLService,PurchaseBLService,viewInf
 	}
 	
 	
-	public static String getdate() {
-	
-		 Calendar rightNow = Calendar.getInstance();
-	        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
-	        String sysDatetime = fmt.format(rightNow.getTime());   
-	return sysDatetime;
-	}
+
 	public PurchaseVO PFindByID(String id) {
 		// TODO Auto-generated method stub
 		return purchase.find(id);
