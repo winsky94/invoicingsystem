@@ -80,12 +80,7 @@ public  class promotion implements PromotionBLService{
 	
 	
 
-	public static String getdate() {
-		 Calendar rightNow = Calendar.getInstance();
-	        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
-	        String sysDatetime = fmt.format(rightNow.getTime());   
-	return sysDatetime;
-	}
+	
 	public String getNewID() {
 		// TODO Auto-generated method stub
 		return null;

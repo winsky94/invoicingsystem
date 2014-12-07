@@ -9,6 +9,11 @@ import java.util.ArrayList;
 
 
 
+
+
+import javax.swing.JTabbedPane;
+
+import businesslogic.utilitybl.getDate;
 import po.CouponPO;
 import po.GiftCouponProPO;
 import po.PromotionPO;
@@ -52,7 +57,7 @@ public class giftCouponPro extends promotion{
 		 NumberFormat nf = NumberFormat.getInstance();
 	     nf.setMinimumIntegerDigits(5); 
 	     nf.setGroupingUsed(false);
-	     String date=getdate();
+	     String date=getDate.getdate();
 		String[] result=new String[n];
 		ArrayList<PromotionPO> po=service.show(PromotionType.GIFTCOUPON);
 		if(po==null){
@@ -150,14 +155,16 @@ public class giftCouponPro extends promotion{
 		if(gpp==null) id="001";
 		else{
 			int i=gpp.size();
+			String date=gpp.get(i-1).getID().substring(4, 12);
+			if(!date.equals(getDate.getdate())){
 			Double d=Double.parseDouble(gpp.get(i-1).getID().substring(13))+1;
 			 NumberFormat nf = NumberFormat.getInstance();
 		     nf.setMinimumIntegerDigits(3); 
 		     nf.setGroupingUsed(false);
-		     id=nf.format(d);
+		     id=nf.format(d);}
+			else id="001";
 		}
-		
-		return "DJQ-"+getdate()+"-"+id;
+		return "DJQ-"+getDate.getdate()+"-"+id;
 	}
 
 	public PromotionVO findByID(String id){

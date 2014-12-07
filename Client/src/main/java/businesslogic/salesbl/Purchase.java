@@ -12,6 +12,7 @@ import vo.CommodityVO;
 import vo.PurchaseVO;
 import vo.ReceiptVO;
 import businesslogic.receiptbl.Receipt;
+import businesslogic.utilitybl.getDate;
 import dataservice.salesdataservice.SalesDataService;
 
 
@@ -107,11 +108,14 @@ public class Purchase extends Receipt {
 		if(po==null) id="00001";
 		else{
 			int i=po.size();
+			String date=po.get(i-1).getId().substring(4, 12);
+			if(!date.equals(getDate.getdate())){
 			Double d=Double.parseDouble(po.get(i-1).getId().substring(13))+1;
 			 NumberFormat nf = NumberFormat.getInstance();
 		     nf.setMinimumIntegerDigits(5); 
 		     nf.setGroupingUsed(false);
-		     id=nf.format(d);
+		     id=nf.format(d);}
+			else id="00001";
 			
 		}
 		return id;
