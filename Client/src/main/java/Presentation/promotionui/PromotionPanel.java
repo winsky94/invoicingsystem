@@ -108,7 +108,12 @@ public class PromotionPanel extends JPanel {
 				});
 				gift.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						father.setRightComponent(new AddGiftPanel(father));
+						try {
+							father.setRightComponent(new AddGiftPanel(father));
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				});
 				discount.addActionListener(new ActionListener() {
