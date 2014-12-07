@@ -159,7 +159,7 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 			GoodsVO goodsVO = (GoodsVO) VO.get(i);
 			CommodityVO commodityVO = new CommodityVO(goodsVO.getGoodsID(),
 					goodsVO.getName(), goodsVO.getSize(), goodsVO.getPrice(),
-					goodsVO.getLastPurchasePrice(), 0, 0, 0, "");
+					goodsVO.getLastPurchasePrice(), 1, 0, 0, "");
 			commodityList.add(commodityVO);
 		}
 
@@ -190,6 +190,7 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 						JOptionPane.WARNING_MESSAGE);
 				return;
 			}
+			// 赠送数量默认为1
 
 			// 修改赠品数量后，需要重新更新commodityList
 			int rowCount = gcm.getRowCount();
