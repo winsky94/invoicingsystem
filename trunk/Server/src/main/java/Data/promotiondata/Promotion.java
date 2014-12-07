@@ -136,8 +136,6 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 					p.setEndDate(it.getEndDate());
 					p.setLevel(it.getLevel());
 					p.setDiscount(it.getCountList(),it.getGoodsList());
-					p.setDiscountValue(it.getDiscountValue());
-					p.setTotalValue(it.getTotalValue());
 					break;
 				}
 			}
