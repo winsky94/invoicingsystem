@@ -22,7 +22,7 @@ public class PackProPO extends PromotionPO implements Serializable{
 			 PackPO pack)
 	{
 		super(id,startDate,endDate,PromotionType.PACK,l);
-		pack=pack;
+		this.pack=pack;
 		totalValue=pack.getTotalValue();
 		packValue=pack.getPackValue();
 	}
