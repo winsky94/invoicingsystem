@@ -8,22 +8,36 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
+import vo.AccountVO;
+import vo.TransferItemVO;
+import businesslogic.financebl.Account;
+import businesslogic.financebl.CashList;
+import businesslogic.financebl.Collection;
+import businesslogic.financebl.Payment;
+import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
+import businesslogicservice.financeblservice.listblservice.CashlistBLService;
+import businesslogicservice.financeblservice.listblservice.CollectionBLService;
+import businesslogicservice.financeblservice.listblservice.PaymentBLService;
+import Presentation.financeui.CollectionPanel;
 import Presentation.mainui.MainFrame;
 
-public class AddCashReceiptPanel extends JPanel {
+public class AddCashReceiptPanel extends JPanel implements ActionListener{
 
 	/**
 	 * 
@@ -40,6 +54,10 @@ public class AddCashReceiptPanel extends JPanel {
 	JTextField nameFld, moneyFld, remarkFld;
 	MainFrame parent;
 	JCheckBox hurryBox;
+	CashlistBLService service;
+	String ID;
+	String user;
+	String totalMoney;
 	public AddCashReceiptPanel(MainFrame frame) {
 		parent=frame;
 		GridBagLayout gbl = new GridBagLayout();
@@ -102,12 +120,13 @@ public class AddCashReceiptPanel extends JPanel {
 		up.add(hurryBox);
 		up.add(new JLabel("     "));
 		// ------ID----------------
-		IDLbl = new JLabel("ID:嗷嗷嗷嗷");
+		IDLbl = new JLabel("ID: "+ID);
 		IDLbl.setFont(font);
 		up.add(IDLbl);
 		up.add(new JLabel("     "));
 		// ------user---------------
-		userLbl = new JLabel("操作员:嗷嗷嗷");
+		user=parent.getUser().getName();
+		userLbl = new JLabel("操作员: "+user);
 		userLbl.setFont(font);
 		up.add(userLbl);
 		up.add(new JLabel("     "));
@@ -115,14 +134,45 @@ public class AddCashReceiptPanel extends JPanel {
 		JLabel accLbl = new JLabel("账户：");
 		accLbl.setFont(font);
 		up.add(accLbl);
-		String boxText[] = { "亲爱的我没有监听" };
-		accountBox = new JComboBox<String>(boxText);
+		//---------------------------
+		ArrayList<String> st=new ArrayList<String>();
+		FinanceAccountBLService fin=null;
+		try {
+			fin=new Account();
+			
+		} catch (MalformedURLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (RemoteException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (NotBoundException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		ArrayList<AccountVO> account=fin.showAll();
+		if(account==null){
+			String accountText[] = { "当前无账户可选" };
+			accountBox = new JComboBox<String>(accountText);
+			accountBox.setEditable(false);
+		}
+		else{
+			for(AccountVO vo:account){
+			    st.add(vo.getName());
+		    }
+		    String accountText[] =new String[st.size()]; 
+		    for(int i=0;i<st.size();i++){
+		    	accountText[i]=st.get(i);
+		    }
+		    accountBox = new JComboBox<String>(accountText);
+		}
+		//---------------------------
 		accountBox.setFont(font);
 		accountBox.setBackground(Color.white);
 		up.add(accountBox);
 		up.add(new JLabel("     "));
 		// -----总额-------------------
-		totalLbl = new JLabel("总额：嗷嗷嗷嗷");
+		totalLbl = new JLabel("总额: "+totalMoney);
 		totalLbl.setFont(font);
 		up.add(totalLbl);
 		//-------条目清单---------------
@@ -229,6 +279,61 @@ public class AddCashReceiptPanel extends JPanel {
 		public void removeRow(int row) {
 			content.remove(row);
 		}
+	}
+	
+	public void Update() {
+		CollectionPanel mgr = new CollectionPanel(parent);
+		parent.setRightComponent(mgr);
+		try {
+			service=new CashList();
+			CollectionBLService bb=new Collection();
+			PaymentBLService pp=new Payment();
+			if (bb.getCollection()!=null)
+				mgr.RefreshCollectionTable(bb.getCollection());
+			if(service.getCashlist()!= null)
+				mgr.RefreshCashlistTable(service.getCashlist());
+			if(pp.getPayment()!=null)
+			    mgr.RefreshPaymentTable(pp.getPayment());
+				
+			mgr.setSelectedTab(2);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == addBtn) {
+			if (moneyFld.getText().equals("")
+					|| remarkFld.getText().equals(""))
+				JOptionPane.showMessageDialog(null, "请输入信息", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			else {
+				TransferItemVO item;
+			try{
+				item= new TransferItemVO(
+						(String) accountBox.getSelectedItem(), Double
+								.parseDouble(moneyFld.getText()),
+						remarkFld.getText());
+				tra.add(item);
+				ArrayList<String> buffer = new ArrayList<String>();
+				buffer.add((String) accountBox.getSelectedItem());
+				buffer.add(moneyFld.getText());
+				buffer.add(remarkFld.getText());
+				tlm.addRow(buffer);
+				table.revalidate();
+				accountBox.setSelectedIndex(0);
+				totalMoney += Double.parseDouble(moneyFld.getText());
+				totalLbl.setText("总额汇总:" + totalMoney);
+				moneyFld.setText("");
+				remarkFld.setText("");
+			}catch(NumberFormatException e11){
+				JOptionPane.showMessageDialog(null, "转账金额输入有误", "提示",
+						JOptionPane.WARNING_MESSAGE);
+				moneyFld.setText("");
+			}
+		
 	}
 
 }

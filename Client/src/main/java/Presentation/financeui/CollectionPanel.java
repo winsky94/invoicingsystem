@@ -21,6 +21,7 @@ import javax.swing.table.AbstractTableModel;
 
 import businesslogic.userbl.User;
 import businesslogicservice.userblservice.UserBLService;
+import vo.CashlistVO;
 import vo.CollectionVO;
 import vo.PaymentVO;
 import Presentation.financeui.moneyreceipt.AddCashReceiptPanel;
@@ -263,6 +264,20 @@ public class CollectionPanel extends JPanel implements ActionListener {
 			lineInfo.add(user.showUser(VO.getUser()).getName());
 			lineInfo.add(String.valueOf(VO.getTotalMoney()));
 			c2.add(lineInfo);
+		}
+	}
+	
+	public void RefreshCashlistTable(ArrayList<CashlistVO> vo) throws Exception{
+		for (CashlistVO VO : vo) {
+			ArrayList<String> lineInfo = new ArrayList<String>();
+			lineInfo.add(VO.getId());
+			lineInfo.add(String.valueOf(VO.getStatus()));
+			lineInfo.add(VO.getDate());
+			UserBLService user=new User();
+			lineInfo.add(user.showUser(VO.getUser()).getName());
+			lineInfo.add(VO.getAccount());
+			lineInfo.add(String.valueOf(VO.getTotalMoney()));
+			c3.add(lineInfo);
 		}
 	}
 	
