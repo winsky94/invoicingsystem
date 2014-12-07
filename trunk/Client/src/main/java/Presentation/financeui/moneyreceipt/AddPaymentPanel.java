@@ -12,11 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import vo.CollectionVO;
 import vo.PaymentVO;
-import businesslogic.financebl.Collection;
 import businesslogic.financebl.Payment;
-import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 import Presentation.financeui.CollectionPanel;
 import Presentation.mainui.MainFrame;
@@ -118,9 +115,9 @@ public class AddPaymentPanel extends CollectionAndPaymentPanel implements Action
 		CollectionPanel mgr = new CollectionPanel(parent);
 		parent.setRightComponent(mgr);
 		try {
-			service=new Collection();
-			if (service.getCollection()!= null)
-				mgr.RefreshCollectionTable(service.getCollection());
+			service=new Payment();
+			if (service.getPayment()!= null)
+				mgr.RefreshPaymentTable(service.getPayment());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
