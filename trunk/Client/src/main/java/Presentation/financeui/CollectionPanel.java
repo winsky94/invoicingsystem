@@ -265,4 +265,8 @@ public class CollectionPanel extends JPanel implements ActionListener {
 			c2.add(lineInfo);
 		}
 	}
+	
+	public void setSelectedTab(int i){
+		tab.setSelectedIndex(i);
+	}
 }
