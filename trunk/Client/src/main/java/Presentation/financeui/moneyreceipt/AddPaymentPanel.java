@@ -13,8 +13,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import vo.PaymentVO;
+import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
 import businesslogic.financebl.Payment;
+import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 import Presentation.financeui.CollectionPanel;
@@ -119,9 +121,14 @@ public class AddPaymentPanel extends CollectionAndPaymentPanel implements Action
 		try {
 			service=new Payment();
 			CollectionBLService bb=new Collection();
+			CashlistBLService cc=new CashList();
 			if (service.getPayment()!= null)
-				mgr.RefreshCollectionTable(bb.getCollection());
-				mgr.RefreshPaymentTable(service.getPayment());
+			    mgr.RefreshPaymentTable(service.getPayment());
+			if(bb.getCollection()!=null)
+			    mgr.RefreshCollectionTable(bb.getCollection());
+			if(cc.getCashlist()!=null)
+				mgr.RefreshCashlistTable(cc.getCashlist());
+
 				mgr.setSelectedTab(1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
