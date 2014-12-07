@@ -165,7 +165,14 @@ public class LoginFrame extends JFrame{
 					if(v!=null){
 						switch(v.getJob()){
 						case MANAGER:
-							label.setIcon(new ImageIcon("img/Login/head_p.png"));
+							label.setIcon(new ImageIcon("img/Login/head_p.png"));break;
+						case FINANCE:
+							label.setIcon(new ImageIcon("img/Login/head_f.png"));break;
+						case SALE:
+							label.setIcon(new ImageIcon("img/Login/head_s.png"));break;
+						default:
+							label.setIcon(new ImageIcon("img/Login/head_k.png"));
+							
 						}
 							
 						
@@ -185,7 +192,7 @@ public class LoginFrame extends JFrame{
 					passwordField.requestFocus();
 			}
 		});
-	         
+	
 					
 			
 		// 设置密码域
@@ -195,6 +202,12 @@ public class LoginFrame extends JFrame{
 				.setLocation(frameWidth * 26 / 100, frameHeight * 65 / 100);
 	//	passwordField.addKeyListener(new passwordFieldListener());
 		passwordField.setVisible(true);
+		passwordField.addKeyListener(new KeyAdapter(){
+			public void keyReleased(KeyEvent e){
+				if(e.getKeyCode()==KeyEvent.VK_UP)
+					idField.requestFocus();
+			}
+		});     
 	//	passwordField.getDocument().addDocumentListener(new FieldListener());
 		// 设置登录按钮
 		// 设想：改为圆形按钮
