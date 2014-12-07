@@ -6,6 +6,7 @@ import java.rmi.registry.LocateRegistry;
 import javax.swing.JOptionPane;
 
 import Data.financedata.Account;
+import Data.financedata.Cashlist;
 import Data.financedata.Collection;
 import Data.financedata.Payment;
 import Data.memberdata.Member;
@@ -47,6 +48,7 @@ public class runServer {
 			Gift giftService=new Gift();
 			Payment payment=new Payment();
 			Receipt receipt=new Receipt();
+			Cashlist cashlist=new Cashlist();
 			Naming.rebind("promotionService",pro);
 			Naming.rebind("salesService",sale);
 			Naming.rebind("memberService",member);
@@ -59,6 +61,7 @@ public class runServer {
 			Naming.rebind("giftService",giftService);//我加了由此向上的两个绑定——12.04_yan
 			Naming.rebind("paymentService",payment);
 			Naming.rebind("receiptService", receipt);
+			Naming.rebind("cashlistService", cashlist);
 			
 			JOptionPane.showMessageDialog(null, "服务器已运行！","提示",JOptionPane.INFORMATION_MESSAGE);
 			
