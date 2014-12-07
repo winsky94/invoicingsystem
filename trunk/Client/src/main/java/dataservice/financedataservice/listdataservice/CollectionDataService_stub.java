@@ -11,7 +11,7 @@ public class CollectionDataService_stub implements CollectionDataService{
 		return 0;
 	}
 
-	public ArrayList<CollectionPO> getCollection() throws RemoteException {
+	public ArrayList<CollectionPO> getCollection() {
 		// TODO Auto-generated method stub
 		return null;
 	}

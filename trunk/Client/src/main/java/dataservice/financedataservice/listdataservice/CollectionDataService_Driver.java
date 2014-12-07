@@ -4,7 +4,7 @@ import po.CollectionPO;
 
 public class CollectionDataService_Driver {
 	public void drive(CollectionDataService fds){
-	  	  fds.createCollection(new CollectionPO());
+	  	  fds.createCollection(new CollectionPO(null, null, null, null, null, 0, 0, 0));
 	    }
 		
 	    public static void main(String[] args){

@@ -2,38 +2,28 @@ package vo;
 
 import java.util.ArrayList;
 
+import po.ReceiptPO.ReceiptType;
+
 public class CashlistVO extends ReceiptVO{
-	 String ID;
-     String user;
+
      String account;
-     ArrayList<ClauseItem> clauselist=new ArrayList<ClauseItem>();
+     ArrayList<ClauseItemVO> clauselist=new ArrayList<ClauseItemVO>();
      double totalMoney;
-     
-     public CashlistVO(){
-    	 this(null,null,null,null,0);
+ 
+     public CashlistVO(String id,String user,String iaccount,ArrayList<ClauseItemVO> cla,double money,int status,int hurry){
+    	 super(id,ReceiptType.CASHLIST,user,status,hurry);
+    	 account=iaccount;
+    	 clauselist=cla;
+    	 totalMoney=money;
      }
      
-     public CashlistVO(String a,String b,String c,ArrayList<ClauseItem> d,double e){
-    	 ID=a;
-    	 user=b;
-    	 account=c;
-    	 clauselist=d;
-    	 totalMoney=e;
-     }
-     
-     public String getID(){
-    	 return ID;
-     }
-     
-     public String getUser(){
-    	 return user;
-     }
+
      
      public String getAccount(){
     	 return account;
      }
      
-     public ArrayList<ClauseItem> getClauselist(){
+     public ArrayList<ClauseItemVO> getClauselist(){
     	 return clauselist;
      }
      
@@ -41,10 +31,5 @@ public class CashlistVO extends ReceiptVO{
     	 return totalMoney;
      }
      
-     
-     class ClauseItem{
-    	 String name;
-    	 double money;
-    	 String info;
-     }
+
 }

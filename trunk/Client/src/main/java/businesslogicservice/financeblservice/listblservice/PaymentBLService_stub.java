@@ -14,4 +14,9 @@ public class PaymentBLService_stub implements PaymentBLService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public String getNewID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

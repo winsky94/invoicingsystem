@@ -13,8 +13,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import vo.CollectionVO;
+import vo.PaymentVO;
 import businesslogic.financebl.Collection;
+import businesslogic.financebl.Payment;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
+import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 import Presentation.financeui.CollectionPanel;
 import Presentation.mainui.MainFrame;
 
@@ -25,13 +28,13 @@ public class AddPaymentPanel extends CollectionAndPaymentPanel implements Action
 	 * 加了监听
 	 */
 	private static final long serialVersionUID = 1L;
-    CollectionBLService service;
+    PaymentBLService service;
 	
 	public AddPaymentPanel(MainFrame frame) {
 		super(frame);
 		
 		try {
-			service=new Collection();
+			service=new Payment();
 			ID=service.getNewID();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -42,7 +45,7 @@ public class AddPaymentPanel extends CollectionAndPaymentPanel implements Action
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("创建收款单");
+		JLabel title = new JLabel("创建付款单");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
@@ -84,16 +87,16 @@ public class AddPaymentPanel extends CollectionAndPaymentPanel implements Action
 			int isHurry=0;
 			if(hurryBox.isSelected())
 				isHurry=1;
-			CollectionVO vo=new CollectionVO(ID,(String)supplierBox.getSelectedItem(),(String)sellerBox.getSelectedItem(),parent.getUser().getID(),tra,totalMoney,0,isHurry);
+			PaymentVO vo=new PaymentVO(ID,(String)supplierBox.getSelectedItem(),(String)sellerBox.getSelectedItem(),parent.getUser().getID(),tra,totalMoney,0,isHurry);
 
 			try {
-				service = new Collection();
-				int result=service.createCollection(vo);
+				service = new Payment();
+				int result=service.createPayment(vo);
 				if (result == 0) {
-					JOptionPane.showMessageDialog(null, "创建收款单成功！", "提示",
+					JOptionPane.showMessageDialog(null, "创建付款单成功！", "提示",
 							JOptionPane.CLOSED_OPTION);
 				} else {
-					JOptionPane.showMessageDialog(null, "创建收款单失败！", "提示",
+					JOptionPane.showMessageDialog(null, "创建付款单失败！", "提示",
 							JOptionPane.WARNING_MESSAGE);
 				}
 				Update();
