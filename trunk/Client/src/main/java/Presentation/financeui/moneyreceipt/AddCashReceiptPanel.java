@@ -25,6 +25,9 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
 import vo.AccountVO;
+import vo.CashlistVO;
+import vo.ClauseItemVO;
+import vo.PaymentVO;
 import vo.TransferItemVO;
 import businesslogic.financebl.Account;
 import businesslogic.financebl.CashList;
@@ -57,7 +60,8 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 	CashlistBLService service;
 	String ID;
 	String user;
-	String totalMoney;
+	double totalMoney;
+	ArrayList<ClauseItemVO> tra=new ArrayList<ClauseItemVO>();
 	public AddCashReceiptPanel(MainFrame frame) {
 		parent=frame;
 		GridBagLayout gbl = new GridBagLayout();
@@ -263,7 +267,7 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 			return head.length;
 		}
 
-		public Object getValueAt(int row, int col) {
+		public String getValueAt(int row, int col) {
 			return content.get(row).get(col);
 		}
 
@@ -305,35 +309,76 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == addBtn) {
-			if (moneyFld.getText().equals("")
-					|| remarkFld.getText().equals(""))
+			if (nameFld.getText().equals("")||moneyFld.getText().equals("")||remarkFld.getText().equals(""))
 				JOptionPane.showMessageDialog(null, "请输入信息", "提示",
 						JOptionPane.WARNING_MESSAGE);
 			else {
-				TransferItemVO item;
+				ClauseItemVO item;
 			try{
-				item= new TransferItemVO(
-						(String) accountBox.getSelectedItem(), Double
-								.parseDouble(moneyFld.getText()),
-						remarkFld.getText());
+				item= new ClauseItemVO(nameFld.getText(), Double.parseDouble(moneyFld.getText()),remarkFld.getText());
 				tra.add(item);
 				ArrayList<String> buffer = new ArrayList<String>();
-				buffer.add((String) accountBox.getSelectedItem());
+				buffer.add(nameFld.getText());
 				buffer.add(moneyFld.getText());
 				buffer.add(remarkFld.getText());
-				tlm.addRow(buffer);
+				crm.addRow(buffer);
 				table.revalidate();
-				accountBox.setSelectedIndex(0);
 				totalMoney += Double.parseDouble(moneyFld.getText());
-				totalLbl.setText("总额汇总:" + totalMoney);
+				totalLbl.setText("总额:" + totalMoney);
 				moneyFld.setText("");
 				remarkFld.setText("");
 			}catch(NumberFormatException e11){
-				JOptionPane.showMessageDialog(null, "转账金额输入有误", "提示",
-						JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "转账金额输入有误", "提示",JOptionPane.WARNING_MESSAGE);
 				moneyFld.setText("");
 			}
 		
-	}
+	       }
+		}
+		else if (e.getSource() == delBtn) {
+			int seleted = table.getSelectedRow();
+			if (seleted < 0) {
+				JOptionPane.showMessageDialog(null, "请选择一行", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			} else {
+				crm.removeRow(seleted);
+				table.revalidate();
+				ClauseItemVO item = new ClauseItemVO(crm.getValueAt(seleted, 0), Double.parseDouble(crm.getValueAt(seleted, 1)), crm.getValueAt(seleted, 2));
+				tra.remove(item);
+				totalMoney -= Double.parseDouble(crm.getValueAt(seleted, 1));
+				totalLbl.setText("总额:" + totalMoney);
+			}
+		}
+		else if(e.getSource()==submitBtn){
+			if(tra.size()==0){
+				JOptionPane.showMessageDialog(null, "请输入条目清单", "提示",JOptionPane.WARNING_MESSAGE);
+			}
+			else{
+			int isHurry=0;
+			if(hurryBox.isSelected())
+				isHurry=1;
+			CashlistVO vo=new CashlistVO(ID,parent.getUser().getID(),(String)accountBox.getSelectedItem(),tra,totalMoney,0,isHurry);
 
+			try {
+				service = new CashList();
+				int result=service.createCashlist(vo);
+				if (result == 0) {
+					JOptionPane.showMessageDialog(null, "创建现金费用单成功！", "提示",
+							JOptionPane.CLOSED_OPTION);
+				} else {
+					JOptionPane.showMessageDialog(null, "创建现金费用单失败！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+				}
+				Update();
+				
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			}
+		}
+		else if(e.getSource()==exitBtn){
+			Update();
+			
+		}
+	}
 }
