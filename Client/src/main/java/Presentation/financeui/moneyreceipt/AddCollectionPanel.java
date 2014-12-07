@@ -13,9 +13,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import businesslogic.financebl.Collection;
+import businesslogic.financebl.Payment;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
+import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 import vo.CollectionVO;
-
 import Presentation.financeui.CollectionPanel;
 import Presentation.mainui.MainFrame;
 
@@ -116,7 +117,9 @@ public class AddCollectionPanel extends CollectionAndPaymentPanel implements Act
 		parent.setRightComponent(mgr);
 		try {
 			service=new Collection();
+			PaymentBLService pp=new Payment();
 			if (service.getCollection()!= null)
+				mgr.RefreshPaymentTable(pp.getPayment());
 				mgr.RefreshCollectionTable(service.getCollection());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
