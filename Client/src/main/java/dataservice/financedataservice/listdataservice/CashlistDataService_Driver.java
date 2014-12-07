@@ -5,7 +5,7 @@ import po.CashlistPO;
 
 public class CashlistDataService_Driver {
 	public void drive(CashlistDataService fds){
-	  	  fds.createCashlist(new CashlistPO());
+	  	  fds.createCashlist(new CashlistPO(null, null, null, null, 0, 0, 0));
 	    }
 		
 	    public static void main(String[] args){

@@ -4,7 +4,7 @@ import vo.PaymentVO;
 
 public class PaymentBLService_Driver {
 	public void drive(PaymentBLService fbs){
-	     fbs.createPayment(new PaymentVO());
+	     fbs.createPayment(new PaymentVO(null, null, null, null, null, 0, 0, 0));
 	    }
 		
 	    public static void main(String args[]){
