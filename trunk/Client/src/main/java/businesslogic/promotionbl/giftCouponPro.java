@@ -156,7 +156,7 @@ public class giftCouponPro extends promotion{
 		else{
 			int i=gpp.size();
 			String date=gpp.get(i-1).getID().substring(4, 12);
-			if(!date.equals(getDate.getdate())){
+			if(date.equals(getDate.getdate())){
 			Double d=Double.parseDouble(gpp.get(i-1).getID().substring(13))+1;
 			 NumberFormat nf = NumberFormat.getInstance();
 		     nf.setMinimumIntegerDigits(3); 
