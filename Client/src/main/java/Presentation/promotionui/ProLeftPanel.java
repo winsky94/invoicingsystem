@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import businesslogic.promotionbl.promotionController;
 import businesslogicservice.promotionblservice.PromotionBLService;
 import vo.UserVO;
 import Presentation.mainui.JLeftButton;
@@ -32,7 +33,7 @@ public class ProLeftPanel extends JPanel implements ActionListener{
 		parent=frame;
 		//setSize(frame.getWidth()*225/1000,frame.getHeight());
 		//去掉
-		service=new businesslogic.promotionbl.promotion();
+		service=new promotionController();
 		UserVO user=parent.getUser();
 		color=parent.getTheme()[0];
 		GridBagLayout grid=new GridBagLayout();

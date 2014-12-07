@@ -210,7 +210,7 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 					for(int i=0;i<row.length;i++)
 						{totalMoney-=Double.parseDouble(cmContent.get(row[i]).get(5));
 						totalLbl.setText("总计："+totalMoney+"元");
-						cmContent.remove(row[i]);last_bid.remove(i);
+						cmContent.remove(row[i]);last_bid.remove(row[i]);
 					//	parent.setRightComponent(PurchasePane.this);
 						table.revalidate();
 						}

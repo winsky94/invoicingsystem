@@ -21,6 +21,7 @@ import Presentation.receiptui.ReceiptMgrPanel;
 import Presentation.receiptui.ReportMgrPanel;
 import Presentation.uihelper.AboutPanel;
 import businesslogic.promotionbl.promotion;
+import businesslogic.promotionbl.promotionController;
 public class ProLeftShortPanel extends JPanel implements ActionListener{
 	JLabel head;
 	JLeftButton receipt,promotion,view,backBtn,aboutBtn;
@@ -29,7 +30,7 @@ public class ProLeftShortPanel extends JPanel implements ActionListener{
 	MainFrame parent;
 	PromotionBLService service;
 	public ProLeftShortPanel(MainFrame frame) throws Exception{
-		service=new promotion();
+		service=new promotionController();
 		parent=frame;
 		UserVO user=parent.getUser();
 		color=parent.getTheme()[0];

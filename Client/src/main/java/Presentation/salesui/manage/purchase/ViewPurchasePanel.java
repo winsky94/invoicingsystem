@@ -43,7 +43,8 @@ public class ViewPurchasePanel extends JPanel{
 		p.btnPnl.remove(p.addGoodsBtn);
 		p.btnPnl.remove(p.delGoodsBtn);
 		p.btnPnl.remove(p.submitBtn);
-		p.exitBtn.setText("返回");;
+		p.exitBtn.setText("返回");
+		p.table.setEnabled(false);
 		this.setLayout(new BorderLayout());
 		this.add(p,BorderLayout.CENTER);
 		this.repaint();

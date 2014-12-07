@@ -90,9 +90,15 @@ public class PromotionPanel extends JPanel {
 				menu.add(coupon);
 				menu.add(gift);
 				menu.add(discount);
+				
 				bargin.addActionListener(new ActionListener() {
+					
 					public void actionPerformed(ActionEvent e) {
-						father.setRightComponent(new AddBarginPanel(father));
+						try {
+							father.setRightComponent(new AddBarginPanel(father));
+						}catch(Exception err){
+							err.printStackTrace();
+						}
 					}
 				});
 				coupon.addActionListener(new ActionListener() {
@@ -107,11 +113,19 @@ public class PromotionPanel extends JPanel {
 				});
 				discount.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						father.setRightComponent(new AddDiscountPanel(father));
+							try {
+								father.setRightComponent(new AddDiscountPanel(father));
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 					}
 				});
+				
 				menu.show(father, e.getX(), e.getY());
+			
 				// .addBtn.getX()+110,PromotionPanel.this.addBtn.getY()+110
+				
 			}
 		});
 		top.add(addBtn);

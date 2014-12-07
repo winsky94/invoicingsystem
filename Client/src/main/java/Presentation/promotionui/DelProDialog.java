@@ -56,19 +56,13 @@ public class DelProDialog extends JDialog{
 			public void actionPerformed(ActionEvent e){
 				try {
 				DelProDialog.this.dispose();
-				PromotionBLService service;
+				PromotionBLService service=new promotionController();
 				for(int i=0;i<id.length;i++){
-					if(type[i]==PromotionType.GIFTCOUPON)
-						service=new giftCouponPro();
-					else if(type[i]==PromotionType.GIFTGOODS)
-						service=new giftGoodPro();
-					else if(type[i]==PromotionType.DISCOUNT)
-						service=new discountPro();
-					else service=new packPro();
-						service.Delete(id[i]);}
+					
+						service.Delete(id[i],type[i]);}
 				
-				JOptionPane.showMessageDialog(null, "删除成功！");
-				service=new promotion();
+				
+			
 				PromotionPanel pp=new PromotionPanel(father);
 				father.setRightComponent(pp);
 				if(service.Show()!=null)
@@ -77,6 +71,7 @@ public class DelProDialog extends JDialog{
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+				JOptionPane.showMessageDialog(null, "删除成功！");
 				
 			}
 		});

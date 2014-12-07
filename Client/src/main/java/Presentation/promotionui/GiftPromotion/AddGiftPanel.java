@@ -38,6 +38,7 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 	JScrollPane jsp;
 	JTable table;
 	AddGiftModel btm;
+
 	JComboBox<String> memberGradeBox;
 	JButton submitBtn,exitBtn,addGoodsBtn,delGoodsBtn;
 	public AddGiftPanel(JFrame myFather){

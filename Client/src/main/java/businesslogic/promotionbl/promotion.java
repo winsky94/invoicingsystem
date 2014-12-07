@@ -32,7 +32,7 @@ import vo.GiftVO;
 import vo.PromotionVO;
 import vo.SaleVO;
 //release 去掉？？？当前促销是否还有效？
-public  class promotion implements PromotionBLService{
+public  class promotion {
 	
 	PromotionDataService service;
 	public promotion() throws Exception{

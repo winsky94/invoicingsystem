@@ -1,11 +1,13 @@
 package businesslogic.promotionbl;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import po.CommodityPO;
 import po.DiscountProPO;
 import po.GoodsPO;
+import po.PromotionPO;
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
 import po.PromotionPO.PromotionType;
@@ -18,6 +20,7 @@ import vo.SaleVO;
 import businesslogic.salesbl.Commodity;
 import businesslogic.stockbl.goods.Goods;
 import businesslogic.stockbl.goods.GoodsController;
+import businesslogic.utilitybl.getDate;
 
 public  class discountPro extends promotion{
 	
@@ -32,11 +35,6 @@ public  class discountPro extends promotion{
 
 
 	
-	public int add(DiscountProVO vo){
-		
-		return 0;
-	}
-	
 
 	public int Modify(DiscountProVO vo){
 		return 0;
@@ -50,7 +48,8 @@ public  class discountPro extends promotion{
 	@Override
 	public int Add(PromotionVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		DiscountProVO v=(DiscountProVO)vo;
+		return service.Add(voToPo(v));
 	}
 
 	@Override
@@ -73,8 +72,8 @@ public  class discountPro extends promotion{
 		ArrayList<CommodityPO> cplist=com.voTPo(cvlist);
 		
 		DiscountProPO po=new DiscountProPO(vo.getId(),vo.getStartDate(),vo.getEndDate(),
-				vo.getMemberlevel(),vo.getCountList(),cplist,vo.getTotalValue(),
-				vo.getDiscountValue());
+				vo.getMemberlevel(),vo.getCountList(),cplist
+				);
 		return po;
 	}
 	
@@ -84,32 +83,38 @@ public  class discountPro extends promotion{
 		ArrayList<CommodityVO> cvlist=com.poTVo(cplist);
 		
 		DiscountProVO vo=new DiscountProVO(po.getID(),po.getStartDate(),po.getEndDate(),
-				po.getLevel(),po.getCountList(),cvlist,po.getTotalValue(),
-				po.getDiscountValue());
+				po.getLevel(),po.getCountList(),cvlist
+				);
 		return vo;
 	}
 
 
 
-	@Override
-	public String getNewID(PromotionType type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 
-	@Override
-	public PromotionVO Match(SaleVO vo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+	
 
 
 
 	public String getNewID() {
 		// TODO Auto-generated method stub
-		return null;
+		String id=null;
+		ArrayList<PromotionPO> gpp=service.show(PromotionType.DISCOUNT);
+		if(gpp==null) id="001";
+		else{
+			int i=gpp.size();
+			String date=gpp.get(i-1).getID().substring(3, 11);
+			if(date.equals(getDate.getdate())){
+			Double d=Double.parseDouble(gpp.get(i-1).getID().substring(12))+1;
+			 NumberFormat nf = NumberFormat.getInstance();
+		     nf.setMinimumIntegerDigits(3); 
+		     nf.setGroupingUsed(false);
+		     id=nf.format(d);}
+			else id="001";
+		}
+		return "ZQ-"+getDate.getdate()+"-"+id;
 	}
 	
 	//String id,String startDate,String endDate,MemberLevel l,

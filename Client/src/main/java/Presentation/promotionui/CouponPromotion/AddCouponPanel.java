@@ -21,10 +21,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import po.MemberPO.MemberLevel;
+import po.PromotionPO.PromotionType;
 import vo.CouponVO;
 import vo.GiftCouponProVO;
 import businesslogic.promotionbl.giftCouponPro;
 import businesslogic.promotionbl.promotion;
+import businesslogic.promotionbl.promotionController;
 import businesslogicservice.promotionblservice.PromotionBLService;
 import Presentation.mainui.MainFrame;
 import Presentation.promotionui.PromotionPanel;
@@ -203,12 +205,12 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 				startDate=from.getDate();
 				endDate=to.getDate();
 				level= MemberLevel.valueOf((String) memberGradeBox.getSelectedItem());
-				service=new giftCouponPro();
+				service=new promotionController();
 				totalValue=Double.parseDouble(limitFld.getText());
 				double value=Double.parseDouble(priceFld.getText());
 				for(int i=0;i<Integer.parseInt(totalFld.getText());i++)
 					couponlist.add(new CouponVO("",value,false));
-				id=service.getNewID();
+				id=service.getNewID(PromotionType.GIFTCOUPON);
 				GiftCouponProVO vo=new GiftCouponProVO(id,startDate,endDate,level,
 						couponlist,totalValue);
 				if(service.Add(vo)==0)
@@ -230,7 +232,7 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 	public void update() throws Exception{
 		PromotionPanel proPanel=new PromotionPanel((MainFrame)father);
 		((MainFrame)father).setRightComponent(proPanel);
-		service=new promotion();
+		service=new promotionController();
 		if(service.Show()!=null)
 			proPanel.RefreshProTable(service.Show());
 	}

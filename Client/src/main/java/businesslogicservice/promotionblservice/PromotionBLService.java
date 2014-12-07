@@ -8,8 +8,8 @@ import vo.PromotionVO;
 import vo.SaleVO;
 
 public interface PromotionBLService {
-		public String getNewID(); 
-		public int Delete(String id);
+		public String getNewID(PromotionType type); 
+		public int Delete(String id,PromotionType type);
 		public int Add(PromotionVO vo);
 		public int Modify(PromotionVO vo);
 		public PromotionVO Match(SaleVO vo);
