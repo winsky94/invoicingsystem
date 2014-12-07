@@ -49,7 +49,7 @@ public class JXCFile {
 	}
 
 	public void write(ArrayList<Object> ls) {
-	
+
 		try {
 			boolean isexist = false;
 			File file = new File(name);
@@ -116,7 +116,7 @@ public class JXCFile {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	} 
+	}
 
 	public void write(Object o) {
 		try {
@@ -140,7 +140,7 @@ public class JXCFile {
 			e.printStackTrace();
 		}
 	}
-/*
+
 	// 向文件中写入一个对象，覆盖原来的所有内容
 	public void writeM(Object a) {
 		File ff = new File(name);
@@ -167,5 +167,4 @@ public class JXCFile {
 			e.printStackTrace();
 		}
 	}
-*/
 }
