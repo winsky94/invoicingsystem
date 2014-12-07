@@ -68,6 +68,7 @@ public class User implements UserBLService{
 	
 			UserPO po;
 			po = service.showUserInfo(UserID);
+			if(po==null) return null;
 			 vo=poToVO(po);
 			
 	

@@ -1,11 +1,16 @@
 package Presentation.mainui;
 
 import java.awt.Cursor;
+import java.awt.Event;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -19,12 +24,20 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+
+
+
+
+
+
+
+
 import vo.UserVO;
 import Presentation.uihelper.UIhelper;
 import businesslogic.userbl.User;
 import businesslogicservice.userblservice.UserBLService;
 //改进 工号 /姓名 均可登陆
-public class LoginFrame extends JFrame {
+public class LoginFrame extends JFrame{
 
 	/**
 	 * 
@@ -34,7 +47,7 @@ public class LoginFrame extends JFrame {
 	String id, key;
 	JTextField idField;
 	JPasswordField passwordField;
-   
+   JLabel label;
 	int screenHeight, screenWidth, frameHeight, frameWidth;
     int xOld,yOld;
 	public LoginFrame() throws Exception {
@@ -124,6 +137,18 @@ public class LoginFrame extends JFrame {
 		// 设置mainPanel的大小和位置：同frame一样大小，覆盖整个frame
 		mainPanel.setSize(frameWidth, frameHeight);
 		mainPanel.setLocation(0, 0);
+		
+		//==============头像==================
+		ImageIcon icon=new ImageIcon("img/Login/tou.png");
+		icon.setImage(icon.getImage().getScaledInstance(180,180,Image.SCALE_DEFAULT));
+		label=new JLabel();
+		label.setLocation(55, 50);
+		label.setIcon(icon);
+		
+	
+		
+		
+		label.setSize(icon.getIconWidth(),icon.getIconHeight());
 		// ------------在mainPanel上添加组件------------------------------------------------
 		// 设置用户名文本域
 		idField = new JTextField();
@@ -131,6 +156,38 @@ public class LoginFrame extends JFrame {
 		idField.setLocation(frameWidth * 26 / 100, frameHeight * 55 / 100);
 	//	idField.getDocument().addDocumentListener(new FieldListener());
 		idField.setVisible(true);
+	
+		idField.addFocusListener(new FocusAdapter(){
+			public void focusLost(FocusEvent e){
+				try {
+					UserBLService service=new User();
+					UserVO v=service.showUser(idField.getText());
+					if(v!=null){
+						switch(v.getJob()){
+						case MANAGER:
+							label.setIcon(new ImageIcon("img/Login/head_p.png"));
+						}
+							
+						
+					}else{
+						label.setIcon(new ImageIcon("img/Login/tou.png"));
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		idField.addKeyListener(new KeyAdapter(){
+			public void keyReleased(KeyEvent e){
+				if(e.getKeyCode()==KeyEvent.VK_DOWN)
+					passwordField.requestFocus();
+			}
+		});
+	         
+					
+			
 		// 设置密码域
 		passwordField = new JPasswordField();
 		passwordField.setSize(frameWidth * 64 / 100, frameHeight / 16);
@@ -173,16 +230,7 @@ public class LoginFrame extends JFrame {
 		
 		//pane.add(image);
 		//mainPanel.add(pane);
-		ImageIcon icon=new ImageIcon("img/Login/tou.png");
-		icon.setImage(icon.getImage().getScaledInstance(180,180,Image.SCALE_DEFAULT));
-		JLabel label=new JLabel();
-		label.setLocation(55, 50);
-		label.setIcon(icon);
-		
 	
-		
-		
-		label.setSize(icon.getIconWidth(),icon.getIconHeight());
 		
 		
 		mainPanel.add(label);
@@ -200,7 +248,7 @@ public class LoginFrame extends JFrame {
 		this.setResizable(false);// 不允许调整窗口大小
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 关闭时结束进程
 		this.setVisible(true);// 窗口可见
-		
+		this.getRootPane().setDefaultButton(loginButton);;
 		//处理拖动事件
 		  this.addMouseListener(new MouseAdapter() {  
 	            public void mousePressed(MouseEvent e) {  
@@ -270,5 +318,11 @@ public class LoginFrame extends JFrame {
 			 JOptionPane.showMessageDialog(null,"您的网络未连接！","提示",JOptionPane.WARNING_MESSAGE);
 		}}
 	}
+
+
+
+
+
+	
 
 }
