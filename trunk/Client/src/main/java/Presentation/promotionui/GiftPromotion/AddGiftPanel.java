@@ -15,13 +15,27 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 
+import po.MemberPO.MemberLevel;
+import po.PromotionPO.PromotionType;
+import businesslogic.promotionbl.promotionController;
+import businesslogicservice.promotionblservice.PromotionBLService;
+import vo.CommodityVO;
+import vo.GiftGoodsProVO;
+import vo.GoodsVO;
+import vo.PackProVO;
+import vo.PackVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
+import Presentation.mainui.MainFrame;
+import Presentation.promotionui.PromotionPanel;
 import Presentation.stockui.ChooseGoodsDialog;
 import Presentation.uihelper.DateChooser;
 
@@ -32,17 +46,20 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 	 */
 	private static final long serialVersionUID = 1L;
 	Font font=new Font("微软雅黑", Font.BOLD, 15);
-	JFrame father;
 	JTextField limitFld;
 	DateChooser from,to;
 	JScrollPane jsp;
 	JTable table;
 	AddGiftModel btm;
-
+	double totalMoney;
 	JComboBox<String> memberGradeBox;
+	ArrayList<Double> last_bid=new ArrayList<Double>();
 	JButton submitBtn,exitBtn,addGoodsBtn,delGoodsBtn;
-	public AddGiftPanel(JFrame myFather){
-		father=myFather;
+	PromotionBLService service;
+	submitListener slisten;
+	public AddGiftPanel(JFrame myFather) throws Exception{
+		parent=(MainFrame)myFather;
+		service=new promotionController();
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(10,45,10,45);
@@ -91,6 +108,32 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 		bc.weighty=10;
 		bl.setConstraints(jsp, bc);
 		mPnl.add(jsp);
+		
+		table.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+		btm.addTableModelListener(new TableModelListener(){
+			public void tableChanged(TableModelEvent e) {
+				// TODO Auto-generated method stub
+				int i=e.getLastRow();
+				int j=e.getColumn();
+				if(j==4&&i!=cmContent.size()-1){
+				int num=Integer.parseInt((String) table.getValueAt(i, j));
+				double p=Double.parseDouble((String) table.getValueAt(i, j-1));
+				double t=Double.parseDouble((String) table.getValueAt(i, j+1));
+				int n=((int)(t/p));
+				table.setValueAt(num*p+"", i, j+1);
+				int index=cmContent.size()-1;
+				int total=Integer.parseInt(cmContent.get(index).get(4));
+				double money=Double.parseDouble(cmContent.get(index).get(5));
+				table.setValueAt(total-n+num+"", index, 4);
+				table.setValueAt(money-t+num*p+"", index, 5);
+				
+				}
+				
+				
+				
+			}
+			
+		});
 		//---------增加商品和删除商品按钮---------
 		JPanel gPnl=new JPanel();
 		gPnl.setLayout(new GridLayout(1,2));
@@ -110,7 +153,21 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 		delGoodsBtn.setFocusPainted(false);
 		delGoodsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//监听！！！！！！！！
+				int[] row=table.getSelectedRows();
+				if(row.length>0){
+					for(int i=0;i<row.length;i++)
+						{
+						cmContent.remove(row[i]);last_bid.remove(row[i]);
+					//	parent.setRightComponent(PurchasePane.this);
+						
+						table.revalidate();
+						}
+					cmContent.remove(cmContent.size()-1);
+					addTotal();
+					
+				}
+				else 
+					JOptionPane.showMessageDialog(null, "请选择要删除的商品","提示",JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		gPnl.add(delGoodsBtn);
@@ -182,6 +239,8 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
+		slisten=new submitListener();
+		submitBtn.addActionListener(slisten);
 		btnPnl.add(submitBtn);
 		btnPnl.add(new JLabel("           "));
 		exitBtn = new JButton("取消");
@@ -189,6 +248,16 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(251, 147, 121));
 		btnPnl.add(exitBtn);
+		exitBtn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				try {
+					update();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		rightPnl.add(btnPnl);
 	}
 	class AddGiftModel extends AbstractTableModel{
@@ -196,7 +265,7 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		String head[]={"商品编号","商品名","型号","默认单价","数量"};
+		String head[]={"商品编号","商品名","型号","单价","数量","总计"};
 		public int getRowCount() {
 			return cmContent.size();
 		}
@@ -204,7 +273,30 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 		public int getColumnCount() {
 			return head.length;
 		}
+		
+		public boolean isCellEditable(int row,int col){
+			if(col==4&&row!=cmContent.size()-1)
+				return true;
+			else return false;
+		}
 
+		public void setValueAt(Object value,int row,int col){
+			try{ 
+				
+				double n=Double.parseDouble((String) value);
+			
+			 if(n<=0)
+				 JOptionPane.showMessageDialog(null, "请输入合法数值");
+			 else
+			 { cmContent.get(row).set(col,(String)value);
+				fireTableCellUpdated(row, col);
+			 }
+			}catch(Exception e){
+				JOptionPane.showMessageDialog(null, "请输入数量");
+			}
+				 
+		
+		}
 		public Object getValueAt(int row, int col) {
 			return cmContent.get(row).get(col);
 		}
@@ -218,13 +310,108 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 			cmContent.remove(row);
 		}
 	}
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 920, 600);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AddGiftPanel gp = new AddGiftPanel(testFrame);
-		gp.setBounds(0, 0, 920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
+	
+	//商品编号","商品名","型号","默认单价","数量",总计}
+	public void RefreshCTable(ArrayList<Object> vo){
+		if(cmContent.size()!=0)
+			cmContent.remove(cmContent.size()-1);
+		for(int i=0;i<vo.size();i++){
+			GoodsVO gvo=(GoodsVO)vo.get(i);
+			ArrayList<String> line=new ArrayList<String>();
+			int exist=find(gvo.getGoodsID());
+			if(exist<0){
+				line.add(gvo.getGoodsID());
+				line.add(gvo.getName());
+				line.add(gvo.getSize());
+				line.add(gvo.getPrice()+"");
+				line.add("1");
+				line.add(gvo.getPrice()+"");
+				last_bid.add(gvo.getLastPurchasePrice());
+				cmContent.add(line);
+			}else{
+				int num=Integer.parseInt(cmContent.get(exist).get(4))+1;
+				double p=Double.parseDouble(cmContent.get(exist).get(5));
+				cmContent.get(exist).set(4, num+"");
+				cmContent.get(exist).set(5,num*gvo.getPrice()+"");
+			}
+			
+			
+		}
+		
+	addTotal();
+		
+	}
+	private int find(String id){
+		 for(int i=0;i<cmContent.size();i++){
+			 if(id.equals(cmContent.get(i).get(0)))
+					 return i;
+		 }
+		 return -1;
+	}
+	
+	
+	
+	public void update() throws Exception{
+		PromotionPanel proPanel=new PromotionPanel((MainFrame)parent);
+		((MainFrame)parent).setRightComponent(proPanel);
+		service=new promotionController();
+		if(service.Show()!=null)
+			proPanel.RefreshProTable(service.Show());
+	}
+	
+	class submitListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			ArrayList<CommodityVO> cmlist=new ArrayList<CommodityVO>();
+			for(int j=0;j<table.getRowCount()-1;j++){
+				ArrayList<String> line=cmContent.get(j);
+				double cost=Double.parseDouble(line.get(4))*last_bid.get(j);
+				CommodityVO cv=new CommodityVO(line.get(0),line.get(1),
+						line.get(2),Double.parseDouble(line.get(3)),last_bid.get(j),
+						Integer.parseInt(line.get(4)),
+						Double.parseDouble(line.get(5)),cost,"");
+				cmlist.add(cv);
+			}
+			String startDate=from.getDate();
+			String endDate=to.getDate();
+			MemberLevel level= MemberLevel.valueOf((String) memberGradeBox.getSelectedItem());
+			String id=service.getNewID(PromotionType.GIFTGOODS);
+			GiftGoodsProVO vo=new GiftGoodsProVO(id,startDate,endDate,level,cmlist,Double.parseDouble(limitFld.getText()));
+			if(service.Add(vo)==0)
+				{JOptionPane.showMessageDialog(null, "策略添加成功","提示",JOptionPane.WARNING_MESSAGE);
+			try {
+				update();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}}
+			else
+				JOptionPane.showMessageDialog(null, "添加失败","提示",JOptionPane.WARNING_MESSAGE);
+			
+		}
+	}
+	
+	//商品编号","商品名","型号","默认单价","数量",总计}
+	public void addTotal(){
+	//	int size=cmContent.size();
+		int total=0;
+		double money=0;
+		ArrayList<String> line=new ArrayList<String>();
+	//	cmContent.remove(size-1);
+		if(cmContent.size()!=0){
+		for(int i=0;i<cmContent.size();i++){
+			line=cmContent.get(i);
+			total+=Integer.parseInt(line.get(4));
+			money+=Double.parseDouble(line.get(5));
+			
+		}
+		ArrayList<String>  tail=new ArrayList<String>();
+		tail.add("赠品总值");
+		tail.add("");tail.add("");tail.add("");
+		tail.add(""+total);tail.add(""+money);
+		cmContent.add(tail);
+		table.validate();
+		}
+		
 	}
 }
