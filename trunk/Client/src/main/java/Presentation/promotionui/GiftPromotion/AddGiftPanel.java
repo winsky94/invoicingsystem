@@ -85,7 +85,7 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 		bc.gridx=0;
 		bc.gridy=0;
 		bc.gridheight=5;
-		bc.gridwidth=2;
+		bc.gridwidth=3;
 		bc.weightx=10;
 		bc.weighty=10;
 		bl.setConstraints(jsp, bc);
@@ -125,11 +125,11 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 		//--------right-----------------------
 		JPanel rightPnl=new JPanel();
 		rightPnl.setBackground(Color.white);
-		bc.gridx=2;
+		bc.gridx=3;
 		bc.gridy=0;
 		bc.gridheight=8;
 		bc.gridwidth=2;
-		bc.weightx=30;
+		bc.weightx=6;
 		bc.weighty=30;
 		bl.setConstraints(rightPnl,bc);
 		mPnl.add(rightPnl);
@@ -195,7 +195,7 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		String head[]={"商品编号","商品名","型号","默认单价"};
+		String head[]={"商品编号","商品名","型号","默认单价","数量"};
 		public int getRowCount() {
 			return cmContent.size();
 		}
