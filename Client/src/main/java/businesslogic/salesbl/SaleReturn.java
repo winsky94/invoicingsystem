@@ -52,7 +52,7 @@ public class SaleReturn extends Receipt {
 		else{
 			int i=po.size();
 			String date=po.get(i-1).getId().substring(6, 14);
-			if(!date.equals(getDate.getdate())){
+			if(date.equals(getDate.getdate())){
 			Double d=Double.parseDouble(po.get(i-1).getId().substring(15))+1;
 			 NumberFormat nf = NumberFormat.getInstance();
 		     nf.setMinimumIntegerDigits(5); 

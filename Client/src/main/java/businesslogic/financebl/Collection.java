@@ -69,7 +69,7 @@ public class Collection extends Receipt implements CollectionBLService{
  		else{
  			int i=po.size();
  			String date=po.get(i-1).getId().substring(4, 12);
-			if(!date.equals(getDate.getdate())){
+			if(date.equals(getDate.getdate())){
  			Double d=Double.parseDouble(po.get(i-1).getId().substring(13))+1;
  			 NumberFormat nf = NumberFormat.getInstance();
  		     nf.setMinimumIntegerDigits(5); 
