@@ -133,23 +133,32 @@ public class GoodsClass {
 					upClassName);
 			if (service.showGoodsClassInfo(name) == null) {
 				result = service.modifyGoodsClass(newPO);
-				
+
+				// 把该分类的下级分类也要修改了
+				ArrayList<GoodsClassPO> classList = service.show();
+				if (classList != null) {
+					for (GoodsClassPO po : classList) {
+						if (po.getUpClass().equals(oldVO.getName())) {
+							po.setUpClass(oldVO.getName());
+							service.modifyGoodsClass(po);
+						}
+					}
+				}
+
+				// 把该分类下的商品分类也要修改了
 				StockGoodsBLService controller = new GoodsController();
 				ArrayList<GoodsVO> list = new ArrayList<GoodsVO>();
 				list = controller.showGoods();
-				for(int i=0;i<list.size();i++){
-					GoodsVO vo=list.get(i);
-					if(vo.getGoodsClass().equals(oldVO.getName())){
+				for (int i = 0; i < list.size(); i++) {
+					GoodsVO vo = list.get(i);
+					if (vo.getGoodsClass().equals(oldVO.getName())) {
 						vo.setGoodsClass(name);
 						controller.modifyGoods(vo);
 					}
 				}
+			} else {
+				result = 6;
 			}
-			else{
-				result=6;
-			}
-
-			
 
 		} catch (RemoteException e) {
 			// TODO 自动生成的 catch 块
