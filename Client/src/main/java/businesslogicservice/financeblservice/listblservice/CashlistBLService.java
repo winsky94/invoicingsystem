@@ -7,4 +7,5 @@ import vo.CashlistVO;
 public interface CashlistBLService {
 	public int createCashlist(CashlistVO vo);
 	public ArrayList<CashlistVO> getCashlist();
+	public String getNewID();
 }

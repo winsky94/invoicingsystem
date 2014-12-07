@@ -243,15 +243,17 @@ public class CollectionAndPaymentPanel extends JPanel {
 						JOptionPane.showMessageDialog(null, "请选择一行", "提示",
 								JOptionPane.WARNING_MESSAGE);
 					} else {
-						tlm.removeRow(seleted);
-						table.revalidate();
 						TransferItemVO item = new TransferItemVO(tlm
 								.getValueAt(seleted, 0), Double.parseDouble(tlm
 								.getValueAt(seleted, 1)), tlm.getValueAt(
 								seleted, 2));
+						
+						
 						tra.remove(item);
 						totalMoney -= Double.parseDouble(tlm.getValueAt(
 								seleted, 1));
+						tlm.removeRow(seleted);
+						table.revalidate();
 						totalLbl.setText("总额汇总:" + totalMoney);
 					}
 				}

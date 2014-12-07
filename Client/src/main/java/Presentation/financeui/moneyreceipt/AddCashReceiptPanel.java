@@ -27,8 +27,6 @@ import javax.swing.table.AbstractTableModel;
 import vo.AccountVO;
 import vo.CashlistVO;
 import vo.ClauseItemVO;
-import vo.PaymentVO;
-import vo.TransferItemVO;
 import businesslogic.financebl.Account;
 import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
@@ -124,6 +122,13 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 		up.add(hurryBox);
 		up.add(new JLabel("     "));
 		// ------ID----------------
+		try {
+			service=new CashList();
+			ID=service.getNewID();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		IDLbl = new JLabel("ID: "+ID);
 		IDLbl.setFont(font);
 		up.add(IDLbl);
@@ -223,31 +228,25 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 		addBtn.setFont(font);
 		addBtn.setBackground(Color.white);
 		addBtn.setFocusPainted(false);
-		addBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// 监听！！！！！！！
-			}
-		});
+		addBtn.addActionListener(this);
 		btnPnl.add(addBtn);
 		delBtn = new JButton("删除选中");
 		delBtn.setFont(font);
 		delBtn.setBackground(Color.white);
 		delBtn.setFocusPainted(false);
-		delBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// 监听！！！！！！！
-			}
-		});
+		delBtn.addActionListener(this);
 		btnPnl.add(delBtn);
 		submitBtn = new JButton("确定");
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
+		submitBtn.addActionListener(this);
 		btnPnl.add(submitBtn);
 		exitBtn = new JButton("取消");
 		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(251, 147, 121));
+		exitBtn.addActionListener(this);
 		btnPnl.add(exitBtn);
 	}
 
@@ -325,6 +324,7 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 				table.revalidate();
 				totalMoney += Double.parseDouble(moneyFld.getText());
 				totalLbl.setText("总额:" + totalMoney);
+				nameFld.setText("");
 				moneyFld.setText("");
 				remarkFld.setText("");
 			}catch(NumberFormatException e11){
@@ -340,11 +340,13 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(null, "请选择一行", "提示",
 						JOptionPane.WARNING_MESSAGE);
 			} else {
-				crm.removeRow(seleted);
-				table.revalidate();
 				ClauseItemVO item = new ClauseItemVO(crm.getValueAt(seleted, 0), Double.parseDouble(crm.getValueAt(seleted, 1)), crm.getValueAt(seleted, 2));
+				
+				
 				tra.remove(item);
 				totalMoney -= Double.parseDouble(crm.getValueAt(seleted, 1));
+				crm.removeRow(seleted);
+				table.revalidate();
 				totalLbl.setText("总额:" + totalMoney);
 			}
 		}
