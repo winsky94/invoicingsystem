@@ -156,7 +156,7 @@ public class ChooseGoodsDialog extends JDialog {
 				ctm.removeRow(chosenTbl.getSelectedRow());
 				chosenTbl.revalidate();}
 				else 
-					JOptionPane.showMessageDialog(null, "请选择商品！","提示",JOptionPane.WARNING_MESSAGE);;
+					JOptionPane.showMessageDialog(null, "请选择商品！","提示",JOptionPane.WARNING_MESSAGE);
 				
 			
 			}

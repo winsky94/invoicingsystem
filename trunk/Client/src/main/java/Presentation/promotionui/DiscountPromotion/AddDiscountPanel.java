@@ -15,12 +15,26 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 
+import po.MemberPO.MemberLevel;
+import po.PromotionPO.PromotionType;
+import vo.CommodityVO;
+import vo.DiscountProVO;
+import vo.GoodsVO;
+import vo.PackProVO;
+import vo.PackVO;
+import businesslogic.promotionbl.promotionController;
+import businesslogicservice.promotionblservice.PromotionBLService;
 import Presentation.mainui.ChooseGoodsFatherPane;
+import Presentation.mainui.MainFrame;
+import Presentation.promotionui.PromotionPanel;
 import Presentation.uihelper.DateChooser;
 
 public class AddDiscountPanel extends ChooseGoodsFatherPane {
@@ -29,16 +43,19 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 	 */
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
-	JFrame father;
 	JComboBox<String> memberGradeBox;
 	DateChooser from, to;
 	JButton submitBtn, exitBtn, addGoodsBtn, delGoodsBtn;
 	JScrollPane jsp;
 	JTable table;
 	AddDiscountModel btm;
-
-	public AddDiscountPanel(JFrame myFather) {
-		father = myFather;
+	ArrayList<Double> discount=new ArrayList<Double>();
+	ArrayList<Double> last_bid=new ArrayList<Double>();
+	PromotionBLService service;
+	submitListener slisten;
+	public AddDiscountPanel(JFrame myFather) throws Exception {
+		parent = (MainFrame)myFather;
+		service=new promotionController();
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 45, 5, 45);
@@ -107,6 +124,25 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 		c.weighty=10;
 		gbl.setConstraints(jsp, c);
 		this.add(jsp);
+		table.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+		btm.addTableModelListener(new TableModelListener(){
+			public void tableChanged(TableModelEvent e) {
+				// TODO Auto-generated method stub
+				int i=e.getLastRow();
+				int j=e.getColumn();
+				if(j==4){
+				
+				double d=Double.parseDouble((String) table.getValueAt(i, j-1));
+			
+				double p=Double.parseDouble((String) table.getValueAt(i, j));
+				
+				table.setValueAt(d*p+"", i, j+1);}
+				
+			}
+			
+		});
+		
+		
 		//-------buttons-----------------
 		JPanel btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
@@ -135,7 +171,18 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 		delGoodsBtn.setFocusPainted(false);
 		delGoodsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//监听！！！！！！！
+				int[] row=table.getSelectedRows();
+				if(row.length>0){
+					for(int i=0;i<row.length;i++)
+						{//totalMoney-=Double.parseDouble(cmContent.get(row[i]).get(5));
+						//defaultTotalLbl.setText("原价："+totalMoney+"元");
+						cmContent.remove(row[i]);last_bid.remove(row[i]);
+					//	parent.setRightComponent(PurchasePane.this);
+						table.revalidate();
+						}
+				}
+				else 
+					JOptionPane.showMessageDialog(null, "请选择要删除的商品","提示",JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		btnPnl.add(delGoodsBtn);
@@ -144,19 +191,68 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
 		btnPnl.add(submitBtn);
+		slisten=new submitListener();
+		submitBtn.addActionListener(slisten);
 		exitBtn = new JButton("取消");
 		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(251, 147, 121));
 		btnPnl.add(exitBtn);
+		exitBtn.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					update();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+		});
 	}
 
+	class submitListener implements ActionListener{
+//= { "商品编号", "商品名", "型号", "单价", "折扣", "折后单价" }
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			ArrayList<CommodityVO> cmlist=new ArrayList<CommodityVO>();
+			for(int j=0;j<table.getRowCount();j++){
+				ArrayList<String> line=cmContent.get(j);
+			//商品价为原价
+				CommodityVO cv=new CommodityVO(line.get(0),line.get(1),
+						line.get(2),Double.parseDouble(line.get(3)),last_bid.get(j),
+						1,Double.parseDouble(line.get(3)),last_bid.get(j),"");
+				discount.add(Double.parseDouble(line.get(4)));
+				cmlist.add(cv);
+			}
+			String startDate=from.getDate();
+			String endDate=to.getDate();
+			MemberLevel level= MemberLevel.valueOf((String) memberGradeBox.getSelectedItem());
+			String id=service.getNewID(PromotionType.DISCOUNT);
+			
+			DiscountProVO vo=new DiscountProVO(id,startDate,endDate,level,discount,cmlist);
+			if(service.Add(vo)==0)
+				{JOptionPane.showMessageDialog(null, "策略添加成功","提示",JOptionPane.WARNING_MESSAGE);
+			try {
+				update();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}}
+			else
+				JOptionPane.showMessageDialog(null, "添加失败","提示",JOptionPane.WARNING_MESSAGE);
+		}
+		
+	}
 	class AddDiscountModel extends AbstractTableModel {
 		/**
 		 * 
 		 */
+	 
 		private static final long serialVersionUID = 1L;
-		String head[] = { "商品编号", "商品名", "型号", "默认单价", "折扣", "折后默认单价" };
+		String head[] = { "商品编号", "商品名", "型号", "单价", "折扣", "折后单价" };
 
 		public int getRowCount() {
 			return cmContent.size();
@@ -164,6 +260,27 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 
 		public int getColumnCount() {
 			return head.length;
+		}
+		
+		public boolean isCellEditable(int row,int column){
+			if(column==4)
+				return true;
+			else return false;
+		}
+		
+		public void setValueAt(Object value,int row,int column){
+			
+			try{ 
+				double n=Double.parseDouble((String) value);
+		 if(n<=0)
+				 JOptionPane.showMessageDialog(null, "请输入合法数值");
+		 else
+			 { cmContent.get(row).set(column,(String)value);
+				fireTableCellUpdated(row, column);
+			 }
+			}catch(Exception e){
+				JOptionPane.showMessageDialog(null, "请输入折扣");
+			}
 		}
 
 		public Object getValueAt(int row, int col) {
@@ -183,13 +300,48 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 		}
 	}
 
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 920, 600);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AddDiscountPanel gp = new AddDiscountPanel(testFrame);
-		gp.setBounds(0, 0, 920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
+	//"商品编号", "商品名", "型号", "单价", "折扣", "折后单价" 
+	
+	public void RefreshCTable(ArrayList<Object> vo,double dis){
+		for(int i=0;i<vo.size();i++){
+			GoodsVO gvo=(GoodsVO)vo.get(i);
+			ArrayList<String> line=new ArrayList<String>();
+			int exist=find(gvo.getGoodsID());
+			if(exist<0){
+				line.add(gvo.getGoodsID());
+				line.add(gvo.getName());
+				line.add(gvo.getSize());
+				line.add(gvo.getPrice()+"");
+				line.add(dis+"");
+				line.add(gvo.getPrice()*dis+"");
+				last_bid.add(gvo.getLastPurchasePrice());
+				cmContent.add(line);
+			}else{
+				//int num=Integer.parseInt(cmContent.get(exist).get(3))+1;
+				//double p=Double.parseDouble(cmContent.get(exist).get(5));
+				cmContent.get(exist).set(4, dis+"");
+				cmContent.get(exist).set(5,dis*gvo.getPrice()+"");
+			}
+			
+			
+		}
+		
+	
+	}
+	
+	
+	private int find(String id){
+		 for(int i=0;i<cmContent.size();i++){
+			 if(id.equals(cmContent.get(i).get(0)))
+					 return i;
+		 }
+		 return -1;
+	}
+	public void update() throws Exception{
+		PromotionPanel proPanel=new PromotionPanel((MainFrame)parent);
+		((MainFrame)parent).setRightComponent(proPanel);
+		service=new promotionController();
+		if(service.Show()!=null)
+			proPanel.RefreshProTable(service.Show());
 	}
 }

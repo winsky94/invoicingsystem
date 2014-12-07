@@ -172,7 +172,7 @@ public class DateChooser extends JPanel{
     }
     //提交日期
     private void commit(){
-        System.out.println("选中的日期是："+sdf.format(select.getTime()));
+       // System.out.println("选中的日期是："+sdf.format(select.getTime()));
         showDate.setText(sdf.format(select.getTime()));
         hidePanel();
     }

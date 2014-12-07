@@ -5,31 +5,21 @@ import java.util.ArrayList;
 
 
 public class PackVO {
-	private String id;//系统自动生成
 	private double totalValue;
 	private double packValue;
-	private ArrayList<Integer> num;
 	private ArrayList<CommodityVO> combine;
-	public PackVO(String id, double totalValue, double packValue,
-			ArrayList<Integer> num, ArrayList<CommodityVO> combine) {
+	public PackVO(double totalValue, double packValue,
+		 ArrayList<CommodityVO> combine) {
 	
-		this.id = id;
 		this.totalValue = totalValue;
 		this.packValue = packValue;
-		this.num = num;
 		this.combine = combine;
-	}
-	public String getId() {
-		return id;
 	}
 	public double getTotalValue() {
 		return totalValue;
 	}
 	public double getPackValue() {
 		return packValue;
-	}
-	public ArrayList<Integer> getNum() {
-		return num;
 	}
 	public ArrayList<CommodityVO> getCombine() {
 		return combine;

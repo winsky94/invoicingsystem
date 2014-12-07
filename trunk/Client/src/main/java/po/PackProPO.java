@@ -14,25 +14,25 @@ public class PackProPO extends PromotionPO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ArrayList<PackPO> packList;
+	private PackPO pack;
 	private double totalValue;
 	private double packValue;
 
 	public PackProPO(String id,String startDate,String endDate,MemberLevel l,
-			 ArrayList<PackPO> pack,double value,double packv)
+			 PackPO pack)
 	{
 		super(id,startDate,endDate,PromotionType.PACK,l);
-		packList=pack;
-		totalValue=value;
-		packValue=packv;
+		this.pack=pack;
+		totalValue=pack.getTotalValue();
+		packValue=pack.getPackValue();
 	}
 
-	public ArrayList<PackPO> getPackList() {
-		return packList;
+	public PackPO getPackList() {
+		return pack;
 	}
 	
-	public void setPackList(ArrayList<PackPO> list){
-		this.packList=list;
+	public void setPackList(PackPO list){
+		this.pack=list;
 	}
 	
 	public void totalValue(double value)
