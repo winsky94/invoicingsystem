@@ -12,9 +12,13 @@ import java.rmi.RemoteException;
 import javax.swing.*;
 
 import businesslogic.financebl.Account;
+import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
+import businesslogic.financebl.Payment;
 import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
+import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
+import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
@@ -125,16 +129,25 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 		}
 		else if(arg0.getSource()==receiptBtn){
 			CollectionPanel mgr = new CollectionPanel(frame);
-			CollectionBLService service;
-			frame.setRightComponent(mgr);
+      		frame.setRightComponent(mgr);
+        	
 			try {
-				service=new Collection();
-				if (service.getCollection()!= null)
-					mgr.RefreshCollectionTable(service.getCollection());
+				PaymentBLService pp=new Payment();
+				CollectionBLService bb=new Collection();
+	  			CashlistBLService cc=new CashList();
+	  			if (pp.getPayment()!= null)
+	  			    mgr.RefreshPaymentTable(pp.getPayment());
+	  			if(bb.getCollection()!=null)
+	  			    mgr.RefreshCollectionTable(bb.getCollection());
+	  			if(cc.getCashlist()!=null)
+	  				mgr.RefreshCashlistTable(cc.getCashlist());
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+  			
+
+  				mgr.setSelectedTab(0);
 		}
 		else if(arg0.getSource()==aboutBtn){			
 			frame.setRightComponent(new AboutPanel());

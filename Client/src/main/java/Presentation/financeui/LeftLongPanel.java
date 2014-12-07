@@ -16,9 +16,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import businesslogic.financebl.Account;
+import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
 import businesslogic.financebl.Payment;
 import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
+import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 import vo.UserVO;
@@ -176,19 +178,25 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		}
 		else if(e.getSource()==collectionBtn){
 			CollectionPanel mgr = new CollectionPanel(frame);
-			CollectionBLService service1;
-			PaymentBLService service2;
-			frame.setRightComponent(mgr);
+      		frame.setRightComponent(mgr);
+        	
 			try {
-				service1=new Collection();
-				service2=new Payment();
-				if (service1.getCollection()!= null)
-					mgr.RefreshCollectionTable(service1.getCollection());
-				    mgr.RefreshPaymentTable(service2.getPayment());
+				PaymentBLService pp=new Payment();
+				CollectionBLService bb=new Collection();
+	  			CashlistBLService cc=new CashList();
+	  			if (pp.getPayment()!= null)
+	  			    mgr.RefreshPaymentTable(pp.getPayment());
+	  			if(bb.getCollection()!=null)
+	  			    mgr.RefreshCollectionTable(bb.getCollection());
+	  			if(cc.getCashlist()!=null)
+	  				mgr.RefreshCashlistTable(cc.getCashlist());
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+  			
+
+  				mgr.setSelectedTab(0);
 		}
 		else if(e.getSource()==foldBtn){			
 			frame.setLeftComponent(new LeftShortPanel(frame));

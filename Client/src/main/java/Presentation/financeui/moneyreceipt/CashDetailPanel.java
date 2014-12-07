@@ -6,6 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -15,9 +17,20 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import vo.CashlistVO;
+import vo.ClauseItemVO;
+import businesslogic.financebl.CashList;
+import businesslogic.financebl.Collection;
+import businesslogic.financebl.Payment;
+import businesslogic.userbl.User;
+import businesslogicservice.financeblservice.listblservice.CashlistBLService;
+import businesslogicservice.financeblservice.listblservice.CollectionBLService;
+import businesslogicservice.financeblservice.listblservice.PaymentBLService;
+import businesslogicservice.userblservice.UserBLService;
+import Presentation.financeui.CollectionPanel;
 import Presentation.mainui.MainFrame;
 
-public class CashDetailPanel extends JPanel{
+public class CashDetailPanel extends JPanel implements ActionListener{
 	/**
 	 * 
 	 */
@@ -30,7 +43,24 @@ public class CashDetailPanel extends JPanel{
 	JLabel IDLbl, userLbl, totalLbl,accountLbl,nameLbl,moneyLbl,remarkLbl,hurryLbl;
 	JButton submitBtn;
 	MainFrame parent;
-	public CashDetailPanel(){
+	String hurry;
+	String ID;
+	String user;
+	String account;
+	double totalMoney;
+	CashlistBLService cc=null;
+	CashlistVO vo;
+	public CashDetailPanel(MainFrame frame,int selected){
+		parent=frame;
+		
+		try {
+			cc=new CashList();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ArrayList<CashlistVO> vv=cc.getCashlist();
+		vo=vv.get(selected);
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);
@@ -82,29 +112,47 @@ public class CashDetailPanel extends JPanel{
 		infoPnl.add(up);
 
 		//------加急---------------
-		hurryLbl=new JLabel("加急：是？否");
+		if(vo.getHurry()==0)
+			hurry="否";
+		else 
+			hurry="是";
+		hurryLbl=new JLabel("加急: "+hurry);
 		hurryLbl.setFont(font);
 		up.add(hurryLbl);
 		up.add(new JLabel("     "));
 		// ------ID----------------
-		IDLbl = new JLabel("ID:嗷嗷嗷嗷");
+		ID=vo.getId();
+		IDLbl = new JLabel("ID: "+ID);
 		IDLbl.setFont(font);
 		up.add(IDLbl);
 		up.add(new JLabel("     "));
 		// ------user---------------
-		userLbl = new JLabel("操作员:嗷嗷嗷");
+		UserBLService uu=null;
+		try {
+			uu = new User();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		user=uu.showUser(vo.getUser()).getName();
+		userLbl = new JLabel("操作员: "+user);
 		userLbl.setFont(font);
 		up.add(userLbl);
 		up.add(new JLabel("     "));
 		// ------account---------
-		JLabel accLbl = new JLabel("账户：嗷嗷嗷嗷嗷嗷嗷嗷");
+		account=vo.getAccount();
+		JLabel accLbl = new JLabel("账户:"+account);
 		accLbl.setFont(font);
 		up.add(accLbl);
 		up.add(new JLabel("     "));
 		// -----总额-------------------
-		totalLbl = new JLabel("总额：嗷嗷嗷嗷");
+		totalMoney=vo.getTotalMoney();
+		totalLbl = new JLabel("总额: "+totalMoney);
 		totalLbl.setFont(font);
 		up.add(totalLbl);
+		//------table-----------------
+		RefreshCaluseItemTable(vo.getClauselist());
 		// -------buttons-----------------
 		JPanel btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
@@ -120,6 +168,7 @@ public class CashDetailPanel extends JPanel{
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
+		submitBtn.addActionListener(this);
 		btnPnl.add(submitBtn);
 	}
 	class CashReceiptModel extends AbstractTableModel {
@@ -165,4 +214,40 @@ public class CashDetailPanel extends JPanel{
 //		testFrame.add(gp);
 //		testFrame.setVisible(true);
 //	}
+	
+	public void RefreshCaluseItemTable(ArrayList<ClauseItemVO> vo){
+		for (ClauseItemVO VO : vo) {
+			ArrayList<String> lineInfo = new ArrayList<String>();
+			lineInfo.add(VO.getName());
+			lineInfo.add(String.valueOf(VO.getMoney()));
+			lineInfo.add(VO.getInfo());
+			content.add(lineInfo);
+		}
+	}
+
+	public void actionPerformed(ActionEvent arg0) {
+		if(arg0.getSource()==submitBtn){
+			CollectionPanel mgr = new CollectionPanel(parent);
+			parent.setRightComponent(mgr);
+			try {
+				PaymentBLService pp=new Payment();
+				CollectionBLService bb=new Collection();
+				CashlistBLService cc=new CashList();
+				if (pp.getPayment()!= null)
+				    mgr.RefreshPaymentTable(pp.getPayment());
+				if(bb.getCollection()!=null)
+				    mgr.RefreshCollectionTable(bb.getCollection());
+				if(cc.getCashlist()!=null)
+					mgr.RefreshCashlistTable(cc.getCashlist());
+
+					mgr.setSelectedTab(2);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
+		
+	
 }

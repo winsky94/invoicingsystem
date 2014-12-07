@@ -13,14 +13,21 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import businesslogic.financebl.CashList;
+import businesslogic.financebl.Collection;
+import businesslogic.financebl.Payment;
 import businesslogic.userbl.User;
 import businesslogic.utilitybl.getStatus;
+import businesslogicservice.financeblservice.listblservice.CashlistBLService;
+import businesslogicservice.financeblservice.listblservice.CollectionBLService;
+import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 import businesslogicservice.userblservice.UserBLService;
 import vo.CashlistVO;
 import vo.CollectionVO;
@@ -28,6 +35,7 @@ import vo.PaymentVO;
 import Presentation.financeui.moneyreceipt.AddCashReceiptPanel;
 import Presentation.financeui.moneyreceipt.AddCollectionPanel;
 import Presentation.financeui.moneyreceipt.AddPaymentPanel;
+import Presentation.financeui.moneyreceipt.CashDetailPanel;
 import Presentation.mainui.MainFrame;
 
 public class CollectionPanel extends JPanel implements ActionListener {
@@ -141,10 +149,38 @@ public class CollectionPanel extends JPanel implements ActionListener {
         	  parent.setRightComponent(new AddCashReceiptPanel(parent));
           }
           else if(e.getSource()==refreshBtn){
-        	  
+        	CollectionPanel mgr = new CollectionPanel(parent);
+      		parent.setRightComponent(mgr);
+        	
+			try {
+				PaymentBLService pp=new Payment();
+				CollectionBLService bb=new Collection();
+	  			CashlistBLService cc=new CashList();
+	  			if (pp.getPayment()!= null)
+	  			    mgr.RefreshPaymentTable(pp.getPayment());
+	  			if(bb.getCollection()!=null)
+	  			    mgr.RefreshCollectionTable(bb.getCollection());
+	  			if(cc.getCashlist()!=null)
+	  				mgr.RefreshCashlistTable(cc.getCashlist());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+  			
+
+  				mgr.setSelectedTab(0);
           }
-          else if(e.getSource()==refreshBtn){
-        	  
+          else if(e.getSource()==detailBtn){
+        	  if(tab.getSelectedIndex()==2){
+        		 int selected= t3.getSelectedRow();
+        		 if(selected<0){
+        			 JOptionPane.showMessageDialog(null, "请选择需要查看的单据", "提示",
+ 							JOptionPane.CLOSED_OPTION);
+        		 }
+        		 else{
+        			 parent.setRightComponent(new CashDetailPanel(parent,selected));
+        		 }
+        	  }
           }
 	}
 	class MyButton extends JButton {
