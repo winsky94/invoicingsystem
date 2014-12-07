@@ -43,12 +43,12 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 	Color color = new Color(115, 46, 126);
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	MyButton refreshBtn, exportBtn, findBtn, filterBtn;
-	JTextField findFld;
+	JTextField findFld,nameFld,stockFld;
 	MainFrame father;
 	//
 	DateChooser from, to;
 	MyCheckBox nameBox, memberBox, clerkBox, stockBox;
-	JComboBox<String> receiptTypeBox;
+	JComboBox<String> receiptTypeBox,memberCbox,clerkCbox;
 	//
 	JTabbedPane tab,toptab;
 	SaleDetailTableModel sdtm;// 销售明细表
@@ -72,7 +72,6 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		toptab.setBackground(Color.white);
 		toptab.setFont(font);
 		toptab.setForeground(color);
-		toptab.setBorder(BorderFactory.createLineBorder(Color.GREEN));
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridheight = 2;
@@ -136,33 +135,64 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		// -----筛选按钮-------------
 		JPanel filterPnl=new JPanel();
 		filterPnl.setBackground(Color.white);
-		toptab.add("筛选",filterPnl);
+		toptab.add("进一步筛选",filterPnl);
+		filterPnl.setLayout(new GridLayout(2,1));
+		JPanel f1=new JPanel();
+		f1.setBackground(Color.white);
+		filterPnl.add(f1);
+		JPanel f2=new JPanel();
+		f2.setBackground(Color.white);
+		filterPnl.add(f2);
 		// -----四大复选框-----------
-		JLabel rangeLbl = new JLabel("筛选范围：   ");
-		rangeLbl.setFont(font);
-		rangeLbl.setForeground(color);
-		filterPnl.add(rangeLbl);
-		//
-		nameBox = new MyCheckBox("商品名");
-
-		filterPnl.add(nameBox);
-		memberBox = new MyCheckBox("客户");
-		filterPnl.add(memberBox);
-		clerkBox = new MyCheckBox("业务员");
-		filterPnl.add(clerkBox);
-		stockBox = new MyCheckBox("仓库");
-		filterPnl.add(stockBox);
+		//-----按商品名筛选-------------
+		nameBox = new MyCheckBox("按商品名");
+		f1.add(nameBox);
+		nameFld=new JTextField(5);
+		nameFld.setFont(font);
+		f1.add(nameFld);
+		//------按客户------------------
+		memberBox = new MyCheckBox("按客户");
+		f1.add(memberBox);
+		String memberCboxText[]={"XSS-023589 监小听"};
+		memberCbox=new JComboBox<String>(memberCboxText);
+		memberCbox.setBackground(Color.white);
+		memberCbox.setForeground(color);
+		memberCbox.setFont(font);
+		f1.add(memberCbox);
+		//------按业务员-----------------
+		clerkBox = new MyCheckBox("按业务员");
+		f1.add(clerkBox);
+		String clerkCboxText[]={"XS-00004 大黄"};
+		clerkCbox=new JComboBox<String>(clerkCboxText);
+		clerkCbox.setBackground(Color.white);
+		clerkCbox.setForeground(color);
+		clerkCbox.setFont(font);
+		f1.add(clerkCbox);
+		//--------按仓库--------------------
+		stockBox = new MyCheckBox("按仓库");
+		f2.add(stockBox);
+		stockFld=new JTextField(5);
+		stockFld.setFont(font);
+		f2.add(stockFld);
 		// -----单据类型------------
 		JLabel typeLbl = new JLabel("筛选指定类型的单据：");
 		typeLbl.setFont(font);
 		typeLbl.setForeground(color);
-		filterPnl.add(typeLbl);
+		f2.add(typeLbl);
 		String typeText[] = { "全部", "销售类", "进货类", "财务类", "库存类" };
 		receiptTypeBox = new JComboBox<String>(typeText);
 		receiptTypeBox.setBackground(Color.white);
 		receiptTypeBox.setFont(font);
 		receiptTypeBox.setForeground(color);
-		filterPnl.add(receiptTypeBox);
+		f2.add(receiptTypeBox);
+		f2.add(new JLabel());
+		//-------筛选按钮----------------
+		JButton filterBtn=new JButton("开始筛选");
+		filterBtn.setBackground(Color.white);
+		filterBtn.setFocusPainted(false);
+		filterBtn.setFont(font);
+		filterBtn.setForeground(color);
+		f2.add(filterBtn);
 		// -----tab-----------------
 		
 		tab = new JTabbedPane();
