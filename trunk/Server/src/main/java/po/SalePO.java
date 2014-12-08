@@ -31,7 +31,7 @@ public class SalePO extends ReceiptPO implements Serializable{
 		this.proid=proid;
 	}
 	
-	public String getProkid() {
+	public String getProid() {
 		return proid;
 	}
 	public String getClerk() {
