@@ -130,15 +130,7 @@ public class StockPanel extends JPanel {
 	class StockBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			JFrame testFrame = new JFrame();
-			testFrame.setBounds(100, 50, 920, 600);
-			testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-			StockShowPanel gp = new StockShowPanel();
-			gp.setBounds(0, 0, 920, 600);
-			testFrame.add(gp);
-			testFrame.setVisible(true);
+			frame.setRightComponent(new StockShowPanel(frame));
 		}
 
 	}

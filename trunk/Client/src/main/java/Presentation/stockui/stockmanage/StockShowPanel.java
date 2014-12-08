@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import Presentation.mainui.MainFrame;
 import Presentation.uihelper.DateChooser;
 import businesslogic.stockbl.stockManage.StockControlController;
 import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
@@ -33,8 +34,9 @@ public class StockShowPanel extends JPanel implements ActionListener {
 	JScrollPane jsp;
 	JTable table;
 	StockShowTableModel sstm;
-
-	public StockShowPanel() {
+	MainFrame father;
+	public StockShowPanel(MainFrame frame) {
+		father=frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);
@@ -117,6 +119,7 @@ public class StockShowPanel extends JPanel implements ActionListener {
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
+		submitBtn.addActionListener(this);
 		btnPnl.add(submitBtn);
 	}
 
@@ -171,7 +174,7 @@ public class StockShowPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自动生成的方法存根
 		if (e.getActionCommand().equals("确定")) {
-
+			father.setRightComponent(new StockPanel(father));
 		}
 	}
 }
