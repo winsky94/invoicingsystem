@@ -21,10 +21,14 @@ import po.ReceiptPO;
 import po.ReceiptPO.ReceiptType;
 import po.SalePO;
 import po.SaleReturnPO;
-import po.StockOverOrLowPO;
-import dataservice.receiptdataservice.ReceiptDataservice;
 
-public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
+import dataservice.receiptdataservice.ReceiptDataService;
+
+import po.StockOverOrLowPO;
+
+
+
+public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
  
 	/**
 	 * 

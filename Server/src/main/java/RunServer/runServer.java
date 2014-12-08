@@ -17,6 +17,7 @@ import Data.stockdata.gift.Gift;
 import Data.stockdata.goods.Goods;
 import Data.stockdata.goodsClass.GoodsClass;
 import Data.stockdata.stockManage.StockControl;
+import Data.userdata.Log;
 import Data.userdata.User;
 
 
@@ -49,6 +50,7 @@ public class runServer {
 			Payment payment=new Payment();
 			Receipt receipt=new Receipt();
 			Cashlist cashlist=new Cashlist();
+			Log log=new Log();
 			Naming.rebind("promotionService",pro);
 			Naming.rebind("salesService",sale);
 			Naming.rebind("memberService",member);
@@ -62,6 +64,7 @@ public class runServer {
 			Naming.rebind("paymentService",payment);
 			Naming.rebind("receiptService", receipt);
 			Naming.rebind("cashlistService", cashlist);
+			Naming.rebind("logService", log);
 			
 			JOptionPane.showMessageDialog(null, "服务器已运行！","提示",JOptionPane.INFORMATION_MESSAGE);
 			
