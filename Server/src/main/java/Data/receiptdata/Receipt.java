@@ -21,6 +21,7 @@ import po.ReceiptPO;
 import po.ReceiptPO.ReceiptType;
 import po.SalePO;
 import po.SaleReturnPO;
+import po.StockOverOrLowPO;
 import dataservice.receiptdataservice.ReceiptDataservice;
 
 public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
@@ -77,7 +78,6 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
 	        	return null;
 	        }
 	        
-	       return null;
 	}
 
 	public int Modify(ReceiptPO po) throws RemoteException {
@@ -120,10 +120,12 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
 			}
 		}
 		
-		
-		
-		
-		
+		StockControl sc=new StockControl();
+		if(sc.getStockOverOrLowPO()!=null){
+			for(StockOverOrLowPO pp:(sc.getStockOverOrLowPO())){
+				al.add(pp);
+			}
+		}		
 		
 		if(al.size()==0)
 			return null;
@@ -131,45 +133,6 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
 		return al;
 	}
 
-
-	public double getNum(ReceiptType type, String date) throws RemoteException {
-		int num=0;
-		if(type==ReceiptType.COLLECTION){
-			Collection c=new Collection();
-			ArrayList<CollectionPO> a=c.getCollection();
-			for(CollectionPO po:a){
-				String s=po.getId();
-				String[] buffer=s.split("-");
-				String d=buffer[1];
-				if(d.equals(date));
-				   num++;
-			}			
-		}
-		else if(type==ReceiptType.PAYMENT){
-			Payment c=new Payment();
-			ArrayList<PaymentPO> a=c.getPayment();
-			for(PaymentPO po:a){
-				String s=po.getId();
-				String[] buffer=s.split("-");
-				String d=buffer[1];
-				if(d.equals(date));
-				   num++;
-			}			
-		}
-		else if(type==ReceiptType.CASHLIST){
-			Cashlist c=new Cashlist();
-			ArrayList<CashlistPO> a=c.getCashlist();
-			for(CashlistPO po:a){
-				String s=po.getId();
-				String[] buffer=s.split("-");
-				String d=buffer[1];
-				if(d.equals(date));
-				   num++;
-			}			
-		}
-		
-		return num;
-	}
 
 	public ArrayList<ReceiptPO> show(ReceiptType type) throws RemoteException {
 		ArrayList<ReceiptPO> al=new ArrayList<ReceiptPO>();
@@ -247,14 +210,30 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
 					al.add(p);
 				}
 			}
-			else if(type==ReceiptType.STOCKERROR){
-				
-			}
-			else if(type==ReceiptType.STOCKLOW){
-				
-			}
-			else if(type==ReceiptType.STOCKOVER){
-				
+			else if(type==ReceiptType.STOCKLOW||type==ReceiptType.STOCKOVER){
+				StockControl sc=new StockControl();
+				ArrayList<StockOverOrLowPO> pp=sc.getStockOverOrLowPO();
+				if(pp==null)
+					return null;
+				ArrayList<StockOverOrLowPO> pp1=new ArrayList<StockOverOrLowPO>();
+				ArrayList<StockOverOrLowPO> pp2=new ArrayList<StockOverOrLowPO>();
+				for(StockOverOrLowPO p:pp){
+					if(p.getType()==ReceiptType.STOCKLOW)
+						pp1.add(p);
+					else
+						pp2.add(p);
+				}
+				if(type==ReceiptType.STOCKLOW){
+					for(StockOverOrLowPO ppp:pp1){
+						al.add(ppp);
+					}
+				}
+				else{
+					for(StockOverOrLowPO ppp:pp2){
+						al.add(ppp);
+					}
+				}
+			
 			}
 			else{
 				return null;
