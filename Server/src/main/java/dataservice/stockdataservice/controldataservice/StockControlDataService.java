@@ -32,4 +32,8 @@ public interface StockControlDataService extends Remote {
 	public String getErrorMaxID() throws RemoteException;
 
 	public StockOverOrLowPO findByID(String id) throws RemoteException;
+
+	public int getWarningNum() throws RemoteException;
+
+	public int setWarningNum(int num) throws RemoteException;
 }

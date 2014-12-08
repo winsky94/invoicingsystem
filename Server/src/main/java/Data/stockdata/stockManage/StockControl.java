@@ -19,11 +19,13 @@ public class StockControl extends UnicastRemoteObject implements
 	private static final long serialVersionUID = 1L;
 	JXCFile overOrLowFile;
 	JXCFile errorFile;
+	JXCFile warningFile;
 	JXCFile file;// 记录库存调价收入
 
 	public StockControl() throws RemoteException {
 		overOrLowFile = new JXCFile("src/main/java/overOrLowReceipt.ser");
 		errorFile = new JXCFile("src/main/java/errorReceipt.ser");
+		warningFile = new JXCFile("src/main/java/warningReceipt.ser");
 		file = new JXCFile("src/main/java/primeChangeRecord.ser");
 	}
 
@@ -212,5 +214,20 @@ public class StockControl extends UnicastRemoteObject implements
 			}
 		}
 		return po;
+	}
+
+	public int getWarningNum() throws RemoteException {
+		// TODO 自动生成的方法存根
+		ArrayList<Object> list = new ArrayList<Object>();
+		list = warningFile.read();
+		int num = 0;
+		num = Integer.parseInt((String) list.get(0));
+		return num;
+	}
+
+	public int setWarningNum(int num) throws RemoteException {
+		// TODO 自动生成的方法存根
+		warningFile.writeM(String.valueOf(num));
+		return num;
 	}
 }
