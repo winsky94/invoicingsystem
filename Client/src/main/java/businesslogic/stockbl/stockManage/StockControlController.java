@@ -95,4 +95,17 @@ public class StockControlController implements StockControlBLService {
 		StockManage manage = new StockManage();
 		return manage.showStockLowReceipt();
 	}
+
+	// 库存报警检查
+	public boolean stockNumCheck(String goodName, String goodSize) {
+		// TODO 自动生成的方法存根
+		StockManage manage = new StockManage();
+		return manage.stockNumCheck(goodName, goodSize);
+	}
+
+	// 库存报警数量设置
+	public int setStockBasedNum(int num) {
+		StockManage manage = new StockManage();
+		return manage.setStockBasedNum(num);
+	}
 }

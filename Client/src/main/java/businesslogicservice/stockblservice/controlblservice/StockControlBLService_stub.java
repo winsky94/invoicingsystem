@@ -69,4 +69,9 @@ public class StockControlBLService_stub implements StockControlBLService {
 		// TODO 自动生成的方法存根
 		return null;
 	}
+
+	public boolean stockNumCheck(String goodName, String goodSize) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
 }

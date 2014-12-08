@@ -33,4 +33,7 @@ public interface StockControlBLService {
 
 	// 获得商品赠送支出
 	public double getGiftCost();
+	
+	//检查商品库存报警
+	public boolean stockNumCheck(String goodName,String goodSize);
 }
