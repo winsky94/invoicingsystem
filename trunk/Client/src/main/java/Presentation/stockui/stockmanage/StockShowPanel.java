@@ -29,7 +29,7 @@ public class StockShowPanel extends JPanel implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	DateChooser from, to;
-	JButton submitBtn, exitBtn;
+	JButton submitBtn, showBtn;
 	JScrollPane jsp;
 	JTable table;
 	StockShowTableModel sstm;
@@ -71,6 +71,12 @@ public class StockShowPanel extends JPanel implements ActionListener {
 		to = new DateChooser();
 		tP.add(to);
 		timePnl.add(tP);
+		//
+		showBtn=new JButton("显示");
+		showBtn.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		showBtn.setFocusPainted(false);
+		showBtn.setBackground(Color.white);
+		timePnl.add(showBtn);
 		//
 		c.gridx = 0;
 		c.gridy = 1;
