@@ -16,6 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import Presentation.mainui.MainFrame;
+
 public class AccountInitialPanel extends JPanel{
 
 	/**
@@ -29,7 +31,9 @@ public class AccountInitialPanel extends JPanel{
 	JScrollPane jsp;
 	JButton addBtn,delBtn;
 	JComboBox<String> accountBox;
-	public AccountInitialPanel(){
+	MainFrame parent;
+	public AccountInitialPanel(MainFrame frame){
+		parent=frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);

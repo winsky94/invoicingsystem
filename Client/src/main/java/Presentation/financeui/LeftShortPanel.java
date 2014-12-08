@@ -20,6 +20,7 @@ import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 import vo.UserVO;
+import Presentation.financeui.initial.AddInitialPanel;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
@@ -90,6 +91,7 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 				color[0]);
 	
 		aboutBtn.addActionListener(this);
+		aboutBtn.addMouseListener(this);
 		down.add(aboutBtn);
 		
 		backBtn = new JLeftButton(new ImageIcon("img/mainFrame/backLong.png"),
@@ -149,6 +151,10 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 
   				mgr.setSelectedTab(0);
 		}
+		else if(arg0.getSource()==initialBtn){
+			AddInitialPanel alp=new AddInitialPanel(frame);
+			frame.setRightComponent(alp);
+		}
 		else if(arg0.getSource()==aboutBtn){			
 			frame.setRightComponent(new AboutPanel());
 		}
@@ -172,7 +178,8 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 			showReportBtn.setBackground(color[1]);
 		else if(e.getSource()==initialBtn)
 			initialBtn.setBackground(color[1]);
-		
+		else if(e.getSource()==aboutBtn)
+			aboutBtn.setBackground(color[1]);
 	}
 
 	public void mouseExited(MouseEvent e) {
@@ -184,6 +191,8 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 			showReportBtn.setBackground(color[0]);
 		else if(e.getSource()==initialBtn)
 			initialBtn.setBackground(color[0]);
+		else if(e.getSource()==aboutBtn)
+			aboutBtn.setBackground(color[0]);
 		
 		
 	}
