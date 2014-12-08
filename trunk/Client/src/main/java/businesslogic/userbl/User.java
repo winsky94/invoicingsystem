@@ -1,10 +1,6 @@
 package businesslogic.userbl;
 
 import java.rmi.Naming;
-import java.rmi.RMISecurityManager;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
@@ -13,8 +9,9 @@ import po.UserPO;
 import po.UserPO.UserJob;
 import vo.UserVO;
 import businesslogicservice.userblservice.UserBLService;
+import businesslogicservice.userblservice.UserViewService;
 //11-17  By jin 0 warning 哈
-public class User implements UserBLService{
+public class User implements UserBLService,UserViewService{
 	private String name;
 	private String ID;
 	private String password;
@@ -160,6 +157,14 @@ public class User implements UserBLService{
 	
 	public double getPoints(){
 		return points;
+	}
+
+
+	public String getName(String id) {
+		// TODO Auto-generated method stub
+		UserPO user=service.showUserInfo(id);
+		if(user==null) return null;
+		return user.getName();
 	}
 	
 }

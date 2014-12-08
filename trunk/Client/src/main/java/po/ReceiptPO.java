@@ -9,8 +9,8 @@ public class ReceiptPO  implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String id;
-	private String memberID;
-	private String memberName;
+	private String memberID="";
+	private String memberName="";
 	private String userID;
 	private ReceiptType type;
 	private int status;

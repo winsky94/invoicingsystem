@@ -18,7 +18,10 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import vo.GoodsVO;
+import vo.LogVO;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 
@@ -197,6 +200,14 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 				return;
 			} else {
 				parent.setRightComponent(new GoodsPanel(parent));
+				log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
+						"添加了一个新商品"+nameText,3));
+				try {
+					headPane.RefreshGrades();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		} else if (e.getSource() == exitBtn) {
 			parent.setRightComponent(new GoodsPanel(parent));

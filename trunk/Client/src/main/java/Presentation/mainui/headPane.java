@@ -17,15 +17,18 @@ import javax.swing.border.Border;
 import vo.UserVO;
 import Presentation.userui.UserSet;
 import businesslogic.userbl.User;
+import businesslogicservice.userblservice.UserBLService;
 
 // 头像Pane 构造
 public class headPane extends JPanel{
-	JLabel head,info,name,job,grade;
+	JLabel head,info,name,job;
+	static JLabel grade;
 	int width,height;
 	 JFrame rame;
 	 Border border;
 	 Color[] theme=new Color[2];
 	 //i=0 long  i=1 short
+	 static UserVO user;
 	public headPane( MainFrame frame,JPanel parent,UserVO user,int i){
 		//--------------userInfo Pane构造
 		rame=frame;
@@ -37,6 +40,7 @@ public class headPane extends JPanel{
 		this.setLayout(new FlowLayout());
 		name=new JLabel(user.getName());
 		grade=new JLabel("业绩点："+user.getGrades());
+		this.user=user;
 		switch(user.getJob()){
 		case MANAGER:
 			head=new JLabel(new ImageIcon("img/promotion/head.png"));
@@ -110,5 +114,11 @@ public class headPane extends JPanel{
 		
 		
 		
+	}
+	
+	public static void  RefreshGrades() throws Exception{
+		UserBLService service=new User();
+		double gra=service.showUser(user.getID()).getGrades();
+		grade.setText("业绩点："+gra);
 	}
 }

@@ -8,7 +8,8 @@ import businesslogicservice.receiptblservice.ReceiptBLService;
 
 public class ReceiptController implements ReceiptBLService{
 	ReceiptList list;
-	public ReceiptController(){
+	public ReceiptController() throws Exception{
+		list=new ReceiptList();
 		
 	}
 
@@ -66,7 +67,14 @@ public class ReceiptController implements ReceiptBLService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return list.showAllReceipt();
+		ArrayList<ReceiptPO> po=list.showAllReceipt();
+		if(po==null) return null;
+		else{
+			ArrayList<ReceiptVO> vo=new ArrayList<ReceiptVO>();
+			for(int i=0;i<po.size();i++)
+				vo.add(poToVo(po.get(i)));
+			return vo;
+		}
 	}
 
 	public int Batch(String[] id) {
@@ -76,7 +84,34 @@ public class ReceiptController implements ReceiptBLService{
 
 	
 	public ReceiptVO  poToVo(ReceiptPO po){
-		ReceiptVO vo=new ReceiptVO(po.getId(),po.getType(),po.getUserID(),po.getStatus(),
-				po.getHurry());
+		ReceiptVO vo=new ReceiptVO(po.getId(),po.getMemberName(),
+				po.getMemberID(),po.getUserID(),po.getType(),po.getStatus(),
+				po.getHurry(),po.getInfo());
+		return vo;
 	}
+	
+	public ArrayList<ReceiptVO> poTVo(ArrayList<ReceiptPO> po){
+		ArrayList<ReceiptVO> vo=new ArrayList<ReceiptVO>();
+		for(int i=0;i<po.size();i++)
+			vo.add(poToVo(po.get(i)));
+		return vo;
+	}
+
+
+
+	public ArrayList<ReceiptVO> ToApprove() {
+		// TODO Auto-generated method stub
+		if(list.showToApprove()!=null)
+			return poTVo(list.showToApprove()) ;
+		else return null;
+	}
+
+
+
+	public ArrayList<ReceiptVO> Approved() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 }

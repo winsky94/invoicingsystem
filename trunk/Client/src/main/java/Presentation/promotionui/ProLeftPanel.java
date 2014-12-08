@@ -11,7 +11,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import businesslogic.promotionbl.promotionController;
+import businesslogic.receiptbl.ReceiptController;
 import businesslogicservice.promotionblservice.PromotionBLService;
+import businesslogicservice.receiptblservice.ReceiptBLService;
 import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
@@ -117,7 +119,11 @@ public class ProLeftPanel extends JPanel implements ActionListener{
 			parent.setRightComponent(new ReportMgrPanel(parent));
 			
 		}else if(e.getSource()==receipt){
-			parent.setRightComponent(new ReceiptMgrPanel(parent));
+			ReceiptBLService rs=new ReceiptController();
+			ReceiptMgrPanel rmg=new ReceiptMgrPanel(parent);
+			parent.setRightComponent(rmg);
+			if(rs.ToApprove()!=null)
+				rmg.RefreshTable(rs.ToApprove(), 0);
 		}else if(e.getSource()==aboutBtn){
 			parent.setRightComponent(new AboutPanel());
 		}

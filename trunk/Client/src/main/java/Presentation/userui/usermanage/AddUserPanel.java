@@ -20,11 +20,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 import Presentation.promotionui.CouponPromotion.AddCouponPanel;
 import Presentation.userui.UserMgrPanel;
 import businesslogic.userbl.User;
 import businesslogicservice.userblservice.UserBLService;
 import po.UserPO.UserJob;
+import vo.LogVO;
 import vo.UserVO;
 //要判断 用户添加是否已存在？？
 public class AddUserPanel extends JPanel{
@@ -167,6 +170,9 @@ public class AddUserPanel extends JPanel{
 				UserMgrPanel mgr=new UserMgrPanel(father);
 				try {
 					service=new User();
+					log.addLog(new LogVO(log.getdate(),father.getUser().getID(),father.getUser().getName(),
+							"添加了一个新用户"+nameFld.getText(),3));
+					headPane.RefreshGrades();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -174,6 +180,7 @@ public class AddUserPanel extends JPanel{
 				father.setRightComponent(mgr);
 				if(service.showAll()!=null)
 				mgr.RefreshUserTable(service.showAll());
+				
 			}
 		});
 		btnPnl.add(submitBtn);

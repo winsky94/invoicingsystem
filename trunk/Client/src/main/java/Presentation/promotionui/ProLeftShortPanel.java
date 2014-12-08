@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import businesslogicservice.promotionblservice.PromotionBLService;
+import businesslogicservice.receiptblservice.ReceiptBLService;
 import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
@@ -22,6 +23,7 @@ import Presentation.receiptui.ReportMgrPanel;
 import Presentation.uihelper.AboutPanel;
 import businesslogic.promotionbl.promotion;
 import businesslogic.promotionbl.promotionController;
+import businesslogic.receiptbl.ReceiptController;
 public class ProLeftShortPanel extends JPanel implements ActionListener{
 	JLabel head;
 	JLeftButton receipt,promotion,view,backBtn,aboutBtn;
@@ -113,7 +115,11 @@ public class ProLeftShortPanel extends JPanel implements ActionListener{
 		}else if(e.getSource()==view){
 			parent.setRightComponent(new ReportMgrPanel(parent));
 		}else if(e.getSource()==receipt){
-			parent.setRightComponent(new ReceiptMgrPanel(parent));
+			ReceiptBLService rs=new ReceiptController();
+			ReceiptMgrPanel rmg=new ReceiptMgrPanel(parent);
+			parent.setRightComponent(rmg);
+			if(rs.ToApprove()!=null)
+				rmg.RefreshTable(rs.ToApprove(), 0);
 		}else if(e.getSource()==aboutBtn){
 			parent.setRightComponent(new AboutPanel());
 		}

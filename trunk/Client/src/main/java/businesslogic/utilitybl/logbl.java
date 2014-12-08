@@ -1,22 +1,19 @@
 package businesslogic.utilitybl;
 
-import java.net.MalformedURLException;
+
 import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import dataservice.userdataservice.LogService;
-import dataservice.userdataservice.UserDataService;
 import po.LogPO;
 import businesslogicservice.userblservice.LogBLService;
 import vo.LogVO;
 //依赖userDataService??
-public class log implements LogBLService{
+public class logbl implements LogBLService{
 	LogService service;
-	public log() throws Exception{
+	public logbl() throws Exception{
 		String host="localhost:1099";
-		String url="rmi://"+host+"/userService";
+		String url="rmi://"+host+"/logService";
 	
 		service=(LogService)Naming.lookup(url);
 	}
@@ -43,6 +40,19 @@ public class log implements LogBLService{
 	}
 	
 	
+	public ArrayList<LogVO> find(String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		ArrayList<LogPO> po=service.find(startDate, endDate);
+		if(po==null)return null;
+		else 
+			{
+			ArrayList<LogVO> vo=new ArrayList<LogVO>();
+			for(int i=0;i<po.size();i++)
+				vo.add(poToVo(po.get(i)));
+			
+				return vo;
+			}
+	}
 	public LogVO poToVo(LogPO po){
 		LogVO vo=new LogVO(po.getDate(),po.getUserID(),po.getUserName(),
 				po.getInfo(),po.getAddGrades());
@@ -55,6 +65,8 @@ public class log implements LogBLService{
 				,vo.getInfo(),vo.getAddGrades());
 		return po;
 	}
+
+	
 
 	
 }

@@ -20,9 +20,12 @@ import businesslogic.financebl.Account;
 import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
 import po.UserPO.UserJob;
 import vo.AccountVO;
+import vo.LogVO;
 import vo.UserVO;
 import Presentation.financeui.AccountPanel;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 
 public class AddAccountPanel extends JPanel implements ActionListener{
 
@@ -165,6 +168,14 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 				if (result == 0) {
 					JOptionPane.showMessageDialog(null, "添加账户成功！", "提示",
 							JOptionPane.CLOSED_OPTION);
+					log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
+							"添加了一个新账户"+nameFld.getText(),3));
+					try {
+						headPane.RefreshGrades();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "添加账户失败！", "提示",
 							JOptionPane.WARNING_MESSAGE);

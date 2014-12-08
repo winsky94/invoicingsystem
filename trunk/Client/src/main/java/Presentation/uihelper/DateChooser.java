@@ -49,7 +49,7 @@ public class DateChooser extends JPanel{
     private JP4 jp4;
     private Font font=new Font("宋体",Font.PLAIN,12);
     private final LabelManager lm=new LabelManager();
-    private JLabel showDate;//,toSelect;
+   public  JLabel showDate;//,toSelect;
     private SimpleDateFormat sdf=new SimpleDateFormat("yyyy年MM月dd日");
     private boolean isShow=false;
     private Popup pop;

@@ -27,8 +27,11 @@ import po.PromotionPO.PromotionType;
 import vo.CommodityVO;
 import vo.DiscountProVO;
 import vo.GoodsVO;
+import vo.LogVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 import Presentation.promotionui.PromotionPanel;
 import Presentation.uihelper.DateChooser;
 import businesslogic.promotionbl.promotionController;
@@ -234,6 +237,9 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 				{JOptionPane.showMessageDialog(null, "策略添加成功","提示",JOptionPane.WARNING_MESSAGE);
 			try {
 				update();
+				log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
+						"创建一条折扣促销策略",3));
+				headPane.RefreshGrades();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

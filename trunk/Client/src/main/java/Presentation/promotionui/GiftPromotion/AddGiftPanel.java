@@ -31,10 +31,13 @@ import businesslogicservice.promotionblservice.PromotionBLService;
 import vo.CommodityVO;
 import vo.GiftGoodsProVO;
 import vo.GoodsVO;
+import vo.LogVO;
 import vo.PackProVO;
 import vo.PackVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 import Presentation.promotionui.PromotionPanel;
 import Presentation.stockui.ChooseGoodsDialog;
 import Presentation.uihelper.DateChooser;
@@ -381,6 +384,9 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 				{JOptionPane.showMessageDialog(null, "策略添加成功","提示",JOptionPane.WARNING_MESSAGE);
 			try {
 				update();
+				log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
+						"创建一条赠品促销策略",4));
+				headPane.RefreshGrades();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

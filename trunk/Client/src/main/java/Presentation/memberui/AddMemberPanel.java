@@ -22,8 +22,11 @@ import javax.swing.event.DocumentListener;
 
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
+import vo.LogVO;
 import vo.MemberVO;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 import businesslogic.memberbl.MemAccountInfo;
 import businesslogic.memberbl.MemBaseInfo;
 import businesslogic.memberbl.MemContactInfo;
@@ -236,8 +239,17 @@ public class AddMemberPanel extends JPanel {
 				int result = service.addMember(vo);
 				// 改
 				if (result == 0) {
-					JOptionPane.showMessageDialog(null, "添加客户成功！", "提示",
+					{JOptionPane.showMessageDialog(null, "添加客户成功！", "提示",
 							JOptionPane.CLOSED_OPTION);
+					log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
+							"添加了一个新客户"+nameFld.getText(),3));
+					try {
+						headPane.RefreshGrades();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "添加客户失败！", "提示",
 							JOptionPane.WARNING_MESSAGE);

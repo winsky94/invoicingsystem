@@ -4,8 +4,8 @@ import po.ReceiptPO.ReceiptType;
 
 public class ReceiptVO {
 	String id;
-	String memberName;
-	String memberID;
+	String memberName="";
+	String memberID="";
 	String user;
 	ReceiptType type;
 	int status;

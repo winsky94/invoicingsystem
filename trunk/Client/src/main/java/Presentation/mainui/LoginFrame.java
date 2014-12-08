@@ -31,6 +31,8 @@ import javax.swing.JTextField;
 
 
 
+
+import vo.LogVO;
 import vo.UserVO;
 import Presentation.uihelper.UIhelper;
 import businesslogic.userbl.User;
@@ -46,7 +48,7 @@ public class LoginFrame extends JFrame{
 	String id, key;
 	JTextField idField;
 	JPasswordField passwordField;
-   JLabel label;
+    JLabel label;
 	int screenHeight, screenWidth, frameHeight, frameWidth;
     int xOld,yOld;
 	public LoginFrame() throws Exception {
@@ -315,6 +317,9 @@ public class LoginFrame extends JFrame{
 				
 				MainFrame frame=new MainFrame(user);
 				frame.setDividerLocation("long");
+				log.addLog(new LogVO(log.getdate(),user.getID(),user.getName(),
+						"登陆进销存系统",2));
+				headPane.RefreshGrades();
 				LoginFrame.this.dispose();
 				break;
 			case 2:

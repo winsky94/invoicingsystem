@@ -22,9 +22,12 @@ import po.MemberPO.MemberType;
 import vo.CommodityVO;
 import vo.GiftVO;
 import vo.GoodsVO;
+import vo.LogVO;
 import vo.MemberVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 import Presentation.stockui.ChooseGoodsDialog;
 import businesslogic.memberbl.Member;
 import businesslogic.stockbl.gift.GiftCommodityListModel;
@@ -220,6 +223,14 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 			GiftVO vo = new GiftVO("", name, ID, user, 4, 0, "", recordList);
 			GiftBLService giftService = new GiftController();
 			giftService.addGift(vo);
+			log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
+					"创建一笔库存赠送单",5));
+			try {
+				headPane.RefreshGrades();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 			parent.setRightComponent(new GiftPanel(parent));
 		}
