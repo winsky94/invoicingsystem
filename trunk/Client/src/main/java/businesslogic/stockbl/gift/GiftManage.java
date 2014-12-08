@@ -204,7 +204,7 @@ public class GiftManage {
 	}
 
 	// 将赠送商品列表由po转为vo
-	private ArrayList<CommodityVO> commodityPOToVO(ArrayList<CommodityPO> list) {
+	private static ArrayList<CommodityVO> commodityPOToVO(ArrayList<CommodityPO> list) {
 		ArrayList<CommodityVO> result = new ArrayList<CommodityVO>();
 		for (CommodityPO po : list) {
 			CommodityVO vo = new CommodityVO(po.getID(), po.getName(),
@@ -225,7 +225,10 @@ public class GiftManage {
 		return result;
 	}
 
-	public GiftVO giftPOToVO(GiftPO po) {
+
+	public static  GiftVO giftPOToVO(GiftPO po) {
+
+	
 		GiftVO vo = new GiftVO(po.getId(), po.getMemberName(),
 				po.getMemberID(), po.getUserID(), po.getStatus(),
 				po.getHurry(), po.getInfo(), commodityPOToVO(po.getGiftList()));

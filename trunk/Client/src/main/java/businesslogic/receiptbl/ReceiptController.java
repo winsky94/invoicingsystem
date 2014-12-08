@@ -2,11 +2,25 @@ package businesslogic.receiptbl;
 
 import java.util.ArrayList;
 
+import po.CashlistPO;
+import po.CollectionPO;
+import po.GiftPO;
 import po.PaymentPO;
+import po.PurchasePO;
+import po.PurchaseReturnPO;
 import po.ReceiptPO;
 import po.ReceiptPO.ReceiptType;
+import po.SalePO;
+import po.SaleReturnPO;
 import vo.ReceiptVO;
+import businesslogic.financebl.CashList;
+import businesslogic.financebl.Collection;
 import businesslogic.financebl.Payment;
+import businesslogic.salesbl.Purchase;
+import businesslogic.salesbl.PurchaseReturn;
+import businesslogic.salesbl.Sale;
+import businesslogic.salesbl.SaleReturn;
+import businesslogic.stockbl.gift.GiftManage;
 import businesslogicservice.receiptblservice.ReceiptBLService;
 
 public class ReceiptController implements ReceiptBLService{
@@ -90,9 +104,22 @@ public class ReceiptController implements ReceiptBLService{
 		ReceiptVO vo=null;
 		if(po.getType()==ReceiptType.PAYMENT)
 			vo=Payment.poToVo((PaymentPO)po);
-		else if(po.getType()==ReceiptType.CASHLIST){
-			
-		}
+		else if(po.getType()==ReceiptType.COLLECTION){
+			vo=Collection.poToVo((CollectionPO)po);
+		}else if(po.getType()==ReceiptType.SALE)
+			vo=Sale.poToVo((SalePO)po);
+		else if(po.getType()==ReceiptType.SALERETURN)
+			vo=SaleReturn.poToVo((SaleReturnPO)po);
+		else if(po.getType()==ReceiptType.PURCHASE)
+			vo=Purchase.poToVo((PurchasePO)po);
+		else if(po.getType()==ReceiptType.PURCHASERETURN)
+			vo=PurchaseReturn.poToVo((PurchaseReturnPO)po);
+		else if(po.getType()==ReceiptType.CASHLIST)
+			vo=CashList.poToVo((CashlistPO)po);
+		else if(po.getType()==ReceiptType.GIFT)
+		{
+			vo=GiftManage.giftPOToVO((GiftPO)po);
+			}
 		else  vo=new ReceiptVO(po.getId(),po.getMemberName(),
 				po.getMemberID(),po.getUserID(),po.getType(),po.getStatus(),
 				po.getHurry(),po.getInfo());
