@@ -208,11 +208,12 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 					JOptionPane.showMessageDialog(null, "      请注意你的输入是否合法噢~ ",
 							null, JOptionPane.WARNING_MESSAGE);
 				}
+
 				double cost = oldVO.getPrice() * num;
+
 				CommodityVO vo = new CommodityVO(oldVO.getID(),
 						oldVO.getName(), oldVO.getType(), oldVO.getPrice(),
-						oldVO.getLast_bid(), num, oldVO.getNum(), cost,
-						oldVO.getTip());
+						oldVO.getLast_bid(), num, cost, cost, oldVO.getTip());
 				recordList.add(vo);
 			}
 
@@ -220,11 +221,11 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 			String ID = data[0];
 			String name = data[1];
 			String user = parent.getUser().getID();
-			GiftVO vo = new GiftVO("", name, ID, user, 4, 0, "", recordList);
+			GiftVO vo = new GiftVO("", name, ID, user, 4, 3, "", recordList);
 			GiftBLService giftService = new GiftController();
 			giftService.addGift(vo);
-			log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
-					"创建一笔库存赠送单",5));
+			log.addLog(new LogVO(log.getdate(), parent.getUser().getID(),
+					parent.getUser().getName(), "创建一笔库存赠送单", 5));
 			try {
 				headPane.RefreshGrades();
 			} catch (Exception e1) {

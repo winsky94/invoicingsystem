@@ -185,8 +185,7 @@ public class Goods {
 					result.add(vo);
 				}
 			}
-
-			cn = controller.showGoodsClassInfo(className).getUpClassName();
+			cn = controller.showGoodsClassInfo(cn).getUpClassName();
 		}
 
 		return result;

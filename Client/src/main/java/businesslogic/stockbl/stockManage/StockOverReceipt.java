@@ -83,7 +83,7 @@ public class StockOverReceipt extends Receipt {
 
 		StockOverOrLowPO po = new StockOverOrLowPO(exactID,
 				super.getmemberName(), super.getMemberID(), super.getUserID(),
-				ReceiptType.STOCKOVER, 0, super.getHurry(), super.getInfo(),
+				ReceiptType.STOCKOVER, 3, super.getHurry(), super.getInfo(),
 				goodName, size, num, exactNum);
 		return service.addStockOverOrLow(po);
 	}
