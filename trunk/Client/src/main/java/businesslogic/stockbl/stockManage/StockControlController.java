@@ -14,10 +14,8 @@ public class StockControlController implements StockControlBLService {
 		StockOverOrLowManage manage = new StockOverOrLowManage(
 				vo.getGoodsName(), vo.getSize(), vo.getNum(), vo.getExactNum());
 		if (vo.getType().equals(ReceiptType.STOCKOVER)) {
-			return manage
-					.addStockOverReceipt(vo.getId(), vo.getMemberName(),
-							vo.getMemberID(), vo.getUser(), vo.getHurry(),
-							vo.getInfo());
+			return manage.addStockOverReceipt(vo.getId(), vo.getUser(),
+					vo.getHurry(), vo.getInfo());
 		} else {
 			return manage
 					.addStockLowReceipt(vo.getId(), vo.getMemberName(),
@@ -26,10 +24,12 @@ public class StockControlController implements StockControlBLService {
 		}
 	}
 
+	// 库存报警
 	public int addStockError(StockErrorVO vo) {
 		// TODO 自动生成的方法存根
 		StockOverOrLowManage manage = new StockOverOrLowManage();
-		return manage.addStockErrorReceipt();
+		return manage
+				.addStockErrorReceipt(vo.getGoodsName(), vo.getGoodsSize());
 	}
 
 	// 获得库存报溢收入
@@ -71,7 +71,7 @@ public class StockControlController implements StockControlBLService {
 	// 商品调价收入(未测试==)
 	public double getPrimeCostIncome(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
-		StockManage manage=new StockManage();
+		StockManage manage = new StockManage();
 		return manage.getPrimeCostIncome(beginDate, endDate);
 	}
 

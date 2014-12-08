@@ -15,6 +15,9 @@ public interface StockControlDataService extends Remote {
 	// 获得所有库存报溢报损单
 	public ArrayList<StockOverOrLowPO> getStockOverOrLowPO();
 
+	// 获得所有库存报警单
+	public ArrayList<StockErrorPO> getStockErrorPO();
+
 	// 记录库存调价收入
 	public int recordPrimeCostIncome(String primeCostIncome);
 
@@ -22,4 +25,6 @@ public interface StockControlDataService extends Remote {
 	public ArrayList<String> getPrimeCostIncome();
 
 	public String getMaxID();
+
+	public String getErrorMaxID();
 }
