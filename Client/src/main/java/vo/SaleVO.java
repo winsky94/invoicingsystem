@@ -87,4 +87,6 @@ public class SaleVO extends ReceiptVO {
 	public void setSaleList(ArrayList<CommodityVO> list){
 		this.salesList=list;
 	}
+	
+	
 }

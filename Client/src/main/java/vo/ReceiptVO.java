@@ -74,5 +74,7 @@ public class ReceiptVO {
 		String day = s.substring(6, 8);
 		return year + "/" + month + "/" + day;
 	}
+	
+	
 
 }
