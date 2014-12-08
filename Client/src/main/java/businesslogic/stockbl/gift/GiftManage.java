@@ -225,7 +225,7 @@ public class GiftManage {
 		return result;
 	}
 
-	private GiftVO giftPOToVO(GiftPO po) {
+	public GiftVO giftPOToVO(GiftPO po) {
 		GiftVO vo = new GiftVO(po.getId(), po.getMemberName(),
 				po.getMemberID(), po.getUserID(), po.getStatus(),
 				po.getHurry(), po.getInfo(), commodityPOToVO(po.getGiftList()));

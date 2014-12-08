@@ -516,14 +516,14 @@ public class GoodsPanel extends JPanel implements ActionListener,
 	// 点击分类节点显示节点下的商品信息的监听
 	class MouseHandle extends MouseAdapter {
 		public void mousePressed(MouseEvent e) {
-			try {
-				JTree tree = (JTree) e.getSource();
-				int rowLocation = tree.getRowForLocation(e.getX(), e.getY());
-				TreePath treepath = tree.getPathForRow(rowLocation);
-				TreeNode treenode = (TreeNode) treepath.getLastPathComponent();
-				nodeName = treenode.toString();
-			} catch (NullPointerException ne) {
-			}
+//			try {
+//				JTree tree = (JTree) e.getSource();
+//				int rowLocation = tree.getRowForLocation(e.getX(), e.getY());
+//				TreePath treepath = tree.getPathForRow(rowLocation);
+//				TreeNode treenode = (TreeNode) treepath.getLastPathComponent();
+//				nodeName = treenode.toString();
+//			} catch (NullPointerException ne) {
+//			}
 
 			StockGoodsBLService goodsController = new GoodsController();
 			ArrayList<GoodsVO> list = new ArrayList<GoodsVO>();
