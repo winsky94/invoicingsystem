@@ -9,4 +9,5 @@ public interface LogService extends Remote{
 
 		public void AddLog(LogPO po);
 		public ArrayList<LogPO>  showAll();
+		public ArrayList<LogPO>  find(String startDate,String endDate);
 }

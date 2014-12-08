@@ -2,11 +2,15 @@ package businesslogic.receiptbl;
 
 import java.util.ArrayList;
 
+import po.ReceiptPO;
 import vo.ReceiptVO;
 import businesslogicservice.receiptblservice.ReceiptBLService;
 
 public class ReceiptController implements ReceiptBLService{
 	ReceiptList list;
+	public ReceiptController(){
+		
+	}
 
 	
 	
@@ -72,6 +76,7 @@ public class ReceiptController implements ReceiptBLService{
 
 	
 	public ReceiptVO  poToVo(ReceiptPO po){
-		ReceiptVO vo=new ReceiptVO()
+		ReceiptVO vo=new ReceiptVO(po.getId(),po.getType(),po.getUserID(),po.getStatus(),
+				po.getHurry());
 	}
 }

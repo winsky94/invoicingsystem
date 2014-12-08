@@ -160,6 +160,7 @@ public class LoginFrame extends JFrame{
 		idField.addFocusListener(new FocusAdapter(){
 			public void focusLost(FocusEvent e){
 				try {
+					
 					UserBLService service=new User();
 					UserVO v=service.showUser(idField.getText());
 					if(v!=null){
@@ -170,8 +171,10 @@ public class LoginFrame extends JFrame{
 							label.setIcon(new ImageIcon("img/Login/head_f.png"));break;
 						case SALE:
 							label.setIcon(new ImageIcon("img/Login/head_s.png"));break;
+						case STOCK:
+							label.setIcon(new ImageIcon("img/Login/head_k.png"));break;
 						default:
-							label.setIcon(new ImageIcon("img/Login/head_k.png"));
+							label.setIcon(new ImageIcon("img/Login/head_a.png"));
 							
 						}
 							
@@ -181,7 +184,7 @@ public class LoginFrame extends JFrame{
 					}
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "您的网络未连接！","提示",JOptionPane.WARNING_MESSAGE);
 				}
 				
 			}
