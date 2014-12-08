@@ -183,8 +183,8 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 		for (int i = 0; i < goodsTable.getColumnCount(); i++) {
-			goodsTable.getColumn(goodsTable.getColumnName(i))
-					.setCellRenderer(tcr);
+			goodsTable.getColumn(goodsTable.getColumnName(i)).setCellRenderer(
+					tcr);
 		}
 
 		jspTable = new JScrollPane(goodsTable);
@@ -507,16 +507,9 @@ public class GoodsPanel extends JPanel implements ActionListener,
 					}
 				}
 			}
-		} else if (e.getActionCommand().equals("修改分类!!!!")) {// 这个后期可以取消了，我直接在节点上改
-			// 下面一行，由DefaultTreeModel的getRoot()方法取得根节点.
-			DefaultMutableTreeNode rootNode = (DefaultMutableTreeNode) treeModel
-					.getRoot();
-
-			// 下面一行删除所有子节点
-			rootNode.removeAllChildren();
-
-			// 删除完后务必运行DefaultTreeModel的reload()操作，整个Tree的节点才会真正被删除.
-			treeModel.reload();
+		} else if (e.getActionCommand().equals("修改分类")) {
+			JOptionPane.showMessageDialog(this, "直接双击分类的节点修改哈~", null,
+					JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
@@ -730,7 +723,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		}
 	}
 
-	//table的渲染器
+	// table的渲染器
 	class MyTableCellRenderer extends DefaultTableCellRenderer {
 		/**
 		 * 
