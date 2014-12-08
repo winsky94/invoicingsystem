@@ -27,4 +27,6 @@ public interface StockControlDataService extends Remote {
 	public String getMaxID();
 
 	public String getErrorMaxID();
+
+	public StockOverOrLowPO findByID(String id);
 }
