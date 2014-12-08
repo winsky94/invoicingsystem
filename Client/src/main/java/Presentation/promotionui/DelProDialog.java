@@ -71,7 +71,7 @@ public class DelProDialog extends JDialog{
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				JOptionPane.showMessageDialog(null, "删除成功！");
+			
 				
 			}
 		});

@@ -5,12 +5,15 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -71,6 +74,18 @@ public class ReceiptMgrPanel extends JPanel {
 		approvedBtn = new MyButton("通过", new ImageIcon(
 				"img/promotion/approved.png"));
 		btnPnl.add(approvedBtn);
+		approvedBtn.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				int[] row=t1.getSelectedRows();
+				if(row.length>0){
+					
+				}else
+					JOptionPane.showMessageDialog(null, "请选择一条单据审批！","提示",JOptionPane.WARNING_MESSAGE);
+			}
+			
+		});
 		// -------不通过------------------
 		disapprovedBtn = new MyButton("不通过", new ImageIcon(
 				"img/promotion/disapproved.png"));
