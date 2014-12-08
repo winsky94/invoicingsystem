@@ -59,7 +59,7 @@ public class UserPO implements Serializable {
 		return grades;
 	}
 	public void setGrades(double g){
-		this.grades=g;
+		this.grades+=g;
 	}
 	public	enum UserJob implements Serializable{
 		
