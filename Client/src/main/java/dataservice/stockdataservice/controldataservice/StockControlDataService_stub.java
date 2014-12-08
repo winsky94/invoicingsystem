@@ -75,4 +75,14 @@ public class StockControlDataService_stub implements StockControlDataService {
 		return null;
 	}
 
+	public ArrayList<StockErrorPO> getStockErrorPO() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	public String getErrorMaxID() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 }

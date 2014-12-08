@@ -1,6 +1,7 @@
 package Presentation.stockui.goodsmanage;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -30,7 +31,9 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
@@ -176,6 +179,14 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		goodsModel = new GoodsModel();
 		goodsTable = new JTable(goodsModel);
 		goodsTable.setBackground(Color.white);
+
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < goodsTable.getColumnCount(); i++) {
+			goodsTable.getColumn(goodsTable.getColumnName(i))
+					.setCellRenderer(tcr);
+		}
+
 		jspTable = new JScrollPane(goodsTable);
 		c.gridx = 3;
 		c.gridy = 1;
@@ -319,11 +330,24 @@ public class GoodsPanel extends JPanel implements ActionListener,
 	private void createGoodsClass(ArrayList<GoodsClassVO> list) {
 		GoodsClassNode root = createTreeRoot(list);
 		DefaultMutableTreeNode Troot = createGoodsClassNode(root);
+
 		tree = new JTree(Troot);
 		treeModel = (DefaultTreeModel) tree.getModel();
 		tree.setEditable(true);
 		tree.addMouseListener(new MouseHandle());
 		treeModel.addTreeModelListener(this);
+
+		// 渲染器，用于调整树背景色及文字背景色
+		DefaultTreeCellRenderer cellRenderer = (DefaultTreeCellRenderer) tree
+				.getCellRenderer();
+		// cellRenderer.setLeafIcon(new ImageIcon());
+		// cellRenderer.setOpenIcon(new ImageIcon());
+		// cellRenderer.setClosedIcon(new ImageIcon());
+		cellRenderer.setFont(new Font("微软雅黑", Font.PLAIN, 12));
+		cellRenderer.setBackgroundSelectionColor(new Color(135, 206, 235));
+		// cellRenderer.setBorderSelectionColor(new Color(245, 255, 250));
+		cellRenderer.setTextNonSelectionColor(Color.black);
+		cellRenderer.setTextSelectionColor(Color.blue);
 
 		treeJsp = new JScrollPane(tree);
 		treeJsp.setBorder(null);
@@ -704,6 +728,31 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			this.setBackground(Color.white);
 			this.setFocusPainted(false);
 		}
+	}
+
+	//table的渲染器
+	class MyTableCellRenderer extends DefaultTableCellRenderer {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		public Component getTableCellRendererComponent(JTable table,
+				Object value, boolean isSelected, boolean hasFocus, int row,
+				int column) {
+			setHorizontalAlignment(JLabel.CENTER);
+			// 设置列宽
+			goodsTable.getColumn("编号").setPreferredWidth(180);
+			goodsTable.getColumn("名称").setPreferredWidth(130);
+
+			if (row % 2 == 0)
+				setBackground(Color.white); // 设置奇数行底色
+			else if (row % 2 == 1)
+				setBackground(new Color(225, 255, 255)); // 设置偶数行底色
+			return super.getTableCellRendererComponent(table, value,
+					isSelected, hasFocus, row, column);
+		}
+
 	}
 
 	// end_yan-----------------------------------------------------------
