@@ -73,4 +73,19 @@ public class StockControlDataService_stub implements StockControlDataService {
 		return null;
 	}
 
+	public ArrayList<StockErrorPO> getStockErrorPO() throws RemoteException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	public String getErrorMaxID() throws RemoteException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	public StockOverOrLowPO findByID(String id) throws RemoteException {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 }
