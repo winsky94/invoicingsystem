@@ -36,6 +36,8 @@ import Presentation.financeui.moneyreceipt.AddCashReceiptPanel;
 import Presentation.financeui.moneyreceipt.AddCollectionPanel;
 import Presentation.financeui.moneyreceipt.AddPaymentPanel;
 import Presentation.financeui.moneyreceipt.CashDetailPanel;
+import Presentation.financeui.moneyreceipt.CollectionDetailPanel;
+import Presentation.financeui.moneyreceipt.PaymentDetailPanel;
 import Presentation.mainui.MainFrame;
 
 public class CollectionPanel extends JPanel implements ActionListener {
@@ -171,7 +173,27 @@ public class CollectionPanel extends JPanel implements ActionListener {
   				mgr.setSelectedTab(0);
           }
           else if(e.getSource()==detailBtn){
-        	  if(tab.getSelectedIndex()==2){
+        	  if(tab.getSelectedIndex()==0){
+        		  int selected= t1.getSelectedRow();
+         		 if(selected<0){
+         			 JOptionPane.showMessageDialog(null, "请选择需要查看的单据", "提示",
+  							JOptionPane.CLOSED_OPTION);
+         		 }
+         		 else{
+         			 parent.setRightComponent(new CollectionDetailPanel(parent,selected));
+         		 }
+        	  }
+        	  else if(tab.getSelectedIndex()==1){
+        		  int selected= t2.getSelectedRow();
+         		 if(selected<0){
+         			 JOptionPane.showMessageDialog(null, "请选择需要查看的单据", "提示",
+  							JOptionPane.CLOSED_OPTION);
+         		 }
+         		 else{
+         			 parent.setRightComponent(new PaymentDetailPanel(parent,selected));
+         		 }
+        	  }
+        	  else if(tab.getSelectedIndex()==2){
         		 int selected= t3.getSelectedRow();
         		 if(selected<0){
         			 JOptionPane.showMessageDialog(null, "请选择需要查看的单据", "提示",

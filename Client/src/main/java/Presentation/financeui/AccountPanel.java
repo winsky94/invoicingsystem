@@ -176,10 +176,11 @@ public class AccountPanel extends JPanel implements ActionListener{
 				String s=searchFld.getText();
 				if(s=="")
 					JOptionPane.showMessageDialog(null, "请输入查找名称", "提示",JOptionPane.WARNING_MESSAGE);
-				AccountVO vo=service.findByName(s);
+				ArrayList<AccountVO> vv=service.findAccount(s);
 				ArrayList<AccountVO> al=new ArrayList<AccountVO>();
-				if(vo!=null)
-					al.add(vo);
+				if(vv!=null)
+					for(AccountVO vo:vv)
+					       al.add(vo);
 					mgr.RefreshAccountTable(al);
 			} catch (RemoteException e1) {
 				// TODO Auto-generated catch block
