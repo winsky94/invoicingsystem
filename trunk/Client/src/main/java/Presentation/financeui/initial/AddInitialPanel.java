@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import Presentation.mainui.MainFrame;
+
 public class AddInitialPanel extends JPanel {
 
 	/**
@@ -23,8 +25,10 @@ public class AddInitialPanel extends JPanel {
 	JTabbedPane tab;
 	JPanel goodsInitalPanel, memberInitialPanel, accountInitialPanel;
 	JButton submitBtn, exitBtn;
-
-	public AddInitialPanel() {
+    MainFrame parent;
+	
+	public AddInitialPanel(MainFrame frame) {
+		parent=frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);
@@ -65,7 +69,7 @@ public class AddInitialPanel extends JPanel {
 		memberInitialPanel=new MemberInitialPanel();
 		tab.add("客户信息初始化",memberInitialPanel);
 		//----------------------------
-		accountInitialPanel=new AccountInitialPanel();
+		accountInitialPanel=new AccountInitialPanel(parent);
 		tab.add("账户信息初始化",accountInitialPanel);
 		// ---------buttons-----------
 		JPanel btnPnl = new JPanel();
@@ -94,9 +98,9 @@ public class AddInitialPanel extends JPanel {
 		testFrame.setBounds(100, 50, 920, 600);
 		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		AddInitialPanel gp = new AddInitialPanel();
-		gp.setBounds(0, 0, 920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
+//		AddInitialPanel gp = new AddInitialPanel(parent);
+//		gp.setBounds(0, 0, 920, 600);
+//		testFrame.add(gp);
+//		testFrame.setVisible(true);
 	}
 }

@@ -24,6 +24,7 @@ import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 import vo.UserVO;
+import Presentation.financeui.initial.AddInitialPanel;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
@@ -81,12 +82,13 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		
 		reportBtn=new JLeftButton("查看报表",new ImageIcon("img/finance/showReport.png"),
 				color[0]);
+		reportBtn.addActionListener(this);
 		reportBtn.addMouseListener(this);
 		down.add(reportBtn);
 		
 		initialBtn=new JLeftButton("期初建账",new ImageIcon("img/finance/initialAccount.png"),
 				color[0]);
-		
+		initialBtn.addActionListener(this);
 		initialBtn.addMouseListener(this);
 		down.add(initialBtn);
 		
@@ -197,6 +199,10 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
   			
 
   				mgr.setSelectedTab(0);
+		}
+		else if(e.getSource()==initialBtn){
+			AddInitialPanel alp=new AddInitialPanel(frame);
+			frame.setRightComponent(alp);
 		}
 		else if(e.getSource()==foldBtn){			
 			frame.setLeftComponent(new LeftShortPanel(frame));
