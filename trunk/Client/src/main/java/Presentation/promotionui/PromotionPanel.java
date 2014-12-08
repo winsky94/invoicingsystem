@@ -17,7 +17,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -33,6 +32,7 @@ import Presentation.promotionui.BarginPromotion.AddBarginPanel;
 import Presentation.promotionui.CouponPromotion.AddCouponPanel;
 import Presentation.promotionui.DiscountPromotion.AddDiscountPanel;
 import Presentation.promotionui.GiftPromotion.AddGiftPanel;
+import Presentation.promotionui.GiftPromotion.GiftDetailPanel;
 import Presentation.uihelper.MyDateFormat;
 
 public class PromotionPanel extends JPanel {
@@ -175,7 +175,7 @@ public class PromotionPanel extends JPanel {
 				"img/promotion/detail.png"));
 		detailBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
 
 			}
 		});
