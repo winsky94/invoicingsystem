@@ -380,6 +380,21 @@ public class StockManage {
 		return giftCost;
 	}
 
+	// 库存报警检查
+	public boolean stockNumCheck(String goodName, String goodSize) {
+		// TODO 自动生成的方法存根
+		int num = service.getWarnnigNum();
+		String id = goodsService.findGoods(goodName + goodSize).get(0)
+				.getGoodsID();
+		return isEnough(id, num);
+	}
+
+	// 库存报警设置
+	public int setStockBasedNum(int num) {
+		// TODO 自动生成的方法存根
+		return service.setWarningNum(num);
+	}
+
 	private ArrayList<StockOverOrLowVO> POToVO(ArrayList<StockOverOrLowPO> list) {
 		ArrayList<StockOverOrLowVO> result = new ArrayList<StockOverOrLowVO>();
 		for (StockOverOrLowPO po : list) {
@@ -399,5 +414,4 @@ public class StockManage {
 
 		return sysDatetime;
 	}
-
 }
