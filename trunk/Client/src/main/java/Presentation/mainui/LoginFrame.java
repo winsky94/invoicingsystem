@@ -1,7 +1,6 @@
 package Presentation.mainui;
 
 import java.awt.Cursor;
-import java.awt.Event;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
