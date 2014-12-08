@@ -32,7 +32,6 @@ import Presentation.promotionui.BarginPromotion.AddBarginPanel;
 import Presentation.promotionui.CouponPromotion.AddCouponPanel;
 import Presentation.promotionui.DiscountPromotion.AddDiscountPanel;
 import Presentation.promotionui.GiftPromotion.AddGiftPanel;
-import Presentation.promotionui.GiftPromotion.GiftDetailPanel;
 import Presentation.uihelper.MyDateFormat;
 
 public class PromotionPanel extends JPanel {
