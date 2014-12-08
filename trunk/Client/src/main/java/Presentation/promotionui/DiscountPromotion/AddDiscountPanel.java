@@ -53,8 +53,8 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 	ArrayList<Double> last_bid=new ArrayList<Double>();
 	PromotionBLService service;
 	submitListener slisten;
-	public AddDiscountPanel(JFrame myFather) throws Exception {
-		parent = (MainFrame)myFather;
+	public AddDiscountPanel(MainFrame myFather) throws Exception {
+		parent = myFather;
 		service=new promotionController();
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
