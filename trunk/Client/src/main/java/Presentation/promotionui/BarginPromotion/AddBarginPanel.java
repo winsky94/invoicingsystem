@@ -57,8 +57,8 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 	double totalMoney,barginMoney;
 	submitListener slisten;
 	ArrayList<Double> last_bid=new ArrayList<Double>();
-	public AddBarginPanel(JFrame myFather) throws Exception {
-		parent = (MainFrame)myFather;
+	public AddBarginPanel(MainFrame myFather) throws Exception {
+		parent = myFather;
 		totalMoney=0;
 		barginMoney=0;
 		service=new promotionController();
