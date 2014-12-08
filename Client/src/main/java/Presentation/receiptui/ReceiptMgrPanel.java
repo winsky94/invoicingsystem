@@ -193,14 +193,16 @@ public class ReceiptMgrPanel extends JPanel {
 				PaymentVO pv=(PaymentVO)v;
 				line.add(pv.getSeller()+"/"+pv.getSupplier());
 				
-			}else if(v.getType()==ReceiptType.CASHLIST)
+			}else if(v.getType()==ReceiptType.COLLECTION)
 			{
 				CollectionVO cv=(CollectionVO)v;
 				line.add(cv.getSeller()+"/"+cv.getSupplier());
 			}
 			else line.add(v.getMemberName());
-			line.add("");
-			//line.add(Total.getTotal(v));
+		
+			if(v.getType()==ReceiptType.STOCKOVER||v.getType()==ReceiptType.STOCKLOW)
+				line.add("");
+			else line.add(Total.getTotal(v));
 			line.add(user.getName(v.getUser()));
 			line.add(v.getInfo());
 			tab.add(line);		

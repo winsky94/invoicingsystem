@@ -75,7 +75,7 @@ public class PurchaseReturn extends Receipt {
 	
 	//String id,String MemName,String MemID,String user, int status,
 	//String info,int hurry,ArrayList<CommodityVO> list,double total,String sid) {
-	static PurchaseReturnVO poToVo(PurchaseReturnPO po){
+	public static PurchaseReturnVO poToVo(PurchaseReturnPO po){
 		ArrayList<CommodityVO> puList;
 		ArrayList<CommodityPO> List=po.getPurchaseReturnList();
 		
