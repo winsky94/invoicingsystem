@@ -10,6 +10,7 @@ import Data.financedata.Payment;
 import Data.financedata.RedExtrusion;
 import Data.salesdata.Sales;
 import Data.stockdata.gift.Gift;
+import Data.stockdata.stockManage.StockControl;
 import po.CashlistPO;
 import po.CollectionPO;
 import po.GiftPO;
@@ -63,18 +64,15 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataservice{
 	        	Sales sale=new Sales();
 	        		return sale.findReceiptByID(id);
 	        }
-	        else if(s.equals("")){
+	        else if(s.equals("KCZSD")){
+	        	Gift gift=new Gift();
+	        	return gift.findByID(id);
 	        	
 	        }
-	        else if(s.equals("")){
-	        	
-	        }
-	        else if(s.equals("")){
-	        	
-	        }
-	        else if(s.equals("")){
-	        	
-	        }
+	        else if(s.equals("KCBYD")||s.equals("KCBSD")){
+	        	StockControl sc=new StockControl();
+	        	return sc.findByID(id);	        	
+	        }	       
 	        else{
 	        	return null;
 	        }
