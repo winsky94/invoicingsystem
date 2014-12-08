@@ -10,4 +10,5 @@ public interface LogService extends Remote{
 
 	public void AddLog(LogPO po) throws RemoteException;
 	public ArrayList<LogPO>  showAll() throws RemoteException;
+	public ArrayList<LogPO>  find(String startDate,String endDate) throws RemoteException;
 }

@@ -37,6 +37,22 @@ public class User extends UnicastRemoteObject implements UserDataService{
 			return 1;
 	    
 	}
+	
+	public void addGrades(String id,double grades) throws RemoteException{
+		ArrayList<Object> a=file.read();
+		int i;
+		for(i=0;i<a.size();i++){
+			UserPO b=(UserPO)a.get(i);
+			if(b.getID().equals(id)){
+				b.setGrades(grades);
+				break;
+			}
+		}
+		
+		
+		file.writeM(a);
+	
+	}
 
 	public int delete(String ID) throws RemoteException {
 		ArrayList<Object> a=file.read();
