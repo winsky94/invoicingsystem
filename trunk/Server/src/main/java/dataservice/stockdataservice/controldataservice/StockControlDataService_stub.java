@@ -88,4 +88,14 @@ public class StockControlDataService_stub implements StockControlDataService {
 		return null;
 	}
 
+	public int getWarningNum() throws RemoteException {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
+	public int setWarningNum(int num) throws RemoteException {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
 }
