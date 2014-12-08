@@ -170,18 +170,20 @@ public class AccountPanel extends JPanel implements ActionListener{
 		}
 		else if(e.getSource()==searchBtn){		
 			try {
-				FinanceAccountBLService service=new Account();
-				AccountPanel mgr = new AccountPanel(parent);
-				parent.setRightComponent(mgr);
-				String s=searchFld.getText();
-				if(s=="")
+				  String s=searchFld.getText();
+				if(s.equals(""))
 					JOptionPane.showMessageDialog(null, "请输入查找名称", "提示",JOptionPane.WARNING_MESSAGE);
-				ArrayList<AccountVO> vv=service.findAccount(s);
-				ArrayList<AccountVO> al=new ArrayList<AccountVO>();
-				if(vv!=null)
-					for(AccountVO vo:vv)
-					       al.add(vo);
+				else{
+					FinanceAccountBLService service=new Account();
+				    AccountPanel mgr = new AccountPanel(parent);
+				    parent.setRightComponent(mgr);
+				   	ArrayList<AccountVO> vv=service.findAccount(s);
+				    ArrayList<AccountVO> al=new ArrayList<AccountVO>();
+				    if(vv!=null)
+					   for(AccountVO vo:vv)
+					        al.add(vo);
 					mgr.RefreshAccountTable(al);
+				}
 			} catch (RemoteException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
