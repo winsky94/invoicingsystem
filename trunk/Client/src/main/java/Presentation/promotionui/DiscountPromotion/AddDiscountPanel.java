@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -28,14 +27,12 @@ import po.PromotionPO.PromotionType;
 import vo.CommodityVO;
 import vo.DiscountProVO;
 import vo.GoodsVO;
-import vo.PackProVO;
-import vo.PackVO;
-import businesslogic.promotionbl.promotionController;
-import businesslogicservice.promotionblservice.PromotionBLService;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
 import Presentation.promotionui.PromotionPanel;
 import Presentation.uihelper.DateChooser;
+import businesslogic.promotionbl.promotionController;
+import businesslogicservice.promotionblservice.PromotionBLService;
 
 public class AddDiscountPanel extends ChooseGoodsFatherPane {
 	/**
