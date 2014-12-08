@@ -20,7 +20,6 @@ import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 import vo.UserVO;
-import Presentation.financeui.initial.AddInitialPanel;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
@@ -152,7 +151,7 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
   				mgr.setSelectedTab(0);
 		}
 		else if(arg0.getSource()==initialBtn){
-			AddInitialPanel alp=new AddInitialPanel(frame);
+			InitialPanel alp=new InitialPanel(frame);
 			frame.setRightComponent(alp);
 		}
 		else if(arg0.getSource()==aboutBtn){			
