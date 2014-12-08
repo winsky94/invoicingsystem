@@ -53,6 +53,18 @@ public class StockControl extends UnicastRemoteObject implements
 		return result;
 	}
 
+	public ArrayList<StockErrorPO> getStockErrorPO() throws RemoteException {
+		ArrayList<StockErrorPO> result = new ArrayList<StockErrorPO>();
+		ArrayList<Object> list = errorFile.read();
+
+		if (list != null) {
+			for (Object po : list) {
+				result.add((StockErrorPO) po);
+			}
+		}
+		return result;
+	}
+
 	public int recordPrimeCostIncome(String primeCostIncome)
 			throws RemoteException {
 		// TODO 自动生成的方法存根
@@ -105,7 +117,46 @@ public class StockControl extends UnicastRemoteObject implements
 	public String getMaxID() throws RemoteException {
 		String result = "";
 		ArrayList<StockOverOrLowPO> list = getStockOverOrLowPO();
-		
+
+		if (list.size() == 0) {
+			return null;
+		} else {
+			String today = getDate();
+			int index = -1;
+			for (int i = list.size() - 1; i >= 0; i--) {
+				String tpID = list.get(i).getId();
+				String temID[] = tpID.split("-");
+				if (today.equals(temID[1])) {
+					index = i;
+					break;
+				}
+			}
+			if (index == -1) {
+				return null;
+			} else {
+				String id = list.get(index).getId();
+				String tempID[] = id.split("-");
+				result = tempID[2];
+				for (int i = 0; i < list.size(); i++) {
+
+					String tpID = list.get(i).getId();
+					String temID[] = tpID.split("-");
+
+					if (today.equals(temID[1])
+							&& result.compareTo(temID[2]) < 0) {
+						result = temID[2];
+					}
+
+				}
+				return result;
+			}
+		}
+	}
+
+	public String getErrorMaxID() throws RemoteException {
+		String result = "";
+		ArrayList<StockErrorPO> list = getStockErrorPO();
+
 		if (list.size() == 0) {
 			return null;
 		} else {
@@ -147,5 +198,19 @@ public class StockControl extends UnicastRemoteObject implements
 		String sysDatetime = fmt.format(rightNow.getTime());
 
 		return sysDatetime;
+	}
+
+	public StockOverOrLowPO findByID(String id) throws RemoteException {
+		StockOverOrLowPO po = null;
+		ArrayList<StockOverOrLowPO> list = getStockOverOrLowPO();
+		if (list != null) {
+			for (StockOverOrLowPO p : list) {
+				if (p.getId().equals(id)) {
+					po = p;
+					break;
+				}
+			}
+		}
+		return po;
 	}
 }

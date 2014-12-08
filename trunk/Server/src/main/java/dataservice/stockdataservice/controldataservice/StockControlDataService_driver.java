@@ -11,7 +11,7 @@ public class StockControlDataService_driver {
 		StockOverOrLowPO stockOverOrLowPO = new StockOverOrLowPO("飞利浦日光灯",
 				"SR01", null, null, null, 100, 99, null, null, null, -1,
 				0);
-		StockErrorPO stockErrorPO = new StockErrorPO("飞利浦日光灯", "SR01");
+		StockErrorPO stockErrorPO = new StockErrorPO("飞利浦日光灯", "SR01", null, null);
 		stockErrorDataService.addStockOverOrLow(stockOverOrLowPO);
 		stockErrorDataService.addStockError(stockErrorPO);
 	}
