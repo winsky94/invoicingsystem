@@ -3,19 +3,19 @@ package vo;
 import java.util.Date;
 
 public class LogVO {
-	private Date date;
+	private String date;
 	private  String userID;
 	private  String userName;
 	private String info;
 	private double addGrades;
-	public LogVO(Date date,String userID, String userName, String info, double addGrades) {
+	public LogVO(String date,String userID, String userName, String info, double addGrades) {
 		this.date=date;
 		this.userID = userID;
 		this.userName = userName;
 		this.info = info;
 		this.addGrades = addGrades;
 	}
-	public Date getDate(){
+	public String getDate(){
 		return date;
 	}
 	public String getUserID() {

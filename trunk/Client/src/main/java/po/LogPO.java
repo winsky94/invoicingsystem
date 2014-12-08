@@ -2,6 +2,7 @@ package po;
 
 import java.io.Serializable;
 
+
 public class LogPO implements Serializable {
 	/**
 	 * 
