@@ -45,7 +45,7 @@ public class AddGiftPanel extends ChooseGoodsFatherPane{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Font font=new Font("微软雅黑", Font.BOLD, 15);
+	Font font=new Font("微软雅黑", Font.PLAIN, 15);
 	JTextField limitFld;
 	DateChooser from,to;
 	JScrollPane jsp;
