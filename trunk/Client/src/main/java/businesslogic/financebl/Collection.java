@@ -122,7 +122,7 @@ public class Collection extends Receipt implements CollectionBLService{
 	}
 
 	
-	public CollectionVO poToVo(CollectionPO po){
+	public static  CollectionVO poToVo(CollectionPO po){
 		if(po==null)
 			return null;
 		 ArrayList<TransferItemPO> a=po.getTransferlist();

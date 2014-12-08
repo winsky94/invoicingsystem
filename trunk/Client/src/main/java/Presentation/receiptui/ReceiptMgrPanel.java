@@ -18,11 +18,14 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
+import po.ReceiptPO.ReceiptType;
 import Presentation.mainui.MainFrame;
 import businesslogic.receiptbl.ReceiptController;
 import businesslogic.userbl.User;
 import businesslogicservice.receiptblservice.ReceiptBLService;
 import businesslogicservice.userblservice.UserViewService;
+import vo.CollectionVO;
+import vo.PaymentVO;
 import vo.ReceiptVO;
 
 public class ReceiptMgrPanel extends JPanel {
@@ -182,10 +185,21 @@ public class ReceiptMgrPanel extends JPanel {
 			ReceiptVO v=vo.get(i);
 			line.add(v.getId());
 			line.add(v.getDate());
-			//line.add(Total.getType(v.getType()));
-			line.add("类型");
-			line.add(v.getMemberName());
-			line.add("元");
+			line.add(Total.getType(v.getType()));
+			
+			//销售/进货
+			if(v.getType()==ReceiptType.PAYMENT)
+			{
+				PaymentVO pv=(PaymentVO)v;
+				line.add(pv.getSeller()+"/"+pv.getSupplier());
+				
+			}else if(v.getType()==ReceiptType.CASHLIST)
+			{
+				CollectionVO cv=(CollectionVO)v;
+				line.add(cv.getSeller()+"/"+cv.getSupplier());
+			}
+			else line.add(v.getMemberName());
+			line.add("");
 			//line.add(Total.getTotal(v));
 			line.add(user.getName(v.getUser()));
 			line.add(v.getInfo());

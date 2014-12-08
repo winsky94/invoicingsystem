@@ -2,8 +2,11 @@ package businesslogic.receiptbl;
 
 import java.util.ArrayList;
 
+import po.PaymentPO;
 import po.ReceiptPO;
+import po.ReceiptPO.ReceiptType;
 import vo.ReceiptVO;
+import businesslogic.financebl.Payment;
 import businesslogicservice.receiptblservice.ReceiptBLService;
 
 public class ReceiptController implements ReceiptBLService{
@@ -84,9 +87,16 @@ public class ReceiptController implements ReceiptBLService{
 
 	
 	public ReceiptVO  poToVo(ReceiptPO po){
-		ReceiptVO vo=new ReceiptVO(po.getId(),po.getMemberName(),
+		ReceiptVO vo=null;
+		if(po.getType()==ReceiptType.PAYMENT)
+			vo=Payment.poToVo((PaymentPO)po);
+		else if(po.getType()==ReceiptType.CASHLIST){
+			
+		}
+		else  vo=new ReceiptVO(po.getId(),po.getMemberName(),
 				po.getMemberID(),po.getUserID(),po.getType(),po.getStatus(),
 				po.getHurry(),po.getInfo());
+		
 		return vo;
 	}
 	

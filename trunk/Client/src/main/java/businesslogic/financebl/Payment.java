@@ -98,7 +98,7 @@ public class Payment extends Receipt implements PaymentBLService{
 	}
 
 	
-	public PaymentVO poToVo(PaymentPO po){
+	public static PaymentVO poToVo(PaymentPO po){
 		if(po==null)
 			return null;
 		 ArrayList<TransferItemPO> a=po.getTransferlist();

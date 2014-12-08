@@ -74,7 +74,7 @@ public class CashList extends Receipt implements CashlistBLService{
 	}
 
 	
-	public CashlistVO poToVo(CashlistPO po){
+	public static CashlistVO poToVo(CashlistPO po){
 		if(po==null)
 			return null;
 		 ArrayList<ClauseItemPO> a=po.getClauselist();
