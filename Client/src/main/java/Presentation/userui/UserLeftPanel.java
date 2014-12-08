@@ -11,6 +11,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import businesslogic.userbl.User;
+import businesslogic.utilitybl.logbl;
+import businesslogicservice.userblservice.LogBLService;
 import businesslogicservice.userblservice.UserBLService;
 import vo.UserVO;
 import Presentation.mainui.JLeftButton;
@@ -94,7 +96,17 @@ public class UserLeftPanel extends JPanel implements ActionListener {
 			parent.setLeftComponent(new UserLeftShortPane(parent));
 			
 		}else if(e.getSource()==logBtn){
-			parent.setRightComponent(new SystemLogPanel(parent));}
+			try {
+				LogBLService logsr=new logbl();
+				SystemLogPanel sp= new SystemLogPanel(parent);
+				parent.setRightComponent(sp);
+				if(logsr.showLog()!=null)
+					sp.RefreshTable(logsr.showLog());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		else if(e.getSource()==userBtn){
 			UserMgrPanel mgr=new UserMgrPanel(parent);
 			try {

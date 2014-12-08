@@ -14,4 +14,6 @@ public interface ReceiptBLService {
 	public ReceiptVO View(String id);
 	public ArrayList<ReceiptVO> Refresh();
 	public int Approve(String id);
-}
+	public ArrayList<ReceiptVO> ToApprove();
+	public ArrayList<ReceiptVO> Approved();
+ }

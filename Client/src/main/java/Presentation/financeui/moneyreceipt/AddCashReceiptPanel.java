@@ -27,6 +27,7 @@ import javax.swing.table.AbstractTableModel;
 import vo.AccountVO;
 import vo.CashlistVO;
 import vo.ClauseItemVO;
+import vo.LogVO;
 import businesslogic.financebl.Account;
 import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
@@ -37,6 +38,8 @@ import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 import Presentation.financeui.CollectionPanel;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 
 public class AddCashReceiptPanel extends JPanel implements ActionListener{
 
@@ -366,6 +369,9 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 				if (result == 0) {
 					JOptionPane.showMessageDialog(null, "创建现金费用单成功！", "提示",
 							JOptionPane.CLOSED_OPTION);
+					log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
+							"创建一笔现金费用单",4));
+					headPane.RefreshGrades();
 				} else {
 					JOptionPane.showMessageDialog(null, "创建现金费用单失败！", "提示",
 							JOptionPane.WARNING_MESSAGE);

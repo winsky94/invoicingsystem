@@ -22,10 +22,35 @@ public class ReceiptList {
 	
 	public ArrayList<ReceiptPO> showAllReceipt(){
 		
+		
 			return service.showAll();
 		
 	}
 
+	
+	public ArrayList<ReceiptPO>  showApproved(){
+		ArrayList<ReceiptPO> po=showAllReceipt();
+		ArrayList<ReceiptPO> approved=new ArrayList<ReceiptPO>();
+		for(int i=0;i<po.size();i++){
+			ReceiptPO p=po.get(i);
+			if(p.getStatus()!=0)
+				approved.add(p);
+			
+		}
+		return approved;
+	}
+	
+	public ArrayList<ReceiptPO> showToApprove(){
+		ArrayList<ReceiptPO> po=showAllReceipt();
+		ArrayList<ReceiptPO> toApprove=new ArrayList<ReceiptPO>();
+		for(int i=0;i<po.size();i++){
+			ReceiptPO p=po.get(i);
+			if(p.getStatus()==0)
+				toApprove.add(p);
+			
+		}
+		return toApprove;
+	}
 	
 	
 	

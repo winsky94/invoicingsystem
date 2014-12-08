@@ -24,11 +24,14 @@ import po.MemberPO.MemberLevel;
 import po.PromotionPO.PromotionType;
 import vo.CouponVO;
 import vo.GiftCouponProVO;
+import vo.LogVO;
 import businesslogic.promotionbl.giftCouponPro;
 import businesslogic.promotionbl.promotion;
 import businesslogic.promotionbl.promotionController;
 import businesslogicservice.promotionblservice.PromotionBLService;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 import Presentation.promotionui.PromotionPanel;
 import Presentation.uihelper.DateChooser;
 
@@ -41,7 +44,7 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 	String startDate,endDate,id;
 	MemberLevel level;
 	double totalValue;
-	JFrame father;
+	MainFrame father;
 	DateChooser from, to;
 	 JTextField limitFld , priceFld;
 	JTextField totalFld;
@@ -52,7 +55,7 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 	ArrayList<CouponVO> couponlist;
 	
 	public AddCouponPanel(JFrame myFather) {
-		father = myFather;
+		father = (MainFrame)myFather;
 		couponlist=new ArrayList<CouponVO>();
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
@@ -216,6 +219,9 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 				if(service.Add(vo)==0)
 					{JOptionPane.showMessageDialog(null, "策略添加成功","提示",JOptionPane.WARNING_MESSAGE);
 					update();
+					log.addLog(new LogVO(log.getdate(),father.getUser().getID(),father.getUser().getName(),
+							"创建一条代金券促销策略",2));
+					headPane.RefreshGrades();
 					
 						
 					}

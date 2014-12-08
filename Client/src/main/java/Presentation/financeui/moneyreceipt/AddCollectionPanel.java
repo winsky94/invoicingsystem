@@ -19,8 +19,11 @@ import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 import vo.CollectionVO;
+import vo.LogVO;
 import Presentation.financeui.CollectionPanel;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 
 public class AddCollectionPanel extends CollectionAndPaymentPanel implements ActionListener{
 	/**
@@ -95,6 +98,9 @@ public class AddCollectionPanel extends CollectionAndPaymentPanel implements Act
 				if (result == 0) {
 					JOptionPane.showMessageDialog(null, "创建收款单成功！", "提示",
 							JOptionPane.CLOSED_OPTION);
+					log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
+							"创建了一笔收款单",5));
+					headPane.RefreshGrades();
 				} else {
 					JOptionPane.showMessageDialog(null, "创建收款单失败！", "提示",
 							JOptionPane.WARNING_MESSAGE);

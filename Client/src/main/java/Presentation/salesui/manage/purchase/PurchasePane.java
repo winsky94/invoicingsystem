@@ -26,10 +26,13 @@ import po.MemberPO.MemberType;
 import po.ReceiptPO.ReceiptType;
 import vo.CommodityVO;
 import vo.GoodsVO;
+import vo.LogVO;
 import vo.MemberVO;
 import vo.PurchaseVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 import Presentation.salesui.manage.CommodityTableModel;
 import Presentation.salesui.manage.PurchaseMgrPanel;
 import Presentation.salesui.manage.SaleMgrPanel;
@@ -355,7 +358,7 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 			}
 			int i=JHSBox.getSelectedIndex();
 			String mem=JHSBox.getSelectedItem().toString();
-			PurchaseVO vo=new PurchaseVO(id,idtxt[i],mem,stockFld.getText(),parent.getUser().getID(),
+			PurchaseVO vo=new PurchaseVO(id,mem,idtxt[i],stockFld.getText(),parent.getUser().getID(),
 					cmlist,remarkFld.getText(),totalMoney,0,1);
 			int result=service.addPurchase(vo);
 			if(result==0)
@@ -366,6 +369,9 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 					
 					parent.setRightComponent(pmg);
 					pmg.RefreshPanel();
+					log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
+							"创建一笔进货单",5));
+					headPane.RefreshGrades();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

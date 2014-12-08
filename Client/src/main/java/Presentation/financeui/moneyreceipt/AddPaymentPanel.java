@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import vo.LogVO;
 import vo.PaymentVO;
 import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
@@ -21,6 +22,8 @@ import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 import Presentation.financeui.CollectionPanel;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 
 public class AddPaymentPanel extends CollectionAndPaymentPanel implements ActionListener{
 
@@ -96,6 +99,9 @@ public class AddPaymentPanel extends CollectionAndPaymentPanel implements Action
 				if (result == 0) {
 					JOptionPane.showMessageDialog(null, "创建付款单成功！", "提示",
 							JOptionPane.CLOSED_OPTION);
+					log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
+							"创建了一笔付款单",5));
+					headPane.RefreshGrades();
 				} else {
 					JOptionPane.showMessageDialog(null, "创建付款单失败！", "提示",
 							JOptionPane.WARNING_MESSAGE);

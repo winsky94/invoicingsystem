@@ -31,10 +31,13 @@ import businesslogic.promotionbl.promotionController;
 import businesslogicservice.promotionblservice.PromotionBLService;
 import vo.CommodityVO;
 import vo.GoodsVO;
+import vo.LogVO;
 import vo.PackProVO;
 import vo.PackVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 import Presentation.promotionui.PromotionPanel;
 import Presentation.stockui.ChooseGoodsDialog;
 import Presentation.uihelper.DateChooser;
@@ -373,6 +376,9 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 			if(service.Add(vo)==0)
 				{JOptionPane.showMessageDialog(null, "策略添加成功","提示",JOptionPane.WARNING_MESSAGE);
 			try {
+				log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
+						"创建一条特价包促销策略",4));
+				headPane.RefreshGrades();
 				update();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block

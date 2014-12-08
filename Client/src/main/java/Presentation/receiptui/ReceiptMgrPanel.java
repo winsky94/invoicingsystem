@@ -18,15 +18,23 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
+import Presentation.mainui.MainFrame;
+import businesslogic.receiptbl.ReceiptController;
+import businesslogic.userbl.User;
+import businesslogicservice.receiptblservice.ReceiptBLService;
+import businesslogicservice.userblservice.UserViewService;
+import vo.ReceiptVO;
+
 public class ReceiptMgrPanel extends JPanel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	ReceiptBLService service;
 	Color color = new Color(115, 46, 126);
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
-	JFrame father;
+	MainFrame father;
 	MyButton approvedBtn, disapprovedBtn, modBtn, refreshBtn, findBtn;
 	JTextField findFld;
 	JTabbedPane tab;
@@ -36,8 +44,9 @@ public class ReceiptMgrPanel extends JPanel {
 	ArrayList<ArrayList<String>> c1 = new ArrayList<ArrayList<String>>();
 	ArrayList<ArrayList<String>> c2 = new ArrayList<ArrayList<String>>();
 
-	public ReceiptMgrPanel(JFrame myFather) {
-		father = myFather;
+	public ReceiptMgrPanel(JFrame myFather) throws Exception {
+		service=new ReceiptController();
+		father = (MainFrame)myFather;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 10, 5, 10);
@@ -106,15 +115,15 @@ public class ReceiptMgrPanel extends JPanel {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		String head[] = { "单据编号", "创建日期", "业务类型", "交易客户", "交易金额", "业务员", "备注" };
-		ArrayList<ArrayList<String>> c;
+		String head[] = { "单据编号", "创建日期", "业务类型", "交易客户", "交易金额", "操作员", "备注" };
+		ArrayList<ArrayList<String>> cm;
 
 		public ReceiptTableModel(ArrayList<ArrayList<String>> content) {
-			c = content;
+			cm = content;
 		}
 
 		public int getRowCount() {
-			return c.size();
+			return cm.size();
 		}
 
 		public int getColumnCount() {
@@ -122,15 +131,15 @@ public class ReceiptMgrPanel extends JPanel {
 		}
 
 		public void addRow(ArrayList<String> v) {
-			c.add(v);
+			cm.add(v);
 		}
 
 		public void removeRow(int row) {
-			c.remove(row);
+			cm.remove(row);
 		}
 
 		public String getValueAt(int row, int col) {
-			return c.get(row).get(col);
+			return cm.get(row).get(col);
 		}
 
 		public String getColumnName(int col) {
@@ -160,15 +169,30 @@ public class ReceiptMgrPanel extends JPanel {
 			this.setFocusPainted(false);
 		}
 	}
-
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 920, 600);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		ReceiptMgrPanel gp = new ReceiptMgrPanel(testFrame);
-		gp.setBounds(0, 0, 920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
+	//{ "单据编号", "创建日期", "业务类型", "交易客户", "交易金额", "操作员", "备注" }
+	//0待审批  1已审批
+	public void RefreshTable(ArrayList<ReceiptVO> vo,int t) throws Exception{
+		UserViewService user=new User();
+		ArrayList<ArrayList<String>> tab;
+		if(t==0){
+			tab=c1;
+		}else tab=c2;
+		for(int i=0;i<vo.size();i++){
+			ArrayList<String> line=new ArrayList<String>();
+			ReceiptVO v=vo.get(i);
+			line.add(v.getId());
+			line.add(v.getDate());
+			//line.add(Total.getType(v.getType()));
+			line.add("类型");
+			line.add(v.getMemberName());
+			line.add("元");
+			//line.add(Total.getTotal(v));
+			line.add(user.getName(v.getUser()));
+			line.add(v.getInfo());
+			tab.add(line);		
+			
+		}
 	}
+
+
 }
