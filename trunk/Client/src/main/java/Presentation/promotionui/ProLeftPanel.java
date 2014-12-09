@@ -116,7 +116,9 @@ public class ProLeftPanel extends JPanel implements ActionListener{
 				parent.setLeftComponent(new ProLeftShortPanel(parent));
 			
 		}else if(e.getSource()==view){
-			parent.setRightComponent(new ReportMgrPanel(parent));
+			ReportMgrPanel report=new ReportMgrPanel(parent);
+			parent.setRightComponent(report);
+			report.RefreshSaleTable();
 			
 		}else if(e.getSource()==receipt){
 			ReceiptBLService rs=new ReceiptController();
