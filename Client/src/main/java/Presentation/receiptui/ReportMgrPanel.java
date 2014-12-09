@@ -29,6 +29,7 @@ import javax.swing.event.DocumentListener;
 import vo.ReceiptVO;
 import businesslogic.receiptbl.ReceiptController;
 import businesslogicservice.receiptblservice.ReceiptListService;
+import Presentation.mainui.ExportExcel;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.XLSFilter;
 import Presentation.receiptui.tablemodels.OperationHistoryTableModel;
@@ -293,12 +294,17 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		
 		if (e.getSource() == exportBtn) {
 			JFileChooser jfc = new JFileChooser(System.getProperty("user.home"));
 			jfc.setFileFilter(new XLSFilter());
 			jfc.setDialogTitle("导出");
 			if (jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-				// saveXLSContents(jfc.getSelectedFile().getAbsolutePath());
+				String fileName=jfc.getSelectedFile().getAbsolutePath();
+				if(tab.getSelectedIndex()==0){
+					ExportExcel.Exprot(sdtm.getExportConent(), fileName);
+				}
+				// saveXLSContents();
 			}
 		}
 	}
