@@ -21,7 +21,7 @@ public class SaleDetailTableModel extends AbstractTableModel{
 	
 	ArrayList<ArrayList<String>> c=new ArrayList<ArrayList<String>>();
 	private static final long serialVersionUID = 1L;
-	String head[]={"单据编号","日期","状态","类型","供应商","操作员","总额合计"};
+	String head[]={"单据编号","日期","状态","类型","销售商","操作员","总额合计"};
 
 	
 	public int getRowCount() {
@@ -80,5 +80,18 @@ public void RefreshList(ArrayList<ReceiptVO> vo) throws Exception{
 		
 		}
 }
+//"单据编号","日期","状态","类型","交易客户","操作员","总额合计"}
+	public ArrayList<ArrayList<String>>  getExportConent(){
+		ArrayList<ArrayList<String>> v=new ArrayList<ArrayList<String>>();
+		ArrayList<String> head=new ArrayList<String>();
+		head.add("单据编号");head.add("日期");
+		head.add("状态");head.add("类型");
+		head.add("销售商");head.add("操作员");
+		head.add("总额合计");
+		v.add(head);
+		for(int i=0;i<c.size();i++)
+			v.add(c.get(i));
+		return v;
+	}
 
 }
