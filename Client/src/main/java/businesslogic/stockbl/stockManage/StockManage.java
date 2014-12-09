@@ -14,8 +14,10 @@ import po.CommodityPO;
 import po.GiftPO;
 import po.GoodsPO;
 import po.PurchasePO;
+import po.PurchaseReturnPO;
 import po.ReceiptPO.ReceiptType;
 import po.SalePO;
+import po.SaleReturnPO;
 import po.StockOverOrLowPO;
 import vo.StockOverOrLowVO;
 import businesslogic.stockbl.goods.Goods;
@@ -88,8 +90,175 @@ public class StockManage {
 		return result;
 	}
 
+	public ArrayList<ArrayList<String>> showStock(String beginDate,
+			String endDate) {
+		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+		// 出库由销售、进货退货、赠送组成
+		// 入库由销售退货、进货组成
+		// 金额的话，相应的部分有对应的金额，库存赠送没有金额
+		// 注意单据要在执行完毕后才可以计算
+		ArrayList<GoodsPO> goodsList = new ArrayList<GoodsPO>();
+		ArrayList<SalePO> saleList = new ArrayList<SalePO>();
+		ArrayList<SaleReturnPO> saleReturnList = new ArrayList<SaleReturnPO>();
+		ArrayList<PurchasePO> purchaseList = new ArrayList<PurchasePO>();
+		ArrayList<PurchaseReturnPO> purchaseReturnList = new ArrayList<PurchaseReturnPO>();
+		ArrayList<GiftPO> giftList = new ArrayList<GiftPO>();
+		try {
+			goodsList = goodsService.showGoods();
+			saleList = saleService.showSale();
+			saleReturnList = saleService.showSaleReturn();
+			purchaseList = saleService.showPurchase();
+			purchaseReturnList = saleService.showPurchaseReturn();
+			giftList = giftService.getGiftList(beginDate, endDate);
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+
+		for (int i = 0; i < goodsList.size(); i++) {
+			ArrayList<String> temp = new ArrayList<String>();
+			GoodsPO po = goodsList.get(i);
+
+			int numIn = 0;// 入库数量
+			double moneyIn = 0;// 入库金额
+			int numOut = 0;// 出库数量
+			double moneyOut = 0;// 出库金额
+			int saleNum = 0;// 销售数量
+			double saleMoney = 0;// 销售金额
+			int purchaseNum = 0;// 进货数量
+			double purchaseMoney = 0;// 进货金额
+			// 进货
+			if (purchaseList != null) {
+				for (int j = 0; j < purchaseList.size(); j++) {
+					PurchasePO purchasePo = purchaseList.get(j);
+					String date = purchasePo.getDate().replace("/", "");
+					if (beginDate.compareTo(date) <= 0
+							&& endDate.compareTo(date) >= 0) {// 在当前日期内
+						if (purchasePo.getStatus() == 3) {// 执行完毕
+							ArrayList<CommodityPO> cList = purchasePo
+									.getPurchaseList();
+							for (int k = 0; k < cList.size(); k++) {
+								if (cList.get(k).getID()
+										.equals(po.getGoodsID())) {// 属于当前商品
+									numIn += cList.get(k).getNum();
+									purchaseNum += cList.get(k).getNum();
+									moneyIn += cList.get(k).getTotal();
+									purchaseMoney += cList.get(k).getTotal();
+								}
+							}
+						}
+					}
+				}
+			}
+
+			// 销售退货
+			if (saleReturnList != null) {
+				for (int j = 0; j < saleReturnList.size(); j++) {
+					SaleReturnPO saleReturnPO = saleReturnList.get(j);
+					String date = saleReturnPO.getDate().replace("/", "");
+					if (beginDate.compareTo(date) <= 0
+							&& endDate.compareTo(date) >= 0) {// 在当前日期内
+						if (saleReturnPO.getStatus() == 3) {// 执行完毕
+							ArrayList<CommodityPO> cList = saleReturnPO
+									.getSalesreturnList();
+							for (int k = 0; k < cList.size(); k++) {
+								if (cList.get(k).getID()
+										.equals(po.getGoodsID())) {// 属于当前商品
+									numIn += cList.get(k).getNum();
+									moneyIn += cList.get(k).getTotal();
+								}
+							}
+						}
+					}
+				}
+			}
+
+			// 销售
+			if (saleList != null) {
+				for (int j = 0; j < saleList.size(); j++) {
+					SalePO salePO = saleList.get(j);
+					String date = salePO.getDate().replace("/", "");
+					if (beginDate.compareTo(date) <= 0
+							&& endDate.compareTo(date) >= 0) {// 在当前日期内
+						if (salePO.getStatus() == 3) {// 执行完毕
+							ArrayList<CommodityPO> cList = salePO
+									.getSalesList();
+							for (int k = 0; k < cList.size(); k++) {
+								if (cList.get(k).getID()
+										.equals(po.getGoodsID())) {// 属于当前商品
+									numOut += cList.get(k).getNum();
+									moneyOut += cList.get(k).getTotal();
+									saleNum += cList.get(k).getNum();
+									saleMoney += cList.get(k).getTotal();
+								}
+							}
+						}
+					}
+				}
+			}
+
+			// 进货退货
+			if (purchaseReturnList != null) {
+				for (int j = 0; j < purchaseReturnList.size(); j++) {
+					PurchaseReturnPO purchaseReturnPO = purchaseReturnList
+							.get(j);
+					String date = purchaseReturnPO.getDate().replace("/", "");
+					if (beginDate.compareTo(date) <= 0
+							&& endDate.compareTo(date) >= 0) {// 在当前日期内
+						if (purchaseReturnPO.getStatus() == 3) {// 执行完毕
+							ArrayList<CommodityPO> cList = purchaseReturnPO
+									.getPurchaseReturnList();
+							for (int k = 0; k < cList.size(); k++) {
+								if (cList.get(k).getID()
+										.equals(po.getGoodsID())) {// 属于当前商品
+									numOut += cList.get(k).getNum();
+									moneyOut += cList.get(k).getTotal();
+								}
+							}
+						}
+					}
+				}
+			}
+
+			// 赠送
+			if (giftList != null) {
+				
+				for (int j = 0; j < giftList.size(); j++) {
+					GiftPO giftPO = giftList.get(j);
+					// 获得的库存赠送单即为这段时间内的单据，不要判断时间是否符合了
+					if (giftPO.getStatus() == 3) {// 执行完毕
+						System.out.println("StockManage.showStock():gift");
+						ArrayList<CommodityPO> cList = giftPO.getGiftList();
+						for (int k = 0; k < cList.size(); k++) {
+							if (cList.get(k).getID().equals(po.getGoodsID())) {// 属于当前商品
+								numOut += cList.get(k).getNum();
+							}
+						}
+					}
+				}
+			}
+
+			temp.add(po.getGoodsID());// 商品编号
+			temp.add(po.getName());// 商品名称
+			temp.add(po.getSize());// 商品型号
+			temp.add(String.valueOf(numOut));// 出库数量
+			temp.add(String.valueOf(moneyOut));// 出库金额
+			temp.add(String.valueOf(numIn));// 入库数量
+			temp.add(String.valueOf(moneyIn));// 入库金额
+			temp.add(String.valueOf(saleNum));// 销售数量
+			temp.add(String.valueOf(saleMoney));// 销售金额
+			temp.add(String.valueOf(purchaseNum));// 进货数量
+			temp.add(String.valueOf(purchaseMoney));// 进货金额
+
+			result.add(temp);
+
+		}
+
+		return result;
+	}
+
 	// 库存查看
-	public ArrayList<String> showStock(String beginDate, String endDate) {
+	public ArrayList<String> showStock2(String beginDate, String endDate) {
 		ArrayList<String> result = new ArrayList<String>();
 		// 出库
 		String out = getOutRecord(beginDate, endDate);

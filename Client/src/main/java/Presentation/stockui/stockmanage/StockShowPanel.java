@@ -89,7 +89,7 @@ public class StockShowPanel extends JPanel implements ActionListener {
 		gbl.setConstraints(timePnl, c);
 		this.add(timePnl);
 		// ------table---------------
-		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
 		StockControlBLService controller = new StockControlController();
 		list = controller.showStock(from.getDate(), to.getDate());
 
@@ -127,17 +127,17 @@ public class StockShowPanel extends JPanel implements ActionListener {
 
 		private static final long serialVersionUID = 1L;
 		ArrayList<ArrayList<String>> rowData;
-		String columnNames[] = { "类型", "数量", "金额" };// 列名
+		String columnNames[] = { "商品编号", "商品名称", "商品型号","出库数量","出库金额","入库数量","入库金额" ,"销售数量","销售金额","进货数量","进货金额"};// 列名
 
-		public StockShowTableModel(ArrayList<String> list) {
+		public StockShowTableModel(ArrayList<ArrayList<String>> list) {
 			rowData = new ArrayList<ArrayList<String>>();
 
 			for (int i = 0; i < list.size(); i++) {
 				ArrayList<String> hang = new ArrayList<String>();
-				String detail[] = list.get(i).split(";");
-				hang.add(detail[0]);
-				hang.add(detail[1]);
-				hang.add(detail[2]);
+				ArrayList<String> tp=list.get(i);
+				for(int j=0;j<tp.size();j++){
+					hang.add(tp.get(j));
+				}
 
 				// 加入到rowData
 				rowData.add(hang);

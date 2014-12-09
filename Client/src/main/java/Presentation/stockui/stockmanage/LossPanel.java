@@ -168,7 +168,7 @@ public class LossPanel extends ChooseGoodsFatherPane implements ActionListener {
 			}
 
 			StockOverOrLowVO vo = new StockOverOrLowVO("", parent.getUser()
-					.getID(), ReceiptType.STOCKLOW, 4, 0, "",
+					.getID(), ReceiptType.STOCKLOW, 3, 0, "",
 					goodsVO.getName(), goodsVO.getSize(),
 					goodsVO.getNumInStock(), exactNum);
 			StockControlBLService controller = new StockControlController();

@@ -22,7 +22,7 @@ public interface StockControlBLService {
 	// 商品报损支出
 	public double getGoodsLowCost();
 
-	public ArrayList<String> showStock(String beginDate, String endDate);
+	public ArrayList<ArrayList<String>> showStock(String beginDate, String endDate);
 
 	public ArrayList<ArrayList<String>> checkStock();
 
