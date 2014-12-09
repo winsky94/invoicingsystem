@@ -48,7 +48,7 @@ public class UserMgrPanel extends JPanel{
 		GridBagLayout gbl=new GridBagLayout();
 		this.setLayout(gbl);
 		GridBagConstraints c = new GridBagConstraints();
-		c.insets = new Insets(5, 3, 5, 3);
+		c.insets = new Insets(5, 15, 5,15);
 		//--------------buttons-------------
 		JPanel top=new JPanel();
 		top.setBackground(Color.white);
@@ -108,13 +108,18 @@ public class UserMgrPanel extends JPanel{
 		c.gridy=0;
 		c.gridwidth=GridBagConstraints.REMAINDER;
 		c.gridheight=1;
+		c.weightx=1;
+		c.weighty=0.1;
 		gbl.setConstraints(top, c);
 		this.add(top);
 		//--------------table------------------
+		c.fill=GridBagConstraints.BOTH;
 		utm=new UserTableModel();
 		userTbl=new JTable(utm);
 		jsp=new JScrollPane(userTbl);
 		c.gridy=1;
+		c.weightx=1;
+		c.weighty=1;
 		gbl.setConstraints(jsp, c);
 		this.add(jsp);
 	}
