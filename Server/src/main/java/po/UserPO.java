@@ -20,7 +20,7 @@ public class UserPO implements Serializable {
 
 	public UserPO(String name, String iD, String password,UserJob job,double grades) {
 		this.name = name;
-		ID = iD;
+		this.ID = iD;
 		this.password = password;
 		this.job = job;
 		this.grades=grades;
