@@ -102,12 +102,30 @@ public class GoodsClass {
 	public int deleteGoodsClass() {
 		ArrayList<GoodsPO> goodsList = goodsService.showGoods();
 		// 查找当前分类下是否有商品，如果有则不可以删除该分类
+		// 当前分类下的分类有商品，也不可以删除！！
 		boolean isAble = true;
+		// 算法==
 		for (int i = 0; i < goodsList.size(); i++) {
-			if (name.equals(goodsList.get(i).getGoodsClassName())) {
+			String cn = goodsList.get(i).getGoodsClassName();
+			if (name.equals(cn)) {
 				isAble = false;
 				break;
+			} else {
+				GoodsClassManage manage = new GoodsClassManage();
+				GoodsClassPO currClass = manage.find(cn);
+				cn = currClass.getUpClass();
+				while (!cn.equals("灯具")) {
+					if (name.equals(cn)) {
+						isAble = false;
+						break;
+					} else {
+						currClass = manage.find(cn);
+						cn = currClass.getUpClass();
+					}
+				}
+
 			}
+
 		}
 
 		if (isAble) {
@@ -115,6 +133,20 @@ public class GoodsClass {
 			int result = 0;
 			try {
 				result = service.deleteGoodsClass(po);
+				// 如果该分类不是叶节点，则将其下的叶节点也要删除
+				GoodsClassController controller = new GoodsClassController();
+				ArrayList<GoodsClassVO> list = new ArrayList<GoodsClassVO>();
+				list = controller.show();
+
+				for (int i = 0; i < list.size(); i++) {
+					GoodsClassVO vo = list.get(i);
+					if (vo.getUpClassName().equals(name)) {
+						GoodsClassPO tp = new GoodsClassPO("", vo.getName(),
+								vo.getUpClassName());
+						result = service.deleteGoodsClass(tp);
+					}
+				}
+
 			} catch (RemoteException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();

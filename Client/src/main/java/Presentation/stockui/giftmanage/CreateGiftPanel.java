@@ -223,6 +223,12 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 			String user = parent.getUser().getID();
 			GiftVO vo = new GiftVO("", name, ID, user, 3, 0, "", recordList);
 			GiftBLService giftService = new GiftController();
+			int result = giftService.dealGift(vo);
+			if (result != 0) {
+				JOptionPane.showMessageDialog(this, "别闹啦S，库存不足以赠送的~", null,
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			giftService.addGift(vo);
 			log.addLog(new LogVO(log.getdate(), parent.getUser().getID(),
 					parent.getUser().getName(), "创建一笔库存赠送单", 5));

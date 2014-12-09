@@ -177,15 +177,16 @@ public class Goods {
 		ArrayList<GoodsVO> list = showGoods();
 		StockGoodsClassBLService controller = new GoodsClassController();
 
-		String cn = className;
-		while (!cn.equals("灯具")) {
-			for (int i = 0; i < list.size(); i++) {
-				GoodsVO vo = list.get(i);
-				if (vo.getGoodsClass().equals(cn)) {
+		for (int i = 0; i < list.size(); i++) {
+			GoodsVO vo = list.get(i);
+			String cn = vo.getGoodsClass();
+			while (!cn.equals("灯具")) {
+				if (cn.equals(className)) {
 					result.add(vo);
 				}
+				cn = controller.showGoodsClassInfo(cn).getUpClassName();
+
 			}
-			cn = controller.showGoodsClassInfo(cn).getUpClassName();
 		}
 
 		return result;
