@@ -19,7 +19,7 @@ public class ViewPurchasePanel extends JPanel{
 	MainFrame  parent;
 	PurchaseVO vo;
 	viewInfoService service;
-	PurchasePane p;
+	public PurchasePane p;
 	JLabel member;
 	public ViewPurchasePanel(MainFrame father,String id) throws Exception{
 		p=new PurchasePane(father);

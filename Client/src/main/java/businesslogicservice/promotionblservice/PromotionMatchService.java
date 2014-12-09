@@ -1,5 +1,9 @@
 package businesslogicservice.promotionblservice;
 
-public interface PromotionMatchService {
 
+import vo.PromotionVO;
+import vo.SaleVO;
+
+public interface PromotionMatchService {
+	public PromotionVO Match(SaleVO vo);
 }

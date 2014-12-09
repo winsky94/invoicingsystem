@@ -57,7 +57,15 @@ public class giftGoodPro extends promotion{
 	
 	
 	public ArrayList<GiftGoodsProVO> show(){
-		return null;
+		ArrayList<PromotionPO> po =service.show(PromotionType.GIFTGOODS);
+		if(po==null) return null;
+		else {
+			ArrayList<GiftGoodsProVO> vo=new ArrayList<GiftGoodsProVO>();
+			for(int i=0;i<po.size();i++)
+				vo.add(poToVo((GiftGoodProPO)po.get(i)));
+			return vo;
+		}
+	
 	}
 
 	@Override
@@ -70,6 +78,7 @@ public class giftGoodPro extends promotion{
 	@Override
 	public int Modify(PromotionVO vo) {
 		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
@@ -83,7 +92,16 @@ public class giftGoodPro extends promotion{
 	@Override
 	public PromotionVO Match(SaleVO vo) {
 		// TODO Auto-generated method stub
-		return null;
+		double total=vo.getTotalMoney();
+		ArrayList<GiftGoodsProVO>  pro=show();
+		if(pro==null) return null;
+		else{
+			for(int i=0;i<pro.size();i++){
+				if(total>=pro.get(i).getTotalValue())
+					return pro.get(i);
+			}
+			return null;
+		}
 	}
 
 	public String getNewID() {

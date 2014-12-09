@@ -23,6 +23,7 @@ import javax.swing.table.AbstractTableModel;
 
 import po.ReceiptPO.ReceiptType;
 import Presentation.mainui.MainFrame;
+import Presentation.salesui.manage.purchase.ViewPurchasePanel;
 import businesslogic.receiptbl.ReceiptController;
 import businesslogic.userbl.User;
 import businesslogicservice.receiptblservice.ReceiptBLService;
@@ -31,7 +32,7 @@ import vo.CollectionVO;
 import vo.PaymentVO;
 import vo.ReceiptVO;
 
-public class ReceiptMgrPanel extends JPanel {
+public class ReceiptMgrPanel extends JPanel implements ActionListener{
 
 	/**
 	 * 
@@ -92,6 +93,7 @@ public class ReceiptMgrPanel extends JPanel {
 		btnPnl.add(disapprovedBtn);
 		// -------高级审批-----------------
 		modBtn = new MyButton("高级审批", new ImageIcon("img/promotion/detail.png"));
+		modBtn.addActionListener(this);
 		btnPnl.add(modBtn);
 		// -------刷新--------------------
 		refreshBtn = new MyButton("刷新", new ImageIcon(
@@ -223,6 +225,46 @@ public class ReceiptMgrPanel extends JPanel {
 			tab.add(line);		
 			
 		}
+	}
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==modBtn){
+			if(t1.getSelectedRow()<0)
+				JOptionPane.showMessageDialog(null,"请选择一条待审批单据进行高级审批！","提示",JOptionPane.WARNING_MESSAGE);
+			else{
+				int i=t1.getSelectedRow();
+				String id=c1.get(i).get(0);
+				String type=c1.get(i).get(2);
+				ReceiptType rtype=Total.getsType(type);
+			
+				try{
+				switch(rtype){
+				case PURCHASE:
+					ViewPurchasePanel pane=new ViewPurchasePanel(father,id);
+					pane.p.exitBtn.removeActionListener(pane.p.elisten);
+					pane.p.exitBtn.addActionListener(new exitListen());
+					father.setRightComponent(new AdvancedReceiptPanel(pane));
+			
+					
+				}
+				
+			
+				}catch(Exception ee){
+					ee.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	
+	class exitListen implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 
 

@@ -33,8 +33,34 @@ public  class discountPro extends promotion{
 		// TODO Auto-generated constructor stub
 	}
 
-
+	public PromotionVO Match(SaleVO vo){
+		ArrayList<CommodityVO> clist=vo.getSalesList();
+		if(clist==null) return null;
+		else {
+			ArrayList<DiscountProVO> pro=show();
+			if(pro==null)return null;
+			else{
+				for(int i=0;i<pro.size();i++){
+					ArrayList<CommodityVO> prolist=pro.get(i).getGoodsList();
+					for(int j=0;j<clist.size();j++){
+						if(searchInList(clist.get(j).getID(),prolist))
+							return pro.get(i);
+					}
+				}
+				return null;
+			}
+		}
+		
+	}
 	
+	
+	public boolean searchInList(String id,ArrayList<CommodityVO> list){
+		for(int i=0;i<list.size();i++)
+			if(list.get(i).getID().equals(id))
+				return true;
+		return false;
+		
+	}
 
 	public int Modify(DiscountProVO vo){
 		return 0;
@@ -42,7 +68,15 @@ public  class discountPro extends promotion{
 	
 	
 	public ArrayList<DiscountProVO> show(){
-		return null;
+		ArrayList<PromotionPO> po=service.show(PromotionType.DISCOUNT);
+		if(po==null)
+			return null;
+		else{
+			ArrayList<DiscountProVO> vo=new ArrayList<DiscountProVO>();
+			for(int i=0;i<po.size();i++)
+				vo.add(poToVo((DiscountProPO)po.get(i)));
+			return vo;
+		}
 	}
 
 	@Override
@@ -92,12 +126,6 @@ public  class discountPro extends promotion{
 
 
 
-
-
-	
-
-
-
 	public String getNewID() {
 		// TODO Auto-generated method stub
 		String id=null;
@@ -122,3 +150,4 @@ public  class discountPro extends promotion{
 	//ArrayList<GoodsVO>  goods,double total,double discount
 	
 }
+

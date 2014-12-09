@@ -6,9 +6,12 @@ import java.util.Date;
 
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
+import po.DiscountProPO;
 import po.PackProPO;
 import po.PromotionPO;
 import po.PromotionPO.PromotionType;
+import vo.CommodityVO;
+import vo.DiscountProVO;
 import vo.PackProVO;
 import vo.PromotionVO;
 import vo.SaleVO;
@@ -32,7 +35,15 @@ public class packPro extends promotion{
 	
 	
 	public ArrayList<PackProVO> show(){
-		return null;
+		ArrayList<PromotionPO> po=service.show(PromotionType.PACK);
+		if(po==null)
+			return null;
+		else{
+			ArrayList<PackProVO> vo=new ArrayList<PackProVO>();
+			for(int i=0;i<po.size();i++)
+				vo.add(poToVo((PackProPO)po.get(i)));
+			return vo;
+		}
 	}
 
 	@Override
@@ -59,7 +70,31 @@ public class packPro extends promotion{
 	@Override
 	public PromotionVO Match(SaleVO vo) {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<CommodityVO> clist=vo.getSalesList();
+		if(clist==null) return null;
+		else {
+			ArrayList<PackProVO> pro=show();
+			if(pro==null)return null;
+			else{
+				for(int i=0;i<pro.size();i++){
+					ArrayList<CommodityVO> prolist=pro.get(i).getPack().getCombine();
+					for(int j=0;j<clist.size();j++){
+						if(searchInList(clist.get(j).getID(),prolist))
+							return pro.get(i);
+					}
+				}
+				return null;
+			}
+		}
+	}
+	
+	
+	public boolean searchInList(String id,ArrayList<CommodityVO> list){
+		for(int i=0;i<list.size();i++)
+			if(list.get(i).getID().equals(id))
+				return true;
+		return false;
+		
 	}
 
 	public String getNewID() {

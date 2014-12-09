@@ -74,9 +74,25 @@ public class promotionController implements PromotionViewService,
 		return 0;
 	}
 
+	
+	//优先级商品 代金券 折扣 特价包
+	// gcp;
+		//giftGoodPro ggp;
+		//packPro pp;
+		//discountPro dcp;
 	public PromotionVO Match(SaleVO vo) {
 		// TODO Auto-generated method stub
-		return null;
+		PromotionVO pro=null;
+		if((pro=ggp.Match(vo))!=null){
+			return pro;
+		}else if((pro=gcp.Match(vo))!=null)
+			return pro;
+		else if((pro=dcp.Match(vo))!=null)
+			return pro;
+		else if((pro=pp.Match(vo))!=null)
+			return pro;
+		else 
+			return null;
 	}
 
 	public GiftVO Present(PromotionVO vo) {
