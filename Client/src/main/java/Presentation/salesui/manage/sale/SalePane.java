@@ -165,7 +165,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		p3.add(discountMoneyFld);
 		p3.add(new JLabel("      "));
 		//------代金券----------------
-		couponBtn=new JButton("已使用代金券监听元");
+		couponBtn=new JButton("使用代金券");
 		couponBtn.setBackground(new Color(206,226,236));
 		couponBtn.setFont(font);
 		couponBtn.setFocusPainted(false);
