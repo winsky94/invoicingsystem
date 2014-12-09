@@ -534,6 +534,13 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			}
 			goodsModel = new GoodsModel(list);
 			goodsTable.setModel(goodsModel);
+			
+			// table 渲染器，设置文字内容居中显示，设置背景色等
+			DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+			for (int i = 0; i < goodsTable.getColumnCount(); i++) {
+				goodsTable.getColumn(goodsTable.getColumnName(i)).setCellRenderer(
+						tcr);
+			}
 		}
 	}
 
@@ -737,10 +744,10 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			// 设置列宽
 			goodsTable.getColumn("编号").setPreferredWidth(180);
 			goodsTable.getColumn("名称").setPreferredWidth(130);
-
-			if (row % 2 == 0)
+			
+			if (row % 2 == 1)
 				setBackground(Color.white); // 设置奇数行底色
-			else if (row % 2 == 1)
+			else if (row % 2 == 0)
 				setBackground(new Color(225, 255, 255)); // 设置偶数行底色
 			return super.getTableCellRendererComponent(table, value,
 					isSelected, hasFocus, row, column);

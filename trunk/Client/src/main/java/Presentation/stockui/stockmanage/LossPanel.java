@@ -129,10 +129,14 @@ public class LossPanel extends ChooseGoodsFatherPane implements ActionListener {
 		addGoodsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new ChooseGoodsDialog(LossPanel.this);
-				IDLbl.setText("商品编号：" + goodsVO.getGoodsID());
-				nameLbl.setText("商品名：" + goodsVO.getName());
-				sizeLbl.setText("型号：" + goodsVO.getSize());
-				numLbl.setText("库存数量：" + goodsVO.getNumInStock());
+				if (goodsVO != null) {
+					IDLbl.setText("商品编号：" + goodsVO.getGoodsID());
+					nameLbl.setText("商品名：" + goodsVO.getName());
+					sizeLbl.setText("型号：" + goodsVO.getSize());
+					numLbl.setText("库存数量：" + goodsVO.getNumInStock());
+				} else {
+					return;
+				}
 			}
 		});
 		btnPnl.add(addGoodsBtn);

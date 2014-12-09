@@ -15,7 +15,6 @@ public class GiftController extends Receipt implements GiftBLService {
 		GiftReceipt receipt = new GiftReceipt(vo.getId(), vo.getMemberName(),
 				vo.getMemberID(), vo.getUser(), ReceiptType.GIFT,
 				vo.getHurry(), vo.getStatus(), vo.getInfo(), vo.getGiftList());
-//		dealGift(vo);
 		return receipt.add();
 	}
 
@@ -25,10 +24,9 @@ public class GiftController extends Receipt implements GiftBLService {
 		if (vo.getStatus() == 1) {
 			return 80;
 		}
-		if (vo.getStatus() == 1) {
+		if (vo.getStatus() == 2) {
 			return 81;
 		}
-
 		GiftReceipt receipt = new GiftReceipt(vo.getId(), vo.getMemberID(),
 				vo.getMemberName(), vo.getUser(), ReceiptType.GIFT,
 				vo.getHurry(), 3, vo.getInfo(), vo.getGiftList());

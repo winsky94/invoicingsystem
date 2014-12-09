@@ -133,10 +133,14 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 		addGoodsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new ChooseGoodsDialog(OverflowPanel.this);
-				IDLbl.setText("商品编号：" + goodsVO.getGoodsID());
-				nameLbl.setText("商品名：" + goodsVO.getName());
-				sizeLbl.setText("型号：" + goodsVO.getSize());
-				numLbl.setText("库存数量：" + goodsVO.getNumInStock());
+				if (goodsVO != null) {
+					IDLbl.setText("商品编号：" + goodsVO.getGoodsID());
+					nameLbl.setText("商品名：" + goodsVO.getName());
+					sizeLbl.setText("型号：" + goodsVO.getSize());
+					numLbl.setText("库存数量：" + goodsVO.getNumInStock());
+				} else {
+					return;
+				}
 			}
 		});
 		btnPnl.add(addGoodsBtn);
@@ -178,8 +182,8 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 			StockPanel sp = new StockPanel(parent);
 			sp.tab.setSelectedIndex(1);
 			parent.setRightComponent(sp);
-			log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
-					"创建一笔库存报溢/报损单",3));
+			log.addLog(new LogVO(log.getdate(), parent.getUser().getID(),
+					parent.getUser().getName(), "创建一笔库存报溢/报损单", 3));
 			try {
 				headPane.RefreshGrades();
 			} catch (Exception e1) {
