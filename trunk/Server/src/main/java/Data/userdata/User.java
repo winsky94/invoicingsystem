@@ -188,11 +188,18 @@ public class User extends UnicastRemoteObject implements UserDataService{
 			
 			UserPO i = new UserPO("Lucy", "CW-00001","123456",UserJob.FINANCE,100);
 			a.modify(i);
-			UserPO j = new UserPO("王宁宁", "XS-00001","123456",UserJob.SALE,100);
+*/			
+			UserPO j = new UserPO("王宁宁", "XS-00001","123456",UserJob.SALE,0);
 			a.add(j);
-			UserPO k = new UserPO("宽宽", "KC-00001","123456",UserJob.STOCK,100);
+			UserPO k = new UserPO("宽宽", "KC-00001","123456",UserJob.STOCK,0);
 			a.add(k);
-*/
+			UserPO k1 = new UserPO("Lucy", "CW-00001","123456",UserJob.FINANCE,100);
+			a.add(k1);
+			UserPO k2 = new UserPO("金大大", "JL-00001","123456",UserJob.MANAGER,0);
+			a.add(k2);
+			UserPO k3 = new UserPO("刘钦", "GL-00001","123456",UserJob.ADMINSTRATOR,0);
+			a.add(k3);
+
 			ArrayList<UserPO> buffer=a.showAll();	
 			System.out.println("-----------------我是萌萌哒的分隔线---------------------");
 			for(UserPO po:buffer){
