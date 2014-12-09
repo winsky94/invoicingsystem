@@ -28,20 +28,22 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 	}
 
 	// 注：处理库存赠送单的时候只需要将单据状态改变就好了，修改库存操作已在bl层处理过
+	//状态也不要改啦，直接生产的时候就是3——处理成功
 	public int dealGift(GiftPO po) throws RemoteException {
 		// TODO 自动生成的方法存根
-		ArrayList<Object> list = new ArrayList<Object>();
-		list = file.read();
-		for (int i = 0; i < list.size(); i++) {
-			GiftPO giftPO = (GiftPO) list.get(i);
-			if (giftPO.getId().equals(po.getId())) {
-				po.setStatus(3);
-				list.set(i, po);
-				break;
-			}
-		}
-
-		file.writeM(list);
+//		ArrayList<Object> list = new ArrayList<Object>();
+//		list = file.read();
+//		for (int i = 0; i < list.size(); i++) {
+//			GiftPO giftPO = (GiftPO) list.get(i);
+//			if (giftPO.getId().equals(po.getId())) {
+//				po.setStatus(3);
+//				list.set(i, po);
+//				break;
+//			}
+//		}
+//
+//		file.writeM(list);
+		
 		return 0;
 	}
 
