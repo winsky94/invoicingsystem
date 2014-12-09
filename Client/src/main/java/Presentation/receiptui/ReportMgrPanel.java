@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -25,6 +26,9 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import vo.ReceiptVO;
+import businesslogic.receiptbl.ReceiptController;
+import businesslogicservice.receiptblservice.ReceiptListService;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.XLSFilter;
 import Presentation.receiptui.tablemodels.OperationHistoryTableModel;
@@ -56,9 +60,10 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 	OperationStatementTableModel ostm;// 经营情况表
 	JTable t1, t2, t3;// 销售明细表；经营历程表；经营情况表
 	JScrollPane jsp1, jsp2, jsp3;// 销售明细表；经营历程表；经营情况表
-
-	public ReportMgrPanel(MainFrame frame) {
+	ReceiptListService reservice;
+	public ReportMgrPanel(MainFrame frame) throws Exception {
 		father = frame;
+		reservice=new ReceiptController();
 		this.setBackground(Color.white);
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
@@ -214,7 +219,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		tab.add("销售明细表", jsp1);
 		// ------经营历程表--------------
 		ohtm = new OperationHistoryTableModel();
-		t2 = new JTable(sdtm);
+		t2 = new JTable(ohtm);
 		jsp2 = new JScrollPane(t2);
 		tab.add("经营历程表", jsp2);
 		// -------经营情况表--------------
@@ -274,7 +279,17 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 
 	}
 
-
+	public void  RefreshSaleTable(){
+		ArrayList<ReceiptVO>  vo=reservice.getSale();
+		if(vo!=null){
+			try {
+				sdtm.RefreshList(vo);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

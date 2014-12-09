@@ -19,18 +19,23 @@ import businesslogic.financebl.Payment;
 import businesslogic.salesbl.Purchase;
 import businesslogic.salesbl.PurchaseReturn;
 import businesslogic.salesbl.Sale;
+import businesslogic.salesbl.SaleList;
 import businesslogic.salesbl.SaleReturn;
 import businesslogic.stockbl.gift.GiftManage;
 import businesslogicservice.receiptblservice.ReceiptBLService;
+import businesslogicservice.receiptblservice.ReceiptListService;
 
-public class ReceiptController implements ReceiptBLService{
+public class ReceiptController implements ReceiptBLService,ReceiptListService{
 	ReceiptList list;
 	public ReceiptController() throws Exception{
 		list=new ReceiptList();
 		
 	}
 
-	
+	public int Excute(String id){
+		
+		return 0;
+	}
 	
 	public int Add(ReceiptVO vo) {
 		// TODO Auto-generated method stub
@@ -59,7 +64,14 @@ public class ReceiptController implements ReceiptBLService{
 
 	public ArrayList<ReceiptVO> View() {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<ReceiptPO> po=list.showAllReceipt();
+		if(po==null) return null;
+		else{
+			ArrayList<ReceiptVO> vo=new ArrayList<ReceiptVO>();
+			for(int i=0;i<po.size();i++)
+				vo.add(poToVo(po.get(i)));
+			return vo;
+		}
 	}
 
 	public ArrayList<ReceiptVO> Refresh() {
@@ -77,22 +89,15 @@ public class ReceiptController implements ReceiptBLService{
 		return null;
 	}
 	
-	public ArrayList<ReceiptVO>  showAll(){
+	/*public ArrayList<ReceiptVO>  showAll(){
 		try {
 			list=new ReceiptList();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ArrayList<ReceiptPO> po=list.showAllReceipt();
-		if(po==null) return null;
-		else{
-			ArrayList<ReceiptVO> vo=new ArrayList<ReceiptVO>();
-			for(int i=0;i<po.size();i++)
-				vo.add(poToVo(po.get(i)));
-			return vo;
-		}
-	}
+		
+	}*/
 
 	public int Batch(String[] id) {
 		// TODO Auto-generated method stub
@@ -148,6 +153,19 @@ public class ReceiptController implements ReceiptBLService{
 	public ArrayList<ReceiptVO> Approved() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public ArrayList<ReceiptVO> getSale()  {
+		// TODO Auto-generated method stub
+		SaleList sale=null;
+		try {
+			sale = new SaleList();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return sale.getAllSale();
 	}
 	
 	
