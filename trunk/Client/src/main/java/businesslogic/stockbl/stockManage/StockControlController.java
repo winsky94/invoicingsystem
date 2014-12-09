@@ -47,7 +47,7 @@ public class StockControlController implements StockControlBLService {
 	}
 
 	// 库存查看
-	public ArrayList<String> showStock(String beginDate, String endDate) {
+	public ArrayList<ArrayList<String>> showStock(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		StockManage manage = new StockManage();
 		return manage.showStock(beginDate, endDate);

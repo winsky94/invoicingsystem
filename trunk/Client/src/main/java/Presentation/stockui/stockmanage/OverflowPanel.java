@@ -169,7 +169,7 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 			}
 
 			StockOverOrLowVO vo = new StockOverOrLowVO("", parent.getUser()
-					.getID(), ReceiptType.STOCKOVER, 4, 0, "",
+					.getID(), ReceiptType.STOCKOVER, 3, 0, "",
 					goodsVO.getName(), goodsVO.getSize(),
 					goodsVO.getNumInStock(), exactNum);
 			StockControlBLService controller = new StockControlController();

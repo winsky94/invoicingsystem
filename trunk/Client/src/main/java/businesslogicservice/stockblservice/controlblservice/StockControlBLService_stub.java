@@ -31,10 +31,10 @@ public class StockControlBLService_stub implements StockControlBLService {
 		return 0;
 	}
 
-	public ArrayList<String> showStock(String beginDate, String endDate) {
+	public ArrayList<ArrayList<String>> showStock(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		System.out.println("show stock succeed!");
-		return new ArrayList<String>();
+		return new ArrayList<ArrayList<String>>();
 	}
 
 	public ArrayList<ArrayList<String>> checkStock() {

@@ -45,7 +45,7 @@ public class StockOverReceipt extends Receipt {
 			String userID, int hurry, String info, String goodName,
 			String size, int num, int exactNum) {
 		super(id, memberName, memberID, userID, ReceiptType.STOCKOVER, hurry,
-				0, info);
+				3, info);
 		host = "localhost:1099";
 		url = "rmi://" + host + "/stockManageService";
 		try {

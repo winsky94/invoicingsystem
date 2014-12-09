@@ -221,7 +221,7 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 			String ID = data[0];
 			String name = data[1];
 			String user = parent.getUser().getID();
-			GiftVO vo = new GiftVO("", name, ID, user, 4, 3, "", recordList);
+			GiftVO vo = new GiftVO("", name, ID, user, 3, 0, "", recordList);
 			GiftBLService giftService = new GiftController();
 			giftService.addGift(vo);
 			log.addLog(new LogVO(log.getdate(), parent.getUser().getID(),

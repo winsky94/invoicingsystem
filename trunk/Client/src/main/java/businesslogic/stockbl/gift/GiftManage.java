@@ -71,7 +71,7 @@ public class GiftManage {
 			// 调用服务器端处理库存赠送单
 			GiftPO po = new GiftPO(receipt.getId(), receipt.getMemberID(),
 					receipt.getmemberName(), receipt.getUserID(),
-					receipt.getInfo(), 2, receipt.getHurry(), VOToPO(list));
+					receipt.getInfo(), 3, receipt.getHurry(), VOToPO(list));
 			int result = -1;
 			try {
 				result = service.dealGift(po);

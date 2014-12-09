@@ -44,7 +44,7 @@ public class StockLowReceipt extends Receipt {
 	public StockLowReceipt(String id, String memberName, String memberID,
 			String userID, int hurry, String info, String goodName,
 			String size, int num, int exactNum) {
-		super(id, memberName, memberID, userID, ReceiptType.STOCKLOW, hurry, 2,
+		super(id, memberName, memberID, userID, ReceiptType.STOCKLOW, hurry, 3,
 				info);
 		host = "localhost:1099";
 		url = "rmi://" + host + "/stockManageService";
