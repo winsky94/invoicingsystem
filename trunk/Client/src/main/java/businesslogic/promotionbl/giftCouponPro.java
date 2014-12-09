@@ -145,7 +145,18 @@ public class giftCouponPro extends promotion{
 	@Override
 	public PromotionVO Match(SaleVO vo) {
 		// TODO Auto-generated method stub
-		return null;
+		double total=vo.getTotalMoney();
+		ArrayList<GiftCouponProVO> pro=show();
+		if(pro==null)
+			return null;
+		else{
+			for(int i=0;i<pro.size();i++)
+			{
+				if(total>=pro.get(i).getTotalValue())
+					return pro.get(i);
+			}
+			return null;
+		}
 	}
 
 	public String getNewID() {

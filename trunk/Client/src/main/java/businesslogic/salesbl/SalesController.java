@@ -44,6 +44,7 @@ public class SalesController implements SalesBLService,PurchaseBLService,viewInf
 			
 				
 			}
+			
 			String date=getDate.getdate()+"-";
 			return id+date+d;
 		

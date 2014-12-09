@@ -12,7 +12,7 @@ public interface PromotionBLService {
 		public int Delete(String id,PromotionType type);
 		public int Add(PromotionVO vo);
 		public int Modify(PromotionVO vo);
-		public PromotionVO Match(SaleVO vo);
+		
 		public GiftVO Present(PromotionVO vo);
 		public ArrayList<PromotionVO> Show();
 

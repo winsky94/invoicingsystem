@@ -45,7 +45,7 @@ import businesslogicservice.salesblservice.PurchaseBLService;
 import businesslogicservice.salesblservice.SaleListBLService;
 import businesslogicservice.salesblservice.SalesBLService;
 
-public class PurchasePane extends ChooseGoodsFatherPane implements ActionListener{
+public class PurchasePane extends ChooseGoodsFatherPane{
 
 	/**
 	 * 
@@ -54,7 +54,8 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JLabel IDLbl, userLbl, totalLbl,title,JHSLbl;
 	JTextField stockFld, remarkFld;
-	JButton submitBtn, exitBtn, addGoodsBtn, delGoodsBtn;
+	JButton  addGoodsBtn, delGoodsBtn;
+	public JButton exitBtn,submitBtn;
 	JScrollPane jsp;
 	JTable table;
 	double totalMoney;
@@ -64,6 +65,7 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 	String[] idtxt;//客户id
 	PurchaseBLService service;
 	purchaseSubmitListener psl;
+	public exitListen elisten;
 	String id;JPanel  btnPnl,p1;
 	ArrayList<Double> last_bid=new ArrayList<Double>();
 	public PurchasePane(MainFrame frame) throws Exception {
@@ -235,7 +237,8 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(251, 147, 121));
 		btnPnl.add(exitBtn);
-		exitBtn.addActionListener(this);
+		elisten=new exitListen();
+		exitBtn.addActionListener(elisten);
 		table.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
 		ctm.addTableModelListener(new TableModelListener(){
 
@@ -276,21 +279,25 @@ public class PurchasePane extends ChooseGoodsFatherPane implements ActionListene
 		
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		try {
-		if(e.getSource()==exitBtn){
-			
+
+	class exitListen implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			try {
 			PurchaseMgrPanel sp = new PurchaseMgrPanel(parent);
 		
 			parent.setRightComponent(sp);
 		
-				sp.RefreshPanel();}
+				sp.RefreshPanel();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 	
+		}
+		
 	}
 	
 	 public void RefreshCTable(ArrayList<Object> VO){

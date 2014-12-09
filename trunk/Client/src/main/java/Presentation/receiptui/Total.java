@@ -72,6 +72,34 @@ public class Total {
 	}
 	
 	
+	public static ReceiptType getsType(String type){
+		switch(type){
+		case "销售单":
+			return ReceiptType.SALE;
+		case "销售退货单":
+			return ReceiptType.SALERETURN;
+		case "进货单":
+			return ReceiptType.PURCHASE;
+		case "进货退货单":
+			return ReceiptType.PURCHASERETURN;
+		case "现金费用单":
+			return ReceiptType.CASHLIST;
+		case "付款单":
+			return ReceiptType.PAYMENT;
+		case "库存赠送单":
+			return ReceiptType.GIFT;
+		case "收款单":
+			return ReceiptType.COLLECTION;
+		case "库存报溢单":
+			return ReceiptType.STOCKOVER;
+		default:
+			return ReceiptType.STOCKLOW;
+			
+			
+		}
+		
+	}
+	
 	
 	public static String getStatus(int i){
 		if(i==0)
