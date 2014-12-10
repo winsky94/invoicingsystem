@@ -152,7 +152,9 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 
 	public ArrayList<ReceiptVO> Approved() {
 		// TODO Auto-generated method stub
-		return null;
+		if(list.showApproved()!=null)
+			return poTVo(list.showApproved());
+		else return null;
 	}
 
 	@Override

@@ -115,13 +115,13 @@ public class ProLeftShortPanel extends JPanel implements ActionListener{
 		}else if(e.getSource()==view){
 			ReportMgrPanel report=new ReportMgrPanel(parent);
 			parent.setRightComponent(report);
-			report.RefreshSaleTable();
+			report.RefreshTable();
 		}else if(e.getSource()==receipt){
-			ReceiptBLService rs=new ReceiptController();
+		
 			ReceiptMgrPanel rmg=new ReceiptMgrPanel(parent);
 			parent.setRightComponent(rmg);
-			if(rs.ToApprove()!=null)
-				rmg.RefreshTable(rs.ToApprove(), 0);
+			rmg.Refresh();
+		
 		}else if(e.getSource()==aboutBtn){
 			parent.setRightComponent(new AboutPanel());
 		}
