@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -24,16 +26,15 @@ import po.ReceiptPO.ReceiptType;
 import vo.CommodityVO;
 import vo.GoodsVO;
 import vo.MemberVO;
+import vo.SaleVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
 import Presentation.salesui.manage.CommodityTableModel;
 import Presentation.salesui.manage.SaleMgrPanel;
 import Presentation.stockui.ChooseGoodsDialog;
 import businesslogic.memberbl.Member;
-import businesslogic.salesbl.SaleList;
 import businesslogic.salesbl.SalesController;
-import businesslogicservice.memberblservice.MemberBLService;
-
+import businesslogicservice.memberblservice.MemberViewService;
 import businesslogicservice.salesblservice.SalesBLService;
 
 public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
@@ -48,11 +49,15 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 	JComboBox<String> XSSBox;
 	JTextField clerkFld, stockFld, discountMoneyFld, remarkFld;
 	JScrollPane jsp;
-	
+	String id;
 	CommodityTableModel ctm;
 	JTable table;
-	String[] idtxt;
+	String[] idtxt,clerk;
 	JButton submitBtn, couponBtn, addGoodsBtn, delGoodsBtn, exitBtn;
+	SaleVO sale;
+	ArrayList<Double> last_bid=new ArrayList<Double>();
+	double[] total=new double[5];
+	double[] discount=new double[4];
 	
 //	public MainFrame parent;
 	SalesBLService service;
@@ -104,7 +109,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		midPnl.add(p3);
 		
 		//--------ID----------------
-		String id=service.getNewID(ReceiptType.SALE);
+		 id=service.getNewID(ReceiptType.SALE);
 		IDLbl=new JLabel("ID："+id);
 		IDLbl.setFont(font);
 		p1.add(IDLbl);
@@ -114,19 +119,31 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		memberLbl.setFont(font);
 		p1.add(memberLbl);
 		
-		MemberBLService mem=new Member();
+		MemberViewService mem=new Member();
 		ArrayList<MemberVO> mvo=mem.showMembers();
 		String boxText[]=new String[mvo.size()+1];
 		idtxt=new String[mvo.size()];
+		clerk=new String[mvo.size()];
 		boxText[0]="选择交易客户";int j=0;
 		for(int i=0;i<mvo.size();i++)
 			if(mvo.get(i).getmType()==MemberType.XSS)
-			{boxText[j+1]=mvo.get(i).getName();idtxt[j]=mvo.get(i).getMemberID();j++;}
+			{boxText[j+1]=mvo.get(i).getName();idtxt[j]=mvo.get(i).getMemberID();
+			 clerk[j]=mvo.get(i).getDefaultClerk();
+			j++;}
 			
 		XSSBox=new JComboBox<String>(boxText);
 		XSSBox.setFont(font);
 		XSSBox.setBackground(Color.white);
 		p1.add(XSSBox);
+		XSSBox.setEditable(false);
+		//万一用户自己输入怎么办？
+		XSSBox.addItemListener(new ItemListener(){
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				clerkFld.setText(clerk[XSSBox.getSelectedIndex()-1]);
+			}
+		});
 		p1.add(new JLabel("      "));
 		//-------业务员---------------
 		JLabel clerkLbl=new JLabel("业务员：");
@@ -296,6 +313,31 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 						cmContent.add(line);
 					}
 				}
+			
+			
+	 }
+	 
+	 
+	 public void getSale(){
+			ArrayList<CommodityVO> cmlist=new ArrayList<CommodityVO>();
+			for(int j=0;j<table.getRowCount();j++){
+				ArrayList<String> line=cmContent.get(j);
+				double cost=Double.parseDouble(line.get(4))*last_bid.get(j);
+				CommodityVO cv=new CommodityVO(line.get(0),line.get(1),
+						line.get(2),Double.parseDouble(line.get(4)),last_bid.get(j),
+						Integer.parseInt(line.get(3)),
+						Double.parseDouble(line.get(5)),cost,line.get(6));
+				cmlist.add(cv);
+			}
+			String memid="";
+			int i=XSSBox.getSelectedIndex()-1;
+			if(i>=0)
+				memid=idtxt[i];
+			String mem=XSSBox.getSelectedItem().toString();
+			sale=new SaleVO(clerkFld.getText(),cmlist,id,mem,memid,parent.getUser().getID(),
+					0,1,);
+			
+			
 	 }
 	
 }

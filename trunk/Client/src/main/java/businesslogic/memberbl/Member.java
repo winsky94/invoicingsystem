@@ -12,8 +12,9 @@ import po.MemberPO.MemberType;
 import dataservice.memberdataservice.MemberDataService;
 import vo.MemberVO;
 import businesslogicservice.memberblservice.MemberBLService;
+import businesslogicservice.memberblservice.MemberViewService;
 
-public class Member implements MemberBLService{
+public class Member implements MemberBLService,MemberViewService{
 	 MemBaseInfo bInfo;
 	 MemAccountInfo aInfo;
 	 private MemContactInfo cInfo;
