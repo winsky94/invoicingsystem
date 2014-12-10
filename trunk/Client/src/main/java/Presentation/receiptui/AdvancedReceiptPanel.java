@@ -25,8 +25,8 @@ public class AdvancedReceiptPanel extends JPanel {
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	Color color = new Color(115, 46, 126);
 	//
-	MyButton approvedBtn, disapprovedBtn, modBtn, exitBtn;
-
+	MyButton approvedBtn, disapprovedBtn, modBtn;
+	JButton exitBtn;
 	public AdvancedReceiptPanel(JPanel info/* , MainFrame frame */) {
 		infoPnl = info;
 		// father=frame;
@@ -69,6 +69,22 @@ public class AdvancedReceiptPanel extends JPanel {
 		c.weighty = 1;
 		gbl.setConstraints(infoPnl, c);
 		this.add(infoPnl);
+		//--------exitPnl------------
+		JPanel exitPnl=new JPanel();
+		exitPnl.setBackground(Color.white);
+		c.gridx = 0;
+		c.gridy = 7;
+		c.gridheight = 5;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.weightx = 1;
+		c.weighty = 0.1;
+		gbl.setConstraints(exitPnl, c);
+		this.add(exitPnl);
+		exitBtn = new JButton("取消");
+		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+		exitBtn.setFocusPainted(false);
+		exitBtn.setBackground(new Color(251, 147, 121));
+		exitPnl.add(exitBtn);
 	}
 
 	class MyButton extends JButton {
