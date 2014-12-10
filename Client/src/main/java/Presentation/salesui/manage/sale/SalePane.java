@@ -43,11 +43,12 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
-	JLabel IDLbl, userLbl, totalOriginLbl,
+	JLabel IDLbl, userLbl, totalOriginLbl,totalProDiscountLbl,totalFinDiscountLbl,
 			totalToPayLbl;
 	JComboBox<String> XSSBox;
 	JTextField clerkFld, stockFld, discountMoneyFld, remarkFld;
 	JScrollPane jsp;
+	
 	CommodityTableModel ctm;
 	JTable table;
 	String[] idtxt;
@@ -122,7 +123,6 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 			if(mvo.get(i).getmType()==MemberType.XSS)
 			{boxText[j+1]=mvo.get(i).getName();idtxt[j]=mvo.get(i).getMemberID();j++;}
 			
-		
 		XSSBox=new JComboBox<String>(boxText);
 		XSSBox.setFont(font);
 		XSSBox.setBackground(Color.white);
@@ -135,20 +135,19 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		clerkFld=new JTextField(4);
 		clerkFld.setFont(font);
 		p1.add(clerkFld);
-		
 		//-------仓库----------------
 		JLabel stockLbl=new JLabel("仓库：");
 		stockLbl.setFont(font);
-		p2.add(stockLbl);
+		p1.add(stockLbl);
 		stockFld=new JTextField(4);
 		clerkFld.setFont(font);
-		p2.add(stockFld);
-		p2.add(new JLabel("      "));
+		p1.add(stockFld);
+		p1.add(new JLabel("      "));
 		//------操作员----------------
 		userLbl=new JLabel("操作员："+frame.getUser().getName());
 		userLbl.setFont(font);
-		p2.add(userLbl);
-		p2.add(new JLabel("      "));
+		p1.add(userLbl);
+		p1.add(new JLabel("      "));
 		//------备注------------------
 		JLabel remarkLbl=new JLabel("备注：");
 		remarkLbl.setFont(font);
@@ -159,24 +158,35 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		//------折让-----------------
 		JLabel discountLbl=new JLabel("折让：");
 		discountLbl.setFont(font);
-		p3.add(discountLbl);
+		p2.add(discountLbl);
 		discountMoneyFld=new JTextField(6);
 		discountMoneyFld.setFont(font);
-		p3.add(discountMoneyFld);
-		p3.add(new JLabel("      "));
+		p2.add(discountMoneyFld);
+		p2.add(new JLabel("      "));
 		//------代金券----------------
 		couponBtn=new JButton("使用代金券");
 		couponBtn.setBackground(new Color(206,226,236));
 		couponBtn.setFont(font);
 		couponBtn.setFocusPainted(false);
-		p3.add(couponBtn);
-		p3.add(new JLabel("      "));
-		//------折前-----------------
-		totalOriginLbl=new JLabel("折前总价：嗷嗷嗷嗷");
+		p2.add(couponBtn);
+		p2.add(new JLabel("      "));
+		
+		//------原初总价（不带任何折扣的单价*数量之和）-----------------
+		totalOriginLbl=new JLabel("原初总价：嗷嗷嗷嗷");
 		totalOriginLbl.setFont(font);
 		p3.add(totalOriginLbl);
 		p3.add(new JLabel("      "));
-		//------折后-----------------
+		//------促销折后总价（商品1单价*促销商品1折扣*商品1数量+商品2单价*促销商品2折扣*商品2数量+……）--
+		totalProDiscountLbl=new JLabel("促销折后总价：嗷嗷嗷嗷");
+		totalProDiscountLbl.setFont(font);
+		p3.add(totalProDiscountLbl);
+		p3.add(new JLabel("      "));
+		//-----最终折后总价（最终折后总价=促销折后总价*等级折扣-折让）-------
+		totalFinDiscountLbl=new JLabel("最终折后总价：嗷嗷嗷嗷");
+		totalFinDiscountLbl.setFont(font);
+		p3.add(totalFinDiscountLbl);
+		p3.add(new JLabel("      "));
+		//------客户应付总价（经过各种打折并且减去代金券）-----------------
 		totalToPayLbl=new JLabel("折后总价：嗷嗷嗷嗷");
 		totalToPayLbl.setFont(font);
 		p3.add(totalToPayLbl);
