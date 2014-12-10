@@ -189,6 +189,19 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener{
 			this.setFocusPainted(false);
 		}
 	}
+	
+	public void Refresh(){
+		
+			try {
+				if(service.ToApprove()!=null)
+					ReceiptMgrPanel.this.RefreshTable(service.ToApprove(), 0);
+				if(service.Approved()!=null)
+					ReceiptMgrPanel.this.RefreshTable(service.Approved(), 1);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
 	//{ "单据编号", "创建日期", "业务类型", "交易客户", "交易金额", "操作员", "备注" }
 	//0待审批  1已审批
 	public void RefreshTable(ArrayList<ReceiptVO> vo,int t) throws Exception{

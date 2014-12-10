@@ -49,6 +49,7 @@ public class SaleDetailTableModel extends AbstractTableModel{
 //单据编号","日期","状态","类型","供应商","操作员","总额合计
 public void RefreshList(ArrayList<ReceiptVO> vo) throws Exception{
 	UserBLService user=new User();
+	c.clear();
 	for(int i=0;i<vo.size();i++){
 		ReceiptVO v=vo.get(i);
 		ArrayList<String> line=new ArrayList<String>();

@@ -280,16 +280,20 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 
 	}
 
-	public void  RefreshSaleTable(){
+	public void  RefreshTable(){
+		try{
 		ArrayList<ReceiptVO>  vo=reservice.getSale();
-		if(vo!=null){
-			try {
-				sdtm.RefreshList(vo);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		if(vo!=null)
+			sdtm.RefreshList(vo);
+		vo=reservice.View();
+		if(vo!=null)
+			ohtm.RefreshTable(vo);
+		
+		
+		}catch(Exception e1){
+			e1.printStackTrace();
 		}
+			
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -299,11 +303,13 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			JFileChooser jfc = new JFileChooser(System.getProperty("user.home"));
 			jfc.setFileFilter(new XLSFilter());
 			jfc.setDialogTitle("导出");
+			//fileName后缀需要.xls 
 			if (jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
 				String fileName=jfc.getSelectedFile().getAbsolutePath();
 				if(tab.getSelectedIndex()==0){
 					ExportExcel.Exprot(sdtm.getExportConent(), fileName);
-				}
+				}else if(tab.getSelectedIndex()==1)
+					ExportExcel.Exprot(ohtm.getExportContent(), fileName);
 				// saveXLSContents();
 			}
 		}

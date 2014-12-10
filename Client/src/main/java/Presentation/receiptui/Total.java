@@ -106,9 +106,12 @@ public class Total {
 			return "待审批";
 		else if(i==1)
 			return "审批不通过";
-		else 
+		else if(i==2)
 			return "审批通过";
+		else return "执行完毕";
 	}
+	
+	
 	
 	
 	public static double cal(ArrayList<CommodityVO> v){
