@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -41,6 +43,7 @@ import businesslogic.memberbl.Member;
 import businesslogic.salesbl.SaleList;
 import businesslogic.salesbl.SalesController;
 import businesslogicservice.memberblservice.MemberBLService;
+import businesslogicservice.memberblservice.MemberViewService;
 import businesslogicservice.salesblservice.PurchaseBLService;
 import businesslogicservice.salesblservice.SaleListBLService;
 import businesslogicservice.salesblservice.SalesBLService;
@@ -125,18 +128,21 @@ public class PurchasePane extends ChooseGoodsFatherPane{
 		JHSLbl=new JLabel("进货商：");
 		JHSLbl.setFont(font);
 		p1.add(JHSLbl);
-		MemberBLService mem=new Member();
+		MemberViewService mem=new Member();
 		ArrayList<MemberVO> mvo=mem.showMembers();
 		String boxText[]=new String[mvo.size()+1];
 		idtxt=new String[mvo.size()];
 		boxText[0]="选择交易客户";int j=0;
 		for(int i=0;i<mvo.size();i++)
 			if(mvo.get(i).getmType()==MemberType.JHS)
-			{boxText[j+1]=mvo.get(i).getName();idtxt[j]=mvo.get(i).getMemberID();j++;}
+			{boxText[j+1]=mvo.get(i).getName();idtxt[j]=mvo.get(i).getMemberID();
+		j++;}
 			
 		JHSBox=new JComboBox<String>(boxText);
 		JHSBox.setBackground(Color.white);
 		JHSBox.setFont(font);
+		
+	
 		p1.add(JHSBox);
 		p1.add(new JLabel("     "));
 		//------操作员----------------
@@ -363,7 +369,7 @@ public class PurchasePane extends ChooseGoodsFatherPane{
 						Double.parseDouble(line.get(5)),cost,line.get(6));
 				cmlist.add(cv);
 			}
-			int i=JHSBox.getSelectedIndex();
+			int i=JHSBox.getSelectedIndex()-1;
 			String mem=JHSBox.getSelectedItem().toString();
 			PurchaseVO vo=new PurchaseVO(id,mem,idtxt[i],stockFld.getText(),parent.getUser().getID(),
 					cmlist,remarkFld.getText(),totalMoney,0,1);
