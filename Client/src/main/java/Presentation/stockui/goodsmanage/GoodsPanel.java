@@ -41,6 +41,7 @@ import javax.swing.tree.TreePath;
 import vo.GoodsClassVO;
 import vo.GoodsVO;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.stockbl.goods.GoodsModel;
 import businesslogic.stockbl.goodsClass.GoodsClassController;
@@ -181,7 +182,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		goodsTable.setBackground(Color.white);
 
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		DefaultTableCellRenderer tcr = new TableCellRenderer();
 		for (int i = 0; i < goodsTable.getColumnCount(); i++) {
 			goodsTable.getColumn(goodsTable.getColumnName(i)).setCellRenderer(
 					tcr);
@@ -216,7 +217,12 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			// 重新再获得数据模型,刷新界面
 			goodsModel = new GoodsModel();
 			goodsTable.setModel(goodsModel);
-
+			// table 渲染器，设置文字内容居中显示，设置背景色等
+			DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+			for (int i = 0; i < goodsTable.getColumnCount(); i++) {
+				goodsTable.getColumn(goodsTable.getColumnName(i))
+						.setCellRenderer(tcr);
+			}
 		}
 
 	}
@@ -249,6 +255,12 @@ public class GoodsPanel extends JPanel implements ActionListener,
 				// 重新再获得数据模型,刷新界面
 				goodsModel = new GoodsModel();
 				goodsTable.setModel(goodsModel);
+				// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new TableCellRenderer();
+				for (int i = 0; i < goodsTable.getColumnCount(); i++) {
+					goodsTable.getColumn(goodsTable.getColumnName(i))
+							.setCellRenderer(tcr);
+				}
 			}
 		}
 
@@ -294,6 +306,12 @@ public class GoodsPanel extends JPanel implements ActionListener,
 				// 重新再获得数据模型,刷新界面
 				goodsModel = new GoodsModel();
 				goodsTable.setModel(goodsModel);
+				// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < goodsTable.getColumnCount(); i++) {
+					goodsTable.getColumn(goodsTable.getColumnName(i))
+							.setCellRenderer(tcr);
+				}
 			}
 		}
 
@@ -322,6 +340,12 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 			goodsModel = new GoodsModel(list);
 			goodsTable.setModel(goodsModel);
+			// table 渲染器，设置文字内容居中显示，设置背景色等
+			DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+			for (int i = 0; i < goodsTable.getColumnCount(); i++) {
+				goodsTable.getColumn(goodsTable.getColumnName(i))
+						.setCellRenderer(tcr);
+			}
 		}
 
 	}
@@ -527,19 +551,21 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 			StockGoodsBLService goodsController = new GoodsController();
 			ArrayList<GoodsVO> list = new ArrayList<GoodsVO>();
-			if (!nodeName.equals("灯具")) {
-				list = goodsController.showGoodsByClass(nodeName);
-			} else {
-				list = goodsController.showGoods();
+			if (nodeName != null) {
+				if (!nodeName.equals("灯具")) {
+					list = goodsController.showGoodsByClass(nodeName);
+				} else {
+					list = goodsController.showGoods();
+				}
 			}
 			goodsModel = new GoodsModel(list);
 			goodsTable.setModel(goodsModel);
-			
+
 			// table 渲染器，设置文字内容居中显示，设置背景色等
 			DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 			for (int i = 0; i < goodsTable.getColumnCount(); i++) {
-				goodsTable.getColumn(goodsTable.getColumnName(i)).setCellRenderer(
-						tcr);
+				goodsTable.getColumn(goodsTable.getColumnName(i))
+						.setCellRenderer(tcr);
 			}
 		}
 	}
@@ -731,7 +757,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 	}
 
 	// table的渲染器
-	class MyTableCellRenderer extends DefaultTableCellRenderer {
+	class TableCellRenderer extends MyTableCellRenderer {
 		/**
 		 * 
 		 */
@@ -740,15 +766,10 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		public Component getTableCellRendererComponent(JTable table,
 				Object value, boolean isSelected, boolean hasFocus, int row,
 				int column) {
-			setHorizontalAlignment(JLabel.CENTER);
 			// 设置列宽
-			goodsTable.getColumn("编号").setPreferredWidth(180);
-			goodsTable.getColumn("名称").setPreferredWidth(130);
-			
-			if (row % 2 == 1)
-				setBackground(Color.white); // 设置奇数行底色
-			else if (row % 2 == 0)
-				setBackground(new Color(225, 255, 255)); // 设置偶数行底色
+			table.getColumn("编号").setPreferredWidth(180);
+			table.getColumn("名称").setPreferredWidth(130);
+
 			return super.getTableCellRendererComponent(table, value,
 					isSelected, hasFocus, row, column);
 		}

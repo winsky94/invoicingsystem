@@ -11,13 +11,14 @@ import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import businesslogic.stockbl.stockManage.CheckModel;
 import businesslogic.stockbl.stockManage.LowModel;
 import businesslogic.stockbl.stockManage.OverModel;
@@ -91,19 +92,35 @@ public class StockPanel extends JPanel {
 		this.add(tab);
 		// ---------------inventoryTbl---------------------------
 		inventoryTbl = new JTable();
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < inventoryTbl.getColumnCount(); i++) {
+					inventoryTbl.getColumn(inventoryTbl.getColumnName(i))
+							.setCellRenderer(tcr);
+				}
 		CheckModel cm = new CheckModel();
+		
 		inventoryTbl.setModel(cm);
 		jsp1 = new JScrollPane(inventoryTbl);
 		tab.add("库存盘点", jsp1);
 		// --------------overflowTbl--------------------------------
 		overflowTbl = new JTable();
 		OverModel om = new OverModel();
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+		for (int i = 0; i < overflowTbl.getColumnCount(); i++) {
+			overflowTbl.getColumn(overflowTbl.getColumnName(i))
+					.setCellRenderer(tcr);
+		}
 		overflowTbl.setModel(om);
 		jsp2 = new JScrollPane(overflowTbl);
 		tab.add("库存报溢表", jsp2);
 		// --------------lossTbl--------------------------------
 		lossTbl = new JTable();
 		LowModel lm = new LowModel();
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+		for (int i = 0; i < lossTbl.getColumnCount(); i++) {
+			lossTbl.getColumn(lossTbl.getColumnName(i)).setCellRenderer(tcr);
+		}
 		lossTbl.setModel(lm);
 		jsp3 = new JScrollPane(lossTbl);
 		tab.add("库存报损表", jsp3);

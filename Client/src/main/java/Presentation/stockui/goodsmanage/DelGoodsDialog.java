@@ -32,7 +32,7 @@ public class DelGoodsDialog extends JDialog {
 	GoodsVO vo;
 
 	public DelGoodsDialog(GoodsVO vo) {
-		this.vo=vo;
+		this.vo = vo;
 		pnl = this.getContentPane();
 		pnl.setBackground(Color.white);
 		pnl.setLayout(null);
@@ -65,12 +65,13 @@ public class DelGoodsDialog extends JDialog {
 	class SubmitBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			StockGoodsBLService controller=new GoodsController();
-			int result=controller.deleteGoods(vo);
-			if(result!=0){
-				JOptionPane.showMessageDialog(null, "             删除失败",null,JOptionPane.WARNING_MESSAGE);
-			}
+			StockGoodsBLService controller = new GoodsController();
+			int result = controller.deleteGoods(vo);
 			DelGoodsDialog.this.dispose();
+			if (result != 0) {
+				JOptionPane.showMessageDialog(null, "             删除失败", null,
+						JOptionPane.WARNING_MESSAGE);
+			}
 
 		}
 

@@ -1,6 +1,7 @@
 package Presentation.stockui.stockmanage;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -16,8 +17,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import Presentation.uihelper.DateChooser;
 import businesslogic.stockbl.stockManage.StockControlController;
 import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
@@ -35,8 +38,9 @@ public class StockShowPanel extends JPanel implements ActionListener {
 	JTable table;
 	StockShowTableModel sstm;
 	MainFrame father;
+
 	public StockShowPanel(MainFrame frame) {
-		father=frame;
+		father = frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);
@@ -74,7 +78,8 @@ public class StockShowPanel extends JPanel implements ActionListener {
 		tP.add(to);
 		timePnl.add(tP);
 		//
-		showBtn=new JButton("显示");
+		showBtn = new JButton("显示");
+		showBtn.addActionListener(this);
 		showBtn.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		showBtn.setFocusPainted(false);
 		showBtn.setBackground(Color.white);
@@ -92,9 +97,14 @@ public class StockShowPanel extends JPanel implements ActionListener {
 		ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
 		StockControlBLService controller = new StockControlController();
 		list = controller.showStock(from.getDate(), to.getDate());
-
 		sstm = new StockShowTableModel(list);
 		table = new JTable(sstm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+		DefaultTableCellRenderer tcr = new TableCellRenderer();
+		for (int i = 0; i < table.getColumnCount(); i++) {
+			table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
+		}
+
 		jsp = new JScrollPane(table);
 		c.gridx = 0;
 		c.gridy = 2;
@@ -127,15 +137,16 @@ public class StockShowPanel extends JPanel implements ActionListener {
 
 		private static final long serialVersionUID = 1L;
 		ArrayList<ArrayList<String>> rowData;
-		String columnNames[] = { "商品编号", "商品名称", "商品型号","出库数量","出库金额","入库数量","入库金额" ,"销售数量","销售金额","进货数量","进货金额"};// 列名
+		String columnNames[] = { "商品编号", "商品名称", "商品型号", "出库数量", "出库金额",
+				"入库数量", "入库金额", "销售数量", "销售金额", "进货数量", "进货金额" };// 列名
 
 		public StockShowTableModel(ArrayList<ArrayList<String>> list) {
 			rowData = new ArrayList<ArrayList<String>>();
 
 			for (int i = 0; i < list.size(); i++) {
 				ArrayList<String> hang = new ArrayList<String>();
-				ArrayList<String> tp=list.get(i);
-				for(int j=0;j<tp.size();j++){
+				ArrayList<String> tp = list.get(i);
+				for (int j = 0; j < tp.size(); j++) {
 					hang.add(tp.get(j));
 				}
 
@@ -176,5 +187,40 @@ public class StockShowPanel extends JPanel implements ActionListener {
 		if (e.getActionCommand().equals("确定")) {
 			father.setRightComponent(new StockPanel(father));
 		}
+
+		if (e.getActionCommand().equals("显示")) {
+			ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
+			StockControlBLService controller = new StockControlController();
+			list = controller.showStock(from.getDate(), to.getDate());
+			sstm = new StockShowTableModel(list);
+			table.setModel(sstm);
+			// table 渲染器，设置文字内容居中显示，设置背景色等
+			DefaultTableCellRenderer tcr = new TableCellRenderer();
+			for (int i = 0; i < table.getColumnCount(); i++) {
+				table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
+			}
+		}
+
 	}
+
+	// table的渲染器
+	class TableCellRenderer extends MyTableCellRenderer {
+		/**
+			 * 
+			 */
+		private static final long serialVersionUID = 1L;
+
+		public Component getTableCellRendererComponent(JTable table,
+				Object value, boolean isSelected, boolean hasFocus, int row,
+				int column) {
+			// 设置列宽
+			table.getColumn("商品编号").setPreferredWidth(160);
+			table.getColumn("商品名称").setPreferredWidth(130);
+
+			return super.getTableCellRendererComponent(table, value,
+					isSelected, hasFocus, row, column);
+		}
+
+	}
+
 }
