@@ -90,6 +90,7 @@ public class StockManage {
 		return result;
 	}
 
+	// 库存查看
 	public ArrayList<ArrayList<String>> showStock(String beginDate,
 			String endDate) {
 		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
@@ -227,7 +228,6 @@ public class StockManage {
 					GiftPO giftPO = giftList.get(j);
 					// 获得的库存赠送单即为这段时间内的单据，不要判断时间是否符合了
 					if (giftPO.getStatus() == 3) {// 执行完毕
-						System.out.println("StockManage.showStock():gift");
 						ArrayList<CommodityPO> cList = giftPO.getGiftList();
 						for (int k = 0; k < cList.size(); k++) {
 							if (cList.get(k).getID().equals(po.getGoodsID())) {// 属于当前商品
@@ -253,28 +253,6 @@ public class StockManage {
 			result.add(temp);
 
 		}
-
-		return result;
-	}
-
-	// 库存查看
-	public ArrayList<String> showStock2(String beginDate, String endDate) {
-		ArrayList<String> result = new ArrayList<String>();
-		// 出库
-		String out = getOutRecord(beginDate, endDate);
-		result.add(out);
-
-		// 入库
-		String in = getInRecord(beginDate, endDate);
-		result.add(in);
-
-		// 销售
-		String sale = getSaleRecord(beginDate, endDate);
-		result.add(sale);
-
-		// 进货
-		String purchase = getPurchaseRecord(beginDate, endDate);
-		result.add(purchase);
 
 		return result;
 	}
@@ -306,162 +284,6 @@ public class StockManage {
 		}
 
 		return result;
-	}
-
-	// 出库数量及金额记录
-	private String getOutRecord(String beginDate, String endDate) {
-		// 销售出库
-		int sNum = 0;// 出库数量
-		double sMoney = 0;// 出库金额
-		ArrayList<SalePO> sl = saleService.showSale();
-		for (int i = 0; i < sl.size(); i++) {
-			if (sl.get(i).getStatus() == 3) {
-				String date = sl.get(i).getDate().replace("/", "");
-				if ((beginDate.compareTo(date) <= 0)
-						&& (endDate.compareTo(date) >= 0)) {
-					ArrayList<CommodityPO> purchaseList = sl.get(i)
-							.getSalesList();
-					for (int j = 0; j < purchaseList.size(); j++) {
-						sNum += purchaseList.get(j).getNum();
-						sMoney += purchaseList.get(j).getTotal();
-					}
-				}
-			}
-		}
-		// 库存赠送出库
-		int gNum = 0;
-		double gMoney = 0;
-		ArrayList<GiftPO> gl = new ArrayList<GiftPO>();
-		try {
-			gl = giftService.getGiftList(beginDate, endDate);
-		} catch (RemoteException e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
-		for (int i = 0; i < gl.size(); i++) {
-			ArrayList<CommodityPO> list = gl.get(i).getGiftList();
-			for (int j = 0; j < list.size(); j++) {
-				gNum += list.get(j).getNum();
-				gMoney += list.get(j).getCost();
-			}
-		}
-
-		// 库存报损
-		// 报溢报损好像不算入库出库
-		int lNum = 0;
-		double lMoney = 0;
-		// ArrayList<StockOverOrLowPO> ll = service.getStockOverOrLowPO();
-		// for (int i = 0; i < ll.size(); i++) {
-		// if (ll.get(i).getType().equals(ReceiptType.STOCKLOW)) {
-		// lNum += (0 - ll.get(i).getGap());//报损单的gap是负值
-		// String n = ll.get(i).getGoodsName();
-		// GoodsPO po = goodsService.findGoods(n).get(0);
-		// lMoney += (po.getPrice() * (0 - ll.get(i).getGap()));
-		// }
-		// }
-		String outNum = String.valueOf(sNum + gNum + lNum);
-		String outMoney = String.valueOf(sMoney + gMoney + lMoney);
-		String out = "出库;" + outNum + ";" + outMoney + ";";
-
-		return out;
-	}
-
-	// 入库数量及金额记录
-	private String getInRecord(String beginDate, String endDate) {
-		// 进货
-		int pNum = 0;
-		double pMoney = 0;
-		ArrayList<PurchasePO> pl = saleService.showPurchase();
-		for (int i = 0; i < pl.size(); i++) {
-			if (pl.get(i).getStatus() == 3) {
-				String date = pl.get(i).getDate().replace("/", "");
-				if ((beginDate.compareTo(date) <= 0)
-						&& (endDate.compareTo(date) >= 0)) {
-					ArrayList<CommodityPO> purchaseList = pl.get(i)
-							.getPurchaseList();
-					for (int j = 0; j < purchaseList.size(); j++) {
-						pNum += purchaseList.get(j).getNum();
-						pMoney += purchaseList.get(j).getCost();
-					}
-				}
-			}
-		}
-
-		// 库存报溢
-		// 报溢报损好像不算入库出库
-		int oNum = 0;
-		double oMoney = 0;
-		// ArrayList<StockOverOrLowPO> ol = service.getStockOverOrLowPO();
-		// for (int i = 0; i < ol.size(); i++) {
-		// if (ol.get(i).getType().equals(ReceiptType.STOCKOVER)) {
-		// oNum += ol.get(i).getGap();
-		// String n = ol.get(i).getGoodsName();
-		// GoodsPO po = goodsService.findGoods(n).get(0);
-		// oMoney += (po.getPrice() * ol.get(i).getGap());
-		// }
-		// }
-
-		String inNum = String.valueOf(pNum + oNum);
-		String inMoney = String.valueOf(pMoney + oMoney);
-		String in = "入库;" + inNum + ";" + inMoney;
-
-		return in;
-	}
-
-	// 销售数量及金额记录
-	private String getSaleRecord(String beginDate, String endDate) {
-		// 销售
-		int sNum = 0;// 销售数量
-		double sMoney = 0;// 销售金额
-		ArrayList<SalePO> sl = saleService.showSale();
-		for (int i = 0; i < sl.size(); i++) {
-			if (sl.get(i).getStatus() == 3) {
-				String date = sl.get(i).getDate().replace("/", "");
-				if ((beginDate.compareTo(date) <= 0)
-						&& (endDate.compareTo(date) >= 0)) {
-					ArrayList<CommodityPO> purchaseList = sl.get(i)
-							.getSalesList();
-					for (int j = 0; j < purchaseList.size(); j++) {
-						sNum += purchaseList.get(j).getNum();
-						sMoney += purchaseList.get(j).getTotal();
-					}
-				}
-			}
-		}
-
-		String num = String.valueOf(sNum);
-		String money = String.valueOf(sMoney);
-		String sale = "销售;" + num + ";" + money;
-
-		return sale;
-	}
-
-	// 进货数量及金额记录
-	private String getPurchaseRecord(String beginDate, String endDate) {
-		// 进货
-		int pNum = 0;
-		double pMoney = 0;
-		ArrayList<PurchasePO> pl = saleService.showPurchase();
-		for (int i = 0; i < pl.size(); i++) {
-			if (pl.get(i).getStatus() == 3) {
-				String date = pl.get(i).getDate().replace("/", "");
-				if ((beginDate.compareTo(date) <= 0)
-						&& (endDate.compareTo(date) >= 0)) {
-					ArrayList<CommodityPO> purchaseList = pl.get(i)
-							.getPurchaseList();
-					for (int j = 0; j < purchaseList.size(); j++) {
-						pNum += purchaseList.get(j).getNum();
-						pMoney += purchaseList.get(j).getCost();
-					}
-				}
-			}
-		}
-
-		String num = String.valueOf(pNum);
-		String money = String.valueOf(pMoney);
-		String purchase = "进货;" + num + ";" + money;
-
-		return purchase;
 	}
 
 	// 库存调价(未测试==)

@@ -9,10 +9,19 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import po.GoodsPO;
+import vo.CommodityVO;
+import vo.GiftVO;
 import vo.GoodsVO;
+import vo.PurchaseVO;
+import vo.SaleVO;
+import businesslogic.salesbl.SalesController;
+import businesslogic.stockbl.gift.GiftController;
 import businesslogic.stockbl.goodsClass.GoodsClassController;
 import businesslogic.stockbl.goodsClass.GoodsClassManage;
 import businesslogic.stockbl.stockManage.StockManage;
+import businesslogicservice.salesblservice.PurchaseBLService;
+import businesslogicservice.salesblservice.SalesBLService;
+import businesslogicservice.stockblservice.giftblservice.GiftBLService;
 import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBLService;
 import dataservice.stockdataservice.goodsdataservice.StockGoodsDataService;
 
@@ -100,10 +109,76 @@ public class Goods {
 	}
 
 	public int deleteGoods(String id) {
-		GoodsPO po = new GoodsPO(goodsID, name, size, numInStock,
-				virtualnumInStock, purchasePrice, price, lastPurchasePrice,
-				lastPrice, gc, manufactoryDate);
-		return service.deleteGoods(po);
+		int result = -1;
+		boolean isOperate = false;
+		try {
+			PurchaseBLService purchaseController = new SalesController();
+			ArrayList<PurchaseVO> pList = purchaseController.showPurchase();
+			SalesBLService saleController = new SalesController();
+			ArrayList<SaleVO> sList = saleController.showSale();
+			GiftBLService giftController = new GiftController();
+			ArrayList<GiftVO> gList = giftController.getGiftList();
+			//检测是否进货过
+			if (pList != null) {
+				for (int i = 0; i < pList.size(); i++) {
+					PurchaseVO vo = pList.get(i);
+					ArrayList<CommodityVO> cList = vo.getPurchaseList();
+					for (int j = 0; j < cList.size(); j++) {
+						if (cList.get(j).getID().equals(id)) {
+							isOperate = true;
+							result = 91;
+							break;
+						}
+					}
+				}
+			}
+			
+			//检测是否被销售过
+			if (isOperate == false) {
+				if (sList != null) {
+					for (int i = 0; i < sList.size(); i++) {
+						SaleVO vo = sList.get(i);
+						ArrayList<CommodityVO> cList = vo.getSalesList();
+						for (int j = 0; j < cList.size(); j++) {
+							if (cList.get(j).getID().equals(id)) {
+								isOperate = true;
+								result = 92;
+								break;
+							}
+						}
+					}
+				}
+			}
+			
+			//检测是否被库存赠送过
+			if (isOperate == false) {
+				if (gList != null) {
+					for (int i = 0; i < sList.size(); i++) {
+						GiftVO vo = gList.get(i);
+						ArrayList<CommodityVO> cList = vo.getGiftList();
+						for (int j = 0; j < cList.size(); j++) {
+							if (cList.get(j).getID().equals(id)) {
+								isOperate = true;
+								result = 93;
+								break;
+							}
+						}
+					}
+				}
+			}
+
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		if (isOperate == false) {
+			GoodsPO po = new GoodsPO(goodsID, name, size, numInStock,
+					virtualnumInStock, purchasePrice, price, lastPurchasePrice,
+					lastPrice, gc, manufactoryDate);
+			result = service.deleteGoods(po);
+		}
+
+		return result;
 	}
 
 	public int modifyGoods(String id) {

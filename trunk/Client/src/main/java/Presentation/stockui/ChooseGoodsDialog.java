@@ -1,6 +1,7 @@
 package Presentation.stockui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -19,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
@@ -27,6 +29,7 @@ import javax.swing.tree.TreePath;
 import vo.GoodsClassVO;
 import vo.GoodsVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
+import Presentation.mainui.MyTableCellRenderer;
 import Presentation.stockui.goodsmanage.GoodsClassNode;
 import Presentation.uihelper.UIhelper;
 import businesslogic.stockbl.goods.GoodsController;
@@ -37,23 +40,19 @@ import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBL
 public class ChooseGoodsDialog extends JDialog {
 
 	/**
-	 * 使用方法：
-	 * 此类适用于需要选择商品的情形（如进货，销售，创建特价包，折扣等）,
+	 * 使用方法： 此类适用于需要选择商品的情形（如进货，销售，创建特价包，折扣等）,
 	 * 使用此dialog的上一级Panel应继承ChooseGoodsFatherPane,
 	 * chooseGoodsFatherPane继承了JPanel，唯一的区别是他有一个二维ArrayList成员变量用来给表格赋值
-	 * 本dialog里的左侧是选择商品的表格，右侧是当前已选商品
-	 * 没写完:
-	 * 1.JTree的建立
-	 * 2.通过点击JTree改变左侧表格内容
+	 * 本dialog里的左侧是选择商品的表格，右侧是当前已选商品 没写完: 1.JTree的建立 2.通过点击JTree改变左侧表格内容
 	 * 3.把右侧表格内容传出外层
 	 */
 	private static final long serialVersionUID = 1L;
-//	ArrayList<ArrayList<String>> selected=new ArrayList<ArrayList<String>>();
-	ArrayList<ArrayList<String>> rightTblMessage=new ArrayList<ArrayList<String>>();
+	// ArrayList<ArrayList<String>> selected=new ArrayList<ArrayList<String>>();
+	ArrayList<ArrayList<String>> rightTblMessage = new ArrayList<ArrayList<String>>();
 	ChosenTblModel ctm;
 	GoodsTblModel gtm;
-	ArrayList<ArrayList<String>> leftTblMessage=new ArrayList<ArrayList<String>>();
-	//ChooseGoodsFatherPane father;
+	ArrayList<ArrayList<String>> leftTblMessage = new ArrayList<ArrayList<String>>();
+	// ChooseGoodsFatherPane father;
 	ChooseGoodsFatherPane father;
 	//
 	JButton submitBtn, exitBtn, addBtn, delBtn;
@@ -72,29 +71,33 @@ public class ChooseGoodsDialog extends JDialog {
 	DefaultTreeModel treeModel = null;
 	String nodeName = null;// 原有节点名称
 	GoodsClassNode newNode = null;
-	
-	
+
 	public ChooseGoodsDialog(ChooseGoodsFatherPane myFather) {
-		controller=new GoodsClassController();
-		father=myFather;
+		controller = new GoodsClassController();
+		father = myFather;
 		pnl = this.getContentPane();
 		pnl.setLayout(null);
-		service=new GoodsController();
-		if(service.showGoods()!=null)
+		service = new GoodsController();
+		if (service.showGoods() != null)
 			Refresh(service.showGoods());
-		
+
 		pnl.setBackground(Color.white);
 		// ------------classTree------------------------------------------
-//		tree = new JTree();
+		// tree = new JTree();
 		createGoodsClass(getTreeData());
 		tree.setBorder(BorderFactory.createLineBorder(Color.gray));
 		tree.setBounds(dialogWidth * 2 / 100, dialogHeight * 5 / 100,
 				dialogWidth * 18 / 100, dialogHeight * 85 / 100);
 		pnl.add(tree);
 		// -----------goodsTbl-------------------------------------------
-		gtm=new GoodsTblModel();
+		gtm = new GoodsTblModel();
 		goodsTbl = new JTable(gtm);
-		
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+		DefaultTableCellRenderer tcr = new TableCellRenderer();
+		for (int i = 0; i < goodsTbl.getColumnCount(); i++) {
+			goodsTbl.getColumn(goodsTbl.getColumnName(i))
+					.setCellRenderer(tcr);
+		}
 		jspLeft = new JScrollPane(goodsTbl);
 		jspLeft.setBounds(dialogWidth * 20 / 100, dialogHeight * 5 / 100,
 				dialogWidth * 35 / 100, dialogHeight * 85 / 100);
@@ -105,8 +108,14 @@ public class ChooseGoodsDialog extends JDialog {
 		chosenLbl.setBounds(dialogWidth * 72 / 100, dialogHeight * 5 / 100,
 				dialogWidth * 30 / 100, dialogHeight * 5 / 100);
 		pnl.add(chosenLbl);
-		ctm=new ChosenTblModel();
+		ctm = new ChosenTblModel();
 		chosenTbl = new JTable(ctm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+		for (int i = 0; i < chosenTbl.getColumnCount(); i++) {
+			chosenTbl.getColumn(chosenTbl.getColumnName(i))
+					.setCellRenderer(tcr);
+		}
+
 		jspRight = new JScrollPane(chosenTbl);
 		jspRight.setBounds(dialogWidth * 60 / 100, dialogHeight * 10 / 100,
 				dialogWidth * 35 / 100, dialogHeight * 60 / 100);
@@ -122,21 +131,25 @@ public class ChooseGoodsDialog extends JDialog {
 		addBtn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				//System.out.println(selected.get(0).get(1));
-				int[] row=goodsTbl.getSelectedRows();
-				if(row.length>0){
-				for(int i=0;i<row.length;i++){
-					int exist=FindInRight(leftTblMessage.get(row[i]).get(0));
-					if(exist<0){
-						ctm.addRow(leftTblMessage.get(row[i]));	}
-					else
-						JOptionPane.showMessageDialog(null, "该商品已选择！","提示",JOptionPane.WARNING_MESSAGE);
-				
+				// System.out.println(selected.get(0).get(1));
+				int[] row = goodsTbl.getSelectedRows();
+				if (row.length > 0) {
+					for (int i = 0; i < row.length; i++) {
+						int exist = FindInRight(leftTblMessage.get(row[i]).get(
+								0));
+						if (exist < 0) {
+							ctm.addRow(leftTblMessage.get(row[i]));
+						} else
+							JOptionPane.showMessageDialog(null, "该商品已选择！",
+									"提示", JOptionPane.WARNING_MESSAGE);
+
 					}
-				chosenTbl.revalidate();
-				}else 
-					JOptionPane.showMessageDialog(null, "请选择商品！","提示",JOptionPane.WARNING_MESSAGE);;
-				
+					chosenTbl.revalidate();
+				} else
+					JOptionPane.showMessageDialog(null, "请选择商品！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+				;
+
 			}
 		});
 		pnl.add(addBtn);
@@ -147,20 +160,20 @@ public class ChooseGoodsDialog extends JDialog {
 		delBtn.setBorderPainted(false);
 		delBtn.setBackground(Color.white);
 		delBtn.setBounds(dialogWidth * 55 / 100, dialogHeight * 35 / 100,
-		dialogWidth * 5 / 100, dialogHeight * 5 / 100);
-		//只能一行一行删除？
-		delBtn.addActionListener(new ActionListener(){
+				dialogWidth * 5 / 100, dialogHeight * 5 / 100);
+		// 只能一行一行删除？
+		delBtn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if(chosenTbl.getSelectedRow()>=0){
-				ctm.removeRow(chosenTbl.getSelectedRow());
-				chosenTbl.revalidate();}
-				else 
-					JOptionPane.showMessageDialog(null, "请选择商品！","提示",JOptionPane.WARNING_MESSAGE);
-				
-			
+				if (chosenTbl.getSelectedRow() >= 0) {
+					ctm.removeRow(chosenTbl.getSelectedRow());
+					chosenTbl.revalidate();
+				} else
+					JOptionPane.showMessageDialog(null, "请选择商品！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+
 			}
-			
+
 		});
 		pnl.add(delBtn);
 		// -------submitBtn----------------------------------------------
@@ -172,23 +185,24 @@ public class ChooseGoodsDialog extends JDialog {
 				dialogWidth * 8 / 100, dialogHeight * 5 / 100);
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(rightTblMessage.size()>0){
-				ArrayList<Object> good=new ArrayList<Object>();
-				try {
-				for(int i=0;i<rightTblMessage.size();i++)
-					{String id=rightTblMessage.get(i).get(0);
-					
-						good.add(service.findByID(id));}
-						
-						
+				if (rightTblMessage.size() > 0) {
+					ArrayList<Object> good = new ArrayList<Object>();
+					try {
+						for (int i = 0; i < rightTblMessage.size(); i++) {
+							String id = rightTblMessage.get(i).get(0);
+
+							good.add(service.findByID(id));
+						}
+
 					} catch (RemoteException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				
-				father.parent.setRightComponent(father);
-				father.RefreshCTable(good);}
-			
+
+					father.parent.setRightComponent(father);
+					father.RefreshCTable(good);
+				}
+
 				ChooseGoodsDialog.this.dispose();
 			}
 		});
@@ -217,8 +231,7 @@ public class ChooseGoodsDialog extends JDialog {
 		this.setVisible(true);
 	}
 
-	
-	//tree
+	// tree
 	private void createGoodsClass(ArrayList<GoodsClassVO> list) {
 		GoodsClassNode root = createTreeRoot(list);
 		DefaultMutableTreeNode Troot = createGoodsClassNode(root);
@@ -226,7 +239,7 @@ public class ChooseGoodsDialog extends JDialog {
 		treeModel = (DefaultTreeModel) tree.getModel();
 		tree.setEditable(true);
 		tree.addMouseListener(new MouseHandle());
-//		treeModel.addTreeModelListener(this);
+		// treeModel.addTreeModelListener(this);
 
 		treeJsp = new JScrollPane(tree);
 		treeJsp.setBorder(null);
@@ -278,7 +291,7 @@ public class ChooseGoodsDialog extends JDialog {
 
 	}
 
-	//点击分类名显示该分类下的商品
+	// 点击分类名显示该分类下的商品
 	class MouseHandle extends MouseAdapter {
 		public void mousePressed(MouseEvent e) {
 			try {
@@ -301,14 +314,16 @@ public class ChooseGoodsDialog extends JDialog {
 			goodsTbl.revalidate();
 		}
 	}
-	//end_tree
-	
+
+	// end_tree
+
 	class GoodsTblModel extends AbstractTableModel {
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		String head[] = { "商品编号", "商品名", "型号","单价","进价" };
+		String head[] = { "商品编号", "商品名称", "型号", "单价", "进价" };
+
 		public int getRowCount() {
 			return leftTblMessage.size();
 		}
@@ -324,43 +339,49 @@ public class ChooseGoodsDialog extends JDialog {
 		public String getColumnName(int column) {
 			return head[column];
 		}
-		public void addRow(ArrayList<String> v){
+
+		public void addRow(ArrayList<String> v) {
 			leftTblMessage.add(v);
 		}
-		public void removeRow(int row){
+
+		public void removeRow(int row) {
 			leftTblMessage.remove(row);
 		}
 	}
-	public void Refresh(ArrayList<GoodsVO> VO){
-		leftTblMessage=new ArrayList<ArrayList<String>>();
-		 for(GoodsVO vo:VO){
-			 ArrayList<String> line=new ArrayList<String>();
-			 line.add(vo.getGoodsID());
-			 line.add(vo.getName());
-			 line.add(vo.getSize());
-			 line.add(Double.toString(vo.getPrice()));
-			 line.add(Double.toString(vo.getPurchasePrice()));
-			 leftTblMessage.add(line);
-		 }
+
+	public void Refresh(ArrayList<GoodsVO> VO) {
+		leftTblMessage = new ArrayList<ArrayList<String>>();
+		for (GoodsVO vo : VO) {
+			ArrayList<String> line = new ArrayList<String>();
+			line.add(vo.getGoodsID());
+			line.add(vo.getName());
+			line.add(vo.getSize());
+			line.add(Double.toString(vo.getPrice()));
+			line.add(Double.toString(vo.getPurchasePrice()));
+			leftTblMessage.add(line);
+		}
 	}
 
 	class ChosenTblModel extends AbstractTableModel {
 		/**
 		 * 
 		 */
-		//需要更多 吗  检测库存数量何时？？
+		// 需要更多 吗 检测库存数量何时？？
 		private static final long serialVersionUID = 1L;
-		String head[] = { "商品编号", "商品名", "型号","单价" ,"进价"};
+		String head[] = { "商品编号", "商品名称", "型号", "单价", "进价" };
 
 		public int getRowCount() {
 			return rightTblMessage.size();
 		}
-		public void addRow(ArrayList<String> v){
+
+		public void addRow(ArrayList<String> v) {
 			rightTblMessage.add(v);
 		}
-		public void removeRow(int row){
+
+		public void removeRow(int row) {
 			rightTblMessage.remove(row);
 		}
+
 		public int getColumnCount() {
 			return head.length;
 		}
@@ -374,16 +395,36 @@ public class ChooseGoodsDialog extends JDialog {
 		}
 	}
 
-	public ArrayList<ArrayList<String>> getGoods(){
+	public ArrayList<ArrayList<String>> getGoods() {
 		return rightTblMessage;
 	}
-	
-	public int FindInRight(String id){
-		for(int i=0;i<rightTblMessage.size();i++){
-			if(id.equals(rightTblMessage.get(i).get(0)))
+
+	public int FindInRight(String id) {
+		for (int i = 0; i < rightTblMessage.size(); i++) {
+			if (id.equals(rightTblMessage.get(i).get(0)))
 				return i;
 		}
 		return -1;
+	}
+
+	// table的渲染器
+	class TableCellRenderer extends MyTableCellRenderer {
+		/**
+				 * 
+				 */
+		private static final long serialVersionUID = 1L;
+
+		public Component getTableCellRendererComponent(JTable table,
+				Object value, boolean isSelected, boolean hasFocus, int row,
+				int column) {
+			// 设置列宽
+			table.getColumn("商品编号").setPreferredWidth(180);
+			table.getColumn("商品名称").setPreferredWidth(130);
+
+			return super.getTableCellRendererComponent(table, value,
+					isSelected, hasFocus, row, column);
+		}
+
 	}
 
 }
