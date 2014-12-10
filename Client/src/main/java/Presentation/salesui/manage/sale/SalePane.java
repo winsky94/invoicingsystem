@@ -187,7 +187,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		p3.add(totalFinDiscountLbl);
 		p3.add(new JLabel("      "));
 		//------客户应付总价（经过各种打折并且减去代金券）-----------------
-		totalToPayLbl=new JLabel("折后总价：嗷嗷嗷嗷");
+		totalToPayLbl=new JLabel("客户应付总价：嗷嗷嗷嗷");
 		totalToPayLbl.setFont(font);
 		p3.add(totalToPayLbl);
 		// ------table--------------
