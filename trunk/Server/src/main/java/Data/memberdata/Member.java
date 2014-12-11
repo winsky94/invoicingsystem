@@ -46,6 +46,46 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 		file.writeM(a);
 		return 0;
 	}
+	
+	public int changeToReceive(String id,double m)throws RemoteException{
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return 1;  	  //不存在该用户	
+		int i;
+		for(i=0;i<a.size();i++){
+			MemberPO b=(MemberPO)a.get(i);
+			if(b.getMemberID().equals(id)){
+				b.changeToReceive(m);
+				break;
+			}
+		}
+		
+		if(i==a.size())      //不存在该用户
+			return 1;
+		
+		file.writeM(a);
+		return 0;
+	}
+	
+	public int changeToPay(String id,double m)throws RemoteException{
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return 1;  	  //不存在该用户	
+		int i;
+		for(i=0;i<a.size();i++){
+			MemberPO b=(MemberPO)a.get(i);
+			if(b.getMemberID().equals(id)){
+				b.changeToPay(m);
+				break;
+			}
+		}
+		
+		if(i==a.size())      //不存在该用户
+			return 1;
+		
+		file.writeM(a);
+		return 0;
+	}
 
 	public int modify(MemberPO po) {
 		ArrayList<Object> a=file.read();

@@ -33,4 +33,8 @@ public class TransferItemPO implements Serializable{
 	public String getInfo(){
 		return info;
 	}
+	
+	public void setInfo(String s){
+		info=s;
+	}
 }
