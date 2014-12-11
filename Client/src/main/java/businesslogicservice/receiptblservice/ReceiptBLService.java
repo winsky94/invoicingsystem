@@ -17,4 +17,5 @@ public interface ReceiptBLService {
 	public ArrayList<ReceiptVO> ToApprove();
 	public ArrayList<ReceiptVO> Approved();
 //	public int Excute(String id);
+//	public int setStatus(String id,int st);
  }
