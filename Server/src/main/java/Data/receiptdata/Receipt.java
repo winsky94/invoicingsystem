@@ -88,6 +88,31 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	public int setStatus(String id,int st) throws RemoteException{
+		   String[] buffer=id.split("-");
+           String s=buffer[0];
+	        if(s.equals("SKD")){
+	        	Collection c=new Collection();
+	        	return c.setStatus(id, st);
+	        }
+	        else if(s.equals("FKD")){
+	        	Payment p=new Payment();
+	        	return p.setStatus(id, st);
+	        }
+	        else if(s.equals("XJFYD")){
+	        	Cashlist c=new Cashlist();
+	        	return c.setStatus(id, st);
+	        }
+	        else if(s.equals("JHD")||s.equals("JHTHD")||s.equals("XSD")||s.equals("XSTHD")){
+	        	Sales sale=new Sales();
+	        		return sale.setStatus(id, st);
+	        }
+	       
+	        else{
+	        	return 1;
+	        }
+	}
 
 	public ArrayList<ReceiptPO> showAll() throws RemoteException {
 		ArrayList<ReceiptPO> al=new ArrayList<ReceiptPO>();
