@@ -53,7 +53,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener{
 
 	public ReceiptMgrPanel(MainFrame myFather) throws Exception {
 		service=new ReceiptController();
-		father = (MainFrame)myFather;
+		father = myFather;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 10, 5, 10);
