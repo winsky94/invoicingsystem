@@ -372,18 +372,21 @@ public class StockManage {
 	}
 
 	// 库存报警检查
-	public boolean stockNumCheck(String goodName, String goodSize) {
+	public boolean stockNumCheck(String GoodsID) {
 		// TODO 自动生成的方法存根
-		int num = service.getWarnnigNum();
-		String id = goodsService.findGoods(goodName + goodSize).get(0)
-				.getGoodsID();
-		return isEnough(id, num);
-	}
-
-	// 库存报警设置
-	public int setStockBasedNum(int num) {
-		// TODO 自动生成的方法存根
-		return service.setWarningNum(num);
+		boolean result = false;
+		try {
+			GoodsPO good = goodsService.findByID(GoodsID);
+			int minNumInStock = good.getMinNumInStock();
+			int numInStock = good.getNumInStock();
+			if (minNumInStock > numInStock) {
+				result = true;
+			}
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	private ArrayList<StockOverOrLowVO> POToVO(ArrayList<StockOverOrLowPO> list) {
