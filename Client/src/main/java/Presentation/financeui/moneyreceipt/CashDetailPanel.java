@@ -50,6 +50,7 @@ public class CashDetailPanel extends JPanel implements ActionListener{
 	double totalMoney;
 	CashlistBLService cc=null;
 	CashlistVO vo;
+	JPanel btnPnl;
 	public CashDetailPanel(MainFrame frame,int selected){
 		parent=frame;
 		
@@ -154,7 +155,7 @@ public class CashDetailPanel extends JPanel implements ActionListener{
 		//------table-----------------
 		RefreshCaluseItemTable(vo.getClauselist());
 		// -------buttons-----------------
-		JPanel btnPnl = new JPanel();
+		btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 8;
@@ -248,6 +249,8 @@ public class CashDetailPanel extends JPanel implements ActionListener{
 			
 		}
 	}
-		
+	public void useToReceipt(){
+		btnPnl.remove(submitBtn);
+	}
 	
 }

@@ -94,8 +94,8 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 	}
 
 	// 算入折让 网络放这儿合适否？
-	public double getPrivilege(String MemberID) throws MalformedURLException,
-			RemoteException, NotBoundException {
+	public double getPrivilege(String MemberID) throws Exception
+			{
 		Member member = new Member();
 		MemberLevel level = member.findById(MemberID).getmLevel();
 		double dis;

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 
 
+
 import javax.swing.JTabbedPane;
 
 import businesslogic.utilitybl.getDate;
@@ -18,6 +19,7 @@ import po.CouponPO;
 import po.GiftCouponProPO;
 import po.PromotionPO;
 import po.PromotionPO.PromotionType;
+import vo.CommodityVO;
 import vo.CouponVO;
 import vo.GiftCouponProVO;
 import vo.PromotionVO;
@@ -145,7 +147,9 @@ public class giftCouponPro extends promotion{
 	@Override
 	public PromotionVO Match(SaleVO vo) {
 		// TODO Auto-generated method stub
-		double total=vo.getTotalMoney();
+		double total=vo.getTotalValue();
+		double maxcoupon=0;
+		PromotionVO result=null;
 		ArrayList<GiftCouponProVO> pro=show();
 		if(pro==null)
 			return null;
@@ -153,12 +157,25 @@ public class giftCouponPro extends promotion{
 			for(int i=0;i<pro.size();i++)
 			{
 				if(total>=pro.get(i).getTotalValue())
-					return pro.get(i);
+				{
+					double value=getCouponValue(pro.get(i).getCouponList());
+					if(maxcoupon<value)
+						{maxcoupon=value;result=pro.get(i);}
+				}
+				
+				
 			}
-			return null;
+			return result;
 		}
 	}
 
+	
+	public double getCouponValue(ArrayList<CouponVO> vo){
+		double t=0;
+		for(int i=0;i<vo.size();i++)
+			t+=vo.get(i).getValue();
+		return t;
+	}
 	public String getNewID() {
 		// TODO Auto-generated method stub
 		String id=null;
@@ -178,6 +195,9 @@ public class giftCouponPro extends promotion{
 		return "DJQ-"+getDate.getdate()+"-"+id;
 	}
 
+	
+
+	
 	public PromotionVO findByID(String id){
 		GiftCouponProPO gpo=(GiftCouponProPO)service.find(id, PromotionType.GIFTCOUPON);
 		if(gpo==null) return null;

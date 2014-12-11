@@ -50,6 +50,7 @@ public class PaymentDetailPanel extends JPanel implements ActionListener{
 	double totalMoney;
 	PaymentBLService pp=null;
 	PaymentVO vo;
+	JPanel btnPnl;
 	public PaymentDetailPanel(MainFrame frame,int selected){
 		parent=frame;
 		
@@ -159,7 +160,7 @@ public class PaymentDetailPanel extends JPanel implements ActionListener{
 		//------table-----------------
 		RefreshTransferlistTable(vo.getTransferlist());
 		// -------buttons-----------------
-		JPanel btnPnl = new JPanel();
+		btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 8;
@@ -256,5 +257,8 @@ public class PaymentDetailPanel extends JPanel implements ActionListener{
 		}
 	}
 		
+	public void useToReceipt(){
+		btnPnl.remove(submitBtn);
+	}
 	
 }

@@ -23,6 +23,9 @@ import javax.swing.table.AbstractTableModel;
 
 import po.ReceiptPO.ReceiptType;
 import po.UserPO.UserJob;
+import Presentation.financeui.moneyreceipt.CashDetailPanel;
+import Presentation.financeui.moneyreceipt.CollectionDetailPanel;
+import Presentation.financeui.moneyreceipt.PaymentDetailPanel;
 import Presentation.mainui.MainFrame;
 import Presentation.salesui.manage.purchase.ViewPurchasePanel;
 import businesslogic.receiptbl.ReceiptController;
@@ -256,19 +259,33 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener{
 				String id=c1.get(i).get(0);
 				String type=c1.get(i).get(2);
 				ReceiptType rtype=Total.getsType(type);
-			
 				try{
 				switch(rtype){
 				case PURCHASE:
 					ViewPurchasePanel pane=new ViewPurchasePanel(father,id);
-					pane.p.exitBtn.removeActionListener(pane.p.elisten);
-					pane.p.exitBtn.addActionListener(new exitListen());
+					pane.useToReceipt();
 					father.setRightComponent(new AdvancedReceiptPanel(pane,father,id));
+					break;		
+				case PAYMENT:
+					PaymentDetailPanel paypane=new PaymentDetailPanel(father,findChosen(id,c1,1));
+					paypane.useToReceipt();
+					father.setRightComponent(new AdvancedReceiptPanel(paypane,father,id));
+					break;
+				case COLLECTION:
+					CollectionDetailPanel colpane=new CollectionDetailPanel(father,findChosen(id,c1,0));
+					colpane.useToReceipt();
+					father.setRightComponent(new AdvancedReceiptPanel(colpane,father,id));
+					break;
+				case CASHLIST:
+					CashDetailPanel cpane=new CashDetailPanel(father,findChosen(id,c1,2));
+					cpane.useToReceipt();
+					father.setRightComponent(new AdvancedReceiptPanel(cpane,father,id));
+					break;
+					
 			
 					
 				}
 				
-			
 				}catch(Exception ee){
 					ee.printStackTrace();
 				}
@@ -287,5 +304,21 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener{
 		
 	}
 
-
+	//获取收付款位置 0收款单 1付款单  2现金费用单
+	public int findChosen(String id,ArrayList<ArrayList<String>> tab,int sign){
+		String type="现金费用单";
+		if(sign==0)
+			type="收款单";
+		else if(sign==1) type="付款单";
+		int count=-1;
+		for(int i=0;i<tab.size();i++){
+			if(tab.get(i).get(2).equals(type)){
+				count++;
+				if(tab.get(i).get(0).equals(id))
+					break;
+			}
+		}
+		return count;
+		
+	}
 }

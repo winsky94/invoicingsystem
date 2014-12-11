@@ -92,18 +92,34 @@ public class giftGoodPro extends promotion{
 	@Override
 	public PromotionVO Match(SaleVO vo) {
 		// TODO Auto-generated method stub
-		double total=vo.getTotalMoney();
+		double total=vo.getTotalValue();
+		double value=0;
+		PromotionVO result=null;
 		ArrayList<GiftGoodsProVO>  pro=show();
 		if(pro==null) return null;
 		else{
 			for(int i=0;i<pro.size();i++){
 				if(total>=pro.get(i).getTotalValue())
-					return pro.get(i);
+				{
+					double giftvalue=cal(pro.get(i).getGiftList());
+					if(value<giftvalue){
+						value=giftvalue;result=pro.get(i);
+					}
+					
+				}
 			}
-			return null;
+			return result;
 		}
 	}
 
+	public static double cal(ArrayList<CommodityVO> v){
+		double t=0;
+		for(int i=0;i<v.size();i++){
+			t+=v.get(i).getTotal();
+			
+		}
+		return t;
+	}
 	public String getNewID() {
 		// TODO Auto-generated method stub
 		String id=null;
@@ -133,7 +149,7 @@ public class giftGoodPro extends promotion{
 	
 	public GiftGoodProPO voToPo(GiftGoodsProVO vo){
 		ArrayList<CommodityVO> clist=vo.getGiftList();
-		GiftGoodProPO  gpv=new GiftGoodProPO(vo.getID(),vo.getStartDate(),
+		GiftGoodProPO  gpv=new GiftGoodProPO(vo.getId(),vo.getStartDate(),
 				vo.getEndDate(),vo.getMemberlevel(),com.voTPo(clist),vo.getTotalValue());
 		
 		return gpv;

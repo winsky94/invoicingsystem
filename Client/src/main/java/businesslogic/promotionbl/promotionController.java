@@ -80,21 +80,23 @@ public class promotionController implements PromotionViewService,
 		//giftGoodPro ggp;
 		//packPro pp;
 		//discountPro dcp;
-	public PromotionVO Match(SaleVO vo) {
-		// TODO Auto-generated method stub
-		PromotionVO pro=null;
-		if((pro=ggp.Match(vo))!=null){
-			return pro;
-		}else if((pro=gcp.Match(vo))!=null)
-			return pro;
-		else if((pro=dcp.Match(vo))!=null)
-			return pro;
-		else if((pro=pp.Match(vo))!=null)
-			return pro;
-		else 
-			return null;
+	//0表示已匹配
+	public SaleVO Match(SaleVO vo) {
+		// TODO Auto-generated method stub	
+	PromotionVO pro=null;
+	if((pro=ggp.Match(vo))!=null){
+		vo.setProid(pro.getId());return vo;
+	}else if((pro=gcp.Match(vo))!=null){
+		vo.setProid(pro.getId());return vo;
+	}else if((pro=dcp.Match(vo))!=null){
+		vo.setProid(pro.getId());
+		vo=dcp.excute(pro,vo);return vo;
+	}else if((pro=pp.Match(vo))!=null){
+		vo.setProid(pro.getId());
+		vo=pp.excute(pro, vo);return vo;
 	}
-
+	return vo;
+}
 	public GiftVO Present(PromotionVO vo) {
 		// TODO Auto-generated method stub
 		return null;

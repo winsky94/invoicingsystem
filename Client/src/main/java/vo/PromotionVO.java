@@ -45,9 +45,7 @@ public class PromotionVO {
 		return level;
 	}
 	
-	public String getID(){
-		return id;
-	}
+
 	
 	
 

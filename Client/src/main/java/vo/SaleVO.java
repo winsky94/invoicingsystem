@@ -7,7 +7,7 @@ import po.ReceiptPO.ReceiptType;
 //double[] discount;pro/pre/money/toaldiscount;
 //double[] total; cost/origin/value/couponIncom/toPay
 public class SaleVO extends ReceiptVO {
-	private String clerk,operator;
+	private String clerk;
 	private ArrayList<CommodityVO> salesList;
 	private double[] discount=new double[4];//折让类数据
 	private double[] total=new double[5];//总计类数据
@@ -24,10 +24,16 @@ public class SaleVO extends ReceiptVO {
 		this.stockid=stockid;
 		this.proid=proid;
 	}
+	public void setProid(String pro){
+		this.proid=pro;
+	}
 	public String getProid() {
 		return proid;
 	}
 	
+	public void setProDiscount(double value){
+		this.discount[0]=value;
+	}
 
 	public String getStockid() {
 		return stockid;
@@ -59,9 +65,7 @@ public class SaleVO extends ReceiptVO {
 		return total[3];
 	}
 	
-	public double getTotalMoney() {
-		return total[2];
-	}
+
 	
 	public double getTotalValue(){
 		return total[2];
