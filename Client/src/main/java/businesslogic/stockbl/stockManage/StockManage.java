@@ -223,7 +223,7 @@ public class StockManage {
 
 			// 赠送
 			if (giftList != null) {
-				
+
 				for (int j = 0; j < giftList.size(); j++) {
 					GiftPO giftPO = giftList.get(j);
 					// 获得的库存赠送单即为这段时间内的单据，不要判断时间是否符合了
@@ -331,7 +331,7 @@ public class StockManage {
 			if (list.get(i).getType().equals(ReceiptType.STOCKOVER)) {
 				String n = list.get(i).getGoodsName();
 				GoodsPO po = goodsService.findGoods(n).get(0);
-				goodsOverIncome += (po.getPrice() * list.get(i).getGap());
+				goodsOverIncome += (po.getPrice() * (0 - list.get(i).getGap()));
 			}
 		}
 		return goodsOverIncome;
@@ -345,7 +345,7 @@ public class StockManage {
 			if (list.get(i).getType().equals(ReceiptType.STOCKLOW)) {
 				String n = list.get(i).getGoodsName();
 				GoodsPO po = goodsService.findGoods(n).get(0);
-				goodsLowCost += (po.getPrice() * (0 - list.get(i).getGap()));
+				goodsLowCost += (po.getPrice() * list.get(i).getGap());
 			}
 		}
 		return goodsLowCost;

@@ -65,7 +65,7 @@ public class StockLowReceipt extends Receipt {
 		this.size = size;
 		this.num = num;
 		this.exactNum = exactNum;
-		this.gap = exactNum - num;
+		this.gap = num - exactNum;
 	}
 
 	public int add() {

@@ -105,4 +105,22 @@ public class CheckModel extends AbstractTableModel {
 		// TODO 自动生成的方法存根
 		return columnNames[column];
 	}
+
+	// "行号", "名称", "型号", "库存数量", "库存均价", "批次", "批号","出厂日期"
+	public ArrayList<ArrayList<String>> getExportConent() {
+		ArrayList<ArrayList<String>> v = new ArrayList<ArrayList<String>>();
+		ArrayList<String> head = new ArrayList<String>();
+		head.add("行号");
+		head.add("名称");
+		head.add("型号");
+		head.add("库存数量");
+		head.add("库存均价");
+		head.add("批次");
+		head.add("批号");
+		head.add("出厂日期");
+		v.add(head);
+		for (int i = 0; i < rowData.size(); i++)
+			v.add(rowData.get(i));
+		return v;
+	}
 }

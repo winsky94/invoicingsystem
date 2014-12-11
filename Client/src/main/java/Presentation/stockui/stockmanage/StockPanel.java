@@ -11,14 +11,17 @@ import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import Presentation.mainui.ExportExcel;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
+import Presentation.mainui.XLSFilter;
 import businesslogic.stockbl.stockManage.CheckModel;
 import businesslogic.stockbl.stockManage.LowModel;
 import businesslogic.stockbl.stockManage.OverModel;
@@ -32,6 +35,7 @@ public class StockPanel extends JPanel {
 	JTabbedPane tab;
 	JScrollPane jsp1, jsp2, jsp3;
 	JTable inventoryTbl, overflowTbl, lossTbl;
+	CheckModel cm;
 	MyButton overflowBtn, lossBtn, stockBtn, exportBtn, refreshBtn;
 	MainFrame frame;
 	Color[] color;
@@ -72,10 +76,12 @@ public class StockPanel extends JPanel {
 		btnPnl.add(stockBtn);
 		// --------refresh----------------
 		refreshBtn = new MyButton("刷新", new ImageIcon("img/stock/refresh.png"));
+		refreshBtn.addActionListener(new RefreshBtnListener());
 		btnPnl.add(refreshBtn);
 		// ---------export----------------
 		exportBtn = new MyButton("导出库存快照",
 				new ImageIcon("img/stock/export.png"));
+		exportBtn.addActionListener(new ExportBtnListener());
 		btnPnl.add(exportBtn);
 		// -----------JTabbedPane----------------------------
 		tab = new JTabbedPane();
@@ -92,36 +98,37 @@ public class StockPanel extends JPanel {
 		this.add(tab);
 		// ---------------inventoryTbl---------------------------
 		inventoryTbl = new JTable();
-		// table 渲染器，设置文字内容居中显示，设置背景色等
-				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
-				for (int i = 0; i < inventoryTbl.getColumnCount(); i++) {
-					inventoryTbl.getColumn(inventoryTbl.getColumnName(i))
-							.setCellRenderer(tcr);
-				}
-		CheckModel cm = new CheckModel();
-		
+		cm = new CheckModel();
 		inventoryTbl.setModel(cm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < inventoryTbl.getColumnCount(); i++) {
+			inventoryTbl.getColumn(inventoryTbl.getColumnName(i))
+					.setCellRenderer(tcr);
+		}
 		jsp1 = new JScrollPane(inventoryTbl);
 		tab.add("库存盘点", jsp1);
 		// --------------overflowTbl--------------------------------
 		overflowTbl = new JTable();
 		OverModel om = new OverModel();
+		overflowTbl.setModel(om);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		for (int i = 0; i < overflowTbl.getColumnCount(); i++) {
 			overflowTbl.getColumn(overflowTbl.getColumnName(i))
 					.setCellRenderer(tcr);
 		}
-		overflowTbl.setModel(om);
+
 		jsp2 = new JScrollPane(overflowTbl);
 		tab.add("库存报溢表", jsp2);
 		// --------------lossTbl--------------------------------
 		lossTbl = new JTable();
 		LowModel lm = new LowModel();
+		lossTbl.setModel(lm);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		for (int i = 0; i < lossTbl.getColumnCount(); i++) {
 			lossTbl.getColumn(lossTbl.getColumnName(i)).setCellRenderer(tcr);
 		}
-		lossTbl.setModel(lm);
+
 		jsp3 = new JScrollPane(lossTbl);
 		tab.add("库存报损表", jsp3);
 	}
@@ -130,6 +137,27 @@ public class StockPanel extends JPanel {
 
 		public void actionPerformed(ActionEvent e) {
 			frame.setRightComponent(new OverflowPanel(frame));
+
+		}
+
+	}
+
+	class ExportBtnListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			System.out
+					.println("StockPanel.ExportBtnListener.actionPerformed()导出");
+			JFileChooser jfc = new JFileChooser(System.getProperty("user.home"));
+			jfc.setFileFilter(new XLSFilter());
+			jfc.setDialogTitle("导出");
+			// fileName后缀需要.xls
+			if (jfc.showSaveDialog(StockPanel.this) == JFileChooser.APPROVE_OPTION) {
+				String fileName = jfc.getSelectedFile().getAbsolutePath();
+
+				ExportExcel.Exprot(cm.getExportConent(), fileName);
+
+				// saveXLSContents();
+			}
 
 		}
 
@@ -152,14 +180,6 @@ public class StockPanel extends JPanel {
 
 	}
 
-	/*
-	 * public static void main(String[] args) { JFrame testFrame = new JFrame();
-	 * testFrame.setBounds(100, 50, 800, 500);
-	 * testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	 * 
-	 * StockPanel gp = new StockPanel(); gp.setBounds(0, 0, 1000, 700);
-	 * testFrame.add(gp); testFrame.setVisible(true); }
-	 */
 	class MyButton extends JButton {
 
 		/**
@@ -184,7 +204,7 @@ public class StockPanel extends JPanel {
 		}
 	}
 
-	class Refresh implements ActionListener {
+	class RefreshBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO 自动生成的方法存根
