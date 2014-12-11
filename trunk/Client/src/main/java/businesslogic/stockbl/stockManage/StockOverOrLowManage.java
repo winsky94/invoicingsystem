@@ -59,7 +59,7 @@ public class StockOverOrLowManage {
 
 	// 库存报警 ===
 	public int addStockErrorReceipt(String goodsName, String size) {
-		System.out.println("StockOverOrLowManage.addStockErrorReceipt():尚未实现！");
+		System.out.println("StockOverOrLowManage.addStockErrorReceipt():待检测！");
 		StockErrorReceipt receipt = new StockErrorReceipt(goodsName, size);
 		receipt.add();
 		return 0;

@@ -769,7 +769,6 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			// 设置列宽
 			table.getColumn("编号").setPreferredWidth(180);
 			table.getColumn("名称").setPreferredWidth(130);
-
 			return super.getTableCellRendererComponent(table, value,
 					isSelected, hasFocus, row, column);
 		}
