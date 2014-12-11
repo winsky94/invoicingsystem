@@ -1,7 +1,6 @@
 package Presentation.stockui.goodsmanage;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -182,7 +181,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		goodsTable.setBackground(Color.white);
 
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-		DefaultTableCellRenderer tcr = new TableCellRenderer();
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 		for (int i = 0; i < goodsTable.getColumnCount(); i++) {
 			goodsTable.getColumn(goodsTable.getColumnName(i)).setCellRenderer(
 					tcr);
@@ -256,7 +255,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 				goodsModel = new GoodsModel();
 				goodsTable.setModel(goodsModel);
 				// table 渲染器，设置文字内容居中显示，设置背景色等
-				DefaultTableCellRenderer tcr = new TableCellRenderer();
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 				for (int i = 0; i < goodsTable.getColumnCount(); i++) {
 					goodsTable.getColumn(goodsTable.getColumnName(i))
 							.setCellRenderer(tcr);
@@ -459,12 +458,12 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 	public void treeNodesInserted(TreeModelEvent e) {
 		// TODO 自动生成的方法存根
-		System.out.println("监听插入节点");
+		// System.out.println("监听插入节点");
 	}
 
 	public void treeNodesRemoved(TreeModelEvent e) {
 		// TODO 自动生成的方法存根
-		System.out.println("监听删除节点");
+		// System.out.println("监听删除节点");
 	}
 
 	public void treeStructureChanged(TreeModelEvent e) {
@@ -584,7 +583,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		public AddGoodsClassDialog(GoodsPanel goodsPanel, String parent) {
 			this.father = goodsPanel;
 
-			Font font = new Font("仿宋", Font.BOLD, 16);
+			Font font = new Font("楷体", Font.BOLD, 16);
 			fatherClassjl = new JLabel("父分类");
 			fatherClassjl.setFont(font);
 			fatherClassjl.setBounds(15, 20, 60, 30);
@@ -664,7 +663,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		public UpdateGoodsClassDialog(GoodsPanel father, String parent) {
 			this.father = father;
 
-			Font font = new Font("仿宋", Font.BOLD, 16);
+			Font font = new Font("楷体", Font.BOLD, 16);
 			oldClassDjl = new JLabel("原类名");
 			oldClassDjl.setFont(font);
 			oldClassDjl.setBounds(15, 20, 60, 30);
@@ -756,25 +755,6 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		}
 	}
 
-	// table的渲染器
-	class TableCellRenderer extends MyTableCellRenderer {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		public Component getTableCellRendererComponent(JTable table,
-				Object value, boolean isSelected, boolean hasFocus, int row,
-				int column) {
-			// 设置列宽
-			table.getColumn("编号").setPreferredWidth(180);
-			table.getColumn("名称").setPreferredWidth(130);
-			return super.getTableCellRendererComponent(table, value,
-					isSelected, hasFocus, row, column);
-		}
-
-	}
-
 	// end_yan-----------------------------------------------------------
 
 	class Refresh implements ActionListener {
@@ -783,6 +763,12 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			// TODO 自动生成的方法存根
 			goodsModel = new GoodsModel();
 			goodsTable.setModel(goodsModel);
+			// table 渲染器，设置文字内容居中显示，设置背景色等
+			DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+			for (int i = 0; i < goodsTable.getColumnCount(); i++) {
+				goodsTable.getColumn(goodsTable.getColumnName(i))
+						.setCellRenderer(tcr);
+			}
 		}
 
 	}

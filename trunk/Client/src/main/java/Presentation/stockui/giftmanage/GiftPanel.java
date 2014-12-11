@@ -16,9 +16,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import vo.GiftVO;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import Presentation.uihelper.DateChooser;
 import businesslogic.stockbl.gift.GiftController;
 import businesslogic.stockbl.gift.GiftModel;
@@ -72,6 +74,11 @@ public class GiftPanel extends JPanel implements ActionListener {
 		// ----------------------------------------------
 		gm = new GiftModel();
 		giftTbl = new JTable(gm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < giftTbl.getColumnCount(); i++) {
+			giftTbl.getColumn(giftTbl.getColumnName(i)).setCellRenderer(tcr);
+		}
 		jsp = new JScrollPane(giftTbl);
 		c.gridx = 0;
 		c.gridy = 1;
@@ -106,6 +113,12 @@ public class GiftPanel extends JPanel implements ActionListener {
 
 			gm = new GiftModel();
 			giftTbl = new JTable(gm);
+			// table 渲染器，设置文字内容居中显示，设置背景色等
+			DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+			for (int i = 0; i < giftTbl.getColumnCount(); i++) {
+				giftTbl.getColumn(giftTbl.getColumnName(i))
+						.setCellRenderer(tcr);
+			}
 		}
 		if (e.getSource() == detailBtn) {
 			int rownum = giftTbl.getSelectedRow();

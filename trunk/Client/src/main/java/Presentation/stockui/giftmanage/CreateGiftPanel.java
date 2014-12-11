@@ -1,6 +1,7 @@
 package Presentation.stockui.giftmanage;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import po.MemberPO.MemberType;
 import vo.CommodityVO;
@@ -26,6 +28,7 @@ import vo.LogVO;
 import vo.MemberVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import Presentation.mainui.headPane;
 import Presentation.mainui.log;
 import Presentation.stockui.ChooseGoodsDialog;
@@ -176,6 +179,12 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 			cgd.dispose();
 			gcm = new GiftCommodityListModel(commodityList);
 			table.setModel(gcm);
+			// table 渲染器，设置文字内容居中显示，设置背景色等
+			DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+			for (int i = 0; i < table.getColumnCount(); i++) {
+				table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
+			}
+
 		} else if (e.getSource() == delBtn) {
 			int rownum = table.getSelectedRow();
 			if (rownum == -1) {
@@ -225,7 +234,7 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 			GiftBLService giftService = new GiftController();
 			int result = giftService.dealGift(vo);
 			if (result != 0) {
-				JOptionPane.showMessageDialog(this, "别闹啦S，库存不足以赠送的~", null,
+				JOptionPane.showMessageDialog(this, "别闹啦~，库存不足以赠送的~", null,
 						JOptionPane.WARNING_MESSAGE);
 				return;
 			}
@@ -241,5 +250,23 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 
 			parent.setRightComponent(new GiftPanel(parent));
 		}
+	}
+
+	// table的渲染器
+	class TableCellRenderer extends MyTableCellRenderer {
+		/**
+			 * 
+			 */
+		private static final long serialVersionUID = 1L;
+
+		public Component getTableCellRendererComponent(JTable table,
+				Object value, boolean isSelected, boolean hasFocus, int row,
+				int column) {
+			// 设置列宽
+			table.getColumn("编号").setPreferredWidth(180);
+			return super.getTableCellRendererComponent(table, value,
+					isSelected, hasFocus, row, column);
+		}
+
 	}
 }
