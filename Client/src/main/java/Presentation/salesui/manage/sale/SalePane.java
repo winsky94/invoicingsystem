@@ -67,7 +67,6 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 	public SalePane(MainFrame frame) throws Exception {
 		parent = frame;
 		service = new SalesController();
-		// parent = frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 10, 5, 10);
