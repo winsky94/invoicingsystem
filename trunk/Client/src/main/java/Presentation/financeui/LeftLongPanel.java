@@ -15,6 +15,12 @@ import java.rmi.RemoteException;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import vo.UserVO;
+import Presentation.mainui.JLeftButton;
+import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.receiptui.ReportMgrPanel;
+import Presentation.uihelper.AboutPanel;
 import businesslogic.financebl.Account;
 import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
@@ -23,11 +29,6 @@ import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLSe
 import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
-import vo.UserVO;
-import Presentation.mainui.JLeftButton;
-import Presentation.mainui.MainFrame;
-import Presentation.mainui.headPane;
-import Presentation.uihelper.AboutPanel;
 
 public class LeftLongPanel extends JPanel implements ActionListener,MouseListener{
 	/**
@@ -203,6 +204,14 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
   			
 
   				mgr.setSelectedTab(0);
+		}
+		else if(e.getSource()==reportBtn){
+			try {
+				frame.setRightComponent(new ReportMgrPanel(frame));
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		else if(e.getSource()==initialBtn){
 			InitialPanel alp=new InitialPanel(frame);
