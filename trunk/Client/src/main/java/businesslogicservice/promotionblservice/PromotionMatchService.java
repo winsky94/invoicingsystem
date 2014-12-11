@@ -5,5 +5,5 @@ import vo.PromotionVO;
 import vo.SaleVO;
 
 public interface PromotionMatchService {
-	public PromotionVO Match(SaleVO vo);
+	public SaleVO Match(SaleVO vo);
 }

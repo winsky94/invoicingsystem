@@ -54,6 +54,31 @@ public  class discountPro extends promotion{
 	}
 	
 	
+	public double getDiscountValue(ArrayList<CommodityVO> list,DiscountProVO v){
+		ArrayList<CommodityVO> clist=v.getGoodsList();
+		ArrayList<Double> dis=v.getCountList();
+		double discount=0;;
+		for(int i=0;i<clist.size();i++){
+			for(int j=0;j<list.size();j++){
+				if(clist.get(i).getID().equals(list.get(j).getID()))
+					discount+=(list.get(j).getPrice()*(1-dis.get(i)));
+					
+			}
+		}
+		return discount;
+	}
+	
+	
+	public SaleVO excute(PromotionVO pro,SaleVO vo){
+		ArrayList<CommodityVO> list=vo.getSalesList();
+		double value=getDiscountValue(list,(DiscountProVO)pro);
+	
+		vo.setProDiscount(value);
+		return vo;
+		
+	}
+	
+	
 	public boolean searchInList(String id,ArrayList<CommodityVO> list){
 		for(int i=0;i<list.size();i++)
 			if(list.get(i).getID().equals(id))

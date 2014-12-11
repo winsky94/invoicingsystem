@@ -192,6 +192,28 @@ public class Member implements MemberBLService,MemberViewService{
 		return poToVo(service.findByID(ID));
 	}
 
+	@Override
+	public int getSaleNum() {
+		// TODO Auto-generated method stub
+		int num=0;
+		ArrayList<MemberPO> po=service.showAll();
+		for(MemberPO p:po)
+			if(p.getmType()==MemberType.XSS)
+				num++;
+		return num;
+	}
+
+	@Override
+	public int getPurchaseNum() {
+		// TODO Auto-generated method stub
+		int num=0;
+		ArrayList<MemberPO> po=service.showAll();
+		for(MemberPO p:po)
+			if(p.getmType()==MemberType.JHS)
+				num++;
+		return num;
+	}
+
 
 	
 

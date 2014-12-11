@@ -1,5 +1,8 @@
 package businesslogic.salesbl;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -137,6 +140,19 @@ public class SalesController implements SalesBLService,PurchaseBLService,viewInf
 	public PurchaseVO PFindByID(String id) {
 		// TODO Auto-generated method stub
 		return purchase.find(id);
+	}
+	@Override
+	public double getPrivilege(String MemberID)   {
+		// TODO Auto-generated method stub
+		double pre=0;
+		try {
+			 pre=sale.getPrivilege(MemberID);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return pre;
+			
 	}
 	
 

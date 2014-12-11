@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -127,8 +129,9 @@ public class PurchasePane extends ChooseGoodsFatherPane {
 		p1.add(JHSLbl);
 		MemberViewService mem = new Member();
 		ArrayList<MemberVO> mvo = mem.showMembers();
-		String boxText[] = new String[mvo.size() + 1];
-		idtxt = new String[mvo.size()];
+		int size=mem.getPurchaseNum();
+		String boxText[] = new String[size + 1];
+		idtxt = new String[size];
 		boxText[0] = "选择交易客户";
 		int j = 0;
 		for (int i = 0; i < mvo.size(); i++)
@@ -141,7 +144,7 @@ public class PurchasePane extends ChooseGoodsFatherPane {
 		JHSBox = new JComboBox<String>(boxText);
 		JHSBox.setBackground(Color.white);
 		JHSBox.setFont(font);
-
+		
 		p1.add(JHSBox);
 		p1.add(new JLabel("     "));
 		// ------操作员----------------
@@ -375,11 +378,14 @@ public class PurchasePane extends ChooseGoodsFatherPane {
 						Double.parseDouble(line.get(5)), cost, line.get(6));
 				cmlist.add(cv);
 			}
+			int hurry=1;
+			if(hurryBox.isSelected())
+					hurry=0;
 			int i = JHSBox.getSelectedIndex() - 1;
 			String mem = JHSBox.getSelectedItem().toString();
 			PurchaseVO vo = new PurchaseVO(id, mem, idtxt[i],
 					stockFld.getText(), parent.getUser().getID(), cmlist,
-					remarkFld.getText(), totalMoney, 0, 1);
+					remarkFld.getText(), totalMoney, 0,hurry );
 			int result = service.addPurchase(vo);
 			if (result == 0) {
 				JOptionPane.showMessageDialog(null, "进货单创建成功");

@@ -13,6 +13,7 @@ import po.PromotionPO.PromotionType;
 import vo.CommodityVO;
 import vo.DiscountProVO;
 import vo.PackProVO;
+import vo.PackVO;
 import vo.PromotionVO;
 import vo.SaleVO;
 import businesslogic.stockbl.goods.Goods;
@@ -71,6 +72,8 @@ public class packPro extends promotion{
 	public PromotionVO Match(SaleVO vo) {
 		// TODO Auto-generated method stub
 		ArrayList<CommodityVO> clist=vo.getSalesList();
+		double maxvalue=0;
+		PromotionVO result=null;
 		if(clist==null) return null;
 		else {
 			ArrayList<PackProVO> pro=show();
@@ -78,23 +81,40 @@ public class packPro extends promotion{
 			else{
 				for(int i=0;i<pro.size();i++){
 					ArrayList<CommodityVO> prolist=pro.get(i).getPack().getCombine();
-					for(int j=0;j<clist.size();j++){
-						if(searchInList(clist.get(j).getID(),prolist))
-							return pro.get(i);
-					}
+						if(searchInList(clist,prolist))
+						{	double packdis=pro.get(i).getTotalValue()-pro.get(i).getPackValue();
+							if(maxvalue<packdis)
+							{
+								maxvalue=packdis;result=pro.get(i);
+							}
+						}
+						
+					
 				}
-				return null;
+				return result;
 			}
 		}
+		
 	}
 	
 	
-	public boolean searchInList(String id,ArrayList<CommodityVO> list){
-		for(int i=0;i<list.size();i++)
-			if(list.get(i).getID().equals(id))
-				return true;
-		return false;
-		
+	public SaleVO excute(PromotionVO pro,SaleVO vo){
+		PackProVO v=(PackProVO)pro;
+		vo.setProDiscount(v.getTotalValue()-v.getPackValue());
+		return vo;
+	}
+	
+	public boolean searchInList(ArrayList<CommodityVO> prolist,ArrayList<CommodityVO> list){
+		boolean tag=false;
+		for(int i=0;i<prolist.size();i++){
+			tag=false;
+			for(int j=0;j<list.size();j++)
+				if(prolist.get(i).getID().equals(list.get(j).getID()))
+					{tag=true;break;	}
+			if(!tag)
+				return false;
+		}
+		return true;
 	}
 
 	public String getNewID() {
@@ -117,7 +137,7 @@ public class packPro extends promotion{
 	}
 
 	public PackProPO voToPo(PackProVO vo){
-		PackProPO po=new PackProPO(vo.getID(),vo.getStartDate(),vo.getEndDate(),
+		PackProPO po=new PackProPO(vo.getId(),vo.getStartDate(),vo.getEndDate(),
 				vo.getMemberlevel(),pack.voToPo(vo.getPack()));
 		return po;
 	}

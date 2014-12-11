@@ -45,6 +45,11 @@ public class ViewPurchasePanel extends JPanel{
 		p.btnPnl.remove(p.submitBtn);
 		p.exitBtn.setText("返回");
 		p.table.setEnabled(false);
+		if(vo.getHurry()==0)
+			p.hurryBox.setSelected(true);
+		p.hurryBox.setEnabled(false);
+		
+			
 		this.setLayout(new BorderLayout());
 		this.add(p,BorderLayout.CENTER);
 		this.repaint();
@@ -52,6 +57,13 @@ public class ViewPurchasePanel extends JPanel{
 		
 		
 		
+		
+		
+	}
+	public void useToReceipt() {
+		// TODO Auto-generated method stub
+	
+		p.btnPnl.remove(p.exitBtn);
 		
 		
 	}

@@ -19,7 +19,7 @@ public class Total {
 	public static String getTotal(ReceiptVO vo){
 		switch(vo.getType()){
 		case SALE:
-			SaleVO v=(SaleVO)vo;return v.getTotalMoney()+"元";
+			SaleVO v=(SaleVO)vo;return v.getTotalValue()+"元";
 		case SALERETURN:
 			return ((SaleReturnVO)vo).getTotal()[2]+"元";
 		case PURCHASE:

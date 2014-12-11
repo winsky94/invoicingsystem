@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -15,7 +17,7 @@ import javax.swing.event.DocumentListener;
 
 import Presentation.uihelper.UIhelper;
 
-public class UseCouponDialog extends JDialog {
+public class UseCouponDialog extends JDialog implements ActionListener{
 	/**
 	 * 
 	 */
@@ -30,7 +32,9 @@ public class UseCouponDialog extends JDialog {
 	JTextField couponFld;
 	String couponText;//文本框的内容已经存入这里
 	JButton submitBtn,exitBtn;
-	public UseCouponDialog() {
+	SalePane parent;
+	public UseCouponDialog(SalePane pane) {
+		parent=pane;
 		pnl = this.getContentPane();
 		pnl.setLayout(new GridLayout(4, 1));
 		pnl.setBackground(color);
@@ -77,11 +81,13 @@ public class UseCouponDialog extends JDialog {
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
+		submitBtn.addActionListener(this);
 		btnPnl.add(submitBtn);
 		exitBtn = new JButton("取消");
 		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(251, 147, 121));
+		exitBtn.addActionListener(this);
 		btnPnl.add(exitBtn);
 		this.setTitle("输入代金券编号");
 		this.setBounds((screenWidth - dialogWidth) / 2,
@@ -92,8 +98,16 @@ public class UseCouponDialog extends JDialog {
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 	}
-
-	public static void main(String[] args) {
-		JDialog coo = new UseCouponDialog();
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==submitBtn){
+			parent.couponUse(couponFld.getText());
+			UseCouponDialog.this.dispose();
+		}else if(e.getSource()==exitBtn){
+			UseCouponDialog.this.dispose();
+		}
 	}
+
+	
 }

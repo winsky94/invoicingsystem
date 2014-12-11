@@ -59,10 +59,12 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 		approvedBtn = new MyButton("通过", new ImageIcon(
 				"img/promotion/approved.png"));
 		btnPnl.add(approvedBtn);
+		approvedBtn.addActionListener(this);
 		// -------不通过------------------
 		disapprovedBtn = new MyButton("不通过", new ImageIcon(
 				"img/promotion/disapproved.png"));
 		btnPnl.add(disapprovedBtn);
+		disapprovedBtn.addActionListener(this);
 		// --------修改-------------------
 		modBtn = new MyButton("修改", new ImageIcon("img/promotion/modify.png"));
 		btnPnl.add(modBtn);
@@ -92,6 +94,7 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(251, 147, 121));
 		exitPnl.add(exitBtn);
+		exitBtn.addActionListener(this);
 	}
 
 	class MyButton extends JButton {
