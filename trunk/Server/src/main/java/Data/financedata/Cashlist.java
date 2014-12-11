@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import Data.serutility.JXCFile;
 import po.CashlistPO;
 import po.ClauseItemPO;
+import po.CollectionPO;
+import po.PaymentPO;
 import dataservice.financedataservice.listdataservice.CashlistDataService;
 
 public class Cashlist extends UnicastRemoteObject implements CashlistDataService{
@@ -35,6 +37,26 @@ public class Cashlist extends UnicastRemoteObject implements CashlistDataService
 			CashlistPO b=(CashlistPO)a.get(i);
 			if(b.getId().equals(id)){
 				b.setStatus(st);;
+				break;
+			}
+		}
+		
+		if(i==a.size())      //不存在该用户
+			return 1;
+		
+		file.writeM(a);
+		return 0;
+	}
+	
+	public int modify(CashlistPO po){
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return 1;  	 
+		int i;
+		for(i=0;i<a.size();i++){
+			CashlistPO b=(CashlistPO)a.get(i);
+			if(b.getId().equals(po.getId())){
+				b.setClauselist(po.getClauselist());;
 				break;
 			}
 		}
