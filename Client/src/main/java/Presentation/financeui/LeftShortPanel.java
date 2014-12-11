@@ -23,6 +23,7 @@ import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
+import Presentation.receiptui.ReportMgrPanel;
 import Presentation.uihelper.AboutPanel;
 public class LeftShortPanel extends JPanel implements ActionListener,MouseListener{
     
@@ -149,6 +150,14 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
   			
 
   				mgr.setSelectedTab(0);
+		}
+		else if(arg0.getSource()==showReportBtn){
+			try {
+				frame.setRightComponent(new ReportMgrPanel(frame));
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		else if(arg0.getSource()==initialBtn){
 			InitialPanel alp=new InitialPanel(frame);
