@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
 import po.ReceiptPO.ReceiptType;
+import po.UserPO.UserJob;
 import Presentation.mainui.MainFrame;
 import Presentation.salesui.manage.purchase.ViewPurchasePanel;
 import businesslogic.receiptbl.ReceiptController;
@@ -50,7 +51,13 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener{
 	ReceiptTableModel rtm1, rtm2;
 	ArrayList<ArrayList<String>> c1 = new ArrayList<ArrayList<String>>();
 	ArrayList<ArrayList<String>> c2 = new ArrayList<ArrayList<String>>();
-
+	//--------------
+	String approvePath="img/promotion/approved.png";
+	String disapprovePath="img/promotion/disapproved.png";
+	String detailPath="img/promotion/detail.png";
+	String refreshPath="img/promotion/refresh.png";
+	String findPath="img/promotion/find.png";
+	//--------------
 	public ReceiptMgrPanel(MainFrame myFather) throws Exception {
 		service=new ReceiptController();
 		father = myFather;
@@ -73,7 +80,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener{
 		this.add(btnPnl);
 		// --------通过-----------------
 		approvedBtn = new MyButton("通过", new ImageIcon(
-				"img/promotion/approved.png"));
+				approvePath));
 		btnPnl.add(approvedBtn);
 		approvedBtn.addActionListener(new ActionListener(){
 
@@ -89,20 +96,20 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener{
 		});
 		// -------不通过------------------
 		disapprovedBtn = new MyButton("不通过", new ImageIcon(
-				"img/promotion/disapproved.png"));
+				disapprovePath));
 		btnPnl.add(disapprovedBtn);
 		// -------高级审批-----------------
-		modBtn = new MyButton("高级审批", new ImageIcon("img/promotion/detail.png"));
+		modBtn = new MyButton("高级审批", new ImageIcon(detailPath));
 		modBtn.addActionListener(this);
 		btnPnl.add(modBtn);
 		// -------刷新--------------------
 		refreshBtn = new MyButton("刷新", new ImageIcon(
-				"img/promotion/refresh.png"));
+				refreshPath));
 		btnPnl.add(refreshBtn);
 		// -------筛选--------------------
 		findFld = new JTextField(10);
 		btnPnl.add(findFld);
-		findBtn = new MyButton(new ImageIcon("img/promotion/find.png"));
+		findBtn = new MyButton(new ImageIcon(findPath));
 		btnPnl.add(findBtn);
 		// ------------------------------
 		tab = new JTabbedPane();
