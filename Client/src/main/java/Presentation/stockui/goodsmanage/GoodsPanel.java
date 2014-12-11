@@ -209,8 +209,17 @@ public class GoodsPanel extends JPanel implements ActionListener,
 				return;
 			}
 			// 取得商品分类
-			String GoodsClass = ((DefaultMutableTreeNode) (parentPath
-					.getLastPathComponent())).toString();
+			DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) parentPath
+					.getLastPathComponent();
+
+			// 判断商品分类下是否有子分类——只有叶节点才可以添加商品
+			if (!parentNode.isLeaf()) {
+				JOptionPane.showMessageDialog(null, "只有叶节点才能添加商品噢~", null,
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+
+			String GoodsClass = parentNode.toString();
 			parent.setRightComponent(new AddGoodsPanel(parent, GoodsClass));
 
 			// 重新再获得数据模型,刷新界面
