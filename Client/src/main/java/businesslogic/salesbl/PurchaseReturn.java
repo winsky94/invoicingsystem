@@ -1,15 +1,19 @@
 package businesslogic.salesbl;
 
 import java.rmi.Naming;
+import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import po.CommodityPO;
 import po.PurchaseReturnPO;
 import vo.CommodityVO;
+import vo.GoodsVO;
 import vo.PurchaseReturnVO;
 import businesslogic.receiptbl.Receipt;
+import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.utilitybl.getDate;
+import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import dataservice.salesdataservice.SalesDataService;
 //进货 退货单必须为逆操作，总经理只能审批通过与否
 public class PurchaseReturn extends Receipt {
@@ -28,7 +32,24 @@ public class PurchaseReturn extends Receipt {
 		return service.createPurchaseReturn(voToPo(vo));
 	}
 	
+	public void excute(PurchaseReturnVO vo){
+		// 修改库存
+		StockGoodsBLService goodsController = new GoodsController();
+		ArrayList<CommodityVO> list = vo.getPurchaseReturnList();
+		for (CommodityVO cvo : list) {
+			try {
+				GoodsVO goodsVO = goodsController.findByID(cvo.getID());
+				goodsVO.setNumInStock(goodsVO.getNumInStock()
+						- cvo.getNum());
+				goodsController.modifyGoods(goodsVO);
+			} catch (RemoteException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+
+		}
 	
+	}
 	
 	public ArrayList<PurchaseReturnVO> find(String message,String type){
 		
