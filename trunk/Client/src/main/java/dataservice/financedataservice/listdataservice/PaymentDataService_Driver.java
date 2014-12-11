@@ -8,7 +8,7 @@ import po.PaymentPO;
 public class PaymentDataService_Driver {
 	public void drive(PaymentDataService fds){
 	  	  try {
-			fds.createPayment(new PaymentPO());
+			fds.createPayment(new PaymentPO(null, null, null, null, null, 0, 0, 0));
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -34,5 +34,15 @@ public class FinanceAccountDataService_stub implements FinanceAccountDataService
 	public AccountPO findByName(String s) {
 		// TODO 自动生成的方法存根
 		return null;
+	}
+
+	public int addMoney(String id, double m) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int delMoney(String id, double m) {
+		// TODO Auto-generated method stub
+		return 0;
 	}	
 }

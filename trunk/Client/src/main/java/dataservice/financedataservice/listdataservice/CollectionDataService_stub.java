@@ -1,6 +1,5 @@
 package dataservice.financedataservice.listdataservice;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.CollectionPO;
@@ -16,8 +15,13 @@ public class CollectionDataService_stub implements CollectionDataService{
 		return null;
 	}
 
-	public int getNum() throws RemoteException {
+	public int getNum(){
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	public CollectionPO findByID(String id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
