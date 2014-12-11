@@ -51,7 +51,13 @@ public class GiftModel extends AbstractTableModel {
 		rowData = new ArrayList<ArrayList<String>>();
 
 		ArrayList<GiftVO> list = new ArrayList<GiftVO>();
-		GiftBLService controller = new GiftController();
+		GiftBLService controller = null;
+		try {
+			controller = new GiftController();
+		} catch (Exception e1) {
+			// TODO 自动生成的 catch 块
+			e1.printStackTrace();
+		}
 		list = controller.getGiftList();
 		for (int i = 0; i < list.size(); i++) {
 			ArrayList<String> hang = new ArrayList<String>();

@@ -23,7 +23,7 @@ public class GiftReceipt extends Receipt {
 	private String url;
 	private GiftDataService service;
 
-	public GiftReceipt() {
+	public GiftReceipt() throws Exception{
 		giftVOList = new ArrayList<CommodityVO>();
 		host = "localhost:1099";
 		url = "rmi://" + host + "/giftService";

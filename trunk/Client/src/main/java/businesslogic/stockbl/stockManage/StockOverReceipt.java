@@ -24,7 +24,7 @@ public class StockOverReceipt extends Receipt {
 	private String host;
 	private String url;
 
-	public StockOverReceipt() {
+	public StockOverReceipt() throws Exception{
 		host = "localhost:1099";
 		url = "rmi://" + host + "/stockManageService";
 		try {
