@@ -40,6 +40,13 @@ public class Account implements FinanceAccountBLService{
 		return service.modifyAccount(po,name);
 	}
 
+	public int addMoney(String id,double m){
+		return service.addMoney(id,m);
+	}
+    public int delMoney(String id,double m){
+        return service.delMoney(id, m);
+    }
+	
 	public ArrayList<AccountVO> findAccount(String s) {
 		ArrayList<AccountPO> po=service.findAccount(s);
 		ArrayList<AccountVO> vo=new ArrayList<AccountVO>();

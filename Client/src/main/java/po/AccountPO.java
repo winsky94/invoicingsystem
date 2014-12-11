@@ -30,5 +30,13 @@ public class AccountPO implements Serializable{
 	      public void setName(String s){
 	    	  name=s;
 	      }
+	      
+	      public void addMoney(double m){
+	    	  money+=m;
+	      }
+	      
+	      public void delMoney(double m){
+	    	  money-=m;
+	      }
 
 }

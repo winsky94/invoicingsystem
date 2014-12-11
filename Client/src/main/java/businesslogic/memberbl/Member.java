@@ -49,6 +49,13 @@ public class Member implements MemberBLService,MemberViewService{
 		MemberPO po=voToPo(vo);
 		return service.modify(po);
 	}
+	
+	public int changeToReceive(String id,double m){
+		return service.changeToReceive(id, m);
+	}
+	public int changeToPay(String id,double m){
+		return service.changeToPay(id, m);
+	}
 
 	//可能返回为NULL
 	public ArrayList<MemberVO> findMember(String message) {

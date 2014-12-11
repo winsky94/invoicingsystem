@@ -1,6 +1,8 @@
 package businesslogic.financebl;
 
+import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -8,9 +10,11 @@ import java.util.ArrayList;
 import dataservice.financedataservice.listdataservice.PaymentDataService;
 import po.PaymentPO;
 import po.TransferItemPO;
+import vo.CollectionVO;
 import vo.PaymentVO;
 import vo.ReceiptVO;
 import vo.TransferItemVO;
+import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.utilitybl.getDate;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
@@ -69,7 +73,29 @@ public class Payment extends Receipt implements PaymentBLService{
 	}
 	
 	public void excute(ReceiptVO v){
-		PaymentVO vo=(PaymentVO)v;
+		CollectionVO vo=(CollectionVO)v;
+    	try {
+			Member m=new Member();
+			m.changeToReceive(vo.getSupplier(), (-1)*vo.getTotalMoney());
+			m.changeToReceive(vo.getSeller(), vo.getTotalMoney());
+			Account a=new Account();
+			ArrayList<TransferItemVO> ts=vo.getTransferlist();
+			for(TransferItemVO vv:ts){
+				a.delMoney(vv.getAccount(),vv.getMoney());
+			}
+			System.out.println("执行成功！");
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	this.setStatus(2);
 	}
 
 	public ArrayList<PaymentVO> getPayment() {

@@ -1,14 +1,13 @@
 package businesslogic.financebl;
 
+import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import po.CollectionPO;
-import po.SalePO;
 import po.TransferItemPO;
 import vo.CollectionVO;
 import vo.ReceiptVO;
@@ -82,20 +81,34 @@ public class Collection extends Receipt implements CollectionBLService{
  		return "SKD-"+getDate.getdate()+"-"+id;
  	}
      
-    public void excute(Member mb,MockAccount account){
-    	MockCollection collect=(MockCollection)this;
-    	double money=-collect.getMoneyByOrder(0);
-    	mb.updateToReceive(money);
-    	account.updateBalance(collect.getMoneyByOrder(0));
-    	
-    	this.setStatus(5);
-    	
-    }
-    
-    
     public void excute(ReceiptVO v){
     	CollectionVO vo=(CollectionVO)v;
+    	try {
+			Member m=new Member();
+			m.changeToPay(vo.getSupplier(), vo.getTotalMoney());
+			m.changeToPay(vo.getSeller(), (-1)*vo.getTotalMoney());
+			Account a=new Account();
+			ArrayList<TransferItemVO> ts=vo.getTransferlist();
+			for(TransferItemVO vv:ts){
+				a.addMoney(vv.getAccount(),vv.getMoney());
+			}
+			System.out.println("执行成功！");
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	this.setStatus(2);
+    	
     }
+    
+  
 	public int createCollection(CollectionVO vo) {
 		
 		CollectionPO po=voToPo(vo);
@@ -109,6 +122,10 @@ public class Collection extends Receipt implements CollectionBLService{
 		
 		else return poToVo(po);
 		
+	}
+	
+	public CollectionVO findByID(String s){
+		return poToVo(service.findByID(s));
 	}
 	
 	public CollectionPO voToPo(CollectionVO vo){

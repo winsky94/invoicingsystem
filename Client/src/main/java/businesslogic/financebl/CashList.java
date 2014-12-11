@@ -1,6 +1,9 @@
 package businesslogic.financebl;
 
+import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
@@ -53,6 +56,18 @@ public class CashList extends Receipt implements CashlistBLService{
 	
 	public void excute(ReceiptVO v){
 		CashlistVO vo=(CashlistVO)v;
+		try {
+			Account a=new Account();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
