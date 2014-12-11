@@ -127,7 +127,13 @@ public class GiftPanel extends JPanel implements ActionListener {
 						null, JOptionPane.WARNING_MESSAGE);
 			} else {
 				String id = (String) giftTbl.getValueAt(rownum, 0);
-				GiftBLService controller = new GiftController();
+				GiftBLService controller = null;
+				try {
+					controller = new GiftController();
+				} catch (Exception e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
 				GiftVO vo = controller.findByID(id);
 				father.setRightComponent(new GiftDetailPanel(father, vo));
 			}

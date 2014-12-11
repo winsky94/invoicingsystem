@@ -11,10 +11,11 @@ public class GoodsVO {
 	double lastPrice;
 	String goodsClass;
 	String manufactureDate;
+	int minNumInstock;
 
 	public GoodsVO(String goodsID, String name, String size, int numInStock,
 			double purchasePrice, double price, double lastPurchasePrice,
-			double lastPrice, String goodsClass, String manufactureDate) {
+			double lastPrice, String goodsClass, String manufactureDate,int minNumInStock) {
 		GoodsID = goodsID;
 		this.name = name;
 		this.size = size;
@@ -25,6 +26,7 @@ public class GoodsVO {
 		this.lastPrice = lastPrice;
 		this.goodsClass = goodsClass;
 		this.manufactureDate = manufactureDate;
+		this.minNumInstock=minNumInStock;
 	}
 
 	public String getGoodsID() {
@@ -101,5 +103,13 @@ public class GoodsVO {
 
 	public void setManufactureDate(String manufactureDate) {
 		this.manufactureDate = manufactureDate;
+	}
+
+	public int getMinNumInstock() {
+		return minNumInstock;
+	}
+
+	public void setMinNumInstock(int minNumInstock) {
+		this.minNumInstock = minNumInstock;
 	}
 }

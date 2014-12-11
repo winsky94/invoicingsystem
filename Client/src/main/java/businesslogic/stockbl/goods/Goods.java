@@ -37,6 +37,7 @@ public class Goods {
 	private double lastPurchasePrice;
 	private double lastPrice;
 	private String manufactoryDate;
+	private int minNumInStock;
 	private StockGoodsDataService service;
 
 	public Goods() {
@@ -59,7 +60,8 @@ public class Goods {
 
 	public Goods(String goodsID, String name, String size, String gc,
 			int numInStock, double purchasePrice, double price,
-			double latPurchasePrice, double lastPrice, String manufactoryDate) {
+			double latPurchasePrice, double lastPrice, String manufactoryDate,
+			int minNumInStock) {
 		this();
 		this.goodsID = goodsID;
 		this.name = name;
@@ -72,6 +74,7 @@ public class Goods {
 		this.lastPrice = lastPrice;
 		this.lastPurchasePrice = latPurchasePrice;
 		this.manufactoryDate = manufactoryDate;
+		this.minNumInStock = minNumInStock;
 	}
 
 	public int addGoods() {
@@ -103,7 +106,7 @@ public class Goods {
 			goodsID = gClassManage.getID(gc) + "-" + size + "-" + ID;
 			GoodsPO po = new GoodsPO(goodsID, name, size, numInStock,
 					virtualnumInStock, purchasePrice, price, lastPurchasePrice,
-					lastPrice, gc, manufactoryDate);
+					lastPrice, gc, manufactoryDate, minNumInStock);
 			return service.addGoods(po);
 		}
 	}
@@ -186,7 +189,7 @@ public class Goods {
 		if (isOperate == false) {
 			GoodsPO po = new GoodsPO(goodsID, name, size, numInStock,
 					virtualnumInStock, purchasePrice, price, lastPurchasePrice,
-					lastPrice, gc, manufactoryDate);
+					lastPrice, gc, manufactoryDate, minNumInStock);
 			result = service.deleteGoods(po);
 		}
 
@@ -197,19 +200,20 @@ public class Goods {
 		GoodsPO oldPO = service.findGoods(id).get(0);
 		GoodsPO po = new GoodsPO(id, name, size, numInStock, virtualnumInStock,
 				purchasePrice, price, lastPurchasePrice, lastPrice, gc,
-				manufactoryDate);
+				manufactoryDate, minNumInStock);
 		if (oldPO.getPurchasePrice() != po.getPurchasePrice()) {
 			StockManage manage = new StockManage();
 			Goods good = new Goods(oldPO.getGoodsID(), oldPO.getName(),
 					oldPO.getSize(), oldPO.getGoodsClassName(),
 					oldPO.getNumInStock(), oldPO.getPurchasePrice(),
 					oldPO.getPrice(), oldPO.getLastPurchasePrice(),
-					oldPO.getLastPrice(), oldPO.getManufactureDate());
+					oldPO.getLastPrice(), oldPO.getManufactureDate(),
+					oldPO.getMinNumInStock());
 			Goods newGood = new Goods(po.getGoodsID(), po.getName(),
 					po.getSize(), po.getGoodsClassName(), po.getNumInStock(),
 					po.getPurchasePrice(), po.getPrice(),
 					po.getLastPurchasePrice(), po.getLastPrice(),
-					po.getManufactureDate());
+					po.getManufactureDate(), po.getMinNumInStock());
 			manage.changePrime(good, newGood);
 		}
 		return service.modifyGoods(po);
@@ -225,7 +229,8 @@ public class Goods {
 						po.getSize(), po.getNumInStock(),
 						po.getPurchasePrice(), po.getPrice(),
 						po.getLastPurchasePrice(), po.getPrice(),
-						po.getGoodsClassName(), po.getManufactureDate());
+						po.getGoodsClassName(), po.getManufactureDate(),
+						po.getMinNumInStock());
 				result.add(vo);
 			}
 		}
@@ -239,7 +244,8 @@ public class Goods {
 			vo = new GoodsVO(po.getGoodsID(), po.getName(), po.getSize(),
 					po.getNumInStock(), po.getPurchasePrice(), po.getPrice(),
 					po.getLastPurchasePrice(), po.getPrice(),
-					po.getGoodsClassName(), po.getManufactureDate());
+					po.getGoodsClassName(), po.getManufactureDate(),
+					po.getMinNumInStock());
 		}
 		return vo;
 	}
@@ -253,7 +259,7 @@ public class Goods {
 					po.getSize(), po.getNumInStock(), po.getPurchasePrice(),
 					po.getPrice(), po.getLastPurchasePrice(),
 					po.getLastPrice(), po.getGoodsClassName(),
-					po.getManufactureDate());
+					po.getManufactureDate(), po.getMinNumInStock());
 			result.add(vo);
 		}
 		return result;

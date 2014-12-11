@@ -10,6 +10,10 @@ import businesslogicservice.stockblservice.giftblservice.GiftBLService;
 
 public class GiftController extends Receipt implements GiftBLService {
 
+	public GiftController() throws Exception {
+		// TODO 自动生成的构造函数存根
+	}
+
 	public int addGift(GiftVO vo) {
 		// TODO 自动生成的方法存根
 		GiftReceipt receipt = new GiftReceipt(vo.getId(), vo.getMemberName(),
