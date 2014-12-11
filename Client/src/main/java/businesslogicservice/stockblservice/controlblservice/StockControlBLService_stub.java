@@ -70,7 +70,8 @@ public class StockControlBLService_stub implements StockControlBLService {
 		return null;
 	}
 
-	public boolean stockNumCheck(String goodName, String goodSize) {
+	@Override
+	public boolean stockNumCheck(String goodsID) {
 		// TODO 自动生成的方法存根
 		return false;
 	}

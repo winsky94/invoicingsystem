@@ -47,7 +47,8 @@ public class StockControlController implements StockControlBLService {
 	}
 
 	// 库存查看
-	public ArrayList<ArrayList<String>> showStock(String beginDate, String endDate) {
+	public ArrayList<ArrayList<String>> showStock(String beginDate,
+			String endDate) {
 		// TODO 自动生成的方法存根
 		StockManage manage = new StockManage();
 		return manage.showStock(beginDate, endDate);
@@ -97,15 +98,9 @@ public class StockControlController implements StockControlBLService {
 	}
 
 	// 库存报警检查
-	public boolean stockNumCheck(String goodName, String goodSize) {
+	public boolean stockNumCheck(String goodsID) {
 		// TODO 自动生成的方法存根
 		StockManage manage = new StockManage();
-		return manage.stockNumCheck(goodName, goodSize);
-	}
-
-	// 库存报警数量设置
-	public int setStockBasedNum(int num) {
-		StockManage manage = new StockManage();
-		return manage.setStockBasedNum(num);
+		return manage.stockNumCheck(goodsID);
 	}
 }
