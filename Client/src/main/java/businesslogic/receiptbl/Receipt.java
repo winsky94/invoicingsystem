@@ -1,8 +1,16 @@
 package businesslogic.receiptbl;
 
+import java.rmi.Naming;
 import java.util.ArrayList;
 import java.util.Date;
+
+import dataservice.financedataservice.listdataservice.CashlistDataService;
+import dataservice.receiptdataservice.ReceiptDataService;
 import vo.ReceiptVO;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.text.NumberFormat;
 
 //关键类 单据的增 改 查
 public class Receipt {
@@ -16,7 +24,16 @@ public class Receipt {
 	private int hurry;
 	private String info;
 
+	ReceiptDataService service;
 
+	public Receipt()throws Exception{
+		 //   	System.setSecurityManager(new SecurityManager());
+		 		String host="localhost:1099";
+		 		String url="rmi://"+host+"/receiptService";
+		 		
+		 		service=(ReceiptDataService)Naming.lookup(url);
+		     }
+	
 	// 属性有哪些
 
 	public Receipt(String id,String memberID,String memberName,
@@ -32,10 +49,11 @@ public class Receipt {
 		this.info = info;
 		
 	}
-
-	public Receipt() {
-
+	
+	public int setStatus(String id,int st){
+		return service.setStatus(id, st);
 	}
+
 
 	// 保存 可以再编辑？
 	public int Add(ReceiptVO vo) {

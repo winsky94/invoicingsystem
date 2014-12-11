@@ -95,7 +95,7 @@ public class Payment extends Receipt implements PaymentBLService{
 			e.printStackTrace();
 		}
     	
-    	this.setStatus(2);
+    	setStatus(v.getId(),3);
 	}
 
 	public ArrayList<PaymentVO> getPayment() {

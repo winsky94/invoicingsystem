@@ -58,6 +58,7 @@ public class CashList extends Receipt implements CashlistBLService{
 		CashlistVO vo=(CashlistVO)v;
 		try {
 			Account a=new Account();
+			a.delMoney(vo.getAccount(),vo.getTotalMoney());
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,7 +69,7 @@ public class CashList extends Receipt implements CashlistBLService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		setStatus(v.getId(),3);
 	}
 
 	public ArrayList<CashlistVO> getCashlist() {

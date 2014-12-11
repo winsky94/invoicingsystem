@@ -7,7 +7,7 @@ public class getStatus {
 	   if(i==1)
 	       return "审批未通过";
 	   if(i==2)
-		   return "待执行";
+		   return "审批通过";
 	   if(i==3)
 		   return "执行完毕";
 	   

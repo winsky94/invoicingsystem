@@ -104,7 +104,7 @@ public class Collection extends Receipt implements CollectionBLService{
 			e.printStackTrace();
 		}
     	
-    	this.setStatus(2);
+    	setStatus(v.getId(),3);
     	
     }
     
