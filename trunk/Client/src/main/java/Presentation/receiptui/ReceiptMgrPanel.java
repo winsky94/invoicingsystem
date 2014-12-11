@@ -51,7 +51,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener{
 	ArrayList<ArrayList<String>> c1 = new ArrayList<ArrayList<String>>();
 	ArrayList<ArrayList<String>> c2 = new ArrayList<ArrayList<String>>();
 
-	public ReceiptMgrPanel(JFrame myFather) throws Exception {
+	public ReceiptMgrPanel(MainFrame myFather) throws Exception {
 		service=new ReceiptController();
 		father = (MainFrame)myFather;
 		GridBagLayout gbl = new GridBagLayout();
