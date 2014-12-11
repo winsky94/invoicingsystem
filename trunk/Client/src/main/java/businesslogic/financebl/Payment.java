@@ -9,6 +9,7 @@ import dataservice.financedataservice.listdataservice.PaymentDataService;
 import po.PaymentPO;
 import po.TransferItemPO;
 import vo.PaymentVO;
+import vo.ReceiptVO;
 import vo.TransferItemVO;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.utilitybl.getDate;
@@ -65,6 +66,10 @@ public class Payment extends Receipt implements PaymentBLService{
 			e.printStackTrace();
 		}
 		return 1;
+	}
+	
+	public void excute(ReceiptVO v){
+		PaymentVO vo=(PaymentVO)v;
 	}
 
 	public ArrayList<PaymentVO> getPayment() {

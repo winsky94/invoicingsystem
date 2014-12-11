@@ -34,8 +34,9 @@ public class Purchase extends Receipt {
 		return service.createPurchase(voToPo(vo));
 	}
 
-	public void excute(PurchaseVO vo) {
+	public void excute(ReceiptVO v) {
 		// 修改库存数量
+		PurchaseVO vo=(PurchaseVO)v;
 		StockGoodsBLService goodsController = new GoodsController();
 		ArrayList<CommodityVO> list = vo.getPurchaseList();
 		for (CommodityVO cvo : list) {

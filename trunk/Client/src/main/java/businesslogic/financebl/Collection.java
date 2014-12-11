@@ -11,6 +11,7 @@ import po.CollectionPO;
 import po.SalePO;
 import po.TransferItemPO;
 import vo.CollectionVO;
+import vo.ReceiptVO;
 import vo.TransferItemVO;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.Receipt;
@@ -89,6 +90,11 @@ public class Collection extends Receipt implements CollectionBLService{
     	
     	this.setStatus(5);
     	
+    }
+    
+    
+    public void excute(ReceiptVO v){
+    	CollectionVO vo=(CollectionVO)v;
     }
 	public int createCollection(CollectionVO vo) {
 		

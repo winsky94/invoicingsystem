@@ -64,7 +64,7 @@ public class Receipt {
 		return null;
 	}
 
-	public void excute() {
+	public void excute(ReceiptVO vo) {
 		this.status = 5;
 	}
 

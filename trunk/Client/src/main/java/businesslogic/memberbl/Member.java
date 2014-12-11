@@ -8,6 +8,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import po.MemberPO;
+import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
 import dataservice.memberdataservice.MemberDataService;
 import vo.MemberVO;
@@ -80,18 +81,42 @@ public class Member implements MemberBLService,MemberViewService{
 	}
 
 	
+
 	
-	//一百元一个积分
-	public void updatePoints(double price){
-		bInfo.points+=(price/100);
+	public void updatePoints(String id,double price){
+		
+		MemberPO po=service.findByID(id);
+		po.setPoints((price/100)+po.getPoints());
+		po=updateLevel(po);
+		service.modify(po);
 		
 	}
-	public void updateToReceive(double data){
-		aInfo.setToReceive(data);
+	
+	//表驱动
+	public MemberPO updateLevel(MemberPO po){
+		MemberLevel[]  level=new MemberLevel[]{MemberLevel.ONE,MemberLevel.TWO,
+				MemberLevel.THREE,MemberLevel.FOUR,MemberLevel.FIVE};
+		double[] spoint=new double[]{0,5000,15000,30000,50000};
+		double p=po.getPoints();
+		for(int i=spoint.length-1;i>=0;i--){
+			if(p>spoint[i]&&(i==spoint.length-1?true:p<=spoint[i+1]))
+				{po.setmLevel(level[i]);break;}
+		}
+		return po;
+			
 		
 	}
-	public void updateToPay(double data){
-		aInfo.setToPay(data);
+	public void updateToReceive(String id,double data){
+		MemberPO po=service.findByID(id);
+		po.setToReceive(data+po.getToReceive());
+		service.modify(po);
+		
+		
+	}
+	public void updateToPay(String id,double data){
+		MemberPO po=service.findByID(id);
+		po.setToPay(data+po.getToPay());
+		service.modify(po);
 	}
 	
 	public MemberPO voToPo(MemberVO vo){
