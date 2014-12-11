@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import Data.datafactory.SequenceOfReceiptPO;
+import Data.receiptdata.ReceiptType;
 import Data.serutility.JXCFile;
+import po.CashlistPO;
 import po.CommodityPO;
 import po.PurchasePO;
 import po.PurchaseReturnPO;
@@ -58,7 +60,39 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		file.writeM(a);
 		return 0;
 	}
-
+	
+	public int modify(ReceiptPO po){
+		if(po.getType()==ReceiptType.PURCHASE){
+        	file=new JXCFile("src/main/java/purchase.ser");
+        }
+        else if(s.equals("JHTHD")){
+        	file=new JXCFile("src/main/java/purchasereturn.ser");
+        }
+        else if(s.equals("XSD")){
+        	file=new JXCFile("src/main/java/sale.ser");
+        }
+        else{
+        	file=new JXCFile("src/main/java/salereturn.ser");
+        }
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return 1;  	 
+		int i;
+		for(i=0;i<a.size();i++){
+			CashlistPO b=(CashlistPO)a.get(i);
+			if(b.getId().equals(po.getId())){
+				b.setClauselist(po.getClauselist());;
+				break;
+			}
+		}
+		
+		if(i==a.size())      //不存在该用户
+			return 1;
+		
+		file.writeM(a);
+		return 0;
+	}
+	
 	public int createPurchase(PurchasePO po) throws RemoteException{
 		file=new JXCFile("src/main/java/purchase.ser");
 		file.write(po);

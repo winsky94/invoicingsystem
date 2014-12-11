@@ -28,6 +28,26 @@ public class Payment extends UnicastRemoteObject implements PaymentDataService{
 		return 0;
 	}
 	
+	public int modify(PaymentPO po){
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return 1;  	 
+		int i;
+		for(i=0;i<a.size();i++){
+			PaymentPO b=(PaymentPO)a.get(i);
+			if(b.getId().equals(po.getId())){
+				b.setTransferlist(po.getTransferlist());
+				break;
+			}
+		}
+		
+		if(i==a.size())      //不存在该用户
+			return 1;
+		
+		file.writeM(a);
+		return 0;
+	}
+	
 	public int setStatus(String id,int st){
 		ArrayList<Object> a=file.read();
 		if(a==null)
