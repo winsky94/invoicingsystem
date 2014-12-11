@@ -35,13 +35,14 @@ public class Purchase extends Receipt {
 	}
 
 	public void excute(PurchaseVO vo) {
-		// 修改库存
+		// 修改库存数量
 		StockGoodsBLService goodsController = new GoodsController();
 		ArrayList<CommodityVO> list = vo.getPurchaseList();
 		for (CommodityVO cvo : list) {
 			try {
 				GoodsVO goodsVO = goodsController.findByID(cvo.getID());
 				goodsVO.setNumInStock(goodsVO.getNumInStock() + cvo.getNum());
+				goodsVO.setManufactureDate(vo.getDate());// 修改出厂日期
 				goodsController.modifyGoods(goodsVO);
 			} catch (RemoteException e) {
 				// TODO 自动生成的 catch 块
@@ -49,7 +50,6 @@ public class Purchase extends Receipt {
 			}
 
 		}
-
 	}
 
 	public ArrayList<PurchaseVO> find(String message, String type) {
