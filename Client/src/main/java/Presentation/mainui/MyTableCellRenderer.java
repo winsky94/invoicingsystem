@@ -17,6 +17,10 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
 			boolean isSelected, boolean hasFocus, int row, int column) {
 		setHorizontalAlignment(JLabel.CENTER);
 		// 设置列宽自己设置
+		String columnName1 = table.getColumnName(0);
+		table.getColumn(columnName1).setPreferredWidth(180);
+		String columnName2 = table.getColumnName(1);
+		table.getColumn(columnName2).setPreferredWidth(130);
 
 		if (row % 2 == 1)
 			setBackground(Color.white); // 设置奇数行底色

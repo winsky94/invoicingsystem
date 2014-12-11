@@ -14,9 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import vo.GiftVO;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import businesslogic.stockbl.gift.GiftCommodityListModel;
 
 public class GiftDetailPanel extends JPanel {
@@ -75,6 +77,11 @@ public class GiftDetailPanel extends JPanel {
 		GiftCommodityListModel gcm = new GiftCommodityListModel(
 				giftVO.getGiftList());
 		table = new JTable(gcm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < table.getColumnCount(); i++) {
+			table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
+		}
 		jsp = new JScrollPane(table);
 		cons.gridx = 0;
 		cons.gridy = 3;

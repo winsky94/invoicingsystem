@@ -98,10 +98,10 @@ public class GoodsModel extends AbstractTableModel {
 		return columnNames[column];
 	}
 
-	// 设置表格某些列可以双击修改
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return true;
-
-	}
+//	// 设置表格某些列可以双击修改
+//	public boolean isCellEditable(int rowIndex, int columnIndex) {
+//		return true;
+//
+//	}
 
 }
