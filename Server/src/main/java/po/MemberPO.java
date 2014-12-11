@@ -157,6 +157,15 @@ public class MemberPO implements Serializable{
 	public double getPoints() {
 		return points;
 	}
+	
+	public void changeToReceive(double m){
+		toReceive+=m;
+	}
+	
+	public void changeToPay(double m){
+		toPay+=m;
+	}
+	
 	public enum MemberLevel implements Serializable{
 		ONE,TWO,THREE,FOUR,FIVE;
 	}

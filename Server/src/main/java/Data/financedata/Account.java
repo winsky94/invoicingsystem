@@ -71,6 +71,44 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 		file.writeM(a);
 		return 0;
 	}
+	
+	public int addMoney(String s,double m) throws RemoteException{
+		 ArrayList<Object> a=file.read();
+			
+			if(a==null)
+				return 1;  	  //不存在该用户	
+			
+			int i;
+			for(i=0;i<a.size();i++){
+				AccountPO b=(AccountPO)a.get(i);
+				if(b.getName().equals(s)){
+					b.addMoney(m);
+					break;
+				}
+			}
+			
+			file.writeM(a);
+			return 0;
+	}
+	
+	public int delMoney(String s,double m) throws RemoteException{
+		 ArrayList<Object> a=file.read();
+			
+			if(a==null)
+				return 1;  	  //不存在该用户	
+			
+			int i;
+			for(i=0;i<a.size();i++){
+				AccountPO b=(AccountPO)a.get(i);
+				if(b.getName().equals(s)){
+					b.delMoney(m);
+					break;
+				}
+			}
+			
+			file.writeM(a);
+			return 0;
+	}
 
 	private AccountPO myFindAccount(String s){
 		ArrayList<Object> a=file.read();

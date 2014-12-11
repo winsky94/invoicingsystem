@@ -10,4 +10,5 @@ public interface CollectionDataService extends Remote{
 	public int createCollection (CollectionPO po) throws RemoteException;
 	public ArrayList<CollectionPO> getCollection() throws RemoteException;
 	public int getNum() throws RemoteException;
+	public CollectionPO findByID(String id) throws RemoteException;
 }

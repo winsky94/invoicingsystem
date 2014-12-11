@@ -3,8 +3,6 @@ package po;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import po.ReceiptPO.ReceiptType;
-
 //double[] discount;pro/pre/money/toaldiscount;
 //double[] total; cost/origin/value/couponIncom/toPay
 public class SalePO extends ReceiptPO implements Serializable{

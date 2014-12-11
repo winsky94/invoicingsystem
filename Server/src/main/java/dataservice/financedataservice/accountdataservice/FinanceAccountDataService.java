@@ -13,4 +13,6 @@ public interface FinanceAccountDataService  extends Remote{
     public ArrayList<AccountPO> findAccount(String s) throws RemoteException;
     public ArrayList<AccountPO> showAll() throws RemoteException;
     public AccountPO findByName(String s) throws RemoteException; 
+    public int addMoney(String name,double m) throws RemoteException; 
+    public int delMoney(String name,double m) throws RemoteException;
 }
