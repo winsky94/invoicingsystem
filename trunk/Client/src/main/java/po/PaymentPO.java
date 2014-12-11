@@ -45,5 +45,8 @@ public class PaymentPO extends ReceiptPO implements Serializable{
    	 return totalMoney;
     }
     
+    public void setTransferlist(ArrayList<TransferItemPO> po){
+   	 transferlist=po;
+    }
  
 }
