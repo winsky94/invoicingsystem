@@ -1,7 +1,7 @@
 package businesslogic.salesbl;
 
-
 import java.rmi.Naming;
+import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
@@ -9,117 +9,136 @@ import po.CommodityPO;
 import po.PurchasePO;
 import po.ReceiptPO;
 import vo.CommodityVO;
+import vo.GoodsVO;
 import vo.PurchaseVO;
 import vo.ReceiptVO;
 import businesslogic.receiptbl.Receipt;
+import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.utilitybl.getDate;
+import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import dataservice.salesdataservice.SalesDataService;
-
 
 public class Purchase extends Receipt {
 	static Commodity com;
 	SalesDataService service;
-	public Purchase() throws Exception{
-		String host="localhost:1099";
-		String url="rmi://"+host+"/salesService";
-	
-		service=(SalesDataService)Naming.lookup(url);
-	
-	}
-	
 
-	
-	public int AddPurchase(PurchaseVO vo){
+	public Purchase() throws Exception {
+		String host = "localhost:1099";
+		String url = "rmi://" + host + "/salesService";
+
+		service = (SalesDataService) Naming.lookup(url);
+
+	}
+
+	public int AddPurchase(PurchaseVO vo) {
 		return service.createPurchase(voToPo(vo));
 	}
-	
-	
-	
-	public ArrayList<PurchaseVO> find(String message,String type){
-		
-		
-		ArrayList<PurchasePO> po=service.findPurchase(message, type);
-		if(po==null) return null;
-		else{
-			ArrayList<PurchaseVO> vo=new ArrayList<PurchaseVO>();
-			for(int i=0;i<po.size();i++)
+
+	public void excute(PurchaseVO vo) {
+		// 修改库存
+		StockGoodsBLService goodsController = new GoodsController();
+		ArrayList<CommodityVO> list = vo.getPurchaseList();
+		for (CommodityVO cvo : list) {
+			try {
+				GoodsVO goodsVO = goodsController.findByID(cvo.getID());
+				goodsVO.setNumInStock(goodsVO.getNumInStock() + cvo.getNum());
+				goodsController.modifyGoods(goodsVO);
+			} catch (RemoteException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+
+		}
+
+	}
+
+	public ArrayList<PurchaseVO> find(String message, String type) {
+
+		ArrayList<PurchasePO> po = service.findPurchase(message, type);
+		if (po == null)
+			return null;
+		else {
+			ArrayList<PurchaseVO> vo = new ArrayList<PurchaseVO>();
+			for (int i = 0; i < po.size(); i++)
 				vo.add(poToVo(po.get(i)));
 			return vo;
 		}
 	}
-	
-	
-	public PurchaseVO find(String id){
-		ReceiptPO po=service.findReceiptByID(id);
-		if(po==null) return null;
-		else{
-			PurchasePO ppo=(PurchasePO)po;
+
+	public PurchaseVO find(String id) {
+		ReceiptPO po = service.findReceiptByID(id);
+		if (po == null)
+			return null;
+		else {
+			PurchasePO ppo = (PurchasePO) po;
 			return poToVo(ppo);
 		}
-		
+
 	}
-	public int ModifyPurchase(PurchaseVO vo){
+
+	public int ModifyPurchase(PurchaseVO vo) {
 		return service.updatePurchase(voToPo(vo));
-		
+
 	}
-	
-	public ArrayList<PurchaseVO>  show(){
-		ArrayList<PurchasePO> po=service.showPurchase();
-		if(po==null) return null;
-		else{
-			ArrayList<PurchaseVO> vo=new ArrayList<PurchaseVO>();
-			for(int i=0;i<po.size();i++){
+
+	public ArrayList<PurchaseVO> show() {
+		ArrayList<PurchasePO> po = service.showPurchase();
+		if (po == null)
+			return null;
+		else {
+			ArrayList<PurchaseVO> vo = new ArrayList<PurchaseVO>();
+			for (int i = 0; i < po.size(); i++) {
 				vo.add(poToVo(po.get(i)));
 			}
-			
+
 			return vo;
 		}
 	}
 
-	
-	public static PurchasePO voToPo(PurchaseVO vo){
+	public static PurchasePO voToPo(PurchaseVO vo) {
 		ArrayList<CommodityPO> puList;
-		ArrayList<CommodityVO> List=vo.getPurchaseList();
-		
-			puList=com.voTPo(List);
-		PurchasePO po=new PurchasePO(vo.getId(),vo.getMemberID(),vo.getMemberName(),
-				vo.getStockid(),vo.getUser(),puList,vo.getInfo(),vo.getTotalInAll(),
-				vo.getStatus(),vo.getHurry());
+		ArrayList<CommodityVO> List = vo.getPurchaseList();
+
+		puList = com.voTPo(List);
+		PurchasePO po = new PurchasePO(vo.getId(), vo.getMemberID(),
+				vo.getMemberName(), vo.getStockid(), vo.getUser(), puList,
+				vo.getInfo(), vo.getTotalInAll(), vo.getStatus(), vo.getHurry());
 		return po;
 	}
-	public static PurchaseVO poToVo(PurchasePO po){
+
+	public static PurchaseVO poToVo(PurchasePO po) {
 		ArrayList<CommodityVO> puList;
-		ArrayList<CommodityPO> List=po.getPurchaseList();
-		
-			puList=com.poTVo(List);
-		PurchaseVO vo=new PurchaseVO(po.getId(),po.getMemberID(),po.getMemberName(),
-				po.getStockID(),po.getUserID(),puList,po.getInfo(),po.getTotalInAll(),
-				po.getStatus(),po.getHurry());
+		ArrayList<CommodityPO> List = po.getPurchaseList();
+
+		puList = com.poTVo(List);
+		PurchaseVO vo = new PurchaseVO(po.getId(), po.getMemberID(),
+				po.getMemberName(), po.getStockID(), po.getUserID(), puList,
+				po.getInfo(), po.getTotalInAll(), po.getStatus(), po.getHurry());
 		return vo;
-		
+
 	}
-
-
 
 	public String getNewID() {
 		// TODO Auto-generated method stub
-		String id=null;
-		ArrayList<PurchasePO> po=service.showPurchase();
-		if(po==null) id="00001";
-		else{
-			int i=po.size();
-			String date=po.get(i-1).getId().substring(4, 12);
-			if(date.equals(getDate.getdate())){
-			Double d=Double.parseDouble(po.get(i-1).getId().substring(13))+1;
-			 NumberFormat nf = NumberFormat.getInstance();
-		     nf.setMinimumIntegerDigits(5); 
-		     nf.setGroupingUsed(false);
-		     id=nf.format(d);}
-			else id="00001";
-			
+		String id = null;
+		ArrayList<PurchasePO> po = service.showPurchase();
+		if (po == null)
+			id = "00001";
+		else {
+			int i = po.size();
+			String date = po.get(i - 1).getId().substring(4, 12);
+			if (date.equals(getDate.getdate())) {
+				Double d = Double.parseDouble(po.get(i - 1).getId()
+						.substring(13)) + 1;
+				NumberFormat nf = NumberFormat.getInstance();
+				nf.setMinimumIntegerDigits(5);
+				nf.setGroupingUsed(false);
+				id = nf.format(d);
+			} else
+				id = "00001";
+
 		}
 		return id;
 	}
 
-	
 }
