@@ -10,6 +10,7 @@ import po.PurchaseReturnPO;
 import vo.CommodityVO;
 import vo.GoodsVO;
 import vo.PurchaseReturnVO;
+import vo.ReceiptVO;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.utilitybl.getDate;
@@ -32,8 +33,9 @@ public class PurchaseReturn extends Receipt {
 		return service.createPurchaseReturn(voToPo(vo));
 	}
 	
-	public void excute(PurchaseReturnVO vo){
+	public void excute(ReceiptVO v){
 		// 修改库存
+		PurchaseReturnVO vo=(PurchaseReturnVO)v;
 		StockGoodsBLService goodsController = new GoodsController();
 		ArrayList<CommodityVO> list = vo.getPurchaseReturnList();
 		for (CommodityVO cvo : list) {

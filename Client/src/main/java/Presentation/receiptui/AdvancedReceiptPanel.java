@@ -5,17 +5,22 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import businesslogic.receiptbl.ReceiptController;
+import businesslogicservice.receiptblservice.ReceiptBLService;
 import Presentation.mainui.MainFrame;
 import Presentation.receiptui.ReceiptMgrPanel.MyButton;
 
-public class AdvancedReceiptPanel extends JPanel {
+public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
@@ -25,11 +30,13 @@ public class AdvancedReceiptPanel extends JPanel {
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	Color color = new Color(115, 46, 126);
 	//
+	String id;
 	MyButton approvedBtn, disapprovedBtn, modBtn;
 	JButton exitBtn;
-	public AdvancedReceiptPanel(JPanel info/* , MainFrame frame */) {
+	public AdvancedReceiptPanel(JPanel info , MainFrame frame ,String id) {
 		infoPnl = info;
-		// father=frame;
+		 father=frame;
+		 this.id=id;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 10, 5, 10);
@@ -80,7 +87,7 @@ public class AdvancedReceiptPanel extends JPanel {
 		c.weighty = 0.1;
 		gbl.setConstraints(exitPnl, c);
 		this.add(exitPnl);
-		exitBtn = new JButton("取消");
+		exitBtn = new JButton("返回");
 		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(251, 147, 121));
@@ -110,20 +117,46 @@ public class AdvancedReceiptPanel extends JPanel {
 		}
 	}
 
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 920, 600);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		AdvancedReceiptPanel gp = new AdvancedReceiptPanel(new JPanel() {
-			@Override
-			public void setBackground(Color bg) {
-				// TODO Auto-generated method stub
-				super.setBackground(Color.black);
-			}
-		});
-		gp.setBounds(0, 0, 920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		try {
+		ReceiptBLService service=new ReceiptController();
+		if(e.getSource()==exitBtn){
+		
+			update();
+			
+		}else if(e.getSource()==approvedBtn){
+			if(service.Approve(id, 2)!=0)
+				JOptionPane.showMessageDialog(null,"审批失败！","提示",JOptionPane.WARNING_MESSAGE);
+			else update();
+		}else if(e.getSource()==disapprovedBtn){
+			if(service.Approve(id, 1)!=0)
+				JOptionPane.showMessageDialog(null,"审批失败！","提示",JOptionPane.WARNING_MESSAGE);
+			else
+				update();
+			
+		}
+		
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 	}
+	
+	public void update(){
+		ReceiptMgrPanel pane;
+		try {
+			pane = new ReceiptMgrPanel(father);
+			father.setRightComponent(pane);
+			pane.Refresh();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	
 }

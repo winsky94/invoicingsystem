@@ -14,6 +14,7 @@ import po.SalePO;
 import vo.CommodityVO;
 import vo.GoodsVO;
 import vo.PromotionVO;
+import vo.ReceiptVO;
 import vo.SaleVO;
 import businesslogic.memberbl.Member;
 import businesslogic.promotionbl.giftCouponPro;
@@ -119,8 +120,9 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 	}
 
 	// 单据执行
-	public void excute(SaleVO vo) {
+	public void excute(ReceiptVO v) {
 		//修改库存
+		SaleVO vo=(SaleVO)v;
 		StockGoodsBLService goodsController = new GoodsController();
 			ArrayList<CommodityVO> list = vo.getSalesList();
 			for (CommodityVO cvo : list) {

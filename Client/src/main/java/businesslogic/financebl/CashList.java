@@ -9,6 +9,7 @@ import po.CashlistPO;
 import po.ClauseItemPO;
 import vo.CashlistVO;
 import vo.ClauseItemVO;
+import vo.ReceiptVO;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.utilitybl.getDate;
 import businesslogicservice.financeblservice.listblservice.CashlistBLService;
@@ -46,6 +47,13 @@ public class CashList extends Receipt implements CashlistBLService{
 	public int createCashlist(CashlistVO vo) {
 		CashlistPO po=voToPo(vo);
 			return service.createCashlist(po);
+	}
+	
+	
+	
+	public void excute(ReceiptVO v){
+		CashlistVO vo=(CashlistVO)v;
+		
 	}
 
 	public ArrayList<CashlistVO> getCashlist() {

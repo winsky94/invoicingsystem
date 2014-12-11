@@ -263,7 +263,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener{
 					ViewPurchasePanel pane=new ViewPurchasePanel(father,id);
 					pane.p.exitBtn.removeActionListener(pane.p.elisten);
 					pane.p.exitBtn.addActionListener(new exitListen());
-					father.setRightComponent(new AdvancedReceiptPanel(pane));
+					father.setRightComponent(new AdvancedReceiptPanel(pane,father,id));
 			
 					
 				}

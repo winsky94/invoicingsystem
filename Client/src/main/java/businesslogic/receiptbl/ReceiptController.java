@@ -32,7 +32,7 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 		
 	}
 
-	public int Excute(String id){
+	public int Excute(String id,ReceiptType type){
 		
 		return 0;
 	}
@@ -79,8 +79,9 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 		return null;
 	}
 
-	public int Approve(String id) {
+	public int Approve(String id,int status) {
 		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
@@ -105,7 +106,7 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 	}
 
 	
-	public ReceiptVO  poToVo(ReceiptPO po){
+	public static ReceiptVO  poToVo(ReceiptPO po){
 		ReceiptVO vo=null;
 		if(po.getType()==ReceiptType.PAYMENT)
 			vo=Payment.poToVo((PaymentPO)po);

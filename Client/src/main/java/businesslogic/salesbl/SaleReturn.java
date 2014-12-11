@@ -9,6 +9,7 @@ import po.CommodityPO;
 import po.SaleReturnPO;
 import vo.CommodityVO;
 import vo.GoodsVO;
+import vo.ReceiptVO;
 import vo.SaleReturnVO;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.stockbl.goods.GoodsController;
@@ -73,8 +74,9 @@ public class SaleReturn extends Receipt {
 		return id;
 	}
 
-	public void excute(SaleReturnVO vo) {
+	public void excute(ReceiptVO v) {
 		// 修改库存
+		SaleReturnVO vo=(SaleReturnVO)v;
 		StockGoodsBLService goodsController = new GoodsController();
 		ArrayList<CommodityVO> list = vo.getSaleReturnList();
 		for (CommodityVO cvo : list) {
