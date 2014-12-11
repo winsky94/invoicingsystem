@@ -32,6 +32,8 @@ public class CashlistPO extends ReceiptPO implements Serializable{
     	 return totalMoney;
      }
      
-
+     public void setClauselist(ArrayList<ClauseItemPO> po){
+    	 clauselist=po;
+     }
 
 }
