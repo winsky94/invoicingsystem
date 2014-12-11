@@ -24,6 +24,40 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	public Sales() throws RemoteException{
 		super();
 	}
+	
+	public int setStatus(String id,int st){
+		String[] buffer=id.split("-");
+        String s=buffer[0];
+        if(s.equals("JHD")){
+        	file=new JXCFile("src/main/java/purchase.ser");
+        }
+        else if(s.equals("JHTHD")){
+        	file=new JXCFile("src/main/java/purchasereturn.ser");
+        }
+        else if(s.equals("XSD")){
+        	file=new JXCFile("src/main/java/sale.ser");
+        }
+        else{
+        	file=new JXCFile("src/main/java/salereturn.ser");
+        }
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return 1;  	 
+		int i;
+		for(i=0;i<a.size();i++){
+			ReceiptPO b=(ReceiptPO)a.get(i);
+			if(b.getId().equals(id)){
+				b.setStatus(st);;
+				break;
+			}
+		}
+		
+		if(i==a.size())      //不存在该用户
+			return 1;
+		
+		file.writeM(a);
+		return 0;
+	}
 
 	public int createPurchase(PurchasePO po) throws RemoteException{
 		file=new JXCFile("src/main/java/purchase.ser");
@@ -528,9 +562,9 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			CommodityPO item =new CommodityPO("0001-001-0001","飞利浦日光灯","SRO1",100,158,100,198,98,"这是个灯");
 			al.add(item);
 			a.createPurchase(new PurchasePO("JHD-20141201-00001","JHS-0000001","马建国","02","XS-00001",al,"这是个进货单", 1000,0,1));
-			double discount[]=new double[]{1,1,1,1};
-			double total[]=new double[]{2,2,2,2,2};
-			a.createSale(new SalePO("金大大",al,"XSD-20141202-00001","JHS-0000001","马建国","XS-00001",1,1,"这是个销售单","02",discount,total));	
+//			double discount[]=new double[]{1,1,1,1};
+//			double total[]=new double[]{2,2,2,2,2};
+//			a.createSale(new SalePO("金大大",al,"XSD-20141202-00001","JHS-0000001","马建国","XS-00001",1,1,"这是个销售单","02",discount,total));	
 			System.out.println("Success!");
 			ArrayList<PurchasePO> pl=a.showPurchase();
 			for(PurchasePO po:pl){
