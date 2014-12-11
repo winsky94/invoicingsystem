@@ -33,7 +33,7 @@ public class OverModel extends AbstractTableModel {
 				hang.add(vo.getId());
 				hang.add(vo.getGoodsName());
 				hang.add(vo.getSize());
-				hang.add(String.valueOf(vo.getGap()));
+				hang.add(String.valueOf((0 - vo.getGap())));
 				hang.add(getUserNameByID(vo.getUser()));
 				hang.add(vo.getDate());
 				// 加入到rowData
@@ -56,7 +56,7 @@ public class OverModel extends AbstractTableModel {
 			hang.add(vo.getId());
 			hang.add(vo.getGoodsName());
 			hang.add(vo.getSize());
-			hang.add(String.valueOf(vo.getGap()));
+			hang.add(String.valueOf((0 - vo.getGap())));
 			hang.add(getUserNameByID(vo.getUser()));
 			hang.add(vo.getDate());
 

@@ -118,7 +118,7 @@ public class Goods {
 			ArrayList<SaleVO> sList = saleController.showSale();
 			GiftBLService giftController = new GiftController();
 			ArrayList<GiftVO> gList = giftController.getGiftList();
-			//检测是否进货过
+			// 检测是否进货过
 			if (pList != null) {
 				for (int i = 0; i < pList.size(); i++) {
 					PurchaseVO vo = pList.get(i);
@@ -130,10 +130,14 @@ public class Goods {
 							break;
 						}
 					}
+
+					if (isOperate == true) {
+						break;
+					}
 				}
 			}
-			
-			//检测是否被销售过
+
+			// 检测是否被销售过
 			if (isOperate == false) {
 				if (sList != null) {
 					for (int i = 0; i < sList.size(); i++) {
@@ -146,14 +150,18 @@ public class Goods {
 								break;
 							}
 						}
+
+						if (isOperate == true) {
+							break;
+						}
 					}
 				}
 			}
-			
-			//检测是否被库存赠送过
+
+			// 检测是否被库存赠送过
 			if (isOperate == false) {
 				if (gList != null) {
-					for (int i = 0; i < sList.size(); i++) {
+					for (int i = 0; i < gList.size(); i++) {
 						GiftVO vo = gList.get(i);
 						ArrayList<CommodityVO> cList = vo.getGiftList();
 						for (int j = 0; j < cList.size(); j++) {
@@ -162,6 +170,10 @@ public class Goods {
 								result = 93;
 								break;
 							}
+						}
+
+						if (isOperate == true) {
+							break;
 						}
 					}
 				}
