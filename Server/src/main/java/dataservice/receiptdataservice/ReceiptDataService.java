@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import po.ReceiptMessagePO;
 import po.ReceiptPO;
 import po.ReceiptPO.ReceiptType;
 
@@ -24,4 +25,8 @@ public interface ReceiptDataService extends Remote {
 	//单据精确查找  筛选；每一个message元素 均为一个限定条件 返回符合上所有条件的所有单据
 	public ArrayList<ReceiptPO> AccurateFind(String[] message)throws RemoteException;
 	public int setStatus(String id,int st) throws RemoteException;
+	
+	public ArrayList<ReceiptMessagePO> showAllMessage()throws RemoteException;
+	public void addReceiptMessage(ReceiptMessagePO po)throws RemoteException;
+	public void deleteReceiptMessage(ReceiptMessagePO po)throws RemoteException;
 }
