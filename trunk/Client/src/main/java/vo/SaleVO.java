@@ -12,7 +12,7 @@ public class SaleVO extends ReceiptVO {
 	private double[] discount=new double[4];//折让类数据
 	private double[] total=new double[5];//总计类数据
 	private String stockid;
-	private String proid;
+	private String proid="";
 	private String couponid="";
 	public SaleVO(String clerk, ArrayList<CommodityVO> salesList, String id,
 			String memberName,String memberID, String user,  int status,

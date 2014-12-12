@@ -74,7 +74,7 @@ public class SaleReturn extends Receipt {
 		return id;
 	}
 
-	public void excute(ReceiptVO v) {
+	public int excute(ReceiptVO v) {
 		// 修改库存
 		SaleReturnVO vo=(SaleReturnVO)v;
 		StockGoodsBLService goodsController = new GoodsController();
@@ -90,6 +90,7 @@ public class SaleReturn extends Receipt {
 			}
 
 		}
+		return 0;
 
 	}
 

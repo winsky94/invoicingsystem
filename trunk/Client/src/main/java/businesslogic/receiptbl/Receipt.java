@@ -82,8 +82,9 @@ public class Receipt {
 		return null;
 	}
 
-	public void excute(ReceiptVO vo) {
+	public int excute(ReceiptVO vo) {
 		this.status = 5;
+		return 0;
 	}
 
 	//

@@ -81,7 +81,7 @@ public class Collection extends Receipt implements CollectionBLService{
  		return "SKD-"+getDate.getdate()+"-"+id;
  	}
      
-    public void excute(ReceiptVO v){
+    public int excute(ReceiptVO v){
     	CollectionVO vo=(CollectionVO)v;
     	try {
 			Member m=new Member();
@@ -105,6 +105,7 @@ public class Collection extends Receipt implements CollectionBLService{
 		}
     	
     	setStatus(v.getId(),3);
+    	return 0;
     	
     }
     

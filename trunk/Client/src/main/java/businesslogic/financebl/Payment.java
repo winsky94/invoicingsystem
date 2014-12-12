@@ -72,7 +72,7 @@ public class Payment extends Receipt implements PaymentBLService{
 		return 1;
 	}
 	
-	public void excute(ReceiptVO v){
+	public int excute(ReceiptVO v){
 		CollectionVO vo=(CollectionVO)v;
     	try {
 			Member m=new Member();
@@ -96,6 +96,7 @@ public class Payment extends Receipt implements PaymentBLService{
 		}
     	
     	setStatus(v.getId(),3);
+    	return 0;
 	}
 
 	public ArrayList<PaymentVO> getPayment() {

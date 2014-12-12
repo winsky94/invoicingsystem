@@ -3,13 +3,14 @@ package businesslogic.salesbl;
 import java.rmi.Naming;
 import java.util.ArrayList;
 
+import po.PurchaseReturnPO;
 import dataservice.salesdataservice.SalesDataService;
 
 public class PurchaseList {
 	private double purchaseIncome;
 	private ArrayList<Purchase> purchseList;
 	
-		SalesDataService service;
+		static SalesDataService service;
 		public PurchaseList() throws Exception{
 			String host="localhost:1099";
 			String url="rmi://"+host+"/salesService";
@@ -21,4 +22,6 @@ public class PurchaseList {
 	public double getPurchaseInCome(){
 		return this.purchaseIncome;
 	}
+
+	
 }
