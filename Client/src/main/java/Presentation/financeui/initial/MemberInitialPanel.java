@@ -7,17 +7,23 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import businesslogic.memberbl.Member;
+import businesslogicservice.memberblservice.MemberBLService;
 import po.MemberPO.MemberType;
 import vo.MemberVO;
 import Presentation.mainui.MainFrame;
@@ -38,6 +44,7 @@ public class MemberInitialPanel extends JPanel{
 	JComboBox<String> memberBox;
 	AddInitialPanel subparent; 
 	MainFrame parent;
+	ArrayList<Integer> haveSelected=new ArrayList<Integer>();
 	public MemberInitialPanel(MainFrame frame){
 		parent=frame;
 		GridBagLayout gbl = new GridBagLayout();
@@ -77,9 +84,44 @@ public class MemberInitialPanel extends JPanel{
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
 		
+		//------------------------------------
+		// ---------------------------
+				ArrayList<String> st = new ArrayList<String>();
+				MemberBLService min = null;
+				try {
+					min = new Member();
+
+				} catch (MalformedURLException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				} catch (RemoteException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				} catch (NotBoundException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				ArrayList<MemberVO> member = min.showMembers();
+				if (member == null) {
+					String memberText[] = { "当前无客户可选" };
+					memberBox = new JComboBox<String>(memberText);
+					memberBox.setEditable(false);
+				} else {
+					for (MemberVO vo : member) {
+						st.add(vo.getName());
+					}
+					String memberText[] = new String[st.size()+1];
+					memberText[0]="请选择客户";
+					for (int i = 0; i < st.size(); i++) {
+						memberText[i+1] = st.get(i);
+					}
+					memberBox = new JComboBox<String>(memberText);
+				}
+				// ---------------------------
+		//------------------------------------
 		//小小黄加监听 id调用哪个本pane的getNewID
-		String memberBoxText[]={"选择客户"};
-		memberBox=new JComboBox<String>(memberBoxText);
+//		String memberBoxText[]={"选择客户"};
+//		memberBox=new JComboBox<String>(memberBoxText);
 		memberBox.setBackground(Color.white);
 		memberBox.setFont(font);
 		btnPnl.add(memberBox);
@@ -91,7 +133,42 @@ public class MemberInitialPanel extends JPanel{
 		addBtn.setFocusPainted(false);
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parent.setRightComponent(new addMemberInitial(parent,MemberInitialPanel.this));
+				if(memberBox.getSelectedIndex()==0)
+				    parent.setRightComponent(new addMemberInitial(parent,MemberInitialPanel.this));
+				else{
+					int index=memberBox.getSelectedIndex();
+					boolean isIn=false;
+					for(Integer inte:haveSelected){
+						if(index==inte){
+							isIn=true;
+						}
+					}
+					if(isIn==true){
+						 JOptionPane.showMessageDialog(null,"您已选择了该客户!","提示",JOptionPane.WARNING_MESSAGE);
+					}
+					else{
+					haveSelected.add(index);
+					MemberBLService min = null;
+					try {
+						min = new Member();
+
+					} catch (MalformedURLException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					} catch (RemoteException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					} catch (NotBoundException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					ArrayList<MemberVO> member = min.showMembers();
+					MemberVO vv=member.get(index-1);
+					vv.setMemberID(getNewID(vv.getmType()));
+					RefreshTable(vv);
+					memberTable.revalidate();
+				}
+				}
 			}
 		});
 		btnPnl.add(addBtn);
@@ -101,7 +178,32 @@ public class MemberInitialPanel extends JPanel{
 		delBtn.setFocusPainted(false);
 		delBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// 监听！！！！！！！
+				int allselected[]=memberTable.getSelectedRows();
+				if(allselected.length<=0)
+					JOptionPane.showMessageDialog(null,"请选择客户!","提示",JOptionPane.WARNING_MESSAGE);
+				else{
+					for(int j=allselected.length-1;j>=0;j--){
+					int selected=allselected[j];
+					haveSelected.remove(selected);
+					for(int i=selected+1;i<memberC.size();i++){
+						if(mm.getValueAt(selected, 2).equals(mm.getValueAt(i, 2))){
+							String mtype=memberC.get(i).get(2);
+							String type;
+							if(mtype.equals("进货商"))
+								type="JHS";
+							else
+								type="XSS";
+							double d=Double.parseDouble(memberC.get(i).get(0).substring(4))-1;
+							NumberFormat nf = NumberFormat.getInstance();
+						     nf.setMinimumIntegerDigits(7); 
+						     nf.setGroupingUsed(false);
+							 memberC.get(i).set(0,type+"-"+nf.format(d));
+						}
+					}
+					mm.removeRow(selected);
+					memberTable.revalidate();					
+				}
+				}
 			}
 		});
 		btnPnl.add(delBtn);

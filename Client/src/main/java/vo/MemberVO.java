@@ -21,6 +21,10 @@ public class MemberVO {
 	public String getMemberID() {
 		return bInfo.memberID;
 	}
+	
+	public void setMemberID(String s){
+		bInfo.memberID=s;
+	}
 
 	public MemberType getmType() {
 		return bInfo.mType;
