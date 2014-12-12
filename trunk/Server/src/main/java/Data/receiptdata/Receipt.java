@@ -85,8 +85,29 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 	}
 
 	public int Modify(ReceiptPO po) throws RemoteException {
-		// TODO Auto-generated method stub
-		return 0;
+		if(po.getType()==ReceiptType.COLLECTION){
+			Collection c=new Collection();
+			return c.modify((CollectionPO)po);
+		}
+		else if(po.getType()==ReceiptType.PAYMENT){
+			Payment p=new Payment();
+			return p.modify((PaymentPO)po);
+		}
+		else if(po.getType()==ReceiptType.CASHLIST){
+			Cashlist c=new Cashlist();
+			return c.modify((CashlistPO)po);
+		}
+		else if(po.getType()==ReceiptType.PURCHASE||po.getType()==ReceiptType.PURCHASERETURN||po.getType()==ReceiptType.SALE||po.getType()==ReceiptType.SALERETURN){
+			Sales s=new Sales();
+			return s.modify(po);
+		}
+		else if(po.getType()==ReceiptType.GIFT){
+			Gift g=new Gift();
+			return g.modify(po);
+		}
+		else{
+			return 1;
+		}
 	}
 	
 	public int setStatus(String id,int st) throws RemoteException{
