@@ -87,21 +87,21 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 		JPanel namePnl = new JPanel();
 		namePnl.setBackground(Color.white);
 		mid.add(namePnl);
-		nameLbl = new JLabel("商品名：XXXXX");
+		nameLbl = new JLabel("商品名：__________");
 		nameLbl.setFont(font);
 		namePnl.add(nameLbl);
 		// --------型号--------------------
 		JPanel sizePnl = new JPanel();
 		sizePnl.setBackground(Color.white);
 		mid.add(sizePnl);
-		sizeLbl = new JLabel("型号：XXXXX");
+		sizeLbl = new JLabel("型号：_________");
 		sizeLbl.setFont(font);
 		sizePnl.add(sizeLbl);
 		// -------库存数量-------------------
 		JPanel numPnl = new JPanel();
 		numPnl.setBackground(Color.white);
 		mid.add(numPnl);
-		numLbl = new JLabel("库存数量：XXXX");
+		numLbl = new JLabel("库存数量：_______");
 		numLbl.setFont(font);
 		numPnl.add(numLbl);
 		// --------报溢数量-----------------
