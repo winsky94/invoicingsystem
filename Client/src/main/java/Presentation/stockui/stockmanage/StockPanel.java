@@ -101,6 +101,7 @@ public class StockPanel extends JPanel {
 		inventoryTbl = new JTable();
 		cm = new CheckModel();
 		inventoryTbl.setModel(cm);
+		inventoryTbl.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 		for (int i = 0; i < inventoryTbl.getColumnCount(); i++) {
@@ -115,6 +116,7 @@ public class StockPanel extends JPanel {
 		overflowTbl = new JTable();
 		OverModel om = new OverModel();
 		overflowTbl.setModel(om);
+		overflowTbl.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		for (int i = 0; i < overflowTbl.getColumnCount(); i++) {
 			overflowTbl.getColumn(overflowTbl.getColumnName(i))
@@ -127,6 +129,7 @@ public class StockPanel extends JPanel {
 		lossTbl = new JTable();
 		LowModel lm = new LowModel();
 		lossTbl.setModel(lm);
+		lossTbl.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		for (int i = 0; i < lossTbl.getColumnCount(); i++) {
 			lossTbl.getColumn(lossTbl.getColumnName(i)).setCellRenderer(tcr);

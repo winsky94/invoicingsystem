@@ -38,7 +38,7 @@ import businesslogic.stockbl.goodsClass.GoodsClassController;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBLService;
 
-public class DiscountDialog extends JDialog{
+public class DiscountDialog extends JDialog {
 	/**
 	 * 
 	 */
@@ -46,11 +46,11 @@ public class DiscountDialog extends JDialog{
 	//
 	JTextField discountFld;
 	//
-	ArrayList<ArrayList<String>> selected=new ArrayList<ArrayList<String>>();
-	ArrayList<ArrayList<String>> rightTblMessage=new ArrayList<ArrayList<String>>();
+	ArrayList<ArrayList<String>> selected = new ArrayList<ArrayList<String>>();
+	ArrayList<ArrayList<String>> rightTblMessage = new ArrayList<ArrayList<String>>();
 	ChosenTblModel ctm;
 	GoodsTblModel gtm;
-	ArrayList<ArrayList<String>> leftTblMessage=new ArrayList<ArrayList<String>>();
+	ArrayList<ArrayList<String>> leftTblMessage = new ArrayList<ArrayList<String>>();
 	ChooseGoodsFatherPane father;
 	//
 	StockGoodsBLService service;
@@ -64,19 +64,20 @@ public class DiscountDialog extends JDialog{
 	int screenHeight = UIhelper.getScreenHeight();
 	int dialogWidth = screenWidth * 2 / 3;
 	int dialogHeight = screenHeight * 2 / 3;
-	
+
 	//
 	JScrollPane treeJsp = null;
 	DefaultTreeModel treeModel = null;
 	String nodeName = null;// 原有节点名称
 	GoodsClassNode newNode = null;
+
 	public DiscountDialog(ChooseGoodsFatherPane myFather) {
-		controller=new GoodsClassController();
-		father=myFather;
-		service=new GoodsController();
+		controller = new GoodsClassController();
+		father = myFather;
+		service = new GoodsController();
 		pnl = this.getContentPane();
 		pnl.setLayout(null);
-		if(service.showGoods()!=null)
+		if (service.showGoods() != null)
 			Refresh(service.showGoods());
 		pnl.setBackground(Color.white);
 		// ------------classTree------------------------------------------
@@ -86,14 +87,14 @@ public class DiscountDialog extends JDialog{
 				dialogWidth * 18 / 100, dialogHeight * 85 / 100);
 		pnl.add(tree);
 		// -----------goodsTbl-------------------------------------------
-		gtm=new GoodsTblModel();
+		gtm = new GoodsTblModel();
 		goodsTbl = new JTable(gtm);
+		goodsTbl.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
-				for (int i = 0; i < goodsTbl.getColumnCount(); i++) {
-					goodsTbl.getColumn(goodsTbl.getColumnName(i)).setCellRenderer(
-							tcr);
-				}
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < goodsTbl.getColumnCount(); i++) {
+			goodsTbl.getColumn(goodsTbl.getColumnName(i)).setCellRenderer(tcr);
+		}
 		jspLeft = new JScrollPane(goodsTbl);
 		jspLeft.setBounds(dialogWidth * 20 / 100, dialogHeight * 5 / 100,
 				dialogWidth * 35 / 100, dialogHeight * 85 / 100);
@@ -104,13 +105,14 @@ public class DiscountDialog extends JDialog{
 		chosenLbl.setBounds(dialogWidth * 72 / 100, dialogHeight * 5 / 100,
 				dialogWidth * 30 / 100, dialogHeight * 5 / 100);
 		pnl.add(chosenLbl);
-		ctm=new ChosenTblModel();
+		ctm = new ChosenTblModel();
 		chosenTbl = new JTable(ctm);
+		chosenTbl.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-				for (int i = 0; i < chosenTbl.getColumnCount(); i++) {
-					chosenTbl.getColumn(chosenTbl.getColumnName(i)).setCellRenderer(
-							tcr);
-				}
+		for (int i = 0; i < chosenTbl.getColumnCount(); i++) {
+			chosenTbl.getColumn(chosenTbl.getColumnName(i))
+					.setCellRenderer(tcr);
+		}
 		jspRight = new JScrollPane(chosenTbl);
 		jspRight.setBounds(dialogWidth * 60 / 100, dialogHeight * 10 / 100,
 				dialogWidth * 35 / 100, dialogHeight * 60 / 100);
@@ -126,20 +128,24 @@ public class DiscountDialog extends JDialog{
 		addBtn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				int[] row=goodsTbl.getSelectedRows();
-				if(row.length>0){
-				for(int i=0;i<row.length;i++){
-					int exist=FindInRight(leftTblMessage.get(row[i]).get(0));
-					if(exist<0){
-						ctm.addRow(leftTblMessage.get(row[i]));	}
-					else
-						JOptionPane.showMessageDialog(null, "该商品已选择！","提示",JOptionPane.WARNING_MESSAGE);
-				
+				int[] row = goodsTbl.getSelectedRows();
+				if (row.length > 0) {
+					for (int i = 0; i < row.length; i++) {
+						int exist = FindInRight(leftTblMessage.get(row[i]).get(
+								0));
+						if (exist < 0) {
+							ctm.addRow(leftTblMessage.get(row[i]));
+						} else
+							JOptionPane.showMessageDialog(null, "该商品已选择！",
+									"提示", JOptionPane.WARNING_MESSAGE);
+
 					}
-				chosenTbl.revalidate();
-				}else 
-					JOptionPane.showMessageDialog(null, "请选择商品！","提示",JOptionPane.WARNING_MESSAGE);;
-				
+					chosenTbl.revalidate();
+				} else
+					JOptionPane.showMessageDialog(null, "请选择商品！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+				;
+
 			}
 		});
 		pnl.add(addBtn);
@@ -151,33 +157,34 @@ public class DiscountDialog extends JDialog{
 		delBtn.setBackground(Color.white);
 		delBtn.setBounds(dialogWidth * 55 / 100, dialogHeight * 35 / 100,
 				dialogWidth * 5 / 100, dialogHeight * 5 / 100);
-		delBtn.addActionListener(new ActionListener(){
+		delBtn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if(chosenTbl.getSelectedRow()>=0){
-				ctm.removeRow(chosenTbl.getSelectedRow());
-				chosenTbl.revalidate();}
-				else 
-					JOptionPane.showMessageDialog(null, "请选择商品！","提示",JOptionPane.WARNING_MESSAGE);
+				if (chosenTbl.getSelectedRow() >= 0) {
+					ctm.removeRow(chosenTbl.getSelectedRow());
+					chosenTbl.revalidate();
+				} else
+					JOptionPane.showMessageDialog(null, "请选择商品！", "提示",
+							JOptionPane.WARNING_MESSAGE);
 			}
-			
+
 		});
 		pnl.add(delBtn);
-		//------------discount-------------------------------------------
-		JLabel discountLbl1=new JLabel("以上商品打");
+		// ------------discount-------------------------------------------
+		JLabel discountLbl1 = new JLabel("以上商品打");
 		discountLbl1.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-		discountLbl1.setBounds(dialogWidth * 60/ 100, dialogHeight * 73 / 100,
-				dialogWidth * 15/ 100, dialogHeight * 5 / 100);
+		discountLbl1.setBounds(dialogWidth * 60 / 100, dialogHeight * 73 / 100,
+				dialogWidth * 15 / 100, dialogHeight * 5 / 100);
 		pnl.add(discountLbl1);
-		discountFld=new JTextField();
+		discountFld = new JTextField();
 		discountFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-		discountFld.setBounds(dialogWidth * 68/ 100, dialogHeight * 73 / 100,
-				dialogWidth * 7/ 100, dialogHeight * 5 / 100);
+		discountFld.setBounds(dialogWidth * 68 / 100, dialogHeight * 73 / 100,
+				dialogWidth * 7 / 100, dialogHeight * 5 / 100);
 		pnl.add(discountFld);
-		JLabel discountLbl=new JLabel("折。");
+		JLabel discountLbl = new JLabel("折。");
 		discountLbl.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-		discountLbl.setBounds(dialogWidth * 75/ 100, dialogHeight * 73 / 100,
-				dialogWidth * 10/ 100, dialogHeight * 5 / 100);
+		discountLbl.setBounds(dialogWidth * 75 / 100, dialogHeight * 73 / 100,
+				dialogWidth * 10 / 100, dialogHeight * 5 / 100);
 		pnl.add(discountLbl);
 		// -------submitBtn----------------------------------------------
 		submitBtn = new JButton("完 成");
@@ -188,35 +195,37 @@ public class DiscountDialog extends JDialog{
 				dialogWidth * 8 / 100, dialogHeight * 5 / 100);
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				double discount=0;
-				try{
-					discount=Double.parseDouble(discountFld.getText())*0.1;
-					DecimalFormat df = new DecimalFormat("#.##"); 
-					String v= df.format(discount);
-				if(rightTblMessage.size()>0){
-					ArrayList<Object> good=new ArrayList<Object>();
-					try {
-					for(int i=0;i<rightTblMessage.size();i++)
-						{String id=rightTblMessage.get(i).get(0);
-						
-							good.add(service.findByID(id));}
-							
-							
+				double discount = 0;
+				try {
+					discount = Double.parseDouble(discountFld.getText()) * 0.1;
+					DecimalFormat df = new DecimalFormat("#.##");
+					String v = df.format(discount);
+					if (rightTblMessage.size() > 0) {
+						ArrayList<Object> good = new ArrayList<Object>();
+						try {
+							for (int i = 0; i < rightTblMessage.size(); i++) {
+								String id = rightTblMessage.get(i).get(0);
+
+								good.add(service.findByID(id));
+							}
+
 						} catch (RemoteException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-					
-					father.parent.setRightComponent(father);
-					father.RefreshCTable(good,Double.parseDouble(v));}
-				
+
+						father.parent.setRightComponent(father);
+						father.RefreshCTable(good, Double.parseDouble(v));
+					}
+
 					DiscountDialog.this.dispose();
-					
-				}catch(Exception err){
-					JOptionPane.showMessageDialog(null, "请输入合法数值,e.g 9折!","提示",JOptionPane.WARNING_MESSAGE);
-					
+
+				} catch (Exception err) {
+					JOptionPane.showMessageDialog(null, "请输入合法数值,e.g 9折!",
+							"提示", JOptionPane.WARNING_MESSAGE);
+
 				}
-			
+
 			}
 		});
 		pnl.add(submitBtn);
@@ -243,98 +252,99 @@ public class DiscountDialog extends JDialog{
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 	}
-	
-	
-	//tree
-		private void createGoodsClass(ArrayList<GoodsClassVO> list) {
-			GoodsClassNode root = createTreeRoot(list);
-			DefaultMutableTreeNode Troot = createGoodsClassNode(root);
-			tree = new JTree(Troot);
-			treeModel = (DefaultTreeModel) tree.getModel();
-			tree.setEditable(true);
-			tree.addMouseListener(new MouseHandle());
-//			treeModel.addTreeModelListener(this);
 
-			treeJsp = new JScrollPane(tree);
-			treeJsp.setBorder(null);
-			treeJsp.setLocation(0, 0);
-			treeJsp.setSize(110, 400);
+	// tree
+	private void createGoodsClass(ArrayList<GoodsClassVO> list) {
+		GoodsClassNode root = createTreeRoot(list);
+		DefaultMutableTreeNode Troot = createGoodsClassNode(root);
+		tree = new JTree(Troot);
+		treeModel = (DefaultTreeModel) tree.getModel();
+		tree.setEditable(true);
+		tree.addMouseListener(new MouseHandle());
+		// treeModel.addTreeModelListener(this);
+
+		treeJsp = new JScrollPane(tree);
+		treeJsp.setBorder(null);
+		treeJsp.setLocation(0, 0);
+		treeJsp.setSize(110, 400);
+	}
+
+	private DefaultMutableTreeNode createGoodsClassNode(GoodsClassNode root) {
+		DefaultMutableTreeNode Troot = null;
+		if (root != null)
+			Troot = new DefaultMutableTreeNode(root.getName());
+		else
+			return null;
+		for (int i = 0; i < root.children.size(); i++) {
+			DefaultMutableTreeNode Tnode = createGoodsClassNode(root.children
+					.get(i));
+			Troot.add(Tnode);
 		}
+		return Troot;
+	}
 
-		private DefaultMutableTreeNode createGoodsClassNode(GoodsClassNode root) {
-			DefaultMutableTreeNode Troot = null;
-			if (root != null)
-				Troot = new DefaultMutableTreeNode(root.getName());
-			else
-				return null;
-			for (int i = 0; i < root.children.size(); i++) {
-				DefaultMutableTreeNode Tnode = createGoodsClassNode(root.children
-						.get(i));
-				Troot.add(Tnode);
-			}
-			return Troot;
-		}
+	private GoodsClassNode createTreeRoot(ArrayList<GoodsClassVO> list) {
+		GoodsClassNode root = new GoodsClassNode("灯具", "根");
+		makeTree(root, list);
+		return root;
+	}
 
-		private GoodsClassNode createTreeRoot(ArrayList<GoodsClassVO> list) {
-			GoodsClassNode root = new GoodsClassNode("灯具", "根");
-			makeTree(root, list);
-			return root;
-		}
+	public ArrayList<GoodsClassVO> getTreeData() {
+		ArrayList<GoodsClassVO> result = new ArrayList<GoodsClassVO>();
+		StockGoodsClassBLService controller = new GoodsClassController();
+		result = controller.show();
+		return result;
+	}
 
-		public ArrayList<GoodsClassVO> getTreeData() {
-			ArrayList<GoodsClassVO> result = new ArrayList<GoodsClassVO>();
-			StockGoodsClassBLService controller = new GoodsClassController();
-			result = controller.show();
-			return result;
-		}
-
-		public void makeTree(GoodsClassNode root, ArrayList<GoodsClassVO> list) {
-			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i).getUpClassName().equals(root.getName())) {
-					GoodsClassNode child = new GoodsClassNode(
-							list.get(i).getName(), list.get(i).getUpClassName());
-					root.children.add(child);
-					list.remove(i);
-					i--;
-				}
-			}
-
-			for (int i = 0; i < root.children.size(); i++) {
-				makeTree(root.children.get(i), list);
-			}
-
-		}
-
-		//点击分类名显示该分类下的商品
-		class MouseHandle extends MouseAdapter {
-			public void mousePressed(MouseEvent e) {
-				try {
-					JTree tree = (JTree) e.getSource();
-					int rowLocation = tree.getRowForLocation(e.getX(), e.getY());
-					TreePath treepath = tree.getPathForRow(rowLocation);
-					TreeNode treenode = (TreeNode) treepath.getLastPathComponent();
-					nodeName = treenode.toString();
-				} catch (NullPointerException ne) {
-				}
-
-				StockGoodsBLService goodsController = new GoodsController();
-				ArrayList<GoodsVO> list = new ArrayList<GoodsVO>();
-				if (!nodeName.equals("灯具")) {
-					list = goodsController.showGoodsByClass(nodeName);
-				} else {
-					list = goodsController.showGoods();
-				}
-				Refresh(list);
-				goodsTbl.revalidate();
+	public void makeTree(GoodsClassNode root, ArrayList<GoodsClassVO> list) {
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getUpClassName().equals(root.getName())) {
+				GoodsClassNode child = new GoodsClassNode(
+						list.get(i).getName(), list.get(i).getUpClassName());
+				root.children.add(child);
+				list.remove(i);
+				i--;
 			}
 		}
-		//end_tree
+
+		for (int i = 0; i < root.children.size(); i++) {
+			makeTree(root.children.get(i), list);
+		}
+
+	}
+
+	// 点击分类名显示该分类下的商品
+	class MouseHandle extends MouseAdapter {
+		public void mousePressed(MouseEvent e) {
+			try {
+				JTree tree = (JTree) e.getSource();
+				int rowLocation = tree.getRowForLocation(e.getX(), e.getY());
+				TreePath treepath = tree.getPathForRow(rowLocation);
+				TreeNode treenode = (TreeNode) treepath.getLastPathComponent();
+				nodeName = treenode.toString();
+			} catch (NullPointerException ne) {
+			}
+
+			StockGoodsBLService goodsController = new GoodsController();
+			ArrayList<GoodsVO> list = new ArrayList<GoodsVO>();
+			if (!nodeName.equals("灯具")) {
+				list = goodsController.showGoodsByClass(nodeName);
+			} else {
+				list = goodsController.showGoods();
+			}
+			Refresh(list);
+			goodsTbl.revalidate();
+		}
+	}
+
+	// end_tree
 	class GoodsTblModel extends AbstractTableModel {
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		String head[] = { "商品编号", "商品名", "型号" ,"售价"};
+		String head[] = { "商品编号", "商品名", "型号", "售价" };
+
 		public int getRowCount() {
 			return leftTblMessage.size();
 		}
@@ -350,10 +360,12 @@ public class DiscountDialog extends JDialog{
 		public String getColumnName(int column) {
 			return head[column];
 		}
-		public void addRow(ArrayList<String> v){
+
+		public void addRow(ArrayList<String> v) {
 			leftTblMessage.add(v);
 		}
-		public void removeRow(int row){
+
+		public void removeRow(int row) {
 			leftTblMessage.remove(row);
 		}
 	}
@@ -368,12 +380,15 @@ public class DiscountDialog extends JDialog{
 		public int getRowCount() {
 			return rightTblMessage.size();
 		}
-		public void addRow(ArrayList<String> v){
+
+		public void addRow(ArrayList<String> v) {
 			rightTblMessage.add(v);
 		}
-		public void removeRow(int row){
+
+		public void removeRow(int row) {
 			rightTblMessage.remove(row);
 		}
+
 		public int getColumnCount() {
 			return head.length;
 		}
@@ -386,22 +401,22 @@ public class DiscountDialog extends JDialog{
 			return head[column];
 		}
 	}
-	
-	public void Refresh(ArrayList<GoodsVO> VO){
-		leftTblMessage=new ArrayList<ArrayList<String>>();
-		 for(GoodsVO vo:VO){
-			 ArrayList<String> line=new ArrayList<String>();
-			 line.add(vo.getGoodsID());
-			 line.add(vo.getName());
-			 line.add(vo.getSize());
-			 line.add(Double.toString(vo.getPrice()));
-			 leftTblMessage.add(line);
-		 }
+
+	public void Refresh(ArrayList<GoodsVO> VO) {
+		leftTblMessage = new ArrayList<ArrayList<String>>();
+		for (GoodsVO vo : VO) {
+			ArrayList<String> line = new ArrayList<String>();
+			line.add(vo.getGoodsID());
+			line.add(vo.getName());
+			line.add(vo.getSize());
+			line.add(Double.toString(vo.getPrice()));
+			leftTblMessage.add(line);
+		}
 	}
-	
-	public int FindInRight(String id){
-		for(int i=0;i<rightTblMessage.size();i++){
-			if(id.equals(rightTblMessage.get(i).get(0)))
+
+	public int FindInRight(String id) {
+		for (int i = 0; i < rightTblMessage.size(); i++) {
+			if (id.equals(rightTblMessage.get(i).get(0)))
 				return i;
 		}
 		return -1;

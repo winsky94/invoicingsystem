@@ -36,13 +36,12 @@ import businesslogic.userbl.User;
 import businesslogicservice.salesblservice.SaleListBLService;
 import businesslogicservice.userblservice.UserBLService;
 
-
-public class PurchaseMgrPanel extends JPanel implements ActionListener{
+public class PurchaseMgrPanel extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	MyButton purchaseBtn, purchaseReturnBtn, searchBtn,refreshBtn,detailBtn;
+	MyButton purchaseBtn, purchaseReturnBtn, searchBtn, refreshBtn, detailBtn;
 	JTable table;
 	JTextField searchFld;
 	String keyWord;
@@ -51,18 +50,19 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 	JScrollPane jsp;
 	PurchaseMgrModel pmm;
 	SaleListBLService listservice;
-	ArrayList<ArrayList<String>> c=new ArrayList<ArrayList<String>>();
+	ArrayList<ArrayList<String>> c = new ArrayList<ArrayList<String>>();
+
 	public PurchaseMgrPanel(MainFrame frame) throws Exception {
-		parent=frame;
-		listservice=new SaleList();
+		parent = frame;
+		listservice = new SaleList();
 		this.setBackground(Color.WHITE);
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(3, 3, 3, 3);
 		c.fill = GridBagConstraints.BOTH;
-		//-----------------------------
-		JPanel btnPnl=new JPanel();
+		// -----------------------------
+		JPanel btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 0;
@@ -72,54 +72,53 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 		c.weighty = 0.1;
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
-		//---------创建进货单--------------
+		// ---------创建进货单--------------
 		purchaseBtn = new MyButton("创建进货单", new ImageIcon(
 				"img/sales/purchase-blue.png"));
 		purchaseBtn.addActionListener(this);
 		btnPnl.add(purchaseBtn);
-		//--------创建进货退货单-------------
+		// --------创建进货退货单-------------
 		purchaseReturnBtn = new MyButton("创建进货退货单", new ImageIcon(
 				"img/sales/disapproved-blue.png"));
 		purchaseReturnBtn.addActionListener(this);
 		btnPnl.add(purchaseReturnBtn);
-		//---------refresh----------------
+		// ---------refresh----------------
 		refreshBtn = new MyButton("刷新", new ImageIcon(
 				"img/sales/refresh-blue.png"));
 		refreshBtn.addActionListener(this);
 		btnPnl.add(refreshBtn);
-		//---------detail------------------
-		detailBtn = new MyButton("查看详情", new ImageIcon(
-				"img/sales/detail.png"));
+		// ---------detail------------------
+		detailBtn = new MyButton("查看详情", new ImageIcon("img/sales/detail.png"));
 		detailBtn.addActionListener(this);
 		btnPnl.add(detailBtn);
-		//--------搜索-------------------
+		// --------搜索-------------------
 		searchFld = new JTextField(15);
 		searchFld.setFont(new Font("楷体", Font.BOLD, 13));
 		searchFld.getDocument().addDocumentListener(new SearchFldListener());
 		btnPnl.add(searchFld);
-		//---------------------------------
+		// ---------------------------------
 		searchBtn = new MyButton(new ImageIcon("img/sales/find-blue.png"));
 		searchBtn.addActionListener(new SearchBtnListener());
 		btnPnl.add(searchBtn);
-		//----------------------------------
+		// ----------------------------------
 		//
 		/*
 		 * 
 		 * 
 		 * 这个表格BL来搞一下~注入信息
 		 */
-		pmm=new PurchaseMgrModel();
+		pmm = new PurchaseMgrModel();
 		table = new JTable(pmm);
+		table.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
-				for (int i = 0; i < table.getColumnCount(); i++) {
-					table.getColumn(table.getColumnName(i)).setCellRenderer(
-							tcr);
-				}
-		jsp=new JScrollPane(table);
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < table.getColumnCount(); i++) {
+			table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
+		}
+		jsp = new JScrollPane(table);
 		c.gridx = 0;
 		c.gridy = 2;
-		c.gridheight =6;
+		c.gridheight = 6;
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.weightx = 1;
 		c.weighty = 1;
@@ -127,13 +126,13 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 		this.add(jsp);
 	}
 
-//	public void RefreshPurchaseTabel(ArrayList<ReceiptVO> VO){
-//		ArrayList<ArrayList<String>> c=ctm.getContent();
-//		for(ReceiptVO vo:VO){
-//			//if(Receipt)
-//		}
-//		
-//	}
+	// public void RefreshPurchaseTabel(ArrayList<ReceiptVO> VO){
+	// ArrayList<ArrayList<String>> c=ctm.getContent();
+	// for(ReceiptVO vo:VO){
+	// //if(Receipt)
+	// }
+	//
+	// }
 
 	class SearchFldListener implements DocumentListener {
 
@@ -163,59 +162,66 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		try {
-		if(e.getSource()==purchaseBtn)
-			
+			if (e.getSource() == purchaseBtn)
+
 				parent.setRightComponent(new PurchasePane(parent));
-			
-		else if(e.getSource()==purchaseReturnBtn)
-		{	int t=table.getSelectedRow();
-			if(t>=0){
-				String pid=c.get(t).get(0);
-				parent.setRightComponent(new PurchaseReturnPane(parent,pid));
-				}
-			else JOptionPane.showMessageDialog(null, "请选择一条进货单进行退货!","提示",JOptionPane.WARNING_MESSAGE);
-			
-		}else if(e.getSource()==detailBtn){
-			int t=table.getSelectedRow();
-			if(t>=0){
-				String pid=c.get(t).get(0);
-				parent.setRightComponent(new ViewPurchasePanel(parent,pid));
+
+			else if (e.getSource() == purchaseReturnBtn) {
+				int t = table.getSelectedRow();
+				if (t >= 0) {
+					String pid = c.get(t).get(0);
+					parent.setRightComponent(new PurchaseReturnPane(parent, pid));
+				} else
+					JOptionPane.showMessageDialog(null, "请选择一条进货单进行退货!", "提示",
+							JOptionPane.WARNING_MESSAGE);
+
+			} else if (e.getSource() == detailBtn) {
+				int t = table.getSelectedRow();
+				if (t >= 0) {
+					String pid = c.get(t).get(0);
+					parent.setRightComponent(new ViewPurchasePanel(parent, pid));
+				} else
+					JOptionPane.showMessageDialog(null, "请选择一条进货单进行查看!", "提示",
+							JOptionPane.WARNING_MESSAGE);
 			}
-			else JOptionPane.showMessageDialog(null, "请选择一条进货单进行查看!","提示",JOptionPane.WARNING_MESSAGE);
-		}
-			
+
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
-	class MyButton extends JButton{
+
+	class MyButton extends JButton {
 
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		MyButton(String text,Icon icon){
-			super(text,icon);
+
+		MyButton(String text, Icon icon) {
+			super(text, icon);
 			this.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 			this.setForeground(new Color(47, 73, 136));
 			this.setBorderPainted(false);
 			this.setBackground(Color.white);
 			this.setFocusPainted(false);
 		}
-		MyButton(Icon icon){
+
+		MyButton(Icon icon) {
 			super(icon);
 			this.setBorderPainted(false);
 			this.setBackground(Color.white);
 			this.setFocusPainted(false);
 		}
 	}
-	class PurchaseMgrModel extends AbstractTableModel{
+
+	class PurchaseMgrModel extends AbstractTableModel {
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		String head[]={"单据编号","日期","状态","类型","供应商","操作员","总额合计"};
+		String head[] = { "单据编号", "日期", "状态", "类型", "供应商", "操作员", "总额合计" };
+
 		public int getRowCount() {
 			return c.size();
 		}
@@ -227,63 +233,64 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 		public Object getValueAt(int row, int col) {
 			return c.get(row).get(col);
 		}
-		public String getColumnName(int col){
+
+		public String getColumnName(int col) {
 			return head[col];
 		}
-		public void addRow(ArrayList<String> v){
+
+		public void addRow(ArrayList<String> v) {
 			c.add(v);
 		}
-		public void removeRow(int row){
+
+		public void removeRow(int row) {
 			c.remove(row);
 		}
 	}
-	//加急置顶显示  显示图标
-	//单据编号","日期","状态","类型","供应商","操作员","总额合计
-	public void RefreshPurchaseList(ArrayList<ReceiptVO> vo) throws Exception{
-		UserBLService user=new User();
-		for(int i=0;i<vo.size();i++){
-			ReceiptVO v=vo.get(i);
-			ArrayList<String> line=new ArrayList<String>();
+
+	// 加急置顶显示 显示图标
+	// 单据编号","日期","状态","类型","供应商","操作员","总额合计
+	public void RefreshPurchaseList(ArrayList<ReceiptVO> vo) throws Exception {
+		UserBLService user = new User();
+		for (int i = 0; i < vo.size(); i++) {
+			ReceiptVO v = vo.get(i);
+			ArrayList<String> line = new ArrayList<String>();
 			line.add(v.getId());
 			line.add(v.getDate());
-			int s=v.getStatus();
-			if(s==0){
+			int s = v.getStatus();
+			if (s == 0) {
 				line.add("待审批");
-			}else if(s==1)
+			} else if (s == 1)
 				line.add("审批不通过");
-			else if(s==2)
+			else if (s == 2)
 				line.add("审批通过");
-			else if(s==3)line.add("执行完毕");
-			
-			String name=user.showUser(v.getUser()).getName();
-			if(v.getType()==ReceiptType.PURCHASE)
-			{
-				line.add("进货单");;
-			PurchaseVO pv=(PurchaseVO)v;line.add(v.getMemberName());line.add(name);
-				line.add(pv.getTotalInAll()+"");
-			}else{
+			else if (s == 3)
+				line.add("执行完毕");
+
+			String name = user.showUser(v.getUser()).getName();
+			if (v.getType() == ReceiptType.PURCHASE) {
+				line.add("进货单");
+				;
+				PurchaseVO pv = (PurchaseVO) v;
+				line.add(v.getMemberName());
+				line.add(name);
+				line.add(pv.getTotalInAll() + "");
+			} else {
 				line.add("进货退货单");
-				PurchaseReturnVO prv=(PurchaseReturnVO)v;
-				line.add(v.getMemberName());line.add(name);
-				line.add(prv.getTotalInAll()+"");
+				PurchaseReturnVO prv = (PurchaseReturnVO) v;
+				line.add(v.getMemberName());
+				line.add(name);
+				line.add(prv.getTotalInAll() + "");
 			}
-			
+
 			c.add(line);
-			
-			
-			
-			
-				
-				
-				
-			
+
 		}
 	}
-	
-	public void RefreshPanel() throws Exception{
-		if(listservice.getAllSale()!=null)
-			PurchaseMgrPanel.this.RefreshPurchaseList(listservice.getAllPurchase());
-	}
-	
-}
 
+	public void RefreshPanel() throws Exception {
+		if (listservice.getAllSale() != null)
+			PurchaseMgrPanel.this.RefreshPurchaseList(listservice
+					.getAllPurchase());
+	}
+
+}

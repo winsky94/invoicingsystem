@@ -94,6 +94,8 @@ public class MemberMgrPanel extends JPanel {
 
 		utm = new MemberTableModel();
 		memberTable = new JTable(utm);
+		memberTable.getTableHeader().setReorderingAllowed(false);
+
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 		for (int i = 0; i < memberTable.getColumnCount(); i++) {

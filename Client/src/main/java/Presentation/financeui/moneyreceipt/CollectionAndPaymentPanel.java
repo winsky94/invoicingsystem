@@ -109,12 +109,13 @@ public class CollectionAndPaymentPanel extends JPanel {
 		left.setLayout(lgbl);
 		tlm = new TransferListModel(content);
 		table = new JTable(tlm);
+		table.getTableHeader().setReorderingAllowed(false);
+
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
-				for (int i = 0; i < table.getColumnCount(); i++) {
-					table.getColumn(table.getColumnName(i)).setCellRenderer(
-							tcr);
-				}
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < table.getColumnCount(); i++) {
+			table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
+		}
 		jsp = new JScrollPane(table);
 		lc.gridx = 0;
 		lc.gridy = 0;
@@ -149,12 +150,12 @@ public class CollectionAndPaymentPanel extends JPanel {
 		// accountFld = new JTextField(10);
 		// accountFld.setFont(font);
 		// item1.add(accountFld);
-		
-		ArrayList<String> st=new ArrayList<String>();
-		FinanceAccountBLService fin=null;
+
+		ArrayList<String> st = new ArrayList<String>();
+		FinanceAccountBLService fin = null;
 		try {
-			fin=new Account();
-			
+			fin = new Account();
+
 		} catch (MalformedURLException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -165,21 +166,20 @@ public class CollectionAndPaymentPanel extends JPanel {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		ArrayList<AccountVO> account=fin.showAll();
-		if(account==null){
+		ArrayList<AccountVO> account = fin.showAll();
+		if (account == null) {
 			String accountText[] = { "当前无账户可选" };
 			accountBox = new JComboBox<String>(accountText);
 			accountBox.setEditable(false);
-		}
-		else{
-			for(AccountVO vo:account){
-			    st.add(vo.getName());
-		    }
-		    String accountText[] =new String[st.size()]; 
-		    for(int i=0;i<st.size();i++){
-		    	accountText[i]=st.get(i);
-		    }
-		    accountBox = new JComboBox<String>(accountText);
+		} else {
+			for (AccountVO vo : account) {
+				st.add(vo.getName());
+			}
+			String accountText[] = new String[st.size()];
+			for (int i = 0; i < st.size(); i++) {
+				accountText[i] = st.get(i);
+			}
+			accountBox = new JComboBox<String>(accountText);
 		}
 		accountBox.setFont(font);
 		accountBox.setBackground(Color.white);
@@ -211,29 +211,29 @@ public class CollectionAndPaymentPanel extends JPanel {
 								JOptionPane.WARNING_MESSAGE);
 					else {
 						TransferItemVO item;
-					try{
-						item= new TransferItemVO(
-								(String) accountBox.getSelectedItem(), Double
-										.parseDouble(moneyFld.getText()),
-								remarkFld.getText());
-						tra.add(item);
-						ArrayList<String> buffer = new ArrayList<String>();
-						buffer.add((String) accountBox.getSelectedItem());
-						buffer.add(moneyFld.getText());
-						buffer.add(remarkFld.getText());
-						tlm.addRow(buffer);
-						table.revalidate();
-						accountBox.setSelectedIndex(0);
-						totalMoney += Double.parseDouble(moneyFld.getText());
-						totalLbl.setText("总额汇总:" + totalMoney);
-						moneyFld.setText("");
-						remarkFld.setText("");
-					}catch(NumberFormatException e11){
-						JOptionPane.showMessageDialog(null, "转账金额输入有误", "提示",
-								JOptionPane.WARNING_MESSAGE);
-						moneyFld.setText("");
-					}
-						
+						try {
+							item = new TransferItemVO((String) accountBox
+									.getSelectedItem(), Double
+									.parseDouble(moneyFld.getText()), remarkFld
+									.getText());
+							tra.add(item);
+							ArrayList<String> buffer = new ArrayList<String>();
+							buffer.add((String) accountBox.getSelectedItem());
+							buffer.add(moneyFld.getText());
+							buffer.add(remarkFld.getText());
+							tlm.addRow(buffer);
+							table.revalidate();
+							accountBox.setSelectedIndex(0);
+							totalMoney += Double.parseDouble(moneyFld.getText());
+							totalLbl.setText("总额汇总:" + totalMoney);
+							moneyFld.setText("");
+							remarkFld.setText("");
+						} catch (NumberFormatException e11) {
+							JOptionPane.showMessageDialog(null, "转账金额输入有误",
+									"提示", JOptionPane.WARNING_MESSAGE);
+							moneyFld.setText("");
+						}
+
 					}
 				}
 			}
@@ -255,8 +255,7 @@ public class CollectionAndPaymentPanel extends JPanel {
 								.getValueAt(seleted, 0), Double.parseDouble(tlm
 								.getValueAt(seleted, 1)), tlm.getValueAt(
 								seleted, 2));
-						
-						
+
 						tra.remove(item);
 						totalMoney -= Double.parseDouble(tlm.getValueAt(
 								seleted, 1));
@@ -280,8 +279,8 @@ public class CollectionAndPaymentPanel extends JPanel {
 		// -----------user---------------------
 		JPanel userPnl = new JPanel();
 		userPnl.setBackground(Color.white);
-		user=parent.getUser().getName();
-		userLbl = new JLabel("操作员: "+user);
+		user = parent.getUser().getName();
+		userLbl = new JLabel("操作员: " + user);
 		userLbl.setFont(font);
 		userPnl.add(userLbl);
 		right.add(userPnl);
@@ -292,12 +291,12 @@ public class CollectionAndPaymentPanel extends JPanel {
 		JLabel supplierLbl = new JLabel("供应商：");
 		supplierLbl.setFont(font);
 		supplierPnl.add(supplierLbl);
-	//_____________
-		ArrayList<String> mn1=new ArrayList<String>();
-		MemberBLService mem=null;
+		// _____________
+		ArrayList<String> mn1 = new ArrayList<String>();
+		MemberBLService mem = null;
 		try {
-			mem=new Member();
-			
+			mem = new Member();
+
 		} catch (MalformedURLException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -308,24 +307,23 @@ public class CollectionAndPaymentPanel extends JPanel {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		ArrayList<MemberVO> member1=mem.show(MemberType.JHS);
-		if(member1==null){
+		ArrayList<MemberVO> member1 = mem.show(MemberType.JHS);
+		if (member1 == null) {
 			String supplierText[] = { "当前无供应商可选" };
 			supplierBox = new JComboBox<String>(supplierText);
 			supplierBox.setEditable(false);
+		} else {
+			for (MemberVO vo : member1) {
+				mn1.add(vo.getName());
+			}
+			String supplierText[] = new String[mn1.size()];
+			for (int i = 0; i < mn1.size(); i++) {
+				supplierText[i] = mn1.get(i);
+			}
+			supplierBox = new JComboBox<String>(supplierText);
 		}
-		else{
-			for(MemberVO vo:member1){
-			    mn1.add(vo.getName());
-		    }
-		    String supplierText[] =new String[mn1.size()]; 
-		    for(int i=0;i<mn1.size();i++){
-		    	supplierText[i]=mn1.get(i);
-		    }
-		    supplierBox = new JComboBox<String>(supplierText);
-		}
-    //_____________
-		
+		// _____________
+
 		supplierBox.setFont(font);
 		supplierBox.setBackground(Color.white);
 		supplierPnl.add(supplierBox);
@@ -336,26 +334,25 @@ public class CollectionAndPaymentPanel extends JPanel {
 		JLabel sellerLbl = new JLabel("销售商：");
 		sellerLbl.setFont(font);
 		sellerPnl.add(sellerLbl);
-//______________
-		ArrayList<MemberVO> member2=mem.show(MemberType.XSS);
-		ArrayList<String> mn2=new ArrayList<String>();
-		if(member2==null){
+		// ______________
+		ArrayList<MemberVO> member2 = mem.show(MemberType.XSS);
+		ArrayList<String> mn2 = new ArrayList<String>();
+		if (member2 == null) {
 			String sellerText[] = { "当前无销售商可选" };
 			sellerBox = new JComboBox<String>(sellerText);
 			sellerBox.setEditable(false);
+		} else {
+			for (MemberVO vo : member2) {
+				mn2.add(vo.getName());
+			}
+			String sellerText[] = new String[mn2.size()];
+			for (int i = 0; i < mn2.size(); i++) {
+				sellerText[i] = mn2.get(i);
+			}
+			sellerBox = new JComboBox<String>(sellerText);
 		}
-		else{
-			for(MemberVO vo:member2){
-			    mn2.add(vo.getName());
-		    }
-		    String sellerText[] =new String[mn2.size()]; 
-		    for(int i=0;i<mn2.size();i++){
-		    	sellerText[i]=mn2.get(i);
-		    }
-		    sellerBox = new JComboBox<String>(sellerText);
-		}
-//______________
-		
+		// ______________
+
 		sellerBox.setFont(font);
 		sellerBox.setBackground(Color.white);
 		sellerPnl.add(sellerBox);

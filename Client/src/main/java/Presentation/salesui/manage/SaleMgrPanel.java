@@ -47,9 +47,10 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 	String keyWord;
 	MainFrame parent;
 	businesslogicservice.salesblservice.SaleListBLService listservice;
+
 	public SaleMgrPanel(MainFrame frame) throws Exception {
 		parent = frame;
-		listservice=new SaleList();
+		listservice = new SaleList();
 		this.setBackground(Color.WHITE);
 		GridBagLayout gbl = new GridBagLayout();
 		this.setLayout(gbl);
@@ -103,12 +104,12 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 		 */
 		smm = new SaleMgrModel();
 		table = new JTable(smm);
+		table.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
-				for (int i = 0; i < table.getColumnCount(); i++) {
-					table.getColumn(table.getColumnName(i)).setCellRenderer(
-							tcr);
-				}
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < table.getColumnCount(); i++) {
+			table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
+		}
 		jsp = new JScrollPane(table);
 		c.gridx = 0;
 		c.gridy = 2;
@@ -149,7 +150,7 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		if (e.getSource() == saleBtn) {
 			try {
-		
+
 				parent.setRightComponent(new SalePane(parent));
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
@@ -159,8 +160,6 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 			parent.setRightComponent(new SaleReturnPane(parent));
 
 	}
-	
-
 
 	class MyButton extends JButton {
 
@@ -218,53 +217,50 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 			c.remove(row);
 		}
 	}
+
 	// "单据编号", "日期", "状态", "类型", "销售商", "操作员", "折让前金额",
-	//"折让后金额" 
-	public void RefreshSaleTable(ArrayList<ReceiptVO> vo) throws Exception{
-		UserBLService user=new User();
-		for(int i=0;i<vo.size();i++){
-			ReceiptVO v=vo.get(i);
-			ArrayList<String> line=new ArrayList<String>();
+	// "折让后金额"
+	public void RefreshSaleTable(ArrayList<ReceiptVO> vo) throws Exception {
+		UserBLService user = new User();
+		for (int i = 0; i < vo.size(); i++) {
+			ReceiptVO v = vo.get(i);
+			ArrayList<String> line = new ArrayList<String>();
 			line.add(v.getId());
 			line.add(v.getDate());
-			int s=v.getStatus();
-			if(s==0){
+			int s = v.getStatus();
+			if (s == 0) {
 				line.add("待审批");
-			}else if(s==1)
+			} else if (s == 1)
 				line.add("审批不通过");
-			else if(s==2)
+			else if (s == 2)
 				line.add("待执行");
-			else if(s==3)line.add("执行完毕");
-			String name=user.showUser(v.getUser()).getName();
-			if(v.getType()==ReceiptType.SALE)
-			{
-				line.add("销售单");;
-			SaleVO pv=(SaleVO)v;line.add(v.getMemberName());line.add(name);
-				line.add(pv.getTotalOrigin()+"");line.add(pv.getTotalValue()+"");
-			}else{
+			else if (s == 3)
+				line.add("执行完毕");
+			String name = user.showUser(v.getUser()).getName();
+			if (v.getType() == ReceiptType.SALE) {
+				line.add("销售单");
+				;
+				SaleVO pv = (SaleVO) v;
+				line.add(v.getMemberName());
+				line.add(name);
+				line.add(pv.getTotalOrigin() + "");
+				line.add(pv.getTotalValue() + "");
+			} else {
 				line.add("销售退货单");
-				SaleReturnVO prv=(SaleReturnVO)v;
-				line.add(v.getMemberName());line.add(name);
-				line.add(prv.getTotal()[1]+"");line.add(prv.getTotal()[2]+"");
+				SaleReturnVO prv = (SaleReturnVO) v;
+				line.add(v.getMemberName());
+				line.add(name);
+				line.add(prv.getTotal()[1] + "");
+				line.add(prv.getTotal()[2] + "");
 			}
-			
+
 			c.add(line);
-			
-			
-			
-			
-				
-				
-				
-			
+
 		}
 	}
-	
-	public void RefreshPanel() throws Exception{
-		if(listservice.getAllSale()!=null)
+
+	public void RefreshPanel() throws Exception {
+		if (listservice.getAllSale() != null)
 			SaleMgrPanel.this.RefreshSaleTable(listservice.getAllSale());
 	}
 }
-
-
-

@@ -112,6 +112,7 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 		this.add(memberPnl);
 		// ---------table--------------------------
 		table = new JTable();
+		table.getTableHeader().setReorderingAllowed(false);
 		jsp = new JScrollPane(table);
 		cons.gridx = 0;
 		cons.gridy = 4;

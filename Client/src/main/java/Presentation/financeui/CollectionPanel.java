@@ -127,6 +127,8 @@ public class CollectionPanel extends JPanel implements ActionListener {
 		cm1 = new CollectionModel(c1);
 		t1 = new JTable(cm1);
 		t1.getColumnModel().getColumn(0).setPreferredWidth(100);
+		t1.getTableHeader().setReorderingAllowed(false);
+
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 		for (int i = 0; i < t1.getColumnCount(); i++) {
@@ -138,6 +140,8 @@ public class CollectionPanel extends JPanel implements ActionListener {
 		cm2 = new CollectionModel(c2);
 		t2 = new JTable(cm2);
 		t2.getColumnModel().getColumn(0).setPreferredWidth(100);
+		t2.getTableHeader().setReorderingAllowed(false);
+
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		for (int i = 0; i < t2.getColumnCount(); i++) {
 			t2.getColumn(t2.getColumnName(i)).setCellRenderer(tcr);
@@ -148,6 +152,7 @@ public class CollectionPanel extends JPanel implements ActionListener {
 		cashm = new CashModel();
 		t3 = new JTable(cashm);
 		t3.getColumnModel().getColumn(0).setPreferredWidth(100);
+		t3.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		for (int i = 0; i < t3.getColumnCount(); i++) {
 			t3.getColumn(t3.getColumnName(i)).setCellRenderer(tcr);

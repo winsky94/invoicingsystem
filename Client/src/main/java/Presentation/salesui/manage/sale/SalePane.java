@@ -68,8 +68,8 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 	ArrayList<Double> last_bid = new ArrayList<Double>();
 	double[] total = new double[5];
 	double[] discount = new double[4];
-	String proid=null,couponid="";
-	double pre=0,coupon=0;
+	String proid = null, couponid = "";
+	double pre = 0, coupon = 0;
 	// public MainFrame parent;
 	SalesBLService service;
 
@@ -133,7 +133,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 
 		MemberViewService mem = new Member();
 		ArrayList<MemberVO> mvo = mem.showMembers();
-		int size=mem.getSaleNum();
+		int size = mem.getSaleNum();
 		String boxText[] = new String[size + 1];
 		idtxt = new String[size];
 		clerk = new String[size];
@@ -157,9 +157,9 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				// TODO Auto-generated method stub
-				if(XSSBox.getSelectedIndex()!=0)
-				clerkFld.setText(clerk[XSSBox.getSelectedIndex() - 1]);
-				pre=service.getPrivilege(idtxt[XSSBox.getSelectedIndex() - 1]);
+				if (XSSBox.getSelectedIndex() != 0)
+					clerkFld.setText(clerk[XSSBox.getSelectedIndex() - 1]);
+				pre = service.getPrivilege(idtxt[XSSBox.getSelectedIndex() - 1]);
 			}
 		});
 		p1.add(new JLabel("      "));
@@ -236,12 +236,12 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		ctm = new CommodityTableModel();
 		cmContent = ctm.getContent();
 		table = new JTable(ctm);
+		table.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
-				for (int i = 0; i < table.getColumnCount(); i++) {
-					table.getColumn(table.getColumnName(i)).setCellRenderer(
-							tcr);
-				}
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < table.getColumnCount(); i++) {
+			table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
+		}
 		jsp = new JScrollPane(table);
 		c.gridx = 0;
 		c.gridy = 5;
@@ -284,7 +284,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 				}
 
 			}
-			
+
 		});
 		// -------buttons-----------------
 		JPanel btnPnl = new JPanel();
@@ -357,51 +357,49 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 				parent.setRightComponent(sp);
 				sp.RefreshPanel();
 
-			}
-			else if(e.getSource()==discountMoneyFld){
-				double dis=0;
-				try{
-					dis=Double.parseDouble(discountMoneyFld.getText());
-					UserJob job=parent.getUser().getJob();
-					if(dis>=0)
-						if(job==UserJob.SALEMANAGER&&dis>5000)
-							{JOptionPane.showMessageDialog(null, "您最多可折让5000元！", "提示",
-									JOptionPane.WARNING_MESSAGE);
+			} else if (e.getSource() == discountMoneyFld) {
+				double dis = 0;
+				try {
+					dis = Double.parseDouble(discountMoneyFld.getText());
+					UserJob job = parent.getUser().getJob();
+					if (dis >= 0)
+						if (job == UserJob.SALEMANAGER && dis > 5000) {
+							JOptionPane.showMessageDialog(null, "您最多可折让5000元！",
+									"提示", JOptionPane.WARNING_MESSAGE);
 							discountMoneyFld.setText("");
-							}
-						else if(job==UserJob.SALE&&dis>1000){
-							JOptionPane.showMessageDialog(null, "您最多可折让1000元！", "提示",
-									JOptionPane.WARNING_MESSAGE);
-							discountMoneyFld.setText("");	
+						} else if (job == UserJob.SALE && dis > 1000) {
+							JOptionPane.showMessageDialog(null, "您最多可折让1000元！",
+									"提示", JOptionPane.WARNING_MESSAGE);
+							discountMoneyFld.setText("");
+						} else {
+							discount[2] = dis;
+							matchPromotion();
 						}
-						else {discount[2]=dis;matchPromotion();}
-					else{
-						JOptionPane.showMessageDialog(null, "请输入不小于0的合法数值！", "提示",
-								JOptionPane.WARNING_MESSAGE);
+					else {
+						JOptionPane.showMessageDialog(null, "请输入不小于0的合法数值！",
+								"提示", JOptionPane.WARNING_MESSAGE);
 					}
-				}catch(Exception ee){
+				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(null, "请输入数字！", "提示",
 							JOptionPane.WARNING_MESSAGE);
 					discountMoneyFld.setText("");
 				}
-			}else if(e.getSource()==couponBtn){
-				UseCouponDialog dia=new UseCouponDialog(SalePane.this);
-			}else if(e.getSource()==submitBtn){
+			} else if (e.getSource() == couponBtn) {
+				UseCouponDialog dia = new UseCouponDialog(SalePane.this);
+			} else if (e.getSource() == submitBtn) {
 				getSale();
-				int result=service.addSale(sale);
-				if(result==0)
-					{JOptionPane.showMessageDialog(null, "销售单创建成功！", "提示",
+				int result = service.addSale(sale);
+				if (result == 0) {
+					JOptionPane.showMessageDialog(null, "销售单创建成功！", "提示",
 							JOptionPane.OK_OPTION);
 					SaleMgrPanel sp = new SaleMgrPanel(parent);
 					parent.setRightComponent(sp);
 					sp.RefreshPanel();
-					
-					}
-				else
+
+				} else
 					JOptionPane.showMessageDialog(null, "销售单创建失败", "提示",
 							JOptionPane.WARNING_MESSAGE);
-					
-					
+
 			}
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
@@ -415,29 +413,28 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 				ArrayList<String> line = new ArrayList<String>();
 				GoodsVO vo = (GoodsVO) VO.get(i);
 				int exist = findExistLine(vo.getGoodsID());
-				if(exist<0){
-				line.add(vo.getGoodsID());
-				line.add(vo.getName());
-				line.add(vo.getSize());
-				line.add("1");// 可改动
-				String p;
-				p = Double.toString(vo.getPrice());
-				line.add(p);
-				line.add(p);
-				line.add("");
-				cmContent.add(line);
-				last_bid.add(vo.getLastPurchasePrice());
-			}
-				else{
+				if (exist < 0) {
+					line.add(vo.getGoodsID());
+					line.add(vo.getName());
+					line.add(vo.getSize());
+					line.add("1");// 可改动
+					String p;
+					p = Double.toString(vo.getPrice());
+					line.add(p);
+					line.add(p);
+					line.add("");
+					cmContent.add(line);
+					last_bid.add(vo.getLastPurchasePrice());
+				} else {
 					String newNum = cmContent.get(exist).get(3);
-					int num = Integer.parseInt(newNum)+1;
+					int num = Integer.parseInt(newNum) + 1;
 					String price = cmContent.get(exist).get(4);
 					Double toal = num * Double.parseDouble(price);
 					cmContent.get(exist).set(3, num + "");
 					cmContent.get(exist).set(5, toal + "");
-					
+
 				}
-				//total[0]+=vo.getLastPurchasePrice();
+				// total[0]+=vo.getLastPurchasePrice();
 			}
 		} else {
 			for (int i = 0; i < VO.size(); i++) {
@@ -452,14 +449,14 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 				cmContent.add(line);
 			}
 		}
-		total[1]=0;
+		total[1] = 0;
 		for (int i = 0; i < cmContent.size(); i++)
 			total[1] += Double.parseDouble(cmContent.get(i).get(5));
 		totalOriginLbl.setText("原初总价:" + total[1] + "元");
 		matchPromotion();
 
 	}
-	
+
 	private int findExistLine(String id) {
 		for (int i = 0; i < cmContent.size(); i++) {
 			if (id.equals(cmContent.get(i).get(0)))
@@ -468,107 +465,115 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		return -1;
 	}
 
-	public void getSale(){
-			ArrayList<CommodityVO> cmlist=new ArrayList<CommodityVO>();
-			for(int j=0;j<table.getRowCount();j++){
-				ArrayList<String> line=cmContent.get(j);
-				double cost=Double.parseDouble(line.get(4))*last_bid.get(j);
-				CommodityVO cv=new CommodityVO(line.get(0),line.get(1),
-						line.get(2),Double.parseDouble(line.get(4)),last_bid.get(j),
-						Integer.parseInt(line.get(3)),
-						Double.parseDouble(line.get(5)),cost,line.get(6));
-				cmlist.add(cv);
-			}
-			getCost();
-			String memid="";
-			int i=XSSBox.getSelectedIndex()-1;
-			if(i>=0)
-				memid=idtxt[i];
-			
-			String mem=XSSBox.getSelectedItem().toString();
-			int hurry=1;
-			if(hurryBox.isSelected())
-				hurry=0;
-			sale=new SaleVO(clerkFld.getText(),cmlist,id,mem,memid,parent.getUser().getID(),
-					0,hurry,remarkFld.getText(),stockFld.getText(),proid,couponid,total,discount);
-			
-			
-	 }
-	
-	public void initialArray(){
-		for(int i=0;i<discount.length;i++){
-			discount[i]=0;
-			total[i]=0;
+	public void getSale() {
+		ArrayList<CommodityVO> cmlist = new ArrayList<CommodityVO>();
+		for (int j = 0; j < table.getRowCount(); j++) {
+			ArrayList<String> line = cmContent.get(j);
+			double cost = Double.parseDouble(line.get(4)) * last_bid.get(j);
+			CommodityVO cv = new CommodityVO(line.get(0), line.get(1),
+					line.get(2), Double.parseDouble(line.get(4)),
+					last_bid.get(j), Integer.parseInt(line.get(3)),
+					Double.parseDouble(line.get(5)), cost, line.get(6));
+			cmlist.add(cv);
 		}
-		total[total.length-1]=0;
+		getCost();
+		String memid = "";
+		int i = XSSBox.getSelectedIndex() - 1;
+		if (i >= 0)
+			memid = idtxt[i];
+
+		String mem = XSSBox.getSelectedItem().toString();
+		int hurry = 1;
+		if (hurryBox.isSelected())
+			hurry = 0;
+		sale = new SaleVO(clerkFld.getText(), cmlist, id, mem, memid, parent
+				.getUser().getID(), 0, hurry, remarkFld.getText(),
+				stockFld.getText(), proid, couponid, total, discount);
+
 	}
-	
-	public double getCost(){
-		total[0]=0;
+
+	public void initialArray() {
+		for (int i = 0; i < discount.length; i++) {
+			discount[i] = 0;
+			total[i] = 0;
+		}
+		total[total.length - 1] = 0;
+	}
+
+	public double getCost() {
+		total[0] = 0;
 		for (int i = 0; i < cmContent.size(); i++)
-			total[0] += Double.parseDouble(cmContent.get(i).get(3))*last_bid.get(i);
-		total[0]+=coupon;
+			total[0] += Double.parseDouble(cmContent.get(i).get(3))
+					* last_bid.get(i);
+		total[0] += coupon;
 		return total[0];
 	}
-	
-	//bug 特价包只算了一次份的
-	public void matchPromotion(){
+
+	// bug 特价包只算了一次份的
+	public void matchPromotion() {
 		try {
 			getSale();
-			PromotionMatchService proservice=new promotionController();
-			if(!sale.getMemberID().equals("")){
-			sale=proservice.Match(sale);
-			discount=sale.getDiscount();
-			total=sale.getTotal();
-			discount[1]=(total[1]-discount[0]-discount[2])*(1-pre);
-			discount[3]=discount[2]+discount[0]+discount[1];
-			total[2]=total[1]-discount[3];//总价
-			total[4]=total[2]-coupon;
-			if(total[4]<0)
-			{
-				total[3]=-total[4];total[4]=0;
-			}else	total[3]=0;
-			
-			proid=sale.getProid();
-			//sale.setDiscount(discount);
-			//sale.setTotal(total);
-			totalOriginLbl.setText("原初总价:"+sale.getTotalOrigin()+"元");
-			totalProDiscountLbl.setText("折让金额:"+(sale.getTotalOrigin()-sale.getTotalValue())+"元");
-			totalFinDiscountLbl.setText("折后总价:"+sale.getTotalValue()+"元");
-			totalToPayLbl.setText("客户应付总价:"+sale.getToPay()+"元");}
+			PromotionMatchService proservice = new promotionController();
+			if (!sale.getMemberID().equals("")) {
+				sale = proservice.Match(sale);
+				discount = sale.getDiscount();
+				total = sale.getTotal();
+				discount[1] = (total[1] - discount[0] - discount[2])
+						* (1 - pre);
+				discount[3] = discount[2] + discount[0] + discount[1];
+				total[2] = total[1] - discount[3];// 总价
+				total[4] = total[2] - coupon;
+				if (total[4] < 0) {
+					total[3] = -total[4];
+					total[4] = 0;
+				} else
+					total[3] = 0;
+
+				proid = sale.getProid();
+				// sale.setDiscount(discount);
+				// sale.setTotal(total);
+				totalOriginLbl.setText("原初总价:" + sale.getTotalOrigin() + "元");
+				totalProDiscountLbl.setText("折让金额:"
+						+ (sale.getTotalOrigin() - sale.getTotalValue()) + "元");
+				totalFinDiscountLbl.setText("折后总价:" + sale.getTotalValue()
+						+ "元");
+				totalToPayLbl.setText("客户应付总价:" + sale.getToPay() + "元");
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	public void couponUse(String id){
+
+	public void couponUse(String id) {
 		PromotionMatchService proservice;
 		try {
 			proservice = new promotionController();
-			coupon=proservice.getCouponValue(id);
-			if(coupon==-1)
-				JOptionPane.showMessageDialog(null, "该代金券编号不存在！", "提示",
-					JOptionPane.WARNING_MESSAGE);
-			else if(coupon==-2)
+			coupon = proservice.getCouponValue(id);
+			if (coupon == -1)
 				JOptionPane.showMessageDialog(null, "该代金券编号不存在！", "提示",
 						JOptionPane.WARNING_MESSAGE);
-			else{
-				couponid=id;
-				total[4]=total[2]-coupon;
+			else if (coupon == -2)
+				JOptionPane.showMessageDialog(null, "该代金券编号不存在！", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			else {
+				couponid = id;
+				total[4] = total[2] - coupon;
 				sale.setCouponid(id);
-				if(total[4]<0)
-					{total[3]=-total[4];total[4]=0;
-					couponBtn.setText("代金券抵消"+total[2]+"元");	
-					}
-				else couponBtn.setText("代金券抵消"+coupon+"元");
-				totalToPayLbl.setText("客户应付总价:"+total[4]+"元");
+				if (total[4] < 0) {
+					total[3] = -total[4];
+					total[4] = 0;
+					couponBtn.setText("代金券抵消" + total[2] + "元");
+				} else
+					couponBtn.setText("代金券抵消" + coupon + "元");
+				totalToPayLbl.setText("客户应付总价:" + total[4] + "元");
 			}
-				
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 }
