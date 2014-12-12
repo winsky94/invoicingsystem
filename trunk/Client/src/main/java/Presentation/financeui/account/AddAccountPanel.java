@@ -27,13 +27,13 @@ import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import Presentation.mainui.log;
 
-public class AddAccountPanel extends JPanel implements ActionListener{
+public class AddAccountPanel extends JPanel{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JTextField nameFld,moneyFld;
+	public JTextField nameFld,moneyFld;
 	public JButton submitBtn, exitBtn;
 	MainFrame parent;
 	FinanceAccountBLService service;
@@ -47,6 +47,7 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 	JLabel nameLbl,moneyLbl;
 	JPanel btnPnl;
     public AddListener add;
+    public ExitListener exit;
 	public AddAccountPanel(MainFrame frame)  throws Exception{
 		service=new Account();
 		parent=frame;
@@ -132,7 +133,8 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(251, 147, 121));
-		exitBtn.addActionListener(this);
+		exit=new ExitListener();
+		exitBtn.addActionListener(exit);
 		btnPnl.add(exitBtn);
 	}
 
@@ -187,6 +189,8 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 		}
 		
 	}
+	
+class ExitListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==exitBtn){
@@ -194,6 +198,7 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 		}
 		
 	}
+}
 	
 	public void Update() {
 		AccountPanel mgr = new AccountPanel(parent);

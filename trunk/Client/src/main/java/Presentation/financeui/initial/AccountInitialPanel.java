@@ -109,7 +109,7 @@ public class AccountInitialPanel extends JPanel {
 				st.add(vo.getName());
 			}
 			String accountText[] = new String[st.size()+1];
-			accountText[0]="请选择客户";
+			accountText[0]="请选择账户";
 			for (int i = 0; i < st.size(); i++) {
 				accountText[i+1] = st.get(i);
 			}
@@ -227,5 +227,9 @@ public class AccountInitialPanel extends JPanel {
 		line.add(String.valueOf(vo.getMoney()));
 		accountC.add(line);	
 	
+	}
+	
+	public void setParent(AddInitialPanel pane){
+		this.subparent=pane;
 	}
 }
