@@ -243,7 +243,7 @@ public class Goods {
 		if (po != null) {
 			vo = new GoodsVO(po.getGoodsID(), po.getName(), po.getSize(),
 					po.getNumInStock(), po.getPurchasePrice(), po.getPrice(),
-					po.getLastPurchasePrice(), po.getPrice(),
+					po.getLastPurchasePrice(), po.getLastPrice(),
 					po.getGoodsClassName(), po.getManufactureDate(),
 					po.getMinNumInStock());
 		}

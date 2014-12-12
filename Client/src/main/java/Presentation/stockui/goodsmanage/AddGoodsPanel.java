@@ -198,13 +198,20 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 						null, JOptionPane.WARNING_MESSAGE);
 				return;
 			}
+			try {
+				Integer.parseInt(minNumText);
+			} catch (NumberFormatException nfe) {
+				JOptionPane.showMessageDialog(null, "         请确定你的输入合法噢~",
+						null, JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			
 			StockGoodsBLService controller = new GoodsController();
 			String manufactoryDate = " ";
 			GoodsVO vo = new GoodsVO("", nameText, sizeText, 0,
 					Double.parseDouble(pPriceText),
 					Double.parseDouble(sPriceText), 0, 0, classText,
-					manufactoryDate);
+					manufactoryDate,Integer.parseInt(minNumText));
 			int result = controller.addGoods(vo);
 			if (result != 0) {
 				JOptionPane.showMessageDialog(null, "            该商品已存在", null,

@@ -18,7 +18,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -243,20 +242,13 @@ public class GoodsPanel extends JPanel implements ActionListener,
 						JOptionPane.WARNING_MESSAGE);
 			} else {
 				String id = (String) goodsModel.getValueAt(rownum, 0);
-				String name = (String) goodsModel.getValueAt(rownum, 1);
-				String size = (String) goodsModel.getValueAt(rownum, 2);
-				int num = Integer.parseInt((String) goodsModel.getValueAt(
-						rownum, 3));
-				double purchasePrice = Double.parseDouble((String) goodsModel
-						.getValueAt(rownum, 4));
-				double price = Double.parseDouble((String) goodsModel
-						.getValueAt(rownum, 5));
-				double lastPurchasePrice = Double
-						.parseDouble((String) goodsModel.getValueAt(rownum, 6));
-				double lastPrice = Double.parseDouble((String) goodsModel
-						.getValueAt(rownum, 7));
-				GoodsVO vo = new GoodsVO(id, name, size, num, purchasePrice,
-						price, lastPurchasePrice, lastPrice, "", "");
+				GoodsVO vo = null;
+				try {
+					vo = goodsController.findByID(id);
+				} catch (RemoteException e1) {
+					// TODO 自动生成的 catch 块
+					e1.printStackTrace();
+				}
 
 				new DelGoodsDialog(vo);
 
@@ -282,33 +274,13 @@ public class GoodsPanel extends JPanel implements ActionListener,
 						JOptionPane.WARNING_MESSAGE);
 			} else {
 				String id = (String) goodsModel.getValueAt(rownum, 0);
-				String name = (String) goodsModel.getValueAt(rownum, 1);
-				String size = (String) goodsModel.getValueAt(rownum, 2);
-				int num = Integer.parseInt((String) goodsModel.getValueAt(
-						rownum, 3));
-				double purchasePrice = Double.parseDouble((String) goodsModel
-						.getValueAt(rownum, 4));
-				double price = Double.parseDouble((String) goodsModel
-						.getValueAt(rownum, 5));
-				double lastPurchasePrice = Double
-						.parseDouble((String) goodsModel.getValueAt(rownum, 6));
-				double lastPrice = Double.parseDouble((String) goodsModel
-						.getValueAt(rownum, 7));
-
-				String goodsClass = null;
-				String manufactoryDate = null;
+				GoodsVO vo = null;
 				try {
-					goodsClass = goodsController.findByID(id).getGoodsClass();
-					manufactoryDate = goodsController.findByID(id)
-							.getManufactureDate();
+					vo = goodsController.findByID(id);
 				} catch (RemoteException e1) {
 					// TODO 自动生成的 catch 块
 					e1.printStackTrace();
 				}
-				GoodsVO vo = new GoodsVO(id, name, size, num, purchasePrice,
-						price, lastPurchasePrice, lastPrice, goodsClass,
-						manufactoryDate);
-
 				parent.setRightComponent(new ModGoodsPanel(parent, vo));
 
 				// 重新再获得数据模型,刷新界面
@@ -433,17 +405,6 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 	// end_yan-----------------------------------------------------------
 
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 800, 500);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		GoodsPanel gp = new GoodsPanel(parent);
-		gp.setBounds(0, 0, 800, 500);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
-	}
-
 	public void treeNodesChanged(TreeModelEvent e) {
 		// TODO 自动生成的方法存根
 		TreePath treePath = e.getTreePath();
@@ -460,7 +421,8 @@ public class GoodsPanel extends JPanel implements ActionListener,
 				oldVO.getUpClassName());
 		int result = controller.modifyGoodsClass(oldVO, newVO);
 		if (result != 0) {
-			System.out.println("GoodsPanel.treeNodesChanged()修改不成功噢~");
+			JOptionPane.showMessageDialog(null, "修改分类数据失败", null,
+					JOptionPane.WARNING_MESSAGE);
 		}
 
 	}
