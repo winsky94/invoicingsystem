@@ -23,7 +23,7 @@ public class GiftReceipt extends Receipt {
 	private String url;
 	private GiftDataService service;
 
-	public GiftReceipt() throws Exception{
+	public GiftReceipt() throws Exception {
 		giftVOList = new ArrayList<CommodityVO>();
 		host = "localhost:1099";
 		url = "rmi://" + host + "/giftService";
@@ -70,21 +70,7 @@ public class GiftReceipt extends Receipt {
 		list = VOToPO(giftVOList);
 
 		// 生成编号
-		String id = "KCZSD-" + getDate() + "-";
-		String maxID = null;
-		try {
-			maxID = service.getMaxID();
-		} catch (RemoteException e1) {
-			// TODO 自动生成的 catch 块
-			e1.printStackTrace();
-		}
-		if (maxID == null) {
-			id += "00001";
-		} else {
-			NumberFormat nf = new DecimalFormat("00000");
-			int tp = Integer.parseInt(maxID);
-			id += nf.format(tp + 1);
-		}
+		String id = getNewID();
 
 		GiftPO po = new GiftPO(id, super.getmemberName(), getMemberID(),
 				super.getUserID(), super.getInfo(), 3, super.getHurry(), list);
@@ -117,6 +103,26 @@ public class GiftReceipt extends Receipt {
 
 	public double getTotal() {
 		return total;
+	}
+
+	public String getNewID() {
+		// 生成编号
+		String id = "KCZSD-" + getDate() + "-";
+		String maxID = null;
+		try {
+			maxID = service.getMaxID();
+		} catch (RemoteException e1) {
+			// TODO 自动生成的 catch 块
+			e1.printStackTrace();
+		}
+		if (maxID == null) {
+			id += "00001";
+		} else {
+			NumberFormat nf = new DecimalFormat("00000");
+			int tp = Integer.parseInt(maxID);
+			id += nf.format(tp + 1);
+		}
+		return id;
 	}
 
 	// 将赠送商品列表由vo转为po

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import po.GiftPO;
 import po.ReceiptPO.ReceiptType;
+import vo.CommodityVO;
 import vo.GiftVO;
 import businesslogic.receiptbl.Receipt;
 import businesslogicservice.stockblservice.giftblservice.GiftBLService;
@@ -16,10 +17,31 @@ public class GiftController extends Receipt implements GiftBLService {
 
 	public int addGift(GiftVO vo) {
 		// TODO 自动生成的方法存根
-		GiftReceipt receipt = new GiftReceipt(vo.getId(), vo.getMemberName(),
-				vo.getMemberID(), vo.getUser(), ReceiptType.GIFT,
+		GiftReceipt receipt = new GiftReceipt(vo.getId(), vo.getMemberID(),
+				vo.getMemberName(), vo.getUser(), ReceiptType.GIFT,
 				vo.getHurry(), vo.getStatus(), vo.getInfo(), vo.getGiftList());
 		return receipt.add();
+	}
+
+	// 系统自动生成库存赠送单并处理
+	public int autoAdd(String MemberID, String memberName, String userID,
+			ArrayList<CommodityVO> cList) {
+		GiftReceipt tp = null;
+		try {
+			tp = new GiftReceipt();
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		String id = tp.getNewID();
+		GiftReceipt receipt = new GiftReceipt(id, MemberID, memberName, userID,
+				ReceiptType.GIFT, 0, 3, "", cList);
+		receipt.add();
+		// 处理
+		GiftManage manage = new GiftManage();
+		manage.excute(receipt);
+
+		return 0;
 	}
 
 	public int dealGift(GiftVO vo) {
