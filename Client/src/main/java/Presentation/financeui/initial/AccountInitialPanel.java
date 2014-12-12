@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -21,10 +22,13 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import vo.AccountVO;
+import vo.MemberVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import businesslogic.financebl.Account;
+import businesslogic.memberbl.Member;
 import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
+import businesslogicservice.memberblservice.MemberBLService;
 
 public class AccountInitialPanel extends JPanel {
 
@@ -41,6 +45,7 @@ public class AccountInitialPanel extends JPanel {
 	JComboBox<String> accountBox;
 	MainFrame parent;
 	AddInitialPanel subparent;
+	ArrayList<Integer> haveSelected=new ArrayList<Integer>();
 
 	public AccountInitialPanel(MainFrame frame) {
 		parent = frame;
@@ -125,7 +130,41 @@ public class AccountInitialPanel extends JPanel {
 		addBtn.setFocusPainted(false);
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(accountBox.getSelectedIndex()==0)
+				    parent.setRightComponent(new addAccountInitial(parent,AccountInitialPanel.this));
+				else{
+					int index=accountBox.getSelectedIndex();
+					boolean isIn=false;
+					for(Integer inte:haveSelected){
+						if(index==inte){
+							isIn=true;
+						}
+					}
+					if(isIn==true){
+						 JOptionPane.showMessageDialog(null,"您已选择了该账户!","提示",JOptionPane.WARNING_MESSAGE);
+					}
+					else{
+					haveSelected.add(index);
+					FinanceAccountBLService ain = null;
+					try {
+						ain = new Account();
 
+					} catch (MalformedURLException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					} catch (RemoteException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					} catch (NotBoundException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+					ArrayList<AccountVO> account = ain.showAll();
+					AccountVO vv=account.get(index-1);
+					RefreshTable(vv);
+					accountTable.revalidate();
+				}
+				}
 			}
 		});
 		btnPnl.add(addBtn);
