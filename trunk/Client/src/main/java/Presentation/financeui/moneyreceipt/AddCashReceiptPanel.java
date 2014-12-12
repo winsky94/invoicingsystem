@@ -91,6 +91,8 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 		c.fill = GridBagConstraints.BOTH;
 		crm = new CashReceiptModel();
 		table = new JTable(crm);
+		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 				for (int i = 0; i < table.getColumnCount(); i++) {

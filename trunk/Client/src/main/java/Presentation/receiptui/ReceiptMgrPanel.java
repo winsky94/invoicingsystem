@@ -129,6 +129,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		// -------待审批-------------------
 		rtm1 = new ReceiptTableModel(c1);
 		t1 = new JTable(rtm1);
+		t1.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 		for (int i = 0; i < t1.getColumnCount(); i++) {
@@ -139,6 +140,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		// ---------已审批------------------
 		rtm2 = new ReceiptTableModel(c2);
 		t2 = new JTable(rtm2);
+		t2.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		for (int i = 0; i < t2.getColumnCount(); i++) {
 			t2.getColumn(t2.getColumnName(i)).setCellRenderer(tcr);

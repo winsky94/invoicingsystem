@@ -91,13 +91,13 @@ public class PromotionPanel extends JPanel {
 				menu.add(coupon);
 				menu.add(gift);
 				menu.add(discount);
-				
+
 				bargin.addActionListener(new ActionListener() {
-					
+
 					public void actionPerformed(ActionEvent e) {
 						try {
 							father.setRightComponent(new AddBarginPanel(father));
-						}catch(Exception err){
+						} catch (Exception err) {
 							err.printStackTrace();
 						}
 					}
@@ -119,19 +119,20 @@ public class PromotionPanel extends JPanel {
 				});
 				discount.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-							try {
-								father.setRightComponent(new AddDiscountPanel(father));
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
+						try {
+							father.setRightComponent(new AddDiscountPanel(
+									father));
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				});
-				
+
 				menu.show(father, e.getX(), e.getY());
-			
+
 				// .addBtn.getX()+110,PromotionPanel.this.addBtn.getY()+110
-				
+
 			}
 		});
 		top.add(addBtn);
@@ -140,17 +141,18 @@ public class PromotionPanel extends JPanel {
 		delBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int[] row = proTbl.getSelectedRows();
-				if(row.length>0){
-					PromotionType[] type=new PromotionType[row.length];
-					String[] id=new String[row.length];
-					for(int i=0;i<row.length;i++){
-						ArrayList<String> info=content.get(row[i]);
-						id[i]=info.get(0);
-						type[i]=getChangeProType.getProType(info.get(3));
-							
+				if (row.length > 0) {
+					PromotionType[] type = new PromotionType[row.length];
+					String[] id = new String[row.length];
+					for (int i = 0; i < row.length; i++) {
+						ArrayList<String> info = content.get(row[i]);
+						id[i] = info.get(0);
+						type[i] = getChangeProType.getProType(info.get(3));
+
 					}
-					JDialog delDlg = new DelProDialog(id, type,father);}
-				else JOptionPane.showMessageDialog(null, "请选择要删除的促销策略");
+					JDialog delDlg = new DelProDialog(id, type, father);
+				} else
+					JOptionPane.showMessageDialog(null, "请选择要删除的促销策略");
 			}
 		});
 		top.add(delBtn);
@@ -176,7 +178,6 @@ public class PromotionPanel extends JPanel {
 				"img/promotion/detail.png"));
 		detailBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 
 			}
 		});
@@ -192,12 +193,12 @@ public class PromotionPanel extends JPanel {
 		// --------table-------------------
 		ptm = new PromotionTableModel();
 		proTbl = new JTable(ptm);
+		proTbl.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
-				for (int i = 0; i < proTbl.getColumnCount(); i++) {
-					proTbl.getColumn(proTbl.getColumnName(i)).setCellRenderer(
-							tcr);
-				}
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < proTbl.getColumnCount(); i++) {
+			proTbl.getColumn(proTbl.getColumnName(i)).setCellRenderer(tcr);
+		}
 		jsp = new JScrollPane(proTbl);
 		c.gridx = 0;
 		c.gridy = 1;
@@ -209,11 +210,11 @@ public class PromotionPanel extends JPanel {
 		this.add(jsp);
 	}
 
-	public void RefreshProTable(ArrayList<PromotionVO> vo){
-		
-		for(int i=0;i<vo.size();i++){
-			ArrayList<String> line=new ArrayList<String>();
-			PromotionVO v=vo.get(i);
+	public void RefreshProTable(ArrayList<PromotionVO> vo) {
+
+		for (int i = 0; i < vo.size(); i++) {
+			ArrayList<String> line = new ArrayList<String>();
+			PromotionVO v = vo.get(i);
 			line.add(v.getId());
 			line.add(MyDateFormat.FomatDate(v.getStartDate()));
 			line.add(MyDateFormat.FomatDate(v.getEndDate()));
@@ -221,6 +222,7 @@ public class PromotionPanel extends JPanel {
 			content.add(line);
 		}
 	}
+
 	class PromotionTableModel extends AbstractTableModel {
 
 		/**

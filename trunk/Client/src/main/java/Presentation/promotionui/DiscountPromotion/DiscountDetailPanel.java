@@ -22,7 +22,7 @@ import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import Presentation.promotionui.PromotionPanel;
 
-public class DiscountDetailPanel extends JPanel{
+public class DiscountDetailPanel extends JPanel {
 
 	/**
 	 * 
@@ -33,11 +33,12 @@ public class DiscountDetailPanel extends JPanel{
 	JScrollPane jsp;
 	JTable table;
 	DiscountModel dm;
-	ArrayList<ArrayList<String>> content=new ArrayList<ArrayList<String>>();
-	JLabel fromLbl,toLbl,gradeLbl;
+	ArrayList<ArrayList<String>> content = new ArrayList<ArrayList<String>>();
+	JLabel fromLbl, toLbl, gradeLbl;
 	JButton submitBtn;
-	public DiscountDetailPanel(MainFrame frame){
-		father=frame;
+
+	public DiscountDetailPanel(MainFrame frame) {
+		father = frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 45, 5, 45);
@@ -61,14 +62,14 @@ public class DiscountDetailPanel extends JPanel{
 		// --------起止时间与等级限制-----------------
 		JPanel timePnl = new JPanel();
 		timePnl.setBackground(Color.white);
-		fromLbl=new JLabel("起始于：");
+		fromLbl = new JLabel("起始于：");
 		fromLbl.setFont(font);
 		timePnl.add(fromLbl);
 		timePnl.add(new JLabel());
-		toLbl=new JLabel("截止于：");
+		toLbl = new JLabel("截止于：");
 		toLbl.setFont(font);
 		timePnl.add(toLbl);
-		timePnl.add(new JLabel());	
+		timePnl.add(new JLabel());
 		gradeLbl = new JLabel("客户等级限制：");
 		gradeLbl.setFont(font);
 		timePnl.add(gradeLbl);
@@ -82,25 +83,25 @@ public class DiscountDetailPanel extends JPanel{
 		gbl.setConstraints(timePnl, c);
 		this.add(timePnl);
 		// -------表格-------------------
-		c.fill=GridBagConstraints.BOTH;
-		dm=new DiscountModel();
-		table=new JTable(dm);
+		c.fill = GridBagConstraints.BOTH;
+		dm = new DiscountModel();
+		table = new JTable(dm);
+		table.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
-				for (int i = 0; i < table.getColumnCount(); i++) {
-					table.getColumn(table.getColumnName(i)).setCellRenderer(
-							tcr);
-				}
-		jsp=new JScrollPane(table);
-		c.gridx=0;
-		c.gridy=3;
-		c.gridheight=5;
-		c.gridwidth=GridBagConstraints.REMAINDER;
-		c.weightx=10;
-		c.weighty=10;
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < table.getColumnCount(); i++) {
+			table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
+		}
+		jsp = new JScrollPane(table);
+		c.gridx = 0;
+		c.gridy = 3;
+		c.gridheight = 5;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.weightx = 10;
+		c.weighty = 10;
 		gbl.setConstraints(jsp, c);
 		this.add(jsp);
-		//-------buttons-----------------
+		// -------buttons-----------------
 		JPanel btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
@@ -112,25 +113,26 @@ public class DiscountDetailPanel extends JPanel{
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
 		//
-		
+
 		submitBtn = new JButton("确定");
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
 		btnPnl.add(submitBtn);
 		submitBtn.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				father.setRightComponent(new PromotionPanel(father));
-				
+
 			}
 		});
 	}
+
 	class DiscountModel extends AbstractTableModel {
 		/**
 		 * 
 		 */
-	 
+
 		private static final long serialVersionUID = 1L;
 		String head[] = { "商品编号", "商品名", "型号", "单价", "折扣", "折后单价" };
 

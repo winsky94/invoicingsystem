@@ -178,7 +178,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		goodsModel = new GoodsModel();
 		goodsTable = new JTable(goodsModel);
 		goodsTable.setBackground(Color.white);
-
+		goodsTable.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 		for (int i = 0; i < goodsTable.getColumnCount(); i++) {

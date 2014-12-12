@@ -32,7 +32,7 @@ import Presentation.financeui.CollectionPanel;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 
-public class CashDetailPanel extends JPanel implements ActionListener{
+public class CashDetailPanel extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
@@ -42,7 +42,8 @@ public class CashDetailPanel extends JPanel implements ActionListener{
 	JScrollPane jsp;
 	JTable table;
 	CashReceiptModel crm;
-	JLabel IDLbl, userLbl, totalLbl,accountLbl,nameLbl,moneyLbl,remarkLbl,hurryLbl;
+	JLabel IDLbl, userLbl, totalLbl, accountLbl, nameLbl, moneyLbl, remarkLbl,
+			hurryLbl;
 	JButton submitBtn;
 	MainFrame parent;
 	String hurry;
@@ -50,20 +51,21 @@ public class CashDetailPanel extends JPanel implements ActionListener{
 	String user;
 	String account;
 	double totalMoney;
-	CashlistBLService cc=null;
+	CashlistBLService cc = null;
 	CashlistVO vo;
 	JPanel btnPnl;
-	public CashDetailPanel(MainFrame frame,int selected){
-		parent=frame;
-		
+
+	public CashDetailPanel(MainFrame frame, int selected) {
+		parent = frame;
+
 		try {
-			cc=new CashList();
+			cc = new CashList();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ArrayList<CashlistVO> vv=cc.getCashlist();
-		vo=vv.get(selected);
+		ArrayList<CashlistVO> vv = cc.getCashlist();
+		vo = vv.get(selected);
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);
@@ -88,12 +90,13 @@ public class CashDetailPanel extends JPanel implements ActionListener{
 		c.fill = GridBagConstraints.BOTH;
 		crm = new CashReceiptModel();
 		table = new JTable(crm);
+		table.getTableHeader().setReorderingAllowed(false);
+
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
-				for (int i = 0; i < table.getColumnCount(); i++) {
-					table.getColumn(table.getColumnName(i)).setCellRenderer(
-							tcr);
-				}
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < table.getColumnCount(); i++) {
+			table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
+		}
 		jsp = new JScrollPane(table);
 		c.gridx = 0;
 		c.gridy = 2;
@@ -120,47 +123,47 @@ public class CashDetailPanel extends JPanel implements ActionListener{
 		up.setBackground(Color.white);
 		infoPnl.add(up);
 
-		//------加急---------------
-		if(vo.getHurry()==0)
-			hurry="否";
-		else 
-			hurry="是";
-		hurryLbl=new JLabel("加急: "+hurry);
+		// ------加急---------------
+		if (vo.getHurry() == 0)
+			hurry = "否";
+		else
+			hurry = "是";
+		hurryLbl = new JLabel("加急: " + hurry);
 		hurryLbl.setFont(font);
 		up.add(hurryLbl);
 		up.add(new JLabel("     "));
 		// ------ID----------------
-		ID=vo.getId();
-		IDLbl = new JLabel("ID: "+ID);
+		ID = vo.getId();
+		IDLbl = new JLabel("ID: " + ID);
 		IDLbl.setFont(font);
 		up.add(IDLbl);
 		up.add(new JLabel("     "));
 		// ------user---------------
-		UserBLService uu=null;
+		UserBLService uu = null;
 		try {
 			uu = new User();
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		user=uu.showUser(vo.getUser()).getName();
-		userLbl = new JLabel("操作员: "+user);
+		user = uu.showUser(vo.getUser()).getName();
+		userLbl = new JLabel("操作员: " + user);
 		userLbl.setFont(font);
 		up.add(userLbl);
 		up.add(new JLabel("     "));
 		// ------account---------
-		account=vo.getAccount();
-		JLabel accLbl = new JLabel("账户:"+account);
+		account = vo.getAccount();
+		JLabel accLbl = new JLabel("账户:" + account);
 		accLbl.setFont(font);
 		up.add(accLbl);
 		up.add(new JLabel("     "));
 		// -----总额-------------------
-		totalMoney=vo.getTotalMoney();
-		totalLbl = new JLabel("总额: "+totalMoney);
+		totalMoney = vo.getTotalMoney();
+		totalLbl = new JLabel("总额: " + totalMoney);
 		totalLbl.setFont(font);
 		up.add(totalLbl);
-		//------table-----------------
+		// ------table-----------------
 		RefreshCaluseItemTable(vo.getClauselist());
 		// -------buttons-----------------
 		btnPnl = new JPanel();
@@ -180,6 +183,7 @@ public class CashDetailPanel extends JPanel implements ActionListener{
 		submitBtn.addActionListener(this);
 		btnPnl.add(submitBtn);
 	}
+
 	class CashReceiptModel extends AbstractTableModel {
 
 		/**
@@ -213,18 +217,19 @@ public class CashDetailPanel extends JPanel implements ActionListener{
 			content.remove(row);
 		}
 	}
-//	public static void main(String[] args) {
-//		JFrame testFrame = new JFrame();
-//		testFrame.setBounds(100, 50, 920, 600);
-//		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//		CashDetailPanel gp = new CashDetailPanel();
-//		gp.setBounds(0, 0, 920, 600);
-//		testFrame.add(gp);
-//		testFrame.setVisible(true);
-//	}
-	
-	public void RefreshCaluseItemTable(ArrayList<ClauseItemVO> vo){
+
+	// public static void main(String[] args) {
+	// JFrame testFrame = new JFrame();
+	// testFrame.setBounds(100, 50, 920, 600);
+	// testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//
+	// CashDetailPanel gp = new CashDetailPanel();
+	// gp.setBounds(0, 0, 920, 600);
+	// testFrame.add(gp);
+	// testFrame.setVisible(true);
+	// }
+
+	public void RefreshCaluseItemTable(ArrayList<ClauseItemVO> vo) {
 		for (ClauseItemVO VO : vo) {
 			ArrayList<String> lineInfo = new ArrayList<String>();
 			lineInfo.add(VO.getName());
@@ -235,30 +240,31 @@ public class CashDetailPanel extends JPanel implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource()==submitBtn){
+		if (arg0.getSource() == submitBtn) {
 			CollectionPanel mgr = new CollectionPanel(parent);
 			parent.setRightComponent(mgr);
 			try {
-				PaymentBLService pp=new Payment();
-				CollectionBLService bb=new Collection();
-				CashlistBLService cc=new CashList();
-				if (pp.getPayment()!= null)
-				    mgr.RefreshPaymentTable(pp.getPayment());
-				if(bb.getCollection()!=null)
-				    mgr.RefreshCollectionTable(bb.getCollection());
-				if(cc.getCashlist()!=null)
+				PaymentBLService pp = new Payment();
+				CollectionBLService bb = new Collection();
+				CashlistBLService cc = new CashList();
+				if (pp.getPayment() != null)
+					mgr.RefreshPaymentTable(pp.getPayment());
+				if (bb.getCollection() != null)
+					mgr.RefreshCollectionTable(bb.getCollection());
+				if (cc.getCashlist() != null)
 					mgr.RefreshCashlistTable(cc.getCashlist());
 
-					mgr.setSelectedTab(2);
+				mgr.setSelectedTab(2);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
 	}
-	public void useToReceipt(){
+
+	public void useToReceipt() {
 		btnPnl.remove(submitBtn);
 	}
-	
+
 }

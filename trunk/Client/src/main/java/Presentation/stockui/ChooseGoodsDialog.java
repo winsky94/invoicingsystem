@@ -1,7 +1,6 @@
 package Presentation.stockui;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -92,11 +91,11 @@ public class ChooseGoodsDialog extends JDialog {
 		// -----------goodsTbl-------------------------------------------
 		gtm = new GoodsTblModel();
 		goodsTbl = new JTable(gtm);
+		goodsTbl.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-		DefaultTableCellRenderer tcr = new TableCellRenderer();
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 		for (int i = 0; i < goodsTbl.getColumnCount(); i++) {
-			goodsTbl.getColumn(goodsTbl.getColumnName(i))
-					.setCellRenderer(tcr);
+			goodsTbl.getColumn(goodsTbl.getColumnName(i)).setCellRenderer(tcr);
 		}
 		jspLeft = new JScrollPane(goodsTbl);
 		jspLeft.setBounds(dialogWidth * 20 / 100, dialogHeight * 5 / 100,
@@ -110,6 +109,7 @@ public class ChooseGoodsDialog extends JDialog {
 		pnl.add(chosenLbl);
 		ctm = new ChosenTblModel();
 		chosenTbl = new JTable(ctm);
+		chosenTbl.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		for (int i = 0; i < chosenTbl.getColumnCount(); i++) {
 			chosenTbl.getColumn(chosenTbl.getColumnName(i))
@@ -406,25 +406,4 @@ public class ChooseGoodsDialog extends JDialog {
 		}
 		return -1;
 	}
-
-	// table的渲染器
-	class TableCellRenderer extends MyTableCellRenderer {
-		/**
-				 * 
-				 */
-		private static final long serialVersionUID = 1L;
-
-		public Component getTableCellRendererComponent(JTable table,
-				Object value, boolean isSelected, boolean hasFocus, int row,
-				int column) {
-			// 设置列宽
-			table.getColumn("商品编号").setPreferredWidth(180);
-			table.getColumn("商品名称").setPreferredWidth(130);
-
-			return super.getTableCellRendererComponent(table, value,
-					isSelected, hasFocus, row, column);
-		}
-
-	}
-
 }

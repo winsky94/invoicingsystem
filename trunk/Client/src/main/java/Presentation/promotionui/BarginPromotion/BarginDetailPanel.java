@@ -36,9 +36,10 @@ public class BarginDetailPanel extends JPanel {
 	BarginModel btm;
 	JLabel defaultTotalLbl, priceLbl, gradeLbl, fromLbl, toLbl;
 	ArrayList<ArrayList<String>> content = new ArrayList<ArrayList<String>>();
-	double totalMoney,barginMoney;
-	public BarginDetailPanel(MainFrame frame){
-		father=frame;
+	double totalMoney, barginMoney;
+
+	public BarginDetailPanel(MainFrame frame) {
+		father = frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);
@@ -62,15 +63,15 @@ public class BarginDetailPanel extends JPanel {
 		// --------起止时间，等级限制，原价与现价-----------------
 		JPanel timePnl = new JPanel();
 		timePnl.setBackground(Color.white);
-		fromLbl=new JLabel("起始于：");
+		fromLbl = new JLabel("起始于：");
 		fromLbl.setFont(font);
 		timePnl.add(fromLbl);
 		timePnl.add(new JLabel());
-		toLbl=new JLabel("截止于：");
+		toLbl = new JLabel("截止于：");
 		toLbl.setFont(font);
 		timePnl.add(toLbl);
 		timePnl.add(new JLabel());
-		gradeLbl=new JLabel("等级限制：");
+		gradeLbl = new JLabel("等级限制：");
 		gradeLbl.setFont(font);
 		timePnl.add(gradeLbl);
 		//
@@ -85,14 +86,14 @@ public class BarginDetailPanel extends JPanel {
 		// -------价格--------------
 		JPanel moneyPnl = new JPanel();
 		moneyPnl.setBackground(Color.white);
-		moneyPnl.setLayout(new GridLayout(1,5));
+		moneyPnl.setLayout(new GridLayout(1, 5));
 		//
 		moneyPnl.add(new JLabel());
-		defaultTotalLbl = new JLabel("原价:"+totalMoney+"元");
+		defaultTotalLbl = new JLabel("原价:" + totalMoney + "元");
 		defaultTotalLbl.setFont(font);
 		moneyPnl.add(defaultTotalLbl);
 		moneyPnl.add(new JLabel());
-		JLabel priceLbl = new JLabel("定价："+barginMoney+"元");
+		JLabel priceLbl = new JLabel("定价：" + barginMoney + "元");
 		priceLbl.setFont(font);
 		moneyPnl.add(priceLbl);
 		moneyPnl.add(new JLabel());
@@ -107,15 +108,15 @@ public class BarginDetailPanel extends JPanel {
 		gbl.setConstraints(moneyPnl, c);
 		this.add(moneyPnl);
 		// -------表格-------------------
-		
+
 		btm = new BarginModel();
 		table = new JTable(btm);
+		table.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
-				for (int i = 0; i < table.getColumnCount(); i++) {
-					table.getColumn(table.getColumnName(i)).setCellRenderer(
-							tcr);
-				}
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < table.getColumnCount(); i++) {
+			table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
+		}
 		jsp = new JScrollPane(table);
 		c.gridx = 0;
 		c.gridy = 4;
@@ -136,14 +137,14 @@ public class BarginDetailPanel extends JPanel {
 		c.weighty = 0.1;
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
-	
+
 		exitBtn = new JButton("确定");
 		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(166, 210, 121));
 		btnPnl.add(exitBtn);
-		exitBtn.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
+		exitBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				father.setRightComponent(new PromotionPanel(father));
 			}
 		});

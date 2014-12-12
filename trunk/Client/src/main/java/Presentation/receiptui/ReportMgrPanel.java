@@ -261,6 +261,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		// ------销售明细表--------------
 		sdtm = new SaleDetailTableModel();
 		t1 = new JTable(sdtm);
+		t1.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 				for (int i = 0; i < t1.getColumnCount(); i++) {
@@ -272,6 +273,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		// ------经营历程表--------------
 		ohtm = new OperationHistoryTableModel();
 		t2 = new JTable(ohtm);
+		t2.getTableHeader().setReorderingAllowed(false);
 		for (int i = 0; i < t2.getColumnCount(); i++) {
 			t2.getColumn(t2.getColumnName(i)).setCellRenderer(
 					tcr);
@@ -281,6 +283,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		// -------经营情况表--------------
 		ostm = new OperationStatementTableModel();
 		t3 = new JTable(ostm);
+		t3.getTableHeader().setReorderingAllowed(false);
 		for (int i = 0; i < t3.getColumnCount(); i++) {
 			t3.getColumn(t3.getColumnName(i)).setCellRenderer(
 					tcr);

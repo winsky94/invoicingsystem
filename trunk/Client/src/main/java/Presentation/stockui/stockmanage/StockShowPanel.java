@@ -99,6 +99,7 @@ public class StockShowPanel extends JPanel implements ActionListener {
 		list = controller.showStock(from.getDate(), to.getDate());
 		sstm = new StockShowTableModel(list);
 		table = new JTable(sstm);
+		table.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		DefaultTableCellRenderer tcr = new TableCellRenderer();
 		for (int i = 0; i < table.getColumnCount(); i++) {

@@ -23,7 +23,7 @@ import Presentation.mainui.MyTableCellRenderer;
 import Presentation.salesui.manage.CommodityTableModel;
 import Presentation.salesui.manage.SaleMgrPanel;
 
-public class SaleReturnPane extends JPanel implements ActionListener{
+public class SaleReturnPane extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
@@ -142,12 +142,12 @@ public class SaleReturnPane extends JPanel implements ActionListener{
 		p3.add(totalToPayLbl);
 		// ------table--------------
 		table = new JTable(cm);
+		table.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
-				for (int i = 0; i < table.getColumnCount(); i++) {
-					table.getColumn(table.getColumnName(i)).setCellRenderer(
-							tcr);
-				}
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < table.getColumnCount(); i++) {
+			table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
+		}
 		jsp = new JScrollPane(table);
 		c.gridx = 0;
 		c.gridy = 5;
@@ -185,14 +185,14 @@ public class SaleReturnPane extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==exitBtn)
+		if (e.getSource() == exitBtn)
 			try {
 				father.setRightComponent(new SaleMgrPanel(father));
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		
+
 	}
 
 }
