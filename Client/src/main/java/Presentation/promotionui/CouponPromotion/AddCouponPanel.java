@@ -11,10 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.print.PrintService;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,15 +23,13 @@ import po.PromotionPO.PromotionType;
 import vo.CouponVO;
 import vo.GiftCouponProVO;
 import vo.LogVO;
-import businesslogic.promotionbl.giftCouponPro;
-import businesslogic.promotionbl.promotion;
-import businesslogic.promotionbl.promotionController;
-import businesslogicservice.promotionblservice.PromotionBLService;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import Presentation.mainui.log;
 import Presentation.promotionui.PromotionPanel;
 import Presentation.uihelper.DateChooser;
+import businesslogic.promotionbl.promotionController;
+import businesslogicservice.promotionblservice.PromotionBLService;
 
 public class AddCouponPanel extends JPanel implements ActionListener{
 
@@ -54,8 +50,8 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 	PromotionBLService service;
 	ArrayList<CouponVO> couponlist;
 	
-	public AddCouponPanel(JFrame myFather) {
-		father = (MainFrame)myFather;
+	public AddCouponPanel(MainFrame myFather) {
+		father = myFather;
 		couponlist=new ArrayList<CouponVO>();
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
@@ -181,16 +177,6 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 		exitBtn.setBackground(new Color(251, 147, 121));
 		btnPnl.add(exitBtn);
 		exitBtn.addActionListener(this);
-	}
-
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 920, 600);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AddCouponPanel gp = new AddCouponPanel(testFrame);
-		gp.setBounds(0, 0, 920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
 	}
 
 	public void actionPerformed(ActionEvent e) {
