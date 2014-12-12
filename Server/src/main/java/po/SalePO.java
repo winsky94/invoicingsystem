@@ -3,6 +3,8 @@ package po;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import po.ReceiptPO.ReceiptType;
+
 //double[] discount;pro/pre/money/toaldiscount;
 //double[] total; cost/origin/value/couponIncom/toPay
 public class SalePO extends ReceiptPO implements Serializable{
@@ -16,10 +18,11 @@ public class SalePO extends ReceiptPO implements Serializable{
 	private double[] discount=new double[4];//折让类数据
 	private double[] total=new double[5];//总计类数据
 	private String proid;
+	private String couponid;
 
 	public SalePO(String clerk, ArrayList<CommodityPO> salesList, String id,
 			String memberID,String name, String user,int status,
-			int hurry, String info, String stockid, String proid, double[] discount,double[] total) {
+			int hurry, String info, String stockid, String proid,String couponid, double[] discount,double[] total) {
 		super(id,memberID,name,user, ReceiptType.SALE,info,status,hurry);
 		this.clerk = clerk;
 		this.stockid=stockid;
@@ -27,15 +30,24 @@ public class SalePO extends ReceiptPO implements Serializable{
 		this.discount=discount;
 		this.total=total;
 		this.proid=proid;
+		this.couponid=couponid;
 	}
 	
 	public String getProid() {
 		return proid;
 	}
+	public void setProid(String pro){
+		this.proid=pro;
+	}
 	public String getClerk() {
 		return clerk;
 	}
-	
+	public String getCouponid() {
+		return couponid;
+	}
+	public void setCouponid(String pro){
+		this.couponid=pro;
+	}
 	public String getStockID(){
 		return stockid;
 	}
@@ -114,7 +126,6 @@ public class SalePO extends ReceiptPO implements Serializable{
 	public void setToPay(double t){
 		this.total[4]=t;
 	}
-	
 	
 	
 	
