@@ -26,7 +26,8 @@ public class AddInitialPanel extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JTabbedPane tab;
-	JPanel goodsInitalPanel, accountInitialPanel;
+	JPanel goodsInitalPanel;
+	AccountInitialPanel accountInitialPanel;
 	MemberInitialPanel memberInitialPanel;
 	JButton submitBtn, exitBtn;
     MainFrame parent;
