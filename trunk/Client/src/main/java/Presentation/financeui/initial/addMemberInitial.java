@@ -15,6 +15,10 @@ import Presentation.mainui.MainFrame;
 import Presentation.memberui.AddMemberPanel;
 
 public class addMemberInitial extends JPanel implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	AddMemberPanel p;
 	MemberInitialPanel tab;
 	MainFrame parent;
@@ -32,7 +36,6 @@ public class addMemberInitial extends JPanel implements ActionListener {
 		p.typeCbox.removeItemListener(p.typel);
 		p.typeCbox.addItemListener(new ItemListener(){
 
-			@Override
 			public void itemStateChanged(ItemEvent e) {
 				// TODO Auto-generated method stub
 				String t = p.typeCbox.getSelectedItem().toString();
@@ -54,7 +57,6 @@ public class addMemberInitial extends JPanel implements ActionListener {
 		
 		
 	}
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource()==p.submitBtn){
@@ -66,6 +68,7 @@ public class addMemberInitial extends JPanel implements ActionListener {
 				tab.RefreshTable(vo);
 				parent.setRightComponent(tab.subparent);
 				tab.subparent.setFocus(1);
+				tab.subparent.memberInitialPanel.haveSelected.add(-1);
 			}
 			}else if(e.getSource()==p.cancelBtn){
 				parent.setRightComponent(tab.subparent);
