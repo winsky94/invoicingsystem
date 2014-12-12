@@ -75,7 +75,8 @@ public class MemberInitialPanel extends JPanel{
 		c.weighty = 0.1;
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
-		//
+		
+		//小小黄加监听 id调用哪个本pane的getNewID
 		String memberBoxText[]={"选择客户"};
 		memberBox=new JComboBox<String>(memberBoxText);
 		memberBox.setBackground(Color.white);
