@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import dataservice.financedataservice.listdataservice.PaymentDataService;
 import po.PaymentPO;
 import po.TransferItemPO;
-import vo.CollectionVO;
 import vo.PaymentVO;
 import vo.ReceiptVO;
 import vo.TransferItemVO;
