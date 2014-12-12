@@ -1,11 +1,15 @@
 package businesslogic.stockbl.stockManage;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.ReceiptPO.ReceiptType;
+import vo.GoodsVO;
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
+import businesslogic.stockbl.goods.GoodsController;
 import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
+import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 
 public class StockControlController implements StockControlBLService {
 
@@ -101,6 +105,21 @@ public class StockControlController implements StockControlBLService {
 	public boolean stockNumCheck(String goodsID) {
 		// TODO 自动生成的方法存根
 		StockManage manage = new StockManage();
-		return manage.stockNumCheck(goodsID);
+		boolean result = manage.stockNumCheck(goodsID);
+
+		if (result) {
+			StockOverOrLowManage stockManage = new StockOverOrLowManage();
+			StockGoodsBLService goodController = new GoodsController();
+			GoodsVO vo = null;
+			try {
+				vo = goodController.findByID(goodsID);
+			} catch (RemoteException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+			stockManage.addStockErrorReceipt(vo.getName(), vo.getSize());
+		}
+
+		return result;
 	}
 }

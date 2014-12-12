@@ -38,6 +38,20 @@ public class StockErrorReceipt {
 	}
 
 	public StockErrorReceipt(String goodName, String size) {
+		host = "localhost:1099";
+		url = "rmi://" + host + "/stockManageService";
+		try {
+			service = (StockControlDataService) Naming.lookup(url);
+		} catch (MalformedURLException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 		this.goodName = goodName;
 		this.size = size;
 		this.date = getDate();
