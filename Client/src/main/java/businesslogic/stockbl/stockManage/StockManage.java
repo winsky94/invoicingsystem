@@ -378,7 +378,7 @@ public class StockManage {
 			GoodsPO good = goodsService.findByID(GoodsID);
 			int minNumInStock = good.getMinNumInStock();
 			int numInStock = good.getNumInStock();
-			if (minNumInStock > numInStock) {
+			if (minNumInStock >= numInStock) {
 				result = true;
 			}
 		} catch (RemoteException e) {

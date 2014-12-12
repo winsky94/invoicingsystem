@@ -66,6 +66,10 @@ public class GiftManage {
 				}
 				good.setNumInStock(good.getNumInStock() - vo.getNum());
 				goodsController.modifyGoods(good);
+
+				// 检测库存是否报警
+				StockControlBLService stockController = new StockControlController();
+				stockController.stockNumCheck(good.getGoodsID());
 			}
 
 			// 调用服务器端处理库存赠送单
@@ -204,7 +208,8 @@ public class GiftManage {
 	}
 
 	// 将赠送商品列表由po转为vo
-	private static ArrayList<CommodityVO> commodityPOToVO(ArrayList<CommodityPO> list) {
+	private static ArrayList<CommodityVO> commodityPOToVO(
+			ArrayList<CommodityPO> list) {
 		ArrayList<CommodityVO> result = new ArrayList<CommodityVO>();
 		for (CommodityPO po : list) {
 			CommodityVO vo = new CommodityVO(po.getID(), po.getName(),
@@ -225,10 +230,8 @@ public class GiftManage {
 		return result;
 	}
 
+	public static GiftVO giftPOToVO(GiftPO po) {
 
-	public static  GiftVO giftPOToVO(GiftPO po) {
-
-	
 		GiftVO vo = new GiftVO(po.getId(), po.getMemberName(),
 				po.getMemberID(), po.getUserID(), po.getStatus(),
 				po.getHurry(), po.getInfo(), commodityPOToVO(po.getGiftList()));
