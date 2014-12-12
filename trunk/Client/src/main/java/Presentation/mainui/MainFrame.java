@@ -159,7 +159,6 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 
 	public JPanel getFootPanel() {
 		JPanel jp3 = new JPanel();
-		jp3.setLayout(new GridLayout(1,4));
 		jp3.setBackground(Color.white);
 		Timer t = new Timer(1000, this);// 每隔一秒触发ActionEvent事件
 		t.start();// 启动计时器
@@ -173,15 +172,8 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 		messageBtn.setFocusPainted(false);
 		messageBtn.setBackground(Color.white);
 		messageBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		jp3.add(new JPanel());
-		JPanel p=new JPanel();p.setLayout(new BorderLayout());
-		p.add(timeNow);
-		jp3.add(p,BorderLayout.CENTER);
-		FlowLayout flow=new FlowLayout();
-		flow.setAlignment(FlowLayout.RIGHT);
-		 p=new JPanel();
-		p.setLayout(flow);p.add(messageBtn);
-		jp3.add(p);
+		
+		
 		
 		return jp3;
 	}
