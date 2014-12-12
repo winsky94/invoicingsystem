@@ -55,7 +55,7 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 	ArrayList<Double> last_bid = new ArrayList<Double>();
 	PromotionBLService service;
 	submitListener slisten;
-
+	JLabel title;
 	public AddDiscountPanel(MainFrame myFather) throws Exception {
 		parent = myFather;
 		service = new promotionController();
@@ -68,7 +68,7 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("制定打折促销策略");
+		title = new JLabel("制定打折促销策略");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
