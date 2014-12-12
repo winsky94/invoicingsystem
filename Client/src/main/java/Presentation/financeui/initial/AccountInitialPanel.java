@@ -22,11 +22,9 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import vo.AccountVO;
-import vo.MemberVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import businesslogic.financebl.Account;
-import businesslogic.memberbl.Member;
 import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
 
 public class AccountInitialPanel extends JPanel {
@@ -173,7 +171,17 @@ public class AccountInitialPanel extends JPanel {
 		delBtn.setFocusPainted(false);
 		delBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// 监听！！！！！！！
+				int allselected[]=accountTable.getSelectedRows();
+				if(allselected.length<=0)
+					JOptionPane.showMessageDialog(null,"请选择账户!","提示",JOptionPane.WARNING_MESSAGE);
+				else{
+					for(int j=allselected.length-1;j>=0;j--){
+					int selected=allselected[j];
+					haveSelected.remove(selected);
+					am.removeRow(selected);
+					accountTable.revalidate();					
+				}
+				}
 			}
 		});
 		btnPnl.add(delBtn);
