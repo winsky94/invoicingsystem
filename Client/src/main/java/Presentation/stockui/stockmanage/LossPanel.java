@@ -76,28 +76,28 @@ public class LossPanel extends ChooseGoodsFatherPane implements ActionListener {
 		JPanel IDPnl = new JPanel();
 		IDPnl.setBackground(Color.white);
 		mid.add(IDPnl);
-		IDLbl = new JLabel("商品编号：XXXXX");
+		IDLbl = new JLabel("商品编号：_______________");
 		IDLbl.setFont(font);
 		IDPnl.add(IDLbl);
 		// --------商品名-------------------
 		JPanel namePnl = new JPanel();
 		namePnl.setBackground(Color.white);
 		mid.add(namePnl);
-		nameLbl = new JLabel("商品名：XXXXX");
+		nameLbl = new JLabel("商品名：_________");
 		nameLbl.setFont(font);
 		namePnl.add(nameLbl);
 		// --------型号--------------------
 		JPanel sizePnl = new JPanel();
 		sizePnl.setBackground(Color.white);
 		mid.add(sizePnl);
-		sizeLbl = new JLabel("型号：XXXXX");
+		sizeLbl = new JLabel("型号：_______");
 		sizeLbl.setFont(font);
 		sizePnl.add(sizeLbl);
 		// -------库存数量-------------------
 		JPanel numPnl = new JPanel();
 		numPnl.setBackground(Color.white);
 		mid.add(numPnl);
-		numLbl = new JLabel("库存数量：XXXX");
+		numLbl = new JLabel("库存数量：_____");
 		numLbl.setFont(font);
 		numPnl.add(numLbl);
 		// --------报损数量-----------------
