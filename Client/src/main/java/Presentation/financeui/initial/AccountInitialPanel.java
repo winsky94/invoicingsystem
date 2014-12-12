@@ -28,7 +28,6 @@ import Presentation.mainui.MyTableCellRenderer;
 import businesslogic.financebl.Account;
 import businesslogic.memberbl.Member;
 import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
-import businesslogicservice.memberblservice.MemberBLService;
 
 public class AccountInitialPanel extends JPanel {
 
