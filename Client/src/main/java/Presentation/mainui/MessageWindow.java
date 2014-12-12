@@ -27,7 +27,8 @@ public class MessageWindow extends JWindow{
 	int winHeight = screenHeight *3/5;
 	JList<String> list;
 	JScrollPane jsp;
-	public MessageWindow(){
+	public MessageWindow(MainFrame frame){
+		super(frame);
 		this.setBounds(20,20,winWidth,winHeight);
 		JPanel pnl=new JPanel();
 		pnl.setBounds(0,0,winWidth,winHeight);
@@ -67,7 +68,7 @@ public class MessageWindow extends JWindow{
 		mPnl.setLayout(new GridLayout(1,1));
 		//-----JList-------------
 		Vector<String> message=new Vector<String>();
-		message.add("2014-12-02 08:05 :Your receipt has been approved");
+		message.add("2014-12-02 08:05 :付款单FKD-0275546未通过审批");
 		message.add("2014-12-01 13:05 :Your receipt has been examined");
 		list=new JList<String>(message);
 		list.setFont(new Font("微软雅黑", Font.PLAIN, 14));
@@ -76,8 +77,5 @@ public class MessageWindow extends JWindow{
 		//-----------------------
 		this.add(pnl);
 		this.setVisible(true);	
-	}
-	public static void main(String[] args) {
-		MessageWindow m=new MessageWindow();
 	}
 }
