@@ -73,7 +73,7 @@ public class Payment extends Receipt implements PaymentBLService{
 	}
 	
 	public int excute(ReceiptVO v){
-		CollectionVO vo=(CollectionVO)v;
+		PaymentVO vo=(PaymentVO)v;
     	try {
 			Member m=new Member();
 			m.changeToReceive(vo.getSupplier(), (-1)*vo.getTotalMoney());
