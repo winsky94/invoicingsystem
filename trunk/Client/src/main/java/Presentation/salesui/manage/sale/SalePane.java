@@ -68,7 +68,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 	ArrayList<Double> last_bid = new ArrayList<Double>();
 	double[] total = new double[5];
 	double[] discount = new double[4];
-	String proid=null;
+	String proid=null,couponid="";
 	double pre=0,coupon=0;
 	// public MainFrame parent;
 	SalesBLService service;
@@ -357,9 +357,8 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 				parent.setRightComponent(sp);
 				sp.RefreshPanel();
 
-			}else if(e.getSource()==submitBtn){
-				getSale();
-			}else if(e.getSource()==discountMoneyFld){
+			}
+			else if(e.getSource()==discountMoneyFld){
 				double dis=0;
 				try{
 					dis=Double.parseDouble(discountMoneyFld.getText());
@@ -391,8 +390,13 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 				getSale();
 				int result=service.addSale(sale);
 				if(result==0)
-					JOptionPane.showMessageDialog(null, "销售单创建成功！", "提示",
+					{JOptionPane.showMessageDialog(null, "销售单创建成功！", "提示",
 							JOptionPane.OK_OPTION);
+					SaleMgrPanel sp = new SaleMgrPanel(parent);
+					parent.setRightComponent(sp);
+					sp.RefreshPanel();
+					
+					}
 				else
 					JOptionPane.showMessageDialog(null, "销售单创建失败", "提示",
 							JOptionPane.WARNING_MESSAGE);
@@ -486,7 +490,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 			if(hurryBox.isSelected())
 				hurry=0;
 			sale=new SaleVO(clerkFld.getText(),cmlist,id,mem,memid,parent.getUser().getID(),
-					0,hurry,remarkFld.getText(),stockFld.getText(),proid,sale.getCouponid(),total,discount);
+					0,hurry,remarkFld.getText(),stockFld.getText(),proid,couponid,total,discount);
 			
 			
 	 }
@@ -543,13 +547,14 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		try {
 			proservice = new promotionController();
 			coupon=proservice.getCouponValue(id);
-			if(coupon==1)
+			if(coupon==-1)
 				JOptionPane.showMessageDialog(null, "该代金券编号不存在！", "提示",
 					JOptionPane.WARNING_MESSAGE);
-			else if(coupon==2)
+			else if(coupon==-2)
 				JOptionPane.showMessageDialog(null, "该代金券编号不存在！", "提示",
 						JOptionPane.WARNING_MESSAGE);
 			else{
+				couponid=id;
 				total[4]=total[2]-coupon;
 				sale.setCouponid(id);
 				if(total[4]<0)
