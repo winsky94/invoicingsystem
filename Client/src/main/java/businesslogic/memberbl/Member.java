@@ -50,12 +50,12 @@ public class Member implements MemberBLService,MemberViewService{
 		return service.modify(po);
 	}
 	
-	//public int changeToReceive(String id,double m){
-//		return service.changeToReceive(id, m);
-	//}
-//	public int changeToPay(String id,double m){
-	//return service.changeToPay(id, m);
-	//}
+	public int changeToReceive(String id,double m){
+		return service.changeToReceive(id, m);
+	}
+	public int changeToPay(String id,double m){
+		return service.changeToPay(id, m);
+	}
 
 	//可能返回为NULL
 	public ArrayList<MemberVO> findMember(String message) {
@@ -113,18 +113,18 @@ public class Member implements MemberBLService,MemberViewService{
 			
 		
 	}
-	public void updateToReceive(String id,double data){
-		MemberPO po=service.findByID(id);
-		po.setToReceive(data+po.getToReceive());
-		service.modify(po);
+	//public void updateToReceive(String id,double data){
+		//MemberPO po=service.findByID(id);
+		//po.setToReceive(data+po.getToReceive());
+		//service.modify(po);
 		
 		
-	}
-	public void updateToPay(String id,double data){
-		MemberPO po=service.findByID(id);
-		po.setToPay(data+po.getToPay());
-		service.modify(po);
-	}
+	//}
+	//public void updateToPay(String id,double data){
+	//	MemberPO po=service.findByID(id);
+		//po.setToPay(data+po.getToPay());
+	//	service.modify(po);
+//	}
 	
 	public MemberPO voToPo(MemberVO vo){
 		MemberPO po=new MemberPO(vo.getMemberID(),vo.getmType(),vo.getmLevel(),vo.getName(),

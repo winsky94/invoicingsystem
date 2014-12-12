@@ -34,7 +34,7 @@ public class Purchase extends Receipt {
 		return service.createPurchase(voToPo(vo));
 	}
 
-	public void excute(ReceiptVO v) {
+	public int excute(ReceiptVO v) {
 		// 修改库存数量
 		PurchaseVO vo=(PurchaseVO)v;
 		StockGoodsBLService goodsController = new GoodsController();
@@ -51,6 +51,7 @@ public class Purchase extends Receipt {
 			}
 
 		}
+		return 0;
 	}
 
 	public ArrayList<PurchaseVO> find(String message, String type) {

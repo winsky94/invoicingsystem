@@ -33,7 +33,7 @@ public class PurchaseReturn extends Receipt {
 		return service.createPurchaseReturn(voToPo(vo));
 	}
 	
-	public void excute(ReceiptVO v){
+	public int excute(ReceiptVO v){
 		// 修改库存
 		PurchaseReturnVO vo=(PurchaseReturnVO)v;
 		StockGoodsBLService goodsController = new GoodsController();
@@ -50,7 +50,7 @@ public class PurchaseReturn extends Receipt {
 			}
 
 		}
-	
+	return 0;
 	}
 	
 	public ArrayList<PurchaseReturnVO> find(String message,String type){
@@ -91,7 +91,7 @@ public class PurchaseReturn extends Receipt {
 		
 			puList=com.voTPo(List);
 		PurchaseReturnPO po=new PurchaseReturnPO(vo.getId(),vo.getMemberID(),vo.getMemberName(),
-				vo.getStockid(),vo.getUser(),puList,vo.getInfo(),vo.getTotalInAll(),
+				vo.getStockid(),vo.getPurid(),vo.getUser(),puList,vo.getInfo(),vo.getTotalInAll(),
 				vo.getStatus(),vo.getHurry());
 		return po;
 	}
@@ -104,7 +104,7 @@ public class PurchaseReturn extends Receipt {
 		
 			puList=com.poTVo(List);
 		PurchaseReturnVO vo=new PurchaseReturnVO(po.getId(),po.getMemberName(),po.getMemberID(),po.getUserID(),
-				po.getStatus(),po.getInfo(),po.getHurry(),puList,po.getTotalInAll(),po.getStockID()
+				po.getStatus(),po.getInfo(),po.getHurry(),puList,po.getTotalInAll(),po.getStockID(),po.getpurid()
 				);
 		return vo;
 		

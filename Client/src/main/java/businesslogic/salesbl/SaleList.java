@@ -28,24 +28,56 @@ public class SaleList implements SaleListBLService{
 	}
 	
 	
-	public double couponProfitCalc(){
+	
+	
+	public double couponProfitCalc(String startDate,String endDate){
 		//计算代金券与实际收款差额收入
-		return 0.0;
+		double profit=0;
+		ArrayList<SalePO> spo=service.findSale(startDate+endDate, "时间区间");
+		//ArrayList<SaleReturnPO> srpo=service.findSaleReturn(startDate+endDate, "时间区间")
+		for(int i=0;i<spo.size();i++)
+			profit+=spo.get(i).getCouponPrice();
+		
+		return profit;
 	}
 	
-	public double purchaseReturnProfitCalc() {
-		// 计算商品进货退货差价收入
-		return 0.0;
-	}
-	public double totalMoneyWeGot(){
-		//总的销售收入
-		return 0.0;
-	}
-	public double totalMoneyWePaid(){
-		//总的销售成本
-		return 0.0;
-	}
+	public double purchaseReturnProfitCalc(String startDate,String endDate) {
+		// 计算商品进货退货差价收入  退货钱更多？
+		double prprofit=0;
+		ArrayList<PurchaseReturnPO> ppo=service.findPurchaseReturn(startDate+endDate, "时间区间");
+		
+		for(int i=0;i<ppo.size();i++)
+			{PurchasePO po=(PurchasePO)service.findReceiptByID(ppo.get(i).getpurid());
+			 prprofit+=(ppo.get(i).getTotalInAll()-po.getTotalInAll());
+			}
+		
 
+		return prprofit;
+	}
+	public double totalMoneyWeGot(String startDate,String endDate){
+		//总的销售收入
+		ArrayList<SalePO> spo=service.findSale(startDate+endDate, "时间区间");
+		ArrayList<SaleReturnPO> srpo=service.findSaleReturn(startDate+endDate, "时间区间");
+		double totalIn=0;
+		for(int i=0;i<spo.size();i++)
+			totalIn+=spo.get(i).getTotalValue();
+		for(int j=0;j<srpo.size();j++)
+			totalIn-=spo.get(j).getTotalValue();
+		return totalIn;
+
+	}
+	public double totalMoneyWePaid(String startDate,String endDate){
+		//总的销售成本
+		ArrayList<SalePO> spo=service.findSale(startDate+endDate, "时间区间");
+		ArrayList<SaleReturnPO> srpo=service.findSaleReturn(startDate+endDate, "时间区间");
+		double totalOut=0;
+		for(int i=0;i<spo.size();i++)
+			totalOut+=spo.get(i).getCost();
+		for(int j=0;j<srpo.size();j++)
+			totalOut-=spo.get(j).getCost();
+		return totalOut;
+
+	}
 	public ArrayList<ReceiptVO> getAllPurchase() {
 		ArrayList<ReceiptPO> po=service.getAllPurchase();
 		ArrayList<ReceiptVO> vo=new ArrayList<ReceiptVO>();

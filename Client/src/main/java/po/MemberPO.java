@@ -89,15 +89,15 @@ public class MemberPO implements Serializable{
 
 
 
-	public void setToReceive(double toReceive) {
-		this.toReceive = toReceive;
-	}
+	//public void setToReceive(double toReceive) {
+	////	this.toReceive = toReceive;
+	//}谁
 
 
 
-	public void setToPay(double toPay) {
-		this.toPay = toPay;
-	}
+	//public void setToPay(double toPay) {
+		//this.toPay = toPay;
+	//是}
 
 
 

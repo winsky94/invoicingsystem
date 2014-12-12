@@ -503,6 +503,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		total[0]=0;
 		for (int i = 0; i < cmContent.size(); i++)
 			total[0] += Double.parseDouble(cmContent.get(i).get(3))*last_bid.get(i);
+		total[0]+=coupon;
 		return total[0];
 	}
 	

@@ -18,6 +18,7 @@ import vo.ReceiptVO;
 import vo.SaleVO;
 import businesslogic.memberbl.Member;
 import businesslogic.promotionbl.giftCouponPro;
+import businesslogic.promotionbl.promotionController;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.utilitybl.getDate;
@@ -79,19 +80,10 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 		}
 	}
 
-	// 使用了代金券 ，支出累加放sale还是stock -1不存在 -2无效 过期
-	public double useCoupon(String id) throws Exception {
-		// coupon cou=promotionController.find(id);
-		giftCouponPro pro = new giftCouponPro();
-		return pro.getCouponValue(id);
+	
 
-	}
 
-	// 算入折让
-	public PromotionVO MatchProMotion(SaleVO vo) {
-
-		return null;
-	}
+	
 
 	// 算入折让 网络放这儿合适否？
 	public double getPrivilege(String MemberID) throws Exception
@@ -119,24 +111,36 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 
 	}
 
-	// 单据执行
-	public void excute(ReceiptVO v) {
+	// 单据执行  等待助教回答member应收应付的问题
+	public int excute(ReceiptVO v)  {
 		//修改库存
+		try {
 		SaleVO vo=(SaleVO)v;
 		StockGoodsBLService goodsController = new GoodsController();
 			ArrayList<CommodityVO> list = vo.getSalesList();
 			for (CommodityVO cvo : list) {
-				try {
+				
 					GoodsVO goodsVO = goodsController.findByID(cvo.getID());
 					goodsVO.setNumInStock(goodsVO.getNumInStock()
 							- cvo.getNum());
 					goodsController.modifyGoods(goodsVO);
-				} catch (RemoteException e) {
-					// TODO 自动生成的 catch 块
-					e.printStackTrace();
-				}
-
 			}
+		if(!vo.getProid().equals(""))
+			promotionController.Excute(vo.getProid());
+		if(!vo.getCouponid().equals("")){
+			giftCouponPro gp= new giftCouponPro();
+			gp.useCoupon(vo.getCouponid());
+		}
+		Member m=new Member();
+		m.changeToReceive(vo.getMemberID(),vo.getToPay());
+			
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+			
+		return 0;
 	}
 	
 	public static SalePO voToPo(SaleVO vo) {

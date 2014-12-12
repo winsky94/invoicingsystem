@@ -54,7 +54,7 @@ public class CashList extends Receipt implements CashlistBLService{
 	
 	
 	
-	public void excute(ReceiptVO v){
+	public int excute(ReceiptVO v){
 		CashlistVO vo=(CashlistVO)v;
 		try {
 			Account a=new Account();
@@ -70,6 +70,7 @@ public class CashList extends Receipt implements CashlistBLService{
 			e.printStackTrace();
 		}
 		setStatus(v.getId(),3);
+		return 0;
 	}
 
 	public ArrayList<CashlistVO> getCashlist() {
