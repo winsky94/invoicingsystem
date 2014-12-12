@@ -91,6 +91,8 @@ public class SystemLogPanel extends JPanel{
 		c.gridy=4;
 		c.gridwidth=GridBagConstraints.REMAINDER;
 		c.gridheight=GridBagConstraints.REMAINDER;
+		c.weightx=1;
+		c.weighty=1;
 		gbl.setConstraints(jsp, c);
 		this.add(jsp);
 		from.showDate.addPropertyChangeListener(new PropertyChangeListener(){
