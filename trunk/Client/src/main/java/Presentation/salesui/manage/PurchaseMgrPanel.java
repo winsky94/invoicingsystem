@@ -20,12 +20,14 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import po.ReceiptPO.ReceiptType;
 import vo.PurchaseReturnVO;
 import vo.PurchaseVO;
 import vo.ReceiptVO;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import Presentation.salesui.manage.purchase.PurchasePane;
 import Presentation.salesui.manage.purchase.PurchaseReturnPane;
 import Presentation.salesui.manage.purchase.ViewPurchasePanel;
@@ -108,6 +110,12 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener{
 		 */
 		pmm=new PurchaseMgrModel();
 		table = new JTable(pmm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < table.getColumnCount(); i++) {
+					table.getColumn(table.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jsp=new JScrollPane(table);
 		c.gridx = 0;
 		c.gridy = 2;

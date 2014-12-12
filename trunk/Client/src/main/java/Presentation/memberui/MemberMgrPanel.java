@@ -18,14 +18,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import po.MemberPO.MemberType;
 import vo.MemberVO;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 
 public class MemberMgrPanel extends JPanel {
 	/**
@@ -60,32 +61,32 @@ public class MemberMgrPanel extends JPanel {
 		c.weighty = 0.1;
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
-		//------增-----------------------
+		// ------增-----------------------
 		addBtn = new MyButton("添加客户", new ImageIcon(
 				"img/sales/addMember-blue.png"));
 		addBtn.addActionListener(new AddBtnListener());
 		btnPnl.add(addBtn);
-		//-----删------------------------
+		// -----删------------------------
 		delBtn = new MyButton("删除客户", new ImageIcon(
 				"img/sales/delMember-blue.png"));
 		delBtn.addActionListener(new DelBtnListener());
 		btnPnl.add(delBtn);
-		//-------改----------------------
+		// -------改----------------------
 		modBtn = new MyButton("修改客户",
 				new ImageIcon("img/sales/modify-blue.png"));
 		modBtn.addActionListener(new ModBtnListener());
 		btnPnl.add(modBtn);
-		//-------刷新---------------------
+		// -------刷新---------------------
 		refreshBtn = new MyButton("刷新列表", new ImageIcon(
 				"img/sales/refresh-blue.png"));
 		refreshBtn.addActionListener(new RefreshBtnListener());
 		btnPnl.add(refreshBtn);
-		//---------搜索--------------------
+		// ---------搜索--------------------
 		searchFld = new JTextField(10);
 		searchFld.setFont(new Font("楷体", Font.BOLD, 13));
 		searchFld.getDocument().addDocumentListener(new SearchFldListener());
 		btnPnl.add(searchFld);
-		//--------查找按钮-------------------
+		// --------查找按钮-------------------
 		searchBtn = new MyButton(new ImageIcon("img/sales/find-blue.png"));
 		searchBtn.addActionListener(new SearchBtnListener());
 		btnPnl.add(searchBtn);
@@ -93,6 +94,12 @@ public class MemberMgrPanel extends JPanel {
 
 		utm = new MemberTableModel();
 		memberTable = new JTable(utm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < memberTable.getColumnCount(); i++) {
+			memberTable.getColumn(memberTable.getColumnName(i))
+					.setCellRenderer(tcr);
+		}
 		jsp = new JScrollPane(memberTable);
 		c.gridx = 0;
 		c.gridy = 2;
@@ -199,7 +206,7 @@ public class MemberMgrPanel extends JPanel {
 
 				try {
 
-					parent.setRightComponent(new ModMemberPane(id,parent));
+					parent.setRightComponent(new ModMemberPane(id, parent));
 
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block

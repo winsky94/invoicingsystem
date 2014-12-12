@@ -15,6 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+
+import Presentation.mainui.MyTableCellRenderer;
 
 public class MemberInitialPanel extends JPanel{
 
@@ -39,6 +42,12 @@ public class MemberInitialPanel extends JPanel{
 		//--------表格-------------
 		mm=new MemberModel();
 		memberTable=new JTable(mm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < memberTable.getColumnCount(); i++) {
+					memberTable.getColumn(memberTable.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jsp=new JScrollPane(memberTable);
 		c.gridx = 0;
 		c.gridy = 0;

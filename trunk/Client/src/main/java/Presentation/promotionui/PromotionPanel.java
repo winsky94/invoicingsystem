@@ -24,10 +24,12 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import po.PromotionPO.PromotionType;
 import vo.PromotionVO;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import Presentation.promotionui.BarginPromotion.AddBarginPanel;
 import Presentation.promotionui.CouponPromotion.AddCouponPanel;
 import Presentation.promotionui.DiscountPromotion.AddDiscountPanel;
@@ -137,7 +139,7 @@ public class PromotionPanel extends JPanel {
 		delBtn = new MyButton("删除策略", new ImageIcon("img/promotion/del.png"));
 		delBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int[] row=proTbl.getSelectedRows();
+				int[] row = proTbl.getSelectedRows();
 				if(row.length>0){
 					PromotionType[] type=new PromotionType[row.length];
 					String[] id=new String[row.length];
@@ -190,6 +192,12 @@ public class PromotionPanel extends JPanel {
 		// --------table-------------------
 		ptm = new PromotionTableModel();
 		proTbl = new JTable(ptm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < proTbl.getColumnCount(); i++) {
+					proTbl.getColumn(proTbl.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jsp = new JScrollPane(proTbl);
 		c.gridx = 0;
 		c.gridy = 1;

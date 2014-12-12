@@ -8,8 +8,6 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -24,6 +22,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import po.MemberPO.MemberType;
 import po.ReceiptPO.ReceiptType;
@@ -34,6 +33,7 @@ import vo.MemberVO;
 import vo.PurchaseVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import Presentation.mainui.headPane;
 import Presentation.mainui.log;
 import Presentation.salesui.manage.CommodityTableModel;
@@ -184,6 +184,12 @@ public class PurchasePane extends ChooseGoodsFatherPane {
 		ctm = new CommodityTableModel();
 		table = new JTable(ctm);
 		cmContent = ctm.getContent();
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < table.getColumnCount(); i++) {
+					table.getColumn(table.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jsp = new JScrollPane(table);
 		c.gridx = 0;
 		c.gridy = 5;

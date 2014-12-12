@@ -24,6 +24,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import po.MemberPO.MemberType;
 import po.ReceiptPO.ReceiptType;
@@ -34,6 +35,7 @@ import vo.MemberVO;
 import vo.SaleVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import Presentation.salesui.manage.CommodityTableModel;
 import Presentation.salesui.manage.SaleMgrPanel;
 import Presentation.stockui.ChooseGoodsDialog;
@@ -234,6 +236,12 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		ctm = new CommodityTableModel();
 		cmContent = ctm.getContent();
 		table = new JTable(ctm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < table.getColumnCount(); i++) {
+					table.getColumn(table.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jsp = new JScrollPane(table);
 		c.gridx = 0;
 		c.gridy = 5;

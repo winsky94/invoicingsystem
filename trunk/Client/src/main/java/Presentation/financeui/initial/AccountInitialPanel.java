@@ -18,13 +18,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import vo.AccountVO;
+import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import businesslogic.financebl.Account;
 import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
-import Presentation.mainui.MainFrame;
 
-public class AccountInitialPanel extends JPanel{
+public class AccountInitialPanel extends JPanel {
 
 	/**
 	 * 
@@ -33,23 +35,30 @@ public class AccountInitialPanel extends JPanel{
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	AccountModel am;
 	ArrayList<ArrayList<String>> accountC = new ArrayList<ArrayList<String>>();
-	JTable accountTable;	
+	JTable accountTable;
 	JScrollPane jsp;
-	JButton addBtn,delBtn;
+	JButton addBtn, delBtn;
 	JComboBox<String> accountBox;
 	MainFrame parent;
-	public AccountInitialPanel(MainFrame frame){
-		parent=frame;
+
+	public AccountInitialPanel(MainFrame frame) {
+		parent = frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);
 		this.setBackground(Color.white);
 		this.setLayout(gbl);
-		c.fill=GridBagConstraints.BOTH;
-		//--------表格-------------
-		am=new AccountModel();
-		accountTable=new JTable(am);
-		jsp=new JScrollPane(accountTable);
+		c.fill = GridBagConstraints.BOTH;
+		// --------表格-------------
+		am = new AccountModel();
+		accountTable = new JTable(am);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < accountTable.getColumnCount(); i++) {
+			accountTable.getColumn(accountTable.getColumnName(i))
+					.setCellRenderer(tcr);
+		}
+		jsp = new JScrollPane(accountTable);
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridheight = 5;
@@ -58,8 +67,8 @@ public class AccountInitialPanel extends JPanel{
 		c.weighty = 1;
 		gbl.setConstraints(jsp, c);
 		this.add(jsp);
-		//------账户增删处-----------
-		JPanel btnPnl=new JPanel();
+		// ------账户增删处-----------
+		JPanel btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 5;
@@ -70,12 +79,12 @@ public class AccountInitialPanel extends JPanel{
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
 		//
-		//---------------------------
-		ArrayList<String> st=new ArrayList<String>();
-		FinanceAccountBLService fin=null;
+		// ---------------------------
+		ArrayList<String> st = new ArrayList<String>();
+		FinanceAccountBLService fin = null;
 		try {
-			fin=new Account();
-			
+			fin = new Account();
+
 		} catch (MalformedURLException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -86,23 +95,22 @@ public class AccountInitialPanel extends JPanel{
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		ArrayList<AccountVO> account=fin.showAll();
-		if(account==null){
+		ArrayList<AccountVO> account = fin.showAll();
+		if (account == null) {
 			String accountText[] = { "当前无账户可选" };
 			accountBox = new JComboBox<String>(accountText);
 			accountBox.setEditable(false);
+		} else {
+			for (AccountVO vo : account) {
+				st.add(vo.getName());
+			}
+			String accountText[] = new String[st.size()];
+			for (int i = 0; i < st.size(); i++) {
+				accountText[i] = st.get(i);
+			}
+			accountBox = new JComboBox<String>(accountText);
 		}
-		else{
-			for(AccountVO vo:account){
-			    st.add(vo.getName());
-		    }
-		    String accountText[] =new String[st.size()]; 
-		    for(int i=0;i<st.size();i++){
-		    	accountText[i]=st.get(i);
-		    }
-		    accountBox = new JComboBox<String>(accountText);
-		}
-		//---------------------------
+		// ---------------------------
 		accountBox.setBackground(Color.white);
 		accountBox.setFont(font);
 		btnPnl.add(accountBox);
@@ -114,7 +122,7 @@ public class AccountInitialPanel extends JPanel{
 		addBtn.setFocusPainted(false);
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 			}
 		});
 		btnPnl.add(addBtn);
@@ -129,13 +137,15 @@ public class AccountInitialPanel extends JPanel{
 		});
 		btnPnl.add(delBtn);
 	}
-	class AccountModel extends AbstractTableModel{
+
+	class AccountModel extends AbstractTableModel {
 
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		String head[]={"账户名","余额"};
+		String head[] = { "账户名", "余额" };
+
 		public int getRowCount() {
 			return accountC.size();
 		}
@@ -151,6 +161,7 @@ public class AccountInitialPanel extends JPanel{
 		public String getColumnName(int col) {
 			return head[col];
 		}
+
 		public void addRow(ArrayList<String> v) {
 			accountC.add(v);
 		}
@@ -158,6 +169,6 @@ public class AccountInitialPanel extends JPanel{
 		public void removeRow(int row) {
 			accountC.remove(row);
 		}
-		
+
 	}
 }

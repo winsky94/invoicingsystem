@@ -14,8 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import Presentation.mainui.ChooseGoodsFatherPane;
+import Presentation.mainui.MyTableCellRenderer;
 
 public class GoodsInitialPanel extends ChooseGoodsFatherPane{
 
@@ -39,6 +41,12 @@ public class GoodsInitialPanel extends ChooseGoodsFatherPane{
 		//--------表格-------------
 		gm=new GoodsModel();
 		goodsTable=new JTable(gm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < goodsTable.getColumnCount(); i++) {
+					goodsTable.getColumn(goodsTable.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jsp=new JScrollPane(goodsTable);
 		c.gridx = 0;
 		c.gridy = 0;
