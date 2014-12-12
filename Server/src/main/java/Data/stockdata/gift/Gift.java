@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import po.GiftPO;
+import po.ReceiptPO;
 import Data.serutility.JXCFile;
 import dataservice.stockdataservice.giftdataservice.GiftDataService;
 
@@ -44,6 +45,26 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 //
 //		file.writeM(list);
 		
+		return 0;
+	}
+	
+	public int modify(ReceiptPO po){
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return 1;  	 
+		int i;
+		for(i=0;i<a.size();i++){
+			ReceiptPO b=(ReceiptPO)a.get(i);
+			if(b.getId().equals(po.getId())){
+				b.setInfo(po.getInfo());
+				break;
+			}
+		}
+		
+		if(i==a.size())      //不存在该用户
+			return 1;
+		
+		file.writeM(a);
 		return 0;
 	}
 
