@@ -41,7 +41,7 @@ public class giftCouponPro extends promotion{
 		for(int i=0;i<vo.size();i++){
 			ArrayList<CouponVO> cvo=vo.get(i).getCouponList();
 			for(int j=0;j<cvo.size();j++){
-				CouponVO cv=cvo.get(i);
+				CouponVO cv=cvo.get(j);
 				if(id.equals(cv.getId())){
 					if(cv.getIsUse()==true)
 						return 2;//代金券已被使用
@@ -52,7 +52,7 @@ public class giftCouponPro extends promotion{
 		}
 		
 		
-		return 1;//该代金券id存在
+		return 1;//该代金券id不存在
 	}
 	
 	public String[] getCouponId(int n){
