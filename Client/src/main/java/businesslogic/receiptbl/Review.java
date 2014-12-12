@@ -6,6 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import po.ReceiptPO;
 import dataservice.receiptdataservice.ReceiptDataService;
 import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
@@ -31,14 +32,17 @@ public ArrayList<ReceiptVO> View(){
 		
 		return null;
 	}
-	public ReceiptVO View(String id){
+	
+
+	public ReceiptPO View(String id){
+		return service.findById(id);
 		
-		return null;
+	
 	}
 	
 	
 	//除库存但立即执行外  其他七种需审批， 自动库存赠送单需执行
-	public  void Excute(ReceiptVO vo) throws Exception{
+	public  int Excute(ReceiptVO vo) throws Exception{
 		Receipt receipt;
 		switch(vo.getType()){
 		case PURCHASE:
@@ -56,7 +60,8 @@ public ArrayList<ReceiptVO> View(){
 		default:
 			receipt=new Payment();
 	}
-		receipt.excute(vo);
+		int i=receipt.excute(vo);
+		return i;//0成功  1不成功  仅出现在销售
 	}
 	
 	public ArrayList<ReceiptVO> Refresh(){
@@ -64,19 +69,28 @@ public ArrayList<ReceiptVO> View(){
 	}
 	//**传参数呢 还是id呢
 	public int Approve(String id,int status){
-		int i=service.Approve(id,status);
-		if(i==0){
+	//	int i=service.Approve(id,status);
+		int result=0;
+		if(status==1){
+			service.setStatus(id, status);
+			return 0;
+		}
+		else{
+		
 			ReceiptVO vo=ReceiptController.poToVo(service.findById(id));
 			try {
-				Excute(vo);
+				 result=Excute(vo);
+				 if(result==0){
+					 service.setStatus(id, status);
+				 }
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return 0;
+			
 			
 		}
-		return 1;
+		return result;
 	}
 	
 	//红冲 i=0,仅红冲，i=1并复制

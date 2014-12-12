@@ -79,7 +79,9 @@ public class SaleList implements SaleListBLService{
 
 	}
 	public ArrayList<ReceiptVO> getAllPurchase() {
+		
 		ArrayList<ReceiptPO> po=service.getAllPurchase();
+		
 		ArrayList<ReceiptVO> vo=new ArrayList<ReceiptVO>();
 		if(po==null) return null;
 		else{

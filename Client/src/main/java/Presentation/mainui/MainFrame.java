@@ -165,8 +165,10 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 		timeNow = new JLabel(Calendar.getInstance().getTime().toLocaleString());
 		jp3.add(timeNow);
 		jp3.setBorder(new EtchedBorder(EtchedBorder.RAISED));
-		messageBtn=new JButton(new ImageIcon("img/message.png"));
-		messageBtn.setSize(14,14);
+		ImageIcon icon=new ImageIcon("img/message.png");
+		messageBtn=new JButton(icon);
+		messageBtn.setSize(icon.getIconWidth(),icon.getIconHeight());
+		//messageBtn.setSize(14,14);
 		messageBtn.setBorderPainted(false);
 		messageBtn.setFocusPainted(false);
 		messageBtn.setBackground(Color.white);
