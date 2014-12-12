@@ -36,7 +36,25 @@ public class giftCouponPro extends promotion{
 		
 	}
 	
+	//data层modify可能有问题
 	public void useCoupon(String couponid){
+		 ArrayList<PromotionPO> po =service.show(PromotionType.GIFTCOUPON);
+		 boolean tag=false;
+		 for(int i=0;i<po.size();i++){
+			 ArrayList<CouponPO>  clist=((GiftCouponProPO)po.get(i)).getCouponList();
+			 for(int j=0;j<clist.size();j++){
+				 if(couponid.equals(clist.get(j).getId())){
+					 GiftCouponProPO p=((GiftCouponProPO)po.get(i));
+					 p.getCouponList().get(j).setUse(true);
+					 service.Modify(p);
+					 tag=true;
+					 break;
+					 
+				 }
+				 if(tag)
+					 break;
+			 }
+		 }
 		
 	}
 	

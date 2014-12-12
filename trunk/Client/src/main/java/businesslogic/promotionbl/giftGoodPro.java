@@ -23,6 +23,9 @@ import java.util.Date;
 
 
 
+
+
+
 import po.CommodityPO;
 import po.GiftGoodProPO;
 import po.PackProPO;
@@ -32,10 +35,12 @@ import po.MemberPO.MemberType;
 import po.PromotionPO.PromotionType;
 import vo.CommodityVO;
 import vo.GiftGoodsProVO;
+import vo.GiftVO;
 import vo.PackProVO;
 import vo.PromotionVO;
 import vo.SaleVO;
 import businesslogic.salesbl.Commodity;
+import businesslogic.stockbl.gift.GiftManage;
 import businesslogic.stockbl.goods.Goods;
 import businesslogic.stockbl.goods.MockGoods;
 import businesslogic.utilitybl.getDate;
@@ -142,11 +147,14 @@ public class giftGoodPro extends promotion{
 	}
 	
 	//系统自动生成库存赠送单
-	public void Exctute(PromotionPO p){
+	public void Excute(PromotionPO p,SaleVO vo){
 		GiftGoodProPO po=(GiftGoodProPO)p;
 		ArrayList<CommodityPO> clist=po.getGiftList();
-	}
 	
+		GiftManage  m=new GiftManage();
+		m.e
+	}
+
 	
 	public PromotionVO findByID(String id){
 		GiftGoodProPO gpo=(GiftGoodProPO)service.find(id, PromotionType.GIFTGOODS);

@@ -12,6 +12,7 @@ import vo.CommodityVO;
 import vo.GoodsVO;
 import vo.PurchaseVO;
 import vo.ReceiptVO;
+import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.utilitybl.getDate;
@@ -37,6 +38,14 @@ public class Purchase extends Receipt {
 	public int excute(ReceiptVO v) {
 		// 修改库存数量
 		PurchaseVO vo=(PurchaseVO)v;
+		Member m;
+		try {
+			m = new Member();
+			m.changeToPay(vo.getMemberID(),vo.getTotalInAll());
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		StockGoodsBLService goodsController = new GoodsController();
 		ArrayList<CommodityVO> list = vo.getPurchaseList();
 		for (CommodityVO cvo : list) {
