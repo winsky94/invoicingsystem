@@ -147,7 +147,7 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 		SalePO po = new SalePO(vo.getClerk(), saList, vo.getId(),
 				vo.getMemberID(), vo.getMemberName(), vo.getUser(),
 				vo.getStatus(), vo.getHurry(), vo.getInfo(), vo.getStockid(),
-				vo.getProid(), vo.getDiscount(), vo.getTotal());
+				vo.getProid(),vo.getProid(), vo.getDiscount(), vo.getTotal());
 		return po;
 	}
 
@@ -159,7 +159,7 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 		SaleVO vo = new SaleVO(po.getClerk(), saList, po.getId(),
 				po.getMemberName(), po.getMemberID(), po.getUserID(),
 				po.getStatus(), po.getHurry(), po.getInfo(), po.getStockID(),
-				po.getProid(), po.getTotal(), po.getDiscount());
+				po.getProid(),po.getCouponid(), po.getTotal(), po.getDiscount());
 		return vo;
 	}
 

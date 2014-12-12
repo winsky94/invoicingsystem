@@ -13,9 +13,10 @@ public class SaleVO extends ReceiptVO {
 	private double[] total=new double[5];//总计类数据
 	private String stockid;
 	private String proid;
+	private String couponid="";
 	public SaleVO(String clerk, ArrayList<CommodityVO> salesList, String id,
 			String memberName,String memberID, String user,  int status,
-			int hurry,String info, String stockid,String proid, double[] total,double[] discount) {
+			int hurry,String info, String stockid,String proid,String couponid, double[] total,double[] discount) {
 		super(id, memberName,memberID, user, ReceiptType.SALE, status,hurry, info)	;
 		this.clerk = clerk;
 		this.salesList = salesList;
@@ -23,12 +24,19 @@ public class SaleVO extends ReceiptVO {
 		this.discount=discount;
 		this.stockid=stockid;
 		this.proid=proid;
+		this.couponid=couponid;
 	}
 	public void setProid(String pro){
 		this.proid=pro;
 	}
 	public String getProid() {
 		return proid;
+	}
+	public String getCouponid() {
+		return couponid;
+	}
+	public void setCouponid(String pro){
+		this.couponid=pro;
 	}
 	
 	public void setProDiscount(double value){

@@ -67,7 +67,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 	double[] total = new double[5];
 	double[] discount = new double[4];
 	String proid=null;
-	double pre=0;
+	double pre=0,coupon=0;
 	// public MainFrame parent;
 	SalesBLService service;
 
@@ -306,7 +306,21 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		delGoodsBtn.setFocusPainted(false);
 		delGoodsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// 监听！！！！！！！
+				int[] row = table.getSelectedRows();
+				if (row.length > 0) {
+					for (int i = 0; i < row.length; i++) {
+						total[1] -= Double.parseDouble(cmContent.get(row[i])
+								.get(5));
+						totalOriginLbl.setText("原初总价:" + total[1] + "元");
+						cmContent.remove(row[i]);
+						last_bid.remove(row[i]);
+						// parent.setRightComponent(PurchasePane.this);
+						table.revalidate();
+						matchPromotion();
+					}
+				} else
+					JOptionPane.showMessageDialog(null, "请选择要删除的商品", "提示",
+							JOptionPane.WARNING_MESSAGE);
 			}
 		});
 		btnPnl.add(delGoodsBtn);
@@ -314,6 +328,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
+		submitBtn.addActionListener(this);
 		btnPnl.add(submitBtn);
 		submitBtn.addActionListener(this);
 		exitBtn = new JButton("取消");
@@ -364,6 +379,17 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 				}
 			}else if(e.getSource()==couponBtn){
 				UseCouponDialog dia=new UseCouponDialog(SalePane.this);
+			}else if(e.getSource()==submitBtn){
+				getSale();
+				int result=service.addSale(sale);
+				if(result==0)
+					JOptionPane.showMessageDialog(null, "销售单创建成功！", "提示",
+							JOptionPane.OK_OPTION);
+				else
+					JOptionPane.showMessageDialog(null, "销售单创建失败", "提示",
+							JOptionPane.WARNING_MESSAGE);
+					
+					
 			}
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
@@ -452,7 +478,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 			if(hurryBox.isSelected())
 				hurry=0;
 			sale=new SaleVO(clerkFld.getText(),cmlist,id,mem,memid,parent.getUser().getID(),
-					0,hurry,remarkFld.getText(),stockFld.getText(),proid,total,discount);
+					0,hurry,remarkFld.getText(),stockFld.getText(),proid,sale.getCouponid(),total,discount);
 			
 			
 	 }
@@ -477,20 +503,26 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		try {
 			getSale();
 			PromotionMatchService proservice=new promotionController();
+			if(!sale.getMemberID().equals("")){
 			sale=proservice.Match(sale);
 			discount=sale.getDiscount();
 			total=sale.getTotal();
 			discount[1]=(total[1]-discount[0]-discount[2])*(1-pre);
 			discount[3]=discount[2]+discount[0]+discount[1];
 			total[2]=total[1]-discount[3];//总价
-			total[4]=total[2]-total[3];
+			total[4]=total[2]-coupon;
+			if(total[4]<0)
+			{
+				total[3]=-total[4];total[4]=0;
+			}else	total[3]=0;
+			
 			proid=sale.getProid();
 			//sale.setDiscount(discount);
 			//sale.setTotal(total);
 			totalOriginLbl.setText("原初总价:"+sale.getTotalOrigin()+"元");
 			totalProDiscountLbl.setText("折让金额:"+(sale.getTotalOrigin()-sale.getTotalValue())+"元");
 			totalFinDiscountLbl.setText("折后总价:"+sale.getTotalValue()+"元");
-			totalToPayLbl.setText("客户应付总价:"+sale.getToPay()+"元");
+			totalToPayLbl.setText("客户应付总价:"+sale.getToPay()+"元");}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -498,7 +530,31 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		
 	}
 	public void couponUse(String id){
-		JOptionPane.showMessageDialog(null, "该代金券编号无效！", "提示",
-				JOptionPane.WARNING_MESSAGE);
+		PromotionMatchService proservice;
+		try {
+			proservice = new promotionController();
+			coupon=proservice.getCouponValue(id);
+			if(coupon==1)
+				JOptionPane.showMessageDialog(null, "该代金券编号不存在！", "提示",
+					JOptionPane.WARNING_MESSAGE);
+			else if(coupon==2)
+				JOptionPane.showMessageDialog(null, "该代金券编号不存在！", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			else{
+				total[4]=total[2]-coupon;
+				sale.setCouponid(id);
+				if(total[4]<0)
+					{total[3]=-total[4];total[4]=0;
+					couponBtn.setText("代金券抵消"+total[2]+"元");	
+					}
+				else couponBtn.setText("代金券抵消"+coupon+"元");
+				totalToPayLbl.setText("客户应付总价:"+total[4]+"元");
+			}
+				
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

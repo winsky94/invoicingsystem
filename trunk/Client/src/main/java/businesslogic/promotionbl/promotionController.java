@@ -128,4 +128,10 @@ public class promotionController implements PromotionViewService,
 		
 	}
 
+	@Override
+	public double getCouponValue(String id) {
+		// TODO Auto-generated method stub
+		return gcp.getCouponValue(id);
+	}
+
 }
