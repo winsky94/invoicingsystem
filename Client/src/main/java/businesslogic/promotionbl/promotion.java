@@ -95,4 +95,15 @@ public  class promotion {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	public  PromotionPO find(String id){
+		PromotionPO po;
+		//仅赠品促销需要另外执行
+		if( (po=service.find(id,PromotionType.GIFTGOODS ))!=null)
+			return po;
+		else if( (po=service.find(id,PromotionType.GIFTCOUPON ))!=null)
+			return po;
+		else return null;
+			
+	}
 }
