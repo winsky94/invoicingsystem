@@ -34,9 +34,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 	JLabel timeNow;
 	JPanel function;
 	Color[] color = new Color[2];
-
-	
-
+	JButton messageBtn;
 	public MainFrame(UserVO myuser) throws Exception {
 		this.setSize(1100, 600);
 
@@ -167,6 +165,12 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 		timeNow = new JLabel(Calendar.getInstance().getTime().toLocaleString());
 		jp3.add(timeNow);
 		jp3.setBorder(new EtchedBorder(EtchedBorder.RAISED));
+		messageBtn=new JButton(new ImageIcon("img/message.png"));
+		messageBtn.setSize(18,18);
+		messageBtn.setBorderPainted(false);
+		messageBtn.setFocusPainted(false);
+		messageBtn.setBackground(Color.white);
+		jp3.add(messageBtn);
 		return jp3;
 	}
 
