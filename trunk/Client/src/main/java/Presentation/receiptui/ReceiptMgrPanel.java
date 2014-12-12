@@ -91,6 +91,12 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				// TODO Auto-generated method stub
 				int[] row = t1.getSelectedRows();
 				if (row.length > 0) {
+					for(int i=0;i<row.length;i++){
+						String id=c1.get(row[i]).get(0);
+						if(service.Approve(id, 2)!=0)
+							JOptionPane.showMessageDialog(null,"审批失败！","提示",JOptionPane.WARNING_MESSAGE);
+					}
+					
 
 				} else
 					JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
@@ -101,6 +107,25 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		// -------不通过------------------
 		disapprovedBtn = new MyButton("不通过", new ImageIcon(disapprovePath));
 		btnPnl.add(disapprovedBtn);
+		disapprovedBtn.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				int[] row = t1.getSelectedRows();
+				if (row.length > 0) {
+					for(int i=0;i<row.length;i++){
+						String id=c1.get(row[i]).get(0);
+						if(service.Approve(id, 1)!=0)
+							JOptionPane.showMessageDialog(null,"审批失败！","提示",JOptionPane.WARNING_MESSAGE);
+					}
+					
+
+				} else
+					JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+			}
+
+		});
 		// -------高级审批-----------------
 		modBtn = new MyButton("高级审批", new ImageIcon(detailPath));
 		modBtn.addActionListener(this);

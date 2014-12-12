@@ -27,8 +27,10 @@ import businesslogicservice.receiptblservice.ReceiptListService;
 
 public class ReceiptController implements ReceiptBLService,ReceiptListService{
 	ReceiptList list;
+	Review review;
 	public ReceiptController() throws Exception{
 		list=new ReceiptList();
+		review=new Review();
 		
 	}
 
@@ -82,7 +84,7 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 	public int Approve(String id,int status) {
 		// TODO Auto-generated method stub
 		
-		return 0;
+		return review.Approve(id, status);
 	}
 
 	public ReceiptVO View(String id) {

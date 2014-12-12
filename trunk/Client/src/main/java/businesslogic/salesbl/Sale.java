@@ -114,8 +114,13 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 	// 单据执行  等待助教回答member应收应付的问题
 	public int excute(ReceiptVO v)  {
 		//修改库存
+	
 		try {
-		SaleVO vo=(SaleVO)v;
+			SaleVO vo=(SaleVO)v;
+			Member m=new Member();
+			int i=m.changeToReceive(vo.getMemberID(),vo.getToPay());
+				
+		if(i==0){
 		StockGoodsBLService goodsController = new GoodsController();
 			ArrayList<CommodityVO> list = vo.getSalesList();
 			for (CommodityVO cvo : list) {
@@ -131,9 +136,9 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 			giftCouponPro gp= new giftCouponPro();
 			gp.useCoupon(vo.getCouponid());
 		}
-		Member m=new Member();
-		m.changeToReceive(vo.getMemberID(),vo.getToPay());
-			
+		}else{
+			return 1;//不成功 超过额度
+		}
 		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
