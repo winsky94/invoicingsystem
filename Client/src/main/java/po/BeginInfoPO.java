@@ -1,6 +1,7 @@
 package po;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
 public class BeginInfoPO implements Serializable{
@@ -9,32 +10,38 @@ public class BeginInfoPO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	    GoodsPO goods;
-	    MemberPO member;
-	    AccountPO account;
+	    ArrayList<GoodsPO> goods;
+	    ArrayList<MemberPO> member;
+	    ArrayList<AccountPO> account;
 	    String time;
 	    
 	    public BeginInfoPO(){
+	    	time=null;
 	    	goods=null;
 	    	member=null;
 	    	account=null;
 	    }
 	    
-	    public BeginInfoPO(GoodsPO a,MemberPO b,AccountPO c){
+	    public BeginInfoPO(String itime,ArrayList<GoodsPO> a,ArrayList<MemberPO> b,ArrayList<AccountPO> c){
+	    	time=itime;
 	    	goods=a;
 	    	member=b;
 	    	account=c;
 	    }
 	    
-	    public GoodsPO getGoods(BeginInfoPO vo){
+	    public String getTime(){
+	    	return time;
+	    }
+	    
+	    public ArrayList<GoodsPO> getGoods(){
 	    	return goods;
 	    }
 	    
-	    public MemberPO getMember(BeginInfoPO vo){
+	    public ArrayList<MemberPO> getMember(){
 	    	return member;
 	    }
 	    
-	    public AccountPO getAccount(AccountPO vo){
+	    public ArrayList<AccountPO> getAccount(){
 	    	return account;
 	    }
 
