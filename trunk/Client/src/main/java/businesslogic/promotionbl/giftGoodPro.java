@@ -22,8 +22,10 @@ import java.util.Date;
 
 
 
+
 import po.CommodityPO;
 import po.GiftGoodProPO;
+import po.PackProPO;
 import po.PromotionPO;
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
@@ -146,7 +148,11 @@ public class giftGoodPro extends promotion{
 	}
 	
 	
-	
+	public PromotionVO findByID(String id){
+		GiftGoodProPO gpo=(GiftGoodProPO)service.find(id, PromotionType.GIFTGOODS);
+		if(gpo==null) return null;
+		else return poToVo(gpo);
+	}
 	
 	
 	
