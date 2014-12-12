@@ -232,7 +232,19 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 	}
 	
 	public static void main(String[] args){
+
+		Member m;
 		try {
+			m = new Member();
+			m.changeToPay("XSS-0000001",100);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+			
+		
+	/*	try {
 			Member m=new Member();
 			MemberPO po=new MemberPO("JHS-0000001", MemberType.JHS, MemberLevel.ONE,"马建国","23333","深圳市蛇口区","210046","a@qq.com","一米五小公主", 100, 0,0,0);
 			m.add(po);
@@ -251,9 +263,11 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 		
 	}
+	
+	
 
 }

@@ -3,6 +3,13 @@ package po;
 import java.io.Serializable;
 
 public class CommodityPO  implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 	private String id,name,type;
 	private int num;//数量
 	private double price,last_bid;//售价,最后一次进价,销售成本不显示
@@ -67,6 +74,7 @@ public class CommodityPO  implements Serializable{
 	public void setTip(String tip) {
 		this.tip = tip;
 	}
+	
 	
 	
 	
