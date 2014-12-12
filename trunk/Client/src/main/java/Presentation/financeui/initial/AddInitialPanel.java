@@ -6,6 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,9 +15,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import Presentation.financeui.InitialPanel;
 import Presentation.mainui.MainFrame;
 
-public class AddInitialPanel extends JPanel {
+public class AddInitialPanel extends JPanel implements ActionListener{
 
 	/**
 	 * 
@@ -102,5 +105,14 @@ public class AddInitialPanel extends JPanel {
 //		gp.setBounds(0, 0, 920, 600);
 //		testFrame.add(gp);
 //		testFrame.setVisible(true);
+	}
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==submitBtn){
+			
+		}
+		else if(e.getSource()==exitBtn){
+			parent.setRightComponent(new InitialPanel(parent));
+		}
+		
 	}
 }

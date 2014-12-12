@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import Presentation.financeui.initial.AddInitialPanel;
 import Presentation.mainui.MainFrame;
 
 //期初建账
@@ -80,7 +81,9 @@ public class InitialPanel extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getSource()==addBtn){
+			father.setRightComponent(new AddInitialPanel(father));
+		}
 
 	}
 
