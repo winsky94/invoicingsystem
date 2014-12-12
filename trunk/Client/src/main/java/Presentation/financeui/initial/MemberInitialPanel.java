@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -17,6 +18,9 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import po.MemberPO.MemberType;
+import vo.MemberVO;
+import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 
 public class MemberInitialPanel extends JPanel{
@@ -32,7 +36,10 @@ public class MemberInitialPanel extends JPanel{
 	JScrollPane jsp;
 	JButton addBtn,delBtn;
 	JComboBox<String> memberBox;
-	public MemberInitialPanel(){
+	AddInitialPanel subparent; 
+	MainFrame parent;
+	public MemberInitialPanel(MainFrame frame){
+		parent=frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);
@@ -69,7 +76,7 @@ public class MemberInitialPanel extends JPanel{
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
 		//
-		String memberBoxText[]={"JHS-2025634 监小听"};
+		String memberBoxText[]={"选择客户"};
 		memberBox=new JComboBox<String>(memberBoxText);
 		memberBox.setBackground(Color.white);
 		memberBox.setFont(font);
@@ -82,7 +89,7 @@ public class MemberInitialPanel extends JPanel{
 		addBtn.setFocusPainted(false);
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//监听!!!!
+				parent.setRightComponent(new addMemberInitial(parent,MemberInitialPanel.this));
 			}
 		});
 		btnPnl.add(addBtn);
@@ -128,4 +135,42 @@ public class MemberInitialPanel extends JPanel{
 		}
 		
 	}
+	public void RefreshTable(MemberVO vo){
+		ArrayList<String> line=new ArrayList<String>();
+		line.add(vo.getMemberID());
+		line.add(vo.getName());
+		if(vo.getmType()==MemberType.JHS)
+			line.add("进货商");
+		else line.add("销售商");
+		line.add(vo.getTel());
+		line.add(vo.getToReceive()+"");
+		line.add(vo.getToPay()+"");
+		memberC.add(line);
+		
+	
+	}
+	
+	public String getNewID(MemberType type){
+		String cop="销售商";
+		if(type==MemberType.JHS)
+			cop="进货商";
+			
+		for(int i=memberC.size()-1;i>=0;i--){
+			String mtype=memberC.get(i).get(2);
+			if(mtype.equals(cop))
+			{ double d=Double.parseDouble(memberC.get(i).get(0).substring(4))+1;
+			NumberFormat nf = NumberFormat.getInstance();
+		     nf.setMinimumIntegerDigits(7); 
+		     nf.setGroupingUsed(false);
+		     return type.toString()+"-"+nf.format(d);
+		     }
+			
+		}
+		return type.toString()+"-0000001";
+		
+	}
+	public void setParent(AddInitialPanel pane){
+		this.subparent=pane;
+	}
 }
+

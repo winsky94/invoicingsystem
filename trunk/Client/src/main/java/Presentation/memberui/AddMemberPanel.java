@@ -42,20 +42,27 @@ public class AddMemberPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	MainFrame parent;
-	String ID;
-	typeListener typel;
+	public String ID;
+	public typeListener typel;
 	MemberBLService service;
-	MemberType mtype;
-	JButton submitBtn, cancelBtn;
-	JComboBox<String> typeCbox;
+	public MemberType mtype;
+	public JButton submitBtn, cancelBtn;
+	public JComboBox<String> typeCbox;
 
 	JTextField nameFld, phoneFld, addressFld, postcodeFld, EMailFld,
 			defaultClerkFld;
-	JLabel title, IDLbl, typeLbl, nameLbl, phoneLbl, addressLbl, postcodeLbl,
-			EMailLbl, defaultClerkLbl;
+	JLabel title;
+	public JLabel IDLbl;
+	JLabel typeLbl;
+	JLabel nameLbl;
+	JLabel phoneLbl;
+	JLabel addressLbl;
+	JLabel postcodeLbl;
+	JLabel EMailLbl;
+	JLabel defaultClerkLbl;
 	String nameText, phoneText, addressText, postcodeText, EMailText,
 			clerkText;
-	AddListener add;
+	public AddListener add;
 	public AddMemberPanel(MainFrame frame) throws Exception {
 		parent = frame;
 		service = new Member();
@@ -208,11 +215,8 @@ public class AddMemberPanel extends JPanel {
 		cancelBtn.setFocusPainted(false);
 		cancelBtn.setBackground(new Color(251, 147, 121));
 		btnPnl.add(cancelBtn);
-		cancelBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Update();
-			}
-		});
+		cancelBtn.addActionListener(add);
+		
 		add=new AddListener();
 		submitBtn.addActionListener(add);
 		
@@ -224,18 +228,12 @@ public class AddMemberPanel extends JPanel {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			if(e.getSource()==submitBtn){
 			if (ID == null || ID.equals("")) {
 				JOptionPane.showMessageDialog(null, "请选择用户类型，并输入信息！", "提示",
 						JOptionPane.CLOSED_OPTION);
 			} else {
-				MemBaseInfo bInfo = new MemBaseInfo(mtype, MemberLevel.ONE,
-						ID, nameFld.getText(), 0, defaultClerkFld.getText());
-				MemContactInfo cInfo = new MemContactInfo(phoneFld
-						.getText(), addressFld.getText(), postcodeFld
-						.getText(), EMailFld.getText());
-				MemAccountInfo aInfo = new MemAccountInfo(1000000, 0, 0);
-
-				MemberVO vo = new MemberVO(bInfo, aInfo, cInfo);
+				MemberVO vo=getMemberVO();
 				int result = service.addMember(vo);
 				// 改
 				if (result == 0) {
@@ -256,8 +254,23 @@ public class AddMemberPanel extends JPanel {
 				}
 				Update();
 			}
+			}else{
+				Update();
+			}
 		}
 		
+	}
+	
+	public MemberVO getMemberVO(){
+		MemBaseInfo bInfo = new MemBaseInfo(mtype, MemberLevel.ONE,
+				ID, nameFld.getText(), 0, defaultClerkFld.getText());
+		MemContactInfo cInfo = new MemContactInfo(phoneFld
+				.getText(), addressFld.getText(), postcodeFld
+				.getText(), EMailFld.getText());
+		MemAccountInfo aInfo = new MemAccountInfo(1000000, 0, 0);
+
+		MemberVO vo = new MemberVO(bInfo, aInfo, cInfo);
+		return vo;
 	}
 	
 	class typeListener implements ItemListener{
@@ -282,5 +295,6 @@ public class AddMemberPanel extends JPanel {
 		if (service.showMembers() != null)
 			mgr.RefreshMemberTable(service.showMembers());
 	}
+	
 
 }
