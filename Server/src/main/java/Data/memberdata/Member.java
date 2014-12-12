@@ -56,6 +56,8 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 			MemberPO b=(MemberPO)a.get(i);
 			if(b.getMemberID().equals(id)){
 				b.changeToReceive(m);
+				if(b.getToReceive()>b.getMaxOwe())
+					return 1;
 				break;
 			}
 		}
