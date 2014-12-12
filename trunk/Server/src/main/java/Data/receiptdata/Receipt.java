@@ -9,6 +9,7 @@ import Data.financedata.Collection;
 import Data.financedata.Payment;
 import Data.financedata.RedExtrusion;
 import Data.salesdata.Sales;
+import Data.serutility.JXCFile;
 import Data.stockdata.gift.Gift;
 import Data.stockdata.stockManage.StockControl;
 import po.CashlistPO;
@@ -17,13 +18,12 @@ import po.GiftPO;
 import po.PaymentPO;
 import po.PurchasePO;
 import po.PurchaseReturnPO;
+import po.ReceiptMessagePO;
 import po.ReceiptPO;
 import po.ReceiptPO.ReceiptType;
 import po.SalePO;
 import po.SaleReturnPO;
-
 import dataservice.receiptdataservice.ReceiptDataService;
-
 import po.StockOverOrLowPO;
 
 
@@ -459,6 +459,44 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		
 		return result;
 			
+	}
+
+	public ArrayList<ReceiptMessagePO> showAllMessage() throws RemoteException {
+		// TODO Auto-generated method stub
+		JXCFile file;
+		file=new JXCFile("src/main/java/message.ser");
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return null;
+		
+		ArrayList<ReceiptMessagePO> buffer=new ArrayList<ReceiptMessagePO>();
+		for(Object b:a){
+			ReceiptMessagePO po=(ReceiptMessagePO)b;
+			buffer.add(po);
+		}
+		
+		return buffer;
+	}
+
+	public void addReceiptMessage(ReceiptMessagePO po) throws RemoteException {
+		// TODO Auto-generated method stub
+		JXCFile file;
+		file=new JXCFile("src/main/java/message.ser");
+		file.write(po);
+	}
+
+	public void deleteReceiptMessage(ReceiptMessagePO po)
+			throws RemoteException {
+		// TODO Auto-generated method stub
+		JXCFile file;
+		file=new JXCFile("src/main/java/message.ser");
+		ArrayList<Object> a=file.read();
+		if(a!=null)
+			for(Object b:a)
+				if(po.equals((ReceiptMessagePO)b))
+						{a.remove(b);break;}
+		file.writeM(a);
+		
 	}
       
 }
