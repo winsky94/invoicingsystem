@@ -1,7 +1,5 @@
 package Presentation.promotionui.CouponPromotion;
 
-import javax.swing.JLabel;
-
 import po.PromotionPO.PromotionType;
 import vo.GiftCouponProVO;
 import Presentation.mainui.MainFrame;
