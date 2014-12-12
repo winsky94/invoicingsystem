@@ -31,38 +31,38 @@ import Presentation.uihelper.DateChooser;
 import businesslogic.promotionbl.promotionController;
 import businesslogicservice.promotionblservice.PromotionBLService;
 
-public class AddCouponPanel extends JPanel implements ActionListener{
+public class AddCouponPanel extends JPanel implements ActionListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String startDate,endDate,id;
+	String startDate, endDate, id;
 	MemberLevel level;
 	double totalValue;
 	MainFrame father;
 	DateChooser from, to;
-	 JTextField limitFld , priceFld;
+	JTextField limitFld, priceFld;
 	JTextField totalFld;
-
+	JLabel title;
 	JComboBox<String> memberGradeBox;
 	JButton submitBtn, exitBtn;
 	PromotionBLService service;
 	ArrayList<CouponVO> couponlist;
-	
+
 	public AddCouponPanel(MainFrame myFather) {
 		father = myFather;
-		couponlist=new ArrayList<CouponVO>();
+		couponlist = new ArrayList<CouponVO>();
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 5, 5, 5);
 		this.setBackground(Color.white);
 		this.setLayout(gbl);
 		// ----------------------------
-		JPanel titlePnl=new JPanel();
+		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
-		titlePnl.setLayout(new GridLayout(1,1));
-		JLabel title = new JLabel("制定代金券赠送策略");
+		titlePnl.setLayout(new GridLayout(1, 1));
+		title = new JLabel("制定代金券赠送策略");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
@@ -74,13 +74,13 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 		gbl.setConstraints(titlePnl, c);
 		this.add(titlePnl);
 		// -----------------------------
-		c.fill=GridBagConstraints.BOTH;
+		c.fill = GridBagConstraints.BOTH;
 		JPanel mPnl = new JPanel();
 		mPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 2;
 		c.gridheight = 6;
-		c.gridwidth =GridBagConstraints.REMAINDER;
+		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.weightx = 1;
 		c.weighty = 1;
 		gbl.setConstraints(mPnl, c);
@@ -181,51 +181,52 @@ public class AddCouponPanel extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource()==exitBtn){
+		if (e.getSource() == exitBtn) {
 			try {
 				update();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		}
-		else if(e.getSource()==submitBtn){
+		} else if (e.getSource() == submitBtn) {
 			try {
-				startDate=from.getDate();
-				endDate=to.getDate();
-				level= MemberLevel.valueOf((String) memberGradeBox.getSelectedItem());
-				service=new promotionController();
-				totalValue=Double.parseDouble(limitFld.getText());
-				double value=Double.parseDouble(priceFld.getText());
-				for(int i=0;i<Integer.parseInt(totalFld.getText());i++)
-					couponlist.add(new CouponVO("",value,false));
-				id=service.getNewID(PromotionType.GIFTCOUPON);
-				GiftCouponProVO vo=new GiftCouponProVO(id,startDate,endDate,level,
-						couponlist,totalValue);
-				if(service.Add(vo)==0)
-					{JOptionPane.showMessageDialog(null, "策略添加成功","提示",JOptionPane.WARNING_MESSAGE);
+				startDate = from.getDate();
+				endDate = to.getDate();
+				level = MemberLevel.valueOf((String) memberGradeBox
+						.getSelectedItem());
+				service = new promotionController();
+				totalValue = Double.parseDouble(limitFld.getText());
+				double value = Double.parseDouble(priceFld.getText());
+				for (int i = 0; i < Integer.parseInt(totalFld.getText()); i++)
+					couponlist.add(new CouponVO("", value, false));
+				id = service.getNewID(PromotionType.GIFTCOUPON);
+				GiftCouponProVO vo = new GiftCouponProVO(id, startDate,
+						endDate, level, couponlist, totalValue);
+				if (service.Add(vo) == 0) {
+					JOptionPane.showMessageDialog(null, "策略添加成功", "提示",
+							JOptionPane.WARNING_MESSAGE);
 					update();
-					log.addLog(new LogVO(log.getdate(),father.getUser().getID(),father.getUser().getName(),
-							"创建一条代金券促销策略",2));
+					log.addLog(new LogVO(log.getdate(), father.getUser()
+							.getID(), father.getUser().getName(),
+							"创建一条代金券促销策略", 2));
 					headPane.RefreshGrades();
-					
-						
-					}
-				else
-					JOptionPane.showMessageDialog(null, "添加失败","提示",JOptionPane.WARNING_MESSAGE);
-					
+
+				} else
+					JOptionPane.showMessageDialog(null, "添加失败", "提示",
+							JOptionPane.WARNING_MESSAGE);
+
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
 	}
-	
-	public void update() throws Exception{
-		PromotionPanel proPanel=new PromotionPanel((MainFrame)father);
-		((MainFrame)father).setRightComponent(proPanel);
-		service=new promotionController();
-		if(service.Show()!=null)
+
+	public void update() throws Exception {
+		PromotionPanel proPanel = new PromotionPanel((MainFrame) father);
+		((MainFrame) father).setRightComponent(proPanel);
+		service = new promotionController();
+		if (service.Show() != null)
 			proPanel.RefreshProTable(service.Show());
 	}
 }
