@@ -77,6 +77,7 @@ public class AddInitialPanel extends JPanel implements ActionListener{
 		//----------------------------
 		accountInitialPanel=new AccountInitialPanel(parent);
 		tab.add("账户信息初始化",accountInitialPanel);
+		accountInitialPanel.setParent(this);
 		// ---------buttons-----------
 		JPanel btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);

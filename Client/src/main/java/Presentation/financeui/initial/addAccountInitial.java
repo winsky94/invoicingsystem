@@ -32,15 +32,17 @@ public class addAccountInitial extends JPanel implements ActionListener {
 		this.add(p,BorderLayout.CENTER);
 		
 		p.submitBtn.removeActionListener(p.add);
-		p.exitBtn.removeActionListener(p.add);
+		p.exitBtn.removeActionListener(p.exit);
 		p.submitBtn.addActionListener(this);
 		p.exitBtn.addActionListener(this);
 		
 		
 	}
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		
 		if(e.getSource()==p.submitBtn){
+			p.name=p.nameFld.getText();
+			p.money=p.moneyFld.getText();
 			if (p.name.equals("")||p.money.equals("")) {
 				JOptionPane.showMessageDialog(null, "请输入完整信息！", "提示",JOptionPane.CLOSED_OPTION);
 			} else {
@@ -54,7 +56,7 @@ public class addAccountInitial extends JPanel implements ActionListener {
 		}
 		 else if(e.getSource()==p.exitBtn){
 				parent.setRightComponent(tab.subparent);
-				tab.subparent.setFocus(1);				
+				tab.subparent.setFocus(2);				
 			}
 		}
 		
