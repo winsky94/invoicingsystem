@@ -23,12 +23,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import po.MemberPO.MemberType;
 import vo.AccountVO;
 import vo.MemberVO;
 import vo.TransferItemVO;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import businesslogic.financebl.Account;
 import businesslogic.memberbl.Member;
 import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
@@ -107,6 +109,12 @@ public class CollectionAndPaymentPanel extends JPanel {
 		left.setLayout(lgbl);
 		tlm = new TransferListModel(content);
 		table = new JTable(tlm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < table.getColumnCount(); i++) {
+					table.getColumn(table.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jsp = new JScrollPane(table);
 		lc.gridx = 0;
 		lc.gridy = 0;

@@ -16,9 +16,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import Presentation.financeui.initial.AddInitialPanel;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 
 //期初建账
 public class InitialPanel extends JPanel implements ActionListener {
@@ -32,7 +34,8 @@ public class InitialPanel extends JPanel implements ActionListener {
 	JScrollPane jsp;
 	Color color = new Color(242, 125, 5);
 	MyButton addBtn, detailBtn, refreshBtn;
-	ArrayList<ArrayList<String>> c=new ArrayList<ArrayList<String>>();
+	ArrayList<ArrayList<String>> c = new ArrayList<ArrayList<String>>();
+
 	public InitialPanel(MainFrame frame) {
 		father = frame;
 		this.setBackground(Color.white);
@@ -69,6 +72,11 @@ public class InitialPanel extends JPanel implements ActionListener {
 		// --------表格------------------
 		im = new InitialModel();
 		table = new JTable(im);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < table.getColumnCount(); i++) {
+			table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
+		}
 		jsp = new JScrollPane(table);
 		wn.gridx = 0;
 		wn.gridy = 2;
@@ -93,7 +101,7 @@ public class InitialPanel extends JPanel implements ActionListener {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		
+
 		MyButton(String text, Icon icon) {
 			super(text, icon);
 			this.setFont(new Font("微软雅黑", Font.PLAIN, 15));
@@ -111,14 +119,14 @@ public class InitialPanel extends JPanel implements ActionListener {
 		}
 	}
 
-
 	class InitialModel extends AbstractTableModel {
 
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		String head[]={"建账时间","操作员","备注"};
+		String head[] = { "建账时间", "操作员", "备注" };
+
 		public int getRowCount() {
 			return c.size();
 		}
@@ -134,6 +142,7 @@ public class InitialPanel extends JPanel implements ActionListener {
 		public String getColumnName(int col) {
 			return head[col];
 		}
+
 		public void addRow(ArrayList<String> v) {
 			c.add(v);
 		}

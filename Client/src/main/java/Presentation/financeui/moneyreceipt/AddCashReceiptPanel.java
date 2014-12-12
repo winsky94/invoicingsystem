@@ -23,11 +23,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import vo.AccountVO;
 import vo.CashlistVO;
 import vo.ClauseItemVO;
 import vo.LogVO;
+import Presentation.financeui.CollectionPanel;
+import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 import businesslogic.financebl.Account;
 import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
@@ -36,10 +42,6 @@ import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLSe
 import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
-import Presentation.financeui.CollectionPanel;
-import Presentation.mainui.MainFrame;
-import Presentation.mainui.headPane;
-import Presentation.mainui.log;
 
 public class AddCashReceiptPanel extends JPanel implements ActionListener{
 
@@ -89,6 +91,12 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 		c.fill = GridBagConstraints.BOTH;
 		crm = new CashReceiptModel();
 		table = new JTable(crm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < table.getColumnCount(); i++) {
+					table.getColumn(table.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jsp = new JScrollPane(table);
 		c.gridx = 0;
 		c.gridy = 2;

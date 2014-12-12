@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,18 +24,20 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import po.UserPO.UserJob;
 import vo.ReceiptVO;
-import businesslogic.receiptbl.ReceiptController;
-import businesslogicservice.receiptblservice.ReceiptListService;
 import Presentation.mainui.ExportExcel;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import Presentation.mainui.XLSFilter;
 import Presentation.receiptui.tablemodels.OperationHistoryTableModel;
 import Presentation.receiptui.tablemodels.OperationStatementTableModel;
 import Presentation.receiptui.tablemodels.SaleDetailTableModel;
 import Presentation.uihelper.DateChooser;
+import businesslogic.receiptbl.ReceiptController;
+import businesslogicservice.receiptblservice.ReceiptListService;
 
 //查看三表
 public class ReportMgrPanel extends JPanel implements ActionListener {
@@ -260,16 +261,30 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		// ------销售明细表--------------
 		sdtm = new SaleDetailTableModel();
 		t1 = new JTable(sdtm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < t1.getColumnCount(); i++) {
+					t1.getColumn(t1.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jsp1 = new JScrollPane(t1);
 		tab.add("销售明细表", jsp1);
 		// ------经营历程表--------------
 		ohtm = new OperationHistoryTableModel();
 		t2 = new JTable(ohtm);
+		for (int i = 0; i < t2.getColumnCount(); i++) {
+			t2.getColumn(t2.getColumnName(i)).setCellRenderer(
+					tcr);
+		}
 		jsp2 = new JScrollPane(t2);
 		tab.add("经营历程表", jsp2);
 		// -------经营情况表--------------
 		ostm = new OperationStatementTableModel();
 		t3 = new JTable(ostm);
+		for (int i = 0; i < t3.getColumnCount(); i++) {
+			t3.getColumn(t3.getColumnName(i)).setCellRenderer(
+					tcr);
+		}
 		jsp3 = new JScrollPane(t3);
 		tab.add("经营情况表", jsp3);
 

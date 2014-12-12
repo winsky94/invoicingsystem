@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,12 +22,10 @@ import javax.swing.JTextField;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import po.MemberPO.MemberLevel;
 import po.PromotionPO.PromotionType;
-import businesslogic.promotionbl.promotion;
-import businesslogic.promotionbl.promotionController;
-import businesslogicservice.promotionblservice.PromotionBLService;
 import vo.CommodityVO;
 import vo.GoodsVO;
 import vo.LogVO;
@@ -36,11 +33,14 @@ import vo.PackProVO;
 import vo.PackVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import Presentation.mainui.headPane;
 import Presentation.mainui.log;
 import Presentation.promotionui.PromotionPanel;
 import Presentation.stockui.ChooseGoodsDialog;
 import Presentation.uihelper.DateChooser;
+import businesslogic.promotionbl.promotionController;
+import businesslogicservice.promotionblservice.PromotionBLService;
 
 public class AddBarginPanel extends ChooseGoodsFatherPane {
 	/**
@@ -155,6 +155,12 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 		
 		btm = new AddBarginModel();
 		table = new JTable(btm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < table.getColumnCount(); i++) {
+					table.getColumn(table.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jsp = new JScrollPane(table);
 		table.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
 		btm.addTableModelListener(new TableModelListener(){

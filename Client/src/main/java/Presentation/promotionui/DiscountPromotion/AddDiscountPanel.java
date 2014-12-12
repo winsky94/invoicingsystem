@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import po.MemberPO.MemberLevel;
 import po.PromotionPO.PromotionType;
@@ -30,6 +31,7 @@ import vo.GoodsVO;
 import vo.LogVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import Presentation.mainui.headPane;
 import Presentation.mainui.log;
 import Presentation.promotionui.PromotionPanel;
@@ -115,6 +117,12 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 		c.fill=GridBagConstraints.BOTH;
 		btm=new AddDiscountModel();
 		table=new JTable(btm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < table.getColumnCount(); i++) {
+					table.getColumn(table.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jsp=new JScrollPane(table);
 		c.gridx=0;
 		c.gridy=3;

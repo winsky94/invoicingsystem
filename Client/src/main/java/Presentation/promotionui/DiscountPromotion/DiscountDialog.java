@@ -7,10 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.rmi.RemoteException;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -23,20 +21,22 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
+import vo.GoodsClassVO;
+import vo.GoodsVO;
+import Presentation.mainui.ChooseGoodsFatherPane;
+import Presentation.mainui.MyTableCellRenderer;
+import Presentation.stockui.goodsmanage.GoodsClassNode;
+import Presentation.uihelper.UIhelper;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.stockbl.goodsClass.GoodsClassController;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBLService;
-import vo.GoodsClassVO;
-import vo.GoodsVO;
-import Presentation.mainui.ChooseGoodsFatherPane;
-import Presentation.stockui.goodsmanage.GoodsClassNode;
-import Presentation.uihelper.UIhelper;
 
 public class DiscountDialog extends JDialog{
 	/**
@@ -88,7 +88,12 @@ public class DiscountDialog extends JDialog{
 		// -----------goodsTbl-------------------------------------------
 		gtm=new GoodsTblModel();
 		goodsTbl = new JTable(gtm);
-		
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < goodsTbl.getColumnCount(); i++) {
+					goodsTbl.getColumn(goodsTbl.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jspLeft = new JScrollPane(goodsTbl);
 		jspLeft.setBounds(dialogWidth * 20 / 100, dialogHeight * 5 / 100,
 				dialogWidth * 35 / 100, dialogHeight * 85 / 100);
@@ -101,6 +106,11 @@ public class DiscountDialog extends JDialog{
 		pnl.add(chosenLbl);
 		ctm=new ChosenTblModel();
 		chosenTbl = new JTable(ctm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				for (int i = 0; i < chosenTbl.getColumnCount(); i++) {
+					chosenTbl.getColumn(chosenTbl.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jspRight = new JScrollPane(chosenTbl);
 		jspRight.setBounds(dialogWidth * 60 / 100, dialogHeight * 10 / 100,
 				dialogWidth * 35 / 100, dialogHeight * 60 / 100);

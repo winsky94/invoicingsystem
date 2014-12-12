@@ -22,14 +22,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
-import businesslogic.financebl.Account;
-import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
 import vo.AccountVO;
 import Presentation.financeui.account.AddAccountPanel;
 import Presentation.financeui.account.DelAccountDialog;
 import Presentation.financeui.account.ModAccountPanel;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
+import businesslogic.financebl.Account;
+import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
 
 public class AccountPanel extends JPanel implements ActionListener{
 	/**
@@ -96,6 +98,12 @@ public class AccountPanel extends JPanel implements ActionListener{
 
 		atm = new AccountTableModel();
 		table = new JTable(atm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < table.getColumnCount(); i++) {
+					table.getColumn(table.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jsp = new JScrollPane(table);
 		wn.gridx = 0;
 		wn.gridy = 2;

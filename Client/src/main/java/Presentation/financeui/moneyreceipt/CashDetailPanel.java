@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import vo.CashlistVO;
 import vo.ClauseItemVO;
@@ -29,6 +30,7 @@ import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 import businesslogicservice.userblservice.UserBLService;
 import Presentation.financeui.CollectionPanel;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 
 public class CashDetailPanel extends JPanel implements ActionListener{
 	/**
@@ -86,6 +88,12 @@ public class CashDetailPanel extends JPanel implements ActionListener{
 		c.fill = GridBagConstraints.BOTH;
 		crm = new CashReceiptModel();
 		table = new JTable(crm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < table.getColumnCount(); i++) {
+					table.getColumn(table.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jsp = new JScrollPane(table);
 		c.gridx = 0;
 		c.gridy = 2;

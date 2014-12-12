@@ -16,8 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import Presentation.promotionui.PromotionPanel;
 
 public class GiftDetailPanel extends JPanel{
@@ -86,6 +88,12 @@ public class GiftDetailPanel extends JPanel{
 		c.fill=GridBagConstraints.BOTH;
 		gm=new GiftModel();
 		table=new JTable(gm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < table.getColumnCount(); i++) {
+					table.getColumn(table.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jsp=new JScrollPane(table);
 		c.gridx=0;
 		c.gridy=3;

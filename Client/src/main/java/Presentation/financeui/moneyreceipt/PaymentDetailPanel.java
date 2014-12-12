@@ -16,9 +16,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import vo.PaymentVO;
 import vo.TransferItemVO;
+import Presentation.financeui.CollectionPanel;
+import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
 import businesslogic.financebl.Payment;
@@ -27,8 +31,6 @@ import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 import businesslogicservice.userblservice.UserBLService;
-import Presentation.financeui.CollectionPanel;
-import Presentation.mainui.MainFrame;
 
 public class PaymentDetailPanel extends JPanel implements ActionListener{
 	/**
@@ -86,6 +88,12 @@ public class PaymentDetailPanel extends JPanel implements ActionListener{
 		c.fill = GridBagConstraints.BOTH;
 		tlm = new TransferListModel();
 		table = new JTable(tlm);
+		// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < table.getColumnCount(); i++) {
+					table.getColumn(table.getColumnName(i)).setCellRenderer(
+							tcr);
+				}
 		jsp = new JScrollPane(table);
 		c.gridx = 0;
 		c.gridy = 2;
