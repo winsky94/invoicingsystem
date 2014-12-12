@@ -6,20 +6,28 @@ import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import po.MemberPO.MemberType;
 import vo.LogVO;
+import vo.MemberVO;
 import vo.PaymentVO;
 import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
 import businesslogic.financebl.Payment;
+import businesslogic.memberbl.Member;
 import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
+import businesslogicservice.memberblservice.MemberBLService;
 import Presentation.financeui.CollectionPanel;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
@@ -91,7 +99,25 @@ public class AddPaymentPanel extends CollectionAndPaymentPanel implements Action
 			int isHurry=0;
 			if(hurryBox.isSelected())
 				isHurry=1;
-			PaymentVO vo=new PaymentVO(ID,(String)supplierBox.getSelectedItem(),(String)sellerBox.getSelectedItem(),parent.getUser().getID(),tra,totalMoney,0,isHurry);
+			
+			MemberBLService mem = null;
+			try {
+				mem = new Member();
+
+			} catch (MalformedURLException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			} catch (RemoteException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			} catch (NotBoundException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			ArrayList<MemberVO> member1 = mem.show(MemberType.JHS);
+			ArrayList<MemberVO> member2 = mem.show(MemberType.XSS);
+			PaymentVO vo=new PaymentVO(ID,member1.get(supplierBox.getSelectedIndex()).getMemberID(),member2.get(sellerBox.getSelectedIndex()).getMemberID(),parent.getUser().getID(),tra,totalMoney,0,isHurry);
+//			PaymentVO vo=new PaymentVO(ID,(String)supplierBox.getSelectedItem(),(String)sellerBox.getSelectedItem(),parent.getUser().getID(),tra,totalMoney,0,isHurry);
 
 			try {
 				service = new Payment();
