@@ -131,7 +131,7 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 					goodsController.modifyGoods(goodsVO);
 			}
 		if(!vo.getProid().equals(""))
-			promotionController.Excute(vo.getProid());
+			promotionController.Excute(vo.getProid(),vo);
 		if(!vo.getCouponid().equals("")){
 			giftCouponPro gp= new giftCouponPro();
 			gp.useCoupon(vo.getCouponid());

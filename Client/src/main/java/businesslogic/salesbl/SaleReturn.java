@@ -1,6 +1,8 @@
 package businesslogic.salesbl;
 
+import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import vo.CommodityVO;
 import vo.GoodsVO;
 import vo.ReceiptVO;
 import vo.SaleReturnVO;
+import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.utilitybl.getDate;
@@ -77,6 +80,15 @@ public class SaleReturn extends Receipt {
 	public int excute(ReceiptVO v) {
 		// 修改库存
 		SaleReturnVO vo=(SaleReturnVO)v;
+		Member m;
+		try {
+			m = new Member();
+			m.changeToReceive(vo.getMemberID(),-vo.getTotal()[4]);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	
 		StockGoodsBLService goodsController = new GoodsController();
 		ArrayList<CommodityVO> list = vo.getSaleReturnList();
 		for (CommodityVO cvo : list) {

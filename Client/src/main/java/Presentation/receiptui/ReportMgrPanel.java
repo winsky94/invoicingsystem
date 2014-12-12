@@ -350,6 +350,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			vo = reservice.View();
 			if (vo != null)
 				ohtm.RefreshTable(vo);
+			double[] data={1,1,1,1,1,1,1,1,1,1,1,1,1};
+			ostm.RefreshTable(data);
 
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -371,6 +373,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 					ExportExcel.Exprot(sdtm.getExportConent(), fileName);
 				} else if (tab.getSelectedIndex() == 1)
 					ExportExcel.Exprot(ohtm.getExportContent(), fileName);
+				else
+					ExportExcel.Exprot(ostm.getExportContent(), fileName);
 				// saveXLSContents();
 			}
 		}

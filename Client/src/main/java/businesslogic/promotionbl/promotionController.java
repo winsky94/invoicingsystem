@@ -15,8 +15,8 @@ import businesslogicservice.promotionblservice.PromotionViewService;
 public class promotionController implements PromotionViewService,
 	PromotionMatchService,PromotionBLService{
 	
-	giftCouponPro gcp;
-	giftGoodPro ggp;
+	static giftCouponPro gcp;
+	static giftGoodPro ggp;
 	packPro pp;
 	discountPro dcp;
 	public promotionController() throws Exception{
@@ -135,7 +135,7 @@ public class promotionController implements PromotionViewService,
 		return gcp.getCouponValue(id);
 	}
 
-	public static void Excute(String proid) {
+	public static void Excute(String proid,SaleVO vo) {
 		// TODO Auto-generated method stub
 		promotion pro;
 		try {
@@ -143,7 +143,9 @@ public class promotionController implements PromotionViewService,
 			PromotionPO po=pro.find(proid);
 			if(po!=null){
 			if(po.getType()==PromotionType.GIFTCOUPON){
-				
+				gcp.useCoupon(vo.getCouponid());
+			}else{
+				ggp.Excute(po,vo);
 			}
 			}
 		} catch (Exception e) {
