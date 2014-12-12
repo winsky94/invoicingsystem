@@ -6,6 +6,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import po.CommodityPO;
 import po.GiftPO;
 import vo.CommodityVO;
@@ -69,7 +71,14 @@ public class GiftManage {
 
 				// 检测库存是否报警
 				StockControlBLService stockController = new StockControlController();
-				stockController.stockNumCheck(good.getGoodsID());
+				boolean result = stockController.stockNumCheck(good
+						.getGoodsID());
+				if (result) {
+					//
+					JOptionPane.showMessageDialog(null, "库存不足啦！", null,
+							JOptionPane.WARNING_MESSAGE);
+				}
+
 			}
 
 			// 调用服务器端处理库存赠送单
