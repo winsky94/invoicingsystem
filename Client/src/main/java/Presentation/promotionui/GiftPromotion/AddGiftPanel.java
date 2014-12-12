@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -61,8 +60,8 @@ public class AddGiftPanel extends ChooseGoodsFatherPane {
 	PromotionBLService service;
 	submitListener slisten;
 	JLabel title;
-	public AddGiftPanel(JFrame myFather) throws Exception {
-		parent = (MainFrame) myFather;
+	public AddGiftPanel(MainFrame myFather) throws Exception {
+		parent =myFather;
 		service = new promotionController();
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
