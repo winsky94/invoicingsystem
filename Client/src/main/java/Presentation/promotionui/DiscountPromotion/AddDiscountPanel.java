@@ -349,12 +349,32 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 
 	}
 
-	private int find(String id) {
-		for (int i = 0; i < cmContent.size(); i++) {
-			if (id.equals(cmContent.get(i).get(0)))
-				return i;
+	public void RefreshCTable(ArrayList<Object> vo ,ArrayList<Double> dis){
+		ArrayList<Integer> index=new ArrayList<Integer>();
+		index.add(0);
+		double start=dis.get(0);
+		for(int i=1;i<dis.size();i++){
+			if(dis.get(i)!=start)
+				{index.add(i);start=dis.get(i);}
 		}
-		return -1;
+		index.add(vo.size());
+		for(int i=0;i<index.size()-1;i++){
+			ArrayList<Object> temp=new ArrayList<Object>();
+			for(int j=index.get(i);j<index.get(i+1);j++){
+				temp.add(vo.get(j));
+			}
+			RefreshCTable(temp,dis.get(index.get(i)));
+				
+		}
+ 	}
+	
+	
+	private int find(String id){
+		 for(int i=0;i<cmContent.size();i++){
+			 if(id.equals(cmContent.get(i).get(0)))
+					 return i;
+		 }
+		 return -1;
 	}
 
 	public void update() throws Exception {
