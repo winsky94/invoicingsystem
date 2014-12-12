@@ -270,7 +270,6 @@ public class StockManage {
 				// 行号、商品名称、型号、库存数量、库存均价、批次、批号、出厂日期
 				NumberFormat nf = new DecimalFormat("00000");
 				String hang = nf.format(i);
-				tp.add(hang);// 行号
 				tp.add(po.getName());// 名称
 				tp.add(po.getSize());// 型号
 				tp.add(String.valueOf(po.getNumInStock()));// 库存数量
