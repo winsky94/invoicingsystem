@@ -6,13 +6,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import Data.datafactory.SequenceOfReceiptPO;
-import Data.receiptdata.ReceiptType;
 import Data.serutility.JXCFile;
-import po.CashlistPO;
 import po.CommodityPO;
 import po.PurchasePO;
 import po.PurchaseReturnPO;
 import po.ReceiptPO;
+import po.ReceiptPO.ReceiptType;
 import po.SalePO;
 import po.SaleReturnPO;
 import dataservice.salesdataservice.SalesDataService;
@@ -65,10 +64,10 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		if(po.getType()==ReceiptType.PURCHASE){
         	file=new JXCFile("src/main/java/purchase.ser");
         }
-        else if(s.equals("JHTHD")){
+        else if(po.getType()==ReceiptType.PURCHASERETURN){
         	file=new JXCFile("src/main/java/purchasereturn.ser");
         }
-        else if(s.equals("XSD")){
+        else if(po.getType()==ReceiptType.SALE){
         	file=new JXCFile("src/main/java/sale.ser");
         }
         else{
@@ -79,9 +78,9 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			return 1;  	 
 		int i;
 		for(i=0;i<a.size();i++){
-			CashlistPO b=(CashlistPO)a.get(i);
+			ReceiptPO b=(ReceiptPO)a.get(i);
 			if(b.getId().equals(po.getId())){
-				b.setClauselist(po.getClauselist());;
+				b.setInfo(po.getInfo());
 				break;
 			}
 		}
