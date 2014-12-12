@@ -154,4 +154,20 @@ public class promotionController implements PromotionViewService,
 		
 	}
 
+	@Override
+	public PromotionVO find(String id, PromotionType type) {
+		// TODO Auto-generated method stub
+		switch(type){
+		case PACK:
+			return pp.findByID(id);
+		case DISCOUNT:
+			return dcp.findByID(id);
+		case GIFTGOODS:
+			return ggp.findByID(id);
+		default:
+			return gcp.findByID(id);
+		}
+		
+	}
+
 }

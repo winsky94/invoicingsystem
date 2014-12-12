@@ -7,6 +7,7 @@ import java.util.Date;
 import po.CommodityPO;
 import po.DiscountProPO;
 import po.GoodsPO;
+import po.PackProPO;
 import po.PromotionPO;
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
@@ -78,7 +79,11 @@ public  class discountPro extends promotion{
 		
 	}
 	
-	
+	public PromotionVO findByID(String id){
+		DiscountProPO gpo=(DiscountProPO)service.find(id, PromotionType.DISCOUNT);
+		if(gpo==null) return null;
+		else return poToVo(gpo);
+	}
 	public boolean searchInList(String id,ArrayList<CommodityVO> list){
 		for(int i=0;i<list.size();i++)
 			if(list.get(i).getID().equals(id))

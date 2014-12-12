@@ -7,6 +7,7 @@ import java.util.Date;
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
 import po.DiscountProPO;
+import po.GiftCouponProPO;
 import po.PackProPO;
 import po.PromotionPO;
 import po.PromotionPO.PromotionType;
@@ -33,7 +34,11 @@ public class packPro extends promotion{
 	public int Modify(PackProVO vo){
 		return 0;
 	}
-	
+	public PromotionVO findByID(String id){
+		PackProPO gpo=(PackProPO)service.find(id, PromotionType.PACK);
+		if(gpo==null) return null;
+		else return poToVo(gpo);
+	}
 	
 	public ArrayList<PackProVO> show(){
 		ArrayList<PromotionPO> po=service.show(PromotionType.PACK);
