@@ -2,6 +2,7 @@ package businesslogic.promotionbl;
 
 import java.util.ArrayList;
 
+import po.PromotionPO;
 import po.PromotionPO.PromotionType;
 import vo.GiftCouponProVO;
 import vo.GiftVO;
@@ -132,6 +133,25 @@ public class promotionController implements PromotionViewService,
 	public double getCouponValue(String id) {
 		// TODO Auto-generated method stub
 		return gcp.getCouponValue(id);
+	}
+
+	public static void Excute(String proid) {
+		// TODO Auto-generated method stub
+		promotion pro;
+		try {
+			pro = new promotion();
+			PromotionPO po=pro.find(proid);
+			if(po!=null){
+			if(po.getType()==PromotionType.GIFTCOUPON){
+				
+			}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		
 	}
 
 }

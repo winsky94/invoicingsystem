@@ -139,6 +139,19 @@ public class giftGoodPro extends promotion{
 		return "SP-"+getDate.getdate()+"-"+id;
 	}
 	
+	//系统自动生成库存赠送单
+	public void Exctute(PromotionPO p){
+		GiftGoodProPO po=(GiftGoodProPO)p;
+		ArrayList<CommodityPO> clist=po.getGiftList();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	public GiftGoodsProVO poToVo(GiftGoodProPO po){
 		ArrayList<CommodityPO> cmp=po.getGiftList();
 		GiftGoodsProVO  gpv=new GiftGoodsProVO(po.getID(),po.getStartDate(),

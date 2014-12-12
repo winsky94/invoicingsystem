@@ -36,6 +36,10 @@ public class giftCouponPro extends promotion{
 		
 	}
 	
+	public void useCoupon(String couponid){
+		
+	}
+	
 	public double getCouponValue(String id){
 		ArrayList<GiftCouponProVO> vo=show();
 		for(int i=0;i<vo.size();i++){
