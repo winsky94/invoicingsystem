@@ -184,6 +184,7 @@ public class ModGoodsPanel extends JPanel implements ActionListener {
 			StockGoodsBLService controller = new GoodsController();
 			try {
 				GoodsVO oldVO = controller.findByID(vo.getGoodsID());
+				System.out.println("ModGoodsPanel.actionPerformed()last price:"+oldVO.getLastPrice());
 				oldVO.setPurchasePrice(Double.parseDouble(pPriceText));
 				oldVO.setPrice(Double.parseDouble(sPriceText));
 				controller.modifyGoods(oldVO);
