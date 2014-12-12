@@ -7,6 +7,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -16,6 +19,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import vo.AccountVO;
+import businesslogic.financebl.Account;
+import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
 import Presentation.mainui.MainFrame;
 
 public class AccountInitialPanel extends JPanel{
@@ -64,8 +70,39 @@ public class AccountInitialPanel extends JPanel{
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
 		//
-		String accountBoxText[]={"中国工商银行658962"};
-		accountBox=new JComboBox<String>(accountBoxText);
+		//---------------------------
+		ArrayList<String> st=new ArrayList<String>();
+		FinanceAccountBLService fin=null;
+		try {
+			fin=new Account();
+			
+		} catch (MalformedURLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (RemoteException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (NotBoundException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		ArrayList<AccountVO> account=fin.showAll();
+		if(account==null){
+			String accountText[] = { "当前无账户可选" };
+			accountBox = new JComboBox<String>(accountText);
+			accountBox.setEditable(false);
+		}
+		else{
+			for(AccountVO vo:account){
+			    st.add(vo.getName());
+		    }
+		    String accountText[] =new String[st.size()]; 
+		    for(int i=0;i<st.size();i++){
+		    	accountText[i]=st.get(i);
+		    }
+		    accountBox = new JComboBox<String>(accountText);
+		}
+		//---------------------------
 		accountBox.setBackground(Color.white);
 		accountBox.setFont(font);
 		btnPnl.add(accountBox);
@@ -77,7 +114,7 @@ public class AccountInitialPanel extends JPanel{
 		addBtn.setFocusPainted(false);
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//监听!!!!
+				
 			}
 		});
 		btnPnl.add(addBtn);
