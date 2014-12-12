@@ -22,6 +22,7 @@ import Presentation.mainui.ExportExcel;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import Presentation.mainui.XLSFilter;
+import businesslogic.stockbl.RowHeaderTable;
 import businesslogic.stockbl.stockManage.CheckModel;
 import businesslogic.stockbl.stockManage.LowModel;
 import businesslogic.stockbl.stockManage.OverModel;
@@ -107,6 +108,8 @@ public class StockPanel extends JPanel {
 					.setCellRenderer(tcr);
 		}
 		jsp1 = new JScrollPane(inventoryTbl);
+		// 设置显示行号
+		jsp1.setRowHeaderView(new RowHeaderTable(inventoryTbl, 40));
 		tab.add("库存盘点", jsp1);
 		// --------------overflowTbl--------------------------------
 		overflowTbl = new JTable();
@@ -224,4 +227,5 @@ public class StockPanel extends JPanel {
 		}
 
 	}
+
 }

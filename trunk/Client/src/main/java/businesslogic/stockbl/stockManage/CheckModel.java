@@ -15,8 +15,7 @@ public class CheckModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 
 	ArrayList<ArrayList<String>> rowData;
-	String columnNames[] = { "行号", "名称", "型号", "库存数量", "库存均价", "批次", "批号",
-			"出厂日期" };// 列名
+	String columnNames[] = { "名称", "型号", "库存数量", "库存均价", "批次", "批号", "出厂日期" };// 列名
 	String result;
 
 	// 做一个构造函数，用于初始化数据表模型
@@ -27,17 +26,16 @@ public class CheckModel extends AbstractTableModel {
 			ArrayList<String> hang = new ArrayList<String>();
 			for (int i = 0; i < list.size(); i++) {
 				ArrayList<String> tp = list.get(i);
-				if (tp.size() != 8) {
+				if (tp.size() != 7) {
 					System.out.println("CheckModel.CheckModel()中数据有错啦！！！");
 				} else {
-					hang.add(tp.get(0));// 行号
-					hang.add(tp.get(1));// 名称
-					hang.add(tp.get(2));// 型号
-					hang.add(tp.get(3));// 数量
-					hang.add(tp.get(4));// 均价
-					hang.add(tp.get(5));// 批次
-					hang.add(tp.get(6));// 批号
-					hang.add(tp.get(7));// 出厂日期
+					hang.add(tp.get(0));// 名称
+					hang.add(tp.get(1));// 型号
+					hang.add(tp.get(2));// 数量
+					hang.add(tp.get(3));// 均价
+					hang.add(tp.get(4));// 批次
+					hang.add(tp.get(5));// 批号
+					hang.add(tp.get(6));// 出厂日期
 					// 加入到rowData
 					rowData.add(hang);
 				}
@@ -56,17 +54,16 @@ public class CheckModel extends AbstractTableModel {
 		for (int i = 0; i < list.size(); i++) {
 			ArrayList<String> hang = new ArrayList<String>();
 			ArrayList<String> tp = list.get(i);
-			if (tp.size() != 8) {
+			if (tp.size() != 7) {
 				System.out.println("CheckModel.CheckModel()中数据有错啦！！！");
 			} else {
-				hang.add(tp.get(0));// 行号
-				hang.add(tp.get(1));// 名称
-				hang.add(tp.get(2));// 型号
-				hang.add(tp.get(3));// 数量
-				hang.add(tp.get(4));// 均价
-				hang.add(tp.get(5));// 批次
-				hang.add(tp.get(6));// 批号
-				hang.add(tp.get(7));// 出厂日期
+				hang.add(tp.get(0));// 名称
+				hang.add(tp.get(1));// 型号
+				hang.add(tp.get(2));// 数量
+				hang.add(tp.get(3));// 均价
+				hang.add(tp.get(4));// 批次
+				hang.add(tp.get(5));// 批号
+				hang.add(tp.get(6));// 出厂日期
 				// 加入到rowData
 				rowData.add(hang);
 			}
@@ -106,11 +103,10 @@ public class CheckModel extends AbstractTableModel {
 		return columnNames[column];
 	}
 
-	// "行号", "名称", "型号", "库存数量", "库存均价", "批次", "批号","出厂日期"
+	// "名称", "型号", "库存数量", "库存均价", "批次", "批号","出厂日期"
 	public ArrayList<ArrayList<String>> getExportConent() {
 		ArrayList<ArrayList<String>> v = new ArrayList<ArrayList<String>>();
 		ArrayList<String> head = new ArrayList<String>();
-		head.add("行号");
 		head.add("名称");
 		head.add("型号");
 		head.add("库存数量");
