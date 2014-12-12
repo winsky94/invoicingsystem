@@ -166,7 +166,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 		jp3.add(timeNow);
 		jp3.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 		messageBtn=new JButton(new ImageIcon("img/message.png"));
-		messageBtn.setSize(18,18);
+		messageBtn.setSize(14,14);
 		messageBtn.setBorderPainted(false);
 		messageBtn.setFocusPainted(false);
 		messageBtn.setBackground(Color.white);
