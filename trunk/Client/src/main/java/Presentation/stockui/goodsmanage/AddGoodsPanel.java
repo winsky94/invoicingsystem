@@ -33,8 +33,8 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JButton submitBtn, exitBtn;
-	String classText, nameText, sizeText, pPriceText, sPriceText;
-	JTextField nameFld, sizeFld, purchasePriceFld, salePriceFld;
+	String classText, nameText, sizeText, pPriceText, sPriceText,minNumText;
+	JTextField nameFld, sizeFld, purchasePriceFld, salePriceFld,minNumFld;
 	MainFrame parent;
 
 	public AddGoodsPanel(MainFrame frame, String goodsClass) {
@@ -130,6 +130,18 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 		salePriceFld.getDocument().addDocumentListener(
 				new SPriceFieldListener());
 		salePricePnl.add(salePriceFld);
+		//-------报警数量-------------------
+		JPanel minNumPnl = new JPanel();
+		minNumPnl.setBackground(Color.white);
+		mPnl.add(minNumPnl);
+		JLabel minNumLbl = new JLabel("报警数量：");
+		minNumLbl.setFont(font);
+		minNumPnl.add(minNumLbl);
+		minNumFld = new JTextField(6);
+		minNumFld.setFont(font);
+		minNumFld.getDocument().addDocumentListener(
+				new MinNumFieldListener());
+		minNumPnl.add(minNumFld);
 		// -------buttons-----------------
 		JPanel btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
@@ -269,5 +281,17 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 			sPriceText = salePriceFld.getText();
 		}
 	}
+	class MinNumFieldListener implements DocumentListener {
+		public void changedUpdate(DocumentEvent d) {
+			minNumText = minNumFld.getText();
+		}
 
+		public void insertUpdate(DocumentEvent d) {
+			minNumText = minNumFld.getText();
+		}
+
+		public void removeUpdate(DocumentEvent d) {
+			minNumText = minNumFld.getText();
+		}
+	}
 }
