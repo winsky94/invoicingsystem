@@ -60,6 +60,7 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 	double totalMoney,barginMoney;
 	submitListener slisten;
 	ArrayList<Double> last_bid=new ArrayList<Double>();
+	JLabel title;
 	public AddBarginPanel(MainFrame myFather) throws Exception {
 		parent = myFather;
 		totalMoney=0;
@@ -74,7 +75,7 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("创建特价包");
+		title = new JLabel("创建特价包");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
