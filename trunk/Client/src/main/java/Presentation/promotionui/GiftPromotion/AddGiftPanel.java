@@ -60,7 +60,7 @@ public class AddGiftPanel extends ChooseGoodsFatherPane {
 	JButton submitBtn, exitBtn, addGoodsBtn, delGoodsBtn;
 	PromotionBLService service;
 	submitListener slisten;
-
+	JLabel title;
 	public AddGiftPanel(JFrame myFather) throws Exception {
 		parent = (MainFrame) myFather;
 		service = new promotionController();
@@ -73,7 +73,7 @@ public class AddGiftPanel extends ChooseGoodsFatherPane {
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("制定赠品赠送策略");
+		title = new JLabel("制定赠品赠送策略");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
