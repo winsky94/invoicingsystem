@@ -40,6 +40,7 @@ public class AccountInitialPanel extends JPanel {
 	JButton addBtn, delBtn;
 	JComboBox<String> accountBox;
 	MainFrame parent;
+	AddInitialPanel subparent;
 
 	public AccountInitialPanel(MainFrame frame) {
 		parent = frame;
@@ -105,9 +106,10 @@ public class AccountInitialPanel extends JPanel {
 			for (AccountVO vo : account) {
 				st.add(vo.getName());
 			}
-			String accountText[] = new String[st.size()];
+			String accountText[] = new String[st.size()+1];
+			accountText[0]="请选择客户";
 			for (int i = 0; i < st.size(); i++) {
-				accountText[i] = st.get(i);
+				accountText[i+1] = st.get(i);
 			}
 			accountBox = new JComboBox<String>(accountText);
 		}
@@ -171,5 +173,13 @@ public class AccountInitialPanel extends JPanel {
 			accountC.remove(row);
 		}
 
+	}
+	
+	public void RefreshTable(AccountVO vo){
+		ArrayList<String> line=new ArrayList<String>();
+		line.add(vo.getName());
+		line.add(String.valueOf(vo.getMoney()));
+		accountC.add(line);	
+	
 	}
 }

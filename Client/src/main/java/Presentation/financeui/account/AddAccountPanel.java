@@ -34,11 +34,11 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	JTextField nameFld,moneyFld;
-	JButton submitBtn, exitBtn;
+	public JButton submitBtn, exitBtn;
 	MainFrame parent;
 	FinanceAccountBLService service;
-	String name;
-	String money;
+	public String name;
+	public String money;
 	
 	JPanel titlePnl;
 	JLabel title;
@@ -46,7 +46,7 @@ public class AddAccountPanel extends JPanel implements ActionListener{
 	JPanel namePnl,moneyPnl;
 	JLabel nameLbl,moneyLbl;
 	JPanel btnPnl;
-    AddListener add;
+    public AddListener add;
 	public AddAccountPanel(MainFrame frame)  throws Exception{
 		service=new Account();
 		parent=frame;
