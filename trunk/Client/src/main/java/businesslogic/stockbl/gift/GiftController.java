@@ -56,7 +56,7 @@ public class GiftController extends Receipt implements GiftBLService {
 		}
 		GiftReceipt receipt = new GiftReceipt(vo.getId(), vo.getMemberID(),
 				vo.getMemberName(), vo.getUser(), ReceiptType.GIFT,
-				vo.getHurry(), 3, vo.getInfo(), vo.getGiftList());
+				vo.getHurry(), vo.getStatus(), vo.getInfo(), vo.getGiftList());
 		return manage.excute(receipt);
 	}
 

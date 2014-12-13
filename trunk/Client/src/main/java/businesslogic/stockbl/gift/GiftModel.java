@@ -29,7 +29,16 @@ public class GiftModel extends AbstractTableModel {
 				hang.add(vo.getMemberID());
 				hang.add(vo.getMemberName());
 				hang.add(String.valueOf(vo.getGiftList().size()));
-				hang.add("执行完毕");
+				int status = -1;
+				if (status == 0) {
+					hang.add("待审批");
+				} else if (status == 1) {
+					hang.add("审批不通过");
+				} else if (status == 2) {
+					hang.add("待执行");
+				} else if (status == 3) {
+					hang.add("执行完毕");
+				}
 				String userName = "";
 				try {
 					UserBLService userController = new User();

@@ -428,6 +428,8 @@ public class GoodsPanel extends JPanel implements ActionListener,
 					JOptionPane.WARNING_MESSAGE);
 		}
 
+		// createGoodsClass(getTreeData());
+		// treeModel.reload();
 	}
 
 	public void treeNodesInserted(TreeModelEvent e) {
@@ -447,7 +449,6 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 	// 关于分类的增加删除的监听
 	public void actionPerformed(ActionEvent e) {
-		// TODO 自动生成的方法存根
 		if (e.getActionCommand().equals("添加分类")) {
 			DefaultMutableTreeNode parentNode = null;
 			TreePath parentPath = tree.getSelectionPath();

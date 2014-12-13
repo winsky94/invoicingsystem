@@ -22,4 +22,6 @@ public interface GiftDataService extends Remote {
 	public String getMaxID() throws RemoteException;
 
 	public GiftPO findByID(String id) throws RemoteException;
+
+	public int modify(GiftPO po) throws RemoteException;
 }
