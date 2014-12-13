@@ -32,8 +32,8 @@ public class UseCouponDialog extends JDialog implements ActionListener{
 	JTextField couponFld;
 	String couponText;//文本框的内容已经存入这里
 	JButton submitBtn,exitBtn;
-	SalePane parent;
-	public UseCouponDialog(SalePane pane) {
+	AddSalePanel parent;
+	public UseCouponDialog(AddSalePanel pane) {
 		parent=pane;
 		pnl = this.getContentPane();
 		pnl.setLayout(new GridLayout(4, 1));

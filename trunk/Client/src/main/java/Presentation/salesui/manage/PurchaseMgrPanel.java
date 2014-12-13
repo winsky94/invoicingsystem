@@ -28,8 +28,8 @@ import vo.PurchaseVO;
 import vo.ReceiptVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
-import Presentation.salesui.manage.purchase.PurchasePane;
-import Presentation.salesui.manage.purchase.PurchaseReturnPane;
+import Presentation.salesui.manage.purchase.AddPurchasePanel;
+import Presentation.salesui.manage.purchase.AddPurchaseReturnPanel;
 import Presentation.salesui.manage.purchase.PurchaseDetailPanel;
 import businesslogic.salesbl.SaleList;
 import businesslogic.userbl.User;
@@ -164,13 +164,13 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 		try {
 			if (e.getSource() == purchaseBtn)
 
-				parent.setRightComponent(new PurchasePane(parent));
+				parent.setRightComponent(new AddPurchasePanel(parent));
 
 			else if (e.getSource() == purchaseReturnBtn) {
 				int t = table.getSelectedRow();
 				if (t >= 0) {
 					String pid = c.get(t).get(0);
-					parent.setRightComponent(new PurchaseReturnPane(parent, pid));
+					parent.setRightComponent(new AddPurchaseReturnPanel(parent, pid));
 				} else
 					JOptionPane.showMessageDialog(null, "请选择一条进货单进行退货!", "提示",
 							JOptionPane.WARNING_MESSAGE);

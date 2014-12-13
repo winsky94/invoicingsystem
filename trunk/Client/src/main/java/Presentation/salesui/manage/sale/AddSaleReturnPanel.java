@@ -23,7 +23,7 @@ import Presentation.mainui.MyTableCellRenderer;
 import Presentation.salesui.manage.CommodityTableModel;
 import Presentation.salesui.manage.SaleMgrPanel;
 
-public class SaleReturnPane extends JPanel implements ActionListener {
+public class AddSaleReturnPanel extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
@@ -39,7 +39,7 @@ public class SaleReturnPane extends JPanel implements ActionListener {
 	JLabel IDLbl, memberLbl, clerkLbl, userLbl, stockLbl, totalOriginLbl,
 			totalProDiscountLbl, totalFinDiscountLbl, totalToPayLbl;
 
-	public SaleReturnPane(MainFrame frame) {
+	public AddSaleReturnPanel(MainFrame frame) {
 		father = frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();

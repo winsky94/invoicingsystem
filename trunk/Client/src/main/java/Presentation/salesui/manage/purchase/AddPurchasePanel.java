@@ -44,7 +44,7 @@ import businesslogic.salesbl.SalesController;
 import businesslogicservice.memberblservice.MemberViewService;
 import businesslogicservice.salesblservice.PurchaseBLService;
 
-public class PurchasePane extends ChooseGoodsFatherPane {
+public class AddPurchasePanel extends ChooseGoodsFatherPane {
 
 	/**
 	 * 
@@ -70,7 +70,7 @@ public class PurchasePane extends ChooseGoodsFatherPane {
 	JPanel btnPnl, p1;
 	ArrayList<Double> last_bid = new ArrayList<Double>();
 
-	public PurchasePane(MainFrame frame) throws Exception {
+	public AddPurchasePanel(MainFrame frame) throws Exception {
 		service = new SalesController();
 		parent = frame;
 		GridBagLayout gbl = new GridBagLayout();
@@ -218,7 +218,7 @@ public class PurchasePane extends ChooseGoodsFatherPane {
 		addGoodsBtn.setFocusPainted(false);
 		addGoodsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JDialog addGoodsDlg = new ChooseGoodsDialog(PurchasePane.this);
+				JDialog addGoodsDlg = new ChooseGoodsDialog(AddPurchasePanel.this);
 			}
 		});
 		btnPnl.add(addGoodsBtn);

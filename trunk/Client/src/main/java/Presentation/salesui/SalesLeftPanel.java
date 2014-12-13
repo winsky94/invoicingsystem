@@ -21,7 +21,7 @@ import Presentation.mainui.headPane;
 import Presentation.memberui.MemberMgrPanel;
 import Presentation.salesui.manage.PurchaseMgrPanel;
 import Presentation.salesui.manage.SaleMgrPanel;
-import Presentation.salesui.manage.sale.SalePane;
+import Presentation.salesui.manage.sale.AddSalePanel;
 import Presentation.uihelper.AboutPanel;
 import Presentation.uihelper.UIhelper;
 import Presentation.uihelper.UserInfoButton;

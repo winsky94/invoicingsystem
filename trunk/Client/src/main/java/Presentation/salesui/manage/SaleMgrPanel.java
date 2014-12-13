@@ -27,8 +27,8 @@ import vo.SaleReturnVO;
 import vo.SaleVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
-import Presentation.salesui.manage.sale.SalePane;
-import Presentation.salesui.manage.sale.SaleReturnPane;
+import Presentation.salesui.manage.sale.AddSalePanel;
+import Presentation.salesui.manage.sale.AddSaleReturnPanel;
 import businesslogic.salesbl.SaleList;
 import businesslogic.userbl.User;
 import businesslogicservice.userblservice.UserBLService;
@@ -151,13 +151,13 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 		if (e.getSource() == saleBtn) {
 			try {
 
-				parent.setRightComponent(new SalePane(parent));
+				parent.setRightComponent(new AddSalePanel(parent));
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		} else if (e.getSource() == saleReturnBtn)
-			parent.setRightComponent(new SaleReturnPane(parent));
+			parent.setRightComponent(new AddSaleReturnPanel(parent));
 
 	}
 
