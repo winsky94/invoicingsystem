@@ -44,7 +44,14 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 		this.setLocation(150, 100);
 
 		user = myuser;
+		
+		//===========信箱线程处理================
+		MessageWindow.getInstance(this).setUser(user.getJob());
+		m=new message(MessageWindow.getInstance(MainFrame.this));
+		m.startThread();
+		MessageWindow.getInstance(this).setParent(this);
 
+		
 		JPanel welcomePanel = new JPanel() {
 			private static final long serialVersionUID = 1L;
 
@@ -121,7 +128,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 				MainFrame.this.setLocation(xx, yy);
 			}
 		});
-
+	
 	}
 
 	public UserVO getUser() {
@@ -161,6 +168,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 	}
 
 	public JPanel getFootPanel() {
+	
 		GridBagLayout gbl=new GridBagLayout();
 		GridBagConstraints gbc=new GridBagConstraints();
 		JPanel jp3 = new JPanel();
@@ -208,9 +216,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 		gbc.weighty=0.1;
 		gbl.setConstraints(messageBtnPnl, gbc);
 		jp3.add(messageBtnPnl);
-		MessageWindow.getInstance(MainFrame.this).setUser(user.getJob());
-		m=new message(MessageWindow.getInstance(MainFrame.this));
-		m.startThread();
+	
 		
 		
 		return jp3;

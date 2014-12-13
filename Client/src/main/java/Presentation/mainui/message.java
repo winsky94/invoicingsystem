@@ -17,6 +17,7 @@ public class message extends Thread{
 		while(!stop)
 		{
 			w.getNewMessage();
+			
 		 try {
 			this.sleep(5000);
 		} catch (InterruptedException e) {
@@ -25,7 +26,6 @@ public class message extends Thread{
 		}
 		}
 		
-		System.out.println("我结束了！");
 	}
 	
 	public void startThread(){
@@ -33,6 +33,7 @@ public class message extends Thread{
 	}
 	public void stopThead(){
 		this.stop=true;
+		
 	}
 
 

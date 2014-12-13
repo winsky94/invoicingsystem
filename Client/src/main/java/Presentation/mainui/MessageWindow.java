@@ -129,7 +129,9 @@ public class MessageWindow extends JWindow {
 			if (vo != null) {
 				tag=true;
 				message.clear();
-				parent.getMessage().setIcon(new ImageIcon("img/newMessage.gif"));
+				if(parent.getMessage()!=null)
+				{	
+					parent.getMessage().setIcon(new ImageIcon("img/newMessage.gif"));}
 			
 				for (int i = 0; i < vo.size(); i++)
 					message.add(vo.get(i).getInfo());
@@ -159,8 +161,8 @@ public class MessageWindow extends JWindow {
 	public void setUser(UserJob type){
 		this.type=type;
 	}
-	public void setTag(){
-		this.tag=false;
+	public void setParent(MainFrame frame){
+		this.parent=frame;
 	}
 	
 	
