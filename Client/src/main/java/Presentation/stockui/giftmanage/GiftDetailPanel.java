@@ -76,8 +76,9 @@ public class GiftDetailPanel extends JPanel {
 		// ---------table--------------------------
 		GiftCommodityListModel gcm = new GiftCommodityListModel(
 				giftVO.getGiftList());
-		table.getTableHeader().setReorderingAllowed(false);
+
 		table = new JTable(gcm);
+		table.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 		for (int i = 0; i < table.getColumnCount(); i++) {

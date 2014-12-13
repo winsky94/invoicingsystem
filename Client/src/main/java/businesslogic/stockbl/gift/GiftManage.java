@@ -75,7 +75,7 @@ public class GiftManage {
 						.getGoodsID());
 				if (result) {
 					//
-					JOptionPane.showMessageDialog(null, "库存不足啦！", null,
+					JOptionPane.showMessageDialog(null, "库存报警啦！", null,
 							JOptionPane.WARNING_MESSAGE);
 				}
 

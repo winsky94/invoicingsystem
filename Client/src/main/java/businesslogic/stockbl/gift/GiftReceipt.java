@@ -134,7 +134,7 @@ public class GiftReceipt extends Receipt {
 						.getGoodsID());
 				if (result) {
 					//
-					JOptionPane.showMessageDialog(null, "库存不足啦！", null,
+					JOptionPane.showMessageDialog(null, "库存报警啦！", null,
 							JOptionPane.WARNING_MESSAGE);
 				}
 
@@ -163,7 +163,7 @@ public class GiftReceipt extends Receipt {
 
 	}
 
-	// 修改
+	// 修改（===）
 	public int modify(String id) {
 		int result = 0;
 		try {
