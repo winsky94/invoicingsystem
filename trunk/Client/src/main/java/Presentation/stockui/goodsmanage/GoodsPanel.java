@@ -477,7 +477,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 					// tree的scrollPathToVisible()方法在使Tree会自动展开文件夹以便显示所加入的新节点。若没加这行则加入的新节点
 					// 会被 包在文件夹中，你必须自行展开文件夹才看得到。
 					tree.scrollPathToVisible(new TreePath(newNode.getPath()));
-
+					expandTree(tree);//还是自己写的方法
 				} else {
 					JOptionPane.showMessageDialog(null, "添加失败", null,
 							JOptionPane.ERROR_MESSAGE);
@@ -504,6 +504,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 								JOptionPane.ERROR_MESSAGE);
 					}
 				}
+				expandTree(tree);
 			}
 		} else if (e.getActionCommand().equals("修改分类")) {
 			JOptionPane.showMessageDialog(this, "直接双击分类的节点修改哈~", null,
