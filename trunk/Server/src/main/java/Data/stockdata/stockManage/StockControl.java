@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import po.GiftPO;
 import po.StockErrorPO;
 import po.StockOverOrLowPO;
 import Data.serutility.JXCFile;
@@ -212,5 +213,24 @@ public class StockControl extends UnicastRemoteObject implements
 			}
 		}
 		return po;
+	}
+
+	public int excute(StockOverOrLowPO po) throws RemoteException {
+		// TODO 自动生成的方法存根
+		// 直接修改状态然后存储就好了，修改库存在bl层
+		ArrayList<Object> list = new ArrayList<Object>();
+		list = file.read();
+		for (int i = 0; i < list.size(); i++) {
+			StockOverOrLowPO stockOverOrLowPO = (StockOverOrLowPO) list.get(i);
+			if (stockOverOrLowPO.getId().equals(po.getId())) {
+				po.setStatus(3);
+				list.set(i, po);
+				break;
+			}
+		}
+
+		file.writeM(list);
+
+		return 0;
 	}
 }

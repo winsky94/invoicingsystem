@@ -98,4 +98,9 @@ public class StockControlDataService_stub implements StockControlDataService {
 		return 0;
 	}
 
+	public int excute(StockOverOrLowPO po) throws RemoteException {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
 }
