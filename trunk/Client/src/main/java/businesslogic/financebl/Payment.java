@@ -63,6 +63,7 @@ public class Payment extends Receipt implements PaymentBLService{
 	public int createPayment(PaymentVO vo) {
 		PaymentPO po=voToPo(vo);
 		try {
+			Send(vo.getId());
 			return service.createPayment(po);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -82,6 +83,7 @@ public class Payment extends Receipt implements PaymentBLService{
 			for(TransferItemVO vv:ts){
 				a.delMoney(vv.getAccount(),vv.getMoney());
 			}
+			Reply(vo.getId(),vo.getType(),0);
 			System.out.println("执行成功！");
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
