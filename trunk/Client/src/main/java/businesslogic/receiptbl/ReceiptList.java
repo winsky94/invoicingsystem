@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.ReceiptPO;
+import po.ReceiptPO.ReceiptType;
 import dataservice.receiptdataservice.ReceiptDataService;
 import vo.ReceiptVO;
 
@@ -52,7 +53,8 @@ public class ReceiptList {
 		return toApprove;
 	}
 	
-	
-	
+
+
+
 	
 }
