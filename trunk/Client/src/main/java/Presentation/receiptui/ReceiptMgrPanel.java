@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,6 +20,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -56,8 +59,8 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 	JScrollPane jsp1, jsp2;
 	JTable t1, t2;
 	ReceiptTableModel rtm1, rtm2;
-	ArrayList<ArrayList<String>> c1 = new ArrayList<ArrayList<String>>();
-	ArrayList<ArrayList<String>> c2 = new ArrayList<ArrayList<String>>();
+	ArrayList<ArrayList<Object>> c1 = new ArrayList<ArrayList<Object>>();
+	ArrayList<ArrayList<Object>> c2 = new ArrayList<ArrayList<Object>>();
 	// --------------
 	String approvePath = "img/promotion/approved.png";
 	String disapprovePath = "img/promotion/disapproved.png";
@@ -96,7 +99,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				int[] row = t1.getSelectedRows();
 				if (row.length > 0) {
 					for (int i = 0; i < row.length; i++) {
-						String id = c1.get(row[i]).get(0);
+						String id = c1.get(row[i]).get(0).toString();
 						if (service.Approve(id, 2) != 0)
 							JOptionPane.showMessageDialog(null, "审批失败！", "提示",
 									JOptionPane.WARNING_MESSAGE);
@@ -119,7 +122,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				int[] row = t1.getSelectedRows();
 				if (row.length > 0) {
 					for (int i = 0; i < row.length; i++) {
-						String id = c1.get(row[i]).get(0);
+						String id = c1.get(row[i]).get(0).toString();
 						if (service.Approve(id, 1) != 0)
 							JOptionPane.showMessageDialog(null, "审批失败！", "提示",
 									JOptionPane.WARNING_MESSAGE);
@@ -143,15 +146,15 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		btnPnl.add(findFld);
 		findBtn = new MyButton(new ImageIcon(findPath));
 		btnPnl.add(findBtn);
-		//--------提示-------------------
-		JPanel tipPnl=new JPanel();
+		// --------提示-------------------
+		JPanel tipPnl = new JPanel();
 		tipPnl.setBackground(Color.white);
-		JLabel tip=new JLabel("提示：选中多项可进行批量审批。");
+		JLabel tip = new JLabel("提示：选中多项可进行批量审批。");
 		tip.setFont(font);
 		tip.setForeground(color);
 		tipPnl.add(tip);
 		c.gridx = 0;
-		c.gridy =3;
+		c.gridy = 3;
 		c.gridheight = 1;
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.weightx = 1;
@@ -176,13 +179,22 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		t1 = new JTable(rtm1);
 		t1.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-		//加急显示的时候，传一个需要改变颜色的行数的Arraylist进去
-		//无参构造函数是不加急显示的
+		// 加急显示的时候，传一个需要改变颜色的行数的Arraylist进去
+		// 无参构造函数是不加急显示的
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 		for (int i = 0; i < t1.getColumnCount(); i++) {
 			t1.getColumn(t1.getColumnName(i)).setCellRenderer(tcr);
+			
 		}
 		jsp1 = new JScrollPane(t1);
+		rtm1.addTableModelListener(new TableModelListener() {
+			
+			@Override
+			public void tableChanged(TableModelEvent e) {
+				t1.repaint();
+				
+			}
+		});
 		tab.add("待审批单据", jsp1);
 		// ---------已审批------------------
 		rtm2 = new ReceiptTableModel(c2);
@@ -202,10 +214,11 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		String head[] = { "单据编号", "创建日期", "业务类型", "交易客户", "交易金额", "操作员", "备注" };
-		ArrayList<ArrayList<String>> cm;
+		String head[] = { "单据编号", "创建日期", "业务类型", "交易客户", "交易金额", "操作员", "备注",
+				"选择" };
+		ArrayList<ArrayList<Object>> cm;
 
-		public ReceiptTableModel(ArrayList<ArrayList<String>> content) {
+		public ReceiptTableModel(ArrayList<ArrayList<Object>> content) {
 			cm = content;
 		}
 
@@ -217,7 +230,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			return head.length;
 		}
 
-		public void addRow(ArrayList<String> v) {
+		public void addRow(ArrayList<Object> v) {
 			cm.add(v);
 		}
 
@@ -225,12 +238,32 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			cm.remove(row);
 		}
 
-		public String getValueAt(int row, int col) {
+		public Class getColumnClass(int c) {
+			return getValueAt(0, c).getClass();
+		}
+
+		public Object getValueAt(int row, int col) {
 			return cm.get(row).get(col);
 		}
 
 		public String getColumnName(int col) {
 			return head[col];
+		}
+
+		public boolean isCellEditable(int rowIndex, int columnIndex) {
+			if (columnIndex == 7)
+				return true;
+			else
+				return false;
+		}
+
+		public void setValueAt(Object value, int row, int col) {
+			cm.get(row).set(col, value);
+			fireTableCellUpdated(row, col);
+		}
+
+		public void mySetValueAt(Object value, int row, int col) {
+			cm.get(row).set(col, value);
 		}
 	}
 
@@ -274,13 +307,13 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 	// 0待审批 1已审批
 	public void RefreshTable(ArrayList<ReceiptVO> vo, int t) throws Exception {
 		UserViewService user = new User();
-		ArrayList<ArrayList<String>> tab;
+		ArrayList<ArrayList<Object>> tableContent;
 		if (t == 0) {
-			tab = c1;
+			tableContent = c1;
 		} else
-			tab = c2;
+			tableContent = c2;
 		for (int i = 0; i < vo.size(); i++) {
-			ArrayList<String> line = new ArrayList<String>();
+			ArrayList<Object> line = new ArrayList<Object>();
 			ReceiptVO v = vo.get(i);
 			line.add(v.getId());
 			line.add(v.getDate());
@@ -308,9 +341,11 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				line.add(Total.getTotal(v));
 			line.add(user.getName(v.getUser()));
 			line.add(v.getInfo());
-			tab.add(line);
+			line.add(new Boolean(false));
+			tableContent.add(line);
 
 		}
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -321,8 +356,8 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 						JOptionPane.WARNING_MESSAGE);
 			else {
 				int i = t1.getSelectedRow();
-				String id = c1.get(i).get(0);
-				String type = c1.get(i).get(2);
+				String id = c1.get(i).get(0).toString();
+				String type = c1.get(i).get(2).toString();
 				ReceiptType rtype = Total.getsType(type);
 				try {
 					switch (rtype) {
@@ -355,17 +390,18 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 								cpane, father, id));
 						break;
 					case GIFT:
-						GiftDetailPanel gift=new GiftDetailPanel(father,id);
+						GiftDetailPanel gift = new GiftDetailPanel(father, id);
 						gift.useToReceipt();
-						father.setRightComponent(new AdvancedReceiptPanel(
-								gift, father, id));
-					/*case PURCHASERETURN:
-						PurchaseReturnDetailPanel prpane=new PurchaseReturnDetailPanel(father,findChosen(
-								id,c1,4));
-						prpane.useToReceipt();
-						father.setRightComponent(new AdvancedReceiptPanel(
-								prpane, father, id));*/
-						
+						father.setRightComponent(new AdvancedReceiptPanel(gift,
+								father, id));
+						/*
+						 * case PURCHASERETURN: PurchaseReturnDetailPanel
+						 * prpane=new
+						 * PurchaseReturnDetailPanel(father,findChosen(
+						 * id,c1,4)); prpane.useToReceipt();
+						 * father.setRightComponent(new AdvancedReceiptPanel(
+						 * prpane, father, id));
+						 */
 
 					}
 
@@ -377,35 +413,25 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 
 	}
 
-	class exitListen implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-	}
-
 	// 获取收付款位置 0收款单 1付款单 2现金费用单
-	public int findChosen(String id, ArrayList<ArrayList<String>> tab, int sign) {
+	public int findChosen(String id, ArrayList<ArrayList<Object>> table,
+			int sign) {
 		String type = "现金费用单";
 		if (sign == 1)
 			type = "收款单";
 		else if (sign == 2)
 			type = "付款单";
-		
+
 		int count = -1;
-		for (int i = 0; i < tab.size(); i++) {
-			if (tab.get(i).get(2).equals(type)) {
+		for (int i = 0; i < table.size(); i++) {
+			if (table.get(i).get(2).equals(type)) {
 				count++;
-				if (tab.get(i).get(0).equals(id))
+				if (table.get(i).get(0).equals(id))
 					break;
 			}
 		}
 		return count;
 
 	}
-
 
 }
