@@ -5,12 +5,11 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import vo.CommodityVO;
+import vo.PurchaseVO;
 import Presentation.mainui.MainFrame;
 import businesslogic.salesbl.SalesController;
 import businesslogicservice.salesblservice.PurchaseBLService;
-import businesslogicservice.salesblservice.viewInfoService;
-import vo.CommodityVO;
-import vo.PurchaseVO;
 
 public class ModifyPurchasePanel extends JPanel{
 	MainFrame  parent;
@@ -22,7 +21,7 @@ public class ModifyPurchasePanel extends JPanel{
 		service=new SalesController();
 		vo=service.PFindByID(id);
 		p=new PurchasePane(father);
-		p.title.setText("查看进货单详情");
+		p.title.setText("修改进货单");
 		p.IDLbl.setText("编号："+vo.getId());
 		p.JHSBox.setSelectedItem(vo.getMemberName());
 		p.JHSBox.setEditable(false);
