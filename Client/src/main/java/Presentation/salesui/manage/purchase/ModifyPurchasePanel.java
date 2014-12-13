@@ -12,6 +12,10 @@ import businesslogic.salesbl.SalesController;
 import businesslogicservice.salesblservice.PurchaseBLService;
 
 public class ModifyPurchasePanel extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	MainFrame  parent;
 	PurchaseVO vo;
 	PurchaseBLService service;
