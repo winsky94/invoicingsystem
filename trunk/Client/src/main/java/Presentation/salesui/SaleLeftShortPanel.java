@@ -29,7 +29,7 @@ import Presentation.userui.UserMgrPanel;
 public class SaleLeftShortPanel extends JPanel implements ActionListener{
 	MainFrame parent;	
 	Color salesColor;
-	MemberBLService service;
+	//MemberBLService service;
 	JLeftButton purchaseBtn, saleBtn, memberBtn,aboutBtn,backBtn;
 	SaleListBLService  saleservice;
 	public SaleLeftShortPanel(MainFrame frame) {
@@ -117,11 +117,10 @@ public class SaleLeftShortPanel extends JPanel implements ActionListener{
 		}
 		else if(e.getSource()==memberBtn){
 			MemberMgrPanel mgr=new MemberMgrPanel(parent);
-			service=new Member();
+			
 			parent.setRightComponent(mgr);
-			if(service.showMembers()!=null)
-				mgr.RefreshMemberTable(service.showMembers());
-		
+			
+			mgr.RefreshPanel();
 			
 		}else if(e.getSource()==purchaseBtn){
 			PurchaseMgrPanel pgr=new PurchaseMgrPanel(parent);

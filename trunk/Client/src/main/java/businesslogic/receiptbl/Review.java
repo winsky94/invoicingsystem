@@ -17,6 +17,9 @@ import businesslogic.salesbl.Purchase;
 import businesslogic.salesbl.PurchaseReturn;
 import businesslogic.salesbl.Sale;
 import businesslogic.salesbl.SaleReturn;
+import businesslogic.stockbl.gift.GiftReceipt;
+import businesslogic.stockbl.stockManage.StockLowReceipt;
+import businesslogic.stockbl.stockManage.StockOverReceipt;
 import vo.ReceiptVO;
 //Reply 和Send 使用观察者模式，Reply之后单据类自己做善后处理
 public class Review {
@@ -41,7 +44,7 @@ public ArrayList<ReceiptVO> View(){
 	}
 	
 	
-	//除库存但立即执行外  其他七种需审批， 自动库存赠送单需执行
+	//除报警单外执行外  其他七种需审批， 自动库存赠送单需执行
 	public  int Excute(ReceiptVO vo) throws Exception{
 		Receipt receipt;
 		switch(vo.getType()){
@@ -57,8 +60,14 @@ public ArrayList<ReceiptVO> View(){
 			receipt=new CashList();break;
 		case COLLECTION:
 			receipt=new Collection();break;
+		case GIFT:
+			receipt=new GiftReceipt();break;
+		case PAYMENT:
+			receipt=new Payment();break;
+		case STOCKOVER:
+			receipt=new StockOverReceipt();break;
 		default:
-			receipt=new Payment();
+			receipt=new StockLowReceipt();break;
 	}
 		int i=receipt.excute(vo);
 		return i;//0成功  1不成功  仅出现在销售

@@ -37,7 +37,7 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 	Color salesColor;
 	MainFrame parent;
 	JPanel headPane;
-	MemberBLService service;
+	//MemberBLService service;
 	SaleListBLService saleservice;
 	public SalesLeftPanel(MainFrame frame) throws Exception{
 		salesColor=frame.getTheme()[0];
@@ -124,10 +124,10 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 					pgr.RefreshPurchaseList(saleservice.getAllPurchase());
 		}else if(e.getSource()==memberBtn){
 			MemberMgrPanel mgr=new MemberMgrPanel(parent);
-			service=new Member();
+			
 			parent.setRightComponent(mgr);
-			if( service.showMembers()!=null)
-				mgr.RefreshMemberTable(service.showMembers());
+			
+			mgr.RefreshPanel();
 		}else if(e.getSource()==saleBtn){
 			SaleMgrPanel sp=new SaleMgrPanel(parent);
 			parent.setRightComponent(sp);

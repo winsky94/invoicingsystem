@@ -7,6 +7,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
@@ -23,6 +26,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import businesslogic.memberbl.Member;
+import businesslogicservice.memberblservice.MemberBLService;
 import po.MemberPO.MemberType;
 import vo.MemberVO;
 import Presentation.mainui.MainFrame;
@@ -138,8 +143,10 @@ public class MemberMgrPanel extends JPanel {
 			return head[col];
 		}
 	}
+	
 
 	public void RefreshMemberTable(ArrayList<MemberVO> vo) {
+		c.clear();
 
 		for (MemberVO VO : vo) {
 			ArrayList<String> lineInfo = new ArrayList<String>();
@@ -161,6 +168,7 @@ public class MemberMgrPanel extends JPanel {
 			c.add(lineInfo);
 
 		}
+		MemberMgrPanel.this.repaint();
 
 	}
 
@@ -228,7 +236,7 @@ public class MemberMgrPanel extends JPanel {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-
+			RefreshPanel();
 		}
 
 	}
@@ -249,11 +257,27 @@ public class MemberMgrPanel extends JPanel {
 
 	}
 
+	public void RefreshPanel()  {
+		try {
+			MemberBLService service=new Member();
+			if(service.showMembers()!=null)
+				this.RefreshMemberTable(service.showMembers());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	class SearchBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-
+			try {
+				MemberBLService service=new Member();
+				MemberMgrPanel.this.RefreshMemberTable(service.findMember(searchFld.getText()));
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 
 	}

@@ -14,6 +14,7 @@ public interface SalesBLService {
 	public int addSale(SaleVO vo);
 	public int addSaleReturn(SaleReturnVO vo);
 	//
+	public SaleVO SFindByID(String id);
 	public double getPrivilege(String MemberID);
 	public int modifySale(SaleVO vo);
 	public int modifySaleReturn(SaleReturnVO vo);

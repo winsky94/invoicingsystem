@@ -31,6 +31,8 @@ import Presentation.financeui.moneyreceipt.PaymentDetailPanel;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import Presentation.salesui.manage.purchase.PurchaseDetailPanel;
+import Presentation.salesui.manage.purchase.PurchaseReturnDetailPanel;
+import Presentation.stockui.giftmanage.GiftDetailPanel;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.ReceiptController;
 import businesslogic.userbl.User;
@@ -317,25 +319,38 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 						break;
 					case PAYMENT:
 						PaymentDetailPanel paypane = new PaymentDetailPanel(
-								father, findChosen(id, c1, 1));
+								father, findChosen(id, c1, 2));
 						paypane.useToReceipt();
 						father.setRightComponent(new AdvancedReceiptPanel(
 								paypane, father, id));
 						break;
 					case COLLECTION:
 						CollectionDetailPanel colpane = new CollectionDetailPanel(
-								father, findChosen(id, c1, 0));
+								father, findChosen(id, c1, 1));
 						colpane.useToReceipt();
 						father.setRightComponent(new AdvancedReceiptPanel(
 								colpane, father, id));
 						break;
 					case CASHLIST:
 						CashDetailPanel cpane = new CashDetailPanel(father,
-								findChosen(id, c1, 2));
+								findChosen(id, c1, 0));
 						cpane.useToReceipt();
 						father.setRightComponent(new AdvancedReceiptPanel(
 								cpane, father, id));
 						break;
+					case GIFT:
+						GiftDetailPanel gift=new GiftDetailPanel(father,findChosen(
+								id,c1,3));
+						gift.useToReceipt();
+						father.setRightComponent(new AdvancedReceiptPanel(
+								gift, father, id));
+					/*case PURCHASERETURN:
+						PurchaseReturnDetailPanel prpane=new PurchaseReturnDetailPanel(father,findChosen(
+								id,c1,4));
+						prpane.useToReceipt();
+						father.setRightComponent(new AdvancedReceiptPanel(
+								prpane, father, id));*/
+						
 
 					}
 
@@ -360,10 +375,12 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 	// 获取收付款位置 0收款单 1付款单 2现金费用单
 	public int findChosen(String id, ArrayList<ArrayList<String>> tab, int sign) {
 		String type = "现金费用单";
-		if (sign == 0)
+		if (sign == 1)
 			type = "收款单";
-		else if (sign == 1)
+		else if (sign == 2)
 			type = "付款单";
+		else if(sign==3)
+			type="库存赠送单";
 		int count = -1;
 		for (int i = 0; i < tab.size(); i++) {
 			if (tab.get(i).get(2).equals(type)) {

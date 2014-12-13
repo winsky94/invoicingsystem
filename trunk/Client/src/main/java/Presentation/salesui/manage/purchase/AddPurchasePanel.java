@@ -374,6 +374,11 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			int i = JHSBox.getSelectedIndex() - 1;
+			if(i<0){
+				JOptionPane.showMessageDialog(null, "请选择客户！", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			}else{
 			ArrayList<CommodityVO> cmlist = new ArrayList<CommodityVO>();
 			for (int j = 0; j < table.getRowCount(); j++) {
 				ArrayList<String> line = cmContent.get(j);
@@ -387,7 +392,8 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 			int hurry = 1;
 			if (hurryBox.isSelected())
 				hurry = 0;
-			int i = JHSBox.getSelectedIndex() - 1;
+			
+		
 			String mem = JHSBox.getSelectedItem().toString();
 			PurchaseVO vo = new PurchaseVO(id, mem, idtxt[i],
 					stockFld.getText(), parent.getUser().getID(), cmlist,
@@ -411,7 +417,9 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 			} else
 				JOptionPane.showMessageDialog(null, "创建失败！", "提示",
 						JOptionPane.WARNING_MESSAGE);
+			}
 		}
+			
 
 	}
 
