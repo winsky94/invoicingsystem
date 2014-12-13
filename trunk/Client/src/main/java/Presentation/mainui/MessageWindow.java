@@ -7,6 +7,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Point;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -88,10 +90,18 @@ public class MessageWindow extends JWindow {
 		mPnl.add(jsp);
 		// -----------------------
 		this.add(pnl);
-		this.setVisible(true);
+		this.addFocusListener(new FocusAdapter(){
+			public void focusLost(FocusEvent e){
+				instance.setVisible(false);
+			}
+		});
+			
+	
 	}
 
-	public void testThread() {
+	
+	public void getNewMessage(){
+
 		try {
 			ReceiptTipService service = new ReceiptMessage();
 			ArrayList<ReceiptMessageVO> vo = null;
@@ -125,6 +135,7 @@ public class MessageWindow extends JWindow {
 		if (instance == null)
 			instance = new MessageWindow(frame);
 		instance.setLocation((x-winWidth),(y-winHeight));
+		instance.setVisible(true);
 		return instance;
 	}
 
