@@ -12,6 +12,7 @@ import java.awt.event.FocusEvent;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -37,10 +38,13 @@ public class MessageWindow extends JWindow {
 	JScrollPane jsp;
 	UserJob type;
 	Vector<String> message;
+	MainFrame parent;
+	boolean tag=false;
 	static MessageWindow instance = null;
 
 	private MessageWindow(MainFrame frame) {
 		super(frame);
+		parent=frame;
 		type = frame.getUser().getJob();
 
 		this.setBounds(20, 20, winWidth, winHeight);
@@ -82,8 +86,8 @@ public class MessageWindow extends JWindow {
 		mPnl.setLayout(new GridLayout(1, 1));
 		// -----JList-------------
 		message = new Vector<String>();
-		message.add("2014-12-02 08:05 :付款单FKD-0275546未通过审批");
-		message.add("2014-12-01 13:05 :Your receipt has been examined");
+		tag=false;
+		message.add("您暂时没有新消息!");
 		list = new JList<String>(message);
 		list.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		jsp = new JScrollPane(list);
@@ -115,6 +119,10 @@ public class MessageWindow extends JWindow {
 
 			}
 			if (vo != null) {
+				if(!tag){
+					tag=true;message.clear();
+					parent.getMessage().setIcon(new ImageIcon("img/newMessage.gif"));
+				}
 				for (int i = 0; i < vo.size(); i++)
 					message.add(vo.get(i).getInfo());
 			}
@@ -133,6 +141,23 @@ public class MessageWindow extends JWindow {
 		instance.setLocation((x-winWidth),(y-winHeight));
 		instance.setVisible(true);
 		return instance;
+	}
+	
+	public static MessageWindow getInstance(MainFrame frame){
+		if (instance == null)
+			instance = new MessageWindow(frame);
+		instance.setVisible(true);
+		return instance;
+	}
+	
+	
+	public void clear(){
+		if(tag){
+			tag=false;
+			message.clear();
+			message.add("你暂时没有新消息！");
+			parent.getMessage().setIcon(new ImageIcon("img/message_w.png"));
+		}
 	}
 
 }

@@ -1,6 +1,6 @@
 package Presentation.mainui;
 
-class message extends Thread{
+public class message extends Thread{
 	MainFrame frame;
 	boolean stop;
 	MessageWindow w;
@@ -19,7 +19,7 @@ class message extends Thread{
 			w.getNewMessage();
 			System.out.println("哈哈哈");
 		 try {
-			this.sleep(2000);
+			this.sleep(5000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

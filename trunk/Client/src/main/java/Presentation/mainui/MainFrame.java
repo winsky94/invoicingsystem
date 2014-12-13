@@ -36,6 +36,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 	Color[] color = new Color[2];
 	JLabel messageBtn;
 	MessageWindow mw;
+	message m;
 	boolean messageWinExist=false;
 	public MainFrame(UserVO myuser) throws Exception {
 		this.setSize(1100, 600);
@@ -183,7 +184,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 		JPanel messageBtnPnl=new JPanel();
 		messageBtnPnl.setBackground(Color.white);
 		
-		ImageIcon icon=new ImageIcon("img/message_y.png");
+		ImageIcon icon=new ImageIcon("img/message_w.png");
 		messageBtn=new JLabel(icon);
 		messageBtnPnl.add(messageBtn);
 		messageBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -194,6 +195,8 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 		gbc.weighty=0.1;
 		gbl.setConstraints(messageBtnPnl, gbc);
 		jp3.add(messageBtnPnl);
+		m=new message(MessageWindow.getInstance(MainFrame.this));
+		m.startThread();
 		
 		
 		return jp3;
@@ -264,6 +267,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 			else{
 				mw.setVisible(false);
 				messageWinExist=false;
+				mw.clear();
 			}
 		}
 
@@ -281,5 +285,12 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 
 	public Color[] getTheme() {
 		return this.color;
+	}
+	public JLabel  getMessage(){
+		return this.messageBtn;
+	
+	}
+	public message getMessageThread(){
+		return this.m;
 	}
 }
