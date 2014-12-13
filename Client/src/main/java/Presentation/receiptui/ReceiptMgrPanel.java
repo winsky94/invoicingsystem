@@ -339,8 +339,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 								cpane, father, id));
 						break;
 					case GIFT:
-						GiftDetailPanel gift=new GiftDetailPanel(father,findChosen(
-								id,c1,3));
+						GiftDetailPanel gift=new GiftDetailPanel(father,id);
 						gift.useToReceipt();
 						father.setRightComponent(new AdvancedReceiptPanel(
 								gift, father, id));
@@ -379,8 +378,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			type = "收款单";
 		else if (sign == 2)
 			type = "付款单";
-		else if(sign==3)
-			type="库存赠送单";
+		
 		int count = -1;
 		for (int i = 0; i < tab.size(); i++) {
 			if (tab.get(i).get(2).equals(type)) {
