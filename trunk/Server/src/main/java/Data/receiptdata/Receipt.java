@@ -492,9 +492,12 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		file=new JXCFile("src/main/java/message.ser");
 		ArrayList<Object> a=file.read();
 		if(a!=null)
-			for(Object b:a)
-				if(po.equals((ReceiptMessagePO)b))
-						{a.remove(b);break;}
+			for(int i=0;i<a.size();i++)
+				{ReceiptMessagePO p=(ReceiptMessagePO)a.get(i);
+				if(p.getInfo().equals(po.getInfo()))
+					if(p.getTag()==po.getTag())
+						{a.remove(i);break;}
+				}
 		file.writeM(a);
 		
 	}
