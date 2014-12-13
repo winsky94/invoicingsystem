@@ -30,7 +30,7 @@ import Presentation.financeui.moneyreceipt.CollectionDetailPanel;
 import Presentation.financeui.moneyreceipt.PaymentDetailPanel;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
-import Presentation.salesui.manage.purchase.ViewPurchasePanel;
+import Presentation.salesui.manage.purchase.PurchaseDetailPanel;
 import businesslogic.receiptbl.ReceiptController;
 import businesslogic.userbl.User;
 import businesslogicservice.receiptblservice.ReceiptBLService;
@@ -301,7 +301,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				try {
 					switch (rtype) {
 					case PURCHASE:
-						ViewPurchasePanel pane = new ViewPurchasePanel(father,
+						PurchaseDetailPanel pane = new PurchaseDetailPanel(father,
 								id);
 						pane.useToReceipt();
 						father.setRightComponent(new AdvancedReceiptPanel(pane,

@@ -14,14 +14,14 @@ import Presentation.mainui.MainFrame;
 import businesslogic.salesbl.SalesController;
 import businesslogicservice.salesblservice.viewInfoService;
 
-public class ViewPurchasePanel extends JPanel{
+public class PurchaseDetailPanel extends JPanel{
 	
 	MainFrame  parent;
 	PurchaseVO vo;
 	viewInfoService service;
 	public PurchasePane p;
 	JLabel member;
-	public ViewPurchasePanel(MainFrame father,String id) throws Exception{
+	public PurchaseDetailPanel(MainFrame father,String id) throws Exception{
 		p=new PurchasePane(father);
 		parent=father;
 		service=new SalesController();
