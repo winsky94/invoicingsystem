@@ -7,11 +7,11 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -19,12 +19,10 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import vo.GoodsVO;
-import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
-import Presentation.stockui.ChooseGoodsDialog;
 
-public class GoodsInitialPanel extends ChooseGoodsFatherPane {
+public class GoodsInitialPanel extends JPanel{
 
 	/**
 	 * 
@@ -41,7 +39,7 @@ public class GoodsInitialPanel extends ChooseGoodsFatherPane {
 	ArrayList<ArrayList<String>> goodsC = new ArrayList<ArrayList<String>>();
 
 	public GoodsInitialPanel(MainFrame frame) {
-		super.parent=frame;
+		parent=frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);
@@ -85,33 +83,7 @@ public class GoodsInitialPanel extends ChooseGoodsFatherPane {
 		addBtn.setFocusPainted(false);
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				final ChooseGoodsDialog addGoodsDlg = new ChooseGoodsDialog(GoodsInitialPanel.this);
-				addGoodsDlg.submitBtn.removeActionListener(addGoodsDlg.add);
-				addGoodsDlg.submitBtn.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (addGoodsDlg.rightTblMessage.size() > 0) {
-							ArrayList<Object> good = new ArrayList<Object>();
-							try {
-								for (int i = 0; i <addGoodsDlg. rightTblMessage.size(); i++) {
-									String id = addGoodsDlg.rightTblMessage.get(i).get(0);
-
-									good.add(addGoodsDlg.service.findByID(id));
-								}
-
-							} catch (RemoteException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-
-							GoodsInitialPanel.this.RefreshCTable(good);
-							parent.setRightComponent(GoodsInitialPanel.this.subparent);
-							GoodsInitialPanel.this.subparent.setFocus(0);
-					
-						}
-
-						addGoodsDlg.dispose();
-			        }
-		        });
+				 new addGoodsInitial(parent,GoodsInitialPanel.this);				
 			}
 		});
 		btnPnl.add(addBtn);
@@ -121,7 +93,16 @@ public class GoodsInitialPanel extends ChooseGoodsFatherPane {
 		delBtn.setFocusPainted(false);
 		delBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// 监听！！！！！！！
+				int allselected[]=goodsTable.getSelectedRows();
+				if(allselected.length<=0)
+					JOptionPane.showMessageDialog(null,"请选择商品!","提示",JOptionPane.WARNING_MESSAGE);
+				else{
+					for(int j=allselected.length-1;j>=0;j--){
+					int selected=allselected[j];
+					gm.removeRow(selected);
+					goodsTable.revalidate();					
+				}
+				}
 			}
 		});
 		btnPnl.add(delBtn);
@@ -136,7 +117,7 @@ public class GoodsInitialPanel extends ChooseGoodsFatherPane {
 		String head[] = { "商品编号", "商品名称", "分类", "型号", "默认进价", "默认售价" };
 
 		public int getRowCount() {
-			return 0;
+			return goodsC.size();
 		}
 
 		public int getColumnCount() {
@@ -144,19 +125,18 @@ public class GoodsInitialPanel extends ChooseGoodsFatherPane {
 		}
 
 		public String getValueAt(int row, int col) {
-			return null;
+			return goodsC.get(row).get(col);
 		}
 
 		public String getColumnName(int col) {
 			return head[col];
 		}
-
 		public void addRow(ArrayList<String> v) {
-
+			goodsC.add(v);
 		}
 
 		public void removeRow(int row) {
-
+			goodsC.remove(row);
 		}
 
 	}
@@ -179,10 +159,12 @@ public class GoodsInitialPanel extends ChooseGoodsFatherPane {
 				line.add(getNewID(vo.getGoodsID()));
 				line.add(vo.getName());
 				line.add(vo.getGoodsClass());
+				line.add(vo.getSize());
 				line.add(0+"");
 				line.add(0+"");
-				goodsC.add(line);	
+				goodsC.add(line);				
 			}
+			goodsTable.revalidate();
 	 }
 	
 	public void RefreshCTable(GoodsVO vo){
@@ -190,6 +172,7 @@ public class GoodsInitialPanel extends ChooseGoodsFatherPane {
 		line.add(getNewID(vo.getGoodsID()));
 		line.add(vo.getName());
 		line.add(vo.getGoodsClass());
+		line.add(vo.getSize());
 		line.add(0+"");
 		line.add(0+"");
 		goodsC.add(line);			
