@@ -29,41 +29,40 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 	}
 
 	// 注：处理库存赠送单的时候只需要将单据状态改变就好了，修改库存操作已在bl层处理过
-	//状态也不要改啦，直接生产的时候就是3——处理成功
 	public int dealGift(GiftPO po) throws RemoteException {
 		// TODO 自动生成的方法存根
-//		ArrayList<Object> list = new ArrayList<Object>();
-//		list = file.read();
-//		for (int i = 0; i < list.size(); i++) {
-//			GiftPO giftPO = (GiftPO) list.get(i);
-//			if (giftPO.getId().equals(po.getId())) {
-//				po.setStatus(3);
-//				list.set(i, po);
-//				break;
-//			}
-//		}
-//
-//		file.writeM(list);
-		
+		ArrayList<Object> list = new ArrayList<Object>();
+		list = file.read();
+		for (int i = 0; i < list.size(); i++) {
+			GiftPO giftPO = (GiftPO) list.get(i);
+			if (giftPO.getId().equals(po.getId())) {
+				po.setStatus(3);
+				list.set(i, po);
+				break;
+			}
+		}
+
+		file.writeM(list);
+
 		return 0;
 	}
-	
-	public int modify(ReceiptPO po){
-		ArrayList<Object> a=file.read();
-		if(a==null)
-			return 1;  	 
+
+	public int modify(ReceiptPO po) {
+		ArrayList<Object> a = file.read();
+		if (a == null)
+			return 1;
 		int i;
-		for(i=0;i<a.size();i++){
-			ReceiptPO b=(ReceiptPO)a.get(i);
-			if(b.getId().equals(po.getId())){
+		for (i = 0; i < a.size(); i++) {
+			ReceiptPO b = (ReceiptPO) a.get(i);
+			if (b.getId().equals(po.getId())) {
 				b.setInfo(po.getInfo());
 				break;
 			}
 		}
-		
-		if(i==a.size())      //不存在该用户
+
+		if (i == a.size()) // 不存在该用户
 			return 1;
-		
+
 		file.writeM(a);
 		return 0;
 	}
@@ -158,5 +157,22 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 		String sysDatetime = fmt.format(rightNow.getTime());
 
 		return sysDatetime;
+	}
+
+	public int modify(GiftPO po) throws RemoteException {
+		// TODO 自动生成的方法存根
+		ArrayList<Object> a = file.read();
+
+		int i;
+		for (i = 0; i < a.size(); i++) {
+			// System.out.println(i);
+			GiftPO b = (GiftPO) a.get(i);
+			if (b.getId().equals(po.getId())) {
+				a.set(i, po);
+			}
+		}
+
+		file.writeM(a);
+		return 0;
 	}
 }

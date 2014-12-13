@@ -20,6 +20,8 @@ public interface GiftDataService extends Remote {
 
 	// 获取现在记录中最大的赠送单编号
 	public String getMaxID() throws RemoteException;
-	
+
 	public GiftPO findByID(String id) throws RemoteException;
+
+	public int modify(GiftPO po) throws RemoteException;
 }

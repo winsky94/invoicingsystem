@@ -42,4 +42,9 @@ public class GiftDataService_stub implements GiftDataService {
 		return null;
 	}
 
+	public int modify(GiftPO po) throws RemoteException {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
 }
