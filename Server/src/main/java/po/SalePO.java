@@ -16,8 +16,8 @@ public class SalePO extends ReceiptPO implements Serializable{
 	private ArrayList<CommodityPO> salesList;
 	private double[] discount=new double[4];//折让类数据
 	private double[] total=new double[5];//总计类数据
-	private String proid;
-	private String couponid;
+	private String proid="";
+	private String couponid="";
 
 	public SalePO(String clerk, ArrayList<CommodityPO> salesList, String id,
 			String memberID,String name, String user,int status,
