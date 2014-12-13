@@ -49,7 +49,7 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 	}
 
 	public int Add(SaleVO vo) {
-
+		Send(vo.getId());
 		return service.createSale(voToPo(vo));
 	}
 

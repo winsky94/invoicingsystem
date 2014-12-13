@@ -60,6 +60,7 @@ public class giftCouponPro extends promotion{
 	
 	public double getCouponValue(String id){
 		ArrayList<GiftCouponProVO> vo=show();
+		if(vo==null) return -1;
 		for(int i=0;i<vo.size();i++){
 			ArrayList<CouponVO> cvo=vo.get(i).getCouponList();
 			for(int j=0;j<cvo.size();j++){

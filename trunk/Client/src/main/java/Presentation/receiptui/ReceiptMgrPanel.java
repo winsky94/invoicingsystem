@@ -101,6 +101,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 							JOptionPane.showMessageDialog(null, "审批失败！", "提示",
 									JOptionPane.WARNING_MESSAGE);
 					}
+					Refresh();
 
 				} else
 					JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
@@ -123,7 +124,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 							JOptionPane.showMessageDialog(null, "审批失败！", "提示",
 									JOptionPane.WARNING_MESSAGE);
 					}
-
+					Refresh();
 				} else
 					JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
 							JOptionPane.WARNING_MESSAGE);

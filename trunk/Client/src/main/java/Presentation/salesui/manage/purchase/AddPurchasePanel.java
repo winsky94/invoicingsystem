@@ -52,7 +52,7 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JCheckBox hurryBox;
-	JLabel IDLbl, userLbl, totalLbl, title, JHSLbl;
+	JLabel IDLbl, userLbl, totalLbl, title, JHSLbl,stockLbl;
 	JTextField stockFld, remarkFld;
 	JButton addGoodsBtn, delGoodsBtn;
 	public JButton exitBtn, submitBtn;
@@ -67,7 +67,7 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 	purchaseSubmitListener psl;
 	public exitListen elisten;
 	String id;
-	JPanel btnPnl, p1;
+	JPanel btnPnl, p1,p2;
 	ArrayList<Double> last_bid = new ArrayList<Double>();
 
 	public AddPurchasePanel(MainFrame frame) throws Exception {
@@ -111,7 +111,7 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 		p1 = new JPanel();
 		p1.setBackground(Color.white);
 		midPnl.add(p1);
-		JPanel p2 = new JPanel();
+		 p2 = new JPanel();
 		p2.setBackground(Color.white);
 		midPnl.add(p2);
 		JPanel p3 = new JPanel();
@@ -152,7 +152,7 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 		userLbl.setFont(font);
 		p1.add(userLbl);
 		// -------仓库----------------
-		JLabel stockLbl = new JLabel("仓库：");
+		stockLbl = new JLabel("仓库：");
 		stockLbl.setFont(font);
 		p2.add(stockLbl);
 		stockFld = new JTextField(6);
@@ -355,10 +355,11 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 				line.add(vo.getID());
 				line.add(vo.getName());
 				line.add(vo.getType());
-				line.add(Double.toString(vo.getNum()));
+				line.add((vo.getNum()+""));
 				line.add(Double.toString(vo.getPrice()));
 				line.add(Double.toString(vo.getTotal()));
 				line.add(vo.getTip());
+				last_bid.add(vo.getCost()/vo.getNum());
 
 				cmContent.add(line);
 			}
