@@ -6,11 +6,16 @@ import java.util.Date;
 
 import dataservice.financedataservice.listdataservice.CashlistDataService;
 import dataservice.receiptdataservice.ReceiptDataService;
+import vo.ReceiptMessageVO;
 import vo.ReceiptVO;
+
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.text.NumberFormat;
+
+import po.ReceiptPO.ReceiptType;
+import businesslogic.utilitybl.getDate;
 
 //关键类 单据的增 改 查
 public class Receipt {
@@ -67,9 +72,41 @@ public class Receipt {
 		return 0;
 	}
 
-	public void Reply(String userID) {
-
+	public void Send(String id) {
+		ReceiptMessage message;
+		try {
+			message = new ReceiptMessage();
+			message.addMessage(new ReceiptMessageVO(0,getDate.getAllDate()+"你有新单据"+id+"待审批！"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
+	
+	public void Reply(String id,ReceiptType type,int i){
+		int tag=1;
+		boolean isFinance=type==ReceiptType.CASHLIST||type==ReceiptType.COLLECTION
+				||type==ReceiptType.PAYMENT;
+		boolean isStock=type==ReceiptType.GIFT||
+				type==ReceiptType.STOCKLOW||type==ReceiptType.STOCKOVER;
+		if(isFinance)
+			tag=2;
+		else if(isStock) tag=3;
+		String mess="审批通过！";
+		if(i!=0)
+			mess="审批不通过！";
+		ReceiptMessage message;
+		try {
+			message = new ReceiptMessage();
+			message.addMessage(new ReceiptMessageVO(tag,getDate.getAllDate()+"单据"+id+mess));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	} 
 
 	// 经营历程表
 	public ArrayList<ReceiptVO> View() {

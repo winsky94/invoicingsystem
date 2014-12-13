@@ -92,6 +92,7 @@ public class Collection extends Receipt implements CollectionBLService{
 			for(TransferItemVO vv:ts){
 				a.addMoney(vv.getAccount(),vv.getMoney());
 			}
+			Reply(vo.getId(),vo.getType(),0);
 			System.out.println("执行成功！");
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -113,6 +114,7 @@ public class Collection extends Receipt implements CollectionBLService{
 	public int createCollection(CollectionVO vo) {
 		
 		CollectionPO po=voToPo(vo);
+		Send(vo.getId());
 		return service.createCollection(po);
 //		System.out.println(vo.getID()+" "+vo.getSupplier()+" "+vo.getSeller()+" "+vo.getUser()+" "+b.get(0).getAccount()+" "+vo.getTotalMoney());		
 	}
