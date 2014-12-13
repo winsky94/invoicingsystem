@@ -1,10 +1,8 @@
 package Presentation.salesui.manage.purchase;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -16,6 +14,10 @@ import businesslogicservice.salesblservice.viewInfoService;
 
 public class PurchaseDetailPanel extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	MainFrame  parent;
 	PurchaseVO vo;
 	viewInfoService service;
