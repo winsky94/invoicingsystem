@@ -12,6 +12,7 @@ import po.ReceiptPO;
 import po.ReceiptPO.ReceiptType;
 import po.SalePO;
 import po.SaleReturnPO;
+import vo.ReceiptMessageVO;
 import vo.ReceiptVO;
 import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
@@ -24,6 +25,7 @@ import businesslogic.salesbl.SaleReturn;
 import businesslogic.stockbl.gift.GiftManage;
 import businesslogicservice.receiptblservice.ReceiptBLService;
 import businesslogicservice.receiptblservice.ReceiptListService;
+import businesslogicservice.receiptblservice.ReceiptTipService;
 
 public class ReceiptController implements ReceiptBLService,ReceiptListService{
 	ReceiptList list;
@@ -172,6 +174,9 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 		}
 		return sale.getAllSale();
 	}
-	
-	
+
 }
+	
+	
+	
+
