@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -31,7 +32,6 @@ import Presentation.financeui.moneyreceipt.PaymentDetailPanel;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import Presentation.salesui.manage.purchase.PurchaseDetailPanel;
-import Presentation.salesui.manage.purchase.PurchaseReturnDetailPanel;
 import Presentation.stockui.giftmanage.GiftDetailPanel;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.ReceiptController;
@@ -80,10 +80,10 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 0;
-		c.gridheight = 2;
+		c.gridheight = 3;
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.weightx = 1;
-		c.weighty = 0.1;
+		c.weighty = 1;
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
 		// --------通过-----------------
@@ -142,17 +142,32 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		btnPnl.add(findFld);
 		findBtn = new MyButton(new ImageIcon(findPath));
 		btnPnl.add(findBtn);
+		//--------提示-------------------
+		JPanel tipPnl=new JPanel();
+		tipPnl.setBackground(Color.white);
+		JLabel tip=new JLabel("提示：选中多项可进行批量审批。");
+		tip.setFont(font);
+		tip.setForeground(color);
+		tipPnl.add(tip);
+		c.gridx = 0;
+		c.gridy =3;
+		c.gridheight = 1;
+		c.gridwidth = GridBagConstraints.REMAINDER;
+		c.weightx = 1;
+		c.weighty = 0.1;
+		gbl.setConstraints(tipPnl, c);
+		this.add(tipPnl);
 		// ------------------------------
 		tab = new JTabbedPane();
 		tab.setFont(font);
 		tab.setBackground(Color.white);
 		tab.setForeground(color);
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 4;
 		c.gridheight = GridBagConstraints.REMAINDER;
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.weightx = 1;
-		c.weighty = 1;
+		c.weighty = 10;
 		gbl.setConstraints(tab, c);
 		this.add(tab);
 		// -------待审批-------------------
