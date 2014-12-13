@@ -3,9 +3,11 @@ package Presentation.mainui;
 class message extends Thread{
 	MainFrame frame;
 	boolean stop;
-	public message(/*MainFrame frame*/){
+	MessageWindow w;
+	public message(/*MainFrame frame*/MessageWindow tip){
 		//this.frame=frame;
 		stop=false;
+		w=tip;
 		
 	}
 	public void run(){
@@ -13,7 +15,9 @@ class message extends Thread{
 		//MessageWindow w=MessageWindow.getInstance(frame);
 		//w.testThread();
 		while(!stop)
-		{System.out.println("哈哈哈");
+		{
+			w.getNewMessage();
+			System.out.println("哈哈哈");
 		 try {
 			this.sleep(2000);
 		} catch (InterruptedException e) {
@@ -32,11 +36,7 @@ class message extends Thread{
 		this.stop=true;
 	}
 
-public static void main(String[] args) {
-	message m=new message();
-	m.startThread();
-	
-}
+
 
 }
 
