@@ -11,7 +11,7 @@ import Presentation.mainui.MainFrame;
 import businesslogic.salesbl.SalesController;
 import businesslogicservice.salesblservice.PurchaseBLService;
 
-public class ModifyPurchasePanel extends JPanel{
+public class ModPurchasePanel extends JPanel{
 	/**
 	 * 
 	 */
@@ -20,7 +20,7 @@ public class ModifyPurchasePanel extends JPanel{
 	PurchaseVO vo;
 	PurchaseBLService service;
 	AddPurchasePanel p;
-	public ModifyPurchasePanel(MainFrame father,String id) throws Exception{
+	public ModPurchasePanel(MainFrame father,String id) throws Exception{
 		parent=father;
 		service=new SalesController();
 		vo=service.PFindByID(id);
