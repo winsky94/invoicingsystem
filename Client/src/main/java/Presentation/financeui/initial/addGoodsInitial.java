@@ -1,4 +1,4 @@
-package Presentation.stockui;
+package Presentation.financeui.initial;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -9,6 +9,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+
+
 import java.util.Enumeration;
 
 import javax.swing.BorderFactory;
@@ -28,16 +30,16 @@ import javax.swing.tree.TreePath;
 
 import vo.GoodsClassVO;
 import vo.GoodsVO;
-import Presentation.mainui.ChooseGoodsFatherPane;
-import Presentation.mainui.MyTableCellRenderer;
-import Presentation.stockui.goodsmanage.GoodsClassNode;
-import Presentation.uihelper.UIhelper;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.stockbl.goodsClass.GoodsClassController;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBLService;
+import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
+import Presentation.stockui.goodsmanage.GoodsClassNode;
+import Presentation.uihelper.UIhelper;
 
-public class ChooseGoodsDialog extends JDialog {
+public class addGoodsInitial extends JDialog {
 
 	/**
 	 * 使用方法： 此类适用于需要选择商品的情形（如进货，销售，创建特价包，折扣等）,
@@ -53,7 +55,7 @@ public class ChooseGoodsDialog extends JDialog {
 	GoodsTblModel gtm;
 	ArrayList<ArrayList<String>> leftTblMessage = new ArrayList<ArrayList<String>>();
 	// ChooseGoodsFatherPane father;
-	ChooseGoodsFatherPane father;
+	GoodsInitialPanel father;
 	//
 	public JButton submitBtn, exitBtn, addBtn, delBtn;
 	JTree tree;
@@ -73,9 +75,12 @@ public class ChooseGoodsDialog extends JDialog {
 	GoodsClassNode newNode = null;
     public AddListener add;
     public ArrayList<Object> good;
-	public ChooseGoodsDialog(ChooseGoodsFatherPane myFather) {
+    GoodsInitialPanel tab;
+	MainFrame parent;
+	public addGoodsInitial(MainFrame pa,final GoodsInitialPanel tab) {
 		controller = new GoodsClassController();
-		father = myFather;
+		parent=pa;
+		this.tab=tab;
 		pnl = this.getContentPane();
 		pnl.setLayout(null);
 		service = new GoodsController();
@@ -197,7 +202,7 @@ public class ChooseGoodsDialog extends JDialog {
 				dialogWidth * 8 / 100, dialogHeight * 5 / 100);
 		exitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ChooseGoodsDialog.this.dispose();
+				addGoodsInitial.this.dispose();
 			}
 		});
 		pnl.add(exitBtn);
@@ -428,14 +433,14 @@ public class ChooseGoodsDialog extends JDialog {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-
-				father.parent.setRightComponent(father);
 				
-				father.RefreshCTable(good);
+				tab.RefreshCTable(good);
+				parent.setRightComponent(tab.subparent);
+				tab.subparent.setFocus(0);
 				//father.repaint();
 			}
 
-			ChooseGoodsDialog.this.dispose();
+			addGoodsInitial.this.dispose();
 		}
 	}
 }
