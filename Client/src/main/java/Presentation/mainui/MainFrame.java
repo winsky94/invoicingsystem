@@ -34,7 +34,9 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 	JLabel timeNow;
 	JPanel function;
 	Color[] color = new Color[2];
-	JButton messageBtn;
+	JLabel messageBtn;
+	MessageWindow mw;
+	boolean messageWinExist=false;
 	public MainFrame(UserVO myuser) throws Exception {
 		this.setSize(1100, 600);
 
@@ -158,21 +160,40 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 	}
 
 	public JPanel getFootPanel() {
+		GridBagLayout gbl=new GridBagLayout();
+		GridBagConstraints gbc=new GridBagConstraints();
 		JPanel jp3 = new JPanel();
 		jp3.setBackground(Color.white);
+		jp3.setLayout(gbl);
 		Timer t = new Timer(1000, this);// 每隔一秒触发ActionEvent事件
 		t.start();// 启动计时器
 		timeNow = new JLabel(Calendar.getInstance().getTime().toLocaleString());
 		jp3.setBorder(new EtchedBorder(EtchedBorder.RAISED));
-		ImageIcon icon=new ImageIcon("img/message.png");
-		messageBtn=new JButton(icon);
-		messageBtn.setSize(icon.getIconWidth(),icon.getIconHeight());
-		//messageBtn.setSize(14,14);
-		messageBtn.setBorderPainted(false);
-		messageBtn.setFocusPainted(false);
-		messageBtn.setBackground(Color.white);
-		messageBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		JPanel timePnl=new JPanel();
+		timePnl.setBackground(Color.white);
+		timePnl.add(timeNow);
+		gbc.fill=GridBagConstraints.HORIZONTAL;
+		gbc.gridx=0;
+		gbc.gridy=0;
+		gbc.weightx=1;
+		gbc.weighty=0.1;
+		gbl.setConstraints(timePnl, gbc);
+		jp3.add(timePnl);
+		//-------------------
+		JPanel messageBtnPnl=new JPanel();
+		messageBtnPnl.setBackground(Color.white);
 		
+		ImageIcon icon=new ImageIcon("img/message_y.png");
+		messageBtn=new JLabel(icon);
+		messageBtnPnl.add(messageBtn);
+		messageBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		messageBtn.addMouseListener(this);
+		gbc.gridx=1;
+		gbc.gridy=0;
+		gbc.weightx=0.1;
+		gbc.weighty=0.1;
+		gbl.setConstraints(messageBtnPnl, gbc);
+		jp3.add(messageBtnPnl);
 		
 		
 		return jp3;
@@ -234,7 +255,16 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 	}
 
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getSource()==messageBtn){
+//			if(messageWinExist==false){
+			mw=MessageWindow.getInstance(MainFrame.this,e.getXOnScreen(),e.getYOnScreen());
+//			messageWinExist=true;
+//			}
+//			else{
+//				mw.dispose();
+//				messageWinExist=false;
+//			}
+		}
 
 	}
 
