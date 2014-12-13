@@ -11,7 +11,7 @@ public class PurchaseReturnVO extends ReceiptVO {
 	private double totalInAll;
 	private String stockid;
 	private String purid;
-	public PurchaseReturnVO(String id,String user,PurchaseVO p,  int status,
+	/*public PurchaseReturnVO(String id,String user,PurchaseVO p,  int status,
 			String info,int hurry) {
 		super(id, p.getMemberName(),p.getMemberID(), user, ReceiptType.PURCHASERETURN,
 				status,hurry, info);
@@ -19,7 +19,7 @@ public class PurchaseReturnVO extends ReceiptVO {
 		this.totalInAll=p.getTotalInAll();
 		this.stockid=stockid;
 		this.purid=p.getId();
-	}
+	}*/
 	
 	public PurchaseReturnVO(String id,String MemName,String MemID,String user, int status,
 			String info,int hurry,ArrayList<CommodityVO> list,double total,String sid,String purid) {

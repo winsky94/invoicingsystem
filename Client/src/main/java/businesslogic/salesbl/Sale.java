@@ -8,12 +8,15 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import po.CommodityPO;
+import po.PurchasePO;
+import po.ReceiptPO;
 import po.MemberPO.MemberLevel;
 import po.ReceiptPO.ReceiptType;
 import po.SalePO;
 import vo.CommodityVO;
 import vo.GoodsVO;
 import vo.PromotionVO;
+import vo.PurchaseVO;
 import vo.ReceiptVO;
 import vo.SaleVO;
 import businesslogic.memberbl.Member;
@@ -114,9 +117,9 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 	// 单据执行  等待助教回答member应收应付的问题
 	public int excute(ReceiptVO v)  {
 		//修改库存
-	
+		SaleVO vo=(SaleVO)v;
 		try {
-			SaleVO vo=(SaleVO)v;
+		
 			Member m=new Member();
 			int i=m.changeToReceive(vo.getMemberID(),vo.getToPay());
 				
@@ -137,14 +140,16 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 			gp.useCoupon(vo.getCouponid());
 		}
 		}else{
+			
 			return 1;//不成功 超过额度
+			
 		}
 		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-			
+		Reply(vo.getId(),vo.getType(),1);
 		return 0;
 	}
 	
@@ -170,6 +175,17 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 				po.getStatus(), po.getHurry(), po.getInfo(), po.getStockID(),
 				po.getProid(),po.getCouponid(), po.getTotal(), po.getDiscount());
 		return vo;
+	}
+	
+	public SaleVO find(String id) {
+		ReceiptPO po = service.findReceiptByID(id);
+		if (po == null)
+			return null;
+		else {
+			SalePO ppo = (SalePO) po;
+			return poToVo(ppo);
+		}
+
 	}
 
 	public String getNewID() {

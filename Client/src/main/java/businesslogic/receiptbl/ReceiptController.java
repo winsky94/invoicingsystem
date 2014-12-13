@@ -12,8 +12,10 @@ import po.ReceiptPO;
 import po.ReceiptPO.ReceiptType;
 import po.SalePO;
 import po.SaleReturnPO;
+import po.StockOverOrLowPO;
 import vo.ReceiptMessageVO;
 import vo.ReceiptVO;
+import vo.StockOverOrLowVO;
 import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
 import businesslogic.financebl.Payment;
@@ -23,6 +25,7 @@ import businesslogic.salesbl.Sale;
 import businesslogic.salesbl.SaleList;
 import businesslogic.salesbl.SaleReturn;
 import businesslogic.stockbl.gift.GiftManage;
+import businesslogic.stockbl.stockManage.StockManage;
 import businesslogicservice.receiptblservice.ReceiptBLService;
 import businesslogicservice.receiptblservice.ReceiptListService;
 import businesslogicservice.receiptblservice.ReceiptTipService;
@@ -129,7 +132,15 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 		else if(po.getType()==ReceiptType.GIFT)
 		{
 			vo=GiftManage.giftPOToVO((GiftPO)po);
-			}
+		
+		}else if(po.getType()==ReceiptType.STOCKLOW||po.getType()==ReceiptType.STOCKOVER){
+			StockOverOrLowPO p=(StockOverOrLowPO)po;
+			 vo = new StockOverOrLowVO(p.getId(),
+						p.getUserID(), p.getType(), p.getStatus(),
+						p.getHurry(), p.getInfo(), p.getGoodsName(),
+						p.getSize(), p.getNum(), p.getExactNum());
+		}
+			
 		else  vo=new ReceiptVO(po.getId(),po.getMemberName(),
 				po.getMemberID(),po.getUserID(),po.getType(),po.getStatus(),
 				po.getHurry(),po.getInfo());

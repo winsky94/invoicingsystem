@@ -61,6 +61,7 @@ public class Member implements MemberBLService,MemberViewService{
 	public ArrayList<MemberVO> findMember(String message) {
 		// TODO Auto-generated method stu
 		ArrayList<MemberPO> po=service.find(message);
+		if(po==null) return null;
 		ArrayList<MemberVO> vo=new ArrayList<MemberVO>();
 		for(int i=0;i<po.size();i++){
 			vo.add(poToVo(po.get(i)));

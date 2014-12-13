@@ -239,7 +239,6 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 			String name = user.showUser(v.getUser()).getName();
 			if (v.getType() == ReceiptType.SALE) {
 				line.add("销售单");
-				;
 				SaleVO pv = (SaleVO) v;
 				line.add(v.getMemberName());
 				line.add(name);
