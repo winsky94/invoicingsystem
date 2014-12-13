@@ -56,13 +56,12 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 			ReceiptPO b = (ReceiptPO) a.get(i);
 			if (b.getId().equals(po.getId())) {
 				b.setInfo(po.getInfo());
+				System.out.println("Gift.modify() b.getStatus"+b.getStatus());
 				break;
 			}
 		}
 
-		if (i == a.size()) // 不存在该用户
-			return 1;
-
+		
 		file.writeM(a);
 		return 0;
 	}
