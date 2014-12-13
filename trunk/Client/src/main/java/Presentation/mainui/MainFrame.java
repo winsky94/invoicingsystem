@@ -188,7 +188,20 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 		messageBtn=new JLabel(icon);
 		messageBtnPnl.add(messageBtn);
 		messageBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		messageBtn.addMouseListener(this);
+		messageBtn.addMouseListener(new MouseAdapter(){
+			public void mousePressed(MouseEvent e){
+			if(messageWinExist==false){
+				mw=MessageWindow.getInstance(MainFrame.this,e.getXOnScreen(),e.getYOnScreen());
+				mw.setVisible(true);
+				messageWinExist=true;
+				}
+				else{
+					mw.setVisible(false);
+					messageWinExist=false;
+					mw.clear();
+				}
+			}
+		});
 		gbc.gridx=1;
 		gbc.gridy=0;
 		gbc.weightx=0.1;
@@ -258,19 +271,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 	}
 
 	public void mousePressed(MouseEvent e) {
-		if(e.getSource()==messageBtn){
-			if(messageWinExist==false){
-			mw=MessageWindow.getInstance(MainFrame.this,e.getXOnScreen(),e.getYOnScreen());
-			mw.setVisible(true);
-			messageWinExist=true;
-			}
-			else{
-				mw.setVisible(false);
-				messageWinExist=false;
-				mw.clear();
-			}
-		}
-
+	
 	}
 
 	public void mouseReleased(MouseEvent e) {

@@ -26,7 +26,7 @@ public class message extends Thread{
 		}
 		}
 		
-	
+		System.out.println("我结束了！");
 	}
 	
 	public void startThread(){
