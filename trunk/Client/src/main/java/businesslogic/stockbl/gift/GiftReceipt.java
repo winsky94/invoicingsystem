@@ -158,7 +158,9 @@ public class GiftReceipt extends Receipt {
 				Reply(v.getId(),v.getType(),1);
 			return result;
 		} else {
+			Reply(v.getId(),v.getType(),1);
 			return 7;
+			
 		}
 
 	}
