@@ -36,6 +36,7 @@ public class GiftDetailPanel extends JPanel {
 	JLabel memberLbl;
 	JButton exitBtn;
 	MainFrame father;
+	JPanel btnPnl;
 
 	public GiftDetailPanel(MainFrame frame, String id) {
 		GiftBLService giftController = null;
@@ -104,7 +105,7 @@ public class GiftDetailPanel extends JPanel {
 		gbl.setConstraints(jsp, cons);
 		this.add(jsp);
 		// -------buttons-----------------
-		JPanel btnPnl = new JPanel();
+		btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		cons.gridx = 0;
 		cons.gridy = 8;
@@ -126,5 +127,13 @@ public class GiftDetailPanel extends JPanel {
 			}
 		});
 		btnPnl.add(exitBtn);
+	}
+	
+	public void useToReceipt() {
+		// TODO Auto-generated method stub
+	
+		btnPnl.remove(exitBtn);
+		
+		
 	}
 }
