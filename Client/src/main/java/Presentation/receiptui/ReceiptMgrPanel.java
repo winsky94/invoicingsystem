@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,8 +19,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -83,10 +80,10 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 0;
-		c.gridheight = 3;
+		c.gridheight = 2;
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.weightx = 1;
-		c.weighty = 1;
+		c.weighty = 0.1;
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
 		// --------通过-----------------
@@ -146,59 +143,44 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		btnPnl.add(findFld);
 		findBtn = new MyButton(new ImageIcon(findPath));
 		btnPnl.add(findBtn);
-		// --------提示-------------------
-		JPanel tipPnl = new JPanel();
-		tipPnl.setBackground(Color.white);
-		JLabel tip = new JLabel("提示：选中多项可进行批量审批。");
-		tip.setFont(font);
-		tip.setForeground(color);
-		tipPnl.add(tip);
-		c.gridx = 0;
-		c.gridy = 3;
-		c.gridheight = 1;
-		c.gridwidth = GridBagConstraints.REMAINDER;
-		c.weightx = 1;
-		c.weighty = 0.1;
-		gbl.setConstraints(tipPnl, c);
-		this.add(tipPnl);
 		// ------------------------------
 		tab = new JTabbedPane();
 		tab.setFont(font);
 		tab.setBackground(Color.white);
 		tab.setForeground(color);
 		c.gridx = 0;
-		c.gridy = 4;
+		c.gridy = 2;
 		c.gridheight = GridBagConstraints.REMAINDER;
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.weightx = 1;
-		c.weighty = 10;
+		c.weighty = 1;
 		gbl.setConstraints(tab, c);
 		this.add(tab);
 		// -------待审批-------------------
-		rtm1 = new ReceiptTableModel(c1);
+		rtm1 = new ReceiptTableModel(c1,0);
 		t1 = new JTable(rtm1);
 		t1.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		// 加急显示的时候，传一个需要改变颜色的行数的Arraylist进去
 		// 无参构造函数是不加急显示的
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
-		for (int i = 0; i < t1.getColumnCount()-1; i++) {
+		for (int i = 0; i < t1.getColumnCount() - 1; i++) {
 			t1.getColumn(t1.getColumnName(i)).setCellRenderer(tcr);
-			
+
 		}
-		
+
 		jsp1 = new JScrollPane(t1);
-//		rtm1.addTableModelListener(new TableModelListener() {
-//			
-//			@Override
-//			public void tableChanged(TableModelEvent e) {
-//				t1.repaint();
-//				
-//			}
-//		});
+		// rtm1.addTableModelListener(new TableModelListener() {
+		//
+		// @Override
+		// public void tableChanged(TableModelEvent e) {
+		// t1.repaint();
+		//
+		// }
+		// });
 		tab.add("待审批单据", jsp1);
 		// ---------已审批------------------
-		rtm2 = new ReceiptTableModel(c2);
+		rtm2 = new ReceiptTableModel(c2,1);
 		t2 = new JTable(rtm2);
 		t2.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
@@ -217,10 +199,13 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		private static final long serialVersionUID = 1L;
 		String head[] = { "单据编号", "创建日期", "业务类型", "交易客户", "交易金额", "操作员", "备注",
 				"选择" };
+		String head2[] = { "单据编号", "创建日期", "业务类型", "交易客户", "交易金额", "操作员", "备注" };
 		ArrayList<ArrayList<Object>> cm;
+		int tableType;// 0_待审批,1_已审批
 
-		public ReceiptTableModel(ArrayList<ArrayList<Object>> content) {
+		public ReceiptTableModel(ArrayList<ArrayList<Object>> content, int t) {
 			cm = content;
+			tableType = t;
 		}
 
 		public int getRowCount() {
@@ -228,7 +213,9 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		}
 
 		public int getColumnCount() {
-			return head.length;
+			if (tableType == 0)
+				return head.length;
+			return head2.length;
 		}
 
 		public void addRow(ArrayList<Object> v) {
@@ -248,11 +235,13 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		}
 
 		public String getColumnName(int col) {
-			return head[col];
+			if (tableType == 0)
+				return head[col];
+			return head2[col];
 		}
 
 		public boolean isCellEditable(int rowIndex, int columnIndex) {
-			if (columnIndex == 7)
+			if ((tableType == 0) && (columnIndex == 7))
 				return true;
 			else
 				return false;
@@ -342,11 +331,12 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				line.add(Total.getTotal(v));
 			line.add(user.getName(v.getUser()));
 			line.add(v.getInfo());
-			line.add(new Boolean(false));
+			if (t == 0)
+				line.add(new Boolean(false));
 			tableContent.add(line);
 
 		}
-		
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
