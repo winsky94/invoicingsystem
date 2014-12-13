@@ -90,6 +90,7 @@ public class StockOverReceipt extends Receipt {
 				super.getmemberName(), super.getMemberID(), super.getUserID(),
 				ReceiptType.STOCKOVER, 0, super.getHurry(), super.getInfo(),
 				goodName, size, num, exactNum);
+		Send(po.getId());
 		return service.addStockOverOrLow(po);
 	}
 
@@ -105,6 +106,7 @@ public class StockOverReceipt extends Receipt {
 
 		StockOverOrLowPO po = voToPo(vo);
 		service.excute(po);
+		Reply(v.getId(),v.getType(),0);
 		return 0;
 	}
 
