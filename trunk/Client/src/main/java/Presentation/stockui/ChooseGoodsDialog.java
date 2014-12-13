@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -240,7 +241,7 @@ public class ChooseGoodsDialog extends JDialog {
 		tree.setEditable(true);
 		tree.addMouseListener(new MouseHandle());
 		// treeModel.addTreeModelListener(this);
-
+		expandTree(tree);
 		treeJsp = new JScrollPane(tree);
 		treeJsp.setBorder(null);
 		treeJsp.setLocation(0, 0);
@@ -405,5 +406,29 @@ public class ChooseGoodsDialog extends JDialog {
 				return i;
 		}
 		return -1;
+	}
+
+	public void expandTree(JTree tree) {
+		TreeNode root = (TreeNode) tree.getModel().getRoot();
+		expandAll(tree, new TreePath(root), true);
+	}
+
+	private void expandAll(JTree tree, TreePath parent, boolean expand) {
+		// Traverse children
+		TreeNode node = (TreeNode) parent.getLastPathComponent();
+		if (node.getChildCount() >= 0) {
+			for (Enumeration<?> e = node.children(); e.hasMoreElements();) {
+				TreeNode n = (TreeNode) e.nextElement();
+				TreePath path = parent.pathByAddingChild(n);
+				expandAll(tree, path, expand);
+			}
+		}
+
+		// Expansion or collapse must be done bottom-up
+		if (expand) {
+			tree.expandPath(parent);
+		} else {
+			tree.collapsePath(parent);
+		}
 	}
 }

@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -340,6 +341,8 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		tree.setEditable(true);
 		tree.addMouseListener(new MouseHandle());
 		treeModel.addTreeModelListener(this);
+
+		expandTree(tree);
 
 		// 渲染器，用于调整树背景色及文字背景色
 		DefaultTreeCellRenderer cellRenderer = (DefaultTreeCellRenderer) tree
@@ -743,4 +746,29 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		}
 
 	}
+
+	public void expandTree(JTree tree) {
+		TreeNode root = (TreeNode) tree.getModel().getRoot();
+		expandAll(tree, new TreePath(root), true);
+	}
+
+	private void expandAll(JTree tree, TreePath parent, boolean expand) {
+		// Traverse children
+		TreeNode node = (TreeNode) parent.getLastPathComponent();
+		if (node.getChildCount() >= 0) {
+			for (Enumeration<?> e = node.children(); e.hasMoreElements();) {
+				TreeNode n = (TreeNode) e.nextElement();
+				TreePath path = parent.pathByAddingChild(n);
+				expandAll(tree, path, expand);
+			}
+		}
+
+		// Expansion or collapse must be done bottom-up
+		if (expand) {
+			tree.expandPath(parent);
+		} else {
+			tree.collapsePath(parent);
+		}
+	}
+
 }
