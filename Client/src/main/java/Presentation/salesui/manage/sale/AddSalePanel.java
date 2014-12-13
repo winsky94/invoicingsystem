@@ -31,11 +31,14 @@ import po.ReceiptPO.ReceiptType;
 import po.UserPO.UserJob;
 import vo.CommodityVO;
 import vo.GoodsVO;
+import vo.LogVO;
 import vo.MemberVO;
 import vo.SaleVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 import Presentation.salesui.manage.CommodityTableModel;
 import Presentation.salesui.manage.SaleMgrPanel;
 import Presentation.stockui.ChooseGoodsDialog;
@@ -68,7 +71,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 	ArrayList<Double> last_bid = new ArrayList<Double>();
 	double[] total = new double[5];
 	double[] discount = new double[4];
-	String proid = null, couponid = "";
+	String proid = "", couponid = "";
 	double pre = 0, coupon = 0;
 	// public MainFrame parent;
 	SalesBLService service;
@@ -338,7 +341,6 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 		submitBtn.setBackground(new Color(166, 210, 121));
 		submitBtn.addActionListener(this);
 		btnPnl.add(submitBtn);
-		submitBtn.addActionListener(this);
 		exitBtn = new JButton("取消");
 		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		exitBtn.setFocusPainted(false);
@@ -390,8 +392,11 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 				getSale();
 				int result = service.addSale(sale);
 				if (result == 0) {
-					JOptionPane.showMessageDialog(null, "销售单创建成功！", "提示",
-							JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(null, "销售单创建成功！"
+							);
+					log.addLog(new LogVO(log.getdate(),parent.getUser()
+							.getID(), parent.getUser().getName(), "创建一笔销售单", 6));
+					headPane.RefreshGrades();
 					SaleMgrPanel sp = new SaleMgrPanel(parent);
 					parent.setRightComponent(sp);
 					sp.RefreshPanel();
@@ -406,6 +411,8 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 			e1.printStackTrace();
 		}
 	}
+
+
 
 	public void RefreshCTable(ArrayList<Object> VO) {
 		if (VO.get(0) instanceof GoodsVO) {
@@ -443,9 +450,10 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 				line.add(vo.getID());
 				line.add(vo.getName());
 				line.add(vo.getType());
-				line.add(Double.toString(vo.getNum()));
+				line.add(vo.getNum()+"");
 				line.add(Double.toString(vo.getTotal()));
 				line.add(vo.getTip());
+				last_bid.add(vo.getCost()/vo.getPrice());
 				cmContent.add(line);
 			}
 		}
@@ -479,7 +487,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 		getCost();
 		String memid = "";
 		int i = XSSBox.getSelectedIndex() - 1;
-		if (i >= 0)
+		if (i >= 0){
 			memid = idtxt[i];
 
 		String mem = XSSBox.getSelectedItem().toString();
@@ -488,7 +496,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 			hurry = 0;
 		sale = new SaleVO(clerkFld.getText(), cmlist, id, mem, memid, parent
 				.getUser().getID(), 0, hurry, remarkFld.getText(),
-				stockFld.getText(), proid, couponid, total, discount);
+				stockFld.getText(), proid, couponid, total, discount);}
 
 	}
 

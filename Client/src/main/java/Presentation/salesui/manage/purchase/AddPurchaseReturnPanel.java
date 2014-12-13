@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 import po.ReceiptPO.ReceiptType;
 import vo.CommodityVO;
@@ -43,11 +44,16 @@ public class AddPurchaseReturnPanel extends JPanel{
 		pvo=p.service.PFindByID(id);
 		pid=p.service.getNewID(ReceiptType.PURCHASERETURN);
 		p.IDLbl.setText("编号："+pid);
-		p.JHSBox.setSelectedItem(pvo.getMemberName());
-		p.JHSBox.setEditable(false);
-		p.JHSBox.setEnabled(false);
+		p.JHSLbl.setText("进货商："+pvo.getMemberName());
+		p.p1.remove(p.JHSBox);
 		p.userLbl.setText("操作员："+user.showUser(pvo.getUser()).getName());
-		p.stockFld.setText(pvo.getStockid());
+		p.stockLbl.setText("仓库："+pvo.getStockid());
+		p.p2.remove(p.stockFld);
+		p.table=new JTable(p.ctm){public boolean isCellEditable(int row,int column){
+			if(column==6||column==3)
+				return true;
+			else return false;
+		}};
 		p.stockFld.setEnabled(false);
 		p.remarkFld.setText(pvo.getInfo());
 		p.totalMoney=pvo.getTotalInAll();

@@ -34,7 +34,7 @@ public class SaleReturn extends Receipt {
 	}
 
 	public int add(SaleReturnVO vo) {
-
+		Send(vo.getId());
 		return service.createSaleReturn(voToPo(vo));
 	}
 
@@ -102,6 +102,7 @@ public class SaleReturn extends Receipt {
 			}
 
 		}
+		Reply(vo.getId(),vo.getType(),0);
 		return 0;
 
 	}

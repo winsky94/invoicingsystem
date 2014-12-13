@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,6 +28,7 @@ import vo.SaleReturnVO;
 import vo.SaleVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
+import Presentation.salesui.manage.purchase.AddPurchaseReturnPanel;
 import Presentation.salesui.manage.sale.AddSalePanel;
 import Presentation.salesui.manage.sale.AddSaleReturnPanel;
 import businesslogic.salesbl.SaleList;
@@ -156,8 +158,21 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		} else if (e.getSource() == saleReturnBtn)
-			parent.setRightComponent(new AddSaleReturnPanel(parent));
+		} else if (e.getSource() == saleReturnBtn){
+			int t = table.getSelectedRow();
+			if (t >= 0) {
+				String pid = c.get(t).get(0);
+				try {
+					parent.setRightComponent(new AddSaleReturnPanel(parent, pid));
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			} else
+				JOptionPane.showMessageDialog(null, "请选择一条销售单进行退货!", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			
+		}
 
 	}
 
