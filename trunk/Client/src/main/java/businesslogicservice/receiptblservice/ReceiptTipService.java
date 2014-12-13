@@ -11,6 +11,7 @@ public interface ReceiptTipService {
 	//财务
 	public ArrayList<ReceiptMessageVO> getFinanceApproved();
 	//库存？
+	public ArrayList<ReceiptMessageVO> getStockApproved();
 	
 	public void addMessage(ReceiptMessageVO vo);
 	public void deleteessage(ReceiptMessageVO vo);

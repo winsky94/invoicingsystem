@@ -76,7 +76,7 @@ public class Receipt {
 		ReceiptMessage message;
 		try {
 			message = new ReceiptMessage();
-			message.addMessage(new ReceiptMessageVO(0,getDate.getAllDate()+"你有新单据"+id+"待审批！"));
+			message.addMessage(new ReceiptMessageVO(0,getDate.getAllDate()+"新单据"+id+"待审批！"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

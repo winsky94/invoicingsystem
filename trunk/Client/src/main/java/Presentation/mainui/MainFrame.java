@@ -208,6 +208,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 		gbc.weighty=0.1;
 		gbl.setConstraints(messageBtnPnl, gbc);
 		jp3.add(messageBtnPnl);
+		MessageWindow.getInstance(MainFrame.this).setUser(user.getJob());
 		m=new message(MessageWindow.getInstance(MainFrame.this));
 		m.startThread();
 		

@@ -26,6 +26,7 @@ public class ReceiptMessage implements ReceiptTipService{
 			for(int i=0;i<po.size();i++)
 				if(po.get(i).getTag()==0)
 					vo.add(poToVo(po.get(i)));
+			if(vo.size()==0)return null;
 			return vo;
 		}
 	}
@@ -38,6 +39,7 @@ public class ReceiptMessage implements ReceiptTipService{
 			for(int i=0;i<po.size();i++)
 				if(po.get(i).getTag()==3)
 					vo.add(poToVo(po.get(i)));
+			if(vo.size()==0)return null;
 			return vo;
 		}
 	}
@@ -51,6 +53,7 @@ public class ReceiptMessage implements ReceiptTipService{
 			for(int i=0;i<po.size();i++)
 				if(po.get(i).getTag()==1)
 					vo.add(poToVo(po.get(i)));
+			if(vo.size()==0)return null;
 			return vo;
 		}
 	}
@@ -64,6 +67,7 @@ public class ReceiptMessage implements ReceiptTipService{
 			for(int i=0;i<po.size();i++)
 				if(po.get(i).getTag()==2)
 					vo.add(poToVo(po.get(i)));
+			if(vo.size()==0)return null;
 			return vo;
 		}
 		
