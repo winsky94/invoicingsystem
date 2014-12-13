@@ -99,6 +99,15 @@ public class GoodsInitialPanel extends JPanel{
 				else{
 					for(int j=allselected.length-1;j>=0;j--){
 					int selected=allselected[j];
+					for(int i=selected+1;i<goodsC.size();i++){	
+						    String buffer[]=goodsC.get(i).get(0).split("-");
+						    String front=buffer[0]+"-"+buffer[1];
+							double d=Double.parseDouble(buffer[2])-1;
+							NumberFormat nf = NumberFormat.getInstance();
+						     nf.setMinimumIntegerDigits(4); 
+						     nf.setGroupingUsed(false);
+							 goodsC.get(i).set(0,front+"-"+nf.format(d));					
+					}
 					gm.removeRow(selected);
 					goodsTable.revalidate();					
 				}
@@ -154,6 +163,7 @@ public class GoodsInitialPanel extends JPanel{
 	
 	 public void RefreshCTable(ArrayList<Object> VO){
 			for(Object oo:VO){
+				boolean isChongfu=false;
 				GoodsVO vo=(GoodsVO)oo;
 				ArrayList<String> line=new ArrayList<String>();
 				line.add(getNewID(vo.getGoodsID()));
@@ -162,7 +172,15 @@ public class GoodsInitialPanel extends JPanel{
 				line.add(vo.getSize());
 				line.add(0+"");
 				line.add(0+"");
-				goodsC.add(line);				
+				for(ArrayList<String> te:goodsC){
+					if(te.get(1).equals(vo.getName())&&te.get(2).equals(vo.getGoodsClass())&&te.get(3).equals(vo.getSize())&&te.get(4).equals(0+"")&&te.get(5).equals(0+"")){
+						isChongfu=true;
+					}
+				}
+				if(isChongfu==false)
+				  goodsC.add(line);	
+				else
+				  JOptionPane.showMessageDialog(null,"您已选择过该商品!","提示",JOptionPane.WARNING_MESSAGE);
 			}
 			goodsTable.revalidate();
 	 }
