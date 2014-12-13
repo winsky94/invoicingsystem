@@ -256,14 +256,15 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 
 	public void mousePressed(MouseEvent e) {
 		if(e.getSource()==messageBtn){
-//			if(messageWinExist==false){
+			if(messageWinExist==false){
 			mw=MessageWindow.getInstance(MainFrame.this,e.getXOnScreen(),e.getYOnScreen());
-//			messageWinExist=true;
-//			}
-//			else{
-//				mw.dispose();
-//				messageWinExist=false;
-//			}
+			mw.setVisible(true);
+			messageWinExist=true;
+			}
+			else{
+				mw.setVisible(false);
+				messageWinExist=false;
+			}
 		}
 
 	}
