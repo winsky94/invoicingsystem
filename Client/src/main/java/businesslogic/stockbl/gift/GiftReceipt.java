@@ -10,10 +10,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.swing.JOptionPane;
+
 import po.CommodityPO;
 import po.GiftPO;
+import po.ReceiptPO.ReceiptType;
 import vo.CommodityVO;
+import vo.GiftVO;
+import vo.GoodsVO;
+import vo.ReceiptVO;
 import businesslogic.receiptbl.Receipt;
+import businesslogic.stockbl.goods.GoodsController;
+import businesslogic.stockbl.stockManage.StockControlController;
+import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
+import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import dataservice.stockdataservice.giftdataservice.GiftDataService;
 
 public class GiftReceipt extends Receipt {
@@ -73,7 +83,7 @@ public class GiftReceipt extends Receipt {
 		String id = getNewID();
 
 		GiftPO po = new GiftPO(id, super.getmemberName(), getMemberID(),
-				super.getUserID(), super.getInfo(), 3, super.getHurry(), list);
+				super.getUserID(), super.getInfo(), 0, super.getHurry(), list);
 		try {
 			result = service.addGift(po);
 		} catch (RemoteException e) {
@@ -83,18 +93,87 @@ public class GiftReceipt extends Receipt {
 		return result;
 	}
 
-	// 向赠送单列表里增加商品
-	public int addGift(CommodityVO vo) {
-		giftVOList.add(vo);
-		total += vo.getPrice();
-		return 0;
+	// 库存赠送单的处理
+	public int excute(ReceiptVO v) {
+		GiftVO giftVO = (GiftVO) v;
+		StockControlBLService controller = new StockControlController();
+		GiftReceipt receipt = new GiftReceipt(giftVO.getId(),
+				giftVO.getMemberID(), giftVO.getMemberName(), giftVO.getUser(),
+				ReceiptType.GIFT, giftVO.getHurry(), giftVO.getStatus(),
+				giftVO.getInfo(), giftVO.getGiftList());
+		boolean isAble = true;// 库存是否满足
+		ArrayList<CommodityVO> list = receipt.getGiftVOList();
+		for (int i = 0; i < list.size(); i++) {
+			CommodityVO vo = list.get(i);
+			boolean isEnough = controller.isEnough(vo.getID(), vo.getNum());
+			if (!isEnough) {
+				isAble = false;
+				break;
+			}
+		}
+		if (isAble) {
+			// 减少库存数量
+			StockGoodsBLService goodsController = new GoodsController();
+			for (int i = 0; i < list.size(); i++) {
+				CommodityVO vo = list.get(i);
+				GoodsVO good = null;
+				try {
+					good = goodsController.findByID(vo.getID());
+				} catch (RemoteException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+
+				good.setNumInStock(good.getNumInStock() - vo.getNum());
+				goodsController.modifyGoods(good);
+
+				// 检测库存是否报警
+				StockControlBLService stockController = new StockControlController();
+				boolean result = stockController.stockNumCheck(good
+						.getGoodsID());
+				if (result) {
+					//
+					JOptionPane.showMessageDialog(null, "库存不足啦！", null,
+							JOptionPane.WARNING_MESSAGE);
+				}
+
+			}
+
+			// 调用服务器端处理库存赠送单
+			GiftPO po = new GiftPO(receipt.getId(), receipt.getMemberID(),
+					receipt.getmemberName(), receipt.getUserID(),
+					receipt.getInfo(), giftVO.getStatus(), receipt.getHurry(),
+					VOToPO(list));
+			int result = -1;
+			try {
+				result = service.dealGift(po);
+			} catch (RemoteException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
+
+			return result;
+		} else {
+			return 7;
+		}
+
 	}
 
-	// 从赠送单列表里删除商品
-	public int deleteGood(CommodityVO vo) {
-		giftVOList.remove(vo);
-		total -= vo.getPrice();
-		return 0;
+	// 修改
+	public int modify(String id) {
+		int result = 0;
+		try {
+			GiftPO oldPo = service.findByID(id);
+			GiftPO po = new GiftPO(id, super.getMemberID(),
+					super.getmemberName(), super.getUserID(), super.getInfo(),
+					oldPo.getStatus(), super.getHurry(), VOToPO(giftVOList));
+			result = service.modify(po);
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+
+		return result;
 	}
 
 	public ArrayList<CommodityVO> getGiftVOList() {

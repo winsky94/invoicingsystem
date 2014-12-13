@@ -1,7 +1,6 @@
 package Presentation.stockui.giftmanage;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -231,7 +230,7 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 			String ID = data[0];
 			String name = data[1];
 			String user = parent.getUser().getID();
-			GiftVO vo = new GiftVO("", name, ID, user, 3, 0, "", recordList);
+			GiftVO vo = new GiftVO("", name, ID, user, 0, 0, "", recordList);
 			GiftBLService giftService = null;
 			try {
 				giftService = new GiftController();
@@ -239,12 +238,12 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 				// TODO 自动生成的 catch 块
 				e2.printStackTrace();
 			}
-			int result = giftService.dealGift(vo);
-			if (result != 0) {
-				JOptionPane.showMessageDialog(this, "别闹啦~，库存不足以赠送的~", null,
-						JOptionPane.WARNING_MESSAGE);
-				return;
-			}
+//			int result = giftService.dealGift(vo);
+//			if (result != 0) {
+//				JOptionPane.showMessageDialog(this, "别闹啦~，库存不足以赠送的~", null,
+//						JOptionPane.WARNING_MESSAGE);
+//				return;
+//			}
 			giftService.addGift(vo);
 			log.addLog(new LogVO(log.getdate(), parent.getUser().getID(),
 					parent.getUser().getName(), "创建一笔库存赠送单", 5));
@@ -257,23 +256,5 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 
 			parent.setRightComponent(new GiftPanel(parent));
 		}
-	}
-
-	// table的渲染器
-	class TableCellRenderer extends MyTableCellRenderer {
-		/**
-			 * 
-			 */
-		private static final long serialVersionUID = 1L;
-
-		public Component getTableCellRendererComponent(JTable table,
-				Object value, boolean isSelected, boolean hasFocus, int row,
-				int column) {
-			// 设置列宽
-			table.getColumn("编号").setPreferredWidth(180);
-			return super.getTableCellRendererComponent(table, value,
-					isSelected, hasFocus, row, column);
-		}
-
 	}
 }

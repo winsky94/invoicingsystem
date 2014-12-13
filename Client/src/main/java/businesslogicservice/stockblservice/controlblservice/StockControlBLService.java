@@ -22,7 +22,8 @@ public interface StockControlBLService {
 	// 商品报损支出
 	public double getGoodsLowCost();
 
-	public ArrayList<ArrayList<String>> showStock(String beginDate, String endDate);
+	public ArrayList<ArrayList<String>> showStock(String beginDate,
+			String endDate);
 
 	public ArrayList<ArrayList<String>> checkStock();
 
@@ -33,7 +34,8 @@ public interface StockControlBLService {
 
 	// 获得商品赠送支出
 	public double getGiftCost();
-	
-	//检查商品库存报警
+
+	// 检查商品库存报警
 	public boolean stockNumCheck(String goodsID);
+
 }

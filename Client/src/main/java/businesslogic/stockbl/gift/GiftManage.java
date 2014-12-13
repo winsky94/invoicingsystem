@@ -99,11 +99,6 @@ public class GiftManage {
 
 	}
 
-	// 修改库存赠送单==未完
-	public GiftReceipt modify() {
-		return null;
-	}
-
 	// 商品赠送支出
 	public double getGiftCost() {
 		ArrayList<GiftPO> list = new ArrayList<GiftPO>();
