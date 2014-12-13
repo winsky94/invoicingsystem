@@ -192,7 +192,7 @@ public class Member implements MemberBLService,MemberViewService{
 		return poToVo(service.findByID(ID));
 	}
 
-	@Override
+
 	public int getSaleNum() {
 		// TODO Auto-generated method stub
 		int num=0;
@@ -203,7 +203,7 @@ public class Member implements MemberBLService,MemberViewService{
 		return num;
 	}
 
-	@Override
+
 	public int getPurchaseNum() {
 		// TODO Auto-generated method stub
 		int num=0;
