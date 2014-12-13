@@ -31,8 +31,10 @@ import Presentation.financeui.moneyreceipt.PaymentDetailPanel;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import Presentation.salesui.manage.purchase.PurchaseDetailPanel;
+import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.ReceiptController;
 import businesslogic.userbl.User;
+import businesslogicservice.memberblservice.MemberBLService;
 import businesslogicservice.receiptblservice.ReceiptBLService;
 import businesslogicservice.userblservice.UserViewService;
 
@@ -267,11 +269,13 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			// 销售/进货
 			if (v.getType() == ReceiptType.PAYMENT) {
 				PaymentVO pv = (PaymentVO) v;
-				line.add(pv.getSeller() + "/" + pv.getSupplier());
+				MemberBLService m=new Member();
+				line.add(m.findById(pv.getSeller()).getName() + "/" + m.findById(pv.getSeller()).getName());
 
 			} else if (v.getType() == ReceiptType.COLLECTION) {
 				CollectionVO cv = (CollectionVO) v;
-				line.add(cv.getSeller() + "/" + cv.getSupplier());
+				MemberBLService m=new Member();
+				line.add(m.findById(cv.getSeller()).getName() + "/" + m.findById(cv.getSeller()).getName());
 			} else
 				line.add(v.getMemberName());
 
