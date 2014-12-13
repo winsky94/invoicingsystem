@@ -32,6 +32,7 @@ public class Purchase extends Receipt {
 	}
 
 	public int AddPurchase(PurchaseVO vo) {
+		Send(vo.getId());
 		return service.createPurchase(voToPo(vo));
 	}
 
@@ -60,6 +61,7 @@ public class Purchase extends Receipt {
 			}
 
 		}
+		Reply(vo.getId(),vo.getType(),0);
 		return 0;
 	}
 
