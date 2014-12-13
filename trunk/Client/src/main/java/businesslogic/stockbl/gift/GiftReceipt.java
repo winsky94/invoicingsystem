@@ -159,6 +159,17 @@ public class GiftReceipt extends Receipt {
 			return result;
 		} else {
 			Reply(v.getId(),v.getType(),1);
+			GiftPO po = new GiftPO(receipt.getId(), receipt.getMemberID(),
+					receipt.getmemberName(), receipt.getUserID(),
+					receipt.getInfo(), giftVO.getStatus(), receipt.getHurry(),
+					VOToPO(list));
+			po.setStatus(1);
+			try {
+				service.modify(po);
+			} catch (RemoteException e) {
+				// TODO 自动生成的 catch 块
+				e.printStackTrace();
+			}
 			return 7;
 			
 		}
