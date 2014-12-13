@@ -1,33 +1,24 @@
 package Presentation.salesui.manage.purchase;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.security.Provider.Service;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-
-import businesslogic.userbl.User;
-import businesslogicservice.userblservice.UserBLService;
 import po.ReceiptPO.ReceiptType;
 import vo.CommodityVO;
 import vo.PurchaseVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
-import Presentation.mainui.outBorder;
-import Presentation.uihelper.UIhelper;
+import businesslogic.userbl.User;
+import businesslogicservice.userblservice.UserBLService;
 //进货退货只能改变 退货价格？？
 public class AddPurchaseReturnPanel extends  ChooseGoodsFatherPane{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	MainFrame parent;
 	AddPurchasePanel p;
 	PurchaseVO pvo;
