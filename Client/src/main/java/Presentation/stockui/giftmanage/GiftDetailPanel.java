@@ -20,6 +20,8 @@ import vo.GiftVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import businesslogic.stockbl.gift.GiftCommodityListModel;
+import businesslogic.stockbl.gift.GiftController;
+import businesslogicservice.stockblservice.giftblservice.GiftBLService;
 
 public class GiftDetailPanel extends JPanel {
 
@@ -35,7 +37,15 @@ public class GiftDetailPanel extends JPanel {
 	JButton exitBtn;
 	MainFrame father;
 
-	public GiftDetailPanel(MainFrame frame, GiftVO giftVO) {
+	public GiftDetailPanel(MainFrame frame, String id) {
+		GiftBLService giftController = null;
+		try {
+			giftController = new GiftController();
+		} catch (Exception e1) {
+			// TODO 自动生成的 catch 块
+			e1.printStackTrace();
+		}
+		GiftVO giftVO=giftController.findByID(id);
 		father = frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints cons = new GridBagConstraints();
