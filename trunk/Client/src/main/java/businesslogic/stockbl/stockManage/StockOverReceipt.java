@@ -11,7 +11,12 @@ import java.util.Calendar;
 
 import po.ReceiptPO.ReceiptType;
 import po.StockOverOrLowPO;
+import vo.GoodsVO;
+import vo.ReceiptVO;
+import vo.StockOverOrLowVO;
 import businesslogic.receiptbl.Receipt;
+import businesslogic.stockbl.goods.GoodsController;
+import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import dataservice.stockdataservice.controldataservice.StockControlDataService;
 
 public class StockOverReceipt extends Receipt {
@@ -24,7 +29,7 @@ public class StockOverReceipt extends Receipt {
 	private String host;
 	private String url;
 
-	public StockOverReceipt() throws Exception{
+	public StockOverReceipt() throws Exception {
 		host = "localhost:1099";
 		url = "rmi://" + host + "/stockManageService";
 		try {
@@ -83,9 +88,23 @@ public class StockOverReceipt extends Receipt {
 
 		StockOverOrLowPO po = new StockOverOrLowPO(exactID,
 				super.getmemberName(), super.getMemberID(), super.getUserID(),
-				ReceiptType.STOCKOVER, 3, super.getHurry(), super.getInfo(),
+				ReceiptType.STOCKOVER, 0, super.getHurry(), super.getInfo(),
 				goodName, size, num, exactNum);
 		return service.addStockOverOrLow(po);
+	}
+
+	public int excute(ReceiptVO v) {
+		StockOverOrLowVO vo = (StockOverOrLowVO) v;
+		// 向系统库存中添加商品
+		StockGoodsBLService goodsController = new GoodsController();
+		GoodsVO goodvo = goodsController.findGoods(
+				vo.getGoodsName() + vo.getSize()).get(0);
+		goodvo.setNumInStock(exactNum);
+		goodsController.modifyGoods(goodvo);
+
+		StockOverOrLowPO po = voToPo(vo);
+		service.excute(po);
+		return 0;
 	}
 
 	public String getGoodName() {
@@ -134,5 +153,12 @@ public class StockOverReceipt extends Receipt {
 		String sysDatetime = fmt.format(rightNow.getTime());
 
 		return sysDatetime;
+	}
+
+	private StockOverOrLowPO voToPo(StockOverOrLowVO vo) {
+		return new StockOverOrLowPO(vo.getId(), vo.getMemberName(),
+				vo.getMemberID(), vo.getUser(), ReceiptType.STOCKOVER,
+				vo.getStatus(), vo.getHurry(), vo.getInfo(), vo.getGoodsName(),
+				vo.getSize(), vo.getNum(), vo.getExactNum());
 	}
 }
