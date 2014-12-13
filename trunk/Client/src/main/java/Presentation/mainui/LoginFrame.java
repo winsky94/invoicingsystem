@@ -185,9 +185,7 @@ public class LoginFrame extends JFrame{
 					}
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null, "您的服务器未启动","提示",JOptionPane.WARNING_MESSAGE);
-					JOptionPane.showMessageDialog(null, "快去看看服务器管理人员有没有在睡大觉吧！ :P","提示",JOptionPane.WARNING_MESSAGE);
-					JOptionPane.showMessageDialog(null, "老师！王宁宁他在睡大觉！偷懒！快罚他请全组人吃饭！","提示",JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "您的服务器未启动。","提示",JOptionPane.WARNING_MESSAGE);
 					System.exit(0);
 				}
 				
