@@ -15,12 +15,12 @@ public class ModifyPurchasePanel extends JPanel{
 	MainFrame  parent;
 	PurchaseVO vo;
 	PurchaseBLService service;
-	PurchasePane p;
+	AddPurchasePanel p;
 	public ModifyPurchasePanel(MainFrame father,String id) throws Exception{
 		parent=father;
 		service=new SalesController();
 		vo=service.PFindByID(id);
-		p=new PurchasePane(father);
+		p=new AddPurchasePanel(father);
 		p.title.setText("修改进货单");
 		p.IDLbl.setText("编号："+vo.getId());
 		p.JHSBox.setSelectedItem(vo.getMemberName());

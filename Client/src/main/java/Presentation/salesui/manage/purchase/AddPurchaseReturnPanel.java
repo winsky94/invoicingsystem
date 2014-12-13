@@ -26,19 +26,19 @@ import Presentation.mainui.MainFrame;
 import Presentation.mainui.outBorder;
 import Presentation.uihelper.UIhelper;
 //进货退货只能改变 退货价格？？
-public class PurchaseReturnPane extends  ChooseGoodsFatherPane{
+public class AddPurchaseReturnPanel extends  ChooseGoodsFatherPane{
 	
 	MainFrame parent;
-	PurchasePane p;
+	AddPurchasePanel p;
 	PurchaseVO pvo;
 	String pid;
 	UserBLService user;
 	purReturnListener returnlisten;
-	public PurchaseReturnPane(MainFrame frame,String id) throws Exception {
+	public AddPurchaseReturnPanel(MainFrame frame,String id) throws Exception {
 		user=new User();
 		parent=frame;
 		this.setLayout(new BorderLayout());
-		p=new PurchasePane(parent);
+		p=new AddPurchasePanel(parent);
 		this.add(p,BorderLayout.CENTER);
 		p.title.setText("创建进货退货单");
 		pvo=p.service.PFindByID(id);

@@ -46,7 +46,7 @@ import businesslogicservice.memberblservice.MemberViewService;
 import businesslogicservice.promotionblservice.PromotionMatchService;
 import businesslogicservice.salesblservice.SalesBLService;
 
-public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
+public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListener {
 
 	/**
 	 * 
@@ -73,7 +73,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 	// public MainFrame parent;
 	SalesBLService service;
 
-	public SalePane(MainFrame frame) throws Exception {
+	public AddSalePanel(MainFrame frame) throws Exception {
 		parent = frame;
 		service = new SalesController();
 		initialArray();
@@ -304,7 +304,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 		addGoodsBtn.setFocusPainted(false);
 		addGoodsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JDialog addGoodsDlg = new ChooseGoodsDialog(SalePane.this);
+				JDialog addGoodsDlg = new ChooseGoodsDialog(AddSalePanel.this);
 			}
 		});
 		btnPnl.add(addGoodsBtn);
@@ -385,7 +385,7 @@ public class SalePane extends ChooseGoodsFatherPane implements ActionListener {
 					discountMoneyFld.setText("");
 				}
 			} else if (e.getSource() == couponBtn) {
-				UseCouponDialog dia = new UseCouponDialog(SalePane.this);
+				UseCouponDialog dia = new UseCouponDialog(AddSalePanel.this);
 			} else if (e.getSource() == submitBtn) {
 				getSale();
 				int result = service.addSale(sale);
