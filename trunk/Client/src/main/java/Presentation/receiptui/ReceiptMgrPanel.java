@@ -1,7 +1,6 @@
 package Presentation.receiptui;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -95,12 +93,12 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				// TODO Auto-generated method stub
 				int[] row = t1.getSelectedRows();
 				if (row.length > 0) {
-					for(int i=0;i<row.length;i++){
-						String id=c1.get(row[i]).get(0);
-						if(service.Approve(id, 2)!=0)
-							JOptionPane.showMessageDialog(null,"审批失败！","提示",JOptionPane.WARNING_MESSAGE);
+					for (int i = 0; i < row.length; i++) {
+						String id = c1.get(row[i]).get(0);
+						if (service.Approve(id, 2) != 0)
+							JOptionPane.showMessageDialog(null, "审批失败！", "提示",
+									JOptionPane.WARNING_MESSAGE);
 					}
-					
 
 				} else
 					JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
@@ -117,12 +115,12 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				// TODO Auto-generated method stub
 				int[] row = t1.getSelectedRows();
 				if (row.length > 0) {
-					for(int i=0;i<row.length;i++){
-						String id=c1.get(row[i]).get(0);
-						if(service.Approve(id, 1)!=0)
-							JOptionPane.showMessageDialog(null,"审批失败！","提示",JOptionPane.WARNING_MESSAGE);
+					for (int i = 0; i < row.length; i++) {
+						String id = c1.get(row[i]).get(0);
+						if (service.Approve(id, 1) != 0)
+							JOptionPane.showMessageDialog(null, "审批失败！", "提示",
+									JOptionPane.WARNING_MESSAGE);
 					}
-					
 
 				} else
 					JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
@@ -160,8 +158,9 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		t1 = new JTable(rtm1);
 		t1.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-		DefaultTableCellRenderer tcr = new TableCellRenderer();
-		
+		//加急显示的时候，传一个需要改变颜色的行数的Arraylist进去
+		//无参构造函数是不加急显示的
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 		for (int i = 0; i < t1.getColumnCount(); i++) {
 			t1.getColumn(t1.getColumnName(i)).setCellRenderer(tcr);
 		}
@@ -272,13 +271,15 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			// 销售/进货
 			if (v.getType() == ReceiptType.PAYMENT) {
 				PaymentVO pv = (PaymentVO) v;
-				MemberBLService m=new Member();
-				line.add(m.findById(pv.getSeller()).getName() + "/" + m.findById(pv.getSeller()).getName());
+				MemberBLService m = new Member();
+				line.add(m.findById(pv.getSeller()).getName() + "/"
+						+ m.findById(pv.getSeller()).getName());
 
 			} else if (v.getType() == ReceiptType.COLLECTION) {
 				CollectionVO cv = (CollectionVO) v;
-				MemberBLService m=new Member();
-				line.add(m.findById(cv.getSeller()).getName() + "/" + m.findById(cv.getSeller()).getName());
+				MemberBLService m = new Member();
+				line.add(m.findById(cv.getSeller()).getName() + "/"
+						+ m.findById(cv.getSeller()).getName());
 			} else
 				line.add(v.getMemberName());
 
@@ -308,8 +309,8 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				try {
 					switch (rtype) {
 					case PURCHASE:
-						PurchaseDetailPanel pane = new PurchaseDetailPanel(father,
-								id);
+						PurchaseDetailPanel pane = new PurchaseDetailPanel(
+								father, id);
 						pane.useToReceipt();
 						father.setRightComponent(new AdvancedReceiptPanel(pane,
 								father, id));
@@ -375,36 +376,5 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 
 	}
 
-	//给加急单的行着色
-	class TableCellRenderer extends DefaultTableCellRenderer {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		public Component getTableCellRendererComponent(JTable table, Object value,
-				boolean isSelected, boolean hasFocus, int row, int column ,ArrayList<Integer> rowList) {
-			setHorizontalAlignment(JLabel.CENTER);
-			// 设置列宽自己设置
-			String columnName1 = table.getColumnName(0);
-			table.getColumn(columnName1).setPreferredWidth(180);
-			String columnName2 = table.getColumnName(1);
-			table.getColumn(columnName2).setPreferredWidth(130);
-
-			if (row % 2 == 1)
-				setBackground(Color.white); // 设置奇数行底色
-			else if (row % 2 == 0)
-				setBackground(new Color(225, 255, 255)); // 设置偶数行底色
-			
-			for(int i=0;i<rowList.size();i++){
-				if(row==rowList.get(i)){
-					setBackground(new Color(230,230,250));
-				}
-			}
-			
-			return super.getTableCellRendererComponent(table, value, isSelected,
-					hasFocus, row, column);
-		}
-	}
 
 }
