@@ -90,11 +90,7 @@ public class MessageWindow extends JWindow {
 		mPnl.add(jsp);
 		// -----------------------
 		this.add(pnl);
-		this.addFocusListener(new FocusAdapter(){
-			public void focusLost(FocusEvent e){
-				instance.setVisible(false);
-			}
-		});
+		
 			
 	
 	}
