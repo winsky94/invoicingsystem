@@ -7,17 +7,21 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import vo.GoodsVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MyTableCellRenderer;
+import Presentation.stockui.ChooseGoodsDialog;
 
 public class GoodsInitialPanel extends ChooseGoodsFatherPane {
 
@@ -31,6 +35,7 @@ public class GoodsInitialPanel extends ChooseGoodsFatherPane {
 	JTable goodsTable;
 	JScrollPane jsp;
 	JButton addBtn, delBtn;
+	ArrayList<ArrayList<String>> goodsC = new ArrayList<ArrayList<String>>();
 
 	public GoodsInitialPanel() {
 		GridBagLayout gbl = new GridBagLayout();
@@ -76,7 +81,7 @@ public class GoodsInitialPanel extends ChooseGoodsFatherPane {
 		addBtn.setFocusPainted(false);
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// 监听!!!!
+				JDialog addGoodsDlg = new ChooseGoodsDialog(GoodsInitialPanel.this);
 			}
 		});
 		btnPnl.add(addBtn);
@@ -98,7 +103,7 @@ public class GoodsInitialPanel extends ChooseGoodsFatherPane {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		String head[] = { "商品编号", "客户名", "分类", "型号", "默认进价", "默认售价" };
+		String head[] = { "商品编号", "商品名称", "分类", "型号", "默认进价", "默认售价" };
 
 		public int getRowCount() {
 			return 0;
@@ -124,5 +129,26 @@ public class GoodsInitialPanel extends ChooseGoodsFatherPane {
 
 		}
 
+	}
+	
+	public String getNewID(String id){
+		     String[] buffer=id.split("-");
+		     String front=buffer[0]+'-'+buffer[1];
+		     double d=goodsC.size()+1;
+			 NumberFormat nf = NumberFormat.getInstance();
+		     nf.setMinimumIntegerDigits(4); 
+		     nf.setGroupingUsed(false);
+		     return front+"-"+nf.format(d);
+		
+	}
+	
+	public void RefreshCTable(GoodsVO vo){
+		ArrayList<String> line=new ArrayList<String>();
+		line.add(getNewID(vo.getGoodsID()));
+		line.add(vo.getName());
+		line.add(vo.getGoodsClass());
+		line.add(0+"");
+		line.add(0+"");
+		goodsC.add(line);			
 	}
 }

@@ -35,11 +35,13 @@ import Presentation.mainui.MyTableCellRenderer;
 import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
 import businesslogic.financebl.Payment;
+import businesslogic.memberbl.Member;
 import businesslogic.userbl.User;
 import businesslogic.utilitybl.getStatus;
 import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
+import businesslogicservice.memberblservice.MemberBLService;
 import businesslogicservice.userblservice.UserBLService;
 
 public class CollectionPanel extends JPanel implements ActionListener {
@@ -325,8 +327,9 @@ public class CollectionPanel extends JPanel implements ActionListener {
 			lineInfo.add(VO.getId());
 			lineInfo.add(getStatus.getstatus(VO.getStatus()));
 			lineInfo.add(VO.getDate());
-			lineInfo.add(VO.getSupplier());
-			lineInfo.add(VO.getSeller());
+			MemberBLService member = new Member();
+			lineInfo.add(member.findById(VO.getSupplier()).getName());
+			lineInfo.add(member.findById(VO.getSeller()).getName());
 			UserBLService user = new User();
 			lineInfo.add(user.showUser(VO.getUser()).getName());
 			lineInfo.add(String.valueOf(VO.getTotalMoney()));
@@ -341,8 +344,9 @@ public class CollectionPanel extends JPanel implements ActionListener {
 			new getStatus();
 			lineInfo.add(getStatus.getstatus(VO.getStatus()));
 			lineInfo.add(VO.getDate());
-			lineInfo.add(VO.getSupplier());
-			lineInfo.add(VO.getSeller());
+			MemberBLService member = new Member();
+			lineInfo.add(member.findById(VO.getSupplier()).getName());
+			lineInfo.add(member.findById(VO.getSeller()).getName());
 			UserBLService user = new User();
 			lineInfo.add(user.showUser(VO.getUser()).getName());
 			lineInfo.add(String.valueOf(VO.getTotalMoney()));
