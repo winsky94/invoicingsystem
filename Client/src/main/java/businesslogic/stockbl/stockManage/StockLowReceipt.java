@@ -75,7 +75,7 @@ public class StockLowReceipt extends Receipt {
 
 	public int add() {
 		// 生成编号
-		String exactID = "KCBYD-" + getDate() + "-";
+		String exactID = "KCBSD-" + getDate() + "-";
 		String maxID = service.getMaxID();
 
 		if (maxID == null) {
@@ -87,7 +87,7 @@ public class StockLowReceipt extends Receipt {
 		}
 		StockOverOrLowPO po = new StockOverOrLowPO(exactID,
 				super.getmemberName(), super.getMemberID(), super.getUserID(),
-				ReceiptType.STOCKLOW, 3, super.getHurry(), super.getInfo(),
+				ReceiptType.STOCKLOW, 0, super.getHurry(), super.getInfo(),
 				goodName, size, num, exactNum);
 		return service.addStockOverOrLow(po);
 	}
@@ -98,7 +98,7 @@ public class StockLowReceipt extends Receipt {
 		StockGoodsBLService goodsController = new GoodsController();
 		GoodsVO goodvo = goodsController.findGoods(
 				vo.getGoodsName() + vo.getSize()).get(0);
-		goodvo.setNumInStock(exactNum);
+		goodvo.setNumInStock(vo.getExactNum());
 		goodsController.modifyGoods(goodvo);
 
 		StockOverOrLowPO po = voToPo(vo);

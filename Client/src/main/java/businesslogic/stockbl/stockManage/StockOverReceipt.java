@@ -99,7 +99,8 @@ public class StockOverReceipt extends Receipt {
 		StockGoodsBLService goodsController = new GoodsController();
 		GoodsVO goodvo = goodsController.findGoods(
 				vo.getGoodsName() + vo.getSize()).get(0);
-		goodvo.setNumInStock(exactNum);
+		
+		goodvo.setNumInStock(vo.getExactNum());
 		goodsController.modifyGoods(goodvo);
 
 		StockOverOrLowPO po = voToPo(vo);

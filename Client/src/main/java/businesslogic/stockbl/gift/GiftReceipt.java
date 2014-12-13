@@ -82,7 +82,7 @@ public class GiftReceipt extends Receipt {
 		// 生成编号
 		String id = getNewID();
 
-		GiftPO po = new GiftPO(id, super.getmemberName(), getMemberID(),
+		GiftPO po = new GiftPO(id, super.getMemberID(),super.getmemberName(), 
 				super.getUserID(), super.getInfo(), 0, super.getHurry(), list);
 		try {
 			result = service.addGift(po);

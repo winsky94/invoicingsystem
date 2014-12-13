@@ -1,8 +1,5 @@
 package businesslogic.stockbl.stockManage;
 
-import vo.GoodsVO;
-import businesslogic.stockbl.goods.GoodsController;
-import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 
 public class StockOverOrLowManage {
 	String goodName;
@@ -47,12 +44,12 @@ public class StockOverOrLowManage {
 			String memberID, String userID, int hurry, String info) {
 		StockLowReceipt receipt = new StockLowReceipt("", memberName, memberID,
 				userID, hurry, info, goodName, size, num, exactNum);
-		// 向系统库存中减少商品
-		StockGoodsBLService goodsController = new GoodsController();
-		GoodsVO vo = goodsController.findGoods(goodName + size).get(0);
-		vo.setNumInStock(exactNum);
-
-		goodsController.modifyGoods(vo);
+//		// 向系统库存中减少商品
+//		StockGoodsBLService goodsController = new GoodsController();
+//		GoodsVO vo = goodsController.findGoods(goodName + size).get(0);
+//		vo.setNumInStock(exactNum);
+//
+//		goodsController.modifyGoods(vo);
 
 		return receipt.add();
 	}

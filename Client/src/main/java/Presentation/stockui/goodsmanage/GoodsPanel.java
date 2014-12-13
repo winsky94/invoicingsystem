@@ -428,8 +428,10 @@ public class GoodsPanel extends JPanel implements ActionListener,
 					JOptionPane.WARNING_MESSAGE);
 		}
 
-		// createGoodsClass(getTreeData());
-		// treeModel.reload();
+		else {
+			createGoodsClass(getTreeData());
+			treeModel.reload();
+		}
 	}
 
 	public void treeNodesInserted(TreeModelEvent e) {
@@ -477,7 +479,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 					// tree的scrollPathToVisible()方法在使Tree会自动展开文件夹以便显示所加入的新节点。若没加这行则加入的新节点
 					// 会被 包在文件夹中，你必须自行展开文件夹才看得到。
 					tree.scrollPathToVisible(new TreePath(newNode.getPath()));
-					expandTree(tree);//还是自己写的方法
+					expandTree(tree);// 还是自己写的方法
 				} else {
 					JOptionPane.showMessageDialog(null, "添加失败", null,
 							JOptionPane.ERROR_MESSAGE);
@@ -496,7 +498,6 @@ public class GoodsPanel extends JPanel implements ActionListener,
 					int result = controller.deleteGoodsClass(vo);
 					if (result == 0) {
 						// 由DefaultTreeModel的removeNodeFromParent()方法删除节点，包含它的子节点。
-						System.out.println("删除节点");
 						treeModel.removeNodeFromParent(selectionNode);
 						treeModel.reload();
 					} else {
