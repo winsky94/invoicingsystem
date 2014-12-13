@@ -423,15 +423,12 @@ public class GoodsPanel extends JPanel implements ActionListener,
 		GoodsClassVO newVO = new GoodsClassVO((String) node.getUserObject(),
 				oldVO.getUpClassName());
 		int result = controller.modifyGoodsClass(oldVO, newVO);
+
 		if (result != 0) {
 			JOptionPane.showMessageDialog(null, "修改分类数据失败", null,
 					JOptionPane.WARNING_MESSAGE);
 		}
 
-		else {
-			createGoodsClass(getTreeData());
-			treeModel.reload();
-		}
 	}
 
 	public void treeNodesInserted(TreeModelEvent e) {
@@ -522,6 +519,7 @@ public class GoodsPanel extends JPanel implements ActionListener,
 				TreePath treepath = tree.getPathForRow(rowLocation);
 				TreeNode treenode = (TreeNode) treepath.getLastPathComponent();
 				nodeName = treenode.toString();
+				System.out.println(nodeName);
 			} catch (NullPointerException ne) {
 			}
 
