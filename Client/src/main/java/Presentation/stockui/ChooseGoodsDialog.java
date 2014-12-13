@@ -48,19 +48,19 @@ public class ChooseGoodsDialog extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 	// ArrayList<ArrayList<String>> selected=new ArrayList<ArrayList<String>>();
-	ArrayList<ArrayList<String>> rightTblMessage = new ArrayList<ArrayList<String>>();
+	public ArrayList<ArrayList<String>> rightTblMessage = new ArrayList<ArrayList<String>>();
 	ChosenTblModel ctm;
 	GoodsTblModel gtm;
 	ArrayList<ArrayList<String>> leftTblMessage = new ArrayList<ArrayList<String>>();
 	// ChooseGoodsFatherPane father;
 	ChooseGoodsFatherPane father;
 	//
-	JButton submitBtn, exitBtn, addBtn, delBtn;
+	public JButton submitBtn, exitBtn, addBtn, delBtn;
 	JTree tree;
 	JScrollPane jspLeft, jspRight;
 	JTable goodsTbl, chosenTbl;
 	Container pnl;
-	StockGoodsBLService service;
+	public StockGoodsBLService service;
 	int screenWidth = UIhelper.getScreenWidth();
 	int screenHeight = UIhelper.getScreenHeight();
 	int dialogWidth = screenWidth * 2 / 3;
@@ -71,7 +71,8 @@ public class ChooseGoodsDialog extends JDialog {
 	DefaultTreeModel treeModel = null;
 	String nodeName = null;// 原有节点名称
 	GoodsClassNode newNode = null;
-
+    public AddListener add;
+    public ArrayList<Object> good;
 	public ChooseGoodsDialog(ChooseGoodsFatherPane myFather) {
 		controller = new GoodsClassController();
 		father = myFather;
@@ -184,29 +185,8 @@ public class ChooseGoodsDialog extends JDialog {
 		submitBtn.setBackground(new Color(166, 210, 121));
 		submitBtn.setBounds(dialogWidth * 67 / 100, dialogHeight * 78 / 100,
 				dialogWidth * 8 / 100, dialogHeight * 5 / 100);
-		submitBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (rightTblMessage.size() > 0) {
-					ArrayList<Object> good = new ArrayList<Object>();
-					try {
-						for (int i = 0; i < rightTblMessage.size(); i++) {
-							String id = rightTblMessage.get(i).get(0);
-
-							good.add(service.findByID(id));
-						}
-
-					} catch (RemoteException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-
-					father.parent.setRightComponent(father);
-					father.RefreshCTable(good);
-				}
-
-				ChooseGoodsDialog.this.dispose();
-			}
-		});
+		add=new AddListener();
+		submitBtn.addActionListener(add);
 		pnl.add(submitBtn);
 		// ----------exitBtn------------------------------------------------
 		exitBtn = new JButton("放 弃");
@@ -429,6 +409,31 @@ public class ChooseGoodsDialog extends JDialog {
 			tree.expandPath(parent);
 		} else {
 			tree.collapsePath(parent);
+		}
+	}
+	
+	class AddListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			if (rightTblMessage.size() > 0) {
+				ArrayList<Object> good = new ArrayList<Object>();
+				try {
+					for (int i = 0; i < rightTblMessage.size(); i++) {
+						String id = rightTblMessage.get(i).get(0);
+
+						good.add(service.findByID(id));
+					}
+
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+				father.parent.setRightComponent(father);
+				father.RefreshCTable(good);
+			}
+
+			ChooseGoodsDialog.this.dispose();
 		}
 	}
 }

@@ -26,7 +26,7 @@ public class AddInitialPanel extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JTabbedPane tab;
-	JPanel goodsInitalPanel;
+	GoodsInitialPanel goodsInitalPanel;
 	AccountInitialPanel accountInitialPanel;
 	MemberInitialPanel memberInitialPanel;
 	JButton submitBtn, exitBtn;
@@ -68,8 +68,9 @@ public class AddInitialPanel extends JPanel implements ActionListener{
 		gbl.setConstraints(tab, c);
 		this.add(tab);
 		//----------------------------
-		goodsInitalPanel=new GoodsInitialPanel();
+		goodsInitalPanel=new GoodsInitialPanel(parent);
 		tab.add("商品信息初始化",goodsInitalPanel);
+		goodsInitalPanel.setParent(this);
 		//----------------------------
 		memberInitialPanel=new MemberInitialPanel(parent);
 		tab.add("客户信息初始化",memberInitialPanel);

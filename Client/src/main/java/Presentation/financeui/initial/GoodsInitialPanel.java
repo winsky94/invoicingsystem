@@ -7,11 +7,11 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import vo.GoodsVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
+import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import Presentation.stockui.ChooseGoodsDialog;
 
@@ -35,9 +36,12 @@ public class GoodsInitialPanel extends ChooseGoodsFatherPane {
 	JTable goodsTable;
 	JScrollPane jsp;
 	JButton addBtn, delBtn;
+	AddInitialPanel subparent; 
+	MainFrame parent;
 	ArrayList<ArrayList<String>> goodsC = new ArrayList<ArrayList<String>>();
 
-	public GoodsInitialPanel() {
+	public GoodsInitialPanel(MainFrame frame) {
+		super.parent=frame;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);
@@ -81,7 +85,33 @@ public class GoodsInitialPanel extends ChooseGoodsFatherPane {
 		addBtn.setFocusPainted(false);
 		addBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JDialog addGoodsDlg = new ChooseGoodsDialog(GoodsInitialPanel.this);
+				final ChooseGoodsDialog addGoodsDlg = new ChooseGoodsDialog(GoodsInitialPanel.this);
+				addGoodsDlg.submitBtn.removeActionListener(addGoodsDlg.add);
+				addGoodsDlg.submitBtn.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (addGoodsDlg.rightTblMessage.size() > 0) {
+							ArrayList<Object> good = new ArrayList<Object>();
+							try {
+								for (int i = 0; i <addGoodsDlg. rightTblMessage.size(); i++) {
+									String id = addGoodsDlg.rightTblMessage.get(i).get(0);
+
+									good.add(addGoodsDlg.service.findByID(id));
+								}
+
+							} catch (RemoteException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+
+							GoodsInitialPanel.this.RefreshCTable(good);
+							parent.setRightComponent(GoodsInitialPanel.this.subparent);
+							GoodsInitialPanel.this.subparent.setFocus(0);
+					
+						}
+
+						addGoodsDlg.dispose();
+			        }
+		        });
 			}
 		});
 		btnPnl.add(addBtn);
@@ -142,6 +172,19 @@ public class GoodsInitialPanel extends ChooseGoodsFatherPane {
 		
 	}
 	
+	 public void RefreshCTable(ArrayList<Object> VO){
+			for(Object oo:VO){
+				GoodsVO vo=(GoodsVO)oo;
+				ArrayList<String> line=new ArrayList<String>();
+				line.add(getNewID(vo.getGoodsID()));
+				line.add(vo.getName());
+				line.add(vo.getGoodsClass());
+				line.add(0+"");
+				line.add(0+"");
+				goodsC.add(line);	
+			}
+	 }
+	
 	public void RefreshCTable(GoodsVO vo){
 		ArrayList<String> line=new ArrayList<String>();
 		line.add(getNewID(vo.getGoodsID()));
@@ -150,5 +193,9 @@ public class GoodsInitialPanel extends ChooseGoodsFatherPane {
 		line.add(0+"");
 		line.add(0+"");
 		goodsC.add(line);			
+	}
+	
+	public void setParent(AddInitialPanel pane){
+		this.subparent=pane;
 	}
 }
