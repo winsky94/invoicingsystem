@@ -10,7 +10,7 @@ public class ReceiptVO {
 	ReceiptType type;
 	int status;
 	int hurry;
-	String info;
+	String info="";
 
 	public ReceiptVO(String id,ReceiptType type,String user,int status,int hurry){
 		this.id=id;
