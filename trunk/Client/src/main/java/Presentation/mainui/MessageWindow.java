@@ -159,6 +159,9 @@ public class MessageWindow extends JWindow {
 	public void setUser(UserJob type){
 		this.type=type;
 	}
+	public void setTag(){
+		this.tag=false;
+	}
 	
 	
 	public void clear(){
