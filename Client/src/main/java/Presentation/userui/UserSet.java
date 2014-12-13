@@ -34,8 +34,9 @@ public class UserSet extends JPopupMenu implements ActionListener{
 public void actionPerformed(ActionEvent e) {
 	// TODO Auto-generated method stub
 	if(e.getSource()==caccount){
-		parent.dispose();
 		parent.getMessageThread().stopThead();
+		parent.dispose();
+		
 		try {
 			new LoginFrame();
 		} catch (Exception e1) {

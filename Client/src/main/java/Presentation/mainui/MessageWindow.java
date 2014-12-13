@@ -40,6 +40,7 @@ public class MessageWindow extends JWindow {
 	Vector<String> message;
 	MainFrame parent;
 	boolean tag=false;
+	int typetag;
 	static MessageWindow instance = null;
 
 	private MessageWindow(MainFrame frame) {
@@ -94,6 +95,7 @@ public class MessageWindow extends JWindow {
 		mPnl.add(jsp);
 		// -----------------------
 		this.add(pnl);
+		this.setVisible(false);
 		
 			
 	
@@ -107,27 +109,33 @@ public class MessageWindow extends JWindow {
 			ArrayList<ReceiptMessageVO> vo = null;
 			switch (type) {
 			case SALE:
+				typetag=1;
 				vo = service.getSaleApproved();
 				break;
 			case MANAGER:
+				typetag=0;
 				vo = service.getToApprove();
 				break;
 			case FINANCE:
+				typetag=2;
 				vo = service.getFinanceApproved();
 				break;
 			case STOCK:
+				typetag=3;
+				vo = service.getStockApproved();
+				break;
 
 			}
 			if (vo != null) {
-				if(!tag){
-					tag=true;message.clear();
-					parent.getMessage().setIcon(new ImageIcon("img/newMessage.gif"));
-				}
+				tag=true;
+				message.clear();
+				parent.getMessage().setIcon(new ImageIcon("img/newMessage.gif"));
+			
 				for (int i = 0; i < vo.size(); i++)
 					message.add(vo.get(i).getInfo());
 			}
 
-			System.out.println("i love you");
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -139,25 +147,38 @@ public class MessageWindow extends JWindow {
 		if (instance == null)
 			instance = new MessageWindow(frame);
 		instance.setLocation((x-winWidth),(y-winHeight));
-		instance.setVisible(true);
 		return instance;
 	}
 	
 	public static MessageWindow getInstance(MainFrame frame){
 		if (instance == null)
 			instance = new MessageWindow(frame);
-		instance.setVisible(true);
 		return instance;
+	}
+	
+	public void setUser(UserJob type){
+		this.type=type;
 	}
 	
 	
 	public void clear(){
-		if(tag){
-			tag=false;
+			if(tag){
+				ReceiptTipService service;
+				try {
+					service = new ReceiptMessage();
+					for(int i=0;i<message.size();i++){
+						service.deleteessage(new ReceiptMessageVO(typetag,message.get(i).toString()));
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
+			}
 			message.clear();
+			tag=false;
 			message.add("你暂时没有新消息！");
 			parent.getMessage().setIcon(new ImageIcon("img/message_w.png"));
-		}
+		
 	}
 
 }

@@ -17,7 +17,6 @@ public class message extends Thread{
 		while(!stop)
 		{
 			w.getNewMessage();
-			System.out.println("哈哈哈");
 		 try {
 			this.sleep(5000);
 		} catch (InterruptedException e) {
