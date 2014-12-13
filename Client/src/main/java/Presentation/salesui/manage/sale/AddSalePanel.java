@@ -54,7 +54,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JCheckBox hurryBox;
-	JLabel IDLbl, userLbl, totalOriginLbl, totalProDiscountLbl,
+	JLabel title,IDLbl, userLbl, totalOriginLbl, totalProDiscountLbl,
 			totalFinDiscountLbl, totalToPayLbl;
 	JComboBox<String> XSSBox;
 	JTextField clerkFld, stockFld, discountMoneyFld, remarkFld;
@@ -86,7 +86,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("创建销售单");
+		title = new JLabel("创建销售单");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
