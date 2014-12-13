@@ -388,7 +388,7 @@ public class StockManage {
 		return result;
 	}
 
-	public ArrayList<StockOverOrLowVO> POToVO(ArrayList<StockOverOrLowPO> list) {
+	public static  ArrayList<StockOverOrLowVO> POToVO(ArrayList<StockOverOrLowPO> list) {
 		ArrayList<StockOverOrLowVO> result = new ArrayList<StockOverOrLowVO>();
 		for (StockOverOrLowPO po : list) {
 			StockOverOrLowVO vo = new StockOverOrLowVO(po.getId(),
