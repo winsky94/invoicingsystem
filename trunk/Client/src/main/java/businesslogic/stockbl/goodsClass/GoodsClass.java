@@ -130,7 +130,7 @@ public class GoodsClass {
 
 		if (isAble) {
 			GoodsClassPO po = new GoodsClassPO(classID, name, upClassName);
-			int result = 0;
+			int result = -1;
 			try {
 				result = service.deleteGoodsClass(po);
 				// 如果该分类不是叶节点，则将其下的叶节点也要删除
