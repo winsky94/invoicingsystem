@@ -426,7 +426,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 			a1=findByTime(message[0]);
 		else
 			a1=null;
-		
+		//查找类单据
 		if(message[1]!=null)
 			a2=show(ReceiptType.valueOf(message[1]));
 		else
