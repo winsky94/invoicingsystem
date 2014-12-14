@@ -26,6 +26,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import po.ReceiptPO.ReceiptType;
 import po.UserPO.UserJob;
 import vo.ReceiptVO;
 import Presentation.mainui.ExportExcel;
@@ -49,14 +50,16 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 	String keyword;// 注意：搜索框的监听已经写好，需要获取搜索框内容时直接用这个字符串就行！
 	Color color = new Color(115, 46, 126);
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
-	MyButton refreshBtn, exportBtn, findBtn, filterBtn, redBtn, redCopyBtn;
+	MyButton refreshBtn, exportBtn, findBtn, redBtn, redCopyBtn;
 	JTextField findFld, nameFld, stockFld;
 	MainFrame father;
 	//
+	JButton filterBtn;
 	DateChooser from, to;
 	MyCheckBox nameBox, memberBox, clerkBox, stockBox;
 	JComboBox<String> receiptTypeBox, memberCbox, clerkCbox;
 	//
+
 	JTabbedPane tab, toptab;
 	SaleDetailTableModel sdtm;// 销售明细表
 	OperationHistoryTableModel ohtm;// 经验历程表
@@ -238,11 +241,12 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		f2.add(receiptTypeBox);
 		f2.add(new JLabel());
 		// -------筛选按钮----------------
-		JButton filterBtn = new JButton("开始筛选");
+		filterBtn = new JButton("开始筛选");
 		filterBtn.setBackground(Color.white);
 		filterBtn.setFocusPainted(false);
 		filterBtn.setFont(font);
 		filterBtn.setForeground(color);
+		filterBtn.addActionListener(this);
 		f2.add(filterBtn);
 		// -----tab-----------------
 
@@ -376,6 +380,25 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				else
 					ExportExcel.Exprot(ostm.getExportContent(), fileName);
 				// saveXLSContents();
+			}
+		}else if(e.getSource()==filterBtn){
+			// nameBox, memberBox, clerkBox, stockBox;receiptTypeBox 
+			//	//时间区间,单据类型，客户，业务员，仓库
+			String name=null,member=null,clerk=null,stock=null;
+			if(nameBox.isSelected()){
+				name=nameFld.getText();
+			}if(memberBox.isSelected())
+				member=memberCbox.getSelectedItem().toString();
+			if(clerkBox.isSelected())
+				clerk=clerkCbox.getSelectedItem().toString();
+			if(stockBox.isSelected())
+				stock=stockFld.getText();
+			ArrayList<ReceiptVO> vo=reservice.AccurateFind(new String[]{null,ReceiptType.COLLECTION.toString() ,member,clerk,stock});	
+			try {
+				ohtm.RefreshTable(vo);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
 	}

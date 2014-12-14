@@ -10,4 +10,5 @@ import vo.ReceiptVO;
 public interface ReceiptListService {
 	public ArrayList<ReceiptVO> View();
 	public ArrayList<ReceiptVO> getSale();
+	public ArrayList<ReceiptVO> AccurateFind(String[] message);
 }
