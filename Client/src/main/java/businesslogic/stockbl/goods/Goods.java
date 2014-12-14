@@ -192,7 +192,6 @@ public class Goods {
 					lastPrice, gc, manufactoryDate, minNumInStock);
 			result = service.deleteGoods(po);
 		}
-
 		return result;
 	}
 

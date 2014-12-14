@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -192,6 +193,10 @@ public class StockShowPanel extends JPanel implements ActionListener {
 		if (e.getActionCommand().equals("显示")) {
 			ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
 			StockControlBLService controller = new StockControlController();
+			if (from.getDate().compareTo(to.getDate()) > 0) {
+				JOptionPane.showMessageDialog(null, "       请确定时间段合法哈~", null,
+						JOptionPane.WARNING_MESSAGE);
+			}
 			list = controller.showStock(from.getDate(), to.getDate());
 			sstm = new StockShowTableModel(list);
 			table.setModel(sstm);
