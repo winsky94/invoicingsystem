@@ -20,9 +20,9 @@ public class ReceiptVO {
 		this.hurry=hurry;
 	}
 	
-	public ReceiptVO(String id,String memberName, String memberID,ReceiptType type,String user,int status,int hurry){
+	public ReceiptVO(String id,String memberID, String memberName,ReceiptType type,String user,int status,int hurry){
 		this.id=id;
-		this.memberID=memberName;
+		this.memberID=memberID;
 		this.memberName=memberName;
 		this.type=type;
 		this.user=user;
