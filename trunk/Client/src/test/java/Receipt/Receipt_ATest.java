@@ -1,12 +1,20 @@
 package Receipt;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.CollectionPO;
+import po.ReceiptPO;
 import po.TransferItemPO;
+import businesslogic.financebl.Account;
 import businesslogic.financebl.Collection;
+import businesslogic.receiptbl.ReceiptList;
 import businesslogic.receiptbl.Review;
+import vo.AccountVO;
 import vo.CollectionVO;
+import vo.ReceiptVO;
 import vo.TransferItemVO;
 import junit.framework.TestCase;
 
@@ -18,6 +26,7 @@ import junit.framework.TestCase;
 public class Receipt_ATest extends TestCase{
 	CollectionPO cpo;
 	Review view;
+	ReceiptList list;
 	
 	public void setUp(){
 		ArrayList<TransferItemPO> itemlist=new ArrayList<TransferItemPO>();
@@ -27,24 +36,54 @@ public class Receipt_ATest extends TestCase{
 				itemlist,200,0,1);
 		try {
 			view=new Review();
+			list=new ReceiptList();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
-	
-	//TUS1-1  做界面测试  跳转测试
-	public void test_1(){
+	//TUS 1-5转为界面测试
+	//TUS1-4 
+	public void test_1() {
+		//改收款单通过审批  判断执行情况
+		double origin=0;
+		try {
+			Account account=new Account();
+			AccountVO acc=account.findByName("马建国");
+			origin=acc.getMoney();
+		
+		boolean Success=false;
+		view.Approve(cpo.getId(), 2);
+		
+		ArrayList<ReceiptPO> approvedlist=list.showApproved();
+		for(int i=0;i<approvedlist.size();i++)
+		{
+			ReceiptPO receipt=approvedlist.get(i);
+			if(receipt.getId().equals(cpo.getId()))
+				{
+					assertEquals(2,receipt.getStatus());
+					System.out.println("改收款单已审批");
+					acc=account.findByName("马建国");
+					double c=acc.getMoney()-origin;
+					assertEquals(200,c);
+				}
+		}
+			
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
-	//TUS1-2  无法测试   弃用
+	//TUS1-5 单据审批不通过
 	public void test_2(){
 			
 	}
 	
 	
-	//TUS1-3  需求变更 总经理不能更改金额 放弃
+	//TUS2-1  
 	public void test_3(){
 		try {
 			TransferItemPO ip=cpo.getTransferlist().get(0);
@@ -59,15 +98,14 @@ public class Receipt_ATest extends TestCase{
 	}
 	
 	
-	//TUS1-4
+	//TUS3-1 筛选类型
 	public void test_4(){
-		//改收款单通过审批
-			view.Approve(cpo.getId(), 0);
+		
 		
 	}
 	
 	
-	//TUS1-5
+	//TUS3-2  筛选日期
 	public void test_5(){
 			
 	}

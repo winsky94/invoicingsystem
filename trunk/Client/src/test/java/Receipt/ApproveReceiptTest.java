@@ -4,6 +4,7 @@ package Receipt;
 
 import businesslogic.financebl.MockAccount;
 import businesslogic.financebl.MockCollection;
+import businesslogic.memberbl.Member;
 import businesslogic.memberbl.MemberLevel;
 import businesslogic.memberbl.MemberType;
 import businesslogic.memberbl.MockMember;
@@ -18,7 +19,7 @@ public class ApproveReceiptTest extends TestCase{
 	private Review review;
 	private Receipt collect_A,collect_B;
 	private MockCollection collect;
-	private MockMember member;
+	private Member member;
 	private MockAccount account;
 	
 	public void setUp() {
@@ -27,8 +28,8 @@ public class ApproveReceiptTest extends TestCase{
 		account=new MockAccount("邮政储蓄","6221503000010256558",10000);
 		collect_A=new MockCollection("SKD-2014/10/15-00001");
 		collect_B=new MockCollection("SKD-2014/10/15-00002");
-		member=new MockMember("140001",MemberType.XSS,MemberLevel.ONE,"飞利浦",1000);
-		member.updateToReceive(500);
+		member=new Member("140001",MemberType.XSS,MemberLevel.ONE,"飞利浦",1000);
+		((Object) member).updateToReceive(500);
 	}
 	
 	public void testApproveReceipt(){

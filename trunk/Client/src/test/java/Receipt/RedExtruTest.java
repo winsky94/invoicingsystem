@@ -20,14 +20,14 @@ public class RedExtruTest extends TestCase{
 	private cashListItem item1,item2;
 	
 	
-	public void setUp(){
+	public void setUp() throws Exception{
 		account=new MockAccount("邮政储蓄","6221503000010256558",100000);
 		review=new Review();
 		item1=new cashListItem("公费旅游",12000,"10-13日员工奖励");
 		item2=new cashListItem("添置高清投影仪",20000,"无");
 						
 	}	
-	public void testRedExtru(){
+	public void testRedExtru() throws Exception{
 		cashList=new MockCashList("XJFYD-20141015-00001","14010001",account);
 		cashList.AddItem(item1);
 		cashList.AddItem(item2);

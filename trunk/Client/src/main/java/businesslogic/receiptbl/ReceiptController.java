@@ -59,15 +59,7 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 		return 0;
 	}
 
-	public void Send(ReceiptVO vo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void Reply(String userid) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	public ArrayList<ReceiptVO> View() {
 		// TODO Auto-generated method stub
@@ -184,6 +176,18 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 			e.printStackTrace();
 		}
 		return sale.getAllSale();
+	}
+
+	@Override
+	public void Send(ReceiptVO vo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void Reply(String userid) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
