@@ -115,7 +115,20 @@ public class AddCollectionPanel extends CollectionAndPaymentPanel implements Act
 			}
 			ArrayList<MemberVO> member1 = mem.show(MemberType.JHS);
 			ArrayList<MemberVO> member2 = mem.show(MemberType.XSS);
-			CollectionVO vo=new CollectionVO(ID,member1.get(supplierBox.getSelectedIndex()).getMemberID(),member2.get(sellerBox.getSelectedIndex()).getMemberID(),parent.getUser().getID(),tra,totalMoney,0,isHurry);
+			String memberID;
+			int se=memBox.getSelectedIndex();
+			if(member1!=null&&se<member1.size()){
+				memberID=member1.get(se).getMemberID();
+			}
+			else if(member1==null||(member2!=null&&se>=member1.size())){
+				memberID=member2.get(se-member1.size()).getMemberID();
+			}
+			else{
+				memberID="Error";
+				JOptionPane.showMessageDialog(null, "Error！", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			}
+			CollectionVO vo=new CollectionVO(ID,memberID,(String)memBox.getSelectedItem(),parent.getUser().getID(),tra,totalMoney,0,isHurry);
 
 			try {
 				service = new Collection();

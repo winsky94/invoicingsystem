@@ -65,12 +65,12 @@ public class OperationHistoryTableModel extends AbstractTableModel{
 			if(v.getType()==ReceiptType.PAYMENT)
 			{
 				PaymentVO pv=(PaymentVO)v;
-				line.add(pv.getSeller()+"/"+pv.getSupplier());
+				line.add(pv.getMemberName());
 				
 			}else if(v.getType()==ReceiptType.COLLECTION)
 			{
 				CollectionVO cv=(CollectionVO)v;
-				line.add(cv.getSeller()+"/"+cv.getSupplier());
+				line.add(cv.getMemberName());
 			}
 			else line.add(v.getMemberName());
 		

@@ -5,29 +5,17 @@ import java.util.ArrayList;
 import po.ReceiptPO.ReceiptType;
 
 public class PaymentVO extends ReceiptVO{
-	 String supplier;
-     String seller;
+
      ArrayList<TransferItemVO> transferlist=new ArrayList<TransferItemVO>();
      double totalMoney;
         
      
-     public PaymentVO(String id,String su,String se,String user,ArrayList<TransferItemVO> d,double e,int istatus,int ihurry){
-    	 super(id,ReceiptType.PAYMENT,user,istatus,ihurry);
-    	 supplier=su;
-    	 seller=se;
+     public PaymentVO(String id,String MID,String Mname,String user,ArrayList<TransferItemVO> d,double e,int istatus,int ihurry){
+    	 super(id,MID,Mname,ReceiptType.PAYMENT,user,istatus,ihurry);
     	 transferlist=d;
     	 totalMoney=e;
      }
      
-     
-     
-     public String getSupplier(){
-    	 return supplier;
-     }
-     
-     public String getSeller(){
-    	 return seller;
-     }
 
      public ArrayList<TransferItemVO> getTransferlist(){
     	 return transferlist;

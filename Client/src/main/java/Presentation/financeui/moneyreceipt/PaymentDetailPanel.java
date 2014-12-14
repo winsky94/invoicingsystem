@@ -42,14 +42,14 @@ public class PaymentDetailPanel extends JPanel implements ActionListener {
 	JScrollPane jsp;
 	JTable table;
 	TransferListModel tlm;
-	JLabel IDLbl, userLbl, supplierLbl, sellerLbl, totalLbl, accountLbl,
+	JLabel IDLbl, userLbl, memLbl, totalLbl, accountLbl,
 			moneyLbl, remarkLbl, hurryLbl;
 	JButton submitBtn;
 	MainFrame parent;
 	String hurry;
 	String ID;
 	String user;
-	String supplier, seller;
+	String member;
 	double totalMoney;
 	PaymentBLService pp = null;
 	PaymentVO vo;
@@ -153,15 +153,10 @@ public class PaymentDetailPanel extends JPanel implements ActionListener {
 		up.add(userLbl);
 		up.add(new JLabel("     "));
 		// ------supplier-----seller---------
-		supplier = vo.getSupplier();
-		seller = vo.getSeller();
-		JLabel supLbl = new JLabel("进货商: " + supplier);
-		JLabel selLbl = new JLabel("销售商: " + seller);
-		supLbl.setFont(font);
-		selLbl.setFont(font);
-		up.add(supLbl);
-		up.add(new JLabel("     "));
-		up.add(selLbl);
+		member = vo.getMemberName();
+		JLabel memLbl = new JLabel("客户: " + member);
+		memLbl.setFont(font);
+		up.add(memLbl);
 		up.add(new JLabel("     "));
 		// -----总额-------------------
 		totalMoney = vo.getTotalMoney();

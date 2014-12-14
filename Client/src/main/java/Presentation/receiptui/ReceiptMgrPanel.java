@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -33,10 +32,8 @@ import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import Presentation.salesui.manage.purchase.PurchaseDetailPanel;
 import Presentation.stockui.giftmanage.GiftDetailPanel;
-import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.ReceiptController;
 import businesslogic.userbl.User;
-import businesslogicservice.memberblservice.MemberBLService;
 import businesslogicservice.receiptblservice.ReceiptBLService;
 import businesslogicservice.userblservice.UserViewService;
 
@@ -312,15 +309,11 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			// 销售/进货
 			if (v.getType() == ReceiptType.PAYMENT) {
 				PaymentVO pv = (PaymentVO) v;
-				MemberBLService m = new Member();
-				line.add(m.findById(pv.getSeller()).getName() + "/"
-						+ m.findById(pv.getSeller()).getName());
+				line.add(pv.getMemberName());
 
 			} else if (v.getType() == ReceiptType.COLLECTION) {
 				CollectionVO cv = (CollectionVO) v;
-				MemberBLService m = new Member();
-				line.add(m.findById(cv.getSeller()).getName() + "/"
-						+ m.findById(cv.getSeller()).getName());
+				line.add(cv.getMemberName());
 			} else
 				line.add(v.getMemberName());
 
