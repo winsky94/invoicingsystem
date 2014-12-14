@@ -218,14 +218,32 @@ public class StockPanel extends JPanel {
 				// 刷新库存盘点
 				CheckModel cm = new CheckModel();
 				inventoryTbl.setModel(cm);
+				// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < inventoryTbl.getColumnCount(); i++) {
+					inventoryTbl.getColumn(inventoryTbl.getColumnName(i))
+							.setCellRenderer(tcr);
+				}
 			} else if (tab.getSelectedIndex() == 1) {
 				// 刷新库存报溢
 				OverModel om = new OverModel();
 				overflowTbl.setModel(om);
+				// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < overflowTbl.getColumnCount(); i++) {
+					overflowTbl.getColumn(overflowTbl.getColumnName(i))
+							.setCellRenderer(tcr);
+				}
 			} else if (tab.getSelectedIndex() == 2) {
 				// 刷新库存报损
 				LowModel lm = new LowModel();
 				lossTbl.setModel(lm);
+				// table 渲染器，设置文字内容居中显示，设置背景色等
+				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+				for (int i = 0; i < lossTbl.getColumnCount(); i++) {
+					lossTbl.getColumn(lossTbl.getColumnName(i))
+							.setCellRenderer(tcr);
+				}
 			}
 		}
 
