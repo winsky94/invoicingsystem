@@ -190,6 +190,15 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 		
 	}
 
+	@Override
+	public ArrayList<ReceiptVO> AccurateFind(String[] message) {
+		// TODO Auto-generated method stub
+		ArrayList<ReceiptPO> po=list.AccurateFind(message);
+		if(po==null) return null;
+		else 
+			return poTVo(po);
+	}
+
 }
 	
 	

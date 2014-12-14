@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -162,6 +164,20 @@ public class AddMemberPanel extends JPanel {
 		EMailFld = new JTextField(8);
 		EMailFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		eMailPnl.add(EMailFld);
+		EMailFld.addFocusListener(new FocusAdapter(){
+			public void focusLost(FocusEvent e){
+				if(EMailFld.getText()!=""){
+				String regex = "[a-zA-Z0-9_]{6,12}+@[a-zA-Z]+(\\.[a-zA-Z]+){1,3}";
+				if(!EMailFld.getText().matches(regex)){
+					JOptionPane.showMessageDialog(null, "Email格式不正确，请重新输入","错误提示",
+							JOptionPane.WARNING_MESSAGE);
+					EMailFld.setText("");
+				}
+				}
+			}
+			
+		
+		});
 		left.add(eMailPnl);
 		// ----------address-----------
 		JPanel addPnl = new JPanel();

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -32,7 +33,9 @@ import Presentation.salesui.manage.purchase.AddPurchaseReturnPanel;
 import Presentation.salesui.manage.sale.AddSalePanel;
 import Presentation.salesui.manage.sale.AddSaleReturnPanel;
 import businesslogic.salesbl.SaleList;
+import businesslogic.salesbl.SalesController;
 import businesslogic.userbl.User;
+import businesslogicservice.salesblservice.SalesBLService;
 import businesslogicservice.userblservice.UserBLService;
 
 public class SaleMgrPanel extends JPanel implements ActionListener {
@@ -48,6 +51,7 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 	JTextField searchFld;
 	String keyWord;
 	MainFrame parent;
+	JComboBox bo;
 	businesslogicservice.salesblservice.SaleListBLService listservice;
 
 	public SaleMgrPanel(MainFrame frame) throws Exception {
@@ -98,6 +102,10 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 		searchBtn = new MyButton(new ImageIcon("img/sales/find-blue.png"));
 		searchBtn.addActionListener(new SearchBtnListener());
 		btnPnl.add(searchBtn);
+		String[] se={"按客户查找","按类型查找","按业务员查找","按创建时间查找","按商品名查找","按仓库查找"};
+		 bo=new JComboBox(se);
+		bo.setSelectedIndex(0);
+		btnPnl.add(bo);
 		// ----------------------------------
 		/*
 		 * 
@@ -143,9 +151,50 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-
+			
+			String txt=searchFld.getText();
+			if(txt.equals("")){
+				JOptionPane.showMessageDialog(null, "请输入查找内容!", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			}else{
+				SalesBLService service=null;
+				try {
+					service=new SalesController();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				ArrayList<ReceiptVO> vo=new ArrayList<ReceiptVO>();
+				int i=bo.getSelectedIndex();
+				//"按类型查找","按业务员查找","按创建时间查找","按商品名查找","按仓库查找"};
+				if(i==1){
+					if(txt.contains("销售退货"))
+					vo.addAll(service.showSaleReturn());
+				else vo.addAll(service.showSale());
+				}else if(i==3){
+					//输入需再处理
+					vo.addAll(service.findSale(txt+txt, "时间区间"));
+					vo.addAll(service.findSaleReturn(txt+txt, "时间区间"));
+				}else{
+					String t="客户";
+					switch(i){
+						case 2:t="业务员";break;
+						case 4:t="商品名";break;
+						default:t="仓库";
+					
+					}
+					vo.addAll(service.findSale(txt, t));
+					vo.addAll(service.findSaleReturn(txt, t));		
+				}
+				try {
+					RefreshSaleTable(vo);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
 		}
-
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -161,13 +210,18 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 		} else if (e.getSource() == saleReturnBtn){
 			int t = table.getSelectedRow();
 			if (t >= 0) {
+				String type=c.get(t).get(3);
+				if(type.equals("销售单")){
 				String pid = c.get(t).get(0);
 				try {
 					parent.setRightComponent(new AddSaleReturnPanel(parent, pid));
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
+				}}
+				else
+					JOptionPane.showMessageDialog(null, "请选择一条销售单进行退货!", "提示",
+							JOptionPane.WARNING_MESSAGE);
 			} else
 				JOptionPane.showMessageDialog(null, "请选择一条销售单进行退货!", "提示",
 						JOptionPane.WARNING_MESSAGE);

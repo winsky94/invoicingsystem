@@ -178,8 +178,14 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 			} else if (e.getSource() == detailBtn) {
 				int t = table.getSelectedRow();
 				if (t >= 0) {
+					String type=c.get(t).get(3);
+					if(type.equals("进货单")){
 					String pid = c.get(t).get(0);
-					parent.setRightComponent(new PurchaseDetailPanel(parent, pid));
+					parent.setRightComponent(new PurchaseDetailPanel(parent, pid));}
+					else{
+						JOptionPane.showMessageDialog(null, "请选择一条进货单进行查看!", "提示",
+								JOptionPane.WARNING_MESSAGE);	
+					}
 				} else
 					JOptionPane.showMessageDialog(null, "请选择一条进货单进行查看!", "提示",
 							JOptionPane.WARNING_MESSAGE);

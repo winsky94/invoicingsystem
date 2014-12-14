@@ -27,7 +27,10 @@ public class ReceiptList {
 			return service.showAll();
 		
 	}
-
+	public ArrayList<ReceiptPO>  AccurateFind(String message[])
+	{
+		return service.AccurateFind(message);
+	}
 	
 	public ArrayList<ReceiptPO>  showApproved(){
 		ArrayList<ReceiptPO> po=showAllReceipt();
