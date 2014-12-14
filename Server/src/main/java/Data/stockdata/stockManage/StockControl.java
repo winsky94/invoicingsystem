@@ -220,7 +220,6 @@ public class StockControl extends UnicastRemoteObject implements
 		ArrayList<Object> list = new ArrayList<Object>();
 		list = overOrLowFile.read();
 		for (int i = 0; i < list.size(); i++) {
-			System.out.println("StockControl.excute():" + list.get(i));
 			StockOverOrLowPO stockOverOrLowPO = (StockOverOrLowPO) list.get(i);
 			if (stockOverOrLowPO.getId().equals(po.getId())) {
 				po.setStatus(3);
