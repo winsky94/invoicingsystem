@@ -68,36 +68,52 @@ public class StockControl extends UnicastRemoteObject implements
 	public int recordPrimeCostIncome(String primeCostIncome)
 			throws RemoteException {
 		// TODO 自动生成的方法存根
-		ArrayList<Object> preRecordObject = new ArrayList<Object>();
-		preRecordObject = file.read();
-		ArrayList<String> record = new ArrayList<String>();
-		for (Object o : preRecordObject) {
-			record.add((String) o);
-		}
+		ArrayList<Object> originRecord = file.read();
 
 		String[] newData = primeCostIncome.split(";");
 		String date = newData[0];
 		double money = 0;
 		money = Double.parseDouble(newData[1]);
-		int index = -1;
-		for (int i = 0; i < record.size(); i++) {
-			String preRecord = record.get(i);
-			String data[] = preRecord.split(";");
-			if (date.equals(data[1])) {
-				money += Double.parseDouble(data[1]);
-				index = i;
-				break;
+		ArrayList<String> record = new ArrayList<String>();
+
+		if (originRecord != null) {
+			@SuppressWarnings("unchecked")
+			ArrayList<Object> preRecordObject = (ArrayList<Object>) originRecord
+					.get(0);
+
+			if (preRecordObject != null) {
+				for (int i = 0; i < preRecordObject.size(); i++) {
+					Object o = preRecordObject.get(i);
+					record.add((String) o);
+				}
+
+				int index = -1;
+				for (int i = 0; i < record.size(); i++) {
+					String preRecord = record.get(i);
+					String data[] = preRecord.split(";");
+					if (date.equals(data[1])) {
+						money += Double.parseDouble(data[1]);
+						index = i;
+						break;
+					}
+				}
+
+				String newRecord = date + ";" + String.valueOf(money);
+
+				if (index == -1) {
+					record.add(newRecord);
+				} else {
+					record.set(index, newRecord);
+				}
+			} else {
+				String newRecord = date + ";" + String.valueOf(money);
+				record.add(newRecord);
 			}
-		}
 
-		String newRecord = date + String.valueOf(money);
-
-		if (index == -1) {
-			record.add(newRecord);
 		} else {
-			record.set(index, newRecord);
+			String newRecord = date + ";" + String.valueOf(money);
+			record.add(newRecord);
 		}
-
 		file.writeM(record);
 		return 0;
 	}
