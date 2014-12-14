@@ -17,7 +17,7 @@ public class PurchaseReturnDetailPanel extends AddPurchasePanel{
 		hurryBox.setEnabled(false);
 		stockFld.setEditable(false);
 		remarkFld.setEditable(false);
-		
+		JHSBox.setEditable(false);
 	}
 
 }
