@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import Data.serutility.JXCFile;
 import po.MemberPO;
-import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
 import dataservice.memberdataservice.MemberDataService;
 
