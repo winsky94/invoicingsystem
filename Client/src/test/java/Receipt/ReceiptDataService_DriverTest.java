@@ -4,18 +4,18 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.rmi.RemoteException;
 
+import businesslogic.receiptbl.ReceiptController;
 import junit.framework.TestCase;
 import po.ReceiptPO;
 import dataservice.receiptdataservice.ReceiptDataService;
-import dataservice.receiptdataservice.ReceiptDataService_Stub;
 
 public class ReceiptDataService_DriverTest extends TestCase{
 	private ReceiptDataService receiptdataservice;
 	String line=System.getProperty("line.separator");
 	PrintStream console=null;
 	ByteArrayOutputStream bytes=null;
-	public void setUp(){
-		ReceiptDataService receiptdata_stub=new ReceiptDataService_Stub();
+	public void setUp() throws Exception{
+		ReceiptDataService receiptdata_stub=(ReceiptDataService) new ReceiptController();
 		receiptdataservice=receiptdata_stub;
 		bytes=new ByteArrayOutputStream();
 		console=System.out;
@@ -27,11 +27,11 @@ public class ReceiptDataService_DriverTest extends TestCase{
 	}
 	public void testReceiptDatadrive() throws RemoteException{
 		ReceiptPO po=new ReceiptPO();
-		receiptdataservice.init();
+	//	receiptdataservice.init();
 		int resultAdd=receiptdataservice.Add(po);
 		int resultMod=receiptdataservice.Modify(po);
-		ReceiptPO receipt=receiptdataservice.find("SKD-20141015-00001");
-		receiptdataservice.show();
+		ReceiptPO receipt=receiptdataservice.findById("SKD-20141015-00001");
+		receiptdataservice.showAll();
 		assertEquals(0,resultAdd);
 		assertEquals(0,resultMod);
 		assertEquals("init Success!"+line+

@@ -3,10 +3,12 @@ package Receipt;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import po.ReceiptPO.ReceiptType;
 import junit.framework.TestCase;
 import vo.ReceiptVO;
+import businesslogic.receiptbl.ReceiptController;
 import businesslogicservice.receiptblservice.ReceiptBLService;
-import businesslogicservice.receiptblservice.ReceiptBLService_Stub;
+
 
 
 
@@ -15,8 +17,8 @@ public class ReceiptBLService_DriverTest extends TestCase{
 	String line=System.getProperty("line.separator");
 	PrintStream console=null;
 	ByteArrayOutputStream bytes=null;
-	public void setUp(){
-		ReceiptBLService receiptbl_stub=new ReceiptBLService_Stub();
+	public void setUp() throws Exception{
+		ReceiptBLService receiptbl_stub=new ReceiptController();
 		receiptblservice=receiptbl_stub;
 		bytes=new ByteArrayOutputStream();
 		console=System.out;
@@ -29,16 +31,18 @@ public class ReceiptBLService_DriverTest extends TestCase{
 	}
 	
 	public void testReceiptBLDrive(){
-		int resultAdd=receiptblservice.Add(new ReceiptVO());
+		int resultAdd=receiptblservice.Add(new ReceiptVO("JHD-20141015-00001",ReceiptType.SALE,
+				"JL-00001",0,1));
 		int resultMod=receiptblservice.Modify("JHD-20141015-00001");
 		if(resultMod==1) System.out.println("该单据无法修改！");
 		String[] id={"SKD-20141012-00002","FKD-20141015-00003"};
-		int resultBat=receiptblservice.Batch(id);
-		int resultApr=receiptblservice.Approve("XJFYD-20141013-00001");
-		ReceiptVO vo=new ReceiptVO();
+		int resultBat=receiptblservice.Batch(id,2);
+		int resultApr=receiptblservice.Approve("XJFYD-20141013-00001",1);
+		ReceiptVO vo=new ReceiptVO("JHD-20141015-00001",ReceiptType.SALE,
+				"JL-00001",0,1);
 		receiptblservice.Send(vo);
 		receiptblservice.Reply("13020001");
-		receiptblservice.View();
+		receiptblservice.Refresh();
 		receiptblservice.Refresh();	
 		assertEquals(0,resultAdd);
 		assertEquals(0,resultMod);
