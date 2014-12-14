@@ -341,15 +341,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		if(al==null)
 			return null;
 		for(ReceiptPO po:al){
-			if(po.getType()==ReceiptType.COLLECTION){
-				if(s.equals(((CollectionPO)po).getSupplier())||s.equals(((CollectionPO)po).getSeller()))
-					result.add(po);
-			}
-			else if(po.getType()==ReceiptType.PAYMENT){
-				if(s.equals(((PaymentPO)po).getSupplier())||s.equals(((PaymentPO)po).getSeller()))
-					result.add(po);
-			}
-			else if(po.getType()==ReceiptType.CASHLIST){
+			if(po.getType()==ReceiptType.CASHLIST){
 				continue;
 			}
 			else{

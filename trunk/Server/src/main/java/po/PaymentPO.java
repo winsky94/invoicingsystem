@@ -10,32 +10,19 @@ public class PaymentPO extends ReceiptPO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String supplier;
-    String seller;
+
     ArrayList<TransferItemPO> transferlist=new ArrayList<TransferItemPO>();
     double totalMoney;
        
 
     
-    public PaymentPO(String id,String b,String f,String user,ArrayList<TransferItemPO> d,double e,int istatus,int ihurry){
-   	 super(id,ReceiptType.PAYMENT,user,istatus,ihurry);
-   	 supplier=b;
-   	 seller=f;
+    public PaymentPO(String id,String MID,String Mname,String user,ArrayList<TransferItemPO> d,double e,int istatus,int ihurry){
+   	 super(id,MID,Mname,ReceiptType.PAYMENT,user,istatus,ihurry);
+
    	 transferlist=d;
    	 totalMoney=e;
     }
   
-    
-   
-    public String getSupplier(){
-    	return supplier;
-    }
-    
-    public String getSeller(){
-    	return seller;
-    }
-    
-
     
     public ArrayList<TransferItemPO> getTransferlist(){
    	 return transferlist;

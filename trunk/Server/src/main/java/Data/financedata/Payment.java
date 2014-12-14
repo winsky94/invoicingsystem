@@ -109,7 +109,7 @@ public class Payment extends UnicastRemoteObject implements PaymentDataService{
 			if(po==null)
 				return null;
 			for(PaymentPO p:po){
-				if(p.getSupplier().equals(s)||p.getSeller().equals(s))
+				if(p.getMemberID().equals(s))
 					al.add(p);
 			}
 			
@@ -144,7 +144,7 @@ public class Payment extends UnicastRemoteObject implements PaymentDataService{
 			System.out.println(al2.size());
 			for(PaymentPO b:al2){
 				ArrayList<TransferItemPO> c=b.getTransferlist();
-				System.out.println(b.getId()+b.getSupplier()+b.getSeller()+b.getUserID()+c.get(0).getMoney()+b.getTotalMoney());				
+				System.out.println(b.getId()+b.getMemberID()+b.getMemberName()+b.getUserID()+c.get(0).getMoney()+b.getTotalMoney());				
 			}
 	
 		} catch (RemoteException e) {

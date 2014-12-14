@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import Data.serutility.JXCFile;
 import po.CashlistPO;
 import po.ClauseItemPO;
-import po.CollectionPO;
-import po.PaymentPO;
 import dataservice.financedataservice.listdataservice.CashlistDataService;
 
 public class Cashlist extends UnicastRemoteObject implements CashlistDataService{

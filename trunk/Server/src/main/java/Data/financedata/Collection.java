@@ -118,7 +118,7 @@ public class Collection extends UnicastRemoteObject implements CollectionDataSer
 			if(po==null)
 				return null;
 			for(CollectionPO p:po){
-				if(p.getSupplier().equals(s)||p.getSeller().equals(s))
+				if(p.getMemberID().equals(s))
 					al.add(p);
 			}
 			
@@ -145,7 +145,7 @@ public class Collection extends UnicastRemoteObject implements CollectionDataSer
 			ArrayList<TransferItemPO> al=new ArrayList<TransferItemPO>();
 			TransferItemPO item =new TransferItemPO("WYT",100,"He");
 			al.add(item);
-			a.createCollection(new CollectionPO("SKD-20141129-000001","王雅婷","王雅婷","Lucy",al,100,1,1));	
+			a.createCollection(new CollectionPO("SKD-20141129-000001","JHS-0000001","王雅婷","Lucy",al,100,1,1));	
 			System.out.println("Success!");
 
 		} catch (RemoteException e) {
