@@ -101,7 +101,6 @@ public class StockLowReceipt extends Receipt {
 				vo.getGoodsName() + vo.getSize()).get(0);
 		goodvo.setNumInStock(vo.getExactNum());
 		goodsController.modifyGoods(goodvo);
-
 		StockOverOrLowPO po = voToPo(vo);
 		service.excute(po);
 		Reply(v.getId(),vo.getType(),0);
@@ -158,7 +157,7 @@ public class StockLowReceipt extends Receipt {
 
 	private StockOverOrLowPO voToPo(StockOverOrLowVO vo) {
 		return new StockOverOrLowPO(vo.getId(), vo.getMemberName(),
-				vo.getMemberID(), vo.getUser(), ReceiptType.STOCKOVER,
+				vo.getMemberID(), vo.getUser(), ReceiptType.STOCKLOW,
 				vo.getStatus(), vo.getHurry(), vo.getInfo(), vo.getGoodsName(),
 				vo.getSize(), vo.getNum(), vo.getExactNum());
 	}
