@@ -19,6 +19,17 @@ public class ReceiptVO {
 		this.status=status;
 		this.hurry=hurry;
 	}
+	
+	public ReceiptVO(String id,String memberName, String memberID,ReceiptType type,String user,int status,int hurry){
+		this.id=id;
+		this.memberID=memberName;
+		this.memberName=memberName;
+		this.type=type;
+		this.user=user;
+		this.status=status;
+		this.hurry=hurry;
+	}
+	
 
 	public ReceiptVO(String id, String memberName, String memberID,
 			String user, ReceiptType type, int status, int hurry, String info) {

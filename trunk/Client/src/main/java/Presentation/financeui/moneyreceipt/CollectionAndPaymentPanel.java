@@ -45,7 +45,7 @@ public class CollectionAndPaymentPanel extends JPanel {
 	JLabel IDLbl, userLbl, totalLbl;
 	// JTextField accountFld, moneyFld, remarkFld;
 	JTextField moneyFld, remarkFld;
-	JComboBox<String> supplierBox, sellerBox, accountBox;
+	JComboBox<String> memBox, accountBox;
 	JScrollPane jsp;
 	JTable table;
 	TransferListModel tlm;
@@ -284,15 +284,15 @@ public class CollectionAndPaymentPanel extends JPanel {
 		userLbl.setFont(font);
 		userPnl.add(userLbl);
 		right.add(userPnl);
-		// ---------supplier-----------------
-		JPanel supplierPnl = new JPanel();
-		supplierPnl.setBackground(Color.white);
-		right.add(supplierPnl);
-		JLabel supplierLbl = new JLabel("供应商：");
-		supplierLbl.setFont(font);
-		supplierPnl.add(supplierLbl);
+		// ---------member-----------------
+		JPanel memPnl = new JPanel();
+		memPnl.setBackground(Color.white);
+		right.add(memPnl);
+		JLabel memLbl = new JLabel("客户：");
+		memLbl.setFont(font);
+		memPnl.add(memLbl);
 		// _____________
-		ArrayList<String> mn1 = new ArrayList<String>();
+		ArrayList<String> mn = new ArrayList<String>();
 		MemberBLService mem = null;
 		try {
 			mem = new Member();
@@ -307,55 +307,39 @@ public class CollectionAndPaymentPanel extends JPanel {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
+		
+		ArrayList<MemberVO> member =new ArrayList<MemberVO>();
 		ArrayList<MemberVO> member1 = mem.show(MemberType.JHS);
-		if (member1 == null) {
-			String supplierText[] = { "当前无供应商可选" };
-			supplierBox = new JComboBox<String>(supplierText);
-			supplierBox.setEditable(false);
+		ArrayList<MemberVO> member2 = mem.show(MemberType.XSS);
+		if(member1!=null)
+		for(int i=0;i<member1.size();i++){
+			member.add(member1.get(i));
+		}
+		if(member2!=null)
+		for(int i=0;i<member2.size();i++){
+			member.add(member2.get(i));
+		}
+		
+		if (member.size()==0) {
+			String memText[] = { "当前无客户可选" };
+			memBox = new JComboBox<String>(memText);
+			memBox.setEditable(false);
 		} else {
-			for (MemberVO vo : member1) {
-				mn1.add(vo.getName());
+			for (MemberVO vo : member) {
+				mn.add(vo.getName());
 			}
-			String supplierText[] = new String[mn1.size()];
-			for (int i = 0; i < mn1.size(); i++) {
-				supplierText[i] = mn1.get(i);
+			String memText[] = new String[mn.size()];
+			for (int i = 0; i < mn.size(); i++) {
+				memText[i] = mn.get(i);
 			}
-			supplierBox = new JComboBox<String>(supplierText);
+			memBox = new JComboBox<String>(memText);
 		}
 		// _____________
 
-		supplierBox.setFont(font);
-		supplierBox.setBackground(Color.white);
-		supplierPnl.add(supplierBox);
-		// ---------seller-----------------
-		JPanel sellerPnl = new JPanel();
-		sellerPnl.setBackground(Color.white);
-		right.add(sellerPnl);
-		JLabel sellerLbl = new JLabel("销售商：");
-		sellerLbl.setFont(font);
-		sellerPnl.add(sellerLbl);
-		// ______________
-		ArrayList<MemberVO> member2 = mem.show(MemberType.XSS);
-		ArrayList<String> mn2 = new ArrayList<String>();
-		if (member2 == null) {
-			String sellerText[] = { "当前无销售商可选" };
-			sellerBox = new JComboBox<String>(sellerText);
-			sellerBox.setEditable(false);
-		} else {
-			for (MemberVO vo : member2) {
-				mn2.add(vo.getName());
-			}
-			String sellerText[] = new String[mn2.size()];
-			for (int i = 0; i < mn2.size(); i++) {
-				sellerText[i] = mn2.get(i);
-			}
-			sellerBox = new JComboBox<String>(sellerText);
-		}
-		// ______________
-
-		sellerBox.setFont(font);
-		sellerBox.setBackground(Color.white);
-		sellerPnl.add(sellerBox);
+		memBox.setFont(font);
+		memBox.setBackground(Color.white);
+		memPnl.add(memBox);
+		
 		// --------总额汇总------------------
 		JPanel moneyPnl = new JPanel();
 		moneyPnl.setBackground(Color.white);

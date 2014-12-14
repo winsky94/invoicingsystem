@@ -76,8 +76,7 @@ public class Payment extends Receipt implements PaymentBLService{
 		PaymentVO vo=(PaymentVO)v;
     	try {
 			Member m=new Member();
-			m.changeToReceive(vo.getSupplier(), (-1)*vo.getTotalMoney());
-			m.changeToReceive(vo.getSeller(), vo.getTotalMoney());
+			m.changeToReceive(vo.getMemberID(), vo.getTotalMoney());
 			Account a=new Account();
 			ArrayList<TransferItemVO> ts=vo.getTransferlist();
 			for(TransferItemVO vv:ts){
@@ -126,7 +125,7 @@ public class Payment extends Receipt implements PaymentBLService{
 			 b.add(po1);
 		 }
 	
-		PaymentPO po=new PaymentPO(vo.getId(),vo.getSupplier(),vo.getSeller(),vo.getUser(),b,vo.getTotalMoney(),vo.getStatus(),vo.getHurry());
+		PaymentPO po=new PaymentPO(vo.getId(),vo.getMemberID(),vo.getMemberName(),vo.getUser(),b,vo.getTotalMoney(),vo.getStatus(),vo.getHurry());
 		return po;
 	}
 
@@ -143,7 +142,7 @@ public class Payment extends Receipt implements PaymentBLService{
 			 b.add(vo1);
 		 }
 	
-		 PaymentVO vo=new PaymentVO(po.getId(),po.getSupplier(),po.getSeller(),po.getUserID(),b,po.getTotalMoney(),po.getStatus(),po.getHurry());
+		 PaymentVO vo=new PaymentVO(po.getId(),po.getMemberID(),po.getMemberName(),po.getUserID(),b,po.getTotalMoney(),po.getStatus(),po.getHurry());
 		return vo;
 	}
 	

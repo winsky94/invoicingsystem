@@ -25,6 +25,15 @@ public class ReceiptPO  implements Serializable{
 		this.hurry=hurry;
 	}
 	
+	public ReceiptPO(String id,String memberID,String memberName,ReceiptType type,String user,int status,int hurry){
+		this.id=id;
+		this.memberID=memberID;
+		this.memberName=memberName;
+		this.type=type;
+		this.userID=user;
+		this.status=status;
+		this.hurry=hurry;
+	}
 	
 	public ReceiptPO(String id,String memberID,String memberName,String userID, ReceiptType type,String info,int status,int hurry) {
 

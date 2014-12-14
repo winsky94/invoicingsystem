@@ -116,7 +116,20 @@ public class AddPaymentPanel extends CollectionAndPaymentPanel implements Action
 			}
 			ArrayList<MemberVO> member1 = mem.show(MemberType.JHS);
 			ArrayList<MemberVO> member2 = mem.show(MemberType.XSS);
-			PaymentVO vo=new PaymentVO(ID,member1.get(supplierBox.getSelectedIndex()).getMemberID(),member2.get(sellerBox.getSelectedIndex()).getMemberID(),parent.getUser().getID(),tra,totalMoney,0,isHurry);
+			String memberID;
+			int se=memBox.getSelectedIndex();
+			if(member1!=null&&se<member1.size()){
+				memberID=member1.get(se).getMemberID();
+			}
+			else if(member1==null||(member2!=null&&se>=member1.size())){
+				memberID=member2.get(se-member1.size()).getMemberID();
+			}
+			else{
+				memberID="Error";
+				JOptionPane.showMessageDialog(null, "Error！", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			}
+			PaymentVO vo=new PaymentVO(ID,memberID,(String)memBox.getSelectedItem(),parent.getUser().getID(),tra,totalMoney,0,isHurry);
 //			PaymentVO vo=new PaymentVO(ID,(String)supplierBox.getSelectedItem(),(String)sellerBox.getSelectedItem(),parent.getUser().getID(),tra,totalMoney,0,isHurry);
 
 			try {

@@ -85,8 +85,7 @@ public class Collection extends Receipt implements CollectionBLService{
     	CollectionVO vo=(CollectionVO)v;
     	try {
 			Member m=new Member();
-			m.changeToPay(vo.getSupplier(), vo.getTotalMoney());
-			m.changeToPay(vo.getSeller(), (-1)*vo.getTotalMoney());
+			m.changeToPay(vo.getMemberID(), (-1)*vo.getTotalMoney());
 			Account a=new Account();
 			ArrayList<TransferItemVO> ts=vo.getTransferlist();
 			for(TransferItemVO vv:ts){
@@ -143,7 +142,7 @@ public class Collection extends Receipt implements CollectionBLService{
 			 b.add(po1);
 		 }
 	
-		CollectionPO po=new CollectionPO(vo.getId(),vo.getSupplier(),vo.getSeller(),vo.getUser(),b,vo.getTotalMoney(),vo.getStatus(),vo.getHurry());
+		CollectionPO po=new CollectionPO(vo.getId(),vo.getMemberID(),vo.getMemberName(),vo.getUser(),b,vo.getTotalMoney(),vo.getStatus(),vo.getHurry());
 		return po;
 	}
 
@@ -160,7 +159,7 @@ public class Collection extends Receipt implements CollectionBLService{
 			 b.add(vo1);
 		 }
 	
-		CollectionVO vo=new CollectionVO(po.getId(),po.getSupplier(),po.getSeller(),po.getUserID(),b,po.getTotalMoney(),po.getStatus(),po.getHurry());
+		CollectionVO vo=new CollectionVO(po.getId(),po.getMemberID(),po.getMemberName(),po.getUserID(),b,po.getTotalMoney(),po.getStatus(),po.getHurry());
 		return vo;
 	}
 	
