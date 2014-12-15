@@ -37,16 +37,17 @@ public class Purchase extends Receipt {
 	}
 
 	public int excute(ReceiptVO v) {
-		// 修改库存数量
-		PurchaseVO vo=(PurchaseVO)v;
+		PurchaseVO vo = (PurchaseVO) v;
 		Member m;
 		try {
 			m = new Member();
-			m.changeToPay(vo.getMemberID(),vo.getTotalInAll());
+			m.changeToPay(vo.getMemberID(), vo.getTotalInAll());
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+
+		// 修改库存数量及出厂日期
 		StockGoodsBLService goodsController = new GoodsController();
 		ArrayList<CommodityVO> list = vo.getPurchaseList();
 		for (CommodityVO cvo : list) {
@@ -61,7 +62,7 @@ public class Purchase extends Receipt {
 			}
 
 		}
-		Reply(vo.getId(),vo.getType(),0);
+		Reply(vo.getId(), vo.getType(), 0);
 		return 0;
 	}
 
