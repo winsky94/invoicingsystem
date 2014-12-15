@@ -63,15 +63,16 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 		ArrayList<Object> a = file.read();
 		ArrayList<GoodsPO> result = new ArrayList<GoodsPO>();
 		int i;
-		for (i = 0; i < a.size(); i++) {
-			GoodsPO b = (GoodsPO) a.get(i);
-			// 定义模糊查找的范围：编号、名称、型号(暂时)
-			String tp = "" + b.getGoodsID() + b.getName() + b.getSize();
-			if (tp.contains(message)) {
-				result.add(b);
+		if (a != null) {
+			for (i = 0; i < a.size(); i++) {
+				GoodsPO b = (GoodsPO) a.get(i);
+				// 定义模糊查找的范围：编号、名称、型号(暂时)
+				String tp = "" + b.getGoodsID() + b.getName() + b.getSize();
+				if (tp.contains(message)) {
+					result.add(b);
+				}
 			}
 		}
-
 		return result;
 	}
 
