@@ -28,8 +28,6 @@ import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.event.TreeModelEvent;
-import javax.swing.event.TreeModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -47,8 +45,7 @@ import businesslogic.stockbl.goodsClass.GoodsClassController;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBLService;
 
-public class GoodsPanel extends JPanel implements ActionListener,
-		TreeModelListener {
+public class GoodsPanel extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
@@ -338,9 +335,8 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 		tree = new JTree(Troot);
 		treeModel = (DefaultTreeModel) tree.getModel();
-		tree.setEditable(true);
+		tree.setEditable(false);
 		tree.addMouseListener(new MouseHandle());
-		treeModel.addTreeModelListener(this);
 
 		expandTree(tree);
 
@@ -408,44 +404,6 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 	// end_yan-----------------------------------------------------------
 
-	public void treeNodesChanged(TreeModelEvent e) {
-		// TODO 自动生成的方法存根
-		TreePath treePath = e.getTreePath();
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePath
-				.getLastPathComponent();
-		try {
-			int[] index = e.getChildIndices();
-			node = (DefaultMutableTreeNode) node.getChildAt(index[0]);
-		} catch (NullPointerException exc) {
-		}
-
-		GoodsClassVO oldVO = controller.showGoodsClassInfo(nodeName);
-		GoodsClassVO newVO = new GoodsClassVO((String) node.getUserObject(),
-				oldVO.getUpClassName());
-		int result = controller.modifyGoodsClass(oldVO, newVO);
-
-		if (result != 0) {
-			JOptionPane.showMessageDialog(null, "修改分类数据失败", null,
-					JOptionPane.WARNING_MESSAGE);
-		}
-
-	}
-
-	public void treeNodesInserted(TreeModelEvent e) {
-		// TODO 自动生成的方法存根
-		// System.out.println("监听插入节点");
-	}
-
-	public void treeNodesRemoved(TreeModelEvent e) {
-		// TODO 自动生成的方法存根
-		// System.out.println("监听删除节点");
-	}
-
-	public void treeStructureChanged(TreeModelEvent e) {
-		// TODO 自动生成的方法存根
-
-	}
-
 	// 关于分类的增加删除的监听
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("添加分类")) {
@@ -502,12 +460,30 @@ public class GoodsPanel extends JPanel implements ActionListener,
 								JOptionPane.ERROR_MESSAGE);
 					}
 				}
-				expandTree(tree);
+
 			}
 		} else if (e.getActionCommand().equals("修改分类")) {
-			JOptionPane.showMessageDialog(this, "直接双击分类的节点修改哈~", null,
-					JOptionPane.WARNING_MESSAGE);
+			TreePath treePath = tree.getSelectionPath();
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePath
+					.getLastPathComponent();
+			GoodsClassVO oldVO = controller.showGoodsClassInfo(node.toString());
+			new UpdateGoodsClassDialog(this, node.toString());
+			if (updateNode != null) {
+				GoodsClassVO newVO = new GoodsClassVO(updateNode.toString(),
+						oldVO.getUpClassName());
+				int result = controller.modifyGoodsClass(oldVO, newVO);
+
+				if (result != 0) {
+					JOptionPane.showMessageDialog(null, "         修改分类数据失败",
+							null, JOptionPane.WARNING_MESSAGE);
+				} else {
+					node.setUserObject(updateNode.toString());
+					treeModel.reload();
+				}
+			}
 		}
+
+		expandTree(tree);
 	}
 
 	// 点击分类节点显示节点下的商品信息的监听
@@ -519,7 +495,6 @@ public class GoodsPanel extends JPanel implements ActionListener,
 				TreePath treepath = tree.getPathForRow(rowLocation);
 				TreeNode treenode = (TreeNode) treepath.getLastPathComponent();
 				nodeName = treenode.toString();
-				System.out.println(nodeName);
 			} catch (NullPointerException ne) {
 			}
 
@@ -693,6 +668,9 @@ public class GoodsPanel extends JPanel implements ActionListener,
 				}
 				father.updateNode = new DefaultMutableTreeNode(classjtf
 						.getText().trim());
+				System.out
+						.println("GoodsPanel.UpdateGoodsClassDialog.actionPerformed():updateNode:"
+								+ updateNode);
 				this.dispose();
 			} else if (e.getSource() == canceljb) {
 				father.updateNode = null;
