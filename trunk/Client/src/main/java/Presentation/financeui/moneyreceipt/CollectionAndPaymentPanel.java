@@ -212,6 +212,13 @@ public class CollectionAndPaymentPanel extends JPanel {
 					else {
 						TransferItemVO item;
 						try {
+							double mm= Double.parseDouble(moneyFld.getText());
+							if(mm<0){
+								JOptionPane.showMessageDialog(null, "请输入正确的金额！",
+										"提示", JOptionPane.WARNING_MESSAGE);
+								moneyFld.setText("");
+							}
+							else{
 							item = new TransferItemVO((String) accountBox
 									.getSelectedItem(), Double
 									.parseDouble(moneyFld.getText()), remarkFld
@@ -228,6 +235,7 @@ public class CollectionAndPaymentPanel extends JPanel {
 							totalLbl.setText("总额汇总:" + totalMoney);
 							moneyFld.setText("");
 							remarkFld.setText("");
+							}
 						} catch (NumberFormatException e11) {
 							JOptionPane.showMessageDialog(null, "转账金额输入有误",
 									"提示", JOptionPane.WARNING_MESSAGE);
