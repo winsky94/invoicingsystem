@@ -1,8 +1,6 @@
 package businesslogic.salesbl;
 
-import java.net.MalformedURLException;
 import java.rmi.Naming;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -14,7 +12,10 @@ import po.SalePO;
 import po.SaleReturnPO;
 import dataservice.salesdataservice.SalesDataService;
 import vo.ReceiptVO;
+import businesslogic.promotionbl.giftCouponPro;
+import businesslogic.stockbl.stockManage.StockControlController;
 import businesslogicservice.salesblservice.SaleListBLService;
+import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
 
 public class SaleList implements SaleListBLService{
 	SalesDataService service;
@@ -27,7 +28,45 @@ public class SaleList implements SaleListBLService{
 	
 	}
 	
+	public double saleIncome(String startDate,String endDate){
+		double profit=0;
+		ArrayList<SalePO> spo1=service.findSale(startDate+endDate, "时间区间");
+		ArrayList<SaleReturnPO> spo2=service.findSaleReturn(startDate+endDate, "时间区间");
+		if(spo1!=null)
+			for(int i=0;i<spo1.size();i++){
+				profit+=spo1.get(i).getTotal()[2];
+			}
+		if(spo2!=null)
+			for(int i=0;i<spo2.size();i++){
+				profit-=spo2.get(i).getTotal()[2];
+			}
+		return profit;
+	}
 	
+	public double saleCost(String startDate,String endDate){
+		double profit=0;
+		ArrayList<SalePO> spo1=service.findSale(startDate+endDate, "时间区间");
+		ArrayList<SaleReturnPO> spo2=service.findSaleReturn(startDate+endDate, "时间区间");
+		if(spo1!=null)
+			for(int i=0;i<spo1.size();i++){
+				profit+=spo1.get(i).getTotal()[0];
+			}
+		if(spo2!=null)
+			for(int i=0;i<spo2.size();i++){
+				profit-=spo2.get(i).getTotal()[0];
+			}
+		return profit;
+	}
+	
+	public double goodsOver(String startDate,String endDate){
+		StockControlBLService scb=new StockControlController();
+		return scb.getGoodsOverIncome(startDate,endDate);
+	}
+	
+	public double primeCostIncome(String startDate,String endDate){
+		StockControlBLService scb=new StockControlController();
+		return scb.getPrimeCostIncome(startDate, endDate);
+	}
 	
 	
 	public double couponProfitCalc(String startDate,String endDate){
@@ -35,6 +74,7 @@ public class SaleList implements SaleListBLService{
 		double profit=0;
 		ArrayList<SalePO> spo=service.findSale(startDate+endDate, "时间区间");
 		//ArrayList<SaleReturnPO> srpo=service.findSaleReturn(startDate+endDate, "时间区间")
+		if(spo!=null)
 		for(int i=0;i<spo.size();i++)
 			profit+=spo.get(i).getCouponPrice();
 		
@@ -46,6 +86,7 @@ public class SaleList implements SaleListBLService{
 		double prprofit=0;
 		ArrayList<PurchaseReturnPO> ppo=service.findPurchaseReturn(startDate+endDate, "时间区间");
 		
+		if(ppo!=null)
 		for(int i=0;i<ppo.size();i++)
 			{PurchasePO po=(PurchasePO)service.findReceiptByID(ppo.get(i).getpurid());
 			 prprofit+=(ppo.get(i).getTotalInAll()-po.getTotalInAll());
@@ -54,30 +95,59 @@ public class SaleList implements SaleListBLService{
 
 		return prprofit;
 	}
-	public double totalMoneyWeGot(String startDate,String endDate){
-		//总的销售收入
-		ArrayList<SalePO> spo=service.findSale(startDate+endDate, "时间区间");
-		ArrayList<SaleReturnPO> srpo=service.findSaleReturn(startDate+endDate, "时间区间");
-		double totalIn=0;
-		for(int i=0;i<spo.size();i++)
-			totalIn+=spo.get(i).getTotalValue();
-		for(int j=0;j<srpo.size();j++)
-			totalIn-=spo.get(j).getTotalValue();
-		return totalIn;
-
+	
+	public double goodsLow(String startDate,String endDate){
+		StockControlBLService scb=new StockControlController();
+		return scb.getGoodsLowCost(startDate, endDate);
 	}
-	public double totalMoneyWePaid(String startDate,String endDate){
-		//总的销售成本
-		ArrayList<SalePO> spo=service.findSale(startDate+endDate, "时间区间");
-		ArrayList<SaleReturnPO> srpo=service.findSaleReturn(startDate+endDate, "时间区间");
-		double totalOut=0;
-		for(int i=0;i<spo.size();i++)
-			totalOut+=spo.get(i).getCost();
-		for(int j=0;j<srpo.size();j++)
-			totalOut-=spo.get(j).getCost();
-		return totalOut;
-
+	
+	public double goodsGift(String startDate,String endDate){
+		StockControlBLService scb=new StockControlController();
+		return scb.getGiftCost(startDate, endDate);
 	}
+	
+	public double DiscountMoney(String startDate,String endDate){
+		double profit=0;
+		ArrayList<SalePO> spo1=service.findSale(startDate+endDate, "时间区间");
+		if(spo1!=null)
+			for(int i=0;i<spo1.size();i++){
+				profit+=(spo1.get(i).getTotal()[1]-spo1.get(i).getTotal()[2]);
+			}
+		
+		return profit;
+	}
+	
+	public double GiftCouponUseCost(String startDate,String endDate){
+		giftCouponPro gcp=null;
+		try {
+			gcp=new giftCouponPro();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return gcp.getCouponCost(startDate, endDate);
+	}
+	
+	public double AllIncome(String startDate,String endDate){
+		double profit=0;
+		profit+=saleIncome(startDate,endDate);
+		profit+=goodsOver(startDate,endDate);
+		profit+=primeCostIncome(startDate,endDate);
+		profit+=purchaseReturnProfitCalc(startDate,endDate);
+		profit+=couponProfitCalc(startDate,endDate);
+		return profit;
+	}
+	
+	
+	public double AllCost(String startDate,String endDate){
+		double cost=0;
+		cost+=saleCost(startDate,endDate);
+		cost+=goodsLow(startDate,endDate);
+		cost+=goodsGift(startDate,endDate);
+		cost+=GiftCouponUseCost(startDate,endDate);
+		return cost;
+	}
+	
 	public ArrayList<ReceiptVO> getAllPurchase() {
 		
 		ArrayList<ReceiptPO> po=service.getAllPurchase();
