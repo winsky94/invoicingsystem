@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 
 
+
 import javax.swing.JTabbedPane;
 
 import businesslogic.utilitybl.getDate;
@@ -178,7 +179,10 @@ public class giftCouponPro extends promotion{
 			return null;
 		else{
 			for(int i=0;i<pro.size();i++)
-			{
+			{String start=pro.get(i).getStartDate();
+			String end=pro.get(i).getEndDate();
+			String date=vo.getId().split("-")[1];
+			if(start.compareTo(date)<0&&end.compareTo(date)>0){
 				if(total>=pro.get(i).getTotalValue())
 				{
 					double value=getCouponValue(pro.get(i).getCouponList());
@@ -187,7 +191,7 @@ public class giftCouponPro extends promotion{
 				}
 				
 				
-			}
+			}}
 			return result;
 		}
 	}
@@ -226,6 +230,21 @@ public class giftCouponPro extends promotion{
 		if(gpo==null) return null;
 		else return poToVo(gpo);
 		
+	}
+	
+	
+	public double getCouponCost(){
+		ArrayList<GiftCouponProVO> pro=show();
+		double cost=0;
+		if(pro==null) return 0;
+		for(int i=0;i<pro.size();i++){
+			ArrayList<CouponVO> vo=pro.get(i).getCouponList();
+			for(int j=0;j<vo.size();j++)
+				if(vo.get(j).getIsUse())
+					cost+=vo.get(j).getValue();
+		}
+		
+		return cost;
 	}
 
 }
