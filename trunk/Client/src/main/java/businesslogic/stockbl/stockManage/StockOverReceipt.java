@@ -102,6 +102,9 @@ public class StockOverReceipt extends Receipt {
 		ArrayList<GoodsVO> list = goodsController.findGoods(vo.getGoodsName()
 				+ vo.getSize());
 		if (list != null) {
+			if (list.size() == 0) {
+				return 10;
+			}
 			GoodsVO goodvo = list.get(0);
 
 			goodvo.setNumInStock(vo.getExactNum());

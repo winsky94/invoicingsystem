@@ -626,12 +626,12 @@ public class GoodsPanel extends JPanel implements ActionListener,
 
 	class UpdateGoodsClassDialog extends JDialog implements ActionListener {
 		private static final long serialVersionUID = 1L;
-		JLabel oldClassDjl = null;
-		JLabel classDjl = null;
-		JTextField oldClassDjtf = null;
-		JTextField classDjtf = null;
-		JButton okDjb = null;
-		JButton cancelDjb = null;
+		JLabel oldClassjl = null;
+		JLabel classjl = null;
+		JTextField oldClassjtf = null;
+		JTextField classjtf = null;
+		JButton okjb = null;
+		JButton canceljb = null;
 
 		GoodsPanel father = null;
 
@@ -639,42 +639,39 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			this.father = father;
 
 			Font font = new Font("楷体", Font.BOLD, 16);
-			oldClassDjl = new JLabel("原类名");
-			oldClassDjl.setFont(font);
-			oldClassDjl.setBounds(15, 20, 60, 30);
-			this.add(oldClassDjl);
+			oldClassjl = new JLabel("原类名");
+			oldClassjl.setFont(font);
+			oldClassjl.setBounds(15, 20, 60, 30);
+			this.add(oldClassjl);
 
-			classDjl = new JLabel("新类名");
-			classDjl.setFont(font);
-			classDjl.setBounds(15, 60, 60, 30);
-			// balanceDjl.setEnabled(false);
-			this.add(classDjl);
+			classjl = new JLabel("新类名");
+			classjl.setFont(font);
+			classjl.setBounds(15, 60, 60, 30);
+			this.add(classjl);
 
-			oldClassDjtf = new JTextField();
-			oldClassDjtf.setFont(font);
-			oldClassDjtf.setText(parent);
-			oldClassDjtf.setEditable(false);
-			oldClassDjtf.setBounds(85, 20, 180, 30);
-			this.add(oldClassDjtf);
+			oldClassjtf = new JTextField();
+			oldClassjtf.setFont(font);
+			oldClassjtf.setText(parent);
+			oldClassjtf.setEditable(false);
+			oldClassjtf.setBounds(85, 20, 180, 30);
+			this.add(oldClassjtf);
 
-			classDjtf = new JTextField();
-			classDjtf.setFont(font);
-			classDjtf.setBounds(85, 60, 180, 30);
-			this.add(classDjtf);
+			classjtf = new JTextField();
+			classjtf.setFont(font);
+			classjtf.setBounds(85, 60, 180, 30);
+			this.add(classjtf);
 
-			okDjb = new JButton("确定");
-			// okDjb.setFont(font);
-			okDjb.setBounds(50, 110, 60, 30);
-			okDjb.addActionListener(this);
-			okDjb.setVisible(true);
-			this.add(okDjb);
+			okjb = new JButton("确定");
+			okjb.setBounds(50, 110, 60, 30);
+			okjb.addActionListener(this);
+			okjb.setVisible(true);
+			this.add(okjb);
 
-			cancelDjb = new JButton("取消");
-			// cancelDjb.setFont(font);
-			cancelDjb.setBounds(170, 110, 60, 30);
-			cancelDjb.addActionListener(this);
-			cancelDjb.setVisible(true);
-			this.add(cancelDjb);
+			canceljb = new JButton("取消");
+			canceljb.setBounds(170, 110, 60, 30);
+			canceljb.addActionListener(this);
+			canceljb.setVisible(true);
+			this.add(canceljb);
 
 			this.setSize(300, 200);
 			this.setLayout(null);
@@ -683,22 +680,21 @@ public class GoodsPanel extends JPanel implements ActionListener,
 			this.setLocation(father.getX() + father.getWidth() / 2,
 					father.getY() + father.getHeight() / 3);
 			this.setModal(true);
-			// this.setType(Type.UTILITY);
 			this.setVisible(true);
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == okDjb) {
-				if (oldClassDjtf.getText().trim().equals("")
-						|| classDjtf.getText().trim().equals("")) {
+			if (e.getSource() == okjb) {
+				if (oldClassjtf.getText().trim().equals("")
+						|| classjtf.getText().trim().equals("")) {
 					JOptionPane.showMessageDialog(this, "请填写全部信息！", "Error",
 							JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				father.updateNode = new DefaultMutableTreeNode(classDjtf
+				father.updateNode = new DefaultMutableTreeNode(classjtf
 						.getText().trim());
 				this.dispose();
-			} else if (e.getSource() == cancelDjb) {
+			} else if (e.getSource() == canceljb) {
 				father.updateNode = null;
 				this.dispose();
 			}
