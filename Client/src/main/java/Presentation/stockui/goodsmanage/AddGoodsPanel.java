@@ -33,8 +33,8 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JButton submitBtn, exitBtn;
-	String classText, nameText, sizeText, pPriceText, sPriceText,minNumText;
-	JTextField nameFld, sizeFld, purchasePriceFld, salePriceFld,minNumFld;
+	String classText, nameText, sizeText, pPriceText, sPriceText, minNumText;
+	JTextField nameFld, sizeFld, purchasePriceFld, salePriceFld, minNumFld;
 	MainFrame parent;
 
 	public AddGoodsPanel(MainFrame frame, String goodsClass) {
@@ -130,7 +130,7 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 		salePriceFld.getDocument().addDocumentListener(
 				new SPriceFieldListener());
 		salePricePnl.add(salePriceFld);
-		//-------报警数量-------------------
+		// -------报警数量-------------------
 		JPanel minNumPnl = new JPanel();
 		minNumPnl.setBackground(Color.white);
 		mPnl.add(minNumPnl);
@@ -139,8 +139,7 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 		minNumPnl.add(minNumLbl);
 		minNumFld = new JTextField(6);
 		minNumFld.setFont(font);
-		minNumFld.getDocument().addDocumentListener(
-				new MinNumFieldListener());
+		minNumFld.getDocument().addDocumentListener(new MinNumFieldListener());
 		minNumPnl.add(minNumFld);
 		// -------buttons-----------------
 		JPanel btnPnl = new JPanel();
@@ -183,7 +182,7 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自动生成的方法存根
 		if (e.getSource() == submitBtn) {
-			//监测默认进价和默认售价输入是否合法
+			// 监测默认进价和默认售价输入是否合法
 			try {
 				Double.parseDouble(pPriceText);
 			} catch (NumberFormatException nfe) {
@@ -205,13 +204,21 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 						null, JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			
+
+			// 检测输入为正数
+			if (Double.parseDouble(pPriceText) < 0
+					|| Double.parseDouble(sPriceText) < 0
+					|| Integer.parseInt(minNumText) < 0) {
+				JOptionPane.showMessageDialog(null, "            数值必须为正噢~", null,
+						JOptionPane.WARNING_MESSAGE);
+			}
+
 			StockGoodsBLService controller = new GoodsController();
 			String manufactoryDate = " ";
 			GoodsVO vo = new GoodsVO("", nameText, sizeText, 0,
 					Double.parseDouble(pPriceText),
 					Double.parseDouble(sPriceText), 0, 0, classText,
-					manufactoryDate,Integer.parseInt(minNumText));
+					manufactoryDate, Integer.parseInt(minNumText));
 			int result = controller.addGoods(vo);
 			if (result != 0) {
 				JOptionPane.showMessageDialog(null, "            该商品已存在", null,
@@ -219,8 +226,8 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 				return;
 			} else {
 				parent.setRightComponent(new GoodsPanel(parent));
-				log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
-						"添加了一个新商品"+nameText,3));
+				log.addLog(new LogVO(log.getdate(), parent.getUser().getID(),
+						parent.getUser().getName(), "添加了一个新商品" + nameText, 3));
 				try {
 					headPane.RefreshGrades();
 				} catch (Exception e1) {
@@ -288,6 +295,7 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 			sPriceText = salePriceFld.getText();
 		}
 	}
+
 	class MinNumFieldListener implements DocumentListener {
 		public void changedUpdate(DocumentEvent d) {
 			minNumText = minNumFld.getText();
