@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 
 
+
 import javax.swing.JTabbedPane;
 
 import businesslogic.utilitybl.getDate;
@@ -182,7 +183,7 @@ public class giftCouponPro extends promotion{
 			{String start=pro.get(i).getStartDate();
 			String end=pro.get(i).getEndDate();
 			String date=vo.getId().split("-")[1];
-			if(start.compareTo(date)<0&&end.compareTo(date)>0){
+			if(start.compareTo(date)<=0&&end.compareTo(date)>=0){
 				if(total>=pro.get(i).getTotalValue())
 				{
 					double value=getCouponValue(pro.get(i).getCouponList());
@@ -233,15 +234,20 @@ public class giftCouponPro extends promotion{
 	}
 	
 	
-	public double getCouponCost(){
+	public double getCouponCost(String startDate ,String endDate){
 		ArrayList<GiftCouponProVO> pro=show();
 		double cost=0;
 		if(pro==null) return 0;
 		for(int i=0;i<pro.size();i++){
+			String start=pro.get(i).getStartDate();
+			String end=pro.get(i).getEndDate();
+			boolean isValid=startDate.compareTo(start)<=0&&endDate.compareTo(end)>=0;
+			if(isValid){
 			ArrayList<CouponVO> vo=pro.get(i).getCouponList();
 			for(int j=0;j<vo.size();j++)
 				if(vo.get(j).getIsUse())
 					cost+=vo.get(j).getValue();
+			}
 		}
 		
 		return cost;
