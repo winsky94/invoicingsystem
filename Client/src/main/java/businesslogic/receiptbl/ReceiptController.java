@@ -99,10 +99,7 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 		
 	}*/
 
-	public int Batch(String[] id) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 	
 	public static ReceiptVO  poToVo(ReceiptPO po){
