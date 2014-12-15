@@ -164,9 +164,12 @@ public class AddAccountPanel extends JPanel{
 				JOptionPane.showMessageDialog(null, "请输入完整信息！", "提示",
 						JOptionPane.CLOSED_OPTION);
 			} else {
+			
+				try{
 				AccountVO vo = new AccountVO(name,Double.parseDouble(money));
 				int result = service.addAccount(vo);
 				// 改
+			
 				if (result == 0) {
 					JOptionPane.showMessageDialog(null, "添加账户成功！", "提示",
 							JOptionPane.CLOSED_OPTION);
@@ -183,6 +186,14 @@ public class AddAccountPanel extends JPanel{
 							JOptionPane.WARNING_MESSAGE);
 				}
 				Update();
+				
+				}catch(NumberFormatException e){
+					JOptionPane.showMessageDialog(null, "请输入正确的金额数字！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+					moneyFld.setText("");
+				}
+				
+				
 			}
 			
 			
