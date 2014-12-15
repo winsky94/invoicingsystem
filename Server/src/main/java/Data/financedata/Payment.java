@@ -19,7 +19,7 @@ public class Payment extends UnicastRemoteObject implements PaymentDataService{
 	static int num=0;
 	public Payment() throws RemoteException{
 		super();
-		file=new JXCFile("src/main/java/payment.ser");
+		file=new JXCFile("payment.ser");
 	}
 
 	public int createPayment(PaymentPO po) throws RemoteException {

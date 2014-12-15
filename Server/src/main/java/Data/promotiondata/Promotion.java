@@ -34,22 +34,22 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 	
 	public int Add(PromotionPO po) throws RemoteException {
 		if(po.getType()==PromotionType.DISCOUNT){
-			file=new JXCFile("src/main/java/discount.ser");
+			file=new JXCFile("discount.ser");
 			file.write(po);
 			return 0;
 		}
 		else if(po.getType()==PromotionType.GIFTCOUPON){
-			file=new JXCFile("src/main/java/giftcoupon.ser");
+			file=new JXCFile("giftcoupon.ser");
 			file.write(po);
 			return 0;
 		}
 		else if(po.getType()==PromotionType.GIFTGOODS){
-			file=new JXCFile("src/main/java/giftgoods.ser");
+			file=new JXCFile("giftgoods.ser");
 			file.write(po);
 			return 0;
 		}
 		else if(po.getType()==PromotionType.PACK){
-			file=new JXCFile("src/main/java/pack.ser");
+			file=new JXCFile("pack.ser");
 			file.write(po);
 			return 0;
 		}
@@ -120,7 +120,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 			}
 			for(int i=0;i<al.size();i++)
 				all.add(al.get(i));
-			file=new JXCFile("src/main/java/pack.ser");
+			file=new JXCFile("pack.ser");
 			file.writeM(all);
 		}
 		else if(po.getType()==PromotionType.DISCOUNT){
@@ -141,7 +141,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 			}
 			for(int i=0;i<al.size();i++)
 				all.add(al.get(i));
-			file=new JXCFile("src/main/java/discount.ser");
+			file=new JXCFile("discount.ser");
 			file.writeM(all);
 		}
 		else if(po.getType()==PromotionType.GIFTCOUPON){
@@ -162,7 +162,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 			}
 			for(int i=0;i<al.size();i++)
 				all.add(al.get(i));
-			file=new JXCFile("src/main/java/giftcoupon.ser");
+			file=new JXCFile("giftcoupon.ser");
 			file.writeM(all);
 		}
 		else if(po.getType()==PromotionType.GIFTGOODS){
@@ -183,7 +183,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 			}
 			for(int i=0;i<al.size();i++)
 				all.add(al.get(i));
-			file=new JXCFile("src/main/java/giftgoods.ser");
+			file=new JXCFile("giftgoods.ser");
 			file.writeM(all);
 		}
 		else{
@@ -273,7 +273,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 	}
 	
 	public ArrayList<PackProPO> getPackPro() throws RemoteException{
-		file=new JXCFile("src/main/java/pack.ser");
+		file=new JXCFile("pack.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -290,7 +290,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 	
 	//有可能因为ArrayList里嵌套ArrayList的原因
 	public ArrayList<GiftCouponProPO> getGiftCouponPro() throws RemoteException{
-		file=new JXCFile("src/main/java/giftcoupon.ser");
+		file=new JXCFile("giftcoupon.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -306,7 +306,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 	}
 	
 	public ArrayList<DiscountProPO> getDiscountPro() throws RemoteException{
-		file=new JXCFile("src/main/java/discount.ser");
+		file=new JXCFile("discount.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -321,7 +321,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 	}
 	
 	public ArrayList<GiftGoodProPO> getGiftGoodPro() throws RemoteException{
-		file=new JXCFile("src/main/java/giftgoods.ser");
+		file=new JXCFile("giftgoods.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -350,7 +350,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 			}
 			for(int i=0;i<al.size();i++)
 				all.add(al.get(i));
-			file=new JXCFile("src/main/java/pack.ser");
+			file=new JXCFile("pack.ser");
 			file.writeM(all);;
 		}
 		else if(type==PromotionType.DISCOUNT){
@@ -367,7 +367,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 			}
 			for(int i=0;i<al.size();i++)
 				all.add(al.get(i));
-			file=new JXCFile("src/main/java/discount.ser");
+			file=new JXCFile("discount.ser");
 			file.write(all);
 		}
 		else if(type==PromotionType.GIFTCOUPON){
@@ -383,7 +383,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 			}
 			for(int i=0;i<al.size();i++)
 				all.add(al.get(i));
-			file=new JXCFile("src/main/java/giftcoupon.ser");
+			file=new JXCFile("giftcoupon.ser");
 			file.writeM(all);
 		}
 		else if(type==PromotionType.GIFTGOODS){
@@ -399,7 +399,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 			}
 			for(int i=0;i<al.size();i++)
 				all.add(al.get(i));
-			file=new JXCFile("src/main/java/giftgoods.ser");
+			file=new JXCFile("giftgoods.ser");
 			file.writeM(all);
 		}
 		else{

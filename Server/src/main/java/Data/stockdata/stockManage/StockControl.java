@@ -22,9 +22,9 @@ public class StockControl extends UnicastRemoteObject implements
 	JXCFile file;// 记录库存调价收入
 
 	public StockControl() throws RemoteException {
-		overOrLowFile = new JXCFile("src/main/java/overOrLowReceipt.ser");
-		errorFile = new JXCFile("src/main/java/errorReceipt.ser");
-		file = new JXCFile("src/main/java/primeChangeRecord.ser");
+		overOrLowFile = new JXCFile("overOrLowReceipt.ser");
+		errorFile = new JXCFile("errorReceipt.ser");
+		file = new JXCFile("primeChangeRecord.ser");
 	}
 
 	public int addStockOverOrLow(StockOverOrLowPO po) throws RemoteException {

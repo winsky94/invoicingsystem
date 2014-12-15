@@ -456,7 +456,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 	public ArrayList<ReceiptMessagePO> showAllMessage() throws RemoteException {
 		// TODO Auto-generated method stub
 		JXCFile file;
-		file=new JXCFile("src/main/java/message.ser");
+		file=new JXCFile("message.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -473,7 +473,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 	public void addReceiptMessage(ReceiptMessagePO po) throws RemoteException {
 		// TODO Auto-generated method stub
 		JXCFile file;
-		file=new JXCFile("src/main/java/message.ser");
+		file=new JXCFile("message.ser");
 		file.write(po);
 	}
 
@@ -481,7 +481,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 			throws RemoteException {
 		// TODO Auto-generated method stub
 		JXCFile file;
-		file=new JXCFile("src/main/java/message.ser");
+		file=new JXCFile("message.ser");
 		ArrayList<Object> a=file.read();
 		if(a!=null)
 			for(int i=0;i<a.size();i++)
