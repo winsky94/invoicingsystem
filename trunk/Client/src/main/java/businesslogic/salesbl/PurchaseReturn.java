@@ -9,10 +9,13 @@ import java.util.ArrayList;
 
 import po.CommodityPO;
 import po.PurchaseReturnPO;
+import po.ReceiptPO;
+import po.SaleReturnPO;
 import vo.CommodityVO;
 import vo.GoodsVO;
 import vo.PurchaseReturnVO;
 import vo.ReceiptVO;
+import vo.SaleReturnVO;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.stockbl.goods.GoodsController;
@@ -66,6 +69,16 @@ public class PurchaseReturn extends Receipt {
 	return 0;
 	}
 	
+	public PurchaseReturnVO find(String id) {
+		ReceiptPO po = service.findReceiptByID(id);
+		if (po == null)
+			return null;
+		else {
+			PurchaseReturnPO ppo = (PurchaseReturnPO) po;
+			return poToVo(ppo);
+		}
+
+	}
 	public ArrayList<PurchaseReturnVO> find(String message,String type){
 		
 		

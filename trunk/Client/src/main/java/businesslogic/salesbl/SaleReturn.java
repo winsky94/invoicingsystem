@@ -8,11 +8,14 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import po.CommodityPO;
+import po.ReceiptPO;
+import po.SalePO;
 import po.SaleReturnPO;
 import vo.CommodityVO;
 import vo.GoodsVO;
 import vo.ReceiptVO;
 import vo.SaleReturnVO;
+import vo.SaleVO;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.stockbl.goods.GoodsController;
@@ -54,6 +57,16 @@ public class SaleReturn extends Receipt {
 		}
 	}
 
+	public SaleReturnVO find(String id) {
+		ReceiptPO po = service.findReceiptByID(id);
+		if (po == null)
+			return null;
+		else {
+			SaleReturnPO ppo = (SaleReturnPO) po;
+			return poToVo(ppo);
+		}
+
+	}
 	public String getNewID() {
 		// TODO Auto-generated method stub
 		String id = null;

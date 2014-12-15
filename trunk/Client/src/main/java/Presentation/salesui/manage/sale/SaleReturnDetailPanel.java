@@ -1,5 +1,8 @@
 package Presentation.salesui.manage.sale;
 
-public class SaleReturnDetailPanel {
+public class SaleReturnDetailPanel{
+	
+	AddSaleReturnPanel p;
+	
 
 }

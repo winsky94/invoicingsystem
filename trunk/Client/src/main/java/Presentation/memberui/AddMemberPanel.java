@@ -231,9 +231,10 @@ public class AddMemberPanel extends JPanel {
 		cancelBtn.setFocusPainted(false);
 		cancelBtn.setBackground(new Color(251, 147, 121));
 		btnPnl.add(cancelBtn);
+		add=new AddListener();
 		cancelBtn.addActionListener(add);
 		
-		add=new AddListener();
+		
 		submitBtn.addActionListener(add);
 		
 		// ------------------------------------------------------------------
@@ -253,7 +254,7 @@ public class AddMemberPanel extends JPanel {
 				int result = service.addMember(vo);
 				// 改
 				if (result == 0) {
-					{JOptionPane.showMessageDialog(null, "添加客户成功！", "提示",
+					JOptionPane.showMessageDialog(null, "添加客户成功！", "提示",
 							JOptionPane.CLOSED_OPTION);
 					log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
 							"添加了一个新客户"+nameFld.getText(),3));
@@ -263,16 +264,16 @@ public class AddMemberPanel extends JPanel {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					}
-				} else {
+					
+				} else 
 					JOptionPane.showMessageDialog(null, "添加客户失败！", "提示",
 							JOptionPane.WARNING_MESSAGE);
-				}
+				
 				Update();
 			}
-			}else{
+			}else if(e.getSource()==cancelBtn)
 				Update();
-			}
+			
 		}
 		
 	}
