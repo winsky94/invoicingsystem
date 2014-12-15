@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import po.ReceiptPO.ReceiptType;
@@ -97,14 +98,19 @@ public class StockLowReceipt extends Receipt {
 		StockOverOrLowVO vo = (StockOverOrLowVO) v;
 		// 向系统库存中添加商品
 		StockGoodsBLService goodsController = new GoodsController();
-		GoodsVO goodvo = goodsController.findGoods(
-				vo.getGoodsName() + vo.getSize()).get(0);
-		goodvo.setNumInStock(vo.getExactNum());
-		goodsController.modifyGoods(goodvo);
-		StockOverOrLowPO po = voToPo(vo);
-		service.excute(po);
-		Reply(v.getId(),vo.getType(),0);
-		return 0;
+		ArrayList<GoodsVO> list = goodsController.findGoods(vo.getGoodsName()
+				+ vo.getSize());
+		if (list != null) {
+			GoodsVO goodvo = list.get(0);
+			goodvo.setNumInStock(vo.getExactNum());
+			goodsController.modifyGoods(goodvo);
+			StockOverOrLowPO po = voToPo(vo);
+			service.excute(po);
+			Reply(v.getId(), vo.getType(), 0);
+			return 0;
+		} else {
+			return 10;
+		}
 	}
 
 	public String getGoodName() {
