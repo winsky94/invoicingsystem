@@ -14,8 +14,8 @@ public class OperationStatementTableModel extends AbstractTableModel{
 	ArrayList<ArrayList<String>>  cm=new ArrayList<ArrayList<String>>();
 	ArrayList<String> totalIn,totalOut;
 	String[] head={"","","","","","",""};
-	String[] headin={"商品报溢收入","成本调价收入","进退货差价收入","代金券差额收入","折让金额","销售收入","总收入"};
-	String[] headout={"商品报损支出","库存赠送支出","代金券使用支出","销售成本","总支出","",""};
+	String[] headin={"销售收入","商品报溢收入","成本调价收入","进退货差价收入","代金券差额收入","折让金额","总收入"};
+	String[] headout={"销售成本","商品报损支出","库存赠送支出","代金券使用支出","总支出","",""};
 	public int getRowCount() {
 		return cm.size();
 	}
