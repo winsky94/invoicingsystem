@@ -22,4 +22,5 @@ public interface SaleListBLService {
 	public double GiftCouponUseCost(String startDate,String endDate);//代金券使用支出
 	public double AllIncome(String startDate,String endDate);//总收入
 	public double AllCost(String startDate,String endDate);//总支出
+	public double allProfit(String startDate,String endDate);//利润
 }

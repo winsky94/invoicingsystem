@@ -148,6 +148,11 @@ public class SaleList implements SaleListBLService{
 		return cost;
 	}
 	
+	public double allProfit(String startDate,String endDate){
+		return AllIncome(startDate,endDate)-AllCost(startDate,endDate);
+	}
+	
+	
 	public ArrayList<ReceiptVO> getAllPurchase() {
 		
 		ArrayList<ReceiptPO> po=service.getAllPurchase();
