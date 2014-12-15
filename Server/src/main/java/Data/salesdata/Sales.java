@@ -587,7 +587,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	
 	
 	public static void main(String[] args){
-		Sales a;
+/*	Sales a;
 		try {
 			a = new Sales();
 			a.showPurchase();
@@ -609,6 +609,16 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 				System.out.println(po.getId()+" "+po.getDate()+" "+po.getSalesList().get(0).getName());
 			}
 		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	*/
+		try {
+			Sales b=new Sales();
+			ArrayList<ReceiptPO> pp=b.getAllSale();
+			for(ReceiptPO po:pp)
+				System.out.println(po.getId()+" "+po.getDate());
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

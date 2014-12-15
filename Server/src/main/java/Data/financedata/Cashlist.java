@@ -111,7 +111,7 @@ public class Cashlist extends UnicastRemoteObject implements CashlistDataService
 			ArrayList<ClauseItemPO> al=new ArrayList<ClauseItemPO>();
 			ClauseItemPO item =new ClauseItemPO("王雅婷拿去吃饭的",100,"He");
 			al.add(item);
-			a.createCashlist(new CashlistPO("XJFYD-20141129-000001","Lucy","王雅婷",al,100,1,1));	
+			a.createCashlist(new CashlistPO("XJFYD-20141129-000001","CW-00001","王雅婷",al,100,1,1));	
 			System.out.println("Success!");
 
     		ArrayList<CashlistPO> al2=a.getCashlist();
