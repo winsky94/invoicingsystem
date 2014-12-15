@@ -8,12 +8,17 @@ import java.util.ArrayList;
 import po.CollectionPO;
 import po.ReceiptPO;
 import po.TransferItemPO;
+import po.ReceiptPO.ReceiptType;
 import businesslogic.financebl.Account;
 import businesslogic.financebl.Collection;
+import businesslogic.receiptbl.Receipt;
+import businesslogic.receiptbl.ReceiptController;
 import businesslogic.receiptbl.ReceiptList;
+import businesslogic.receiptbl.ReceiptMessage;
 import businesslogic.receiptbl.Review;
 import vo.AccountVO;
 import vo.CollectionVO;
+import vo.ReceiptMessageVO;
 import vo.ReceiptVO;
 import vo.TransferItemVO;
 import junit.framework.TestCase;
@@ -100,14 +105,65 @@ public class Receipt_ATest extends TestCase{
 	
 	//TUS3-1 筛选类型
 	public void test_4(){
+		list.showAllReceipt();
+		String[] message=new String[]{"1"};
+		list.AccurateFind(message);
+		list.showApproved();
+		list.showToApprove();
+		
 		
 		
 	}
 	
 	
 	//TUS3-2  筛选日期
-	public void test_5(){
-			
+	public void test_5() throws Exception{
+		ReceiptMessage message=new ReceiptMessage();
+		message.addMessage(new ReceiptMessageVO(0,"我哦鸡孵鹅  "));
+		message.deleteessage(new ReceiptMessageVO(0,"我哦鸡孵鹅"));
+		message.getSaleApproved();
+		message.getToApprove();
+		message.getFinanceApproved();
+		
 	}
+	
+	//(String id,ReceiptType type,String user,int status,int hurry){
+	public void test_6() throws Exception {
+		Receipt t=new Receipt();
+		ReceiptVO vo=new ReceiptVO("SKD-20141211-00001",ReceiptType.CASHLIST,"JL-00001",
+				0,0);
+		t.Add(vo);
+		t.excute(vo);
+		t.getHurry();
+		t.getId();
+		t.getInfo();
+		t.getCreateDate();
+		t.getStatus();
+		t.getUserID();
+		t.getType();
+		t.View();
+		t.View(vo.getId());
+	}
+	
+	
+	public void test_7() throws Exception{
+		ReceiptController co=new ReceiptController();
+		String[] message=new String[]{"1"};
+		co.AccurateFind(message);
+		ReceiptVO vo=new ReceiptVO("SKD-20141211-00001",ReceiptType.CASHLIST,"JL-00001",
+				0,0);
+		co.Add(vo);
+		co.Approve(vo.getId(),1);
+		co.Excute(vo.getId(),ReceiptType.COLLECTION);
+		co.getSale();
+		co.Approved();
+		String id[]=new String[]{vo.getId()};
+		co.Batch(id, 2);
+		co.View();
+		co.View(vo.getId());
+		co.Refresh();
+		
+	}
+	
 
 }
