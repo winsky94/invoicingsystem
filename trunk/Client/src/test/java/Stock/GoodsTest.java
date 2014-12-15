@@ -15,7 +15,8 @@ import businesslogicservice.stockblservice.giftblservice.GiftBLService;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBLService;
 
-//注：此测试运行后无法还原文件因为删除是失败的，无法删除商品及其分类
+//注：此测试运行后无法还原文件
+//因为删除是失败的，无法删除商品及其分类
 //另外，导入的库存赠送文件、商品调价收入文件无法删除
 //需要手动删除
 
