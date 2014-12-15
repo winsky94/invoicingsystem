@@ -2,11 +2,13 @@ package businesslogic.financebl;
 
 import java.util.ArrayList;
 
+import vo.ClauseItemVO;
+
 public class MockCashList extends CashList {
 	private String id;
 	private String userid;
 	private Account account;
-	private ArrayList<cashListItem> list;
+	private ArrayList<ClauseItemVO> list;
 	private double total;
 
 	public MockCashList(String id, String uID, Account account)
@@ -15,15 +17,15 @@ public class MockCashList extends CashList {
 		this.userid = uID;
 		this.account = account;
 		this.total = 0;
-		this.list = new ArrayList<cashListItem>();
+		this.list = new ArrayList<ClauseItemVO>();
 	}
 
-	public void AddItem(cashListItem item) {
+	public void AddItem(ClauseItemVO item) {
 		this.list.add(item);
 		this.total += item.getMoney();
 	}
 
-	public void DeleteItem(cashListItem item) {
+	public void DeleteItem(ClauseItemVO item) {
 		this.list.remove(item);
 		this.total -= item.getMoney();
 	}

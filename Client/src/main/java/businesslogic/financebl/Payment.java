@@ -24,7 +24,7 @@ public class Payment extends Receipt implements PaymentBLService{
      String supplier;
      String seller;
      String user;
-     ArrayList<TransferItem> transferlist=new ArrayList<TransferItem>();
+     ArrayList<TransferItemVO> transferlist=new ArrayList<TransferItemVO>();
      PaymentDataService service;
      double totalMoney;
      public Payment()throws Exception{

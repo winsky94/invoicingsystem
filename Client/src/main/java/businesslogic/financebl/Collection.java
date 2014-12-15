@@ -25,7 +25,7 @@ public class Collection extends Receipt implements CollectionBLService{
      String supplier;
      String seller;
      String user;
-     ArrayList<TransferItem> transferlist=new ArrayList<TransferItem>();
+     ArrayList<TransferItemVO> transferlist=new ArrayList<TransferItemVO>();
      CollectionDataService service;
      double totalMoney;
      public Collection()throws Exception{
