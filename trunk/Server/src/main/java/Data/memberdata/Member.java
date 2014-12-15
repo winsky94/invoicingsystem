@@ -20,7 +20,7 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 
 	public Member() throws RemoteException {
 		super();
-		file=new JXCFile("src/main/java/member.ser");
+		file=new JXCFile("member.ser");
 	}
 
 	public int add(MemberPO po) {

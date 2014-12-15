@@ -18,7 +18,7 @@ public class Cashlist extends UnicastRemoteObject implements CashlistDataService
 	static int num=0;
 	public Cashlist() throws RemoteException{
 		super();
-		file=new JXCFile("src/main/java/cashlist.ser");
+		file=new JXCFile("cashlist.ser");
 	}
 	public int createCashlist(CashlistPO po) throws RemoteException {
 		file.write(po);

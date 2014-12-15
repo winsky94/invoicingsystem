@@ -19,7 +19,7 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 
 	public Account() throws RemoteException {
 		super();
-		file=new JXCFile("src/main/java/account.ser");
+		file=new JXCFile("account.ser");
 	}
 	
 

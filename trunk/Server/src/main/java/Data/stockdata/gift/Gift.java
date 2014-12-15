@@ -19,7 +19,7 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 	JXCFile file;
 
 	public Gift() throws RemoteException {
-		file = new JXCFile("src/main/java/gift.ser");
+		file = new JXCFile("gift.ser");
 	}
 
 	public int addGift(GiftPO po) throws RemoteException {

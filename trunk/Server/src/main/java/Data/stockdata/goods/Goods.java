@@ -16,7 +16,7 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 	JXCFile file;
 
 	public Goods() throws RemoteException {
-		file = new JXCFile("src/main/java/stock.ser");
+		file = new JXCFile("stock.ser");
 	}
 
 	public int addGoods(GoodsPO po) throws RemoteException {

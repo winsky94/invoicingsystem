@@ -30,16 +30,16 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		String[] buffer=id.split("-");
         String s=buffer[0];
         if(s.equals("JHD")){
-        	file=new JXCFile("src/main/java/purchase.ser");
+        	file=new JXCFile("purchase.ser");
         }
         else if(s.equals("JHTHD")){
-        	file=new JXCFile("src/main/java/purchasereturn.ser");
+        	file=new JXCFile("purchasereturn.ser");
         }
         else if(s.equals("XSD")){
-        	file=new JXCFile("src/main/java/sale.ser");
+        	file=new JXCFile("sale.ser");
         }
         else{
-        	file=new JXCFile("src/main/java/salereturn.ser");
+        	file=new JXCFile("salereturn.ser");
         }
 		ArrayList<Object> a=file.read();
 		if(a==null)
@@ -62,16 +62,16 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	
 	public int modify(ReceiptPO po){
 		if(po.getType()==ReceiptType.PURCHASE){
-        	file=new JXCFile("src/main/java/purchase.ser");
+        	file=new JXCFile("purchase.ser");
         }
         else if(po.getType()==ReceiptType.PURCHASERETURN){
-        	file=new JXCFile("src/main/java/purchasereturn.ser");
+        	file=new JXCFile("purchasereturn.ser");
         }
         else if(po.getType()==ReceiptType.SALE){
-        	file=new JXCFile("src/main/java/sale.ser");
+        	file=new JXCFile("sale.ser");
         }
         else{
-        	file=new JXCFile("src/main/java/salereturn.ser");
+        	file=new JXCFile("salereturn.ser");
         }
 		ArrayList<Object> a=file.read();
 		if(a==null)
@@ -93,13 +93,13 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	}
 	
 	public int createPurchase(PurchasePO po) throws RemoteException{
-		file=new JXCFile("src/main/java/purchase.ser");
+		file=new JXCFile("purchase.ser");
 		file.write(po);
 		return 0;
 	}
 	
 	public ArrayList<PurchasePO> showPurchase() throws RemoteException{
-		file=new JXCFile("src/main/java/purchase.ser");
+		file=new JXCFile("purchase.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -114,13 +114,13 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	}
 
 	public int createPurchaseReturn(PurchaseReturnPO po) throws RemoteException{
-		file=new JXCFile("src/main/java/purchasereturn.ser");
+		file=new JXCFile("purchasereturn.ser");
 		file.write(po);
 		return 0;
 	}
 	
 	public ArrayList<PurchaseReturnPO> showPurchaseReturn()throws RemoteException{
-		file=new JXCFile("src/main/java/purchasereturn.ser");
+		file=new JXCFile("purchasereturn.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -135,13 +135,13 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	}
 
 	public int createSale(SalePO po) throws RemoteException{
-		file=new JXCFile("src/main/java/sale.ser");
+		file=new JXCFile("sale.ser");
 		file.write(po);
 		return 0;
 	}
 	
 	public ArrayList<SalePO> showSale() throws RemoteException{
-		file=new JXCFile("src/main/java/sale.ser");
+		file=new JXCFile("sale.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -156,13 +156,13 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	}
 
 	public int createSaleReturn(SaleReturnPO po) throws RemoteException{
-		file=new JXCFile("src/main/java/salereturn.ser");
+		file=new JXCFile("salereturn.ser");
 		file.write(po);
 		return 0;
 	}
 	
 	public ArrayList<SaleReturnPO> showSaleReturn() throws RemoteException{
-		file=new JXCFile("src/main/java/salereturn.ser");
+		file=new JXCFile("salereturn.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -177,7 +177,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	}
 	
 	public int updatePurchase(PurchasePO po) throws RemoteException{
-		file=new JXCFile("src/main/java/purchase.ser");
+		file=new JXCFile("purchase.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	  //不存在该用户	
@@ -201,7 +201,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return 0;
 	}
 	public int updatePurchaseReturn(PurchaseReturnPO po) throws RemoteException {
-		file=new JXCFile("src/main/java/purchasereturn.ser");
+		file=new JXCFile("purchasereturn.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	  //不存在该用户	
@@ -224,7 +224,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return 0;
 	}
 	public int updateSale(SalePO po) throws RemoteException {
-		file=new JXCFile("src/main/java/sale.ser");
+		file=new JXCFile("sale.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	  //不存在该用户	
@@ -255,7 +255,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return 0;
 	}
 	public int updateSaleReturn(SaleReturnPO po) throws RemoteException {
-		file=new JXCFile("src/main/java/salereturn.ser");
+		file=new JXCFile("salereturn.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	  //不存在该用户	

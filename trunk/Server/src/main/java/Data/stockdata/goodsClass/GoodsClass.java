@@ -19,7 +19,7 @@ public class GoodsClass extends UnicastRemoteObject implements
 
 	public GoodsClass() throws RemoteException {
 		super();
-		file = new JXCFile("src/main/java/goodsClass.ser");
+		file = new JXCFile("goodsClass.ser");
 	}
 
 	public int addGoodsClass(GoodsClassPO po) throws RemoteException {

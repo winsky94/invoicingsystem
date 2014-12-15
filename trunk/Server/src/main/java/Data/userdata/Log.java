@@ -17,7 +17,7 @@ public class Log extends UnicastRemoteObject implements LogService{
 
 	public Log() throws RemoteException {
 		super();
-		file=new JXCFile("src/main/java/log.ser");
+		file=new JXCFile("log.ser");
 	}
 
 	public void AddLog(LogPO po) throws RemoteException {
