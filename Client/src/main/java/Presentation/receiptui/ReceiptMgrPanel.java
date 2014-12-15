@@ -354,6 +354,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			if (t == 0)
 				line.add(new Boolean(false));
 			tableContent.add(line);
+			ReceiptMgrPanel.this.repaint();
 
 		}
 
