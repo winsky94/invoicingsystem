@@ -37,32 +37,31 @@ public class Account_ATest extends TestCase{
 	
 	//TUS1-2 成功删除账户
 		public void test_2(){
-			
+		account.deleteAccount(accA);
 		}
 		
 	//TUS1-3 成功修改账户
 		public void test_3(){
-									
+		account.modifyAccount(accA, "张三");					
 		}
 				
 	//TUS1-4 成功查询账户
 		public void test_4(){
-					
+		account.findAccount(accA.getName())	;	
 		}
 		
 	//TUS2-1
 	    public void test_5(){
-					
+		account.delMoney("张三", 20);	
 		}
 	    
 	//TUS2-2
 	    public void test_6(){
-					
+		account.addMoney("张三", 20);	
 		}
 	    
 	//TUS2-3
-	    public void test_7(){
-					
+	    public void test_7(){		
 		}
 	    
 	//TUS3-1
