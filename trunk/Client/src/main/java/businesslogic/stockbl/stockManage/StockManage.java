@@ -327,43 +327,56 @@ public class StockManage {
 	}
 
 	// 获得库存报溢收入
-	public double getGoodsOverIncome() {
+	public double getGoodsOverIncome(String beginDate, String endDate) {
 		double goodsOverIncome = 0;
 		ArrayList<StockOverOrLowPO> list = service.getStockOverOrLowPO();
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getType().equals(ReceiptType.STOCKOVER)) {
 				String n = list.get(i).getGoodsName();
-				GoodsPO po = goodsService.findGoods(n).get(0);
-				goodsOverIncome += (po.getPrice() * (0 - list.get(i).getGap()));
+				String date = list.get(i).getDate().replace("/", "");
+				if (date.compareTo(beginDate) >= 0
+						&& date.compareTo(endDate) <= 0) {
+					GoodsPO po = goodsService.findGoods(n).get(0);
+					goodsOverIncome += (po.getPrice() * (0 - list.get(i)
+							.getGap()));
+				}
 			}
 		}
 		return goodsOverIncome;
 	}
 
 	// 获得库存报损支出
-	public double getGoodsLowCost() {
+	public double getGoodsLowCost(String beginDate, String endDate) {
 		double goodsLowCost = 0;
 		ArrayList<StockOverOrLowPO> list = service.getStockOverOrLowPO();
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getType().equals(ReceiptType.STOCKLOW)) {
 				String n = list.get(i).getGoodsName();
-				GoodsPO po = goodsService.findGoods(n).get(0);
-				goodsLowCost += (po.getPrice() * list.get(i).getGap());
+				String date = list.get(i).getDate().replace("/", "");
+				if (date.compareTo(beginDate) >= 0
+						&& date.compareTo(endDate) <= 0) {
+					GoodsPO po = goodsService.findGoods(n).get(0);
+					goodsLowCost += (po.getPrice() * list.get(i).getGap());
+				}
 			}
 		}
 		return goodsLowCost;
 	}
 
 	// 获得商品赠送支出
-	public double getGiftCost() {
+	public double getGiftCost(String beginDate, String endDate) {
 		double giftCost = 0;
 		try {
 			ArrayList<GiftPO> list = giftService.getGiftList();
 			for (int i = 0; i < list.size(); i++) {
-				ArrayList<CommodityPO> commodityList = list.get(i)
-						.getGiftList();
-				for (int j = 0; j < commodityList.size(); j++) {
-					giftCost += commodityList.get(j).getCost();
+				String date = list.get(i).getDate().replace("/", "");
+				if (date.compareTo(beginDate) >= 0
+						&& date.compareTo(endDate) <= 0) {
+					ArrayList<CommodityPO> commodityList = list.get(i)
+							.getGiftList();
+					for (int j = 0; j < commodityList.size(); j++) {
+						giftCost += commodityList.get(j).getCost();
+					}
 				}
 			}
 		} catch (RemoteException e) {

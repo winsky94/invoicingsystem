@@ -19,13 +19,13 @@ public class StockControlBLService_stub implements StockControlBLService {
 		return 0;
 	}
 
-	public double getGoodsOverIncome() {
+	public double getGoodsOverIncome(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		System.out.println("return goods over income succeed!");
 		return 0;
 	}
 
-	public double getGoodsLowCost() {
+	public double getGoodsLowCost(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		System.out.println("return goods low cost succeed!");
 		return 0;
@@ -56,7 +56,7 @@ public class StockControlBLService_stub implements StockControlBLService {
 		return 0;
 	}
 
-	public double getGiftCost() {
+	public double getGiftCost(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		return 0;
 	}

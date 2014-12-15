@@ -17,10 +17,10 @@ public interface StockControlBLService {
 	public ArrayList<StockOverOrLowVO> showStockLowReceipt();
 
 	// 商品报溢收入
-	public double getGoodsOverIncome();
+	public double getGoodsOverIncome(String beginDate, String endDate);
 
 	// 商品报损支出
-	public double getGoodsLowCost();
+	public double getGoodsLowCost(String beginDate, String endDate);
 
 	public ArrayList<ArrayList<String>> showStock(String beginDate,
 			String endDate);
@@ -33,7 +33,7 @@ public interface StockControlBLService {
 	public double getPrimeCostIncome(String beginDate, String endDate);
 
 	// 获得商品赠送支出
-	public double getGiftCost();
+	public double getGiftCost(String beginDate, String endDate);
 
 	// 检查商品库存报警
 	public boolean stockNumCheck(String goodsID);

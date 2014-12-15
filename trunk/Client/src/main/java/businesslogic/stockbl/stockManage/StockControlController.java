@@ -37,17 +37,17 @@ public class StockControlController implements StockControlBLService {
 	}
 
 	// 获得库存报溢收入
-	public double getGoodsOverIncome() {
+	public double getGoodsOverIncome(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		StockManage manage = new StockManage();
-		return manage.getGoodsOverIncome();
+		return manage.getGoodsOverIncome(beginDate,endDate);
 	}
 
 	// 获得库存报损支出
-	public double getGoodsLowCost() {
+	public double getGoodsLowCost(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		StockManage manage = new StockManage();
-		return manage.getGoodsLowCost();
+		return manage.getGoodsLowCost(beginDate,endDate);
 	}
 
 	// 库存查看
@@ -81,10 +81,10 @@ public class StockControlController implements StockControlBLService {
 	}
 
 	// 获得商品赠送支出
-	public double getGiftCost() {
+	public double getGiftCost(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		StockManage manage = new StockManage();
-		return manage.getGiftCost();
+		return manage.getGiftCost(beginDate,endDate);
 	}
 
 	// 显示库存报溢单
