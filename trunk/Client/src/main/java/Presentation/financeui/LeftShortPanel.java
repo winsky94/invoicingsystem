@@ -152,8 +152,11 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
   				mgr.setSelectedTab(0);
 		}
 		else if(arg0.getSource()==showReportBtn){
+			ReportMgrPanel report;
 			try {
-				frame.setRightComponent(new ReportMgrPanel(frame));
+				report = new ReportMgrPanel(frame);
+				frame.setRightComponent(report);
+				report.RefreshTable();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

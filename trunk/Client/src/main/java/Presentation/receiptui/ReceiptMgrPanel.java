@@ -405,7 +405,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 						GiftDetailPanel gift = new GiftDetailPanel(father, id);
 						gift.useToReceipt();
 						father.setRightComponent(new AdvancedReceiptPanel(gift,
-								father, id));
+								father, id));break;
 						/*
 						 * case PURCHASERETURN: PurchaseReturnDetailPanel
 						 * prpane=new
@@ -414,6 +414,9 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 						 * father.setRightComponent(new AdvancedReceiptPanel(
 						 * prpane, father, id));
 						 */
+					case STOCKOVER:
+						
+						
 
 					}
 
