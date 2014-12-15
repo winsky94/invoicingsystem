@@ -100,7 +100,11 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 					}
 					Refresh();
 
-				} else{
+				} else	
+					JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+				
+				
 					ArrayList<String> choose=BatchChoose();
 					if(choose!=null){
 						String batch[]=new String[choose.size()];
@@ -109,10 +113,8 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 						service.Batch(batch, 2);
 						Refresh();
 					}	
-					else	
-					JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
-							JOptionPane.WARNING_MESSAGE);
-					}
+					
+					
 			}
 
 		});
@@ -133,20 +135,19 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 					}
 					Refresh();
 				} 
-				else{
-					ArrayList<String> choose=BatchChoose();
+				else	
+					JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+				ArrayList<String> choose=BatchChoose();
 					if(choose!=null){
 						String batch[]=new String[choose.size()];
 						for(int i=0;i<choose.size();i++)
 							batch[i]=choose.get(i);
 						service.Batch(batch, 1);
-						Refresh();
-					}
+						Refresh();}
 					
-					else	
-					JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
-							JOptionPane.WARNING_MESSAGE);
-					}
+					
+					
 			}
 
 		});

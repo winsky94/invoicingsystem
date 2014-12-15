@@ -11,6 +11,7 @@ public interface PurchaseBLService {
 	public String getNewID(ReceiptType type);
 	
 	public PurchaseVO PFindByID(String id);
+	public PurchaseReturnVO PRFindByID(String id);
 	public int addPurchase(PurchaseVO vo);
 	public int addPurchaseReturn(PurchaseReturnVO vo);
 	

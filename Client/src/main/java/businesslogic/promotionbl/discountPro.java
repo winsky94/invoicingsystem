@@ -42,12 +42,16 @@ public  class discountPro extends promotion{
 			if(pro==null)return null;
 			else{
 				for(int i=0;i<pro.size();i++){
+					String start=pro.get(i).getStartDate();
+					String end=pro.get(i).getEndDate();
+					String date=vo.getId().split("-")[1];
+					if(start.compareTo(date)<=0&&end.compareTo(date)>=0){
 					ArrayList<CommodityVO> prolist=pro.get(i).getGoodsList();
 					for(int j=0;j<clist.size();j++){
 						if(searchInList(clist.get(j).getID(),prolist))
 							return pro.get(i);
 					}
-				}
+				}}
 				return null;
 			}
 		}

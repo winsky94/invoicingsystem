@@ -159,6 +159,16 @@ public class SalesController implements SalesBLService,PurchaseBLService,viewInf
 		// TODO Auto-generated method stub
 		return sale.find(id);
 	}
+	@Override
+	public PurchaseReturnVO PRFindByID(String id) {
+		// TODO Auto-generated method stub
+		return purchaseReturn.find(id);
+	}
+	@Override
+	public SaleReturnVO SRFindByID(String id) {
+		// TODO Auto-generated method stub
+		return saleReturn.find(id);
+	}
 	
 
 }

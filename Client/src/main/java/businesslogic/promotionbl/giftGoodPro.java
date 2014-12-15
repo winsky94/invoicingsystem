@@ -113,7 +113,7 @@ public class giftGoodPro extends promotion{
 				String start=pro.get(i).getStartDate();
 				String end=pro.get(i).getEndDate();
 				String date=vo.getId().split("-")[1];
-				if(start.compareTo(date)<0&&end.compareTo(date)>0){
+				if(start.compareTo(date)<=0&&end.compareTo(date)>=0){
 				if(total>=pro.get(i).getTotalValue())
 				{
 					double giftvalue=cal(pro.get(i).getGiftList());

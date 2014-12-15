@@ -52,7 +52,7 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JCheckBox hurryBox;
-	JLabel IDLbl, userLbl, totalLbl, title, JHSLbl,stockLbl;
+	JLabel IDLbl, userLbl, totalLbl, title, JHSLbl,stockLbl,remarkLbl;
 	JTextField stockFld, remarkFld;
 	JButton addGoodsBtn, delGoodsBtn;
 	public JButton exitBtn, submitBtn;
@@ -160,7 +160,7 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 		p2.add(stockFld);
 		p2.add(new JLabel("     "));
 		// -------备注-----------------
-		JLabel remarkLbl = new JLabel("备注：");
+		 remarkLbl = new JLabel("备注：");
 		remarkLbl.setFont(font);
 		p2.add(remarkLbl);
 		remarkFld = new JTextField(25);
