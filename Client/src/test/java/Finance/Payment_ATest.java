@@ -26,7 +26,7 @@ public class Payment_ATest  extends TestCase{
 	    	p=new Payment();
 	    }
 	    
-	  //TUS1-1  成功添加收款单
+	  //TUS1-1  成功添加付款单
 	  	public void test_1(){
 	  		boolean testResult=false;
 	  		int result=p.createPayment(pa1);
