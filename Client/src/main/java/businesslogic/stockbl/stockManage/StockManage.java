@@ -298,10 +298,14 @@ public class StockManage {
 	// 检查库存是否充足满足销售需求
 	public boolean isEnough(String id, int num) {
 		ArrayList<GoodsPO> list = goodsService.findGoods(id);
-		if (list.get(0).getVirtualNumInStock() < num) {
-			return false;
+		if (list.size() != 0) {
+			if (list.get(0).getVirtualNumInStock() < num) {
+				return false;
+			} else {
+				return true;
+			}
 		} else {
-			return true;
+			return false;
 		}
 	}
 
@@ -388,7 +392,8 @@ public class StockManage {
 		return result;
 	}
 
-	public static  ArrayList<StockOverOrLowVO> POToVO(ArrayList<StockOverOrLowPO> list) {
+	public static ArrayList<StockOverOrLowVO> POToVO(
+			ArrayList<StockOverOrLowPO> list) {
 		ArrayList<StockOverOrLowVO> result = new ArrayList<StockOverOrLowVO>();
 		for (StockOverOrLowPO po : list) {
 			StockOverOrLowVO vo = new StockOverOrLowVO(po.getId(),
