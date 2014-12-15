@@ -107,8 +107,8 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 		midPnl.add(p2);
 		midPnl.add(p3);
 		// --------ID----------------
-
-		IDLbl = new JLabel("ID："+service.getNewID(ReceiptType.SALERETURN));
+		id=service.getNewID(ReceiptType.SALERETURN);
+		IDLbl = new JLabel("ID："+id);
 		IDLbl.setFont(font);
 		p1.add(IDLbl);
 		p1.add(new JLabel("      "));

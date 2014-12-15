@@ -393,8 +393,10 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				clerk=clerkCbox.getSelectedItem().toString();
 			if(stockBox.isSelected())
 				stock=stockFld.getText();
-			ArrayList<ReceiptVO> vo=reservice.AccurateFind(new String[]{null,ReceiptType.COLLECTION.toString() ,member,clerk,stock});	
+			ArrayList<ReceiptVO> vo=new ArrayList<ReceiptVO>();
+			vo=reservice.AccurateFind(new String[]{null,ReceiptType.COLLECTION.toString() ,member,clerk,stock});	
 			try {
+				
 				ohtm.RefreshTable(vo);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
