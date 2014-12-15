@@ -327,6 +327,13 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 			else {
 				ClauseItemVO item;
 			try{
+				double mmm=Double.parseDouble(moneyFld.getText());
+				if(mmm<0){
+					JOptionPane.showMessageDialog(null, "请输入正确的金额！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+					moneyFld.setText("");
+				}
+				else{
 				item= new ClauseItemVO(nameFld.getText(), Double.parseDouble(moneyFld.getText()),remarkFld.getText());
 				tra.add(item);
 				ArrayList<String> buffer = new ArrayList<String>();
@@ -340,6 +347,7 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 				nameFld.setText("");
 				moneyFld.setText("");
 				remarkFld.setText("");
+				}
 			}catch(NumberFormatException e11){
 				JOptionPane.showMessageDialog(null, "转账金额输入有误", "提示",JOptionPane.WARNING_MESSAGE);
 				moneyFld.setText("");
