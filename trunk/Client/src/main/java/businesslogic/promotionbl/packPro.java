@@ -85,6 +85,10 @@ public class packPro extends promotion{
 			if(pro==null)return null;
 			else{
 				for(int i=0;i<pro.size();i++){
+					String start=pro.get(i).getStartDate();
+					String end=pro.get(i).getEndDate();
+					String date=vo.getId().split("-")[1];
+					if(start.compareTo(date)<0&&end.compareTo(date)>0){
 					ArrayList<CommodityVO> prolist=pro.get(i).getPack().getCombine();
 						if(searchInList(clist,prolist))
 						{	double packdis=pro.get(i).getTotalValue()-pro.get(i).getPackValue();
@@ -93,7 +97,7 @@ public class packPro extends promotion{
 								maxvalue=packdis;result=pro.get(i);
 							}
 						}
-						
+					}	
 					
 				}
 				return result;
