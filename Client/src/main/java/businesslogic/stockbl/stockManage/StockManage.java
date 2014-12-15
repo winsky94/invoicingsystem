@@ -78,15 +78,15 @@ public class StockManage {
 	// 显示库存报损单
 	public ArrayList<StockOverOrLowVO> showStockLowReceipt() {
 		ArrayList<StockOverOrLowPO> list = new ArrayList<StockOverOrLowPO>();
-		ArrayList<StockOverOrLowPO> lowLsit = new ArrayList<StockOverOrLowPO>();
+		ArrayList<StockOverOrLowPO> lowList = new ArrayList<StockOverOrLowPO>();
 		ArrayList<StockOverOrLowVO> result = new ArrayList<StockOverOrLowVO>();
 		list = service.getStockOverOrLowPO();
 		for (StockOverOrLowPO po : list) {
 			if (po.getType().equals(ReceiptType.STOCKLOW)) {
-				lowLsit.add(po);
+				lowList.add(po);
 			}
 		}
-		result = POToVO(lowLsit);
+		result = POToVO(lowList);
 		return result;
 	}
 
