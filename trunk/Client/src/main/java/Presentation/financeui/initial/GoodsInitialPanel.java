@@ -37,6 +37,7 @@ public class GoodsInitialPanel extends JPanel{
 	AddInitialPanel subparent; 
 	MainFrame parent;
 	ArrayList<ArrayList<String>> goodsC = new ArrayList<ArrayList<String>>();
+	ArrayList<GoodsVO> goods=new ArrayList<GoodsVO>();
 
 	public GoodsInitialPanel(MainFrame frame) {
 		parent=frame;
@@ -146,6 +147,7 @@ public class GoodsInitialPanel extends JPanel{
 
 		public void removeRow(int row) {
 			goodsC.remove(row);
+			goods.remove(row);
 		}
 
 	}
@@ -177,8 +179,10 @@ public class GoodsInitialPanel extends JPanel{
 						isChongfu=true;
 					}
 				}
-				if(isChongfu==false)
+				if(isChongfu==false){
 				  goodsC.add(line);	
+				  goods.add(vo);
+				}
 				else
 				  JOptionPane.showMessageDialog(null,"您已选择过该商品!","提示",JOptionPane.WARNING_MESSAGE);
 			}
@@ -193,7 +197,14 @@ public class GoodsInitialPanel extends JPanel{
 		line.add(vo.getSize());
 		line.add(0+"");
 		line.add(0+"");
-		goodsC.add(line);			
+		goodsC.add(line);
+		goods.add(vo);
+	}
+	
+	public ArrayList<GoodsVO> getGoods(){
+		if(goods.size()==0)
+			return null;
+		return goods;
 	}
 	
 	public void setParent(AddInitialPanel pane){

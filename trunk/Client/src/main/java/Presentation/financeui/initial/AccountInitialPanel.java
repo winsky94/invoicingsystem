@@ -43,6 +43,7 @@ public class AccountInitialPanel extends JPanel {
 	MainFrame parent;
 	AddInitialPanel subparent;
 	ArrayList<Integer> haveSelected=new ArrayList<Integer>();
+	ArrayList<AccountVO> account=new ArrayList<AccountVO>();
 
 	public AccountInitialPanel(MainFrame frame) {
 		parent = frame;
@@ -217,6 +218,7 @@ public class AccountInitialPanel extends JPanel {
 
 		public void removeRow(int row) {
 			accountC.remove(row);
+			account.remove(row);
 		}
 
 	}
@@ -226,7 +228,13 @@ public class AccountInitialPanel extends JPanel {
 		line.add(vo.getName());
 		line.add(String.valueOf(vo.getMoney()));
 		accountC.add(line);	
+	    account.add(vo);
+	}
 	
+	public ArrayList<AccountVO> getAccount(){
+		if(account.size()==0)
+			return null;
+		return account;
 	}
 	
 	public void setParent(AddInitialPanel pane){
