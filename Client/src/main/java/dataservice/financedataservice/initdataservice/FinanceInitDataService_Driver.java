@@ -4,8 +4,8 @@ import po.BeginInfoPO;
 
 public class FinanceInitDataService_Driver {
 	public void drive(FinanceInitDataService fds){
-	  	  fds.initInfo(new BeginInfoPO());
-	  	  fds.getInfo(new BeginInfoPO());
+	  	  fds.initInfo(null, new BeginInfoPO());
+	  	  fds.getInfo(null);
 	    }
 		
 	    public static void main(String[] args){

@@ -13,4 +13,16 @@ public class FinanceInitDataService_stub implements FinanceInitDataService{
 		System.out.println("Show beginInformation success!");
 		return new BeginInfoPO();
 	}
+
+	@Override
+	public int initInfo(String time, BeginInfoPO po) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public BeginInfoPO getInfo(String time) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
