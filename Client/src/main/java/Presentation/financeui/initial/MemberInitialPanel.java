@@ -38,6 +38,7 @@ public class MemberInitialPanel extends JPanel{
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	MemberModel mm;
 	ArrayList<ArrayList<String>> memberC = new ArrayList<ArrayList<String>>();
+	ArrayList<MemberVO> member=new ArrayList<MemberVO>();
 	JTable memberTable;
 	JScrollPane jsp;
 	JButton addBtn,delBtn;
@@ -236,6 +237,7 @@ public class MemberInitialPanel extends JPanel{
 
 		public void removeRow(int row) {
 			memberC.remove(row);
+			member.remove(row);
 		}
 		
 	}
@@ -250,8 +252,14 @@ public class MemberInitialPanel extends JPanel{
 		line.add(vo.getToReceive()+"");
 		line.add(vo.getToPay()+"");
 		memberC.add(line);
-		
+		member.add(vo);
 	
+	}
+	
+	public ArrayList<MemberVO> getMember(){
+		if(member.size()==0)
+			return null;
+		return member;		
 	}
 	
 	public String getNewID(MemberType type){

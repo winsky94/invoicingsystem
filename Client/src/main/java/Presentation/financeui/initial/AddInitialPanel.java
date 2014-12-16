@@ -1,6 +1,9 @@
 package Presentation.financeui.initial;
 
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,9 +15,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import businesslogic.financebl.Init;
+import vo.AccountVO;
+import vo.BeginInfoVO;
+import vo.GoodsVO;
+import vo.MemberVO;
 import Presentation.financeui.InitialPanel;
 import Presentation.mainui.MainFrame;
 
@@ -26,7 +35,7 @@ public class AddInitialPanel extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JTabbedPane tab;
-	GoodsInitialPanel goodsInitalPanel;
+	GoodsInitialPanel goodsInitialPanel;
 	AccountInitialPanel accountInitialPanel;
 	MemberInitialPanel memberInitialPanel;
 	JButton submitBtn, exitBtn;
@@ -68,9 +77,9 @@ public class AddInitialPanel extends JPanel implements ActionListener{
 		gbl.setConstraints(tab, c);
 		this.add(tab);
 		//----------------------------
-		goodsInitalPanel=new GoodsInitialPanel(parent);
-		tab.add("商品信息初始化",goodsInitalPanel);
-		goodsInitalPanel.setParent(this);
+		goodsInitialPanel=new GoodsInitialPanel(parent);
+		tab.add("商品信息初始化",goodsInitialPanel);
+		goodsInitialPanel.setParent(this);
 		//----------------------------
 		memberInitialPanel=new MemberInitialPanel(parent);
 		tab.add("客户信息初始化",memberInitialPanel);
@@ -94,11 +103,13 @@ public class AddInitialPanel extends JPanel implements ActionListener{
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
+		submitBtn.addActionListener(this);
 		btnPnl.add(submitBtn);
 		exitBtn = new JButton("取消");
 		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(251, 147, 121));
+		exitBtn.addActionListener(this);
 		btnPnl.add(exitBtn);
 	}
 	public static void main(String[] args) {
@@ -113,7 +124,29 @@ public class AddInitialPanel extends JPanel implements ActionListener{
 	}
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==submitBtn){
-			
+			 Date dt=new Date();
+		     SimpleDateFormat matter=new SimpleDateFormat("yyyy-MM-dd");
+		     System.out.println(matter.format(dt));
+		     String time=matter.format(dt);
+		     ArrayList<GoodsVO> goods=goodsInitialPanel.getGoods();
+		     ArrayList<MemberVO> member=memberInitialPanel.getMember();
+		     ArrayList<AccountVO> account=accountInitialPanel.getAccount();
+		     BeginInfoVO begin=new BeginInfoVO(time,goods,member,account);
+		     try {
+				Init init=new Init();
+				int result=init.initInfo(time, begin);
+				if(result==0){
+					JOptionPane.showMessageDialog(null,"添加成功!","提示",JOptionPane.WARNING_MESSAGE);
+					parent.setRightComponent(new InitialPanel(parent));
+				}
+				else{
+					JOptionPane.showMessageDialog(null,"这句话不可能出现→_→:我想抽到小马甲的台历！！！","提示",JOptionPane.WARNING_MESSAGE);
+				}
+				
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		else if(e.getSource()==exitBtn){
 			parent.setRightComponent(new InitialPanel(parent));
