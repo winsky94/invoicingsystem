@@ -8,7 +8,7 @@ import po.ReceiptPO.ReceiptType;
 
 public class PurchaseVO extends ReceiptVO {
 	private ArrayList<CommodityVO> purchaseList;
-	private double totalInAll;
+	private double totalInAll,adjustCost=0;;
 	private String stockid;
 	public PurchaseVO( String id,
 			String memberName,String memberID, String stockid, String user,ArrayList<CommodityVO> purchaseList,
@@ -17,6 +17,13 @@ public class PurchaseVO extends ReceiptVO {
 		this.purchaseList = purchaseList;
 		this.totalInAll=totalInAll;
 		this.stockid=stockid;
+	}
+	
+	public void setAdjustCost(double cost){
+		this.adjustCost=cost;
+	}
+	public double getAdjustCost(){
+		return this.adjustCost;
 	}
 
 	public ArrayList<CommodityVO> getPurchaseList() {
