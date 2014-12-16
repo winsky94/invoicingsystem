@@ -2,6 +2,7 @@ package businesslogicservice.stockblservice.controlblservice;
 
 import java.util.ArrayList;
 
+import vo.CommodityVO;
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
 
@@ -30,7 +31,7 @@ public interface StockControlBLService {
 	public boolean isEnough(String ID, int num);
 
 	// 商品调价收入
-	public double getPrimeCostIncome(String beginDate, String endDate);
+	public double getPrimeCostIncome(ArrayList<CommodityVO> commodityList);
 
 	// 获得商品赠送支出
 	public double getGiftCost(String beginDate, String endDate);

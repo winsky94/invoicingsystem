@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import po.ReceiptPO.ReceiptType;
+import vo.CommodityVO;
 import vo.GoodsVO;
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
@@ -74,10 +75,10 @@ public class StockControlController implements StockControlBLService {
 	}
 
 	// 商品调价收入(未测试==)
-	public double getPrimeCostIncome(String beginDate, String endDate) {
+	public double getPrimeCostIncome(ArrayList<CommodityVO> commodityList) {
 		// TODO 自动生成的方法存根
 		StockManage manage = new StockManage();
-		return manage.getPrimeCostIncome(beginDate, endDate);
+		return manage.getPrimeCostIncome(commodityList);
 	}
 
 	// 获得商品赠送支出
