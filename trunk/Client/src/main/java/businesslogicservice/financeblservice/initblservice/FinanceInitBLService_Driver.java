@@ -4,7 +4,7 @@ import vo.BeginInfoVO;
 
 public class FinanceInitBLService_Driver {
 	public void drive(FinanceInitBLService fbs){
-		 fbs.initInfo(new BeginInfoVO());
+		 fbs.initInfo(null, new BeginInfoVO());
          fbs.getInfo(null);
 	    }
 		
