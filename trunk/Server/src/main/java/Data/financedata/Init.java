@@ -75,4 +75,7 @@ public class Init extends UnicastRemoteObject implements FinanceInitDataService{
 		JXCFile file=new JXCFile("begininfo.ser");
 		file.write(po);
 	}
+	public String getCurrentTime() throws RemoteException {		
+		return JXCFile.getTime();
+	}
 }
