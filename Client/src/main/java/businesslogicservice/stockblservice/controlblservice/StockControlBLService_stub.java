@@ -2,6 +2,7 @@ package businesslogicservice.stockblservice.controlblservice;
 
 import java.util.ArrayList;
 
+import vo.CommodityVO;
 import vo.StockErrorVO;
 import vo.StockOverOrLowVO;
 
@@ -75,5 +76,11 @@ public class StockControlBLService_stub implements StockControlBLService {
 	public boolean stockNumCheck(String goodsID) {
 		// TODO 自动生成的方法存根
 		return false;
+	}
+
+	@Override
+	public double getPrimeCostIncome(ArrayList<CommodityVO> commodityList) {
+		// TODO 自动生成的方法存根
+		return 0;
 	}
 }

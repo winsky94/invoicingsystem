@@ -19,6 +19,7 @@ import po.ReceiptPO.ReceiptType;
 import po.SalePO;
 import po.SaleReturnPO;
 import po.StockOverOrLowPO;
+import vo.CommodityVO;
 import vo.StockOverOrLowVO;
 import businesslogic.stockbl.goods.Goods;
 import dataservice.salesdataservice.SalesDataService;
@@ -309,18 +310,25 @@ public class StockManage {
 		}
 	}
 
-	// 获得库存调价收入(未测试==)
-	public double getPrimeCostIncome(String beginDate, String endDate) {
-		ArrayList<String> list = new ArrayList<String>();
-		list = service.getPrimeCostIncome();
+	// 获得每个进货单的库存调价收入(未测试==)
+	public double getPrimeCostIncome(ArrayList<CommodityVO> commodityList) {
 		double result = 0;
-
-		for (String s : list) {
-			String record[] = s.split(";");
-			String date = record[0];
-			String money = record[1];
-			if (date.compareTo(beginDate) >= 0 && date.compareTo(endDate) <= 0) {
-				result += Double.parseDouble(money);
+		
+		if(commodityList!=null){
+			if(commodityList.size()!=0){
+				for(CommodityVO vo:commodityList){
+					String goodID=vo.getID();
+					try {
+						GoodsPO good=goodsService.findByID(goodID);
+						//调价收入先暂时跟默认进价比了==
+						double purchasePrice=good.getPurchasePrice();
+						double exactPurchasePrice=vo.getPrice();
+						result+=(purchasePrice-exactPurchasePrice)*vo.getNum();
+					} catch (RemoteException e) {
+						// TODO 自动生成的 catch 块
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 		return result;

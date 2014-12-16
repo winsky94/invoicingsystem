@@ -15,7 +15,9 @@ import vo.ReceiptVO;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.stockbl.goods.GoodsController;
+import businesslogic.stockbl.stockManage.StockControlController;
 import businesslogic.utilitybl.getDate;
+import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import dataservice.salesdataservice.SalesDataService;
 
@@ -62,6 +64,15 @@ public class Purchase extends Receipt {
 			}
 
 		}
+		
+		//设置本单据的库存调价收入
+		StockControlBLService stockControlController=new StockControlController();
+		double adjustIncome=stockControlController.getPrimeCostIncome(vo.getPurchaseList());
+		vo.setAdjustCost(adjustIncome);
+		
+		//怎么写回去？用这个方法吗--宽宽
+		//ModifyPurchase(vo);
+		
 		Reply(vo.getId(), vo.getType(), 0);
 		return 0;
 	}
