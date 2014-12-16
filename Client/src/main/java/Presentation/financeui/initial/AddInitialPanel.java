@@ -134,13 +134,20 @@ public class AddInitialPanel extends JPanel implements ActionListener{
 		     BeginInfoVO begin=new BeginInfoVO(time,goods,member,account);
 		     try {
 				Init init=new Init();
+				if(init.getCurrentTime().equals(time)){
+					JOptionPane.showMessageDialog(null,"您今天已新建了套帐，一天之内不能重复新建套帐！","提示",JOptionPane.WARNING_MESSAGE);
+					parent.setRightComponent(new InitialPanel(parent));
+				}
+				else{
 				int result=init.initInfo(time, begin);
 				if(result==0){
 					JOptionPane.showMessageDialog(null,"添加成功!","提示",JOptionPane.WARNING_MESSAGE);
 					parent.setRightComponent(new InitialPanel(parent));
 				}
+				
 				else{
 					JOptionPane.showMessageDialog(null,"这句话不可能出现→_→:我想抽到小马甲的台历！！！","提示",JOptionPane.WARNING_MESSAGE);
+				}
 				}
 				
 			} catch (Exception e1) {

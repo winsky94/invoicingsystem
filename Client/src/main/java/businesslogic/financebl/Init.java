@@ -95,4 +95,9 @@ public class Init implements FinanceInitBLService{
 		return po;
 	}
 
+	@Override
+	public String getCurrentTime() {
+		return service.getCurrentTime();
+	}
+
 }

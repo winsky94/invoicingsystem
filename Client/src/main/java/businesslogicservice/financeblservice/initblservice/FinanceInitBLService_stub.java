@@ -14,4 +14,18 @@ public class FinanceInitBLService_stub implements FinanceInitBLService{
 		System.out.println("Show beginInformation success!");
 		return new BeginInfoVO();
 	}
+
+
+	@Override
+	public int initInfo(String time, BeginInfoVO po) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public String getCurrentTime() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
