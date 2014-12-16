@@ -35,7 +35,7 @@ public class JXCFile {
 	
         try{
 			
-			File file=new File("src/main/java/init.txt");
+			File file=new File("src/main/java/currentstock.txt");
 	        if(!file.exists()){
 	        	
 	        	file.createNewFile();
@@ -57,7 +57,7 @@ public class JXCFile {
 	public static void setTime(String s){
 		
         try{		
-			File file=new File("src/main/java/init.txt");
+			File file=new File("src/main/java/currentstock.txt");
 	        if(!file.exists()){   	
 	        	try {
 					file.createNewFile();
