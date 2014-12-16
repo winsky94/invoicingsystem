@@ -44,7 +44,7 @@ public class SaleList implements SaleListBLService{
 	}
 	
 	//成本调价收入
-	public double adjustCost(String startDate,String endDate){
+	public double getAdjustCost(String startDate,String endDate){
 		double adcost=0;
 		ArrayList<PurchasePO> p=service.findPurchase(startDate+endDate, "时间区间");
 		ArrayList<PurchaseReturnPO> pr=service.findPurchaseReturn(startDate+endDate, "时间区间");
