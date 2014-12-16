@@ -25,7 +25,7 @@ public class User extends UnicastRemoteObject implements UserDataService{
 
 	public User() throws RemoteException {
 		super();
-		file=new JXCFile("user.ser");
+		file=new JXCFile("src/main/java/user.ser");
 	}
 	
 	public int add(UserPO po) throws RemoteException {

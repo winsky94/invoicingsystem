@@ -21,7 +21,12 @@ public class JXCFile {
 
 	public JXCFile(String s) {
 		time=getTime();
-		name = "src/main/java/"+time+"/"+s;
+		if(s.equals("src/main/java/user.ser")){
+			name=s;
+		}
+		else{
+		    name = "src/main/java/"+time+"/"+s;
+		}
 	}
 
 	
