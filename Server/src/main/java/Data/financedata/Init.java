@@ -62,10 +62,17 @@ public class Init extends UnicastRemoteObject implements FinanceInitDataService{
 			}
 		}
 		
+		add(po);
+		
 		return 0;
 	}
 	public BeginInfoPO getInfo(String time) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public void add(BeginInfoPO po){
+		JXCFile file=new JXCFile("begininfo.ser");
+		file.write(po);
 	}
 }

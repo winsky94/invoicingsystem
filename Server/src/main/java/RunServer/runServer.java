@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import Data.financedata.Account;
 import Data.financedata.Cashlist;
 import Data.financedata.Collection;
+import Data.financedata.Init;
 import Data.financedata.Payment;
 import Data.memberdata.Member;
 import Data.promotiondata.Promotion;
@@ -50,6 +51,7 @@ public class runServer {
 			Payment payment=new Payment();
 			Receipt receipt=new Receipt();
 			Cashlist cashlist=new Cashlist();
+			Init init=new Init();
 			Log log=new Log();
 			Naming.rebind("promotionService",pro);
 			Naming.rebind("salesService",sale);
@@ -64,6 +66,7 @@ public class runServer {
 			Naming.rebind("paymentService",payment);
 			Naming.rebind("receiptService", receipt);
 			Naming.rebind("cashlistService", cashlist);
+			Naming.rebind("initService", init);
 			Naming.rebind("logService", log);
 			
 			JOptionPane.showMessageDialog(null, "服务器已运行！","提示",JOptionPane.INFORMATION_MESSAGE);
