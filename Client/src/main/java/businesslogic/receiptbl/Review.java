@@ -143,6 +143,8 @@ public class Review {
 		return result;
 	}
 	
+	
+	
 	//红冲 i=0,仅红冲，i=1并复制
 	public ReceiptVO RedExtru(Receipt receipt,int i){
 		MockCashList cash=(MockCashList)receipt;
