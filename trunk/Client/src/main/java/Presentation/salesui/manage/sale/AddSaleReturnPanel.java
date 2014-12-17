@@ -54,7 +54,7 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 			totalProDiscountLbl, totalFinDiscountLbl, totalToPayLbl;
 	SaleVO vo;
 	SalesBLService service;
-	String id;
+	String pid;
 	ArrayList<ArrayList<String>> cmContent;
 	ArrayList<Double> last_bid = new ArrayList<Double>();
 	double totalMoney;
@@ -107,7 +107,7 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 		midPnl.add(p2);
 		midPnl.add(p3);
 		// --------ID----------------
-		id=service.getNewID(ReceiptType.SALERETURN);
+		pid=service.getNewID(ReceiptType.SALERETURN);
 		IDLbl = new JLabel("ID："+id);
 		IDLbl.setFont(font);
 		p1.add(IDLbl);
@@ -265,7 +265,7 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 		int hurry=1;
 		if(hurryBox.isSelected())
 			hurry=0;
-		SaleReturnVO v=new SaleReturnVO(id,father.getUser().getID(),vo,0,
+		SaleReturnVO v=new SaleReturnVO(pid,father.getUser().getID(),vo,0,
 				remarkFld.getText(),hurry);
 		int result=service.addSaleReturn(v);
 		if (result == 0) {
