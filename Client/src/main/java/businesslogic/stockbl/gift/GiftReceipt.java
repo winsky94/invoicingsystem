@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 
 import po.CommodityPO;
 import po.GiftPO;
+import po.ReceiptPO;
 import po.ReceiptPO.ReceiptType;
 import vo.CommodityVO;
 import vo.GiftVO;
@@ -82,7 +83,7 @@ public class GiftReceipt extends Receipt {
 		// 生成编号
 		String id = getNewID();
 
-		GiftPO po = new GiftPO(id, super.getMemberID(),super.getmemberName(), 
+		GiftPO po = new GiftPO(id, super.getMemberID(), super.getmemberName(),
 				super.getUserID(), super.getInfo(), 0, super.getHurry(), list);
 		try {
 			result = service.addGift(po);
@@ -152,13 +153,13 @@ public class GiftReceipt extends Receipt {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
 			}
-			if(result==0)
-				Reply(v.getId(),v.getType(),0);
+			if (result == 0)
+				Reply(v.getId(), v.getType(), 0);
 			else
-				Reply(v.getId(),v.getType(),1);
+				Reply(v.getId(), v.getType(), 1);
 			return result;
 		} else {
-			Reply(v.getId(),v.getType(),1);
+			Reply(v.getId(), v.getType(), 1);
 			GiftPO po = new GiftPO(receipt.getId(), receipt.getMemberID(),
 					receipt.getmemberName(), receipt.getUserID(),
 					receipt.getInfo(), giftVO.getStatus(), receipt.getHurry(),
@@ -171,9 +172,31 @@ public class GiftReceipt extends Receipt {
 				e.printStackTrace();
 			}
 			return 7;
-			
+
 		}
 
+	}
+
+	// 红冲
+	public ReceiptPO getRedReceipt(ReceiptPO po) {
+		GiftPO newPO = null;
+		GiftPO giftPO = (GiftPO) po;
+
+		ArrayList<CommodityPO> giftList = giftPO.getGiftList();
+		ArrayList<CommodityPO> newList = new ArrayList<CommodityPO>();
+		for (CommodityPO cPo : giftList) {
+			CommodityPO newCpo = new CommodityPO(cPo.getID(), cPo.getName(),
+					cPo.getType(), cPo.getPrice(), cPo.getLast_bid(),
+					-cPo.getNum(), -cPo.getTotal(), -cPo.getCost(),
+					cPo.getTip());// 这儿是这么干麽，把total和cost搞成负的
+			newList.add(newCpo);
+		}
+		giftList.get(0).getCost();
+		newPO = new GiftPO(giftPO.getId(), giftPO.getMemberID(),
+				giftPO.getMemberName(), giftPO.getUserID(), giftPO.getInfo(),
+				giftPO.getStatus(), giftPO.getHurry(), newList);
+
+		return newPO;
 	}
 
 	// 修改（===）

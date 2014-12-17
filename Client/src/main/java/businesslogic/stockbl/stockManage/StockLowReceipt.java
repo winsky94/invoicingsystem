@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import po.ReceiptPO.ReceiptType;
+import po.ReceiptPO;
 import po.StockOverOrLowPO;
 import vo.GoodsVO;
 import vo.ReceiptVO;
@@ -114,6 +115,18 @@ public class StockLowReceipt extends Receipt {
 		} else {
 			return 10;
 		}
+	}
+
+	// 红冲
+	public ReceiptPO getRedReceipt(ReceiptPO po) {
+		StockOverOrLowPO sopo = (StockOverOrLowPO) po;
+		int newExactNum = sopo.getNum() + sopo.getGap();
+		StockOverOrLowPO newPO = new StockOverOrLowPO(sopo.getId(),
+				sopo.getMemberName(), sopo.getMemberID(), sopo.getUserID(),
+				sopo.getType(), sopo.getStatus(), sopo.getHurry(),
+				sopo.getInfo(), sopo.getGoodsName(), sopo.getSize(),
+				sopo.getNum(), newExactNum);
+		return newPO;
 	}
 
 	public String getGoodName() {
