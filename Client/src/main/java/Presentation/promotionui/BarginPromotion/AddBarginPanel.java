@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -140,6 +142,25 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 		nowPnl.add(priceLbl);
 		priceFld = new JTextField(8);
 		priceFld.setFont(font);
+		priceFld.addFocusListener(new FocusAdapter(){
+			public void focusLost(FocusEvent e){
+				try{
+					double price=Double.parseDouble(priceFld.getText());
+					if(price>=totalMoney)
+					{	JOptionPane.showMessageDialog(null, "特价必须小于原价！", "提示",
+								JOptionPane.WARNING_MESSAGE);
+						priceFld.setText("");}
+					else if(price<0)
+					{	JOptionPane.showMessageDialog(null, "请输入合法数值！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+						priceFld.setText("");}		
+				}catch(Exception err){
+					JOptionPane.showMessageDialog(null, "请输入数值！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+					priceFld.setText("");
+				}
+			}
+		});
 		nowPnl.add(priceFld);
 		moneyPnl.add(nowPnl);
 		moneyPnl.add(new JLabel());
@@ -370,41 +391,49 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 	class submitListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			ArrayList<CommodityVO> cmlist = new ArrayList<CommodityVO>();
-			for (int j = 0; j < table.getRowCount(); j++) {
-				ArrayList<String> line = cmContent.get(j);
-				double cost = Double.parseDouble(line.get(3)) * last_bid.get(j);
-				CommodityVO cv = new CommodityVO(line.get(0), line.get(1),
+			if(from.getDate().compareTo(to.getDate())>0)
+				JOptionPane.showMessageDialog(null, "促销时间段输入不合法！", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			else if(priceFld.getText().equals(""))
+				JOptionPane.showMessageDialog(null, "请输入特价包特价！", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			else{
+				ArrayList<CommodityVO> cmlist = new ArrayList<CommodityVO>();
+				for (int j = 0; j < table.getRowCount(); j++) {
+					ArrayList<String> line = cmContent.get(j);
+					double cost = Double.parseDouble(line.get(3)) * last_bid.get(j);
+					CommodityVO cv = new CommodityVO(line.get(0), line.get(1),
 						line.get(2), Double.parseDouble(line.get(4)),
 						last_bid.get(j), Integer.parseInt(line.get(3)),
 						Double.parseDouble(line.get(5)), cost, "");
-				cmlist.add(cv);
-			}
-			String startDate = from.getDate();
-			String endDate = to.getDate();
-			MemberLevel level = MemberLevel.valueOf((String) memberGradeBox
+					cmlist.add(cv);
+				}
+				String startDate = from.getDate();
+				String endDate = to.getDate();
+				MemberLevel level = MemberLevel.valueOf((String) memberGradeBox
 					.getSelectedItem());
-			String id = service.getNewID(PromotionType.PACK);
-			PackVO pack = new PackVO(totalMoney, Double.parseDouble(priceFld
+				String id = service.getNewID(PromotionType.PACK);
+				PackVO pack = new PackVO(totalMoney, Double.parseDouble(priceFld
 					.getText()), cmlist);
-			PackProVO vo = new PackProVO(id, startDate, endDate, level, pack);
-			if (service.Add(vo) == 0) {
-				JOptionPane.showMessageDialog(null, "策略添加成功", "提示",
-						JOptionPane.WARNING_MESSAGE);
-				try {
-					log.addLog(new LogVO(log.getdate(), parent.getUser()
+				PackProVO vo = new PackProVO(id, startDate, endDate, level, pack);
+				if (service.Add(vo) == 0) {
+					JOptionPane.showMessageDialog(null, "策略添加成功", "提示",
+							JOptionPane.WARNING_MESSAGE);
+					try {
+						log.addLog(new LogVO(log.getdate(), parent.getUser()
 							.getID(), parent.getUser().getName(),
 							"创建一条特价包促销策略", 4));
-					headPane.RefreshGrades();
-					update();
-				} catch (Exception e1) {
+						headPane.RefreshGrades();
+						update();
+					} catch (Exception e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			} else
-				JOptionPane.showMessageDialog(null, "添加失败", "提示",
+						e1.printStackTrace();
+					}
+				} else
+					JOptionPane.showMessageDialog(null, "添加失败", "提示",
 						JOptionPane.WARNING_MESSAGE);
 
+			}
 		}
 	}
 
