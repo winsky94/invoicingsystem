@@ -144,6 +144,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 						JOptionPane.showMessageDialog(null, "红冲成功！"
 								);
 						RefreshTable();
+						t2.repaint();
+						t2.revalidate();
 					}else
 						JOptionPane.showMessageDialog(null, "请在经营历程表中选择一条单据"
 								+ "进行红冲！","提示",JOptionPane.WARNING_MESSAGE);
@@ -368,6 +370,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				ohtm.RefreshTable(vo);
 			double[] data={1,1,1,1,1,1,1,1,1,1,1,1,1};
 			ostm.RefreshTable(data);
+			
 
 		} catch (Exception e1) {
 			e1.printStackTrace();
