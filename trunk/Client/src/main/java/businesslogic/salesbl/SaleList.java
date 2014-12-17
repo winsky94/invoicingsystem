@@ -81,10 +81,10 @@ public class SaleList implements SaleListBLService{
 		return scb.getGoodsOverIncome(startDate,endDate);
 	}
 	
-	public double primeCostIncome(String startDate,String endDate){
+/*	public double primeCostIncome(String startDate,String endDate){
 		StockControlBLService scb=new StockControlController();
 		return scb.getPrimeCostIncome(startDate, endDate);
-	}
+	}*/
 	
 	
 	public double couponProfitCalc(String startDate,String endDate){
@@ -146,11 +146,12 @@ public class SaleList implements SaleListBLService{
 		return gcp.getCouponCost(startDate, endDate);
 	}
 	
+	//为什么All Income All cost还要在搜索一遍呢  直接把界面获取的加起来不就好了 耗时间啊
 	public double AllIncome(String startDate,String endDate){
 		double profit=0;
 		profit+=saleIncome(startDate,endDate);
 		profit+=goodsOver(startDate,endDate);
-		profit+=primeCostIncome(startDate,endDate);
+		profit+=getAdjustCost(startDate,endDate);
 		profit+=purchaseReturnProfitCalc(startDate,endDate);
 		profit+=couponProfitCalc(startDate,endDate);
 		return profit;
