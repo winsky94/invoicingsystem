@@ -7,19 +7,22 @@ public class BeginInfoVO {
 	    ArrayList<MemberVO> member;
 	    ArrayList<AccountVO> account;
 	    String time;
+	    String userID;
 	    
 	    public BeginInfoVO(){
 	    	time=null;
 	    	goods=null;
 	    	member=null;
 	    	account=null;
+	    	userID=null;
 	    }
 	    
-	    public BeginInfoVO(String itime,ArrayList<GoodsVO> a,ArrayList<MemberVO> b,ArrayList<AccountVO> c){
+	    public BeginInfoVO(String itime,ArrayList<GoodsVO> a,ArrayList<MemberVO> b,ArrayList<AccountVO> c,String user){
             time=itime;
 	    	goods=a;
 	    	member=b;
 	    	account=c;
+	    	userID=user;
 	    }
 	    
 	    public ArrayList<GoodsVO> getGoods(){
@@ -36,6 +39,10 @@ public class BeginInfoVO {
 	    
 	    public String getTime(){
 	    	return time;
+	    }
+	    
+	    public String getUserID(){
+	    	return userID;
 	    }
 
 
