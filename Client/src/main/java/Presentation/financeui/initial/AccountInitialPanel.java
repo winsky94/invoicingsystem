@@ -44,7 +44,7 @@ public class AccountInitialPanel extends JPanel {
 	AddInitialPanel subparent;
 	ArrayList<Integer> haveSelected=new ArrayList<Integer>();
 	ArrayList<AccountVO> account=new ArrayList<AccountVO>();
-
+	JPanel btnPnl;
 	public AccountInitialPanel(MainFrame frame) {
 		parent = frame;
 		GridBagLayout gbl = new GridBagLayout();
@@ -73,7 +73,7 @@ public class AccountInitialPanel extends JPanel {
 		gbl.setConstraints(jsp, c);
 		this.add(jsp);
 		// ------账户增删处-----------
-		JPanel btnPnl = new JPanel();
+		btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 5;

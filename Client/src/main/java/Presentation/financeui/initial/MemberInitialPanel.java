@@ -46,6 +46,7 @@ public class MemberInitialPanel extends JPanel{
 	AddInitialPanel subparent; 
 	MainFrame parent;
 	ArrayList<Integer> haveSelected=new ArrayList<Integer>();
+	JPanel btnPnl;
 	public MemberInitialPanel(MainFrame frame){
 		parent=frame;
 		GridBagLayout gbl = new GridBagLayout();
@@ -74,7 +75,7 @@ public class MemberInitialPanel extends JPanel{
 		gbl.setConstraints(jsp, c);
 		this.add(jsp);
 		//------客户增删处-----------
-		JPanel btnPnl=new JPanel();
+		btnPnl=new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 5;
