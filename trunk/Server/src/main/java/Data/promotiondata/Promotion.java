@@ -368,7 +368,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 			for(int i=0;i<al.size();i++)
 				all.add(al.get(i));
 			file=new JXCFile("discount.ser");
-			file.write(all);
+			file.writeM(all);
 		}
 		else if(type==PromotionType.GIFTCOUPON){
 			ArrayList<GiftCouponProPO> al=getGiftCouponPro();
