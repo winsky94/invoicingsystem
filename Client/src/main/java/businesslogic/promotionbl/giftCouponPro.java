@@ -39,7 +39,7 @@ public class giftCouponPro extends promotion{
 	}
 	
 	//data层modify可能有问题
-	public void useCoupon(String couponid){
+	public void useCoupon(String couponid,boolean status){
 		 ArrayList<PromotionPO> po =service.show(PromotionType.GIFTCOUPON);
 		 boolean tag=false;
 		 for(int i=0;i<po.size();i++){
@@ -47,7 +47,7 @@ public class giftCouponPro extends promotion{
 			 for(int j=0;j<clist.size();j++){
 				 if(couponid.equals(clist.get(j).getId())){
 					 GiftCouponProPO p=((GiftCouponProPO)po.get(i));
-					 p.getCouponList().get(j).setUse(true);
+					 p.getCouponList().get(j).setUse(status);
 					 service.Modify(p);
 					 tag=true;
 					 break;

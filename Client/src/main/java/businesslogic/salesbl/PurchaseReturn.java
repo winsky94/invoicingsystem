@@ -8,6 +8,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import po.CommodityPO;
+import po.PurchasePO;
 import po.PurchaseReturnPO;
 import po.ReceiptPO;
 import po.SaleReturnPO;
@@ -163,7 +164,17 @@ public class PurchaseReturn extends Receipt {
 		return this.total;
 	}
 
-
+	public ReceiptPO getRedReceipt(ReceiptPO po){
+		PurchaseReturnPO purchase=(PurchaseReturnPO)po;
+		ArrayList<CommodityPO> list=com.getRedList(purchase.getPurchaseReturnList());
+		PurchaseReturnPO redPurchase=new PurchaseReturnPO(po.getId(),po.getMemberID(),
+				po.getMemberName(),purchase.getStockID(),purchase.getpurid(),po.getUserID(),
+				list,po.getInfo(),-purchase.getTotalInAll(),
+				po.getStatus(),po.getHurry());
+		service.createPurchaseReturn(redPurchase);
+		return redPurchase;
+		
+	}
 
 	
 

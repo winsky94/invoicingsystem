@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import po.CommodityPO;
 import po.PurchasePO;
+import po.PurchaseReturnPO;
 import po.ReceiptPO;
 import po.MemberPO.MemberLevel;
 import po.ReceiptPO.ReceiptType;
@@ -113,10 +114,16 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 		return dis;
 
 	}
+	public int excute(ReceiptVO v){
+		return excute(v,true);
+	}
+	
+	
 
 	// 单据执行  等待助教回答member应收应付的问题
-	public int excute(ReceiptVO v)  {
+	public int excute(ReceiptVO v,boolean tag )  {
 		//修改库存
+		boolean status=tag;
 		SaleVO vo=(SaleVO)v;
 		try {
 		
@@ -137,7 +144,7 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 			promotionController.Excute(vo.getProid(),vo);
 		if(!vo.getCouponid().equals("")){
 			giftCouponPro gp= new giftCouponPro();
-			gp.useCoupon(vo.getCouponid());
+			gp.useCoupon(vo.getCouponid(),status);
 		}
 		}else{
 			
@@ -209,6 +216,24 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 
 		}
 		return id;
+	}
+	
+	
+	public ReceiptPO getRedReceipt(ReceiptPO po){
+		SalePO sale=(SalePO)po;
+		ArrayList<CommodityPO> list=com.getRedList(sale.getSalesList());
+		double total[]=new double[sale.getTotal().length];
+		double discount[]=new double[sale.getDiscount().length];
+		for(int i=0;i<total.length;i++)
+			total[i]=-sale.getTotal()[i];
+		for(int j=0;j<discount.length;j++)
+			discount[j]=-sale.getDiscount()[j];
+		SalePO redSale=new SalePO(sale.getClerk(),list,po.getId(),po.getMemberID(),
+				po.getMemberName(),po.getUserID(),po.getStatus(),po.getHurry(),
+				po.getInfo(),sale.getStockID(),sale.getProid(),sale.getCouponid(),discount,total);
+		service.createSale(redSale);
+		return redSale;
+		
 	}
 
 }

@@ -31,6 +31,18 @@ public class Commodity {
 		return List;
 	}
 	
+	public static ArrayList<CommodityPO>  getRedList(ArrayList<CommodityPO> list){
+		ArrayList<CommodityPO> result=new ArrayList<CommodityPO>();
+		for(int i=0;i<list.size();i++){
+			CommodityPO c=list.get(i);
+			CommodityPO com=new CommodityPO(c.getID(),c.getName(),
+					c.getType(),c.getPrice(),c.getLast_bid(),-c.getNum(),-c.getTotal(),
+					-c.getCost(),c.getTip());
+			result.add(com);
+		}
+		return result;
+	}
+	
 	
 public static ArrayList<CommodityVO> poTVo(ArrayList<CommodityPO> po){
 	ArrayList<CommodityVO> List=new ArrayList<CommodityVO>();

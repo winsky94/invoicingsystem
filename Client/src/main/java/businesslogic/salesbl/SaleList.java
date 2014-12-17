@@ -147,7 +147,7 @@ public class SaleList implements SaleListBLService{
 	}
 	
 	//为什么All Income All cost还要在搜索一遍呢  直接把界面获取的加起来不就好了 耗时间啊
-	public double AllIncome(String startDate,String endDate){
+	/*public double AllIncome(String startDate,String endDate){
 		double profit=0;
 		profit+=saleIncome(startDate,endDate);
 		profit+=goodsOver(startDate,endDate);
@@ -155,21 +155,21 @@ public class SaleList implements SaleListBLService{
 		profit+=purchaseReturnProfitCalc(startDate,endDate);
 		profit+=couponProfitCalc(startDate,endDate);
 		return profit;
-	}
+	}*/
 	
 	
-	public double AllCost(String startDate,String endDate){
+	/*public double AllCost(String startDate,String endDate){
 		double cost=0;
 		cost+=saleCost(startDate,endDate);
 		cost+=goodsLow(startDate,endDate);
 		cost+=goodsGift(startDate,endDate);
 		cost+=GiftCouponUseCost(startDate,endDate);
 		return cost;
-	}
+	}*/
 	
-	public double allProfit(String startDate,String endDate){
-		return AllIncome(startDate,endDate)-AllCost(startDate,endDate);
-	}
+	//public double allProfit(String startDate,String endDate){
+	//	return AllIncome(startDate,endDate)-AllCost(startDate,endDate);
+	//}
 	
 	
 	public ArrayList<ReceiptVO> getAllPurchase() {

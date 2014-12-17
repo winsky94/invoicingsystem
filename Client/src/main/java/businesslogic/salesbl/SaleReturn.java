@@ -153,4 +153,21 @@ public class SaleReturn extends Receipt {
 				vo.getDiscount(), vo.getTotal());
 		return po;
 	}
+	
+	public ReceiptPO getRedReceipt(ReceiptPO po){
+		SaleReturnPO sale=(SaleReturnPO)po;
+		ArrayList<CommodityPO> list=com.getRedList(sale.getSalesreturnList());
+		double total[]=new double[sale.getTotal().length];
+		double discount[]=new double[sale.getDiscount().length];
+		for(int i=0;i<total.length;i++)
+			total[i]=-sale.getTotal()[i];
+		for(int j=0;j<discount.length;j++)
+			discount[j]=-sale.getDiscount()[j];
+		SaleReturnPO redSale=new SaleReturnPO(sale.getClerk(),list,po.getId(),po.getMemberID(),
+				po.getMemberName(),po.getUserID(),po.getStatus(),po.getHurry(),
+				po.getInfo(),sale.getStockID(),discount,total);
+		service.createSaleReturn(redSale);
+		return redSale;
+		
+	}
 }
