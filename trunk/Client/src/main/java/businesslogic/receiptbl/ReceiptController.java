@@ -50,7 +50,12 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 
 	public int Batch(String[] id,int status) {
 		// TODO Auto-generated method stub
-		return 0;
+		boolean tag=true;
+		for(int i=0;i<id.length;i++)
+			if(review.Approve(id[i], status)!=0)
+				tag=false;
+		if(tag)return 0;
+		else return 1;
 	}
 
 	
