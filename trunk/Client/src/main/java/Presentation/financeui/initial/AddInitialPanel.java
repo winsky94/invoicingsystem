@@ -40,24 +40,27 @@ public class AddInitialPanel extends JPanel implements ActionListener{
 	MemberInitialPanel memberInitialPanel;
 	JButton submitBtn, exitBtn;
     MainFrame parent;
-	
+    JPanel btnPnl;
+    JLabel title;
+    GridBagLayout gbl;
+    GridBagConstraints c;
 	public AddInitialPanel(MainFrame frame) {
 		parent=frame;
-		GridBagLayout gbl = new GridBagLayout();
-		GridBagConstraints c = new GridBagConstraints();
-		c.insets = new Insets(5, 40, 5, 40);
+		gbl = new GridBagLayout();
+		c = new GridBagConstraints();
+		c.insets = new Insets(5, 20, 5, 20);
 		this.setBackground(Color.white);
 		this.setLayout(gbl);
 		// -----------title------------------
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("期初建账");
+		title = new JLabel("期初建账");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
 		c.gridy = 0;
-		c.gridheight = 2;
+		c.gridheight = 1;
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.weightx = 1;
 		c.weighty = 0.08;
@@ -89,7 +92,7 @@ public class AddInitialPanel extends JPanel implements ActionListener{
 		tab.add("账户信息初始化",accountInitialPanel);
 		accountInitialPanel.setParent(this);
 		// ---------buttons-----------
-		JPanel btnPnl = new JPanel();
+		btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 8;

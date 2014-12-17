@@ -38,7 +38,7 @@ public class GoodsInitialPanel extends JPanel{
 	MainFrame parent;
 	ArrayList<ArrayList<String>> goodsC = new ArrayList<ArrayList<String>>();
 	ArrayList<GoodsVO> goods=new ArrayList<GoodsVO>();
-
+	JPanel btnPnl;
 	public GoodsInitialPanel(MainFrame frame) {
 		parent=frame;
 		GridBagLayout gbl = new GridBagLayout();
@@ -67,7 +67,7 @@ public class GoodsInitialPanel extends JPanel{
 		gbl.setConstraints(jsp, c);
 		this.add(jsp);
 		// ------商品增删处-----------
-		JPanel btnPnl = new JPanel();
+		btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 5;

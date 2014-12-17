@@ -19,6 +19,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import Presentation.financeui.initial.AddInitialPanel;
+import Presentation.financeui.initial.InitialDetailPanel;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 
@@ -93,6 +94,9 @@ public class InitialPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==addBtn){
 			father.setRightComponent(new AddInitialPanel(father));
+		}
+		if(e.getSource()==detailBtn){
+			father.setRightComponent(new InitialDetailPanel(father));
 		}
 
 	}
