@@ -343,7 +343,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 				return 1;
 			for(int i=0;i<al.size();i++){
 				PackProPO p=al.get(i);
-				if(p.equals(id)){
+				if(p.getID().equals(id)){
 					al.remove(i);
 					break;
 				}
@@ -360,7 +360,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 			
 			for(int i=0;i<al.size();i++){
 				DiscountProPO p=al.get(i);
-				if(p.equals(id)){
+				if(p.getID().equals(id)){
 					al.remove(i);
 					break;
 				}
@@ -392,7 +392,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 				return 1;
 			for(int i=0;i<al.size();i++){
 				GiftGoodProPO p=al.get(i);
-				if(p.equals(id)){
+				if(p.getID().equals(id)){
 				    al.remove(i);
 					break;
 				}
