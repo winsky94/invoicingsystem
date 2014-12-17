@@ -195,6 +195,12 @@ public class GiftReceipt extends Receipt {
 		newPO = new GiftPO(giftPO.getId(), giftPO.getMemberID(),
 				giftPO.getMemberName(), giftPO.getUserID(), giftPO.getInfo(),
 				giftPO.getStatus(), giftPO.getHurry(), newList);
+		try {
+			service.addGift(newPO);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return newPO;
 	}

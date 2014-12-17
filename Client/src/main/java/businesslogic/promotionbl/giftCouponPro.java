@@ -42,6 +42,7 @@ public class giftCouponPro extends promotion{
 	public void useCoupon(String couponid,boolean status){
 		 ArrayList<PromotionPO> po =service.show(PromotionType.GIFTCOUPON);
 		 boolean tag=false;
+		 if(po!=null){
 		 for(int i=0;i<po.size();i++){
 			 ArrayList<CouponPO>  clist=((GiftCouponProPO)po.get(i)).getCouponList();
 			 for(int j=0;j<clist.size();j++){
@@ -56,6 +57,7 @@ public class giftCouponPro extends promotion{
 				 if(tag)
 					 break;
 			 }
+		 }
 		 }
 		
 	}

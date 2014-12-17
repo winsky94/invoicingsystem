@@ -126,6 +126,7 @@ public class StockLowReceipt extends Receipt {
 				sopo.getType(), sopo.getStatus(), sopo.getHurry(),
 				sopo.getInfo(), sopo.getGoodsName(), sopo.getSize(),
 				sopo.getNum(), newExactNum);
+		service.addStockOverOrLow(newPO);
 		return newPO;
 	}
 
