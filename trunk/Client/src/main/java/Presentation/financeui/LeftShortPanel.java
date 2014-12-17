@@ -14,8 +14,10 @@ import javax.swing.*;
 import businesslogic.financebl.Account;
 import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
+import businesslogic.financebl.Init;
 import businesslogic.financebl.Payment;
 import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
+import businesslogicservice.financeblservice.initblservice.FinanceInitBLService;
 import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
@@ -165,6 +167,14 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 		else if(arg0.getSource()==initialBtn){
 			InitialPanel alp=new InitialPanel(frame);
 			frame.setRightComponent(alp);
+			try {
+				FinanceInitBLService init=new Init();
+				if(init.showAll()!=null)
+					alp.refreshInitialTable(init.showAll());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		else if(arg0.getSource()==aboutBtn){			
 			frame.setRightComponent(new AboutPanel());

@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import businesslogic.financebl.Init;
+import businesslogicservice.financeblservice.initblservice.FinanceInitBLService;
 import vo.AccountVO;
 import vo.BeginInfoVO;
 import vo.GoodsVO;
@@ -134,9 +135,9 @@ public class AddInitialPanel extends JPanel implements ActionListener{
 		     ArrayList<GoodsVO> goods=goodsInitialPanel.getGoods();
 		     ArrayList<MemberVO> member=memberInitialPanel.getMember();
 		     ArrayList<AccountVO> account=accountInitialPanel.getAccount();
-		     BeginInfoVO begin=new BeginInfoVO(time,goods,member,account);
+		     BeginInfoVO begin=new BeginInfoVO(time,goods,member,account,parent.getUser().getID());
 		     try {
-				Init init=new Init();
+		    	 FinanceInitBLService init=new Init();
 				if(init.getCurrentTime().equals(time)){
 					JOptionPane.showMessageDialog(null,"您今天已新建了套帐，一天之内不能重复新建套帐！","提示",JOptionPane.WARNING_MESSAGE);
 					parent.setRightComponent(new InitialPanel(parent));
@@ -145,7 +146,9 @@ public class AddInitialPanel extends JPanel implements ActionListener{
 				int result=init.initInfo(time, begin);
 				if(result==0){
 					JOptionPane.showMessageDialog(null,"添加成功!","提示",JOptionPane.WARNING_MESSAGE);
-					parent.setRightComponent(new InitialPanel(parent));
+					InitialPanel initPanel=new InitialPanel(parent);
+					parent.setRightComponent(initPanel);
+					initPanel.refreshInitialTable(init.showAll());
 				}
 				
 				else{
@@ -159,7 +162,15 @@ public class AddInitialPanel extends JPanel implements ActionListener{
 			}
 		}
 		else if(e.getSource()==exitBtn){
-			parent.setRightComponent(new InitialPanel(parent));
+			InitialPanel ip=new InitialPanel(parent);
+			parent.setRightComponent(ip);
+			try {
+				FinanceInitBLService init=new Init();
+				ip.refreshInitialTable(init.showAll());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 	}

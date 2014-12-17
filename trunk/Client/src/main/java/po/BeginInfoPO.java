@@ -14,19 +14,22 @@ public class BeginInfoPO implements Serializable{
 	    ArrayList<MemberPO> member;
 	    ArrayList<AccountPO> account;
 	    String time;
+	    String userID;
 	    
 	    public BeginInfoPO(){
 	    	time=null;
 	    	goods=null;
 	    	member=null;
 	    	account=null;
+	    	userID=null;
 	    }
 	    
-	    public BeginInfoPO(String itime,ArrayList<GoodsPO> a,ArrayList<MemberPO> b,ArrayList<AccountPO> c){
+	    public BeginInfoPO(String itime,ArrayList<GoodsPO> a,ArrayList<MemberPO> b,ArrayList<AccountPO> c,String user){
 	    	time=itime;
 	    	goods=a;
 	    	member=b;
 	    	account=c;
+	    	userID=user;
 	    }
 	    
 	    public String getTime(){
@@ -43,6 +46,10 @@ public class BeginInfoPO implements Serializable{
 	    
 	    public ArrayList<AccountPO> getAccount(){
 	    	return account;
+	    }
+	    
+	    public String getUserID(){
+	    	return userID;
 	    }
 
 

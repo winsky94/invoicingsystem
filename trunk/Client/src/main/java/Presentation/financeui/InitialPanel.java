@@ -12,12 +12,18 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import businesslogic.financebl.Init;
+import businesslogic.userbl.User;
+import businesslogicservice.financeblservice.initblservice.FinanceInitBLService;
+import businesslogicservice.userblservice.UserBLService;
+import vo.BeginInfoVO;
 import Presentation.financeui.initial.AddInitialPanel;
 import Presentation.financeui.initial.InitialDetailPanel;
 import Presentation.mainui.MainFrame;
@@ -95,8 +101,26 @@ public class InitialPanel extends JPanel implements ActionListener {
 		if(e.getSource()==addBtn){
 			father.setRightComponent(new AddInitialPanel(father));
 		}
-		if(e.getSource()==detailBtn){
-			father.setRightComponent(new InitialDetailPanel(father));
+		else if(e.getSource()==detailBtn){
+			int selected=table.getSelectedRow();
+			if(selected<0){
+				JOptionPane.showMessageDialog(null, "请选择一行期初记录！","提示",JOptionPane.WARNING_MESSAGE);
+			}
+			else{
+			father.setRightComponent(new InitialDetailPanel(father,selected));
+			}
+		}
+		else if(e.getSource()==refreshBtn){
+			InitialPanel alp=new InitialPanel(father);
+			father.setRightComponent(alp);
+			try {
+				FinanceInitBLService init=new Init();
+				if(init.showAll()!=null)
+					alp.refreshInitialTable(init.showAll());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 
 	}
@@ -131,7 +155,7 @@ public class InitialPanel extends JPanel implements ActionListener {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		String head[] = { "建账时间", "操作员", "备注" };
+		String head[] = { "建账时间", "操作员"};
 
 		public int getRowCount() {
 			return c.size();
@@ -157,5 +181,20 @@ public class InitialPanel extends JPanel implements ActionListener {
 			c.remove(row);
 		}
 
+	}
+	
+	public void refreshInitialTable(ArrayList<BeginInfoVO> vo){
+			for (BeginInfoVO VO : vo) {
+				ArrayList<String> lineInfo = new ArrayList<String>();
+				lineInfo.add(VO.getTime());
+				try {
+					UserBLService user=new User();
+					lineInfo.add(user.showUser(VO.getUserID()).getName());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}				
+				c.add(lineInfo);
+			}
 	}
 }

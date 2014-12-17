@@ -24,8 +24,10 @@ import Presentation.uihelper.AboutPanel;
 import businesslogic.financebl.Account;
 import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
+import businesslogic.financebl.Init;
 import businesslogic.financebl.Payment;
 import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
+import businesslogicservice.financeblservice.initblservice.FinanceInitBLService;
 import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
@@ -220,6 +222,14 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 		else if(e.getSource()==initialBtn){
 			InitialPanel alp=new InitialPanel(frame);
 			frame.setRightComponent(alp);
+			try {
+				FinanceInitBLService init=new Init();
+				if(init.showAll()!=null)
+					alp.refreshInitialTable(init.showAll());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		else if(e.getSource()==foldBtn){			
 			frame.setLeftComponent(new LeftShortPanel(frame));

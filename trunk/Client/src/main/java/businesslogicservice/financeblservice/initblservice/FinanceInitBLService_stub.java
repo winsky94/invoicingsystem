@@ -1,5 +1,7 @@
 package businesslogicservice.financeblservice.initblservice;
 
+import java.util.ArrayList;
+
 import vo.BeginInfoVO;
 
 public class FinanceInitBLService_stub implements FinanceInitBLService{
@@ -25,6 +27,13 @@ public class FinanceInitBLService_stub implements FinanceInitBLService{
 
 	@Override
 	public String getCurrentTime() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public ArrayList<BeginInfoVO> showAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
