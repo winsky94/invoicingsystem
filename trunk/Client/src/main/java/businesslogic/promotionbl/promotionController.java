@@ -143,7 +143,7 @@ public class promotionController implements PromotionViewService,
 			PromotionPO po=pro.find(proid);
 			if(po!=null){
 			if(po.getType()==PromotionType.GIFTCOUPON){
-				gcp.useCoupon(vo.getCouponid());
+				//gcp.useCoupon(vo.getCouponid());没有用  仅为赠出
 			}else{
 				ggp.Excute(po,vo);
 			}
