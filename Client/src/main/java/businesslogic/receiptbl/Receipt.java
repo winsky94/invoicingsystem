@@ -14,6 +14,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.text.NumberFormat;
 
+import po.ReceiptPO;
 import po.ReceiptPO.ReceiptType;
 import businesslogic.utilitybl.getDate;
 
@@ -156,12 +157,14 @@ public class Receipt {
 
 	public String getStatus() {
 		String result = "";
-		if (this.status == 3)
+		if (this.status == 0)
+			result = "待审批";
+		else if (this.status == 1)
 			result = "审批不通过";
-		else if (this.status == 4)
-			result = "审批通过待执行";
-		else if (this.status == 5)
-			result = "执行完毕";
+		else if (this.status == 2)
+			result = "审批通过";
+		else if(this.status==3)
+			result="执行完毕";
 		return result;
 	}
 
@@ -175,6 +178,10 @@ public class Receipt {
 
 	public String getInfo() {
 		return info;
+	}
+	
+	public ReceiptPO getRedReceipt(ReceiptPO po){
+		return null;
 	}
 
 	// 11-27 yan

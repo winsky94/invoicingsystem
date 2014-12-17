@@ -6,6 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import po.CollectionPO;
 import po.ReceiptPO;
 import po.ReceiptPO.ReceiptType;
 import dataservice.receiptdataservice.ReceiptDataService;
@@ -56,7 +57,7 @@ public class ReceiptList {
 		return toApprove;
 	}
 	
-
+	
 
 
 	

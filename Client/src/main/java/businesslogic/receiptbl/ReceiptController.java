@@ -39,15 +39,9 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 		
 	}
 
-	public int Excute(String id,ReceiptType type){
-		
-		return 0;
-	}
 	
-	public int Add(ReceiptVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
+	
 
 	public int Modify(String id) {
 		// TODO Auto-generated method stub
@@ -175,17 +169,6 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 		return sale.getAllSale();
 	}
 
-	@Override
-	public void Send(ReceiptVO vo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void Reply(String userid) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public ArrayList<ReceiptVO> AccurateFind(String[] message) {
@@ -194,6 +177,35 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 		if(po==null) return null;
 		else 
 			return poTVo(po);
+	}
+
+
+	public ReceiptVO RedAndCopy(String id) {
+		// TODO Auto-generated method stub
+		ReceiptVO vo=null;
+		ReceiptPO po=review.View(id);
+		Red(id);
+		if(po!=null)
+			vo=poToVo(po);
+		return vo;
+	}
+
+
+	public int Red(String id) {
+		// TODO Auto-generated method stub
+		ReceiptPO po=review.View(id);
+		po=review.Red(po);
+		int redResult=0;
+		try {
+			
+			//红冲执行
+			redResult = review.Excute(poToVo(po), 1);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//直接红冲执行入账
+		return redResult;
 	}
 
 }
