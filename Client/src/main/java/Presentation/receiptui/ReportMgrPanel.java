@@ -17,6 +17,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -134,7 +135,18 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					
+					int row=t2.getSelectedRow();
+					if(row>=0)
+					{
+						String id=t2.getValueAt(row, 0).toString();
+						int result=reservice.Red(id);
+						//基本都是成功 提示是否多余
+						JOptionPane.showMessageDialog(null, "红冲成功！"
+								);
+						RefreshTable();
+					}else
+						JOptionPane.showMessageDialog(null, "请在经营历程表中选择一条单据"
+								+ "进行红冲！","提示",JOptionPane.WARNING_MESSAGE);
 				}
 			});
 			btnPnl.add(redBtn);
