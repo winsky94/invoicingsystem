@@ -20,8 +20,11 @@ public class JXCFile {
 	String name;
 
 	public JXCFile(String s) {
-		time=getTime();
+		time=getCurrentTime();
 		if(s.equals("src/main/java/user.ser")){
+			name=s;
+		}
+		else if(s.equals("src/main/java/begininfo.ser")){
 			name=s;
 		}
 		else{
@@ -30,7 +33,7 @@ public class JXCFile {
 	}
 
 	
-	public static String getTime(){
+	public static String getCurrentTime(){
 		
 	
         try{
@@ -83,6 +86,8 @@ public class JXCFile {
 		}
         
 }
+	
+	
 	
 	public static void init(String time){
 		File outfile = new File("src/main/java/"+time+"/");                 

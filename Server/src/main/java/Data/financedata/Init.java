@@ -66,16 +66,40 @@ public class Init extends UnicastRemoteObject implements FinanceInitDataService{
 		
 		return 0;
 	}
+	
 	public BeginInfoPO getInfo(String time) {
-		// TODO Auto-generated method stub
+		ArrayList<BeginInfoPO> buffer=showAll();
+		if(buffer==null)
+			return null;
+		for(BeginInfoPO po:buffer){
+			if(po.getTime().equals(time)){
+				return po;
+			}
+		}
+		
 		return null;
 	}
 	
+	public ArrayList<BeginInfoPO> showAll(){
+		JXCFile file=new JXCFile("src/main/java/begininfo.ser");
+		ArrayList<Object> a=file.read();
+		if(a==null)
+			return null;
+		
+		ArrayList<BeginInfoPO> buffer=new ArrayList<BeginInfoPO>();
+		for(Object b:a){
+			BeginInfoPO c=(BeginInfoPO)b;
+			buffer.add(c);
+		}
+		
+		  return buffer;
+	}
+	
 	public void add(BeginInfoPO po){
-		JXCFile file=new JXCFile("begininfo.ser");
+		JXCFile file=new JXCFile("src/main/java/begininfo.ser");
 		file.write(po);
 	}
 	public String getCurrentTime() throws RemoteException {		
-		return JXCFile.getTime();
+		return JXCFile.getCurrentTime();
 	}
 }
