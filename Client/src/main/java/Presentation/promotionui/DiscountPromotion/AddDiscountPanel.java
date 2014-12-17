@@ -228,6 +228,10 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 		// = { "商品编号", "商品名", "型号", "单价", "折扣", "折后单价" }
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			if(from.getDate().compareTo(to.getDate())>0)
+				JOptionPane.showMessageDialog(null, "促销时间段输入不合法！", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			else{
 			ArrayList<CommodityVO> cmlist = new ArrayList<CommodityVO>();
 			for (int j = 0; j < table.getRowCount(); j++) {
 				ArrayList<String> line = cmContent.get(j);
@@ -263,6 +267,7 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 			} else
 				JOptionPane.showMessageDialog(null, "添加失败", "提示",
 						JOptionPane.WARNING_MESSAGE);
+			}
 		}
 
 	}

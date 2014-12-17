@@ -376,6 +376,10 @@ public class AddGiftPanel extends ChooseGoodsFatherPane {
 	class submitListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			if(from.getDate().compareTo(to.getDate())>0)
+				JOptionPane.showMessageDialog(null, "促销时间段输入不合法！", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			else{
 			ArrayList<CommodityVO> cmlist = new ArrayList<CommodityVO>();
 			for (int j = 0; j < table.getRowCount() - 1; j++) {
 				ArrayList<String> line = cmContent.get(j);
@@ -409,7 +413,7 @@ public class AddGiftPanel extends ChooseGoodsFatherPane {
 			} else
 				JOptionPane.showMessageDialog(null, "添加失败", "提示",
 						JOptionPane.WARNING_MESSAGE);
-
+			}
 		}
 	}
 

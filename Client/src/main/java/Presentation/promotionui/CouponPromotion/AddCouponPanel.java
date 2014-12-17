@@ -192,29 +192,33 @@ public class AddCouponPanel extends JPanel implements ActionListener {
 			try {
 				startDate = from.getDate();
 				endDate = to.getDate();
-				level = MemberLevel.valueOf((String) memberGradeBox
-						.getSelectedItem());
-				service = new promotionController();
-				totalValue = Double.parseDouble(limitFld.getText());
-				double value = Double.parseDouble(priceFld.getText());
-				for (int i = 0; i < Integer.parseInt(totalFld.getText()); i++)
-					couponlist.add(new CouponVO("", value, false));
-				id = service.getNewID(PromotionType.GIFTCOUPON);
-				GiftCouponProVO vo = new GiftCouponProVO(id, startDate,
-						endDate, level, couponlist, totalValue);
-				if (service.Add(vo) == 0) {
-					JOptionPane.showMessageDialog(null, "策略添加成功", "提示",
+				if(startDate.compareTo(endDate)>0)
+					JOptionPane.showMessageDialog(null, "促销时间段输入不合法！", "提示",
 							JOptionPane.WARNING_MESSAGE);
-					update();
-					log.addLog(new LogVO(log.getdate(), father.getUser()
+				else{
+					level = MemberLevel.valueOf((String) memberGradeBox
+						.getSelectedItem());
+					service = new promotionController();
+					totalValue = Double.parseDouble(limitFld.getText());
+					double value = Double.parseDouble(priceFld.getText());
+					for (int i = 0; i < Integer.parseInt(totalFld.getText()); i++)
+						couponlist.add(new CouponVO("", value, false));
+					id = service.getNewID(PromotionType.GIFTCOUPON);
+					GiftCouponProVO vo = new GiftCouponProVO(id, startDate,
+							endDate, level, couponlist, totalValue);
+					if (service.Add(vo) == 0) {
+						JOptionPane.showMessageDialog(null, "策略添加成功", "提示",
+							JOptionPane.WARNING_MESSAGE);
+						update();
+						log.addLog(new LogVO(log.getdate(), father.getUser()
 							.getID(), father.getUser().getName(),
 							"创建一条代金券促销策略", 2));
-					headPane.RefreshGrades();
+						headPane.RefreshGrades();
 
-				} else
-					JOptionPane.showMessageDialog(null, "添加失败", "提示",
+					} else
+						JOptionPane.showMessageDialog(null, "添加失败", "提示",
 							JOptionPane.WARNING_MESSAGE);
-
+				}
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
