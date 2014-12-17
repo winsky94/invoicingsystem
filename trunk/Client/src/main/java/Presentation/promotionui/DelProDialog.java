@@ -59,7 +59,7 @@ public class DelProDialog extends JDialog{
 				PromotionBLService service=new promotionController();
 				for(int i=0;i<id.length;i++){
 					
-						service.Delete(id[i],type[i]);}
+						System.out.println(service.Delete(id[i],type[i]));}
 				
 				
 			

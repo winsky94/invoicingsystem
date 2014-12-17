@@ -90,7 +90,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				int[] row = t1.getSelectedRows();
+			/*	int[] row = t1.getSelectedRows();
 				if (row.length > 0) {
 					for (int i = 0; i < row.length; i++) {
 						String id = c1.get(row[i]).get(0).toString();
@@ -100,9 +100,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 					}
 					Refresh();
 
-				} else	
-					JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
-							JOptionPane.WARNING_MESSAGE);
+				} */
 				
 				
 					ArrayList<String> choose=BatchChoose();
@@ -113,6 +111,9 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 						service.Batch(batch, 2);
 						Refresh();
 					}	
+					else	
+						JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
+								JOptionPane.WARNING_MESSAGE);
 					
 					
 			}
@@ -125,7 +126,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				int[] row = t1.getSelectedRows();
+			/*	int[] row = t1.getSelectedRows();
 				if (row.length > 0) {
 					for (int i = 0; i < row.length; i++) {
 						String id = c1.get(row[i]).get(0).toString();
@@ -134,10 +135,8 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 									JOptionPane.WARNING_MESSAGE);
 					}
 					Refresh();
-				} 
-				else	
-					JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
-							JOptionPane.WARNING_MESSAGE);
+				} */
+				
 				ArrayList<String> choose=BatchChoose();
 					if(choose!=null){
 						String batch[]=new String[choose.size()];
@@ -145,6 +144,9 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 							batch[i]=choose.get(i);
 						service.Batch(batch, 1);
 						Refresh();}
+					else	
+						JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
+								JOptionPane.WARNING_MESSAGE);
 					
 					
 					
@@ -327,13 +329,15 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			tableContent = c1;
 		} else{c2.clear();
 			tableContent = c2;}
+		ArrayList<Integer> hurry=new ArrayList<Integer>();
 		for (int i = 0; i < vo.size(); i++) {
 			ArrayList<Object> line = new ArrayList<Object>();
 			ReceiptVO v = vo.get(i);
 			line.add(v.getId());
 			line.add(v.getDate());
 			line.add(Total.getType(v.getType()));
-
+			if(v.getHurry()==0)
+				hurry.add(i);
 			// 销售/进货
 			if (v.getType() == ReceiptType.PAYMENT) {
 				PaymentVO pv = (PaymentVO) v;
@@ -356,6 +360,11 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				line.add(new Boolean(false));
 			tableContent.add(line);
 			ReceiptMgrPanel.this.repaint();
+
+		}
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer(hurry);
+		for (int i = 0; i < t1.getColumnCount() - 1; i++) {
+			t1.getColumn(t1.getColumnName(i)).setCellRenderer(tcr);
 
 		}
 
@@ -425,7 +434,8 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 					ee.printStackTrace();
 				}
 			}
-		}
+		}else if(e.getSource()==refreshBtn)
+			Refresh();
 
 	}
 
