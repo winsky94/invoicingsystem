@@ -50,19 +50,36 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 	JCheckBox hurryBox;
 	JTextField remarkFld;
 	JButton submitBtn, exitBtn;
-	JLabel IDLbl, memberLbl, clerkLbl, userLbl, stockLbl, totalOriginLbl,
-			totalProDiscountLbl, totalFinDiscountLbl, totalToPayLbl;
+	JLabel title,IDLbl, memberLbl, clerkLbl, userLbl, stockLbl, totalOriginLbl,
+			totalProDiscountLbl, totalFinDiscountLbl, totalToPayLbl,remarkLbl
+			;
+	JPanel btnPnl,p2;
 	SaleVO vo;
 	SalesBLService service;
 	String pid;
 	ArrayList<ArrayList<String>> cmContent;
 	ArrayList<Double> last_bid = new ArrayList<Double>();
 	double totalMoney;
-	public AddSaleReturnPanel(MainFrame frame,String id) throws Exception {
-		father = frame;
+	//退货 查看复用  退货单不允许添加或删除商品 只允许改价格？
+	public AddSaleReturnPanel(MainFrame frame ,String id) throws Exception{
+		this(frame);
 		service=new SalesController();
 		vo=service.SFindByID(id);
+
 		totalMoney=vo.getTotalValue();
+		pid=service.getNewID(ReceiptType.SALERETURN);
+		IDLbl.setText("编号："+pid);
+		memberLbl.setText("客户:"+vo.getMemberName());
+		clerkLbl.setText("业务员:"+vo.getClerk());
+		userLbl.setText("操作员："+frame.getUser().getName());
+		stockLbl.setText("仓库"+vo.getStockid());
+		totalFinDiscountLbl.setText("退货总额："+vo.getTotalValue()+"(折让后)");
+		RefreshCTable(vo.getSalesList());
+		
+	}
+	public AddSaleReturnPanel(MainFrame frame)  {
+		father = frame;
+		
 		
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
@@ -73,7 +90,7 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("创建销售退货单");
+		title = new JLabel("创建销售退货单");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
@@ -98,7 +115,7 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 		this.add(midPnl);
 		midPnl.setLayout(new GridLayout(3, 1));
 		JPanel p1 = new JPanel();
-		JPanel p2 = new JPanel();
+		 p2 = new JPanel();
 		JPanel p3 = new JPanel();
 		p1.setBackground(Color.white);
 		p2.setBackground(Color.white);
@@ -107,33 +124,33 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 		midPnl.add(p2);
 		midPnl.add(p3);
 		// --------ID----------------
-		pid=service.getNewID(ReceiptType.SALERETURN);
-		IDLbl = new JLabel("ID："+id);
+	
+		IDLbl = new JLabel("编号：");
 		IDLbl.setFont(font);
 		p1.add(IDLbl);
 		p1.add(new JLabel("      "));
 		// --------客户---------------
-		JLabel memberLbl = new JLabel("客户："+vo.getMemberName());
+		 memberLbl = new JLabel("客户：");
 		memberLbl.setFont(font);
 		p1.add(memberLbl);
 		p1.add(new JLabel("      "));
 		// -------业务员---------------
-		JLabel clerkLbl = new JLabel("业务员："+vo.getClerk());
+		 clerkLbl = new JLabel("业务员：");
 		clerkLbl.setFont(font);
 		p1.add(clerkLbl);
 		p1.add(new JLabel("      "));
 		// -------仓库----------------
-		JLabel stockLbl = new JLabel("仓库："+vo.getStockid());
+		 stockLbl = new JLabel("仓库：");
 		stockLbl.setFont(font);
 		p1.add(stockLbl);
 		p1.add(new JLabel("      "));
 		// ------操作员----------------
-		userLbl = new JLabel("操作员：" + frame.getUser().getName());
+		userLbl = new JLabel("操作员：" );
 		userLbl.setFont(font);
 		p1.add(userLbl);
 		p1.add(new JLabel("      "));
 		// ------备注------------------
-		JLabel remarkLbl = new JLabel("备注：");
+		remarkLbl = new JLabel("备注：");
 		remarkLbl.setFont(font);
 		p2.add(remarkLbl);
 		remarkFld = new JTextField(21);
@@ -145,7 +162,7 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 		hurryBox.setBackground(Color.white);
 		p2.add(hurryBox);
 		p2.add(new JLabel("      "));
-		totalFinDiscountLbl = new JLabel("退货总额："+vo.getTotalValue()+"(折让后)");
+		totalFinDiscountLbl = new JLabel("退货总额：");
 		totalFinDiscountLbl.setFont(font);
 		p2.add(totalFinDiscountLbl);
 	
@@ -166,7 +183,7 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 		}};
 		cmContent=cm.getContent();
 		table.getTableHeader().setReorderingAllowed(false);
-		RefreshCTable(vo.getSalesList());
+		
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 		for (int i = 0; i < table.getColumnCount(); i++) {
@@ -183,47 +200,9 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 		this.add(jsp);
 		
 		table.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
-	/*	ctm.addTableModelListener(new TableModelListener() {
-
-			public void tableChanged(TableModelEvent e) {
-				// TODO Auto-generated method stub
-
-				int i = e.getLastRow();
-
-				int j = e.getColumn();
-				int num = 0;
-				double price = 0;
-				if (j != 6) {
-					if (j == 3) {
-						num = Integer.parseInt((String) table.getValueAt(i, j));
-						price = Double.parseDouble(cmContent.get(i).get(j + 1));
-						totalMoney -= Double.parseDouble((String) table
-								.getValueAt(i, j + 2));
-						table.setValueAt(price * num + "", i, j + 2);
-
-					} else if (j == 4) {
-						price = Double.parseDouble(cmContent.get(i).get(j));
-						num = Integer.parseInt((String) table.getValueAt(i,
-								j - 1));
-						totalMoney -= Double.parseDouble((String) table
-								.getValueAt(i, j + 1));
-						table.setValueAt(price * num + "", i, j + 1);
-					}
-
-					totalMoney += price * num;
-					totalLbl.setText("总计:" + totalMoney + "元");
-
-					table.revalidate();
-
-				}
-
-			}
-
-		});
-
-	}*/
+	
 		// -------buttons-----------------
-		JPanel btnPnl = new JPanel();
+		 btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 9;

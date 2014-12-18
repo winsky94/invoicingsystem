@@ -37,6 +37,9 @@ public class PurchaseReturnDetailPanel extends AddPurchasePanel{
 		list.addAll(vo.getPurchaseReturnList());
 		table.setEnabled(false);
 		RefreshCTable(list);
+		if(vo.getHurry()==0)
+			hurryBox.setSelected(true);
+		hurryBox.setEnabled(false);
 		btnPnl.remove(addGoodsBtn);
 		btnPnl.remove(delGoodsBtn);
 		btnPnl.remove(submitBtn);

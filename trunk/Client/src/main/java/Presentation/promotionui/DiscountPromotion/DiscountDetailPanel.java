@@ -18,6 +18,11 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import vo.CommodityVO;
+import vo.DiscountProVO;
+import vo.GoodsVO;
+import businesslogic.promotionbl.promotionController;
+import businesslogicservice.promotionblservice.PromotionViewService;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import Presentation.promotionui.PromotionPanel;
@@ -36,9 +41,13 @@ public class DiscountDetailPanel extends JPanel {
 	ArrayList<ArrayList<String>> content = new ArrayList<ArrayList<String>>();
 	JLabel fromLbl, toLbl, gradeLbl;
 	JButton submitBtn;
+	PromotionViewService service;
+	DiscountProVO vo;
 
-	public DiscountDetailPanel(MainFrame frame) {
+	public DiscountDetailPanel(MainFrame frame,String id) throws Exception {
 		father = frame;
+		service=new promotionController();
+		vo=service.dtFindByID(id);
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 45, 5, 45);
@@ -62,15 +71,15 @@ public class DiscountDetailPanel extends JPanel {
 		// --------起止时间与等级限制-----------------
 		JPanel timePnl = new JPanel();
 		timePnl.setBackground(Color.white);
-		fromLbl = new JLabel("起始于：");
+		fromLbl = new JLabel("起始于："+vo.getStartDate());
 		fromLbl.setFont(font);
 		timePnl.add(fromLbl);
 		timePnl.add(new JLabel());
-		toLbl = new JLabel("截止于：");
+		toLbl = new JLabel("截止于："+vo.getEndDate());
 		toLbl.setFont(font);
 		timePnl.add(toLbl);
 		timePnl.add(new JLabel());
-		gradeLbl = new JLabel("客户等级限制：");
+		gradeLbl = new JLabel("客户等级限制："+vo.getMemberlevel().toString());
 		gradeLbl.setFont(font);
 		timePnl.add(gradeLbl);
 		//
@@ -113,8 +122,8 @@ public class DiscountDetailPanel extends JPanel {
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
 		//
-
-		submitBtn = new JButton("确定");
+		RefreshCTable(vo.getGoodsList(),vo.getCountList());
+		submitBtn = new JButton("返回");
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
@@ -122,7 +131,10 @@ public class DiscountDetailPanel extends JPanel {
 		submitBtn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				father.setRightComponent(new PromotionPanel(father));
+				PromotionPanel ppanel=new PromotionPanel(father);
+				father.setRightComponent(ppanel);
+				if(service.Show()!=null)
+					ppanel.RefreshProTable(service.Show());
 
 			}
 		});
@@ -152,4 +164,19 @@ public class DiscountDetailPanel extends JPanel {
 			return head[col];
 		}
 	}
+	
+	public void RefreshCTable(ArrayList<CommodityVO> vo, ArrayList<Double> dis) {
+		for (int i = 0; i < vo.size(); i++) {
+			CommodityVO gvo = (CommodityVO) vo.get(i);
+			ArrayList<String> line = new ArrayList<String>();
+				line.add(gvo.getID());
+				line.add(gvo.getName());
+				line.add(gvo.getType());
+				line.add(gvo.getPrice() + "");
+				line.add(dis.get(i) + "");
+				line.add(gvo.getPrice() * dis.get(i) + "");
+				content.add(line);
+		}
+	}
+	
 }

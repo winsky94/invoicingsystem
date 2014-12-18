@@ -14,6 +14,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import vo.GiftCouponProVO;
+import businesslogic.promotionbl.promotionController;
+import businesslogicservice.promotionblservice.PromotionViewService;
 import Presentation.mainui.MainFrame;
 import Presentation.promotionui.PromotionPanel;
 
@@ -26,8 +29,12 @@ public class CouponDetailPanel extends JPanel{
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JLabel fromLbl,toLbl,gradeLbl,limitLbl,priceLbl,numLbl;
 	JButton submitBtn;
-	public CouponDetailPanel(MainFrame frame){
+	PromotionViewService service;
+	GiftCouponProVO vo;
+	public CouponDetailPanel(MainFrame frame,String id) throws Exception{
 		father = frame;
+		service=new promotionController();
+		vo=service.gpFindByID(id);
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 5, 5, 5);
@@ -70,40 +77,40 @@ public class CouponDetailPanel extends JPanel{
 		JPanel timePnl = new JPanel();
 		timePnl.setBackground(Color.white);
 		funcPnl.add(timePnl);
-		fromLbl=new JLabel("起始于：");
+		fromLbl=new JLabel("起始于："+vo.getStartDate());
 		fromLbl.setFont(font);
 		timePnl.add(fromLbl);
 		timePnl.add(new JLabel());
 		//
-		toLbl=new JLabel("截止于：");
+		toLbl=new JLabel("截止于："+vo.getEndDate());
 		toLbl.setFont(font);
 		timePnl.add(toLbl);
 		// ---------限制客户等级-------------
 		JPanel gradePnl = new JPanel();
 		gradePnl.setBackground(Color.white);
 		funcPnl.add(gradePnl);
-		JLabel gradeLbl = new JLabel("客户等级限制：");
+		JLabel gradeLbl = new JLabel("客户等级限制："+vo.getMemberlevel().toString());
 		gradeLbl.setFont(font);
 		gradePnl.add(gradeLbl);
 		// -------设定满赠金额----------------
 		JPanel limitPnl = new JPanel();
 		limitPnl.setBackground(Color.white);
 		funcPnl.add(limitPnl);
-		JLabel limitLbl = new JLabel("满赠金额：");
+		JLabel limitLbl = new JLabel("满赠金额："+vo.getTotalValue());
 		limitLbl.setFont(font);
 		limitPnl.add(limitLbl);
 		// -------设定单张代金券面值----------------
 		JPanel pricePnl = new JPanel();
 		pricePnl.setBackground(Color.white);
 		funcPnl.add(pricePnl);
-		JLabel priceLbl = new JLabel("单张面值：");
+		JLabel priceLbl = new JLabel("单张面值："+vo.getCouponList().get(0).getValue());
 		priceLbl.setFont(font);
 		pricePnl.add(priceLbl);
 		// -------限制总额----------------
 		JPanel totalPnl = new JPanel();
 		totalPnl.setBackground(Color.white);
 		funcPnl.add(totalPnl);
-		JLabel totalLbl = new JLabel("数量：");
+		JLabel totalLbl = new JLabel("数量："+vo.getCouponList().size());
 		totalLbl.setFont(font);
 		totalPnl.add(totalLbl);
 		// -------------------------------
@@ -121,14 +128,17 @@ public class CouponDetailPanel extends JPanel{
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
 		// -------------------------------
-		submitBtn = new JButton("确定");
+		submitBtn = new JButton("返回");
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
 		submitBtn.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				father.setRightComponent(new PromotionPanel(father));
+				PromotionPanel ppanel=new PromotionPanel(father);
+				father.setRightComponent(ppanel);
+				if(service.Show()!=null)
+					ppanel.RefreshProTable(service.Show());
 				
 			}
 		});

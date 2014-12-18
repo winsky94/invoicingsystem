@@ -58,7 +58,8 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JCheckBox hurryBox;
 	JLabel title,IDLbl, userLbl, totalOriginLbl, totalProDiscountLbl,
-			totalFinDiscountLbl, totalToPayLbl;
+			totalFinDiscountLbl, totalToPayLbl,memberLbl,clerkLbl, stockLbl, remarkLbl,
+			 discountLbl;
 	JComboBox<String> XSSBox;
 	JTextField clerkFld, stockFld, discountMoneyFld, remarkFld;
 	JScrollPane jsp;
@@ -75,6 +76,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 	double pre = 0, coupon = 0;
 	// public MainFrame parent;
 	SalesBLService service;
+	JPanel btnPnl,p2,p1,p3;
 
 	public AddSalePanel(MainFrame frame) throws Exception {
 		parent = frame;
@@ -113,9 +115,9 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 		gbl.setConstraints(midPnl, c);
 		this.add(midPnl);
 		midPnl.setLayout(new GridLayout(3, 1));
-		JPanel p1 = new JPanel();
-		JPanel p2 = new JPanel();
-		JPanel p3 = new JPanel();
+		 p1 = new JPanel();
+		 p2 = new JPanel();
+		p3 = new JPanel();
 		p1.setBackground(Color.white);
 		p2.setBackground(Color.white);
 		p3.setBackground(Color.white);
@@ -130,7 +132,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 		p1.add(IDLbl);
 		p1.add(new JLabel("      "));
 		// --------客户---------------
-		JLabel memberLbl = new JLabel("客户：");
+		memberLbl = new JLabel("客户：");
 		memberLbl.setFont(font);
 		p1.add(memberLbl);
 
@@ -167,14 +169,14 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 		});
 		p1.add(new JLabel("      "));
 		// -------业务员---------------
-		JLabel clerkLbl = new JLabel("业务员：");
+		clerkLbl = new JLabel("业务员：");
 		clerkLbl.setFont(font);
 		p1.add(clerkLbl);
 		clerkFld = new JTextField(4);
 		clerkFld.setFont(font);
 		p1.add(clerkFld);
 		// -------仓库----------------
-		JLabel stockLbl = new JLabel("仓库：");
+		 stockLbl = new JLabel("仓库：");
 		stockLbl.setFont(font);
 		p1.add(stockLbl);
 		stockFld = new JTextField(4);
@@ -187,7 +189,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 		p1.add(userLbl);
 		p1.add(new JLabel("      "));
 		// ------备注------------------
-		JLabel remarkLbl = new JLabel("备注：");
+		 remarkLbl = new JLabel("备注：");
 		remarkLbl.setFont(font);
 		p2.add(remarkLbl);
 		remarkFld = new JTextField(12);
@@ -199,7 +201,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 		hurryBox.setBackground(Color.white);
 		p2.add(hurryBox);
 		// ------折让-----------------
-		JLabel discountLbl = new JLabel("折让：");
+		 discountLbl = new JLabel("折让：");
 		discountLbl.setFont(font);
 		p2.add(discountLbl);
 		discountMoneyFld = new JTextField(6);
@@ -290,7 +292,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 
 		});
 		// -------buttons-----------------
-		JPanel btnPnl = new JPanel();
+		 btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 9;
@@ -443,6 +445,11 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 				}
 				// total[0]+=vo.getLastPurchasePrice();
 			}
+			total[1] = 0;
+			for (int i = 0; i < cmContent.size(); i++)
+				total[1] += Double.parseDouble(cmContent.get(i).get(5));
+			totalOriginLbl.setText("原初总价:" + total[1] + "元");
+			matchPromotion();
 		} else {
 			for (int i = 0; i < VO.size(); i++) {
 				ArrayList<String> line = new ArrayList<String>();
@@ -451,17 +458,14 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 				line.add(vo.getName());
 				line.add(vo.getType());
 				line.add(vo.getNum()+"");
-				line.add(Double.toString(vo.getTotal()));
+				line.add(vo.getPrice()+"");
+				line.add(vo.getTotal()+"");
 				line.add(vo.getTip());
 				last_bid.add(vo.getCost()/vo.getPrice());
 				cmContent.add(line);
 			}
 		}
-		total[1] = 0;
-		for (int i = 0; i < cmContent.size(); i++)
-			total[1] += Double.parseDouble(cmContent.get(i).get(5));
-		totalOriginLbl.setText("原初总价:" + total[1] + "元");
-		matchPromotion();
+		
 
 	}
 
