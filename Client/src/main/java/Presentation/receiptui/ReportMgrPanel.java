@@ -26,6 +26,9 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 import po.ReceiptPO.ReceiptType;
 import po.UserPO.UserJob;
@@ -34,6 +37,11 @@ import Presentation.mainui.ExportExcel;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import Presentation.mainui.XLSFilter;
+import Presentation.receiptui.tablemodels.BSLTableModel;
+import Presentation.receiptui.tablemodels.ColumnGroup;
+import Presentation.receiptui.tablemodels.MyGroupTableHeaderUI;
+import Presentation.receiptui.tablemodels.MyHeaderButtonRenderer;
+import Presentation.receiptui.tablemodels.MyTableHeader;
 import Presentation.receiptui.tablemodels.OperationHistoryTableModel;
 import Presentation.receiptui.tablemodels.OperationStatementTableModel;
 import Presentation.receiptui.tablemodels.SaleDetailTableModel;
@@ -64,7 +72,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 	JTabbedPane tab, toptab;
 	SaleDetailTableModel sdtm;// 销售明细表
 	OperationHistoryTableModel ohtm;// 经验历程表
-	OperationStatementTableModel ostm;// 经营情况表
+//	OperationStatementTableModel ostm;// 经营情况表
+	BSLTableModel bstm;
 	JTable t1, t2, t3;// 销售明细表；经营历程表；经营情况表
 	JScrollPane jsp1, jsp2, jsp3;// 销售明细表；经营历程表；经营情况表
 	ReceiptListService reservice;
@@ -299,8 +308,48 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		jsp2 = new JScrollPane(t2);
 		tab.add("经营历程表", jsp2);
 		// -------经营情况表--------------
-		ostm = new OperationStatementTableModel();
-		t3 = new JTable(ostm);
+//		ostm = new OperationStatementTableModel();
+//		t3 = new JTable(ostm);
+		//------------------------test!!!!!!!!!!!------------------------------
+		bstm=new BSLTableModel();
+		t3=new JTable(bstm){
+			private static final long serialVersionUID = 1L;
+
+			protected JTableHeader createDefaultTableHeader() {
+				return new MyTableHeader(columnModel);
+			}
+		};
+		TableColumnModel cm = t3.getColumnModel();
+		ColumnGroup g_name = new ColumnGroup("收入类");
+		g_name.add(cm.getColumn(0));
+		ColumnGroup g_income = new ColumnGroup("商品类收入");
+		g_income.add(cm.getColumn(1));
+		g_income.add(cm.getColumn(2));
+		g_income.add(cm.getColumn(3));
+		g_income.add(cm.getColumn(4));
+		g_name.add(g_income);
+		g_name.add(cm.getColumn(5));
+		g_name.add(cm.getColumn(6));
+		ColumnGroup g_lang = new ColumnGroup("支出类");
+		g_lang.add(cm.getColumn(7));
+		ColumnGroup g_other = new ColumnGroup("商品类支出");
+		g_other.add(cm.getColumn(8));
+		g_other.add(cm.getColumn(9));
+		g_lang.add(g_other);
+		g_lang.add(cm.getColumn(10));
+		ColumnGroup g_profit = new ColumnGroup("利润");
+		g_profit.add(cm.getColumn(11));
+		MyTableHeader header = (MyTableHeader) t3.getTableHeader();
+		header.addColumnGroup(g_name);
+		header.addColumnGroup(g_lang);
+		header.addColumnGroup(g_profit);
+		TableCellRenderer renderer = new MyHeaderButtonRenderer();
+		TableColumnModel model = t3.getColumnModel();
+		for (int i = 0; i < model.getColumnCount(); i++) {
+			model.getColumn(i).setHeaderRenderer(renderer);
+		}
+		t3.getTableHeader().setUI(new MyGroupTableHeaderUI());
+		//------------------------test!!!!!!!!!!!------------------------------
 		t3.getTableHeader().setReorderingAllowed(false);
 		for (int i = 0; i < t3.getColumnCount(); i++) {
 			t3.getColumn(t3.getColumnName(i)).setCellRenderer(
@@ -369,7 +418,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			if (vo != null)
 				ohtm.RefreshTable(vo);
 			double[] data={1,1,1,1,1,1,1,1,1,1,1,1,1};
-			ostm.RefreshTable(data);
+		//	ostm.RefreshTable(data);
+			bstm.RefreshTable(data);
 			
 
 		} catch (Exception e1) {
@@ -393,7 +443,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				} else if (tab.getSelectedIndex() == 1)
 					ExportExcel.Exprot(ohtm.getExportContent(), fileName);
 				else
-					ExportExcel.Exprot(ostm.getExportContent(), fileName);
+				//	ExportExcel.Exprot(ostm.getExportContent(), fileName);
+				    ExportExcel.Exprot(bstm.getExportContent(), fileName);
 				// saveXLSContents();
 			}
 		}else if(e.getSource()==filterBtn){
