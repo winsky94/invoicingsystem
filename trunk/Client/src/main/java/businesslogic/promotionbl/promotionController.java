@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import po.PromotionPO;
 import po.PromotionPO.PromotionType;
+import vo.DiscountProVO;
 import vo.GiftCouponProVO;
+import vo.GiftGoodsProVO;
 import vo.GiftVO;
+import vo.PackProVO;
 import vo.PromotionVO;
 import vo.SaleVO;
 import businesslogicservice.promotionblservice.PromotionBLService;
@@ -115,19 +118,7 @@ public class promotionController implements PromotionViewService,
 		return promotion.Show();
 	}
 
-	public GiftCouponProVO gpFindByID(String id) {
-		// TODO Auto-generated method stub
-		try {
-			promotion promotion=new giftCouponPro();
-		
-			return (GiftCouponProVO)promotion.findByID(id);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-		
-	}
+	
 
 	@Override
 	public double getCouponValue(String id) {
@@ -170,6 +161,58 @@ public class promotionController implements PromotionViewService,
 			return gcp.findByID(id);
 		}
 		
+	}
+	public GiftCouponProVO gpFindByID(String id) {
+		// TODO Auto-generated method stub
+		try {
+		
+			return (GiftCouponProVO)gcp.findByID(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+
+	@Override
+	public GiftGoodsProVO ggFindByID(String id) {
+		// TODO Auto-generated method stub
+		try {
+		
+		
+			return (GiftGoodsProVO)ggp.findByID(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public DiscountProVO dtFindByID(String id) {
+		// TODO Auto-generated method stub
+		try {
+		
+			return (DiscountProVO)dcp.findByID(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public PackProVO pFindByID(String id) {
+		// TODO Auto-generated method stub
+		try {
+		
+			return (PackProVO)pp.findByID(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
