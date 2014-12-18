@@ -32,6 +32,8 @@ import Presentation.mainui.MyTableCellRenderer;
 import Presentation.salesui.manage.purchase.AddPurchaseReturnPanel;
 import Presentation.salesui.manage.sale.AddSalePanel;
 import Presentation.salesui.manage.sale.AddSaleReturnPanel;
+import Presentation.salesui.manage.sale.SaleDetailPanel;
+import Presentation.salesui.manage.sale.SaleReturnDetailPanel;
 import businesslogic.salesbl.SaleList;
 import businesslogic.salesbl.SalesController;
 import businesslogic.userbl.User;
@@ -226,6 +228,22 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 				JOptionPane.showMessageDialog(null, "请选择一条销售单进行退货!", "提示",
 						JOptionPane.WARNING_MESSAGE);
 			
+		}else if(e.getSource()==detailBtn){
+			try {
+			int t=table.getSelectedRow();
+			if(t>=0){
+				String type=c.get(t).get(3);
+				String pid = c.get(t).get(0);
+				if(type.equals("销售单"))
+					parent.setRightComponent(new SaleDetailPanel(pid,parent));
+				else 
+					parent.setRightComponent(new SaleReturnDetailPanel(pid,parent));
+							
+			}
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 
 	}

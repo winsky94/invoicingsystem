@@ -18,6 +18,12 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import vo.CommodityVO;
+import vo.GiftCouponProVO;
+import vo.GoodsVO;
+import vo.PackProVO;
+import businesslogic.promotionbl.promotionController;
+import businesslogicservice.promotionblservice.PromotionViewService;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import Presentation.promotionui.PromotionPanel;
@@ -36,10 +42,14 @@ public class BarginDetailPanel extends JPanel {
 	BarginModel btm;
 	JLabel defaultTotalLbl, priceLbl, gradeLbl, fromLbl, toLbl;
 	ArrayList<ArrayList<String>> content = new ArrayList<ArrayList<String>>();
+	PromotionViewService service;
+	PackProVO vo;
 	double totalMoney, barginMoney;
 
-	public BarginDetailPanel(MainFrame frame) {
+	public BarginDetailPanel(MainFrame frame,String id) throws Exception {
 		father = frame;
+		service=new promotionController();
+		vo=service.pFindByID(id);
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);
@@ -63,15 +73,15 @@ public class BarginDetailPanel extends JPanel {
 		// --------起止时间，等级限制，原价与现价-----------------
 		JPanel timePnl = new JPanel();
 		timePnl.setBackground(Color.white);
-		fromLbl = new JLabel("起始于：");
+		fromLbl = new JLabel("起始于："+vo.getStartDate());
 		fromLbl.setFont(font);
 		timePnl.add(fromLbl);
 		timePnl.add(new JLabel());
-		toLbl = new JLabel("截止于：");
+		toLbl = new JLabel("截止于："+vo.getEndDate());
 		toLbl.setFont(font);
 		timePnl.add(toLbl);
 		timePnl.add(new JLabel());
-		gradeLbl = new JLabel("等级限制：");
+		gradeLbl = new JLabel("等级限制："+vo.getMemberlevel().toString());
 		gradeLbl.setFont(font);
 		timePnl.add(gradeLbl);
 		//
@@ -88,6 +98,8 @@ public class BarginDetailPanel extends JPanel {
 		moneyPnl.setBackground(Color.white);
 		moneyPnl.setLayout(new GridLayout(1, 5));
 		//
+		totalMoney=vo.getTotalValue();
+		barginMoney=vo.getPackValue();
 		moneyPnl.add(new JLabel());
 		defaultTotalLbl = new JLabel("原价:" + totalMoney + "元");
 		defaultTotalLbl.setFont(font);
@@ -137,17 +149,36 @@ public class BarginDetailPanel extends JPanel {
 		c.weighty = 0.1;
 		gbl.setConstraints(btnPnl, c);
 		this.add(btnPnl);
-
-		exitBtn = new JButton("确定");
+		RefreshCTable(vo.getPack().getCombine());
+		exitBtn = new JButton("返回");
 		exitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		exitBtn.setFocusPainted(false);
 		exitBtn.setBackground(new Color(166, 210, 121));
 		btnPnl.add(exitBtn);
 		exitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				father.setRightComponent(new PromotionPanel(father));
+				PromotionPanel ppanel=new PromotionPanel(father);
+				father.setRightComponent(ppanel);
+				if(service.Show()!=null)
+					ppanel.RefreshProTable(service.Show());
+					
 			}
 		});
+	}
+	
+	public void RefreshCTable(ArrayList<CommodityVO> vo) {
+		for (int i = 0; i < vo.size(); i++) {
+			CommodityVO gvo=vo.get(i);
+			ArrayList<String> line = new ArrayList<String>();
+				line.add(gvo.getID());
+				line.add(gvo.getName());
+				line.add(gvo.getType());
+				line.add(gvo.getNum()+"");
+				line.add(gvo.getPrice() + "");
+				line.add(gvo.getTotal() + "");
+				
+				content.add(line);
+		}
 	}
 
 	class BarginModel extends AbstractTableModel {

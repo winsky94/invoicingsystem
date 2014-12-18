@@ -31,6 +31,9 @@ import Presentation.financeui.moneyreceipt.PaymentDetailPanel;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import Presentation.salesui.manage.purchase.PurchaseDetailPanel;
+import Presentation.salesui.manage.purchase.PurchaseReturnDetailPanel;
+import Presentation.salesui.manage.sale.SaleDetailPanel;
+import Presentation.salesui.manage.sale.SaleReturnDetailPanel;
 import Presentation.stockui.giftmanage.GiftDetailPanel;
 import businesslogic.receiptbl.ReceiptController;
 import businesslogic.userbl.User;
@@ -424,7 +427,25 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 						 * father.setRightComponent(new AdvancedReceiptPanel(
 						 * prpane, father, id));
 						 */
-					case STOCKOVER:
+					case SALE:
+						SaleDetailPanel sale=new SaleDetailPanel(id ,father);
+						sale.useToReceipt();
+						father.setRightComponent(new AdvancedReceiptPanel(sale,
+								father, id));break;
+					case PURCHASERETURN:
+						PurchaseReturnDetailPanel purchaseR=new PurchaseReturnDetailPanel(father ,id);
+						purchaseR.useToReceipt();
+						father.setRightComponent(new AdvancedReceiptPanel(purchaseR,
+								father, id));break;
+					case SALERETURN:
+						SaleReturnDetailPanel saleR=new SaleReturnDetailPanel(id ,father);
+						saleR.useToReceipt();
+						father.setRightComponent(new AdvancedReceiptPanel(saleR,
+									father, id));break;
+								
+						
+						
+						
 						
 						
 

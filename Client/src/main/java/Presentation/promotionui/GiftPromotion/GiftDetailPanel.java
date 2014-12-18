@@ -18,6 +18,11 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import vo.CommodityVO;
+import vo.GiftGoodsProVO;
+import vo.GoodsVO;
+import businesslogic.promotionbl.promotionController;
+import businesslogicservice.promotionblservice.PromotionViewService;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import Presentation.promotionui.PromotionPanel;
@@ -36,9 +41,12 @@ public class GiftDetailPanel extends JPanel {
 	JTable table;
 	JLabel fromLbl, toLbl, gradeLbl, limitLbl;
 	JButton submitBtn;
-
-	public GiftDetailPanel(MainFrame frame) {
+	PromotionViewService service;
+	GiftGoodsProVO vo;
+	public GiftDetailPanel(MainFrame frame,String id) throws Exception {
 		father = frame;
+		service=new promotionController();
+		vo=service.ggFindByID(id);
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 45, 5, 45);
@@ -62,22 +70,23 @@ public class GiftDetailPanel extends JPanel {
 		// --------起止时间与等级限制-----------------
 		JPanel timePnl = new JPanel();
 		timePnl.setBackground(Color.white);
-		fromLbl = new JLabel("起始于：");
+		fromLbl = new JLabel("起始于："+vo.getStartDate());
 		fromLbl.setFont(font);
 		timePnl.add(fromLbl);
 		timePnl.add(new JLabel());
-		toLbl = new JLabel("截止于：");
+		toLbl = new JLabel("截止于："+vo.getEndDate());
 		toLbl.setFont(font);
 		timePnl.add(toLbl);
 		timePnl.add(new JLabel());
-		gradeLbl = new JLabel("客户等级限制：");
+		gradeLbl = new JLabel("客户等级限制："+vo.getMemberlevel().toString());
 		gradeLbl.setFont(font);
 		timePnl.add(gradeLbl);
 		timePnl.add(new JLabel());
-		limitLbl = new JLabel("满赠金额：");
+		limitLbl = new JLabel("满赠金额："+vo.getTotalValue());
 		limitLbl.setFont(font);
 		timePnl.add(limitLbl);
 		//
+		
 		c.gridx = 0;
 		c.gridy = 2;
 		c.gridheight = 1;
@@ -90,6 +99,8 @@ public class GiftDetailPanel extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		gm = new GiftModel();
 		table = new JTable(gm);
+		RefreshCTable(vo.getGiftList());
+		table.setEnabled(false);
 		table.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
@@ -118,7 +129,7 @@ public class GiftDetailPanel extends JPanel {
 		this.add(btnPnl);
 		//
 
-		submitBtn = new JButton("确定");
+		submitBtn = new JButton("返回");
 		submitBtn.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		submitBtn.setFocusPainted(false);
 		submitBtn.setBackground(new Color(166, 210, 121));
@@ -126,7 +137,10 @@ public class GiftDetailPanel extends JPanel {
 		submitBtn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				father.setRightComponent(new PromotionPanel(father));
+				PromotionPanel ppanel=new PromotionPanel(father);
+				father.setRightComponent(ppanel);
+				if(service.Show()!=null)
+					ppanel.RefreshProTable(service.Show());
 
 			}
 		});
@@ -155,5 +169,27 @@ public class GiftDetailPanel extends JPanel {
 			return head[col];
 		}
 
+	}
+	
+	public void RefreshCTable(ArrayList<CommodityVO> vo) {
+		double total=0;
+		int num=0;
+		for (int i = 0; i < vo.size(); i++) {
+			ArrayList<String> line = new ArrayList<String>();
+			CommodityVO gvo=vo.get(i);
+				line.add(gvo.getID());
+				line.add(gvo.getName());
+				line.add(gvo.getType());
+				line.add(gvo.getPrice() + "");
+				line.add(gvo.getNum()+"");
+				num+=gvo.getNum();
+				line.add(gvo.getTotal() + "");
+				total+=gvo.getTotal();
+				content.add(line);
+		}
+		ArrayList<String>  tail=new ArrayList<String>();
+		tail.add("赠品总值");tail.add("");tail.add("");tail.add("");
+		tail.add(num+"");tail.add(total+"");
+		content.add(tail);
 	}
 }

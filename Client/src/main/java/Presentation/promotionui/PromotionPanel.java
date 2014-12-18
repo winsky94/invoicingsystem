@@ -31,9 +31,13 @@ import vo.PromotionVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import Presentation.promotionui.BarginPromotion.AddBarginPanel;
+import Presentation.promotionui.BarginPromotion.BarginDetailPanel;
 import Presentation.promotionui.CouponPromotion.AddCouponPanel;
+import Presentation.promotionui.CouponPromotion.CouponDetailPanel;
 import Presentation.promotionui.DiscountPromotion.AddDiscountPanel;
+import Presentation.promotionui.DiscountPromotion.DiscountDetailPanel;
 import Presentation.promotionui.GiftPromotion.AddGiftPanel;
+import Presentation.promotionui.GiftPromotion.GiftDetailPanel;
 import Presentation.uihelper.MyDateFormat;
 
 public class PromotionPanel extends JPanel {
@@ -178,7 +182,26 @@ public class PromotionPanel extends JPanel {
 				"img/promotion/detail.png"));
 		detailBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				try {
+				int i=proTbl.getSelectedRow();
+				if(i>=0){
+					String type=content.get(i).get(3);
+					String id=content.get(i).get(0);
+					if(type.equals("商品赠送"))
+						father.setRightComponent(new GiftDetailPanel(father,id));
+					else if(type.equals("代金券赠送"))
+						father.setRightComponent(new CouponDetailPanel(father,id));
+					else if(type.equals("特价包"))
+						father.setRightComponent(new BarginDetailPanel(father,id));
+					else 
+						father.setRightComponent(new DiscountDetailPanel(father,id));	
+				}else
+					JOptionPane.showMessageDialog(null, "请选择要查看的促销策略!");
+					
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		top.add(detailBtn);
