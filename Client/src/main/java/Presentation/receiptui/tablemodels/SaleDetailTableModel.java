@@ -94,5 +94,8 @@ public void RefreshList(ArrayList<ReceiptVO> vo) throws Exception{
 			v.add(c.get(i));
 		return v;
 	}
+	public void clear(){
+		c.clear();
+	}
 
 }

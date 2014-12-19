@@ -6,22 +6,28 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import dataservice.userdataservice.LogService;
 import vo.LogVO;
+import vo.ReceiptVO;
 import Presentation.mainui.MyTableCellRenderer;
 import Presentation.uihelper.DateChooser;
 import Presentation.uihelper.MyDateFormat;
+import businesslogic.userbl.User;
 import businesslogic.utilitybl.logbl;
 import businesslogicservice.userblservice.LogBLService;
 
@@ -103,50 +109,10 @@ public class SystemLogPanel extends JPanel {
 		c.weighty=1;
 		gbl.setConstraints(jsp, c);
 		this.add(jsp);
-		from.showDate.addPropertyChangeListener(new PropertyChangeListener() {
-
-			public void propertyChange(PropertyChangeEvent evt) {
-				// TODO Auto-generated method stub
-				if (!from.getDate().equals(date1)) {
-					try {
-						LogBLService logser = new logbl();
-						ArrayList<LogVO> vo = logser.find(from.getDate(), date2);
-						if (vo != null)
-							RefreshTable(vo);
-						else {
-							cm.clear();
-						}
-						date1 = from.getDate();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-
-		});
-		to.showDate.addPropertyChangeListener(new PropertyChangeListener() {
-
-			public void propertyChange(PropertyChangeEvent evt) {
-				// TODO Auto-generated method stub
-				if (!to.getDate().equals(date2)) {
-					try {
-						LogBLService logser = new logbl();
-						ArrayList<LogVO> vo = logser.find(date1, to.getDate());
-						if (vo != null)
-							RefreshTable(vo);
-						else {
-							cm.clear();
-						}
-						date2 = to.getDate();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-
-		});
+		dateListener listen=new dateListener();
+		from.showDate.addFocusListener(listen);
+		to.showDate.addFocusListener(listen);
+		
 	}
 
 	class LogModel extends AbstractTableModel {
@@ -185,4 +151,34 @@ public class SystemLogPanel extends JPanel {
 			cm.add(line);
 		}
 	}
+	
+	class dateListener extends FocusAdapter{
+		public void focusLost(FocusEvent e){
+			((JLabel) e.getSource()).setFocusable(true);
+			String start=from.getDate();
+			String end=to.getDate();
+			try {
+				if(start.compareTo(end)<=0){
+					LogBLService service=new logbl();
+					ArrayList<LogVO> log=service.find(start, end);
+					if(log==null){
+						cm.clear();
+						SystemLogPanel.this.repaint();
+						JOptionPane.showMessageDialog(SystemLogPanel.this,"没有符合要求的日志记录!");
+					}else{
+						RefreshTable(log);
+						SystemLogPanel.this.repaint();
+					}
+					
+				}
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			
+			
+			
+		}
+	} 
 }

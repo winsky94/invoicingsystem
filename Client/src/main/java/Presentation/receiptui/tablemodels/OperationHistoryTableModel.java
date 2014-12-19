@@ -44,6 +44,10 @@ public class OperationHistoryTableModel extends AbstractTableModel{
 	public String getValueAt(int row, int col) {
 		return cm.get(row).get(col);
 	}
+	public void setValueAt(Object value, int row, int col) {
+		cm.get(row).set(col, (String) value);
+		fireTableCellUpdated(row, col);
+	}
 
 	public String getColumnName(int col) {
 		return head[col];
@@ -79,7 +83,8 @@ public class OperationHistoryTableModel extends AbstractTableModel{
 			else line.add(Total.getTotal(v));
 			line.add(user.getName(v.getUser()));
 			line.add(v.getInfo());
-			cm.add(line);		
+			cm.add(line);	
+			
 			
 		}
 	}
@@ -96,6 +101,7 @@ public class OperationHistoryTableModel extends AbstractTableModel{
 	
 	public void clear(){
 		cm.clear();
+		
 		
 	}
 

@@ -32,6 +32,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
@@ -131,6 +132,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		c.weighty = 0.1;
 		gbl.setConstraints(toptab, c);
 		this.add(toptab);
+		
 		// -----------------------------
 		JPanel buttonPnl = new JPanel();
 		buttonPnl.setBackground(Color.white);
@@ -217,7 +219,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		dateListener datelistener=new dateListener();
 		from = new DateChooser();
 		from.showDate.addFocusListener(datelistener);
-			
+		
 		twoTimePnl.add(fromLbl);
 		twoTimePnl.add(from);
 		JLabel toLbl = new JLabel("截止时间：");
@@ -419,6 +421,16 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		}
 		jsp3 = new JScrollPane(t3);
 		tab.add("经营情况表", jsp3);
+		tab.addChangeListener(new ChangeListener(){
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+				RefreshTable();
+				toptab.setSelectedIndex(0);
+			}
+			
+		});
 
 	}
 
@@ -510,34 +522,58 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				// saveXLSContents();
 			}
 		}else if(e.getSource()==filterBtn){
-			// nameBox, memberBox, clerkBox, stockBox;receiptTypeBox 
-			//	//时间区间,单据类型，客户，业务员，仓库
-		
+			String type="销售明细";
+			String typeOrName=nameOrTypeCbox.getSelectedItem().toString();
+			if(tab.getSelectedIndex()==1){
+				type="经营历程";
+				typeOrName=Total.getsType(typeOrName).toString();
+			}
+			
+			String message[]={from.getDate()+to.getDate(),typeOrName,
+					memberCbox.getSelectedItem().toString(),clerkCbox.getSelectedItem().toString(),stockFld.getText(),type};
+			ArrayList<ReceiptVO> receipt=reservice.AccurateFind(message);
+			FilterRefresh(receipt,type);	
+		}else if(e.getSource()==refreshBtn){
+			RefreshTable();
 		}
 	}
 	
 	class dateListener extends FocusAdapter{
 		public void focusLost(FocusEvent e){
+			((JLabel) e.getSource()).setFocusable(true);
 			String start=from.getDate();
 			String end=to.getDate();
 			if(start.compareTo(end)<=0){
-				String[] filter={start+end,null,null,null,null};
+				String type="销售明细";
+				if(tab.getSelectedIndex()==1)
+					type="经营历程";
+				String[] filter={start+end,null,null,null,null,type};
 				ArrayList<ReceiptVO> receipt=reservice.AccurateFind(filter);
-				if(receipt==null){
-					JOptionPane.showMessageDialog(ReportMgrPanel.this, "没有符合条件的单据！");
-					ohtm.clear();
-					t1.validate();
-				}else{
-					try {
-						ohtm.RefreshTable(receipt);
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
+				FilterRefresh(receipt,type);
 			}
 			
 		}
 	} 
 
+	public void FilterRefresh(ArrayList<ReceiptVO> receipt,String type){
+		if(receipt==null){
+			if(type.equals("经营历程"))
+				ohtm.clear();
+			else sdtm.clear();
+			ReportMgrPanel.this.repaint();
+			JOptionPane.showMessageDialog(ReportMgrPanel.this, "没有符合条件的单据！");		
+		}else{
+			try {
+				if(type.equals("经营历程"))
+					ohtm.RefreshTable(receipt);
+				else
+					sdtm.RefreshList(receipt);
+				ReportMgrPanel.this.repaint();
+			
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
 }
