@@ -135,29 +135,7 @@ public class User implements UserBLService,UserViewService{
 		return vo;
 	}
 	
-	public String getID(){
-		return ID;
-	}
 	
-	public String getName(){
-		return name;
-	}
-
-	public String getPassWord(){
-		return password;
-	}
-	
-	public UserJob getJob(){
-		return job;
-	}
-	
-	public void setJob(UserJob job){
-		this.job=job;
-	}
-	
-	public double getPoints(){
-		return points;
-	}
 
 
 	public String getName(String id) {
@@ -165,6 +143,21 @@ public class User implements UserBLService,UserViewService{
 		UserPO user=service.showUserInfo(id);
 		if(user==null) return null;
 		return user.getName();
+	}
+
+
+	@Override
+	public String[] getAllUserName() {
+		// TODO Auto-generated method stub
+		ArrayList<UserPO> po=service.showAll();
+		if(po==null)  return null;
+		else{
+			String[] name=new String[po.size()+1];
+			name[0]="全部";
+			for(int i=0;i<po.size();i++)
+				name[i+1]=po.get(i).getName();
+			return name;
+			}
 	}
 	
 }

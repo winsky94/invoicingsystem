@@ -8,6 +8,9 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
@@ -23,6 +26,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -32,6 +37,7 @@ import javax.swing.table.TableColumnModel;
 
 import po.ReceiptPO.ReceiptType;
 import po.UserPO.UserJob;
+import vo.MemberVO;
 import vo.ReceiptVO;
 import Presentation.mainui.ExportExcel;
 import Presentation.mainui.MainFrame;
@@ -46,8 +52,12 @@ import Presentation.receiptui.tablemodels.OperationHistoryTableModel;
 import Presentation.receiptui.tablemodels.OperationStatementTableModel;
 import Presentation.receiptui.tablemodels.SaleDetailTableModel;
 import Presentation.uihelper.DateChooser;
+import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.ReceiptController;
+import businesslogic.userbl.User;
+import businesslogicservice.memberblservice.MemberViewService;
 import businesslogicservice.receiptblservice.ReceiptListService;
+import businesslogicservice.userblservice.UserViewService;
 
 //查看三表
 public class ReportMgrPanel extends JPanel implements ActionListener {
@@ -56,7 +66,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String keyword;// 注意：搜索框的监听已经写好，需要获取搜索框内容时直接用这个字符串就行！
+	String keyword;// 搜索框输入
 	Color color = new Color(115, 46, 126);
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	MyButton refreshBtn, exportBtn, findBtn, redBtn, redCopyBtn;
@@ -65,8 +75,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 	//
 	JButton filterBtn;
 	DateChooser from, to;
-	MyCheckBox nameBox, memberBox, clerkBox, stockBox;
-	JComboBox<String> receiptTypeBox, memberCbox, clerkCbox;
+	JLabel nameOrTypeLbl, memberLbl, clerkLbl, stockLbl;
+	JComboBox<String> nameOrTypeCbox, memberCbox, clerkCbox;
 	//
 
 	JTabbedPane tab, toptab;
@@ -220,49 +230,82 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		JPanel f2 = new JPanel();
 		f2.setBackground(Color.white);
 		filterPnl.add(f2);
+		
 		// -----四大复选框-----------
 		// -----按商品名筛选-------------
-		nameBox = new MyCheckBox("按商品名");
-		f1.add(nameBox);
-		nameFld = new JTextField(5);
-		nameFld.setFont(font);
-		f1.add(nameFld);
+		nameOrTypeLbl = new JLabel("按商品名");
+		f1.add(nameOrTypeLbl);
+		nameOrTypeCbox=new JComboBox<String>();
+		nameOrTypeCbox.setBackground(Color.white);
+		nameOrTypeCbox.setForeground(color);
+		nameOrTypeCbox.setFont(font);
+		nameOrTypeCbox.setEditable(true);
+		f1.add(nameOrTypeCbox);
 		// ------按客户------------------
-		memberBox = new MyCheckBox("按客户");
-		f1.add(memberBox);
-		String memberCboxText[] = { "XSS-023589 监小听" };
-		memberCbox = new JComboBox<String>(memberCboxText);
+		memberLbl = new JLabel("按客户");
+		f1.add(memberLbl);
+		memberCbox = new JComboBox<String>();
 		memberCbox.setBackground(Color.white);
 		memberCbox.setForeground(color);
 		memberCbox.setFont(font);
+		memberCbox.setEditable(true);
 		f1.add(memberCbox);
 		// ------按业务员-----------------
-		clerkBox = new MyCheckBox("按业务员");
-		f1.add(clerkBox);
-		String clerkCboxText[] = { "XS-00004 大黄" };
-		clerkCbox = new JComboBox<String>(clerkCboxText);
+		clerkLbl = new JLabel("按业务员");
+		f1.add(clerkLbl);
+		clerkCbox = new JComboBox<String>();
 		clerkCbox.setBackground(Color.white);
 		clerkCbox.setForeground(color);
 		clerkCbox.setFont(font);
 		f1.add(clerkCbox);
 		// --------按仓库--------------------
-		stockBox = new MyCheckBox("按仓库");
-		f2.add(stockBox);
+		stockLbl = new JLabel("按仓库");
+		f2.add(stockLbl);
 		stockFld = new JTextField(5);
 		stockFld.setFont(font);
 		f2.add(stockFld);
 		// -----单据类型------------
-		JLabel typeLbl = new JLabel("筛选指定类型的单据：");
-		typeLbl.setFont(font);
-		typeLbl.setForeground(color);
-		f2.add(typeLbl);
-		String typeText[] = { "全部", "销售类", "进货类", "财务类", "库存类" };
-		receiptTypeBox = new JComboBox<String>(typeText);
-		receiptTypeBox.setBackground(Color.white);
-		receiptTypeBox.setFont(font);
-		receiptTypeBox.setForeground(color);
-		f2.add(receiptTypeBox);
+		
 		f2.add(new JLabel());
+		toptab.addChangeListener(new ChangeListener(){
+
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					if(toptab.getSelectedIndex()==1){
+						MemberViewService memservice = new Member();
+						String[] memName=memservice.getAllMemberName();
+						memberCbox.removeAllItems();
+						for(String name:memName)
+							memberCbox.addItem(name);
+						UserViewService userservice=new User();
+						String[] userName=userservice.getAllUserName();
+						clerkCbox.removeAllItems();
+						for(String name:userName)
+							clerkCbox.addItem(name);
+						if(tab.getSelectedIndex()==0){
+							//销售明细  根据商品名筛选
+						
+						
+						
+						}else{
+							//经营历程  根据单据类型筛选
+							nameOrTypeLbl.setText("按单据类型");
+							String type[]={"全部","销售单","销售退货单","进货单","进货退货单","收款单",
+									"付款单","现金费用单","库存报警单","库存报损单","库存报溢单","库存赠送单"};
+							nameOrTypeCbox.removeAllItems();
+							nameOrTypeCbox.setEditable(false);
+							for(String item:type)
+								nameOrTypeCbox.addItem(item);
+						}
+						
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+			}
+		});
 		// -------筛选按钮----------------
 		filterBtn = new JButton("开始筛选");
 		filterBtn.setBackground(Color.white);
@@ -450,24 +493,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		}else if(e.getSource()==filterBtn){
 			// nameBox, memberBox, clerkBox, stockBox;receiptTypeBox 
 			//	//时间区间,单据类型，客户，业务员，仓库
-			String name=null,member=null,clerk=null,stock=null;
-			if(nameBox.isSelected()){
-				name=nameFld.getText();
-			}if(memberBox.isSelected())
-				member=memberCbox.getSelectedItem().toString();
-			if(clerkBox.isSelected())
-				clerk=clerkCbox.getSelectedItem().toString();
-			if(stockBox.isSelected())
-				stock=stockFld.getText();
-			ArrayList<ReceiptVO> vo=new ArrayList<ReceiptVO>();
-			vo=reservice.AccurateFind(new String[]{null,ReceiptType.COLLECTION.toString() ,member,clerk,stock});	
-			try {
-				
-				ohtm.RefreshTable(vo);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+		
 		}
 	}
 

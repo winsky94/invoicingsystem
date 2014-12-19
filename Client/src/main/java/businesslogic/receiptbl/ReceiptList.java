@@ -5,6 +5,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import po.CollectionPO;
 import po.ReceiptPO;
@@ -42,6 +43,7 @@ public class ReceiptList {
 				approved.add(p);
 			
 		}
+		//Collections.sort(approved, c);
 		return approved;
 	}
 	
