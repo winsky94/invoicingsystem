@@ -53,6 +53,7 @@ public class DateChooser extends JPanel{
     private SimpleDateFormat sdf=new SimpleDateFormat("yyyy年MM月dd日");
     private boolean isShow=false;
     private Popup pop;
+
     /**
      * Creates a new instance of DateChooser
      */
@@ -174,6 +175,7 @@ public class DateChooser extends JPanel{
     private void commit(){
        // System.out.println("选中的日期是："+sdf.format(select.getTime()));
         showDate.setText(sdf.format(select.getTime()));
+        showDate.setFocusable(false);
         hidePanel();
     }
     private void hidePanel(){
