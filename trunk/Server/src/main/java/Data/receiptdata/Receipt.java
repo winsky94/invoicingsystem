@@ -329,7 +329,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 			String startDate=s.substring(0,8);
 			String endDate=s.substring(8,16);
 			for(ReceiptPO po:al){
-				if(startDate.compareTo(po.myGetDate())<0&&po.myGetDate().compareTo(endDate)<0)
+				if(startDate.compareTo(po.myGetDate())<=0&&po.myGetDate().compareTo(endDate)<=0)
 					result.add(po);	
 			}
 		     return result;
@@ -400,8 +400,9 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 	
 	public ArrayList<ReceiptPO> intersection(ArrayList<ReceiptPO> a1,ArrayList<ReceiptPO> a2){
 		ArrayList<ReceiptPO> result=new ArrayList<ReceiptPO>();
-		if(a1==null||a2==null)
-			return null;
+		
+			if(a1==null||a2==null)
+				return null;
 		for(int i=0;i<a1.size();i++)
 			for(int j=0;j<a2.size();j++){
 				if(a1.get(i).getId().equals(a2.get(j).getId())){
@@ -425,27 +426,27 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		if(message[0]!=null)
 			a1=findByTime(message[0]);
 		else
-			a1=null;
+			a1=showAll();
 		//查找类单据
 		if(message[1]!=null)
 			a2=show(ReceiptType.valueOf(message[1]));
 		else
-			a2=null;
+			a2=showAll();
 		
 		if(message[2]!=null)
 			a3=findByMember(message[2]);
 		else
-			a3=null;
+			a3=showAll();
 		
 		if(message[3]!=null)
 			a4=findByUser(message[3]);
 		else
-			a4=null;
+			a4=showAll();
 		
 		if(message[4]!=null)
 			a5=findByWarehouse(message[4]);
 		else
-			a5=null;
+			a5=showAll();
 		
 		result=intersection(a1,intersection(a2,intersection(a3,intersection(a4,a5))));
 		
@@ -493,5 +494,12 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		file.writeM(a);
 		
 	}
+	/*public static void main(String[] args) throws RemoteException {
+		String  m[]={"2014120920141230",null,null,null,null};
+		Receipt r=new Receipt();
+		ArrayList<ReceiptPO> po=r.AccurateFind(m);
+		for(int i=0;i<po.size();i++)
+			System.out.println(po.get(i).getId());
+	}*/
       
 }
