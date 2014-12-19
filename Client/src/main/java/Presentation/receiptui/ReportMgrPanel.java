@@ -71,8 +71,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 	String keyword;// 搜索框输入
 	Color color = new Color(115, 46, 126);
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
-	MyButton refreshBtn, exportBtn, findBtn, redBtn, redCopyBtn;
-	JTextField findFld, nameFld, stockFld;
+	MyButton refreshBtn, exportBtn, redBtn, redCopyBtn;
+	JTextField nameFld, stockFld;
 	MainFrame father;
 	//
 	JButton filterBtn;
@@ -184,30 +184,30 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			});
 			btnPnl.add(redCopyBtn);
 		}
-		// -----搜索框---------------
-		findFld = new JTextField(13);
-		findFld.setFont(font);
-		findFld.getDocument().addDocumentListener(new DocumentListener() {
-
-			public void removeUpdate(DocumentEvent e) {
-				keyword = findFld.getText();
-
-			}
-
-			public void insertUpdate(DocumentEvent e) {
-				keyword = findFld.getText();
-
-			}
-
-			public void changedUpdate(DocumentEvent e) {
-				keyword = findFld.getText();
-
-			}
-		});
-		twoTimePnl.add(findFld);
-		// -----搜索按钮-------------
-		findBtn = new MyButton(new ImageIcon(findPath));
-		twoTimePnl.add(findBtn);
+//		// -----搜索框---------------
+//		findFld = new JTextField(13);
+//		findFld.setFont(font);
+//		findFld.getDocument().addDocumentListener(new DocumentListener() {
+//
+//			public void removeUpdate(DocumentEvent e) {
+//				keyword = findFld.getText();
+//
+//			}
+//
+//			public void insertUpdate(DocumentEvent e) {
+//				keyword = findFld.getText();
+//
+//			}
+//
+//			public void changedUpdate(DocumentEvent e) {
+//				keyword = findFld.getText();
+//
+//			}
+//		});
+//		twoTimePnl.add(findFld);
+//		// -----搜索按钮-------------
+//		findBtn = new MyButton(new ImageIcon(findPath));
+//		twoTimePnl.add(findBtn);
 		// ----日期--------------
 		JLabel fromLbl = new JLabel("起始时间：");
 		fromLbl.setFont(font);
