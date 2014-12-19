@@ -20,5 +20,7 @@ public interface StockGoodsBLService {
 
 	public ArrayList<GoodsVO> showGoodsByClass(String className);
 	
+	public String[] getAllGoodsName();
+	
 	public String getMaxID();
 }

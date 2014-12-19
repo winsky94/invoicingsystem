@@ -59,7 +59,21 @@ public class ReceiptList {
 		return toApprove;
 	}
 	
-	
+	public ArrayList<ReceiptPO> showToApprove(ReceiptType type){
+		ArrayList<ReceiptPO> toApprove=showToApprove();
+		if(toApprove==null) return null;
+		else{
+			ArrayList<ReceiptPO> toApproveByType=new ArrayList<ReceiptPO>();
+			for(int i=0;i<toApprove.size();i++)
+				if(toApprove.get(i).getType()==type)
+					toApproveByType.add(toApprove.get(i));
+			if(toApproveByType.size()==0) return null;
+			else
+				return toApproveByType;
+		}
+		
+		
+	}
 
 
 	

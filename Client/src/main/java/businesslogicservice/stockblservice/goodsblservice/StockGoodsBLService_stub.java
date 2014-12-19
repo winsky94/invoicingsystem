@@ -51,5 +51,11 @@ public class StockGoodsBLService_stub implements StockGoodsBLService {
 		return null;
 	}
 
+	@Override
+	public String[] getAllGoodsName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
