@@ -68,7 +68,7 @@ public class LoginFrame extends JFrame{
 		// 窗口标题
 		this.setTitle("欢迎使用进销存系统");
 		// 设置图标
-		this.setIconImage(UIhelper.getImage("img/icon.png"));
+		this.setIconImage(new ImageIcon("img/Login/logo.png").getImage());
 
 		// ----------下面是覆盖整个窗口的MainPanel---------------------------------------------
 		JPanel mainPanel = new JPanel() {

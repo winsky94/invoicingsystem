@@ -42,6 +42,7 @@ public class functionPane extends JPanel{
 		close.setBorder(border);
 		help.setBorder(border);
 		
+		
 		close.addMouseListener(listen);
 		min.addMouseListener(listen);
 		max.addMouseListener(listen);
@@ -57,12 +58,14 @@ public class functionPane extends JPanel{
 		min.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		max.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		close.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	
 		FlowLayout flow=new FlowLayout();
 		//this.setBackground(Color.WHITE);
 		flow.setAlignment(FlowLayout.RIGHT);
 		this.setLayout(flow);
 		//this.setBackground(Color.WHITE);
 		this.setSize(100,30);
+		
 		add(skin);
 		add(help);
 		add(min);add(max);add(close);
