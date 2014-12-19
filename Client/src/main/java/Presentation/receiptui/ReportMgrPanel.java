@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -212,13 +214,17 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		JLabel fromLbl = new JLabel("起始时间：");
 		fromLbl.setFont(font);
 		fromLbl.setForeground(color);
+		dateListener datelistener=new dateListener();
 		from = new DateChooser();
+		from.showDate.addFocusListener(datelistener);
+			
 		twoTimePnl.add(fromLbl);
 		twoTimePnl.add(from);
 		JLabel toLbl = new JLabel("截止时间：");
 		toLbl.setFont(font);
 		toLbl.setForeground(color);
 		to = new DateChooser();
+		to.showDate.addFocusListener(datelistener);
 		twoTimePnl.add(toLbl);
 		twoTimePnl.add(to);
 		// -----筛选按钮-------------
@@ -509,5 +515,29 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		
 		}
 	}
+	
+	class dateListener extends FocusAdapter{
+		public void focusLost(FocusEvent e){
+			String start=from.getDate();
+			String end=to.getDate();
+			if(start.compareTo(end)<=0){
+				String[] filter={start+end,null,null,null,null};
+				ArrayList<ReceiptVO> receipt=reservice.AccurateFind(filter);
+				if(receipt==null){
+					JOptionPane.showMessageDialog(ReportMgrPanel.this, "没有符合条件的单据！");
+					ohtm.clear();
+					t1.validate();
+				}else{
+					try {
+						ohtm.RefreshTable(receipt);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+			
+		}
+	} 
 
 }

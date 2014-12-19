@@ -93,5 +93,10 @@ public class OperationHistoryTableModel extends AbstractTableModel{
 			result.add(cm.get(i));
 		return result;
 	}
+	
+	public void clear(){
+		cm.clear();
+		
+	}
 
 }
