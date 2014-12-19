@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -168,9 +170,13 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		String type[]={"全部","销售单","销售退货单","进货单","进货退货单","收款单",
 				"付款单","现金费用单","库存报损单","库存报溢单","库存赠送单"};
 		findbox = new JComboBox<String>(type);
+		findbox.setBackground(Color.white);
+		findbox.setForeground(color);
+		findbox.setFont(font);
 		btnPnl.add(findbox);
 		findBtn = new MyButton(new ImageIcon(findPath));
 		btnPnl.add(findBtn);
+		findBtn.addActionListener(this);
 		// ------------------------------
 		tab = new JTabbedPane();
 		tab.setFont(font);
@@ -184,6 +190,23 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		c.weighty = 1;
 		gbl.setConstraints(tab, c);
 		this.add(tab);
+		tab.addChangeListener(new ChangeListener(){
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+				if(tab.getSelectedIndex()==0){
+					if(service.ToApprove()!=null)
+						try {
+							RefreshTable(service.ToApprove(),0);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+				}
+			}
+			
+		});
 		// -------待审批-------------------
 		rtm1 = new ReceiptTableModel(c1,0);
 		t1 = new JTable(rtm1);
