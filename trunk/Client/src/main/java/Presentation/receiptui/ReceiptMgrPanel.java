@@ -499,6 +499,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			if(receiptToApprove==null){
 				c1.clear();
 				ReceiptMgrPanel.this.repaint();	
+				JOptionPane.showMessageDialog(null, "没有符合条件的单据！");
 			}
 			else{
 				try {
