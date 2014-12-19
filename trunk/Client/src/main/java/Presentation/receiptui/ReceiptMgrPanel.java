@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -51,7 +52,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	MainFrame father;
 	MyButton approvedBtn, disapprovedBtn, modBtn, refreshBtn, findBtn;
-	JTextField findFld;
+	JComboBox findbox;
 	JTabbedPane tab;
 	JScrollPane jsp1, jsp2;
 	JTable t1, t2;
@@ -164,8 +165,10 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		refreshBtn = new MyButton("刷新", new ImageIcon(refreshPath));
 		btnPnl.add(refreshBtn);
 		// -------筛选--------------------
-		findFld = new JTextField(10);
-		btnPnl.add(findFld);
+		String type[]={"全部","销售单","销售退货单","进货单","进货退货单","收款单",
+				"付款单","现金费用单","库存报损单","库存报溢单","库存赠送单"};
+		findbox = new JComboBox<String>(type);
+		btnPnl.add(findbox);
 		findBtn = new MyButton(new ImageIcon(findPath));
 		btnPnl.add(findBtn);
 		// ------------------------------
@@ -455,8 +458,37 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 					ee.printStackTrace();
 				}
 			}
-		}else if(e.getSource()==refreshBtn)
+		}else if(e.getSource()==refreshBtn){
 			Refresh();
+			
+		}else if(e.getSource()==findBtn){
+			ArrayList<ReceiptVO> receiptToApprove;
+			String find=findbox.getSelectedItem().toString();
+			//{"全部","销售单","销售退货单","进货单","进货退货单","收款单",
+			//"付款单","现金费用单","库存报损单","库存报溢单","库存赠送单"}
+			ReceiptType type=null;
+			if(find.equals("全部"))
+				receiptToApprove=service.ToApprove();
+			else{
+				type=Total.getsType(find);
+				receiptToApprove=service.ToApprove(type);
+			}
+			if(receiptToApprove==null){
+				c1.clear();
+				ReceiptMgrPanel.this.repaint();	
+			}
+			else{
+				try {
+					RefreshTable(receiptToApprove,0);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+			
+		
+		}
 
 	}
 

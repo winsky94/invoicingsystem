@@ -54,9 +54,11 @@ import Presentation.receiptui.tablemodels.SaleDetailTableModel;
 import Presentation.uihelper.DateChooser;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.ReceiptController;
+import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.userbl.User;
 import businesslogicservice.memberblservice.MemberViewService;
 import businesslogicservice.receiptblservice.ReceiptListService;
+import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import businesslogicservice.userblservice.UserViewService;
 
 //查看三表
@@ -285,9 +287,12 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 							clerkCbox.addItem(name);
 						if(tab.getSelectedIndex()==0){
 							//销售明细  根据商品名筛选
-						
-						
-						
+							nameOrTypeLbl.setText("按商品名");
+							StockGoodsBLService goodservice=new GoodsController();
+							String goodName[]=goodservice.getAllGoodsName();
+							nameOrTypeCbox.removeAllItems();
+							for(String name:goodName)
+								nameOrTypeCbox.addItem(name);
 						}else{
 							//经营历程  根据单据类型筛选
 							nameOrTypeLbl.setText("按单据类型");

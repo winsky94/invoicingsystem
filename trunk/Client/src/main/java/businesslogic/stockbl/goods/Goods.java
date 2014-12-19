@@ -284,6 +284,18 @@ public class Goods {
 		return result;
 	}
 
+	
+	public String[] getAllGoodsName(){
+		ArrayList<GoodsPO> good=service.showGoods();
+		if(good==null) return null;
+		else{
+			String[] goodName=new String[good.size()+1];
+			goodName[0]="全部";
+			for(int i=0;i<good.size();i++)
+				goodName[i+1]=good.get(i).getName();
+			return goodName;
+		}
+	}
 	public String getMaxID() {
 		return service.getMaxID();
 	}

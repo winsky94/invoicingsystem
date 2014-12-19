@@ -92,8 +92,10 @@ public class Total {
 			return ReceiptType.COLLECTION;
 		case "库存报溢单":
 			return ReceiptType.STOCKOVER;
-		default:
+		case "库存报损单":
 			return ReceiptType.STOCKLOW;
+		default:
+			return ReceiptType.STOCKERROR;
 			
 			
 		}

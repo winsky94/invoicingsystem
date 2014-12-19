@@ -2,6 +2,7 @@ package businesslogicservice.receiptblservice;
 
 import java.util.ArrayList;
 
+import po.ReceiptPO.ReceiptType;
 import vo.ReceiptVO;
 
 public interface ReceiptBLService {
@@ -14,6 +15,7 @@ public interface ReceiptBLService {
 	public ArrayList<ReceiptVO> Refresh();
 	public int Approve(String id,int status);
 	public ArrayList<ReceiptVO> ToApprove();
+	public ArrayList<ReceiptVO> ToApprove(ReceiptType type);
 	public ArrayList<ReceiptVO> Approved();
 //	public int Excute(String id);
 //	public int setStatus(String id,int st);
