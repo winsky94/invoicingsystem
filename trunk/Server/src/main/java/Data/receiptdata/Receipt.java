@@ -12,6 +12,7 @@ import Data.salesdata.Sales;
 import Data.serutility.JXCFile;
 import Data.stockdata.gift.Gift;
 import Data.stockdata.stockManage.StockControl;
+import Data.userdata.User;
 import po.CashlistPO;
 import po.CollectionPO;
 import po.GiftPO;
@@ -345,7 +346,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 				continue;
 			}
 			else{
-				if(s.equals(po.getMemberID()))
+				if(s.equals(po.getMemberName()))
 					result.add(po);
 			}
 		}
@@ -358,10 +359,11 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 	public ArrayList<ReceiptPO> findByUser(String s) throws RemoteException{
 		ArrayList<ReceiptPO> result=new ArrayList<ReceiptPO>();
 		ArrayList<ReceiptPO> al=showAll();
+		User user=new User();
 		if(al==null)
 			return null;
 		for(ReceiptPO po:al){
-			if(po.getUserID().equals(s))
+			if(user.showUserInfo(po.getUserID()).getName().equals(s))
 				result.add(po);
 		}
 		if(result.size()==0)
@@ -417,6 +419,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 	
 	public ArrayList<ReceiptPO> AccurateFind(String[] message)throws RemoteException {
 		//时间区间,单据类型，客户，业务员，仓库
+		
 		ArrayList<ReceiptPO> a1;
 		ArrayList<ReceiptPO> a2;
 		ArrayList<ReceiptPO> a3;
@@ -426,46 +429,66 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		ArrayList<ArrayList<ReceiptPO>> recipts=new ArrayList<ArrayList<ReceiptPO>>();
 		if(message[0]!=null){
 			a1=findByTime(message[0]);
-			recipts.add(a1);
 		}
 		else
-			a1=null;
+			a1=showAll();
 		//查找类单据
-		if(message[1]!=null){
-			a2=show(ReceiptType.valueOf(message[1]));
-			recipts.add(a2);
-		}
-		else
-			a2=null;
 		
-		if(message[2]!=null){
+		if(message[message.length-1].equals("销售明细")){
+			Sales s=new Sales();
+			if(message[1]!=null&&!message[1].equals("全部"))
+			{
+				a2=s.findByGoodsName(message[1]);
+			}else{
+				a2=s.getAllSale();
+			}
+		}
+		else{
+			if(message[1]!=null&&!message[1].equals("全部")){
+				a2=show(ReceiptType.valueOf(message[1]));
+			//recipts.add(a2);
+			}
+			else
+				a2=showAll();
+		}
+		
+		if(message[2]!=null&&!message[2].equals("全部")){
 			a3=findByMember(message[2]);
-			recipts.add(a3);
+			//recipts.add(a3);
 		}
 		else
-			a3=null;
+			a3=showAll();
 		
-		if(message[3]!=null){
+		if(message[3]!=null&&!message[3].equals("全部")){
 			a4=findByUser(message[3]);
-			recipts.add(a4);
+			//recipts.add(a4);
 		}
 		else
-			a4=null;
+			a4=showAll();
 		
-		if(message[4]!=null){
+		if(message[4]!=null&&!message[4].equals("")){
 			a5=findByWarehouse(message[4]);
-			recipts.add(a5);
+			//recipts.add(a5);
 		}
 		else
-			a5=null;
+			a5=showAll();
 		
-		if(recipts.size()==0)
-			return null;
+	//	if(recipts.size()==0)
+		//	return null;
 		
-		result=recipts.get(0);
-		for(int i=1;i<recipts.size();i++){
-			result=intersection(result,recipts.get(i));
-		}
+		//result=recipts.get(0);
+		//for(int i=1;i<recipts.size();i++){
+		//	result=intersection(result,recipts.get(i));
+		//}
+		result=intersection(a1,intersection(a2,intersection(a3,intersection(a4,a5))));
+	/*	if(message[message.length-1].equals("销售明细")){
+			for(int i=0;i<result.size();i++){
+				ReceiptPO p=result.get(i);
+				boolean isSale=p.getType()==ReceiptType.SALE||p.getType()==ReceiptType.SALERETURN;
+				if(!isSale)
+					result.remove(i);
+			}
+		}*/
 		
 		return result;
 			
@@ -511,12 +534,14 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		file.writeM(a);
 		
 	}
-	/*public static void main(String[] args) throws RemoteException {
-		String  m[]={"2014120920141230",null,null,null,null};
+	public static void main(String[] args) throws RemoteException {
+		String  m[]={"2014120120141230",ReceiptType.COLLECTION.toString(),"马建国",null,null,"经营历程"};
 		Receipt r=new Receipt();
 		ArrayList<ReceiptPO> po=r.AccurateFind(m);
 		for(int i=0;i<po.size();i++)
 			System.out.println(po.get(i).getId());
-	}*/
+	
       
+	}
+	
 }

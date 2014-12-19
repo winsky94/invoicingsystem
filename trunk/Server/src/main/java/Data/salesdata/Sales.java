@@ -113,6 +113,35 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return buffer;
 	}
 
+	
+	public ArrayList<ReceiptPO> findByGoodsName(String name) throws RemoteException{
+		ArrayList<ReceiptPO> sale=getAllSale();
+		if(sale==null) return null;
+		else{
+			ArrayList<ReceiptPO> result=new ArrayList<ReceiptPO>();
+			ArrayList<CommodityPO> com;
+			for(ReceiptPO po:sale){
+				if(po.getType()==ReceiptType.SALE){
+					com=((SalePO)po).getSalesList();
+				}else{
+					com=((SaleReturnPO)po).getSalesreturnList();
+				}
+				if(com!=null){
+					for(CommodityPO cpo:com){
+						if(cpo.getName().equals(name))
+						{
+							result.add(po);break;
+						}
+					}
+				}
+					
+			
+			}
+			if(result.size()==0) return null;
+			else return result;
+		}
+		
+	}
 	public int createPurchaseReturn(PurchaseReturnPO po) throws RemoteException{
 		file=new JXCFile("purchasereturn.ser");
 		file.write(po);
