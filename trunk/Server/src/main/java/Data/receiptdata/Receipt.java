@@ -429,35 +429,35 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 			recipts.add(a1);
 		}
 		else
-			a1=showAll();
+			a1=null;
 		//查找类单据
 		if(message[1]!=null){
 			a2=show(ReceiptType.valueOf(message[1]));
 			recipts.add(a2);
 		}
 		else
-			a2=showAll();
+			a2=null;
 		
 		if(message[2]!=null){
 			a3=findByMember(message[2]);
 			recipts.add(a3);
 		}
 		else
-			a3=showAll();
+			a3=null;
 		
 		if(message[3]!=null){
 			a4=findByUser(message[3]);
 			recipts.add(a4);
 		}
 		else
-			a4=showAll();
+			a4=null;
 		
 		if(message[4]!=null){
 			a5=findByWarehouse(message[4]);
 			recipts.add(a5);
 		}
 		else
-			a5=showAll();
+			a5=null;
 		
 		if(recipts.size()==0)
 			return null;
