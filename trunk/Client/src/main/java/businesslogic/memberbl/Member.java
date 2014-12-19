@@ -215,6 +215,21 @@ public class Member implements MemberBLService,MemberViewService{
 		return num;
 	}
 
+	@Override
+	public String[] getAllMemberName() {
+		// TODO Auto-generated method stub
+		ArrayList<MemberPO> mempo=service.showAll();
+		if(mempo==null) return null;
+		else{
+			String memName[]=new String[mempo.size()+1];
+			memName[0]="全部";
+			for(int i=0;i<mempo.size();i++)
+				memName[i+1]=mempo.get(i).getName();
+			return memName;
+		}
+		
+	}
+
 
 	
 

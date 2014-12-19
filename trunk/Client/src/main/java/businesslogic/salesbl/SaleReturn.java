@@ -1,21 +1,17 @@
 package businesslogic.salesbl;
 
-import java.net.MalformedURLException;
 import java.rmi.Naming;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import po.CommodityPO;
 import po.ReceiptPO;
-import po.SalePO;
 import po.SaleReturnPO;
 import vo.CommodityVO;
 import vo.GoodsVO;
 import vo.ReceiptVO;
 import vo.SaleReturnVO;
-import vo.SaleVO;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.stockbl.goods.GoodsController;
@@ -101,7 +97,8 @@ public class SaleReturn extends Receipt {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-	
+		
+		//库存入库
 		StockGoodsBLService goodsController = new GoodsController();
 		ArrayList<CommodityVO> list = vo.getSaleReturnList();
 		for (CommodityVO cvo : list) {
@@ -116,7 +113,7 @@ public class SaleReturn extends Receipt {
 
 		}
 		Reply(vo.getId(),vo.getType(),0);
-		return 0;
+		return 0;//执行成功
 
 	}
 

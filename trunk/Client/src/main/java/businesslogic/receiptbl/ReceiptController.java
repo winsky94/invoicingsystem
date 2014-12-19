@@ -204,7 +204,7 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 		try {
 			
 			//红冲执行
-			redResult = review.Excute(poToVo(po), 1);
+			redResult = review.Excute(poToVo(po), 2);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
