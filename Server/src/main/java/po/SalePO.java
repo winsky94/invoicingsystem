@@ -30,8 +30,8 @@ public class SalePO extends ReceiptPO implements Serializable{
 		this.total=total;
 		this.proid=proid;
 		this.couponid=couponid;
-	}
 	
+	}
 	public String getProid() {
 		return proid;
 	}
