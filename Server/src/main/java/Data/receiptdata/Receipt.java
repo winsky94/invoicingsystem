@@ -423,32 +423,49 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		ArrayList<ReceiptPO> a4;
 		ArrayList<ReceiptPO> a5;
 		ArrayList<ReceiptPO> result;
-		if(message[0]!=null)
+		ArrayList<ArrayList<ReceiptPO>> recipts=new ArrayList<ArrayList<ReceiptPO>>();
+		if(message[0]!=null){
 			a1=findByTime(message[0]);
+			recipts.add(a1);
+		}
 		else
 			a1=showAll();
 		//查找类单据
-		if(message[1]!=null)
+		if(message[1]!=null){
 			a2=show(ReceiptType.valueOf(message[1]));
+			recipts.add(a2);
+		}
 		else
 			a2=showAll();
 		
-		if(message[2]!=null)
+		if(message[2]!=null){
 			a3=findByMember(message[2]);
+			recipts.add(a3);
+		}
 		else
 			a3=showAll();
 		
-		if(message[3]!=null)
+		if(message[3]!=null){
 			a4=findByUser(message[3]);
+			recipts.add(a4);
+		}
 		else
 			a4=showAll();
 		
-		if(message[4]!=null)
+		if(message[4]!=null){
 			a5=findByWarehouse(message[4]);
+			recipts.add(a5);
+		}
 		else
 			a5=showAll();
 		
-		result=intersection(a1,intersection(a2,intersection(a3,intersection(a4,a5))));
+		if(recipts.size()==0)
+			return null;
+		
+		result=recipts.get(0);
+		for(int i=1;i<recipts.size();i++){
+			result=intersection(result,recipts.get(i));
+		}
 		
 		return result;
 			
