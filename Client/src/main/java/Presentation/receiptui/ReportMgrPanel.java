@@ -236,6 +236,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		// -----四大复选框-----------
 		// -----按商品名筛选-------------
 		nameOrTypeLbl = new JLabel("按商品名");
+		nameOrTypeLbl.setFont(font);
+		nameOrTypeLbl.setForeground(color);
 		f1.add(nameOrTypeLbl);
 		nameOrTypeCbox=new JComboBox<String>();
 		nameOrTypeCbox.setBackground(Color.white);
@@ -245,6 +247,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		f1.add(nameOrTypeCbox);
 		// ------按客户------------------
 		memberLbl = new JLabel("按客户");
+		memberLbl.setFont(font);
+		memberLbl.setForeground(color);
 		f1.add(memberLbl);
 		memberCbox = new JComboBox<String>();
 		memberCbox.setBackground(Color.white);
@@ -254,6 +258,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		f1.add(memberCbox);
 		// ------按业务员-----------------
 		clerkLbl = new JLabel("按业务员");
+		clerkLbl.setFont(font);
+		clerkLbl.setForeground(color);
 		f1.add(clerkLbl);
 		clerkCbox = new JComboBox<String>();
 		clerkCbox.setBackground(Color.white);
@@ -262,6 +268,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		f1.add(clerkCbox);
 		// --------按仓库--------------------
 		stockLbl = new JLabel("按仓库");
+		stockLbl.setFont(font);
+		stockLbl.setForeground(color);
 		f2.add(stockLbl);
 		stockFld = new JTextField(5);
 		stockFld.setFont(font);
