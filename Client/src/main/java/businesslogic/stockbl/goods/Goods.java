@@ -18,7 +18,6 @@ import businesslogic.salesbl.SalesController;
 import businesslogic.stockbl.gift.GiftController;
 import businesslogic.stockbl.goodsClass.GoodsClassController;
 import businesslogic.stockbl.goodsClass.GoodsClassManage;
-import businesslogic.stockbl.stockManage.StockManage;
 import businesslogicservice.salesblservice.PurchaseBLService;
 import businesslogicservice.salesblservice.SalesBLService;
 import businesslogicservice.stockblservice.giftblservice.GiftBLService;
@@ -196,25 +195,10 @@ public class Goods {
 	}
 
 	public int modifyGoods(String id) {
-		GoodsPO oldPO = service.findGoods(id).get(0);
 		GoodsPO po = new GoodsPO(id, name, size, numInStock, virtualnumInStock,
 				purchasePrice, price, lastPurchasePrice, lastPrice, gc,
 				manufactoryDate, minNumInStock);
-		if (oldPO.getPurchasePrice() != po.getPurchasePrice()) {
-			StockManage manage = new StockManage();
-			Goods good = new Goods(oldPO.getGoodsID(), oldPO.getName(),
-					oldPO.getSize(), oldPO.getGoodsClassName(),
-					oldPO.getNumInStock(), oldPO.getPurchasePrice(),
-					oldPO.getPrice(), oldPO.getLastPurchasePrice(),
-					oldPO.getLastPrice(), oldPO.getManufactureDate(),
-					oldPO.getMinNumInStock());
-			Goods newGood = new Goods(po.getGoodsID(), po.getName(),
-					po.getSize(), po.getGoodsClassName(), po.getNumInStock(),
-					po.getPurchasePrice(), po.getPrice(),
-					po.getLastPurchasePrice(), po.getLastPrice(),
-					po.getManufactureDate(), po.getMinNumInStock());
-			manage.changePrime(good, newGood);
-		}
+
 		return service.modifyGoods(po);
 	}
 
@@ -284,18 +268,19 @@ public class Goods {
 		return result;
 	}
 
-	
-	public String[] getAllGoodsName(){
-		ArrayList<GoodsPO> good=service.showGoods();
-		if(good==null) return null;
-		else{
-			String[] goodName=new String[good.size()+1];
-			goodName[0]="全部";
-			for(int i=0;i<good.size();i++)
-				goodName[i+1]=good.get(i).getName();
+	public String[] getAllGoodsName() {
+		ArrayList<GoodsPO> good = service.showGoods();
+		if (good == null)
+			return null;
+		else {
+			String[] goodName = new String[good.size() + 1];
+			goodName[0] = "全部";
+			for (int i = 0; i < good.size(); i++)
+				goodName[i + 1] = good.get(i).getName();
 			return goodName;
 		}
 	}
+
 	public String getMaxID() {
 		return service.getMaxID();
 	}

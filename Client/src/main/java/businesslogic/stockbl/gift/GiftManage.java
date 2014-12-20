@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 
 import po.CommodityPO;
 import po.GiftPO;
-import po.ReceiptPO;
 import vo.CommodityVO;
 import vo.GiftVO;
 import vo.GoodsVO;
@@ -42,7 +41,6 @@ public class GiftManage {
 		}
 	}
 
-	
 	// 库存赠送单的处理
 	public int excute(GiftReceipt receipt) {
 		StockControlBLService controller = new StockControlController();
@@ -101,7 +99,6 @@ public class GiftManage {
 
 	}
 
-	
 	// 商品赠送支出
 	public double getGiftCost() {
 		ArrayList<GiftPO> list = new ArrayList<GiftPO>();
