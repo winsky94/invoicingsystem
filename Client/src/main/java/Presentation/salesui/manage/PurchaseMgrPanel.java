@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -32,9 +33,13 @@ import Presentation.salesui.manage.purchase.AddPurchasePanel;
 import Presentation.salesui.manage.purchase.AddPurchaseReturnPanel;
 import Presentation.salesui.manage.purchase.PurchaseDetailPanel;
 import Presentation.salesui.manage.purchase.PurchaseReturnDetailPanel;
+import Presentation.uihelper.MySort;
 import businesslogic.salesbl.SaleList;
+import businesslogic.salesbl.SalesController;
 import businesslogic.userbl.User;
+import businesslogicservice.salesblservice.PurchaseBLService;
 import businesslogicservice.salesblservice.SaleListBLService;
+import businesslogicservice.salesblservice.SalesBLService;
 import businesslogicservice.userblservice.UserBLService;
 
 public class PurchaseMgrPanel extends JPanel implements ActionListener {
@@ -45,6 +50,7 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 	MyButton purchaseBtn, purchaseReturnBtn, searchBtn, refreshBtn, detailBtn;
 	JTable table;
 	JTextField searchFld;
+	JComboBox bo;
 	String keyWord;
 	MainFrame parent;
 	JTable purchaseTbl;
@@ -101,6 +107,12 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 		searchBtn = new MyButton(new ImageIcon("img/sales/find-blue.png"));
 		searchBtn.addActionListener(new SearchBtnListener());
 		btnPnl.add(searchBtn);
+		String[] se={"按客户查找","按商品名查找","按仓库查找"};
+		bo=new JComboBox(se);
+		bo.setSelectedIndex(0);
+		bo.setBackground(Color.white);
+		bo.setForeground(frame.getTheme()[0]);
+		btnPnl.add(bo);
 		// ----------------------------------
 		//
 		/*
@@ -155,7 +167,44 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-
+			String txt=searchFld.getText();
+			if(txt.equals("")){
+				JOptionPane.showMessageDialog(null, "请输入查找内容!", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			}else{
+				PurchaseBLService service=null;
+				try {
+					service=new SalesController();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				ArrayList<ReceiptVO> vo=new ArrayList<ReceiptVO>();
+				int i=bo.getSelectedIndex();
+				//"按客户查找","按业务员查找",""按商品名查找","按仓库查找"};
+					String t="客户";
+					switch(i){
+						case 1:t="商品名";break;
+						case 2:t="仓库";break;
+					}
+					if(service.findPurchase(txt, t)!=null)
+						vo.addAll(service.findPurchase(txt, t));
+					if(service.findPurchaseReturn(txt, t)!=null)
+						vo.addAll(service.findPurchaseReturn(txt, t));
+					if(vo.size()==0){
+						JOptionPane.showMessageDialog(null, "没有符合要求的单据！");
+					}
+					else{
+						vo=MySort.sort(vo);
+						try {
+							RefreshPurchaseTable(vo);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				
+			}
 		}
 
 	}
@@ -198,6 +247,8 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 					JOptionPane.showMessageDialog(null, "请选择一条进货单进行查看!", "提示",
 							JOptionPane.WARNING_MESSAGE);
 			
+			}else if(e.getSource()==refreshBtn){
+				RefreshPanel();
 			}
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
@@ -263,8 +314,9 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 
 	// 加急置顶显示 显示图标
 	// 单据编号","日期","状态","类型","供应商","操作员","总额合计
-	public void RefreshPurchaseList(ArrayList<ReceiptVO> vo) throws Exception {
+	public void RefreshPurchaseTable(ArrayList<ReceiptVO> vo) throws Exception {
 		UserBLService user = new User();
+		c.clear();
 		for (int i = 0; i < vo.size(); i++) {
 			ReceiptVO v = vo.get(i);
 			ArrayList<String> line = new ArrayList<String>();
@@ -299,11 +351,12 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 			c.add(line);
 
 		}
+		PurchaseMgrPanel.this.repaint();
 	}
 
 	public void RefreshPanel() throws Exception {
-		if (listservice.getAllSale() != null)
-			PurchaseMgrPanel.this.RefreshPurchaseList(listservice
+		if (listservice.getAllPurchase() != null)
+			PurchaseMgrPanel.this.RefreshPurchaseTable(listservice
 					.getAllPurchase());
 	}
 

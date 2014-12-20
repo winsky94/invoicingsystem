@@ -38,12 +38,12 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 	MainFrame parent;
 	JPanel headPane;
 	//MemberBLService service;
-	SaleListBLService saleservice;
+	//SaleListBLService saleservice;
 	public SalesLeftPanel(MainFrame frame) throws Exception{
 		salesColor=frame.getTheme()[0];
 		parent=frame;
 		
-		saleservice=new SaleList();
+		//saleservice=new SaleList();
 		//===构造头像
 		GridBagLayout grid=new GridBagLayout();
 		GridBagConstraints c=new GridBagConstraints();
@@ -119,9 +119,7 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 		if(e.getSource()==purchaseBtn){
 			PurchaseMgrPanel pgr=new PurchaseMgrPanel(parent);
 			parent.setRightComponent(pgr);
-			if(saleservice.getAllPurchase()!=null)
-			
-					pgr.RefreshPurchaseList(saleservice.getAllPurchase());
+			pgr.RefreshPanel();
 		}else if(e.getSource()==memberBtn){
 			MemberMgrPanel mgr=new MemberMgrPanel(parent);
 			
@@ -131,8 +129,7 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 		}else if(e.getSource()==saleBtn){
 			SaleMgrPanel sp=new SaleMgrPanel(parent);
 			parent.setRightComponent(sp);
-			if(saleservice.getAllSale()!=null)
-				sp.RefreshSaleTable(saleservice.getAllSale());
+			sp.RefreshPanel();
 			
 		}else if(e.getSource()==aboutBtn){
 			parent.setRightComponent(new AboutPanel());

@@ -34,6 +34,7 @@ import Presentation.salesui.manage.sale.AddSalePanel;
 import Presentation.salesui.manage.sale.AddSaleReturnPanel;
 import Presentation.salesui.manage.sale.SaleDetailPanel;
 import Presentation.salesui.manage.sale.SaleReturnDetailPanel;
+import Presentation.uihelper.MySort;
 import businesslogic.salesbl.SaleList;
 import businesslogic.salesbl.SalesController;
 import businesslogic.userbl.User;
@@ -104,9 +105,11 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 		searchBtn = new MyButton(new ImageIcon("img/sales/find-blue.png"));
 		searchBtn.addActionListener(new SearchBtnListener());
 		btnPnl.add(searchBtn);
-		String[] se={"按客户查找","按类型查找","按业务员查找","按创建时间查找","按商品名查找","按仓库查找"};
-		 bo=new JComboBox(se);
+		String[] se={"按客户查找","按业务员查找","按商品名查找","按仓库查找"};
+		bo=new JComboBox(se);
 		bo.setSelectedIndex(0);
+		bo.setBackground(Color.white);
+		bo.setForeground(frame.getTheme()[0]);
 		btnPnl.add(bo);
 		// ----------------------------------
 		/*
@@ -168,32 +171,30 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 				}
 				ArrayList<ReceiptVO> vo=new ArrayList<ReceiptVO>();
 				int i=bo.getSelectedIndex();
-				//"按类型查找","按业务员查找","按创建时间查找","按商品名查找","按仓库查找"};
-				if(i==1){
-					if(txt.contains("销售退货"))
-					vo.addAll(service.showSaleReturn());
-				else vo.addAll(service.showSale());
-				}else if(i==3){
-					//输入需再处理
-					vo.addAll(service.findSale(txt+txt, "时间区间"));
-					vo.addAll(service.findSaleReturn(txt+txt, "时间区间"));
-				}else{
+				//"按客户查找","按业务员查找",""按商品名查找","按仓库查找"};
 					String t="客户";
 					switch(i){
-						case 2:t="业务员";break;
-						case 4:t="商品名";break;
-						default:t="仓库";
-					
+						case 1:t="业务员";break;
+						case 2:t="商品名";break;
+						case 3:t="仓库";break;
 					}
-					vo.addAll(service.findSale(txt, t));
-					vo.addAll(service.findSaleReturn(txt, t));		
-				}
-				try {
-					RefreshSaleTable(vo);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+					if(service.findSale(txt, t)!=null)
+						vo.addAll(service.findSale(txt, t));
+					if(service.findSaleReturn(txt, t)!=null)
+						vo.addAll(service.findSaleReturn(txt, t));
+					if(vo.size()==0){
+						JOptionPane.showMessageDialog(null, "没有符合要求的单据！");
+					}
+					else{
+						vo=MySort.sort(vo);
+						try {
+							RefreshSaleTable(vo);
+						
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
 				
 			}
 		}
@@ -201,26 +202,17 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		try {
 		if (e.getSource() == saleBtn) {
-			try {
-
 				parent.setRightComponent(new AddSalePanel(parent));
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 		} else if (e.getSource() == saleReturnBtn){
 			int t = table.getSelectedRow();
 			if (t >= 0) {
 				String type=c.get(t).get(3);
 				if(type.equals("销售单")){
-				String pid = c.get(t).get(0);
-				try {
+					String pid = c.get(t).get(0);
 					parent.setRightComponent(new AddSaleReturnPanel(parent, pid));
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}}
+				}
 				else
 					JOptionPane.showMessageDialog(null, "请选择一条销售单进行退货!", "提示",
 							JOptionPane.WARNING_MESSAGE);
@@ -229,7 +221,7 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 						JOptionPane.WARNING_MESSAGE);
 			
 		}else if(e.getSource()==detailBtn){
-			try {
+			
 			int t=table.getSelectedRow();
 			if(t>=0){
 				String type=c.get(t).get(3);
@@ -240,10 +232,13 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 					parent.setRightComponent(new SaleReturnDetailPanel(pid,parent));
 							
 			}
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+		
+		}else if(e.getSource()==refreshBtn){
+			RefreshPanel();
+		}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 
 	}
@@ -304,11 +299,13 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 			c.remove(row);
 		}
 	}
+	
 
 	// "单据编号", "日期", "状态", "类型", "销售商", "操作员", "折让前金额",
 	// "折让后金额"
 	public void RefreshSaleTable(ArrayList<ReceiptVO> vo) throws Exception {
 		UserBLService user = new User();
+		c.clear();
 		for (int i = 0; i < vo.size(); i++) {
 			ReceiptVO v = vo.get(i);
 			ArrayList<String> line = new ArrayList<String>();
@@ -343,6 +340,7 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 			c.add(line);
 
 		}
+		SaleMgrPanel.this.repaint();
 	}
 
 	public void RefreshPanel() throws Exception {

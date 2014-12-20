@@ -125,8 +125,8 @@ public class Purchase extends Receipt {
 		ArrayList<CommodityVO> List = vo.getPurchaseList();
 
 		puList = com.voTPo(List);
-		PurchasePO po = new PurchasePO(vo.getId(), vo.getMemberID(),
-				vo.getMemberName(), vo.getStockid(), vo.getUser(), puList,
+		PurchasePO po = new PurchasePO(vo.getId(), vo.getMemberName(),
+				vo.getMemberID(), vo.getStockid(), vo.getUser(), puList,
 				vo.getInfo(), vo.getTotalInAll(),vo.getAdjustCost(), vo.getStatus(), vo.getHurry());
 		return po;
 	}
@@ -136,8 +136,8 @@ public class Purchase extends Receipt {
 		ArrayList<CommodityPO> List = po.getPurchaseList();
 
 		puList = com.poTVo(List);
-		PurchaseVO vo = new PurchaseVO(po.getId(), po.getMemberID(),
-				po.getMemberName(), po.getStockID(), po.getUserID(), puList,
+		PurchaseVO vo = new PurchaseVO(po.getId(), po.getMemberName(),
+				po.getMemberID(), po.getStockID(), po.getUserID(), puList,
 				po.getInfo(), po.getTotalInAll(), po.getStatus(), po.getHurry());
 		vo.setAdjustCost(po.getAdjustCost());
 		return vo;

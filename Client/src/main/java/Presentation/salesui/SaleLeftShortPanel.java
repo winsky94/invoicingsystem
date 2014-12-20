@@ -31,7 +31,7 @@ public class SaleLeftShortPanel extends JPanel implements ActionListener{
 	Color salesColor;
 	//MemberBLService service;
 	JLeftButton purchaseBtn, saleBtn, memberBtn,aboutBtn,backBtn;
-	SaleListBLService  saleservice;
+	//SaleListBLService  saleservice;
 	public SaleLeftShortPanel(MainFrame frame) {
 		salesColor=frame.getTheme()[0];
 		parent=frame;
@@ -102,7 +102,7 @@ public class SaleLeftShortPanel extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		try {
-			saleservice=new SaleList();
+		
 		
 		// TODO Auto-generated method stub
 		if(e.getSource()==backBtn)
@@ -112,8 +112,7 @@ public class SaleLeftShortPanel extends JPanel implements ActionListener{
 		else if(e.getSource()==saleBtn){
 			SaleMgrPanel sp=new SaleMgrPanel(parent);
 			parent.setRightComponent(sp);
-			if(saleservice.getAllSale()!=null)
-				sp.RefreshSaleTable(saleservice.getAllSale());
+			sp.RefreshPanel();
 		}
 		else if(e.getSource()==memberBtn){
 			MemberMgrPanel mgr=new MemberMgrPanel(parent);
@@ -125,9 +124,7 @@ public class SaleLeftShortPanel extends JPanel implements ActionListener{
 		}else if(e.getSource()==purchaseBtn){
 			PurchaseMgrPanel pgr=new PurchaseMgrPanel(parent);
 			parent.setRightComponent(pgr);
-			if(saleservice.getAllPurchase()!=null)
-				
-					pgr.RefreshPurchaseList(saleservice.getAllPurchase());
+			pgr.RefreshPanel();
 				
 		}
 		}catch (Exception e2) {

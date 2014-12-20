@@ -43,7 +43,7 @@ public class MyTableCellRenderer extends DefaultTableCellRenderer {
 
 		for (int i = 0; i < rowList.size(); i++) {
 			if (row == rowList.get(i)) {
-				setBackground(new Color(255,245,238));//设置某些特定的行的底色
+				setBackground(new Color(147,112,219));//设置某些特定的行的底色
 			}
 		}
 		
