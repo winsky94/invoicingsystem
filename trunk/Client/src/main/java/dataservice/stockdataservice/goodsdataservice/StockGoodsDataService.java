@@ -16,10 +16,6 @@ public interface StockGoodsDataService extends Remote {
 	public ArrayList<GoodsPO> findGoods(String message);
 
 	public GoodsPO findByID(String id) throws RemoteException;
-	
-	public ArrayList<GoodsPO> showStock(String beginDate, String endDate);
-
-	public ArrayList<GoodsPO> checkStock();
 
 	public String getMaxID();
 

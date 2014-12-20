@@ -21,7 +21,6 @@ import po.SaleReturnPO;
 import po.StockOverOrLowPO;
 import vo.CommodityVO;
 import vo.StockOverOrLowVO;
-import businesslogic.stockbl.goods.Goods;
 import dataservice.salesdataservice.SalesDataService;
 import dataservice.stockdataservice.controldataservice.StockControlDataService;
 import dataservice.stockdataservice.giftdataservice.GiftDataService;
@@ -286,16 +285,6 @@ public class StockManage {
 		return result;
 	}
 
-	// 库存调价(未测试==)
-	public int changePrime(Goods good, Goods newGood) {
-		double primeCostIncome = 0;
-		primeCostIncome += (good.getPurchasePrice() - newGood
-				.getPurchasePrice()) * newGood.getNumInStock();
-		String record = getDate() + ";" + primeCostIncome;
-
-		return service.recordPrimeCostIncome(record);
-	}
-
 	// 检查库存是否充足满足销售需求
 	public boolean isEnough(String id, int num) {
 		ArrayList<GoodsPO> list = goodsService.findGoods(id);
@@ -313,17 +302,18 @@ public class StockManage {
 	// 获得每个进货单的库存调价收入(未测试==)
 	public double getPrimeCostIncome(ArrayList<CommodityVO> commodityList) {
 		double result = 0;
-		
-		if(commodityList!=null){
-			if(commodityList.size()!=0){
-				for(CommodityVO vo:commodityList){
-					String goodID=vo.getID();
+
+		if (commodityList != null) {
+			if (commodityList.size() != 0) {
+				for (CommodityVO vo : commodityList) {
+					String goodID = vo.getID();
 					try {
-						GoodsPO good=goodsService.findByID(goodID);
-						//调价收入先暂时跟默认进价比了==
-						double purchasePrice=good.getPurchasePrice();
-						double exactPurchasePrice=vo.getPrice();
-						result+=(purchasePrice-exactPurchasePrice)*vo.getNum();
+						GoodsPO good = goodsService.findByID(goodID);
+						// 调价收入先暂时跟默认进价比了==
+						double purchasePrice = good.getPurchasePrice();
+						double exactPurchasePrice = vo.getPrice();
+						result += (purchasePrice - exactPurchasePrice)
+								* vo.getNum();
 					} catch (RemoteException e) {
 						// TODO 自动生成的 catch 块
 						e.printStackTrace();
