@@ -70,8 +70,8 @@ public class Purchase extends Receipt {
 		double adjustIncome=stockControlController.getPrimeCostIncome(vo.getPurchaseList());
 		vo.setAdjustCost(adjustIncome);
 		
-		//怎么写回去？用这个方法吗--宽宽
-		//ModifyPurchase(vo);
+		
+		ModifyPurchase(vo);
 		
 		Reply(vo.getId(), vo.getType(), 0);
 		return 0;
