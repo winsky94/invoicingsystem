@@ -24,6 +24,7 @@ import po.ReceiptPO;
 import po.ReceiptPO.ReceiptType;
 import po.SalePO;
 import po.SaleReturnPO;
+import po.StockErrorPO;
 import dataservice.receiptdataservice.ReceiptDataService;
 import po.StockOverOrLowPO;
 
@@ -195,7 +196,6 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 			for(CollectionPO p:cc){
 				al.add(p);
 			}
-			return al;
 		}
 		else if(type==ReceiptType.PAYMENT){
 			Payment c=new Payment();
@@ -205,7 +205,6 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 			for(PaymentPO p:pp){
 				al.add(p);
 			}
-			return al;
 		}
 		else if(type==ReceiptType.CASHLIST){
 			Cashlist c=new Cashlist();
@@ -215,7 +214,6 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 			for(CashlistPO p:pp){
 				al.add(p);
 			}
-			return al;
 		}
 		else if(type==ReceiptType.GIFT){
 			Gift c=new Gift();
@@ -225,7 +223,6 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 			for(GiftPO p:pp){
 				al.add(p);
 			}
-			return al;
 		}
 		else if(type==ReceiptType.PURCHASE||type==ReceiptType.PURCHASERETURN||type==ReceiptType.SALE||type==ReceiptType.SALERETURN){
 			Sales s=new Sales();
@@ -261,9 +258,11 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 					al.add(p);
 				}
 			}
-			else if(type==ReceiptType.STOCKLOW||type==ReceiptType.STOCKOVER){
+		}
+		else if(type==ReceiptType.STOCKLOW||type==ReceiptType.STOCKOVER){
 				StockControl sc=new StockControl();
 				ArrayList<StockOverOrLowPO> pp=sc.getStockOverOrLowPO();
+				ArrayList<StockErrorPO> error=sc.getStockErrorPO();
 				if(pp==null)
 					return null;
 				ArrayList<StockOverOrLowPO> pp1=new ArrayList<StockOverOrLowPO>();
@@ -279,19 +278,19 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 						al.add(ppp);
 					}
 				}
-				else{
+				else if(type==ReceiptType.STOCKOVER){
 					for(StockOverOrLowPO ppp:pp2){
 						al.add(ppp);
 					}
 				}
-			
-			}
-			else{
-				return null;
-			}
+			/*	else {
+					for(StockErrorPO errorpo:error)
+						al.add(errorpo);
+				}*/
 		}
-		
-		return null;
+		if(al.size()==0) return null;
+		else return al;
+				
 	}
 
 	public int Batch(String[] id, int status) {
@@ -356,6 +355,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		return result;	
 	}
 	
+	//肿么办我们业务员做成操作员了 只有销售单有业务员？貌似 
 	public ArrayList<ReceiptPO> findByUser(String s) throws RemoteException{
 		ArrayList<ReceiptPO> result=new ArrayList<ReceiptPO>();
 		ArrayList<ReceiptPO> al=showAll();
@@ -535,7 +535,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		
 	}
 	public static void main(String[] args) throws RemoteException {
-		String  m[]={"2014120120141230",ReceiptType.COLLECTION.toString(),"马建国",null,null,"经营历程"};
+		String  m[]={"2014120120141220","SALERETURN","金大大","王宁宁","","经营历程"};
 		Receipt r=new Receipt();
 		ArrayList<ReceiptPO> po=r.AccurateFind(m);
 		for(int i=0;i<po.size();i++)
