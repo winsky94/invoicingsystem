@@ -109,17 +109,6 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 		}
 	}
 
-	public ArrayList<GoodsPO> showStock(String beginDate, String endDate)
-			throws RemoteException {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-	public ArrayList<GoodsPO> checkStock() throws RemoteException {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
 	public String getMaxID() throws RemoteException {
 		// TODO 自动生成的方法存根
 		ArrayList<GoodsPO> list = showGoods();
