@@ -220,6 +220,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 				p.setPurchaseList(po.getPurchaseList());
 				p.setStatus(po.getStatus());
 				p.setTotalInAll(po.getTotalInAll());
+				p.setAdjustCost(po.getAdjustCost());
 				break;
 			}
 		}
