@@ -12,6 +12,7 @@ public class PromotionPO implements Serializable{
 	String startDate,endDate;
 	PromotionType type;
 	MemberLevel level;
+	boolean isMatch=false;
 	
 	
 	public PromotionPO(String id,String startDate, String endDate, PromotionType type,
@@ -21,6 +22,14 @@ public class PromotionPO implements Serializable{
 		this.type = type;
 		this.level = level;
 		this.id=id;
+	}
+	public void setIsMatch(boolean match){
+		this.isMatch=match;
+		
+	}
+	
+	public boolean IsMatch(){
+		return this.isMatch;
 	}
 
 	public String getStartDate() {

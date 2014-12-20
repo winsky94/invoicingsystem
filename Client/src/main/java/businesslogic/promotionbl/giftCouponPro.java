@@ -159,6 +159,7 @@ public class giftCouponPro extends promotion{
 		ArrayList<CouponVO> cvo=coupon.poTVo(po.getCouponList());
 		GiftCouponProVO vo=new GiftCouponProVO(po.getID(),po.getStartDate(),
 				po.getEndDate(),po.getLevel(),cvo,po.getTotalValue());
+		vo.setIsMatch(po.IsMatch());
 		return vo;
 		
 	}
@@ -167,6 +168,7 @@ public class giftCouponPro extends promotion{
 		ArrayList<CouponPO> cpo=coupon.voTPo(vo.getCouponList());
 		GiftCouponProPO po=new GiftCouponProPO(vo.getId(),vo.getStartDate(),
 				vo.getEndDate(),vo.getMemberlevel(),cpo,vo.getTotalValue());
+		po.setIsMatch(vo.IsMatch());
 		return po;
 		
 	}

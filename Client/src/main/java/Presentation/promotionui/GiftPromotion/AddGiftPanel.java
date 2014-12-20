@@ -372,6 +372,27 @@ public class AddGiftPanel extends ChooseGoodsFatherPane {
 		if (service.Show() != null)
 			proPanel.RefreshProTable(service.Show());
 	}
+	
+	public GiftGoodsProVO  getGiftPro(){
+		ArrayList<CommodityVO> cmlist = new ArrayList<CommodityVO>();
+		for (int j = 0; j < table.getRowCount() - 1; j++) {
+			ArrayList<String> line = cmContent.get(j);
+			double cost = Double.parseDouble(line.get(4)) * last_bid.get(j);
+			CommodityVO cv = new CommodityVO(line.get(0), line.get(1),
+					line.get(2), Double.parseDouble(line.get(3)),
+					last_bid.get(j), Integer.parseInt(line.get(4)),
+					Double.parseDouble(line.get(5)), cost, "");
+			cmlist.add(cv);
+		}
+		String startDate = from.getDate();
+		String endDate = to.getDate();
+		MemberLevel level = MemberLevel.valueOf((String) memberGradeBox
+				.getSelectedItem());
+		String id = service.getNewID(PromotionType.GIFTGOODS);
+		GiftGoodsProVO vo = new GiftGoodsProVO(id, startDate, endDate,
+				level, cmlist, Double.parseDouble(limitFld.getText()));
+		return vo;
+	}
 
 	class submitListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -380,23 +401,7 @@ public class AddGiftPanel extends ChooseGoodsFatherPane {
 				JOptionPane.showMessageDialog(null, "促销时间段输入不合法！", "提示",
 						JOptionPane.WARNING_MESSAGE);
 			else{
-			ArrayList<CommodityVO> cmlist = new ArrayList<CommodityVO>();
-			for (int j = 0; j < table.getRowCount() - 1; j++) {
-				ArrayList<String> line = cmContent.get(j);
-				double cost = Double.parseDouble(line.get(4)) * last_bid.get(j);
-				CommodityVO cv = new CommodityVO(line.get(0), line.get(1),
-						line.get(2), Double.parseDouble(line.get(3)),
-						last_bid.get(j), Integer.parseInt(line.get(4)),
-						Double.parseDouble(line.get(5)), cost, "");
-				cmlist.add(cv);
-			}
-			String startDate = from.getDate();
-			String endDate = to.getDate();
-			MemberLevel level = MemberLevel.valueOf((String) memberGradeBox
-					.getSelectedItem());
-			String id = service.getNewID(PromotionType.GIFTGOODS);
-			GiftGoodsProVO vo = new GiftGoodsProVO(id, startDate, endDate,
-					level, cmlist, Double.parseDouble(limitFld.getText()));
+			GiftGoodsProVO vo=getGiftPro();
 			if (service.Add(vo) == 0) {
 				JOptionPane.showMessageDialog(null, "策略添加成功", "提示",
 						JOptionPane.WARNING_MESSAGE);

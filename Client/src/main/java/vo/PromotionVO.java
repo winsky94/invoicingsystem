@@ -17,8 +17,9 @@ public class PromotionVO {
 	String startDate,endDate;
 	PromotionType type;
 	MemberLevel level;
+	boolean isMatch;
 
-	int release;//发布
+	
 	
 	public PromotionVO(String id,String startDate, String endDate, PromotionType type,
 			MemberLevel memberlevel) {
@@ -27,7 +28,17 @@ public class PromotionVO {
 		this.endDate = endDate;
 		this.type = type;
 		this.level = memberlevel;
+		this.isMatch=false;
 	
+	}
+	
+	public void setIsMatch(boolean match){
+		this.isMatch=match;
+		
+	}
+	
+	public boolean IsMatch(){
+		return this.isMatch;
 	}
 	public String getId() {
 		return id;
