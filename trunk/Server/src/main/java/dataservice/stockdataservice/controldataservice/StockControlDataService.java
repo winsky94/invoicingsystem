@@ -20,13 +20,6 @@ public interface StockControlDataService extends Remote {
 	// 获得所有库存报警单
 	public ArrayList<StockErrorPO> getStockErrorPO() throws RemoteException;
 
-	// 记录库存调价收入
-	public int recordPrimeCostIncome(String primeCostIncome)
-			throws RemoteException;
-
-	// 获得库存调价收入
-	public ArrayList<String> getPrimeCostIncome() throws RemoteException;
-
 	public String getMaxID() throws RemoteException;
 
 	public String getErrorMaxID() throws RemoteException;
