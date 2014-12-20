@@ -28,7 +28,7 @@ public class ModPurchaseReturnPanel extends AddPurchasePanel{
 		for(int i=0;i<clist.size();i++)
 			plist.add(clist.get(i));
 		RefreshCTable(plist);
-		//12.20
+		//12.20待加监听
 	}
 
 }
