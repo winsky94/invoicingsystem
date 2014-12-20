@@ -26,18 +26,24 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import businesslogic.promotionbl.promotionController;
+import businesslogicservice.promotionblservice.PromotionViewService;
 import po.PromotionPO.PromotionType;
 import vo.PromotionVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 import Presentation.promotionui.BarginPromotion.AddBarginPanel;
 import Presentation.promotionui.BarginPromotion.BarginDetailPanel;
+import Presentation.promotionui.BarginPromotion.ModBarginPanel;
 import Presentation.promotionui.CouponPromotion.AddCouponPanel;
 import Presentation.promotionui.CouponPromotion.CouponDetailPanel;
+import Presentation.promotionui.CouponPromotion.ModCouponPanel;
 import Presentation.promotionui.DiscountPromotion.AddDiscountPanel;
 import Presentation.promotionui.DiscountPromotion.DiscountDetailPanel;
+import Presentation.promotionui.DiscountPromotion.ModDiscountPanel;
 import Presentation.promotionui.GiftPromotion.AddGiftPanel;
 import Presentation.promotionui.GiftPromotion.GiftDetailPanel;
+import Presentation.promotionui.GiftPromotion.ModGiftPanel;
 import Presentation.uihelper.MyDateFormat;
 
 public class PromotionPanel extends JPanel {
@@ -143,18 +149,19 @@ public class PromotionPanel extends JPanel {
 		//
 		delBtn = new MyButton("删除策略", new ImageIcon("img/promotion/del.png"));
 		delBtn.addActionListener(new ActionListener() {
+			//当已匹配时不可删除  若为代金券 则促销时间已过时 匹配与否均可删除
 			public void actionPerformed(ActionEvent e) {
-				int[] row = proTbl.getSelectedRows();
-				if (row.length > 0) {
-					PromotionType[] type = new PromotionType[row.length];
-					String[] id = new String[row.length];
-					for (int i = 0; i < row.length; i++) {
-						ArrayList<String> info = content.get(row[i]);
-						id[i] = info.get(0);
-						type[i] = getChangeProType.getProType(info.get(3));
-
+				int row = proTbl.getSelectedRow();
+				if(row>=0){
+						ArrayList<String> info = content.get(row);
+						String id = info.get(0);
+						PromotionType type = getChangeProType.getProType(info.get(3));
+					try {
+						JDialog delDlg = new DelProDialog(id, type, father);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-					JDialog delDlg = new DelProDialog(id, type, father);
 				} else
 					JOptionPane.showMessageDialog(null, "请选择要删除的促销策略");
 			}
@@ -165,6 +172,35 @@ public class PromotionPanel extends JPanel {
 		modBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				//该促销已匹配时是不可修改
+				try {
+					int i=proTbl.getSelectedRow();
+					if(i>=0){
+						PromotionViewService service=new promotionController();
+						String id=content.get(i).get(0);
+						PromotionType type = getChangeProType.getProType(content.get(i).get(3));
+						PromotionVO vo=service.find(id, type);
+						if(vo.IsMatch())
+							JOptionPane.showMessageDialog(null, "该促销策略匹配中，暂无法修改！");
+						else{
+							if(type==PromotionType.DISCOUNT)
+								father.setRightComponent(new ModDiscountPanel(id,father));
+							else if(type==PromotionType.GIFTCOUPON)
+								father.setRightComponent(new ModCouponPanel(id,father));
+							else if(type==PromotionType.PACK)
+								father.setRightComponent(new ModBarginPanel(id,father));
+							else
+								father.setRightComponent(new ModGiftPanel(id,father));
+								
+						}
+							
+					}else
+						JOptionPane.showMessageDialog(null, "请选择要修改的促销策略");
+					
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 			}
 		});

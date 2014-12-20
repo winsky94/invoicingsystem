@@ -142,6 +142,7 @@ public  class discountPro extends promotion{
 		DiscountProPO po=new DiscountProPO(vo.getId(),vo.getStartDate(),vo.getEndDate(),
 				vo.getMemberlevel(),vo.getCountList(),cplist
 				);
+		po.setIsMatch(vo.IsMatch());
 		return po;
 	}
 	
@@ -153,6 +154,7 @@ public  class discountPro extends promotion{
 		DiscountProVO vo=new DiscountProVO(po.getID(),po.getStartDate(),po.getEndDate(),
 				po.getLevel(),po.getCountList(),cvlist
 				);
+		vo.setIsMatch(po.IsMatch());
 		return vo;
 	}
 

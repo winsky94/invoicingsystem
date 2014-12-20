@@ -89,9 +89,9 @@ public class promotionController implements PromotionViewService,
 		// TODO Auto-generated method stub	
 	PromotionVO pro=null;
 	if((pro=ggp.Match(vo))!=null){
-		vo.setProid(pro.getId());return vo;
+		vo.setProid(pro.getId());pro.setIsMatch(true);return vo;
 	}else if((pro=gcp.Match(vo))!=null){
-		vo.setProid(pro.getId());return vo;
+		vo.setProid(pro.getId());pro.setIsMatch(true);return vo;
 	}else if((pro=dcp.Match(vo))!=null){
 		vo.setProid(pro.getId());
 		vo=dcp.excute(pro,vo);return vo;
@@ -136,6 +136,7 @@ public class promotionController implements PromotionViewService,
 			if(po.getType()==PromotionType.GIFTCOUPON){
 				//gcp.useCoupon(vo.getCouponid());没有用  仅为赠出
 			}else{
+			
 				ggp.Excute(po,vo);
 			}
 			}

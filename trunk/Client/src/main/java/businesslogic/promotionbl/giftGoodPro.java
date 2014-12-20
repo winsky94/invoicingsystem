@@ -161,6 +161,8 @@ public class giftGoodPro extends promotion{
 		ArrayList<CommodityVO> clist=com.poTVo(po.getGiftList());
 	
 		try {
+			po.setIsMatch(false);
+			Modify(poToVo(po));
 			GiftController gift=new GiftController();
 			gift.autoAdd(vo.getMemberID(),vo.getMemberName(), vo.getUser(), clist);
 		} catch (Exception e) {
@@ -185,6 +187,7 @@ public class giftGoodPro extends promotion{
 		ArrayList<CommodityPO> cmp=po.getGiftList();
 		GiftGoodsProVO  gpv=new GiftGoodsProVO(po.getID(),po.getStartDate(),
 				po.getEndDate(),po.getLevel(),com.poTVo(cmp),po.getTotalValue());
+		gpv.setIsMatch(po.IsMatch());
 		
 		return gpv;
 	}	
@@ -193,6 +196,7 @@ public class giftGoodPro extends promotion{
 		ArrayList<CommodityVO> clist=vo.getGiftList();
 		GiftGoodProPO  gpv=new GiftGoodProPO(vo.getId(),vo.getStartDate(),
 				vo.getEndDate(),vo.getMemberlevel(),com.voTPo(clist),vo.getTotalValue());
+		gpv.setIsMatch(vo.IsMatch());
 		
 		return gpv;
 	}

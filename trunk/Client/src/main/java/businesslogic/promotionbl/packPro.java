@@ -148,6 +148,7 @@ public class packPro extends promotion{
 	public PackProPO voToPo(PackProVO vo){
 		PackProPO po=new PackProPO(vo.getId(),vo.getStartDate(),vo.getEndDate(),
 				vo.getMemberlevel(),pack.voToPo(vo.getPack()));
+		po.setIsMatch(vo.IsMatch());
 		return po;
 	}
 	
@@ -155,6 +156,7 @@ public class packPro extends promotion{
 	public PackProVO poToVo(PackProPO po){
 		PackProVO vo=new PackProVO(po.getID(),po.getStartDate(),po.getEndDate(),
 				po.getLevel(),pack.poToVo(po.getPackList()));
+		vo.setIsMatch(po.IsMatch());
 		return vo;
 	}
 	
