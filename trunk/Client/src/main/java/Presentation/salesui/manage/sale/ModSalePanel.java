@@ -21,8 +21,8 @@ public class ModSalePanel {
 		p.XSSBox.setSelectedItem(vo.getMemberName());
 		p.XSSBox.setEditable(false);
 		p.stockFld.setText(vo.getStockid());
+		p.stockFld.setEditable(false);
 		p.remarkFld.setText(vo.getInfo());
-		
-		
+		//12.20带监听
 	}
 }
