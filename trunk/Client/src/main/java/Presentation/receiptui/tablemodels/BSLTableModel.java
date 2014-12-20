@@ -45,8 +45,11 @@ public class BSLTableModel extends AbstractTableModel{
 	
 	public void RefreshTable(double[] data){
 		cm.clear();
-		
-				
+		ArrayList<String> st=new ArrayList<String>();
+		for(int i=0;i<data.length;i++){
+			st.add(String.valueOf(data[i]));
+		}
+		cm.add(st);
 	}
 	
 	public void initial(){
