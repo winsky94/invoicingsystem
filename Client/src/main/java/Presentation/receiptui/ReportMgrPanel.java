@@ -526,7 +526,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			String typeOrName=nameOrTypeCbox.getSelectedItem().toString();
 			if(tab.getSelectedIndex()==1){
 				type="经营历程";
-				typeOrName=Total.getsType(typeOrName).toString();
+				if(!typeOrName.equals("全部"))
+					typeOrName=Total.getsType(typeOrName).toString();
 			}
 			
 			String message[]={from.getDate()+to.getDate(),typeOrName,
