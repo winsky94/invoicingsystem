@@ -644,13 +644,19 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		try {
 			Sales b=new Sales();
 			ArrayList<ReceiptPO> pp=b.getAllSale();
-			for(ReceiptPO po:pp)
-				System.out.println(po.getId()+" "+po.getDate());
+			ArrayList<PurchasePO> po=b.findPurchase("金金", "客户");
+			if(po!=null)
+				for(ReceiptPO p:po)
+					System.out.println(p.getId());
+		//	for(ReceiptPO po:pp)
+				//System.out.println(po.getId()+" "+po.getDate());
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
+	
+	
 
 }
