@@ -49,6 +49,7 @@ public class SaleList implements SaleListBLService{
 		ArrayList<PurchasePO> p=service.findPurchase(startDate+endDate, "时间区间");
 		ArrayList<PurchaseReturnPO> pr=service.findPurchaseReturn(startDate+endDate, "时间区间");
 		//剔除有退货的进货单据
+		if(p!=null&&pr!=null){
 		for(int i=0;i<p.size();i++)
 			for(int j=0;j<pr.size();j++)
 				if(p.get(i).getId().equals(pr.get(j).getpurid()))
@@ -57,6 +58,7 @@ public class SaleList implements SaleListBLService{
 				}
 		for(int i=0;i<p.size();i++)
 			adcost+=p.get(i).getAdjustCost();
+		}
 		return adcost;
 		
 	}
