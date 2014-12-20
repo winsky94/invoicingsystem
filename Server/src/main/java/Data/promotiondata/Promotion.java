@@ -115,6 +115,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 					p.setLevel(it.getLevel());
 					p.setPackList(it.getPackList());
 					p.setPackValue(it.getPackValue());
+					p.setIsMatch(it.IsMatch());
 					break;
 				}
 			}
@@ -136,6 +137,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 					p.setEndDate(it.getEndDate());
 					p.setLevel(it.getLevel());
 					p.setDiscount(it.getCountList(),it.getGoodsList());
+					p.setIsMatch(it.IsMatch());
 					break;
 				}
 			}
@@ -157,6 +159,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 					p.setLevel(it.getLevel());
 					p.setCouponList(it.getCouponList());
 					p.setTotalValue(it.getTotalValue());
+					p.setIsMatch(it.IsMatch());
 					break;
 				}
 			}
@@ -178,6 +181,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 					p.setLevel(it.getLevel());
 					p.setGiftList(it.getGiftList());
 					p.setTotalValue(it.getTotalValue());
+					p.setIsMatch(it.IsMatch());
 					break;
 				}
 			}
