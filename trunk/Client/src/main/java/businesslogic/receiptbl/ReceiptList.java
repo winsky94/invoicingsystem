@@ -5,8 +5,11 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
+import businesslogic.utilitybl.MyComparator;
+import businesslogic.utilitybl.MySort;
 import po.CollectionPO;
 import po.ReceiptPO;
 import po.ReceiptPO.ReceiptType;
@@ -25,8 +28,9 @@ public class ReceiptList {
 	
 	public ArrayList<ReceiptPO> showAllReceipt(){
 		
-		
-			return service.showAll();
+			ArrayList<ReceiptPO> list=service.showAll();
+			if(list==null) return null;
+			else return MySort.sort(list);
 		
 	}
 	public ArrayList<ReceiptPO>  AccurateFind(String message[])
@@ -36,6 +40,7 @@ public class ReceiptList {
 	
 	public ArrayList<ReceiptPO>  showApproved(){
 		ArrayList<ReceiptPO> po=showAllReceipt();
+		if(po==null) return null;
 		ArrayList<ReceiptPO> approved=new ArrayList<ReceiptPO>();
 		for(int i=0;i<po.size();i++){
 			ReceiptPO p=po.get(i);
@@ -43,12 +48,13 @@ public class ReceiptList {
 				approved.add(p);
 			
 		}
-		//Collections.sort(approved, c);
-		return approved;
+		if(approved.size()==0) return null;
+		else return MySort.sort(approved);
 	}
 	
 	public ArrayList<ReceiptPO> showToApprove(){
 		ArrayList<ReceiptPO> po=showAllReceipt();
+		if(po==null) return null;
 		ArrayList<ReceiptPO> toApprove=new ArrayList<ReceiptPO>();
 		for(int i=0;i<po.size();i++){
 			ReceiptPO p=po.get(i);
@@ -56,12 +62,14 @@ public class ReceiptList {
 				toApprove.add(p);
 			
 		}
-		return toApprove;
+		if(toApprove.size()==0) return null;
+		else return MySort.hurrySort(toApprove);
 	}
 	
 	public ArrayList<ReceiptPO> showToApprove(ReceiptType type){
 		ArrayList<ReceiptPO> toApprove=showToApprove();
 		if(toApprove==null) return null;
+		//已排好序
 		else{
 			ArrayList<ReceiptPO> toApproveByType=new ArrayList<ReceiptPO>();
 			for(int i=0;i<toApprove.size();i++)
