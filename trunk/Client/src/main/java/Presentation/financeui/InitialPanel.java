@@ -40,7 +40,7 @@ public class InitialPanel extends JPanel implements ActionListener {
 	JTable table;
 	JScrollPane jsp;
 	Color color = new Color(242, 125, 5);
-	MyButton addBtn, detailBtn, refreshBtn;
+	MyButton addBtn, detailBtn, refreshBtn,changeBtn;
 	ArrayList<ArrayList<String>> c = new ArrayList<ArrayList<String>>();
 
 	public InitialPanel(MainFrame frame) {
@@ -71,6 +71,10 @@ public class InitialPanel extends JPanel implements ActionListener {
 				"img/finance/details.png"));
 		detailBtn.addActionListener(this);
 		btnPnl.add(detailBtn);
+		//--------切换套账------------------
+		changeBtn=new MyButton("切换套账",new ImageIcon("img/finance/modify.png"));
+		changeBtn.addActionListener(this);
+		btnPnl.add(changeBtn);
 		// -------刷新---------------------
 		refreshBtn = new MyButton("刷新",
 				new ImageIcon("img/finance/refresh.png"));
