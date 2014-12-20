@@ -78,7 +78,8 @@ public class MyHeaderButtonRenderer extends JButton implements
 				bgColor = header.getBackground();
 			}
 			setForeground(fgColor);
-			setBackground(bgColor);
+//			setBackground(bgColor);
+			setBackground(new Color(230,230,250));
 
 			setFont(header.getFont());
 		}

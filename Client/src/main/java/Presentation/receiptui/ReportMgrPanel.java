@@ -57,10 +57,12 @@ import Presentation.receiptui.tablemodels.SaleDetailTableModel;
 import Presentation.uihelper.DateChooser;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.ReceiptController;
+import businesslogic.salesbl.SaleList;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.userbl.User;
 import businesslogicservice.memberblservice.MemberViewService;
 import businesslogicservice.receiptblservice.ReceiptListService;
+import businesslogicservice.salesblservice.SaleListBLService;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import businesslogicservice.userblservice.UserViewService;
 
@@ -491,7 +493,24 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			vo = reservice.View();
 			if (vo != null)
 				ohtm.RefreshTable(vo);
-			double[] data={1,1,1,1,1,1,1,1,1,1,1,1,1};
+			
+			String startDate=from.getDate();
+			String endDate=to.getDate();
+			SaleListBLService ss=new SaleList();
+     		double saleIncome=ss.saleIncome(startDate, endDate);
+     		double goodsOver=ss.goodsOver(startDate, endDate);
+     		double adjustCost=ss.getAdjustCost(startDate, endDate);
+     		double purchaseReturn=ss.purchaseReturnProfitCalc(startDate, endDate);
+     		double couponProfit=ss.couponProfitCalc(startDate, endDate);
+     		double discountMoney=ss.DiscountMoney(startDate, endDate);
+     		double totalIncome=saleIncome+goodsOver+adjustCost+purchaseReturn+couponProfit;
+     		double saleCost=ss.saleCost(startDate, endDate);
+     		double goodsLow=ss.goodsLow(startDate, endDate);
+     		double goodsGift=ss.goodsGift(startDate, endDate);
+     		double totalCost=saleCost+goodsLow+goodsGift;
+     		double profit=totalIncome-totalCost;
+			double[] data={saleIncome,goodsOver,adjustCost,purchaseReturn,couponProfit,
+					discountMoney,totalIncome,saleCost,goodsLow,goodsGift,totalCost,profit};
 		//	ostm.RefreshTable(data);
 			bstm.RefreshTable(data);
 			
