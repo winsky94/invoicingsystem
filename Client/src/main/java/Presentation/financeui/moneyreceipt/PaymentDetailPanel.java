@@ -91,6 +91,7 @@ public class PaymentDetailPanel extends JPanel implements ActionListener {
 		tlm = new TransferListModel();
 		table = new JTable(tlm);
 		table.getTableHeader().setReorderingAllowed(false);
+		table.getColumnModel().getColumn(2).setPreferredWidth(300);
 
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer();

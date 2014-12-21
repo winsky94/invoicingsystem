@@ -12,8 +12,8 @@ public class BSLTableModel extends AbstractTableModel{
 	 */
 	private static final long serialVersionUID = 1L;
 	ArrayList<ArrayList<String>>  cm=new ArrayList<ArrayList<String>>();
-	String[] head={"销售收入", "库存报溢收入", "成本调价收入", "进货收入", "代金券收入",
-			"折让金额", "总收入","销售支出", "报损支出", "赠送支出", "总支出" ,"总利润"};
+	String[] head={"销售收入", "商品报溢", "成本调价", "进货退货差价", "代金券与实际收款差额",
+			"折让金额", "总收入","销售成本", "商品报损", "商品赠出", "总支出" ,"总利润"};
 	
 	public int getRowCount() {
 		return cm.size();

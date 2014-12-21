@@ -99,6 +99,7 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 					table.getColumn(table.getColumnName(i)).setCellRenderer(
 							tcr);
 				}
+		table.getColumnModel().getColumn(2).setPreferredWidth(300);
 		jsp = new JScrollPane(table);
 		c.gridx = 0;
 		c.gridy = 2;

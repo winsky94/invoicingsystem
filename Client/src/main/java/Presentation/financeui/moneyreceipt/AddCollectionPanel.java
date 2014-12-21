@@ -128,7 +128,6 @@ public class AddCollectionPanel extends CollectionAndPaymentPanel implements Act
 				JOptionPane.showMessageDialog(null, "Error！", "提示",
 						JOptionPane.WARNING_MESSAGE);
 			}
-			String s=(String)memBox.getSelectedItem();
 			CollectionVO vo=new CollectionVO(ID,memberID,(String)memBox.getSelectedItem(),parent.getUser().getID(),tra,totalMoney,0,isHurry);
 
 			try {
