@@ -65,10 +65,14 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 	String user;
 	double totalMoney;
 	ArrayList<ClauseItemVO> tra=new ArrayList<ClauseItemVO>();
+	GridBagLayout gbl = new GridBagLayout();
+	GridBagConstraints c = new GridBagConstraints();
+	JPanel btnPnl;
+	JPanel up;
+	
 	public AddCashReceiptPanel(MainFrame frame) {
 		parent=frame;
-		GridBagLayout gbl = new GridBagLayout();
-		GridBagConstraints c = new GridBagConstraints();
+		
 		c.insets = new Insets(5, 40, 5, 40);
 		this.setBackground(Color.white);
 		this.setLayout(gbl);
@@ -122,7 +126,7 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 		gbl.setConstraints(infoPnl, c);
 		this.add(infoPnl);
 		infoPnl.setLayout(new GridLayout(2, 1));
-		JPanel up = new JPanel();
+		up = new JPanel();
 		up.setBackground(Color.white);
 		infoPnl.add(up);
 		JPanel down = new JPanel();
@@ -227,7 +231,7 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 		remarkFld.setFont(font);
 		down.add(remarkFld);
 		// -------buttons-----------------
-		JPanel btnPnl = new JPanel();
+		btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 8;
@@ -282,6 +286,10 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 
 		public String getValueAt(int row, int col) {
 			return content.get(row).get(col);
+		}
+		
+		public void setValueAt(int row,int col,String s){
+			content.get(row).set(col, s);
 		}
 
 		public String getColumnName(int col) {

@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import po.ReceiptPO.ReceiptType;
 import businesslogic.receiptbl.ReceiptController;
 import businesslogicservice.receiptblservice.ReceiptBLService;
+import Presentation.financeui.moneyreceipt.ModifyCashlistPanel;
 import Presentation.financeui.moneyreceipt.ModifyCollectionPanel;
 import Presentation.financeui.moneyreceipt.ModifyPaymentPanel;
 import Presentation.mainui.MainFrame;
@@ -207,6 +208,10 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 			ModifyPaymentPanel payment=new ModifyPaymentPanel(id,father);
 			payment.UseToModify(ok);
 			return payment;
+		case CASHLIST:
+			ModifyCashlistPanel cashlist=new ModifyCashlistPanel(id,father);
+			cashlist.UseToModify(ok);
+			return cashlist;
 		}
 		
 			

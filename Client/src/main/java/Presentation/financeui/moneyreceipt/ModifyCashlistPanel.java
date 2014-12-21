@@ -9,46 +9,41 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import vo.CashlistVO;
+import vo.ClauseItemVO;
 import vo.LogVO;
-import vo.PaymentVO;
-import vo.TransferItemVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import Presentation.mainui.log;
-import businesslogic.financebl.Payment;
 import businesslogic.userbl.User;
-import businesslogicservice.financeblservice.listblservice.PaymentBLService;
+import businesslogic.financebl.CashList;
+import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.userblservice.UserBLService;
 
-public class ModifyPaymentPanel extends CollectionAndPaymentPanel implements ActionListener{
-	/**
-	 * 修改付款单
-	 * 加了监听
-	 */
+public class ModifyCashlistPanel extends AddCashReceiptPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
-    PaymentBLService service;
-    PaymentVO v;
+    CashlistBLService service;
+    CashlistVO v;
     JButton modBtn;
 	
-	public ModifyPaymentPanel(String id,MainFrame frame) {
+	public ModifyCashlistPanel(String id,MainFrame frame) {
 		super(frame);
-		super.item2.remove(addBtn);
-		super.item2.remove(delBtn);
+		super.btnPnl.remove(addBtn);
+		super.btnPnl.remove(delBtn);
 		modBtn=new JButton("修改");
 		modBtn.setFont(font);
 		modBtn.setBackground(new Color(204, 242, 239));
 		modBtn.setFocusPainted(false);
 		modBtn.addActionListener(this);
-		item2.add(modBtn);
+		btnPnl.add(modBtn);
 		try {
-			service=new Payment();
+			service=new CashList();
 			v=service.findByID(id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -59,7 +54,7 @@ public class ModifyPaymentPanel extends CollectionAndPaymentPanel implements Act
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("修改付款单");
+		JLabel title = new JLabel("修改现金费用单");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
@@ -110,31 +105,30 @@ public class ModifyPaymentPanel extends CollectionAndPaymentPanel implements Act
 	    	});
 	    }
 	   
-		super.memPnl.remove(memBox);
-		JLabel ml=new JLabel();
-		ml.setText(v.getMemberName());
-		memPnl.add(ml);
-		final ArrayList<TransferItemVO> t=v.getTransferlist();
+		super.up.remove(accountBox);
+		JLabel al=new JLabel();
+		al.setText(v.getAccount());
+		up.add(al);
+		final ArrayList<ClauseItemVO> t=v.getClauselist();
 		for(int i=0;i<t.size();i++){
-		    TransferItemVO tt=t.get(i);
+		    ClauseItemVO tt=t.get(i);
 			ArrayList<String> buffer = new ArrayList<String>();
-		    buffer.add(tt.getAccount());
+		    buffer.add(tt.getName());
 		    buffer.add(tt.getMoney()+"");
 		    buffer.add(tt.getInfo());
-		    tlm.addRow(buffer);
+		    crm.addRow(buffer);
 		}
 		table.revalidate();
 
-	    tra=v.getTransferlist();
+	    tra=v.getClauselist();
 		
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
 		     
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 		
-				TransferItemVO it=t.get(e.getFirstIndex());
-				int ac=st.indexOf(it.getAccount());
-				accountBox.setSelectedIndex(ac);
+				ClauseItemVO it=t.get(e.getFirstIndex());
+				nameFld.setText(it.getName()+"");
 				moneyFld.setText(it.getMoney()+"");
 				moneyFld.setEditable(false);
 				remarkFld.setText(it.getInfo());
@@ -143,29 +137,19 @@ public class ModifyPaymentPanel extends CollectionAndPaymentPanel implements Act
 		    });
 	}
 
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 920, 600);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-/*		ModifyCollectionPanel gp = new ModifyCollectionPanel();
-		gp.setBounds(0, 0, 920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
-*/
-	}
+	
 
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==modBtn){
-			TransferItemVO item = new TransferItemVO((String) accountBox
+			ClauseItemVO item = new ClauseItemVO((String) accountBox
 					.getSelectedItem(), Double
 					.parseDouble(moneyFld.getText()), remarkFld
 					.getText());
 			int index=table.getSelectedRow();
 			tra.set(index, item);
-			tlm.setValueAt(index, 0, (String) accountBox.getSelectedItem());
-			tlm.setValueAt(index, 2, remarkFld.getText());
+			crm.setValueAt(index, 0, nameFld.getText());
+			crm.setValueAt(index, 2, remarkFld.getText());
 			table.revalidate();
 			table.repaint();
 		}
@@ -173,19 +157,18 @@ public class ModifyPaymentPanel extends CollectionAndPaymentPanel implements Act
 		if(e.getSource()==submitBtn){
 			
 			
-			PaymentVO vo=new PaymentVO(v.getId(),v.getMemberID(),v.getMemberName(),v.getUser(),tra,v.getTotalMoney(),0,v.getHurry());
-
+			CashlistVO vo=new CashlistVO(v.getId(),v.getUser(),v.getAccount(),tra,v.getTotalMoney(),0,v.getHurry());
 			try {
-				service = new Payment();
+				service = new CashList();
 				int result=service.modify(vo);
 				if (result == 0) {
-					JOptionPane.showMessageDialog(null, "修改付款单成功！", "提示",
+					JOptionPane.showMessageDialog(null, "修改现金费用单成功！", "提示",
 							JOptionPane.CLOSED_OPTION);
 					log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
-							"修改了一笔付款单",5));
+							"修改了一笔现金费用单",5));
 					headPane.RefreshGrades();
 				} else {
-					JOptionPane.showMessageDialog(null, "修改付款单失败！", "提示",
+					JOptionPane.showMessageDialog(null, "修改现金费用失败！", "提示",
 							JOptionPane.WARNING_MESSAGE);
 				}
 				
@@ -211,4 +194,5 @@ public class ModifyPaymentPanel extends CollectionAndPaymentPanel implements Act
 
 
 }
+
 
