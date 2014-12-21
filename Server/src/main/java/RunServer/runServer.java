@@ -99,8 +99,9 @@ public class runServer extends JFrame implements ActionListener{
 		if(e.getSource()==exitBtn){
 			this.dispose();
 		}else{
+			this.dispose();
 			String portNum=portBox.getSelectedItem().toString();
-		//	init(portNum);
+			init(portNum);
 			//存储历史记录
 			try {
 				BufferedWriter bw=new BufferedWriter(new FileWriter("Port.txt"));
@@ -120,7 +121,7 @@ public class runServer extends JFrame implements ActionListener{
 				for(int i=0;i<port.size();i++)
 					bw.write(port.get(i)+"\r\n");
 				bw.close();
-				this.dispose();
+				
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
