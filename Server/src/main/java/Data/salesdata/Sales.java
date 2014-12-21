@@ -319,6 +319,8 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	public ArrayList<PurchasePO> findPurchase(String message,String type) throws RemoteException {
 		ArrayList<PurchasePO> po=showPurchase();
 		ArrayList<PurchasePO> result=new ArrayList<PurchasePO>();
+		if(po==null)
+			return null;
 		if(type.equals("时间区间")){
 			String qishi=message.substring(0,6);
 			String jiezhi=message.substring(6,12);
@@ -368,6 +370,8 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	public ArrayList<PurchaseReturnPO> findPurchaseReturn(String message,String type) throws RemoteException {
 		ArrayList<PurchaseReturnPO> po=showPurchaseReturn();
 		ArrayList<PurchaseReturnPO> result=new ArrayList<PurchaseReturnPO>();
+		if(po==null)
+			return null;
 		if(type.equals("时间区间")){
 			String qishi=message.substring(0,6);
 			String jiezhi=message.substring(6,12);
@@ -415,6 +419,8 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	}
 	public ArrayList<SalePO> findSale(String message,String type) throws RemoteException {
 		ArrayList<SalePO> po=showSale();
+		if(po==null)
+			return null;
 		ArrayList<SalePO> result=new ArrayList<SalePO>();
 		if(type.equals("时间区间")){
 			String qishi=message.substring(0,6);
@@ -473,6 +479,8 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	public ArrayList<SaleReturnPO> findSaleReturn(String message,String type) throws RemoteException {
 		ArrayList<SaleReturnPO> po=showSaleReturn();
 		ArrayList<SaleReturnPO> result=new ArrayList<SaleReturnPO>();
+		if(po==null)
+			return null;
 		if(type.equals("时间区间")){
 			String qishi=message.substring(0,6);
 			String jiezhi=message.substring(6,12);
