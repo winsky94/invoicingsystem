@@ -133,6 +133,33 @@ public class StockOverReceipt extends Receipt {
 		return newPO;
 	}
 
+	// 修改
+	public int Modify(String id) {
+		String statusString = super.getStatus();
+		int status = -1;
+		switch (statusString) {
+		case "待审批":
+			status = 0;
+			break;
+		case "审批不通过":
+			status = 1;
+			break;
+		case "审批通过":
+			status = 2;
+			break;
+		case "执行完毕":
+			status = 3;
+			break;
+		default:
+			break;
+		}
+		StockOverOrLowPO po = new StockOverOrLowPO(id, super.getmemberName(),
+				super.getMemberID(), super.getUserID(), ReceiptType.STOCKOVER,
+				status, super.getHurry(), super.getInfo(), goodName, size, num,
+				exactNum);
+		return service.modify(po);
+	}
+
 	public String getGoodName() {
 		return goodName;
 	}

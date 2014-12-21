@@ -60,6 +60,16 @@ public class GiftController extends Receipt implements GiftBLService {
 		return manage.excute(receipt);
 	}
 
+	// 修改，传入的参数为新的VO
+	public int modify(GiftVO newVO) {
+		// TODO 自动生成的方法存根
+		GiftReceipt receipt = new GiftReceipt(newVO.getId(),
+				newVO.getMemberID(), newVO.getMemberName(), newVO.getUser(),
+				newVO.getType(), newVO.getHurry(), newVO.getStatus(),
+				newVO.getInfo(), newVO.getGiftList());
+		return receipt.Modify(newVO.getId());
+	}
+
 	public double getGiftCost(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		GiftManage manage = new GiftManage();

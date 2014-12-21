@@ -41,14 +41,14 @@ public class StockControlController implements StockControlBLService {
 	public double getGoodsOverIncome(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		StockManage manage = new StockManage();
-		return manage.getGoodsOverIncome(beginDate,endDate);
+		return manage.getGoodsOverIncome(beginDate, endDate);
 	}
 
 	// 获得库存报损支出
 	public double getGoodsLowCost(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		StockManage manage = new StockManage();
-		return manage.getGoodsLowCost(beginDate,endDate);
+		return manage.getGoodsLowCost(beginDate, endDate);
 	}
 
 	// 库存查看
@@ -85,7 +85,7 @@ public class StockControlController implements StockControlBLService {
 	public double getGiftCost(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		StockManage manage = new StockManage();
-		return manage.getGiftCost(beginDate,endDate);
+		return manage.getGiftCost(beginDate, endDate);
 	}
 
 	// 显示库存报溢单
@@ -122,5 +122,23 @@ public class StockControlController implements StockControlBLService {
 		}
 
 		return result;
+	}
+
+	//修改
+	public int modify(StockOverOrLowVO newVo) {
+		// TODO 自动生成的方法存根
+		if (newVo.getType().equals(ReceiptType.STOCKOVER)) {
+			StockOverReceipt receipt = new StockOverReceipt(newVo.getId(),
+					newVo.getMemberName(), newVo.getMemberID(), newVo.getUser(),
+					newVo.getHurry(), newVo.getInfo(), newVo.getGoodsName(),
+					newVo.getSize(), newVo.getNum(), newVo.getExactNum());
+			return receipt.Modify(newVo.getId());
+		} else {
+			StockLowReceipt receipt = new StockLowReceipt(newVo.getId(),
+					newVo.getMemberName(), newVo.getMemberID(), newVo.getUser(),
+					newVo.getHurry(), newVo.getInfo(), newVo.getGoodsName(),
+					newVo.getSize(), newVo.getNum(), newVo.getExactNum());
+			return receipt.Modify(newVo.getId());
+		}
 	}
 }
