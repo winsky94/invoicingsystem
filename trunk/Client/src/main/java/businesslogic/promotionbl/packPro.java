@@ -31,9 +31,7 @@ public class packPro extends promotion{
 
 	
 
-	public int Modify(PackProVO vo){
-		return 0;
-	}
+
 	public PromotionVO findByID(String id){
 		PackProPO gpo=(PackProPO)service.find(id, PromotionType.PACK);
 		if(gpo==null) return null;
@@ -62,7 +60,11 @@ public class packPro extends promotion{
 	@Override
 	public int Modify(PromotionVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		if(vo==null) return 1;
+		else {
+			PackProPO po=voToPo((PackProVO)vo);
+			return service.Modify(po);
+		}
 	}
 
 	@Override

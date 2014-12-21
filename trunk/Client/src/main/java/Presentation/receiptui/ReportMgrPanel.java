@@ -570,6 +570,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			FilterRefresh(receipt,type);	
 		}else if(e.getSource()==refreshBtn){
 			RefreshTable();
+			ReportMgrPanel.this.repaint();
 		}
 	}
 	

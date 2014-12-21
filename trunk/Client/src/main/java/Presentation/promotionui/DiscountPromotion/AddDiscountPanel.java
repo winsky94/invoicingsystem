@@ -232,25 +232,7 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 				JOptionPane.showMessageDialog(null, "促销时间段输入不合法！", "提示",
 						JOptionPane.WARNING_MESSAGE);
 			else{
-			ArrayList<CommodityVO> cmlist = new ArrayList<CommodityVO>();
-			for (int j = 0; j < table.getRowCount(); j++) {
-				ArrayList<String> line = cmContent.get(j);
-				// 商品价为原价
-				CommodityVO cv = new CommodityVO(line.get(0), line.get(1),
-						line.get(2), Double.parseDouble(line.get(3)),
-						last_bid.get(j), 1, Double.parseDouble(line.get(3)),
-						last_bid.get(j), "");
-				discount.add(Double.parseDouble(line.get(4)));
-				cmlist.add(cv);
-			}
-			String startDate = from.getDate();
-			String endDate = to.getDate();
-			MemberLevel level = MemberLevel.valueOf((String) memberGradeBox
-					.getSelectedItem());
-			String id = service.getNewID(PromotionType.DISCOUNT);
-
-			DiscountProVO vo = new DiscountProVO(id, startDate, endDate, level,
-					discount, cmlist);
+			DiscountProVO vo=getDiscountPro();
 			if (service.Add(vo) == 0) {
 				JOptionPane.showMessageDialog(null, "策略添加成功", "提示",
 						JOptionPane.WARNING_MESSAGE);
@@ -270,6 +252,30 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 			}
 		}
 
+	}
+	
+	
+	public DiscountProVO getDiscountPro(){
+		ArrayList<CommodityVO> cmlist = new ArrayList<CommodityVO>();
+		for (int j = 0; j < table.getRowCount(); j++) {
+			ArrayList<String> line = cmContent.get(j);
+			// 商品价为原价
+			CommodityVO cv = new CommodityVO(line.get(0), line.get(1),
+					line.get(2), Double.parseDouble(line.get(3)),
+					last_bid.get(j), 1, Double.parseDouble(line.get(3)),
+					last_bid.get(j), "");
+			discount.add(Double.parseDouble(line.get(4)));
+			cmlist.add(cv);
+		}
+		String startDate = from.getDate();
+		String endDate = to.getDate();
+		MemberLevel level = MemberLevel.valueOf((String) memberGradeBox
+				.getSelectedItem());
+		String id = service.getNewID(PromotionType.DISCOUNT);
+
+		DiscountProVO vo = new DiscountProVO(id, startDate, endDate, level,
+				discount, cmlist);
+		return vo;
 	}
 
 	class AddDiscountModel extends AbstractTableModel {

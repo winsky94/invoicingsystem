@@ -75,7 +75,17 @@ public class promotionController implements PromotionViewService,
 
 	public int Modify(PromotionVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		if(vo==null) return 1;
+		switch(vo.getType()){
+		case GIFTCOUPON:
+			return gcp.Modify(vo);
+		case GIFTGOODS:
+			return  ggp.Modify(vo);
+		case PACK:
+			return pp.Modify(vo);
+		default:
+			return dcp.Modify(vo);
+		}
 	}
 
 	

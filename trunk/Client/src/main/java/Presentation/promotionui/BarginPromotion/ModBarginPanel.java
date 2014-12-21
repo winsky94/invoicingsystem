@@ -42,7 +42,32 @@ public class ModBarginPanel extends AddBarginPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//加监听
+				if(from.getDate().compareTo(to.getDate())>0)
+					JOptionPane.showMessageDialog(null, "促销时间段输入不合法！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+				else if(!IsPackValid)
+					JOptionPane.showMessageDialog(null, "请输入特价包特价！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+				else{
+				    PackProVO vo=getPackPro();
+					if (service.Modify(vo) == 0) {
+						JOptionPane.showMessageDialog(null, "策略修改成功", "提示",
+								JOptionPane.WARNING_MESSAGE);
+						try {
+							log.addLog(new LogVO(log.getdate(), parent.getUser()
+								.getID(), parent.getUser().getName(),
+								"修改一条特价包促销策略", 3));
+							headPane.RefreshGrades();
+							update();
+						} catch (Exception e1) {
+						// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} else
+						JOptionPane.showMessageDialog(null, "修改失败", "提示",
+							JOptionPane.WARNING_MESSAGE);
+
+				}
 			}
 		});
 	}

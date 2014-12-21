@@ -27,6 +27,7 @@ public class ModGiftPanel extends AddGiftPanel{
 		to.setTime(vo.getEndDate());
 		memberGradeBox.setSelectedItem(vo.getMemberlevel());
 		limitFld.setText(String.valueOf(vo.getTotalValue()));
+		RefreshTable(vo.getGiftList());
 		//加监听!
 		submitBtn.removeActionListener(slisten);
 		submitBtn.addActionListener(new ActionListener(){
