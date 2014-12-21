@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -13,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 //rightPane 的顶上部分基本窗口操作按钮
@@ -101,13 +103,22 @@ public class functionPane extends JPanel{
     				}else
     				{mainFrame.setExtendedState(JFrame.NORMAL);
    				 max.setIcon(new ImageIcon("img/mainFrame/max.png"));
+    				}
    			
     					
-    				}
-    				}
+    		}else if(e.getSource()==help){
+    			   try{   
+    				   //需要让主线程让步 不然启动的有点慢
+    				   Runtime.getRuntime().exec("cmd /c \"\"" +"进销存系统使用帮助文档.chm" + "\"\"\"" ) ;
+    			   }    
+    			   catch(IOException ieo)                  
+    			   {JOptionPane.showMessageDialog(null,"找不到帮助文档","提示:",JOptionPane.INFORMATION_MESSAGE) ;
+    			   }
+    		}
+		}
     				
     			
-   }
+   
     				
     
 		public void mouseEntered(MouseEvent e) {
