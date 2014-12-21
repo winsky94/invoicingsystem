@@ -1,5 +1,6 @@
 package businesslogic.stockbl.stockManage;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -10,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import businesslogic.utilitybl.getServer;
 import po.CommodityPO;
 import po.GiftPO;
 import po.GoodsPO;
@@ -38,12 +40,12 @@ public class StockManage {
 	private String url4;
 
 	public StockManage() {
-		host = "localhost:1099";
-		url = "rmi://" + host + "/stockManageService";
-		url2 = "rmi://" + host + "/goodsService";
-		url3 = "rmi://" + host + "/giftService";
-		url4 = "rmi://" + host + "/salesService";
 		try {
+			host = getServer.getServer();
+			url = "rmi://" + host + "/stockManageService";
+			url2 = "rmi://" + host + "/goodsService";
+			url3 = "rmi://" + host + "/giftService";
+			url4 = "rmi://" + host + "/salesService";
 			service = (StockControlDataService) Naming.lookup(url);
 			goodsService = (StockGoodsDataService) Naming.lookup(url2);
 			giftService = (GiftDataService) Naming.lookup(url3);
@@ -55,6 +57,9 @@ public class StockManage {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		} catch (NotBoundException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}

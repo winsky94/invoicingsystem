@@ -26,7 +26,6 @@ public class GiftController extends Receipt implements GiftBLService {
 	// 系统自动生成库存赠送单并处理==
 	public int autoAdd(String MemberID, String memberName, String userID,
 			ArrayList<CommodityVO> cList) {
-		System.out.println("GiftController.autoAdd():未测试！");
 		GiftReceipt tp = null;
 		try {
 			tp = new GiftReceipt();
