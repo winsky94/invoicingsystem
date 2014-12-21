@@ -49,7 +49,7 @@ public class runServer extends JFrame implements ActionListener{
 	Toolkit kit = Toolkit.getDefaultToolkit();
 	int screenWidth =  kit.getScreenSize().width;
 	int screenHeight = kit.getScreenSize().height;
-	int frameWidth = screenWidth * 35 / 100;
+	int frameWidth = screenWidth * 30 / 100;
 	int frameHeight = screenHeight * 35 / 100;
 	// ------------------------
 	Font font = new Font("微软雅黑", Font.PLAIN, 14);
