@@ -49,8 +49,8 @@ public class runServer extends JFrame implements ActionListener{
 	Toolkit kit = Toolkit.getDefaultToolkit();
 	int screenWidth =  kit.getScreenSize().width;
 	int screenHeight = kit.getScreenSize().height;
-	int frameWidth = screenWidth * 25 / 100;
-	int frameHeight = screenHeight * 25 / 100;
+	int frameWidth = screenWidth * 35 / 100;
+	int frameHeight = screenHeight * 35 / 100;
 	// ------------------------
 	Font font = new Font("微软雅黑", Font.PLAIN, 14);
 	JButton submitBtn,exitBtn;
