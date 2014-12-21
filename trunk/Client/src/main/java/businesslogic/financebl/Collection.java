@@ -83,26 +83,37 @@ public class Collection extends Receipt implements CollectionBLService{
      
     public int excute(ReceiptVO v){
     	CollectionVO vo=(CollectionVO)v;
-    	try {
-			Member m=new Member();
-			m.changeToPay(vo.getMemberID(), (-1)*vo.getTotalMoney());
-			Account a=new Account();
-			ArrayList<TransferItemVO> ts=vo.getTransferlist();
-			for(TransferItemVO vv:ts){
-				a.addMoney(vv.getAccount(),vv.getMoney());
+        try {
+			Member m;
+			
+				m = new Member();
+				m.changeToPay(vo.getMemberID(), (-1)*vo.getTotalMoney());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			
+			Account a;
+			try {
+				a = new Account();
+				ArrayList<TransferItemVO> ts=vo.getTransferlist();
+				for(TransferItemVO vv:ts){
+					a.addMoney(vv.getAccount(),vv.getMoney());
+				}
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NotBoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			Reply(vo.getId(),vo.getType(),0);
 			System.out.println("执行成功！");
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
     	
     	setStatus(v.getId(),3);
     	return 0;

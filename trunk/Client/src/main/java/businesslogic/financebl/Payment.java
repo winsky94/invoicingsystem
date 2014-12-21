@@ -1,8 +1,6 @@
 package businesslogic.financebl;
 
-import java.net.MalformedURLException;
 import java.rmi.Naming;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -74,26 +72,23 @@ public class Payment extends Receipt implements PaymentBLService{
 	
 	public int excute(ReceiptVO v){
 		PaymentVO vo=(PaymentVO)v;
-    	try {
-			Member m=new Member();
-			m.changeToReceive(vo.getMemberID(), vo.getTotalMoney());
-			Account a=new Account();
-			ArrayList<TransferItemVO> ts=vo.getTransferlist();
-			for(TransferItemVO vv:ts){
-				a.delMoney(vv.getAccount(),vv.getMoney());
+			Member m;
+			try {
+				m = new Member();
+				m.changeToReceive(vo.getMemberID(), vo.getTotalMoney());
+				Account a=new Account();
+				ArrayList<TransferItemVO> ts=vo.getTransferlist();
+				for(TransferItemVO vv:ts){
+					a.delMoney(vv.getAccount(),vv.getMoney());
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			
 			Reply(vo.getId(),vo.getType(),0);
 			System.out.println("执行成功！");
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
     	
     	setStatus(v.getId(),3);
     	return 0;

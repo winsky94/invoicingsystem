@@ -6,9 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.MalformedURLException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -100,19 +97,14 @@ public class AddCollectionPanel extends CollectionAndPaymentPanel implements Act
 				isHurry=1;
 			
 			MemberBLService mem = null;
-			try {
-				mem = new Member();
+				try {
+					mem = new Member();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
-			} catch (MalformedURLException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			} catch (RemoteException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			} catch (NotBoundException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
+			
 			ArrayList<MemberVO> member1 = mem.show(MemberType.JHS);
 			ArrayList<MemberVO> member2 = mem.show(MemberType.XSS);
 			String memberID;
