@@ -416,10 +416,10 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 					switch (rtype) {
 					case PURCHASE:
 						PurchaseDetailPanel pane = new PurchaseDetailPanel(
-								father, id);
+								father, id,rtype);
 						pane.useToReceipt();
 						father.setRightComponent(new AdvancedReceiptPanel(pane,
-								father, id));
+								father, id,rtype));
 						break;
 					case PAYMENT:
 						PaymentDetailPanel paypane = new PaymentDetailPanel(

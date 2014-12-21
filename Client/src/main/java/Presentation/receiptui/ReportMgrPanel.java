@@ -530,7 +530,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 					discountMoney,totalIncome,saleCost,goodsLow,goodsGift,totalCost,profit};
 			bstm.RefreshTable(data);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
  		

@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import po.ReceiptPO.ReceiptType;
 import businesslogic.receiptbl.ReceiptController;
 import businesslogicservice.receiptblservice.ReceiptBLService;
 import Presentation.mainui.MainFrame;
@@ -33,7 +34,7 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 	String id;
 	MyButton approvedBtn, disapprovedBtn, modBtn;
 	JButton exitBtn;
-	public AdvancedReceiptPanel(JPanel info , MainFrame frame ,String id) {
+	public AdvancedReceiptPanel(JPanel info , MainFrame frame ,String id,ReceiptType type) {
 		infoPnl = info;
 		 father=frame;
 		 this.id=id;
@@ -68,6 +69,8 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 		// --------修改-------------------
 		modBtn = new MyButton("修改", new ImageIcon("img/promotion/modify.png"));
 		btnPnl.add(modBtn);
+		boolean isAbleMod=type!=ReceiptType.STOCKERROR&&type!=ReceiptType.STOCKLOW&&
+				type!=ReceiptType.STOCKOVER&&
 		//-------------------------------
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
@@ -139,7 +142,7 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 					update();
 			
 			}else if(e.getSource()==modBtn){
-			
+				
 			}
 		
 		} catch (Exception e1) {
@@ -161,6 +164,25 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 		}
 		
 	}
+	class modOkListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	class modExitListner implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+
+	
 
 	
 }
