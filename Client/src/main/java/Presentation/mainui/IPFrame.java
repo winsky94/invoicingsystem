@@ -2,10 +2,14 @@ package Presentation.mainui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,19 +40,28 @@ public class IPFrame extends JFrame {
 				(screenHeight - frameHeight) / 2, frameWidth, frameHeight);
 		this.setLayout(new GridLayout(1, 1));
 		// -------------------
-		JPanel pnl = new JPanel();
-		pnl.setBackground(Color.white);
+		JPanel pnl = new JPanel(){
+			private static final long serialVersionUID = 1L;
+
+			// 给panel加上图片
+			protected void paintComponent(Graphics g) {
+				ImageIcon icon = new ImageIcon("img/net.jpg");
+				Image img = icon.getImage();
+				g.drawImage(img, 0, 0, icon.getIconWidth(),
+						icon.getIconHeight(), icon.getImageObserver());
+			}
+		};
 		this.add(pnl);
 		// -------------------
 		pnl.setLayout(new GridLayout(3, 1));
 		JPanel top = new JPanel();
-		top.setBackground(Color.white);
+		top.setOpaque(false);
 		pnl.add(top);
 		JPanel mid = new JPanel();
-		mid.setBackground(Color.white);
+		mid.setOpaque(false);
 		pnl.add(mid);
 		JPanel bottom = new JPanel();
-		bottom.setBackground(Color.white);
+		bottom.setOpaque(false);
 		pnl.add(bottom);
 		// -------IP-----------
 		JLabel IPLbl = new JLabel("请输入IP：");
