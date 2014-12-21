@@ -22,7 +22,7 @@ public class Init extends UnicastRemoteObject implements FinanceInitDataService{
 	public Init() throws RemoteException{
 		super();
 	}
-	public int initInfo(String time,BeginInfoPO po) {
+	public int initInfo(String time,BeginInfoPO po) throws RemoteException{
 		JXCFile.init(time);
 		ArrayList<MemberPO> member=po.getMember();
 		if(member!=null)
@@ -67,7 +67,7 @@ public class Init extends UnicastRemoteObject implements FinanceInitDataService{
 		return 0;
 	}
 	
-	public BeginInfoPO getInfo(String time) {
+	public BeginInfoPO getInfo(String time) throws RemoteException{
 		ArrayList<BeginInfoPO> buffer=showAll();
 		if(buffer==null)
 			return null;
@@ -80,7 +80,7 @@ public class Init extends UnicastRemoteObject implements FinanceInitDataService{
 		return null;
 	}
 	
-	public ArrayList<BeginInfoPO> showAll(){
+	public ArrayList<BeginInfoPO> showAll() throws RemoteException{
 		JXCFile file=new JXCFile("src/main/java/begininfo.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
@@ -101,5 +101,9 @@ public class Init extends UnicastRemoteObject implements FinanceInitDataService{
 	}
 	public String getCurrentTime() throws RemoteException {		
 		return JXCFile.getCurrentTime();
+	}
+	
+	public void setTime(String s) throws RemoteException{
+		JXCFile.setTime(s);
 	}
 }
