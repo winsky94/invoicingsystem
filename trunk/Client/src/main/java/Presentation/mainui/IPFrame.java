@@ -8,9 +8,9 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,12 +26,12 @@ public class IPFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	int screenWidth = UIhelper.getScreenWidth();
 	int screenHeight = UIhelper.getScreenHeight();
-	int frameWidth = screenWidth * 25 / 100;
-	int frameHeight = screenHeight * 25 / 100;
+	int frameWidth = screenWidth * 30 / 100;
+	int frameHeight = screenHeight * 35 / 100;
 	// ------------------------
 	Font font = new Font("微软雅黑", Font.PLAIN, 14);
 	JButton submitBtn, exitBtn;
-	JTextField IPFld, portFld;
+	JComboBox<String> IPFld, portFld;
 
 	public IPFrame() {
 		this.setTitle("进销存系统");
@@ -45,7 +45,7 @@ public class IPFrame extends JFrame {
 
 			// 给panel加上图片
 			protected void paintComponent(Graphics g) {
-				ImageIcon icon = new ImageIcon("img/net.jpg");
+				ImageIcon icon = new ImageIcon("img/net.png");
 				Image img = icon.getImage();
 				g.drawImage(img, 0, 0, icon.getIconWidth(),
 						icon.getIconHeight(), icon.getImageObserver());
@@ -53,7 +53,15 @@ public class IPFrame extends JFrame {
 		};
 		this.add(pnl);
 		// -------------------
-		pnl.setLayout(new GridLayout(3, 1));
+		pnl.setLayout(new GridLayout(4, 1));
+		JPanel titlePnl = new JPanel();
+		titlePnl.setOpaque(false);
+		pnl.add(titlePnl);
+		JLabel title=new JLabel("欢迎使用进销存系统");
+		title.setFont(new Font("微软雅黑", Font.PLAIN, 25));
+		title.setForeground(Color.white);
+		titlePnl.add(title);
+		//----------------------
 		JPanel top = new JPanel();
 		top.setOpaque(false);
 		pnl.add(top);
@@ -65,17 +73,25 @@ public class IPFrame extends JFrame {
 		pnl.add(bottom);
 		// -------IP-----------
 		JLabel IPLbl = new JLabel("请输入IP：");
+		IPLbl.setForeground(Color.white);
 		IPLbl.setFont(font);
 		top.add(IPLbl);
-		IPFld = new JTextField("127.0.0.1",10);
+		String[] IP={"127.0.0.1"};
+		IPFld = new JComboBox<String>(IP);
 		IPFld.setFont(font);
+		IPFld.setBackground(Color.white);
+		IPFld.setEditable(true);
 		top.add(IPFld);
 		// -------Port-------------
 		JLabel portLbl = new JLabel("端口：");
 		portLbl.setFont(font);
+		portLbl.setForeground(Color.white);
 		mid.add(portLbl);
-		portFld = new JTextField("1099",5);
+		String[] port={"1099"};
+		portFld =  new JComboBox<String>(port);
 		portFld.setFont(font);
+		portFld.setBackground(Color.white);
+		portFld.setEditable(true);
 		mid.add(portFld);
 		// --------buttons---------
 		submitBtn = new JButton("确定");
@@ -91,6 +107,7 @@ public class IPFrame extends JFrame {
 				
 			}
 		});
+		bottom.add(new JLabel());
 		exitBtn = new JButton("取消");
 		exitBtn.setFont(font);
 		exitBtn.setFocusPainted(false);
@@ -107,6 +124,7 @@ public class IPFrame extends JFrame {
 		// -------------------
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setUndecorated(true);
 		this.setVisible(true);
 
 	}
