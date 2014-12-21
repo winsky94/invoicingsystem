@@ -173,6 +173,8 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 				frame.setRightComponent(mgr);
 				if( service.showAll()!=null)
 					mgr.RefreshAccountTable(service.showAll());
+				mgr.table.revalidate();
+				mgr.table.repaint();
 			} catch (MalformedURLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -199,6 +201,12 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 	  			    mgr.RefreshCollectionTable(bb.getCollection());
 	  			if(cc.getCashlist()!=null)
 	  				mgr.RefreshCashlistTable(cc.getCashlist());
+	  			mgr.t1.revalidate();
+	  			mgr.t2.revalidate();
+	  			mgr.t3.revalidate();
+	  			mgr.t1.repaint();
+	  			mgr.t2.repaint();
+	  			mgr.t3.repaint();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

@@ -132,7 +132,7 @@ public class ModifyCollectionPanel extends CollectionAndPaymentPanel implements 
 				@Override
 				public void valueChanged(ListSelectionEvent e) {
 			
-					TransferItemVO it=t.get(e.getLastIndex());
+					TransferItemVO it=t.get(e.getFirstIndex());
 					int ac=st.indexOf(it.getAccount());
 					accountBox.setSelectedIndex(ac);
 					moneyFld.setText(it.getMoney()+"");
