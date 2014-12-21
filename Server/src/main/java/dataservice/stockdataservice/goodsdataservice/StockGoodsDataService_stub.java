@@ -45,16 +45,19 @@ public class StockGoodsDataService_stub implements StockGoodsDataService {
 
 	public String getMaxID() throws RemoteException {
 		// TODO 自动生成的方法存根
+		System.out.println("get max ID in file succeed!");
 		return null;
 	}
 
 	public ArrayList<GoodsPO> showGoods() throws RemoteException {
 		// TODO 自动生成的方法存根
+		System.out.println("show goods in file succeed!");
 		return null;
 	}
 
 	public GoodsPO findByID(String id) throws RemoteException {
 		// TODO 自动生成的方法存根
+		System.out.println("find by id in file succeed!");
 		return null;
 	}
 }
