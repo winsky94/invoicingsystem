@@ -170,6 +170,24 @@ public class Payment extends Receipt implements PaymentBLService{
 
 	@Override
 	public PaymentVO findByID(String s) {
-		return poToVo(service.findByID(s));
+		try {
+			return poToVo(service.findByID(s));
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
+
+	@Override
+	public int modify(PaymentVO vo) {
+		try {
+			return service.modify(voToPo(vo));
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 1;
+	}
+	
 }

@@ -9,4 +9,5 @@ public interface CollectionBLService {
 	public ArrayList<CollectionVO> getCollection();
 	public String getNewID();
 	public CollectionVO findByID(String s);
+	public int modify(CollectionVO vo);
 }

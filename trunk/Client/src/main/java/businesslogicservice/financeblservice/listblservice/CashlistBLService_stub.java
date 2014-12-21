@@ -25,4 +25,10 @@ public class CashlistBLService_stub implements CashlistBLService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int modify(CashlistVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

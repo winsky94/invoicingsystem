@@ -61,6 +61,7 @@ public class CollectionAndPaymentPanel extends JPanel {
 	double totalMoney = 0;
 	JPanel item2;
 	JPanel memPnl;
+	ArrayList<String> st;
 
 	public CollectionAndPaymentPanel(MainFrame frame) {
 		parent = frame;
@@ -156,7 +157,7 @@ public class CollectionAndPaymentPanel extends JPanel {
 		// accountFld.setFont(font);
 		// item1.add(accountFld);
 
-		ArrayList<String> st = new ArrayList<String>();
+		st = new ArrayList<String>();
 		FinanceAccountBLService fin = null;
 		try {
 			fin = new Account();
@@ -415,6 +416,10 @@ public class CollectionAndPaymentPanel extends JPanel {
 
 		public String getValueAt(int row, int col) {
 			return c.get(row).get(col);
+		}
+		
+		public void setValueAt(int row,int col,String s){
+			c.get(row).set(col, s);
 		}
 
 		public String getColumnName(int col) {

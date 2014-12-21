@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import po.ReceiptPO.ReceiptType;
 import businesslogic.receiptbl.ReceiptController;
 import businesslogicservice.receiptblservice.ReceiptBLService;
+import Presentation.financeui.moneyreceipt.ModifyCollectionPanel;
 import Presentation.mainui.MainFrame;
 import Presentation.receiptui.ReceiptMgrPanel.MyButton;
 import Presentation.salesui.manage.sale.ModSalePanel;
@@ -197,7 +198,12 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 			ModSalePanel sale=new ModSalePanel(father,id);
 			sale.UseToModify(ok);
 			return sale;
+		case COLLECTION:
+			ModifyCollectionPanel collection=new ModifyCollectionPanel(id,father);
+		    collection.UseToModify(ok); 
+		    return collection;
 		}
+		
 			
 		return null;
 		

@@ -10,4 +10,5 @@ public interface CashlistDataService extends Remote{
 	public ArrayList<CashlistPO> getCashlist();
 	public int getNum();
 	public CashlistPO findByID(String id);
+	public int modify(CashlistPO po);
 }

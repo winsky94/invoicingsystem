@@ -9,4 +9,5 @@ public interface CashlistBLService {
 	public ArrayList<CashlistVO> getCashlist();
 	public String getNewID();
 	public CashlistVO findByID(String s);
+	public int modify(CashlistVO vo);
 }

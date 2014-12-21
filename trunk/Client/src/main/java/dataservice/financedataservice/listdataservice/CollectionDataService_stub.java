@@ -24,4 +24,10 @@ public class CollectionDataService_stub implements CollectionDataService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int modify(CollectionPO po) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

@@ -27,4 +27,10 @@ public class CollectionBLService_stub implements CollectionBLService{
 		return null;
 	}
 
+	@Override
+	public int modify(CollectionVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
