@@ -9,7 +9,6 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import businesslogic.receiptbl.Receipt;
 import po.StockErrorPO;
 import dataservice.stockdataservice.controldataservice.StockControlDataService;
 
@@ -22,7 +21,7 @@ public class StockErrorReceipt {
 	private String url;
 
 	public StockErrorReceipt() {
-		
+
 		host = "localhost:1099";
 		url = "rmi://" + host + "/stockManageService";
 		try {
