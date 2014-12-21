@@ -8,10 +8,12 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -51,6 +53,7 @@ public class runServer extends JFrame implements ActionListener{
 	int screenHeight = kit.getScreenSize().height;
 	int frameWidth = screenWidth * 30 / 100;
 	int frameHeight = screenHeight * 35 / 100;
+	int xOld,yOld;
 	// ------------------------
 	Font font = new Font("微软雅黑", Font.PLAIN, 14);
 	JButton submitBtn,exitBtn;
@@ -103,6 +106,7 @@ public class runServer extends JFrame implements ActionListener{
 		//最近一次记录存在最末行
 		portBox=new JComboBox<String>();
 		portBox.setEditable(true);
+		//读取历史记录
 		try {
 			BufferedReader br=new BufferedReader(new FileReader("Port.txt"));
 			String str=null;
@@ -138,6 +142,23 @@ public class runServer extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setUndecorated(true);
 		this.setVisible(true);
+		//处理拖动事件
+		  this.addMouseListener(new MouseAdapter() {  
+	            public void mousePressed(MouseEvent e) {  
+	                xOld = e.getX();  
+	                yOld = e.getY();  
+	            }  
+	        });  
+	        this.addMouseMotionListener(new MouseMotionAdapter() {  
+	            @Override  
+	            public void mouseDragged(MouseEvent e) {  
+	                int xOnScreen = e.getXOnScreen();  
+	                int yOnScreen = e.getYOnScreen();  
+	                int xx = xOnScreen - xOld;  
+	                int yy = yOnScreen - yOld;  
+	                runServer.this.setLocation(xx, yy);  
+	            }  
+	        });  
 
 		
 	
