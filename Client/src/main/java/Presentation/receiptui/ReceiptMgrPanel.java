@@ -52,14 +52,14 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 	ReceiptBLService service;
 	Color color = new Color(115, 46, 126);
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
-	MainFrame father;
+	static MainFrame father;
 	MyButton approvedBtn, disapprovedBtn, modBtn, refreshBtn, findBtn;
 	JComboBox findbox;
 	JTabbedPane tab;
 	JScrollPane jsp1, jsp2;
 	JTable t1, t2;
 	ReceiptTableModel rtm1, rtm2;
-	ArrayList<ArrayList<Object>> c1 = new ArrayList<ArrayList<Object>>();
+	static ArrayList<ArrayList<Object>> c1 = new ArrayList<ArrayList<Object>>();
 	ArrayList<ArrayList<Object>> c2 = new ArrayList<ArrayList<Object>>();
 	// --------------
 	String approvePath = "img/promotion/approved.png";
@@ -412,76 +412,10 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				String id = c1.get(i).get(0).toString();
 				String type = c1.get(i).get(2).toString();
 				ReceiptType rtype = Total.getsType(type);
-				try {
-					switch (rtype) {
-					case PURCHASE:
-						PurchaseDetailPanel pane = new PurchaseDetailPanel(
-								father, id,rtype);
-						pane.useToReceipt();
-						father.setRightComponent(new AdvancedReceiptPanel(pane,
-								father, id,rtype));
-						break;
-					case PAYMENT:
-						PaymentDetailPanel paypane = new PaymentDetailPanel(
-								father, findChosen(id, c1, 2));
-						paypane.useToReceipt();
-						father.setRightComponent(new AdvancedReceiptPanel(
-								paypane, father, id));
-						break;
-					case COLLECTION:
-						CollectionDetailPanel colpane = new CollectionDetailPanel(
-								father, findChosen(id, c1, 1));
-						colpane.useToReceipt();
-						father.setRightComponent(new AdvancedReceiptPanel(
-								colpane, father, id));
-						break;
-					case CASHLIST:
-						CashDetailPanel cpane = new CashDetailPanel(father,
-								findChosen(id, c1, 0));
-						cpane.useToReceipt();
-						father.setRightComponent(new AdvancedReceiptPanel(
-								cpane, father, id));
-						break;
-					case GIFT:
-						GiftDetailPanel gift = new GiftDetailPanel(father, id);
-						gift.useToReceipt();
-						father.setRightComponent(new AdvancedReceiptPanel(gift,
-								father, id));break;
-						/*
-						 * case PURCHASERETURN: PurchaseReturnDetailPanel
-						 * prpane=new
-						 * PurchaseReturnDetailPanel(father,findChosen(
-						 * id,c1,4)); prpane.useToReceipt();
-						 * father.setRightComponent(new AdvancedReceiptPanel(
-						 * prpane, father, id));
-						 */
-					case SALE:
-						SaleDetailPanel sale=new SaleDetailPanel(id ,father);
-						sale.useToReceipt();
-						father.setRightComponent(new AdvancedReceiptPanel(sale,
-								father, id));break;
-					case PURCHASERETURN:
-						PurchaseReturnDetailPanel purchaseR=new PurchaseReturnDetailPanel(father ,id);
-						purchaseR.useToReceipt();
-						father.setRightComponent(new AdvancedReceiptPanel(purchaseR,
-								father, id));break;
-					case SALERETURN:
-						SaleReturnDetailPanel saleR=new SaleReturnDetailPanel(id ,father);
-						saleR.useToReceipt();
-						father.setRightComponent(new AdvancedReceiptPanel(saleR,
-									father, id));break;
-								
-						
-						
-						
-						
-						
-
-					}
-
-				} catch (Exception ee) {
-					ee.printStackTrace();
-				}
+				JPanel pane=getRightAdvancePanel(id,rtype);
+				father.setRightComponent(new AdvancedReceiptPanel(pane,
+						father, id,rtype));
+				
 			}
 		}else if(e.getSource()==refreshBtn){
 			Refresh();
@@ -519,7 +453,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 	}
 
 	// 获取收付款位置 0收款单 1付款单 2现金费用单
-	public int findChosen(String id, ArrayList<ArrayList<Object>> table,
+	public static int findChosen(String id, ArrayList<ArrayList<Object>> table,
 			int sign) {
 		String type = "现金费用单";
 		if (sign == 1)
@@ -547,5 +481,60 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		}
 		if(choose.size()==0)return null;
 		else return choose;
+	}
+	
+	public static JPanel getRightAdvancePanel(String id,ReceiptType rtype){
+		try {
+			switch (rtype) {
+			case PURCHASE:
+				PurchaseDetailPanel pane = new PurchaseDetailPanel(
+						father, id);
+				pane.useToReceipt();
+				return pane;
+			case PAYMENT:
+				PaymentDetailPanel paypane = new PaymentDetailPanel(
+						father, findChosen(id, c1, 2));
+				paypane.useToReceipt();
+				return paypane;
+			case COLLECTION:
+				CollectionDetailPanel colpane = new CollectionDetailPanel(
+						father, findChosen(id, c1, 1));
+				colpane.useToReceipt();
+				return colpane;
+			case CASHLIST:
+				CashDetailPanel cpane = new CashDetailPanel(father,
+						findChosen(id, c1, 0));
+				cpane.useToReceipt();
+				return cpane;
+			case GIFT:
+				GiftDetailPanel gift = new GiftDetailPanel(father, id);
+				gift.useToReceipt();
+				return gift;
+				/*
+				 * case PURCHASERETURN: PurchaseReturnDetailPanel
+				 * prpane=new
+				 * PurchaseReturnDetailPanel(father,findChosen(
+				 * id,c1,4)); prpane.useToReceipt();
+				 * father.setRightComponent(new AdvancedReceiptPanel(
+				 * prpane, father, id));
+				 */
+			case SALE:
+				SaleDetailPanel sale=new SaleDetailPanel(id ,father);
+				sale.useToReceipt();
+				return sale;
+			case PURCHASERETURN:
+				PurchaseReturnDetailPanel purchaseR=new PurchaseReturnDetailPanel(father ,id);
+				purchaseR.useToReceipt();
+				return purchaseR;
+			case SALERETURN:
+				SaleReturnDetailPanel saleR=new SaleReturnDetailPanel(id ,father);
+				saleR.useToReceipt();
+				return saleR;
+			}
+
+		} catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		return null;
 	}
 }
