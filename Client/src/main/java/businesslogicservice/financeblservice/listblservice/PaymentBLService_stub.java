@@ -19,4 +19,10 @@ public class PaymentBLService_stub implements PaymentBLService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public PaymentVO findByID(String s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

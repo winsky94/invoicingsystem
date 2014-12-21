@@ -167,4 +167,9 @@ public class Payment extends Receipt implements PaymentBLService{
 		}
 		return vo;
 	}
+
+	@Override
+	public PaymentVO findByID(String s) {
+		return poToVo(service.findByID(s));
+	}
 }

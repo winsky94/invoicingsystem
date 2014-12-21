@@ -10,4 +10,6 @@ public interface PaymentDataService extends Remote{
 	public int createPayment(PaymentPO po) throws RemoteException;
 	 public ArrayList<PaymentPO> getPayment() throws RemoteException;
 	 public int getNum() throws RemoteException;
+	 public PaymentPO findByID(String id);
+	
 }
