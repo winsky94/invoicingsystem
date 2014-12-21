@@ -211,9 +211,11 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		if(a==null)
 			return 1;  	  //不存在该用户	
 		int i;
+		boolean tag=false;
 		for(i=0;i<a.size();i++){
 			PurchasePO p=(PurchasePO)a.get(i);
 			if(p.getId().equals(po.getId())){
+				tag=true;
 				p.setHurry(po.getHurry());
 				p.setInfo(po.getInfo());
 				p.setMemberID(po.getMemberID());
@@ -224,7 +226,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 				break;
 			}
 		}
-		if(i==a.size())      //不存在该收款单
+		if(!tag)      //不存在该收款单
 			return 1;
 		
 		file.writeM(a);
@@ -236,9 +238,11 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		if(a==null)
 			return 1;  	  //不存在该用户	
 		int i;
+		boolean tag=false;
 		for(i=0;i<a.size();i++){
 			PurchaseReturnPO p=(PurchaseReturnPO)a.get(i);
 			if(p.getId().equals(po.getId())){
+				tag=true;
 				p.setHurry(po.getHurry());
 				p.setInfo(po.getInfo());
 				p.setMemberID(po.getMemberID());
@@ -247,7 +251,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 				break;
 			}
 		}
-		if(i==a.size())      //不存在该收款单
+		if(!tag)      //不存在该收款单
 			return 1;
 		
 		file.writeM(a);
@@ -259,9 +263,11 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		if(a==null)
 			return 1;  	  //不存在该用户	
 		int i;
+		boolean tag=false;
 		for(i=0;i<a.size();i++){
 			SalePO p=(SalePO)a.get(i);
 			if(p.getId().equals(po.getId())){
+				tag=true;
 				p.setHurry(po.getHurry());
 				p.setInfo(po.getInfo());
 				p.setMemberID(po.getMemberID());
@@ -278,7 +284,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 				break;
 			}
 		}
-		if(i==a.size())      //不存在该收款单
+		if(!tag)      //不存在该收款单
 			return 1;
 		
 		file.writeM(a);
@@ -290,9 +296,11 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		if(a==null)
 			return 1;  	  //不存在该用户	
 		int i;
+		boolean tag=false;
 		for(i=0;i<a.size();i++){
 			SaleReturnPO p=(SaleReturnPO)a.get(i);
 			if(p.getId().equals(po.getId())){
+				tag=true;
 				p.setHurry(po.getHurry());
 				p.setInfo(po.getInfo());
 				p.setMemberID(po.getMemberID());
@@ -309,7 +317,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 				break;
 			}
 		}
-		if(i==a.size())      //不存在该收款单
+		if(!tag)      //不存在该收款单
 			return 1;
 		
 		file.writeM(a);
