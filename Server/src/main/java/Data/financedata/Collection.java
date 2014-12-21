@@ -143,10 +143,26 @@ public class Collection extends UnicastRemoteObject implements CollectionDataSer
 		try {
 			a = new Collection();
 			ArrayList<TransferItemPO> al=new ArrayList<TransferItemPO>();
-			TransferItemPO item =new TransferItemPO("WYT",100,"He");
+			TransferItemPO item =new TransferItemPO("马建国",100,"He");
+			TransferItemPO item2 =new TransferItemPO("马建国",2,"He");
+			TransferItemPO item3 =new TransferItemPO("小马甲",1,"He");
+			TransferItemPO item4 =new TransferItemPO("妞",23,"He");
+			TransferItemPO item5 =new TransferItemPO("端",34,"He");
 			al.add(item);
-			a.createCollection(new CollectionPO("SKD-20141129-000001","JHS-0000001","王雅婷","Lucy",al,100,1,1));	
+			al.add(item2);
+			al.add(item3);
+			al.add(item4);
+			al.add(item5);
+			a.createCollection(new CollectionPO("SKD-20141129-001112","JHS-0000001","金大大","CW-00001",al,1,1,1));	
 			System.out.println("Success!");
+			CollectionPO po=a.findByID("SKD-20141129-001112");
+			ArrayList<TransferItemPO> bl=po.getTransferlist();
+			System.out.println(bl.get(0).getAccount()+bl.get(0).getMoney());
+			System.out.println(bl.get(1).getAccount()+bl.get(1).getMoney());
+			System.out.println(bl.get(2).getAccount()+bl.get(2).getMoney());
+			System.out.println(bl.get(3).getAccount()+bl.get(3).getMoney());
+			System.out.println(bl.get(4).getAccount()+bl.get(4).getMoney());
+
 
 		} catch (RemoteException e) {
 			e.printStackTrace();
