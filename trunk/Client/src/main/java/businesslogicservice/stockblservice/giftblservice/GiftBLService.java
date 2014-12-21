@@ -11,7 +11,7 @@ public interface GiftBLService {
 	public int dealGift(GiftVO vo);
 
 	// 商品赠送支出
-	public double getGiftCost();
+	public double getGiftCost(String beginDate, String endDate);
 
 	// 获取所有商品赠送清单
 	public ArrayList<GiftVO> getGiftList();

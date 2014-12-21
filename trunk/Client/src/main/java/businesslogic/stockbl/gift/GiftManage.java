@@ -100,16 +100,19 @@ public class GiftManage {
 	}
 
 	// 商品赠送支出
-	public double getGiftCost() {
-		ArrayList<GiftPO> list = new ArrayList<GiftPO>();
+	public double getGiftCost(String beginDate, String endDate) {
 		double giftCost = 0;
 		try {
-			list = service.getGiftList();
+			ArrayList<GiftPO> list = service.getGiftList();
 			for (int i = 0; i < list.size(); i++) {
-				ArrayList<CommodityPO> commodityList = list.get(i)
-						.getGiftList();
-				for (int j = 0; j < commodityList.size(); j++) {
-					giftCost += commodityList.get(j).getCost();
+				String date = list.get(i).getDate().replace("/", "");
+				if (date.compareTo(beginDate) >= 0
+						&& date.compareTo(endDate) <= 0) {
+					ArrayList<CommodityPO> commodityList = list.get(i)
+							.getGiftList();
+					for (int j = 0; j < commodityList.size(); j++) {
+						giftCost += commodityList.get(j).getCost();
+					}
 				}
 			}
 		} catch (RemoteException e) {
@@ -166,19 +169,19 @@ public class GiftManage {
 
 	// 获得某段时间内的商品赠送总额
 	public double getGiftMoney(String beginDate, String endDate) {
-		double money = 0;
-		ArrayList<GiftPO> list = new ArrayList<GiftPO>();
-		try {
-			list = service.getGiftList(beginDate, endDate);
-		} catch (RemoteException e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
-		for (GiftPO po : list) {
-			for (CommodityPO commodity : po.getGiftList()) {
-				money += commodity.getCost();
-			}
-		}
+		double money = -1;
+//		ArrayList<GiftPO> list = new ArrayList<GiftPO>();
+//		try {
+//			list = service.getGiftList(beginDate, endDate);
+//		} catch (RemoteException e) {
+//			// TODO 自动生成的 catch 块
+//			e.printStackTrace();
+//		}
+//		for (GiftPO po : list) {
+//			for (CommodityPO commodity : po.getGiftList()) {
+//				money += commodity.getCost();
+//			}
+//		}
 
 		return money;
 	}
