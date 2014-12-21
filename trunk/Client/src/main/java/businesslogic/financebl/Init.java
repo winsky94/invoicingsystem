@@ -170,4 +170,9 @@ public class Init implements FinanceInitBLService{
 		return poToVo(po);
 	}
 
+	@Override
+	public void setTime(String s) {
+		service.setTime(s);
+	}
+
 }

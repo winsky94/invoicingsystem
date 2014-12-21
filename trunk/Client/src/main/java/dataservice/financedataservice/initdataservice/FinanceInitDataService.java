@@ -9,4 +9,5 @@ public interface FinanceInitDataService {
 	public BeginInfoPO getInfo(String time);
 	public String getCurrentTime();
 	public ArrayList<BeginInfoPO> showAll();
+	public void setTime(String s);
 }

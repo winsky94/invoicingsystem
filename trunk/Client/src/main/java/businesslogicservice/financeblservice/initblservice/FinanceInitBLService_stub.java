@@ -37,4 +37,11 @@ public class FinanceInitBLService_stub implements FinanceInitBLService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public void setTime(String s) {
+		// TODO Auto-generated method stub
+		
+	}
 }
