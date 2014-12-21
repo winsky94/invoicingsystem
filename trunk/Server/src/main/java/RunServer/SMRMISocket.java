@@ -15,7 +15,7 @@ public class SMRMISocket extends RMISocketFactory {
 		if (port == 0)
 		port = 8500;
 
-	System.out.println("RMI服务器的注册与数据传输端口 ="+port);
+		System.out.println("RMI服务器的注册与数据传输端口 ="+port);
 	return new ServerSocket(port);
 	}
 
