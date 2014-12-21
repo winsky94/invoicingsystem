@@ -27,4 +27,6 @@ public interface StockControlDataService extends Remote {
 	public StockOverOrLowPO findByID(String id) throws RemoteException;
 
 	public int excute(StockOverOrLowPO po) throws RemoteException;
+
+	public int modify(StockOverOrLowPO po) throws RemoteException;
 }

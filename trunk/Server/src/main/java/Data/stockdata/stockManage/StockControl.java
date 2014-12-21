@@ -248,4 +248,19 @@ public class StockControl extends UnicastRemoteObject implements
 
 		return 0;
 	}
+
+	public int modify(StockOverOrLowPO po) throws RemoteException {
+		// TODO 自动生成的方法存根
+		ArrayList<Object> list = new ArrayList<Object>();
+		list = overOrLowFile.read();
+		for (int i = 0; i < list.size(); i++) {
+			StockOverOrLowPO stockOverOrLowPO = (StockOverOrLowPO) list.get(i);
+			if (stockOverOrLowPO.getId().equals(po.getId())) {
+				list.set(i, po);
+				break;
+			}
+		}
+		overOrLowFile.writeM(list);
+		return 0;
+	}
 }
