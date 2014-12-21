@@ -29,10 +29,12 @@ import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
 import businesslogic.financebl.Payment;
 import businesslogic.memberbl.Member;
+import businesslogic.userbl.User;
 import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 import businesslogicservice.memberblservice.MemberBLService;
+import businesslogicservice.userblservice.UserBLService;
 
 public class ModifyCollectionPanel extends CollectionAndPaymentPanel implements ActionListener{
 		/**
@@ -48,10 +50,10 @@ public class ModifyCollectionPanel extends CollectionAndPaymentPanel implements 
 			super.item2.remove(addBtn);
 			super.item2.remove(delBtn);
 			JButton modBtn=new JButton("修改");
-			addBtn.setFont(font);
-			addBtn.setBackground(new Color(204, 242, 239));
-			addBtn.setFocusPainted(false);
-			addBtn.addActionListener(this);
+			modBtn.setFont(font);
+			modBtn.setBackground(new Color(204, 242, 239));
+			modBtn.setFocusPainted(false);
+			modBtn.addActionListener(this);
 			try {
 				service=new Collection();
 				v=service.findByID(id);
@@ -79,8 +81,46 @@ public class ModifyCollectionPanel extends CollectionAndPaymentPanel implements 
 			
 			submitBtn.addActionListener(this);
 			exitBtn.addActionListener(this);
-			ID=service.getNewID();
+			ID=v.getId();
 			IDLbl.setText("ID:"+ID);
+			user=v.getUser();
+			try {
+				UserBLService u=new User();
+				userLbl.setText("操作员:"+u.showUser(user).getName());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    double money=v.getTotalMoney();
+		    totalLbl.setText("总额汇总:"+money);
+		    int isHurry=v.getHurry();
+		    if(isHurry==1){
+		    	hurryBox.setSelected(true);
+		    	hurryBox.addActionListener(new ActionListener(){
+
+					public void actionPerformed(ActionEvent arg0) {
+						hurryBox.setSelected(true);
+						
+					}
+		    		
+		    	});
+		    }
+		    else{
+		    	hurryBox.setSelected(false);
+		    	hurryBox.addActionListener(new ActionListener(){
+
+					public void actionPerformed(ActionEvent arg0) {
+						hurryBox.setSelected(false);
+						
+					}
+		    		
+		    	});
+		    }
+		   
+			super.memPnl.remove(memBox);
+			JLabel ml=new JLabel();
+			ml.setText(v.getMemberName());
+			
 
 		}
 
@@ -89,7 +129,7 @@ public class ModifyCollectionPanel extends CollectionAndPaymentPanel implements 
 			testFrame.setBounds(100, 50, 920, 600);
 			testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	/*		AddCollectionPanel gp = new AddCollectionPanel();
+	/*		ModifyCollectionPanel gp = new ModifyCollectionPanel();
 			gp.setBounds(0, 0, 920, 600);
 			testFrame.add(gp);
 			testFrame.setVisible(true);

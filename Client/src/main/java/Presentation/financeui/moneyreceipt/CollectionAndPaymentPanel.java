@@ -52,14 +52,15 @@ public class CollectionAndPaymentPanel extends JPanel {
 	ArrayList<ArrayList<String>> content = new ArrayList<ArrayList<String>>();
 	GridBagLayout gbl = new GridBagLayout();
 	GridBagConstraints c = new GridBagConstraints();
-	public JButton submitBtn, exitBtn, addBtn, delBtn;
+    JButton submitBtn, exitBtn, addBtn, delBtn;
 	MainFrame parent;
 	JCheckBox hurryBox;
 	String ID;
 	String user;
 	ArrayList<TransferItemVO> tra = new ArrayList<TransferItemVO>();
 	double totalMoney = 0;
-	public JPanel item2;
+	JPanel item2;
+	JPanel memPnl;
 
 	public CollectionAndPaymentPanel(MainFrame frame) {
 		parent = frame;
@@ -297,7 +298,7 @@ public class CollectionAndPaymentPanel extends JPanel {
 		userPnl.add(userLbl);
 		right.add(userPnl);
 		// ---------member-----------------
-		JPanel memPnl = new JPanel();
+		memPnl = new JPanel();
 		memPnl.setBackground(Color.white);
 		right.add(memPnl);
 		JLabel memLbl = new JLabel("客户：");
