@@ -587,6 +587,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				FilterRefresh(receipt,type);
 			}
 			refreshBSLTable();
+			ReportMgrPanel.this.repaint();
 		}
 	} 
 
@@ -596,7 +597,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				ohtm.clear();
 			else sdtm.clear();
 			ReportMgrPanel.this.repaint();
-			JOptionPane.showMessageDialog(ReportMgrPanel.this, "没有符合条件的单据！");		
+//			JOptionPane.showMessageDialog(ReportMgrPanel.this, "没有符合条件的单据！");		
 		}else{
 			try {
 				if(type.equals("经营历程"))
