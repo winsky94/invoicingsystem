@@ -9,6 +9,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -49,6 +51,8 @@ public class AddCouponPanel extends JPanel implements ActionListener {
 	JButton submitBtn, exitBtn;
 	PromotionBLService service;
 	ArrayList<CouponVO> couponlist;
+	boolean isLimitValid=false,isPriceValid=false,isNumValid=false;//输入是否合法
+ 
 
 	public AddCouponPanel(MainFrame myFather) {
 		father = myFather;
@@ -129,6 +133,8 @@ public class AddCouponPanel extends JPanel implements ActionListener {
 		limitFld = new JTextField(11);
 		limitFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		limitPnl.add(limitFld);
+		limitFld.addFocusListener(new focus());
+
 		// -------设定单张代金券面值----------------
 		JPanel pricePnl = new JPanel();
 		pricePnl.setBackground(Color.white);
@@ -195,17 +201,11 @@ public class AddCouponPanel extends JPanel implements ActionListener {
 				if(startDate.compareTo(endDate)>0)
 					JOptionPane.showMessageDialog(null, "促销时间段输入不合法！", "提示",
 							JOptionPane.WARNING_MESSAGE);
+				else if(!(isPriceValid&&isLimitValid&&isNumValid))
+					JOptionPane.showMessageDialog(null, "请输入合法数值！", "提示",
+							JOptionPane.WARNING_MESSAGE);
 				else{
-					level = MemberLevel.valueOf((String) memberGradeBox
-						.getSelectedItem());
-					service = new promotionController();
-					totalValue = Double.parseDouble(limitFld.getText());
-					double value = Double.parseDouble(priceFld.getText());
-					for (int i = 0; i < Integer.parseInt(totalFld.getText()); i++)
-						couponlist.add(new CouponVO("", value, false));
-					id = service.getNewID(PromotionType.GIFTCOUPON);
-					GiftCouponProVO vo = new GiftCouponProVO(id, startDate,
-							endDate, level, couponlist, totalValue);
+					GiftCouponProVO vo=getCouponPro();
 					if (service.Add(vo) == 0) {
 						JOptionPane.showMessageDialog(null, "策略添加成功", "提示",
 							JOptionPane.WARNING_MESSAGE);
@@ -232,5 +232,74 @@ public class AddCouponPanel extends JPanel implements ActionListener {
 		service = new promotionController();
 		if (service.Show() != null)
 			proPanel.RefreshProTable(service.Show());
+	}
+	
+	public GiftCouponProVO getCouponPro() throws Exception{
+		level = MemberLevel.valueOf((String) memberGradeBox
+				.getSelectedItem());
+			service = new promotionController();
+			totalValue = Double.parseDouble(limitFld.getText());
+			double value = Double.parseDouble(priceFld.getText());
+			for (int i = 0; i < Integer.parseInt(totalFld.getText()); i++)
+				couponlist.add(new CouponVO("", value, false));
+			id = service.getNewID(PromotionType.GIFTCOUPON);
+			GiftCouponProVO vo = new GiftCouponProVO(id, startDate,
+					endDate, level, couponlist, totalValue);
+			return vo;
+			
+	}
+	
+	//可以0元起送
+	class focus extends FocusAdapter{
+		public void focusLost(FocusEvent e){
+			if(e.getSource()==limitFld){
+				try{
+					double limit=Double.parseDouble(limitFld.getText());
+					if(limit<0){
+						JOptionPane.showMessageDialog(null, "请输入合法数值！");
+						isLimitValid=false;
+						limitFld.setText("");
+					}else{
+						isLimitValid=true;
+					}		
+				}catch(Exception err){
+					JOptionPane.showMessageDialog(null, "请输入数值！");
+					isLimitValid=false;
+					limitFld.setText("");
+				}
+			}else if(e.getSource()==totalFld){
+				try{
+					int num=Integer.parseInt(totalFld.getText());
+					if(num<=0){
+						JOptionPane.showMessageDialog(null, "请输入合法数值！");
+						isNumValid=false;
+						totalFld.setText("");
+					}else{
+						isNumValid=true;
+					}		
+				}catch(Exception er){
+					JOptionPane.showMessageDialog(null, "请输入数值！");
+					isNumValid=false;
+					totalFld.setText("");
+				}
+			
+			}else if(e.getSource()==priceFld){
+				try{
+					double price=Double.parseDouble(priceFld.getText());
+					if(price<=0){
+						JOptionPane.showMessageDialog(null, "请输入合法数值！");
+						isPriceValid=false;
+						priceFld.setText("");
+					}else{
+						isPriceValid=true;
+					}		
+				}catch(Exception err){
+					JOptionPane.showMessageDialog(null, "请输入数值！");
+					isPriceValid=false;
+					priceFld.setText("");
+				}
+			}
+		}
+		
 	}
 }

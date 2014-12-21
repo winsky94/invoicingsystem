@@ -1,10 +1,17 @@
 package Presentation.promotionui.DiscountPromotion;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import po.PromotionPO.PromotionType;
 import vo.DiscountProVO;
+import vo.LogVO;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 
 
 public class ModDiscountPanel extends AddDiscountPanel{
@@ -24,5 +31,36 @@ public class ModDiscountPanel extends AddDiscountPanel{
 		content.addAll(vo.getGoodsList());
 		RefreshCTable(content,vo.getCountList());
 		//加监听！
+		submitBtn.removeAll();
+		submitBtn.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(from.getDate().compareTo(to.getDate())>0)
+					JOptionPane.showMessageDialog(null, "促销时间段输入不合法！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+				else{
+				DiscountProVO vo=getDiscountPro();
+				if (service.Modify(vo) == 0) {
+					JOptionPane.showMessageDialog(null, "策略修改成功", "提示",
+							JOptionPane.WARNING_MESSAGE);
+					try {
+						update();
+						log.addLog(new LogVO(log.getdate(), parent.getUser()
+								.getID(), parent.getUser().getName(), "修改一条折扣促销策略",
+								2));
+						headPane.RefreshGrades();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} else
+					JOptionPane.showMessageDialog(null, "修改失败", "提示",
+							JOptionPane.WARNING_MESSAGE);
+				}
+			}
+			
+		});
 	}
 }

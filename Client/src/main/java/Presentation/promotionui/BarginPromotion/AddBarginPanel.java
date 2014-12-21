@@ -62,6 +62,7 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 	double totalMoney, barginMoney;
 	submitListener slisten;
 	ArrayList<Double> last_bid = new ArrayList<Double>();
+	boolean IsPackValid=false;
 
 	JLabel title;
 	public AddBarginPanel(MainFrame myFather) throws Exception {
@@ -149,15 +150,21 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 					if(price>=totalMoney)
 					{	JOptionPane.showMessageDialog(null, "特价必须小于原价！", "提示",
 								JOptionPane.WARNING_MESSAGE);
-						priceFld.setText("");}
+						priceFld.setText("");
+						IsPackValid=false;}
 					else if(price<0)
 					{	JOptionPane.showMessageDialog(null, "请输入合法数值！", "提示",
 							JOptionPane.WARNING_MESSAGE);
-						priceFld.setText("");}		
+						priceFld.setText("");
+						IsPackValid=false;}	
+					else{
+						IsPackValid=true;
+					}
 				}catch(Exception err){
 					JOptionPane.showMessageDialog(null, "请输入数值！", "提示",
 							JOptionPane.WARNING_MESSAGE);
 					priceFld.setText("");
+					IsPackValid=false;
 				}
 			}
 		});
@@ -343,31 +350,46 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 	}
 
 	public void RefreshCTable(ArrayList<Object> vo) {
-		for (int i = 0; i < vo.size(); i++) {
-			GoodsVO gvo = (GoodsVO) vo.get(i);
-			ArrayList<String> line = new ArrayList<String>();
-			int exist = find(gvo.getGoodsID());
-			if (exist < 0) {
-				line.add(gvo.getGoodsID());
-				line.add(gvo.getName());
-				line.add(gvo.getSize());
-				line.add("1");
-				line.add(gvo.getPrice() + "");
-				line.add(gvo.getPrice() + "");
-				totalMoney += gvo.getPrice();
-				last_bid.add(gvo.getLastPurchasePrice());
-				cmContent.add(line);
-			} else {
-				int num = Integer.parseInt(cmContent.get(exist).get(3)) + 1;
-				double p = Double.parseDouble(cmContent.get(exist).get(5));
-				cmContent.get(exist).set(3, num + "");
-				cmContent.get(exist).set(5, num * gvo.getPrice() + "");
-				totalMoney -= p;
-				totalMoney += num * gvo.getPrice();
+		if(vo.get(0)instanceof GoodsVO){
+			for (int i = 0; i < vo.size(); i++) {
+				GoodsVO gvo = (GoodsVO) vo.get(i);
+				ArrayList<String> line = new ArrayList<String>();
+				int exist = find(gvo.getGoodsID());
+				if (exist < 0) {
+					line.add(gvo.getGoodsID());
+					line.add(gvo.getName());
+					line.add(gvo.getSize());
+					line.add("1");
+					line.add(gvo.getPrice() + "");
+					line.add(gvo.getPrice() + "");
+					totalMoney += gvo.getPrice();
+					last_bid.add(gvo.getLastPurchasePrice());
+					cmContent.add(line);
+				} else {
+					int num = Integer.parseInt(cmContent.get(exist).get(3)) + 1;
+					double p = Double.parseDouble(cmContent.get(exist).get(5));
+					cmContent.get(exist).set(3, num + "");
+					cmContent.get(exist).set(5, num * gvo.getPrice() + "");
+					totalMoney -= p;
+					totalMoney += num * gvo.getPrice();
+				}
+
 			}
-
+		}else {
+			for (int i = 0; i < vo.size(); i++) {
+				ArrayList<String> line = new ArrayList<String>();
+				CommodityVO com = (CommodityVO) vo.get(i);
+				line.add(com.getID());
+				line.add(com.getName());
+				line.add(com.getType());
+				line.add((com.getNum()+""));
+				line.add(Double.toString(com.getPrice()));
+				line.add(Double.toString(com.getTotal()));
+				last_bid.add(com.getCost()/com.getNum());
+				totalMoney+=com.getTotal();
+				cmContent.add(line);
+			}
 		}
-
 		this.defaultTotalLbl.setText("原价:" + totalMoney + "元");
 
 	}
@@ -394,28 +416,11 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 			if(from.getDate().compareTo(to.getDate())>0)
 				JOptionPane.showMessageDialog(null, "促销时间段输入不合法！", "提示",
 						JOptionPane.WARNING_MESSAGE);
-			else if(priceFld.getText().equals(""))
+			else if(!IsPackValid)
 				JOptionPane.showMessageDialog(null, "请输入特价包特价！", "提示",
 						JOptionPane.WARNING_MESSAGE);
 			else{
-				ArrayList<CommodityVO> cmlist = new ArrayList<CommodityVO>();
-				for (int j = 0; j < table.getRowCount(); j++) {
-					ArrayList<String> line = cmContent.get(j);
-					double cost = Double.parseDouble(line.get(3)) * last_bid.get(j);
-					CommodityVO cv = new CommodityVO(line.get(0), line.get(1),
-						line.get(2), Double.parseDouble(line.get(4)),
-						last_bid.get(j), Integer.parseInt(line.get(3)),
-						Double.parseDouble(line.get(5)), cost, "");
-					cmlist.add(cv);
-				}
-				String startDate = from.getDate();
-				String endDate = to.getDate();
-				MemberLevel level = MemberLevel.valueOf((String) memberGradeBox
-					.getSelectedItem());
-				String id = service.getNewID(PromotionType.PACK);
-				PackVO pack = new PackVO(totalMoney, Double.parseDouble(priceFld
-					.getText()), cmlist);
-				PackProVO vo = new PackProVO(id, startDate, endDate, level, pack);
+			    PackProVO vo=getPackPro();
 				if (service.Add(vo) == 0) {
 					JOptionPane.showMessageDialog(null, "策略添加成功", "提示",
 							JOptionPane.WARNING_MESSAGE);
@@ -435,6 +440,28 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 
 			}
 		}
+	}
+	
+	public PackProVO getPackPro(){
+		ArrayList<CommodityVO> cmlist = new ArrayList<CommodityVO>();
+		for (int j = 0; j < table.getRowCount(); j++) {
+			ArrayList<String> line = cmContent.get(j);
+			double cost = Double.parseDouble(line.get(3)) * last_bid.get(j);
+			CommodityVO cv = new CommodityVO(line.get(0), line.get(1),
+				line.get(2), Double.parseDouble(line.get(4)),
+				last_bid.get(j), Integer.parseInt(line.get(3)),
+				Double.parseDouble(line.get(5)), cost, "");
+			cmlist.add(cv);
+		}
+		String startDate = from.getDate();
+		String endDate = to.getDate();
+		MemberLevel level = MemberLevel.valueOf((String) memberGradeBox
+			.getSelectedItem());
+		String id = service.getNewID(PromotionType.PACK);
+		PackVO pack = new PackVO(totalMoney, Double.parseDouble(priceFld
+			.getText()), cmlist);
+		PackProVO vo = new PackProVO(id, startDate, endDate, level, pack);
+		return vo;
 	}
 
 }

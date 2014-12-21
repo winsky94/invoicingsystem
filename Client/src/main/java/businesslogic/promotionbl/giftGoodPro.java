@@ -62,9 +62,7 @@ public class giftGoodPro extends promotion{
 	private double totalValue;
 	
 	
-	public int Modify(GiftGoodsProVO vo){
-		return 0;
-	}
+	
 	
 	
 	public ArrayList<GiftGoodsProVO> show(){
@@ -89,8 +87,12 @@ public class giftGoodPro extends promotion{
 	@Override
 	public int Modify(PromotionVO vo) {
 		// TODO Auto-generated method stub
+		if(vo==null) return 1;
+		else{
+			GiftGoodProPO po=voToPo((GiftGoodsProVO)vo);
+			return service.Modify(po);
+		}
 		
-		return 0;
 	}
 
 	@Override

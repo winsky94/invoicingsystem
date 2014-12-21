@@ -141,8 +141,11 @@ public class giftCouponPro extends promotion{
 	@Override
 	public int Modify(PromotionVO vo) {
 		// TODO Auto-generated method stub
-		GiftCouponProVO v=(GiftCouponProVO)vo;
-		return service.Modify(voToPo(v));
+		if(vo==null) return 1;
+		else{
+			GiftCouponProVO v=(GiftCouponProVO)vo;
+			return service.Modify(voToPo(v));
+		}
 	}
 
 	@Override

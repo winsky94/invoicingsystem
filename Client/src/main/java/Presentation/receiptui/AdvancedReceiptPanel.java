@@ -124,22 +124,23 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		try {
-		ReceiptBLService service=new ReceiptController();
-		if(e.getSource()==exitBtn){
-		
-			update();
-			
-		}else if(e.getSource()==approvedBtn){
-			if(service.Approve(id, 2)!=0)
-				JOptionPane.showMessageDialog(null,"审批失败！","提示",JOptionPane.WARNING_MESSAGE);
-			else update();
-		}else if(e.getSource()==disapprovedBtn){
-			if(service.Approve(id, 1)!=0)
-				JOptionPane.showMessageDialog(null,"审批失败！","提示",JOptionPane.WARNING_MESSAGE);
-			else
+			ReceiptBLService service=new ReceiptController();
+			if(e.getSource()==exitBtn){
 				update();
 			
-		}
+			}else if(e.getSource()==approvedBtn){
+				if(service.Approve(id, 2)!=0)
+					JOptionPane.showMessageDialog(null,"审批失败！","提示",JOptionPane.WARNING_MESSAGE);
+				else update();
+			}else if(e.getSource()==disapprovedBtn){
+				if(service.Approve(id, 1)!=0)
+					JOptionPane.showMessageDialog(null,"审批失败！","提示",JOptionPane.WARNING_MESSAGE);
+				else
+					update();
+			
+			}else if(e.getSource()==modBtn){
+			
+			}
 		
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block

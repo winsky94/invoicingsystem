@@ -356,6 +356,23 @@ public class AddGiftPanel extends ChooseGoodsFatherPane {
 		addTotal();
 
 	}
+	
+	public void RefreshTable(ArrayList<CommodityVO> list){
+		for(int i=0;i<list.size();i++){
+			CommodityVO com=list.get(i);
+			ArrayList<String> line = new ArrayList<String>();
+			line.add(com.getID());
+			line.add(com.getName());
+			line.add(com.getType());
+			line.add(com.getPrice() + "");
+			line.add(com.getNum()+"");
+			line.add(com.getTotal() + "");
+			last_bid.add(com.getLast_bid());
+			cmContent.add(line);
+			
+		}
+		addTotal();	
+	}
 
 	private int find(String id) {
 		for (int i = 0; i < cmContent.size(); i++) {

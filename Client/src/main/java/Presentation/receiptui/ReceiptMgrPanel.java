@@ -166,6 +166,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		// -------刷新--------------------
 		refreshBtn = new MyButton("刷新", new ImageIcon(refreshPath));
 		btnPnl.add(refreshBtn);
+		refreshBtn.addActionListener(this);
 		// -------筛选--------------------
 		String type[]={"全部","销售单","销售退货单","进货单","进货退货单","收款单",
 				"付款单","现金费用单","库存报损单","库存报溢单","库存赠送单"};
@@ -396,6 +397,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			t1.getColumn(t1.getColumnName(i)).setCellRenderer(tcr);
 
 		}
+		
 
 	}
 

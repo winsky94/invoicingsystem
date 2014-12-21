@@ -96,9 +96,8 @@ public  class discountPro extends promotion{
 		
 	}
 
-	public int Modify(DiscountProVO vo){
-		return 0;
-	}
+	
+	
 	
 	
 	public ArrayList<DiscountProVO> show(){
@@ -123,7 +122,11 @@ public  class discountPro extends promotion{
 	@Override
 	public int Modify(PromotionVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		if(vo==null) return 1;
+		else{
+			DiscountProPO po=voToPo((DiscountProVO)vo);
+			return service.Modify(po);
+		}
 	}
 
 	@Override
