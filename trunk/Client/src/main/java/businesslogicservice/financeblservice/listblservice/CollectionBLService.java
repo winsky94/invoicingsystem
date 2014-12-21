@@ -8,4 +8,5 @@ public interface CollectionBLService {
 	public int createCollection(CollectionVO vo);
 	public ArrayList<CollectionVO> getCollection();
 	public String getNewID();
+	public CollectionVO findByID(String s);
 }

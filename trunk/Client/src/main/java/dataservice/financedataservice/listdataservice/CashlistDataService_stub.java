@@ -19,4 +19,10 @@ public class CashlistDataService_stub implements CashlistDataService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public CashlistPO findByID(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

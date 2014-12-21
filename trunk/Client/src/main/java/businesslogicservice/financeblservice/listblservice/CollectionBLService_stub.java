@@ -21,4 +21,10 @@ public class CollectionBLService_stub implements CollectionBLService{
 		return null;
 	}
 
+	@Override
+	public CollectionVO findByID(String s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

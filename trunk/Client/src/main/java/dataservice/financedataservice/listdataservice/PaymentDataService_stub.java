@@ -20,4 +20,10 @@ public class PaymentDataService_stub implements PaymentDataService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public PaymentPO findByID(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

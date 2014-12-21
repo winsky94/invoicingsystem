@@ -19,4 +19,10 @@ public class CashlistBLService_stub implements CashlistBLService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public CashlistVO findByID(String s) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
