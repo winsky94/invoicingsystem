@@ -1,5 +1,6 @@
 package businesslogic.stockbl.gift;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -15,6 +16,7 @@ import vo.GiftVO;
 import vo.GoodsVO;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.stockbl.stockManage.StockControlController;
+import businesslogic.utilitybl.getServer;
 import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import dataservice.stockdataservice.giftdataservice.GiftDataService;
@@ -25,9 +27,9 @@ public class GiftManage {
 	private String url1;
 
 	public GiftManage() {
-		host = "localhost:1099";
-		url1 = "rmi://" + host + "/giftService";
 		try {
+			host = getServer.getServer();
+			url1 = "rmi://" + host + "/giftService";
 			service = (GiftDataService) Naming.lookup(url1);
 		} catch (MalformedURLException e) {
 			// TODO 自动生成的 catch 块
@@ -36,6 +38,9 @@ public class GiftManage {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		} catch (NotBoundException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
@@ -170,18 +175,18 @@ public class GiftManage {
 	// 获得某段时间内的商品赠送总额
 	public double getGiftMoney(String beginDate, String endDate) {
 		double money = -1;
-//		ArrayList<GiftPO> list = new ArrayList<GiftPO>();
-//		try {
-//			list = service.getGiftList(beginDate, endDate);
-//		} catch (RemoteException e) {
-//			// TODO 自动生成的 catch 块
-//			e.printStackTrace();
-//		}
-//		for (GiftPO po : list) {
-//			for (CommodityPO commodity : po.getGiftList()) {
-//				money += commodity.getCost();
-//			}
-//		}
+		// ArrayList<GiftPO> list = new ArrayList<GiftPO>();
+		// try {
+		// list = service.getGiftList(beginDate, endDate);
+		// } catch (RemoteException e) {
+		// // TODO 自动生成的 catch 块
+		// e.printStackTrace();
+		// }
+		// for (GiftPO po : list) {
+		// for (CommodityPO commodity : po.getGiftList()) {
+		// money += commodity.getCost();
+		// }
+		// }
 
 		return money;
 	}

@@ -1,5 +1,6 @@
 package businesslogic.stockbl.gift;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -23,6 +24,7 @@ import vo.ReceiptVO;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.stockbl.stockManage.StockControlController;
+import businesslogic.utilitybl.getServer;
 import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import dataservice.stockdataservice.giftdataservice.GiftDataService;
@@ -36,7 +38,7 @@ public class GiftReceipt extends Receipt {
 
 	public GiftReceipt() throws Exception {
 		giftVOList = new ArrayList<CommodityVO>();
-		host = "localhost:1099";
+		host = getServer.getServer();
 		url = "rmi://" + host + "/giftService";
 		try {
 			service = (GiftDataService) Naming.lookup(url);
@@ -58,9 +60,9 @@ public class GiftReceipt extends Receipt {
 		super(id, memberID, memberName, userID, po.ReceiptPO.ReceiptType.GIFT,
 				hurry, status, info);
 		giftVOList = giftList;
-		host = "localhost:1099";
-		url = "rmi://" + host + "/giftService";
 		try {
+			host = getServer.getServer();
+			url = "rmi://" + host + "/giftService";
 			service = (GiftDataService) Naming.lookup(url);
 		} catch (MalformedURLException e) {
 			// TODO 自动生成的 catch 块
@@ -69,6 +71,9 @@ public class GiftReceipt extends Receipt {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		} catch (NotBoundException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}

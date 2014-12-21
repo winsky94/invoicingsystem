@@ -1,5 +1,6 @@
 package businesslogic.stockbl.stockManage;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -10,14 +11,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import po.ReceiptPO.ReceiptType;
 import po.ReceiptPO;
+import po.ReceiptPO.ReceiptType;
 import po.StockOverOrLowPO;
 import vo.GoodsVO;
 import vo.ReceiptVO;
 import vo.StockOverOrLowVO;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.stockbl.goods.GoodsController;
+import businesslogic.utilitybl.getServer;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import dataservice.stockdataservice.controldataservice.StockControlDataService;
 
@@ -32,9 +34,9 @@ public class StockLowReceipt extends Receipt {
 	private String url;
 
 	public StockLowReceipt() throws Exception {
-		host = "localhost:1099";
-		url = "rmi://" + host + "/stockManageService";
 		try {
+			host = getServer.getServer();
+			url = "rmi://" + host + "/stockManageService";
 			service = (StockControlDataService) Naming.lookup(url);
 		} catch (MalformedURLException e) {
 			// TODO 自动生成的 catch 块
@@ -53,9 +55,9 @@ public class StockLowReceipt extends Receipt {
 			String size, int num, int exactNum) {
 		super(id, memberName, memberID, userID, ReceiptType.STOCKLOW, hurry, 3,
 				info);
-		host = "localhost:1099";
-		url = "rmi://" + host + "/stockManageService";
 		try {
+			host = getServer.getServer();
+			url = "rmi://" + host + "/stockManageService";
 			service = (StockControlDataService) Naming.lookup(url);
 		} catch (MalformedURLException e) {
 			// TODO 自动生成的 catch 块
@@ -64,6 +66,9 @@ public class StockLowReceipt extends Receipt {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		} catch (NotBoundException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}

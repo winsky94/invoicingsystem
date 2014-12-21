@@ -1,5 +1,6 @@
 package businesslogic.stockbl.goods;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -18,6 +19,7 @@ import businesslogic.salesbl.SalesController;
 import businesslogic.stockbl.gift.GiftController;
 import businesslogic.stockbl.goodsClass.GoodsClassController;
 import businesslogic.stockbl.goodsClass.GoodsClassManage;
+import businesslogic.utilitybl.getServer;
 import businesslogicservice.salesblservice.PurchaseBLService;
 import businesslogicservice.salesblservice.SalesBLService;
 import businesslogicservice.stockblservice.giftblservice.GiftBLService;
@@ -41,9 +43,9 @@ public class Goods {
 
 	public Goods() {
 		// System.setSecurityManager(new SecurityManager());
-		String host = "localhost:1099";
-		String url = "rmi://" + host + "/goodsService";
 		try {
+			String host = getServer.getServer();
+			String url = "rmi://" + host + "/goodsService";
 			service = (StockGoodsDataService) Naming.lookup(url);
 		} catch (MalformedURLException e) {
 			// TODO 自动生成的 catch 块
@@ -52,6 +54,9 @@ public class Goods {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		} catch (NotBoundException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
