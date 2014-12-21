@@ -529,6 +529,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			double[] data={saleIncome,goodsOver,adjustCost,purchaseReturn,couponProfit,
 					discountMoney,totalIncome,saleCost,goodsLow,goodsGift,totalCost,profit};
 			bstm.RefreshTable(data);
+			t3.revalidate();
+			t3.repaint();
 		} catch (Exception e) {
 		
 			e.printStackTrace();
