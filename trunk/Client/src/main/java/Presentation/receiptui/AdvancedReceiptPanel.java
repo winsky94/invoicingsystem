@@ -20,6 +20,7 @@ import businesslogic.receiptbl.ReceiptController;
 import businesslogicservice.receiptblservice.ReceiptBLService;
 import Presentation.mainui.MainFrame;
 import Presentation.receiptui.ReceiptMgrPanel.MyButton;
+import Presentation.salesui.manage.sale.ModSalePanel;
 
 public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 	/**
@@ -34,10 +35,13 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 	String id;
 	MyButton approvedBtn, disapprovedBtn, modBtn;
 	JButton exitBtn;
+	ReceiptType type;
+	JPanel exitPnl;
 	public AdvancedReceiptPanel(JPanel info , MainFrame frame ,String id,ReceiptType type) {
 		infoPnl = info;
 		 father=frame;
 		 this.id=id;
+		 this.type=type;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 10, 5, 10);
@@ -69,8 +73,11 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 		// --------修改-------------------
 		modBtn = new MyButton("修改", new ImageIcon("img/promotion/modify.png"));
 		btnPnl.add(modBtn);
+		modBtn.addActionListener(this);
 		boolean isAbleMod=type!=ReceiptType.STOCKERROR&&type!=ReceiptType.STOCKLOW&&
-				type!=ReceiptType.STOCKOVER&&
+				type!=ReceiptType.STOCKOVER&&type!=ReceiptType.GIFT;
+		if(!isAbleMod)
+			modBtn.setEnabled(false);
 		//-------------------------------
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
@@ -82,7 +89,7 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 		gbl.setConstraints(infoPnl, c);
 		this.add(infoPnl);
 		//--------exitPnl------------
-		JPanel exitPnl=new JPanel();
+		exitPnl=new JPanel();
 		exitPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 7;
@@ -142,6 +149,11 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 					update();
 			
 			}else if(e.getSource()==modBtn){
+				JPanel pane=getModPanel(id,type);
+				AdvancedReceiptPanel advance=new AdvancedReceiptPanel(pane,
+						father, id,type);
+				father.setRightComponent(advance);
+				advance.remove(advance.exitPnl);
 				
 			}
 		
@@ -169,20 +181,26 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			JPanel pane=ReceiptMgrPanel.getRightAdvancePanel(id, type);
+			father.setRightComponent(new AdvancedReceiptPanel(pane,
+					father, id,type));
 			
 		}
 		
 	}
-	class modExitListner implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
-
 	
+	
+	public JPanel getModPanel(String id,ReceiptType type) throws Exception{
+		ActionListener ok=new modOkListener();
+		switch(type){
+		case SALE:
+			ModSalePanel sale=new ModSalePanel(father,id);
+			sale.UseToModify(ok);
+			return sale;
+		}
+		return null;
+		
+	}
 
 	
 }
