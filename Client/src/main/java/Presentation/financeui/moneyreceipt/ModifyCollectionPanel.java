@@ -6,9 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.MalformedURLException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -16,24 +13,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-import po.MemberPO.MemberType;
 import vo.CollectionVO;
 import vo.LogVO;
-import vo.MemberVO;
-import Presentation.financeui.CollectionPanel;
+import vo.TransferItemVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import Presentation.mainui.log;
-import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
-import businesslogic.financebl.Payment;
-import businesslogic.memberbl.Member;
 import businesslogic.userbl.User;
-import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
-import businesslogicservice.financeblservice.listblservice.PaymentBLService;
-import businesslogicservice.memberblservice.MemberBLService;
 import businesslogicservice.userblservice.UserBLService;
 
 public class ModifyCollectionPanel extends CollectionAndPaymentPanel implements ActionListener{
@@ -44,16 +35,18 @@ public class ModifyCollectionPanel extends CollectionAndPaymentPanel implements 
 		private static final long serialVersionUID = 1L;
 	    CollectionBLService service;
 	    CollectionVO v;
+	    JButton modBtn;
 		
 		public ModifyCollectionPanel(String id,MainFrame frame) {
 			super(frame);
 			super.item2.remove(addBtn);
 			super.item2.remove(delBtn);
-			JButton modBtn=new JButton("修改");
+			modBtn=new JButton("修改");
 			modBtn.setFont(font);
 			modBtn.setBackground(new Color(204, 242, 239));
 			modBtn.setFocusPainted(false);
 			modBtn.addActionListener(this);
+			item2.add(modBtn);
 			try {
 				service=new Collection();
 				v=service.findByID(id);
@@ -120,8 +113,34 @@ public class ModifyCollectionPanel extends CollectionAndPaymentPanel implements 
 			super.memPnl.remove(memBox);
 			JLabel ml=new JLabel();
 			ml.setText(v.getMemberName());
-			
+			memPnl.add(ml);
+			final ArrayList<TransferItemVO> t=v.getTransferlist();
+			for(int i=0;i<t.size();i++){
+			    TransferItemVO tt=t.get(i);
+				ArrayList<String> buffer = new ArrayList<String>();
+			    buffer.add(tt.getAccount());
+			    buffer.add(tt.getMoney()+"");
+			    buffer.add(tt.getInfo());
+			    tlm.addRow(buffer);
+			}
+			table.revalidate();
 
+		    tra=v.getTransferlist();
+			
+			table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			     
+				@Override
+				public void valueChanged(ListSelectionEvent e) {
+			
+					TransferItemVO it=t.get(e.getLastIndex());
+					int ac=st.indexOf(it.getAccount());
+					accountBox.setSelectedIndex(ac);
+					moneyFld.setText(it.getMoney()+"");
+					moneyFld.setEditable(false);
+					remarkFld.setText(it.getInfo());
+				
+				}
+			    });
 		}
 
 		public static void main(String[] args) {
@@ -137,95 +156,56 @@ public class ModifyCollectionPanel extends CollectionAndPaymentPanel implements 
 		}
 
 		public void actionPerformed(ActionEvent e) {
+			
+			if(e.getSource()==modBtn){
+				TransferItemVO item = new TransferItemVO((String) accountBox
+						.getSelectedItem(), Double
+						.parseDouble(moneyFld.getText()), remarkFld
+						.getText());
+				int index=table.getSelectedRow();
+				tra.set(index, item);
+				tlm.setValueAt(index, 0, (String) accountBox.getSelectedItem());
+				tlm.setValueAt(index, 2, remarkFld.getText());
+				table.revalidate();
+				table.repaint();
+			}
 		  
 			if(e.getSource()==submitBtn){
-				if(tra.size()==0){
-					JOptionPane.showMessageDialog(null, "请输入转账列表", "提示",JOptionPane.WARNING_MESSAGE);
-				}
-				else{
-				int isHurry=0;
-				if(hurryBox.isSelected())
-					isHurry=1;
 				
-				MemberBLService mem = null;
-				try {
-					mem = new Member();
-
-				} catch (MalformedURLException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				} catch (RemoteException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				} catch (NotBoundException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-				ArrayList<MemberVO> member1 = mem.show(MemberType.JHS);
-				ArrayList<MemberVO> member2 = mem.show(MemberType.XSS);
-				String memberID;
-				int se=memBox.getSelectedIndex();
-				if(member1!=null&&se<member1.size()){
-					memberID=member1.get(se).getMemberID();
-				}
-				else if(member1==null||(member2!=null&&se>=member1.size())){
-					memberID=member2.get(se-member1.size()).getMemberID();
-				}
-				else{
-					memberID="Error";
-					JOptionPane.showMessageDialog(null, "Error！", "提示",
-							JOptionPane.WARNING_MESSAGE);
-				}
-				CollectionVO vo=new CollectionVO(ID,memberID,(String)memBox.getSelectedItem(),parent.getUser().getID(),tra,totalMoney,0,isHurry);
+				
+				CollectionVO vo=new CollectionVO(v.getId(),v.getMemberID(),v.getMemberName(),v.getUser(),tra,v.getTotalMoney(),0,v.getHurry());
 
 				try {
 					service = new Collection();
-					int result=service.createCollection(vo);
+					int result=service.modify(vo);
 					if (result == 0) {
-						JOptionPane.showMessageDialog(null, "创建收款单成功！", "提示",
+						JOptionPane.showMessageDialog(null, "修改收款单成功！", "提示",
 								JOptionPane.CLOSED_OPTION);
 						log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
-								"创建了一笔收款单",5));
+								"修改了一笔收款单",5));
 						headPane.RefreshGrades();
 					} else {
-						JOptionPane.showMessageDialog(null, "创建收款单失败！", "提示",
+						JOptionPane.showMessageDialog(null, "修改收款单失败！", "提示",
 								JOptionPane.WARNING_MESSAGE);
 					}
-					Update();
+					
 					
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				}
+				
 			}
 			else if(e.getSource()==exitBtn){
-				Update();
+				
 				
 			}
 			
 		}
 		
-		public void Update() {
-			CollectionPanel mgr = new CollectionPanel(parent);
-			parent.setRightComponent(mgr);
-			try {
-				service=new Collection();
-				PaymentBLService pp=new Payment();
-				CashlistBLService cc=new CashList();
-				if (service.getCollection()!= null)
-					mgr.RefreshCollectionTable(service.getCollection());
-				if(pp.getPayment()!=null)
-					mgr.RefreshPaymentTable(pp.getPayment());
-				if(cc.getCashlist()!=null)
-					mgr.RefreshCashlistTable(cc.getCashlist());
-				
-				mgr.setSelectedTab(0);
-					
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		public void UseToModify(ActionListener ok){
+			submitBtn.addActionListener(ok);
+			exitBtn.addActionListener(ok);
 			
 		}
 	

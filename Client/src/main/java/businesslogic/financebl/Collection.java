@@ -184,4 +184,15 @@ public class Collection extends Receipt implements CollectionBLService{
 		}
 		return vo;
 	}
+
+	@Override
+	public int modify(CollectionVO vo) {
+		try {
+			return service.modify(voToPo(vo));
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 1;
+	}
 }

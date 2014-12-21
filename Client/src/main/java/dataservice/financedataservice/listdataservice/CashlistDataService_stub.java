@@ -25,4 +25,10 @@ public class CashlistDataService_stub implements CashlistDataService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int modify(CashlistPO po) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

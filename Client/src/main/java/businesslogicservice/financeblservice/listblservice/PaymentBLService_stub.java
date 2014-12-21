@@ -25,4 +25,10 @@ public class PaymentBLService_stub implements PaymentBLService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int modify(PaymentVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

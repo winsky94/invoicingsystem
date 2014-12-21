@@ -141,5 +141,10 @@ public class CashList extends Receipt implements CashlistBLService{
 	public CashlistVO findByID(String s) {
 		return poToVo(service.findByID(s));
 	}
+
+	@Override
+	public int modify(CashlistVO vo) {
+		return service.modify(voToPo(vo));
+	}
 }
 

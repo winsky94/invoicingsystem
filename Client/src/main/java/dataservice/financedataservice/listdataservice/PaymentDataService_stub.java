@@ -26,4 +26,10 @@ public class PaymentDataService_stub implements PaymentDataService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int modify(PaymentPO po) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
