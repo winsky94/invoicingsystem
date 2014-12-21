@@ -106,4 +106,10 @@ public class StockControlDataService_stub implements StockControlDataService {
 		return 0;
 	}
 
+	@Override
+	public int modify(StockOverOrLowPO po) {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
 }

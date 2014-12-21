@@ -68,4 +68,10 @@ public class GiftBLService_stub implements GiftBLService {
 		return 0;
 	}
 
+	@Override
+	public int modify(GiftVO newVO) {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
 }

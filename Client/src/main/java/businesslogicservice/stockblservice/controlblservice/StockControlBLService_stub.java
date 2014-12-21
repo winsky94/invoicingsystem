@@ -82,4 +82,10 @@ public class StockControlBLService_stub implements StockControlBLService {
 		System.out.println("return prime cost income succeed!");
 		return 0;
 	}
+
+	@Override
+	public int modify(StockOverOrLowVO vo) {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
 }

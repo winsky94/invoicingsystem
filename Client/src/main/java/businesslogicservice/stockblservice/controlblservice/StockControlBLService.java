@@ -39,4 +39,7 @@ public interface StockControlBLService {
 	// 检查商品库存报警
 	public boolean stockNumCheck(String goodsID);
 
+	// 修改报溢报损单
+	public int modify(StockOverOrLowVO vo);
+
 }

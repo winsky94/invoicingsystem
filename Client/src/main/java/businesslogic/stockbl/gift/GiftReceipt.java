@@ -206,7 +206,7 @@ public class GiftReceipt extends Receipt {
 	}
 
 	// 修改（===）
-	public int modify(String id) {
+	public int Modify(String id) {
 		int result = 0;
 		try {
 			GiftPO oldPo = service.findByID(id);

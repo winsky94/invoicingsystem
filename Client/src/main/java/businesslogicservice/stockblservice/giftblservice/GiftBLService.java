@@ -10,6 +10,8 @@ public interface GiftBLService {
 
 	public int dealGift(GiftVO vo);
 
+	public int modify(GiftVO newVO);
+	
 	// 商品赠送支出
 	public double getGiftCost(String beginDate, String endDate);
 
