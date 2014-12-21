@@ -116,6 +116,9 @@ public class CollectionAndPaymentPanel extends JPanel {
 		for (int i = 0; i < table.getColumnCount(); i++) {
 			table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
 		}
+		
+		table.getColumnModel().getColumn(2).setPreferredWidth(300);
+		
 		jsp = new JScrollPane(table);
 		lc.gridx = 0;
 		lc.gridy = 0;

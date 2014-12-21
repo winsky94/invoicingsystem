@@ -411,6 +411,11 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		header.addColumnGroup(g_profit);
 		TableCellRenderer renderer = new MyHeaderButtonRenderer();
 		TableColumnModel model = t3.getColumnModel();
+		
+		t3.getColumnModel().getColumn(3).setPreferredWidth(130);
+		t3.getColumnModel().getColumn(4).setPreferredWidth(200);
+		t3.getColumnModel().getColumn(11).setPreferredWidth(100);
+				
 		for (int i = 0; i < model.getColumnCount(); i++) {
 			model.getColumn(i).setHeaderRenderer(renderer);
 		}
@@ -494,31 +499,41 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			if (vo != null)
 				ohtm.RefreshTable(vo);
 			
-			String startDate=from.getDate();
-			String endDate=to.getDate();
-			SaleListBLService ss=new SaleList();
-     		double saleIncome=ss.saleIncome(startDate, endDate);
-     		double goodsOver=ss.goodsOver(startDate, endDate);
-     		double adjustCost=ss.getAdjustCost(startDate, endDate);
-     		double purchaseReturn=ss.purchaseReturnProfitCalc(startDate, endDate);
-     		double couponProfit=ss.couponProfitCalc(startDate, endDate);
-     		double discountMoney=ss.DiscountMoney(startDate, endDate);
-     		double totalIncome=saleIncome+goodsOver+adjustCost+purchaseReturn+couponProfit;
-     		double saleCost=ss.saleCost(startDate, endDate);
-     		double goodsLow=ss.goodsLow(startDate, endDate);
-     		double goodsGift=ss.goodsGift(startDate, endDate);
-     		double totalCost=saleCost+goodsLow+goodsGift;
-     		double profit=totalIncome-totalCost;
-			double[] data={saleIncome,goodsOver,adjustCost,purchaseReturn,couponProfit,
-					discountMoney,totalIncome,saleCost,goodsLow,goodsGift,totalCost,profit};
-		//	ostm.RefreshTable(data);
-			bstm.RefreshTable(data);
-			
+			//	ostm.RefreshTable(data);
+			refreshBSLTable();
 
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 
+	}
+	
+	public void refreshBSLTable(){
+		String startDate=from.getDate();
+		String endDate=to.getDate();
+		SaleListBLService ss;
+		try {
+			ss = new SaleList();
+			double saleIncome=ss.saleIncome(startDate, endDate);
+	 		double goodsOver=ss.goodsOver(startDate, endDate);
+	 		double adjustCost=ss.getAdjustCost(startDate, endDate);
+	 		double purchaseReturn=ss.purchaseReturnProfitCalc(startDate, endDate);
+	 		double couponProfit=ss.couponProfitCalc(startDate, endDate);
+	 		double discountMoney=ss.DiscountMoney(startDate, endDate);
+	 		double totalIncome=saleIncome+goodsOver+adjustCost+purchaseReturn+couponProfit;
+	 		double saleCost=ss.saleCost(startDate, endDate);
+	 		double goodsLow=ss.goodsLow(startDate, endDate);
+	 		double goodsGift=ss.goodsGift(startDate, endDate);
+	 		double totalCost=saleCost+goodsLow+goodsGift;
+	 		double profit=totalIncome-totalCost;
+			double[] data={saleIncome,goodsOver,adjustCost,purchaseReturn,couponProfit,
+					discountMoney,totalIncome,saleCost,goodsLow,goodsGift,totalCost,profit};
+			bstm.RefreshTable(data);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+ 		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -571,7 +586,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				ArrayList<ReceiptVO> receipt=reservice.AccurateFind(filter);
 				FilterRefresh(receipt,type);
 			}
-			
+			refreshBSLTable();
 		}
 	} 
 
