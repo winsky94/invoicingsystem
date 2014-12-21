@@ -21,8 +21,10 @@ import java.util.Date;
 
 
 
+
 import dataservice.promotiondataservice.PromotionDataService;
 import dataservice.salesdataservice.SalesDataService;
+import businesslogic.utilitybl.getServer;
 import businesslogicservice.promotionblservice.PromotionBLService;
 import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
@@ -36,7 +38,7 @@ public  class promotion {
 	
 	PromotionDataService service;
 	public promotion() throws Exception{
-		String host="localhost:1099";
+		String host=getServer.getServer();
 		String url="rmi://"+host+"/promotionService";
 	
 		service=(PromotionDataService)Naming.lookup(url);

@@ -17,6 +17,7 @@ import java.text.NumberFormat;
 import po.ReceiptPO;
 import po.ReceiptPO.ReceiptType;
 import businesslogic.utilitybl.getDate;
+import businesslogic.utilitybl.getServer;
 
 //关键类 单据的增 改 查
 public class Receipt {
@@ -34,7 +35,7 @@ public class Receipt {
 
 	public Receipt()throws Exception{
 		 //   	System.setSecurityManager(new SecurityManager());
-		 		String host="localhost:1099";
+		 		String host=getServer.getServer();
 		 		String url="rmi://"+host+"/receiptService";
 		 		
 		 		service=(ReceiptDataService)Naming.lookup(url);

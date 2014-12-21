@@ -17,6 +17,7 @@ import businesslogic.receiptbl.Receipt;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.stockbl.stockManage.StockControlController;
 import businesslogic.utilitybl.getDate;
+import businesslogic.utilitybl.getServer;
 import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import dataservice.salesdataservice.SalesDataService;
@@ -26,7 +27,7 @@ public class Purchase extends Receipt {
 	SalesDataService service;
 
 	public Purchase() throws Exception {
-		String host = "localhost:1099";
+		String host = getServer.getServer();
 		String url = "rmi://" + host + "/salesService";
 
 		service = (SalesDataService) Naming.lookup(url);

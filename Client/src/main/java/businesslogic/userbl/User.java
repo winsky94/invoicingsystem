@@ -8,6 +8,7 @@ import dataservice.userdataservice.UserDataService;
 import po.UserPO;
 import po.UserPO.UserJob;
 import vo.UserVO;
+import businesslogic.utilitybl.getServer;
 import businesslogicservice.userblservice.UserBLService;
 import businesslogicservice.userblservice.UserViewService;
 //11-17  By jin 0 warning 哈
@@ -20,7 +21,7 @@ public class User implements UserBLService,UserViewService{
 	public UserDataService service;
 	public User() throws Exception{
 	//	System.setSecurityManager(new SecurityManager());
-		String host="localhost:1099";
+		String host=getServer.getServer();
 		String url="rmi://"+host+"/userService";
 	
 		service=(UserDataService)Naming.lookup(url);
