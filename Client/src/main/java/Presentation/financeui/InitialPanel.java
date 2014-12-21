@@ -114,6 +114,23 @@ public class InitialPanel extends JPanel implements ActionListener {
 			father.setRightComponent(new InitialDetailPanel(father,selected));
 			}
 		}
+		else if(e.getSource()==changeBtn){
+			int selected=table.getSelectedRow();
+			if(selected<0){
+				JOptionPane.showMessageDialog(null, "请选择一行期初记录！","提示",JOptionPane.WARNING_MESSAGE);
+			}
+			else{
+			try {
+				FinanceInitBLService init=new Init();
+				ArrayList<BeginInfoVO> vo=init.showAll();
+				init.setTime(vo.get(selected).getTime());
+				JOptionPane.showMessageDialog(null, "切换套帐成功！","提示",JOptionPane.WARNING_MESSAGE);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			}
+		}
 		else if(e.getSource()==refreshBtn){
 			InitialPanel alp=new InitialPanel(father);
 			father.setRightComponent(alp);

@@ -39,4 +39,10 @@ public class FinanceInitDataService_stub implements FinanceInitDataService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void setTime(String s) {
+		// TODO Auto-generated method stub
+		
+	}
 }

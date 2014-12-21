@@ -9,4 +9,5 @@ public interface FinanceInitBLService {
 	public BeginInfoVO getInfo(String time);
 	public String getCurrentTime();
 	public ArrayList<BeginInfoVO> showAll();
+	public void setTime(String s);
 }
