@@ -7,9 +7,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.MalformedURLException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
@@ -90,19 +87,14 @@ public class MemberInitialPanel extends JPanel{
 		// ---------------------------
 				ArrayList<String> st = new ArrayList<String>();
 				MemberBLService min = null;
-				try {
-					min = new Member();
-
-				} catch (MalformedURLException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				} catch (RemoteException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				} catch (NotBoundException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
+			    try {
+						min = new Member();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 				}
+
+				
 				ArrayList<MemberVO> member = min.showMembers();
 				if (member == null) {
 					String memberText[] = { "当前无客户可选" };
@@ -152,18 +144,13 @@ public class MemberInitialPanel extends JPanel{
 					haveSelected.add(index);
 					MemberBLService min = null;
 					try {
-						min = new Member();
-
-					} catch (MalformedURLException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					} catch (RemoteException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					} catch (NotBoundException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
+							min = new Member();
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
 					}
+
+					
 					ArrayList<MemberVO> member = min.showMembers();
 					MemberVO vv=member.get(index-1);
 					vv.setMemberID(getNewID(vv.getmType()));

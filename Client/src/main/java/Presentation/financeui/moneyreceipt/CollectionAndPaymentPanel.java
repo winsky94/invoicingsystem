@@ -308,19 +308,14 @@ public class CollectionAndPaymentPanel extends JPanel {
 		// _____________
 		ArrayList<String> mn = new ArrayList<String>();
 		MemberBLService mem = null;
-		try {
-			mem = new Member();
+		
+			try {
+				mem = new Member();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
-		} catch (MalformedURLException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		} catch (RemoteException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		} catch (NotBoundException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
 		
 		ArrayList<MemberVO> member =new ArrayList<MemberVO>();
 		ArrayList<MemberVO> member1 = mem.show(MemberType.JHS);
