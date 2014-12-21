@@ -140,8 +140,8 @@ public class runServer extends JFrame implements ActionListener{
 
 			// 客户端启用的端口号为1099 yan 11-18
 			
-
-			LocateRegistry.createRegistry(1099);// 客户端启用的端口号为1099 yan 11-18
+			int portNum=Integer.parseInt(port);
+			LocateRegistry.createRegistry(portNum);// 客户端启用的端口号为1099 yan 11-18
 
 			System.out.println("已启动服务器");
 			User user = new User();
