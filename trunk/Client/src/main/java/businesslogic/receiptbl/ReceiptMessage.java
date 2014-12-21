@@ -5,13 +5,14 @@ import java.util.ArrayList;
 
 import po.ReceiptMessagePO;
 import vo.ReceiptMessageVO;
+import businesslogic.utilitybl.getServer;
 import businesslogicservice.receiptblservice.ReceiptTipService;
 import dataservice.receiptdataservice.ReceiptDataService;
 
 public class ReceiptMessage implements ReceiptTipService{
 	ReceiptDataService service;
 	public ReceiptMessage() throws Exception{
-		String host="localhost:1099";
+		String host=getServer.getServer();
 		String url="rmi://"+host+"/receiptService";
 	
 		service=(ReceiptDataService)Naming.lookup(url);

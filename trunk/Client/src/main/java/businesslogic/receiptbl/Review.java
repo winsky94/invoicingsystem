@@ -23,13 +23,14 @@ import businesslogic.stockbl.gift.GiftReceipt;
 import businesslogic.stockbl.stockManage.StockErrorReceipt;
 import businesslogic.stockbl.stockManage.StockLowReceipt;
 import businesslogic.stockbl.stockManage.StockOverReceipt;
+import businesslogic.utilitybl.getServer;
 import vo.ReceiptVO;
 import vo.SaleVO;
 //Reply 和Send 使用观察者模式，Reply之后单据类自己做善后处理
 public class Review {
 	ReceiptDataService service;
 	public Review() throws Exception{
-		String host="localhost:1099";
+		String host=getServer.getServer();
 		String url="rmi://"+host+"/receiptService";
 	
 		service=(ReceiptDataService)Naming.lookup(url);

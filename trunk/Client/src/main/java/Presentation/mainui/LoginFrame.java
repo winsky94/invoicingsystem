@@ -290,7 +290,7 @@ public class LoginFrame extends JFrame{
 	}
 
 	public static void main(String[] args) throws Exception {
-		new LoginFrame();
+		new IPFrame();
 		
 			
 			  

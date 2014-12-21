@@ -10,6 +10,7 @@ import java.util.Collections;
 
 import businesslogic.utilitybl.MyComparator;
 import businesslogic.utilitybl.MySort;
+import businesslogic.utilitybl.getServer;
 import po.CollectionPO;
 import po.ReceiptPO;
 import po.ReceiptPO.ReceiptType;
@@ -19,7 +20,7 @@ import vo.ReceiptVO;
 public class ReceiptList {
 	ReceiptDataService service;
 	public ReceiptList() throws Exception{
-		String host="localhost:1099";
+		String host=getServer.getServer();
 		String url="rmi://"+host+"/receiptService";
 	
 		service=(ReceiptDataService)Naming.lookup(url);

@@ -26,6 +26,7 @@ import businesslogic.promotionbl.promotionController;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.utilitybl.getDate;
+import businesslogic.utilitybl.getServer;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import dataservice.salesdataservice.SalesDataService;
 
@@ -42,7 +43,7 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 	static Commodity com;
 
 	public Sale() throws Exception {
-		String host = "localhost:1099";
+		String host = getServer.getServer();
 		String url = "rmi://" + host + "/salesService";
 
 		service = (SalesDataService) Naming.lookup(url);

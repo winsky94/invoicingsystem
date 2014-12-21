@@ -1,5 +1,6 @@
 package businesslogic.memberbl;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -12,6 +13,7 @@ import po.MemberPO.MemberLevel;
 import po.MemberPO.MemberType;
 import dataservice.memberdataservice.MemberDataService;
 import vo.MemberVO;
+import businesslogic.utilitybl.getServer;
 import businesslogicservice.memberblservice.MemberBLService;
 import businesslogicservice.memberblservice.MemberViewService;
 
@@ -22,8 +24,8 @@ public class Member implements MemberBLService,MemberViewService{
 	 private MemberDataService service;
 	
 	
-	public Member() throws MalformedURLException, RemoteException, NotBoundException{
-		String host="localhost:1099";
+	public Member() throws Exception{
+		String host=getServer.getServer();
 		String url="rmi://"+host+"/memberService";
 	
 		service=(MemberDataService)Naming.lookup(url);

@@ -14,6 +14,7 @@ import dataservice.salesdataservice.SalesDataService;
 import vo.ReceiptVO;
 import businesslogic.promotionbl.giftCouponPro;
 import businesslogic.stockbl.stockManage.StockControlController;
+import businesslogic.utilitybl.getServer;
 import businesslogicservice.salesblservice.SaleListBLService;
 import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
 
@@ -21,7 +22,7 @@ public class SaleList implements SaleListBLService{
 	SalesDataService service;
 
 	public SaleList() throws Exception {
-		String host="localhost:1099";
+		String host=getServer.getServer();
 		String url="rmi://"+host+"/salesService";
 	
 		service=(SalesDataService)Naming.lookup(url);
