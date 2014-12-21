@@ -198,6 +198,7 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 			sale.UseToModify(ok);
 			return sale;
 		}
+			
 		return null;
 		
 	}
