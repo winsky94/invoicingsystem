@@ -340,6 +340,7 @@ public class StockManage {
 				}
 			}
 		}
+//		System.out.println("StockManage.getGoodsOverIncome()报溢收入："+goodsOverIncome);
 		return goodsOverIncome;
 	}
 
@@ -355,9 +356,11 @@ public class StockManage {
 						&& date.compareTo(endDate) <= 0) {
 					GoodsPO po = goodsService.findGoods(n).get(0);
 					goodsLowCost += (po.getPrice() * list.get(i).getGap());
+//					System.out.println("StockManage.getGoodsLowCost()list.get(i).getGap():"+list.get(i).getGap());
 				}
 			}
 		}
+//		System.out.println("StockManage.getGoodsLowCost()报损支出："+goodsLowCost);
 		return goodsLowCost;
 	}
 
@@ -381,7 +384,7 @@ public class StockManage {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-
+//System.out.println("StockManage.getGiftCost()赠送支出："+giftCost);
 		return giftCost;
 	}
 

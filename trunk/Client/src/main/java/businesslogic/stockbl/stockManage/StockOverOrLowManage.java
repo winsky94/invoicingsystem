@@ -1,8 +1,5 @@
 package businesslogic.stockbl.stockManage;
 
-import po.ReceiptPO;
-import po.StockOverOrLowPO;
-
 public class StockOverOrLowManage {
 	String goodName;
 	String size;
