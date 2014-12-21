@@ -60,10 +60,10 @@ public class GiftController extends Receipt implements GiftBLService {
 		return manage.excute(receipt);
 	}
 
-	public double getGiftCost() {
+	public double getGiftCost(String beginDate, String endDate) {
 		// TODO 自动生成的方法存根
 		GiftManage manage = new GiftManage();
-		return manage.getGiftCost();
+		return manage.getGiftCost(beginDate, endDate);
 	}
 
 	public ArrayList<GiftPO> getGiftList(String beginDate, String endDate) {

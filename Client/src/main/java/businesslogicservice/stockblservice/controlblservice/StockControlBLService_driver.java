@@ -16,7 +16,6 @@ public class StockControlBLService_driver {
 		stockControlBLService.showStock("", "");
 		stockControlBLService.checkStock();
 		stockControlBLService.isEnough("00001", 10);
-		stockControlBLService.getPrimeCostIncome(null, null);
 	}
 
 	public static void main(String[] args) {

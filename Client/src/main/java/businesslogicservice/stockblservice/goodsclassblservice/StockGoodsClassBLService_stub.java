@@ -7,7 +7,7 @@ import javax.swing.JTree;
 
 import vo.GoodsClassVO;
 
-public class StockGoodsClassBLService_stub implements StockGoodsClassBLService{
+public class StockGoodsClassBLService_stub implements StockGoodsClassBLService {
 
 	public int addGoodsClass(GoodsClassVO vo) {
 		// TODO 自动生成的方法存根
@@ -21,34 +21,21 @@ public class StockGoodsClassBLService_stub implements StockGoodsClassBLService{
 		return 0;
 	}
 
-	public int modifyGoodsClass(GoodsClassVO vo) {
+	public ArrayList<GoodsClassVO> show() {
+		// TODO 自动生成的方法存根
+		System.out.println("show goodsClass succeed!");
+		return null;
+	}
+
+	public int modifyGoodsClass(GoodsClassVO oldVO, GoodsClassVO newVO) {
 		// TODO 自动生成的方法存根
 		System.out.println("modify goodsClass succeed!");
 		return 0;
 	}
 
-	public ArrayList<GoodsClassVO> show() {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-	public JTree getClassTree() {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-	public int recordClassTree(JTree tree) throws RemoteException {
-		// TODO 自动生成的方法存根
-		return 0;
-	}
-
-	public int modifyGoodsClass(GoodsClassVO oldVO, GoodsClassVO newVO) {
-		// TODO 自动生成的方法存根
-		return 0;
-	}
-
 	public GoodsClassVO showGoodsClassInfo(String name) {
 		// TODO 自动生成的方法存根
+		System.out.println("showGoodsClassInfo goodsClass succeed!");
 		return null;
 	}
 

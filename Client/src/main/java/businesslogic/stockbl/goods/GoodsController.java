@@ -65,9 +65,7 @@ public class GoodsController implements StockGoodsBLService {
 
 	@Override
 	public String[] getAllGoodsName() {
-		// TODO Auto-generated method stub
-		Goods good=new Goods();
-		
+		Goods good = new Goods();
 		return good.getAllGoodsName();
 	}
 
