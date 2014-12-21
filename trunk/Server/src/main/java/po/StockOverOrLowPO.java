@@ -21,7 +21,7 @@ public class StockOverOrLowPO extends ReceiptPO implements Serializable {
 		this.size = size;
 		this.num = num;
 		this.exactNum = exactNum;
-		this.gap = exactNum - num;
+		this.gap = num-exactNum;
 	}
 
 	public String getGoodsName() {
