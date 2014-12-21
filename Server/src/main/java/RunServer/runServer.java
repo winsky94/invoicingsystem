@@ -230,10 +230,10 @@ public class runServer extends JFrame implements ActionListener{
 			Cashlist cashlist=new Cashlist();
 			Init init=new Init();
 			Log log=new Log();
-			Naming.rebind("promotionService",pro);
+			Naming.rebind("localhost/promotionService",pro);
 			Naming.rebind("salesService",sale);
 			Naming.rebind("memberService",member);
-			Naming.bind("userService", user);	
+			Naming.bind("localhost/userService", user);	
 			Naming.rebind("goodsClassService", gc);
 			Naming.rebind("goodsService", g);
 			Naming.rebind("collectionService", collection);
