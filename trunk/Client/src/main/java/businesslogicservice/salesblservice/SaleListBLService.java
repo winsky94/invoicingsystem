@@ -12,12 +12,9 @@ public interface SaleListBLService {
 	//public ReceiptVO findReceiptByID(String ID) throws RemoteException;
 	public double getSaleIncome(String startDate,String endDate);//销售收入
 	public double getSaleCost(String startDate,String endDate);//销售成本
-	public double getGoodsOver(String startDate,String endDate);//商品报溢收入
 	public double getAdjustCost(String startDate,String endDate);//成本调价收入
 	public double getPurchaseReturnProfitCalc(String startDate,String endDate);//进货退货差价
 	public double getCouponProfitCalc(String startDate,String endDate);//代金券与实际收款差额收入
-	public double getGoodsLow(String startDate,String endDate);//商品报损
-	public double getGoodsGift(String startDate,String endDate);//商品赠出
 	public double getDiscountMoney(String startDate,String endDate);//折让金额
 	public double getGiftCouponUseCost(String startDate,String endDate);//代金券使用支出
 	//public double AllIncome(String startDate,String endDate);//总收入

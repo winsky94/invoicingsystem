@@ -34,10 +34,10 @@ public class SaleListBLService_DriverTest extends TestCase{
 		String endDate="20141209";
 		s.getAllSale();
 		s.getAllPurchase();
-		s.couponProfitCalc(startDate, endDate);
-		s.purchaseReturnProfitCalc(startDate, endDate);
-		s.saleIncome(startDate, endDate);
-		s.saleCost(startDate, endDate);
+		s.getCouponProfitCalc(startDate, endDate);
+		s.getPurchaseReturnProfitCalc(startDate, endDate);
+		s.getSaleIncome(startDate, endDate);
+		s.getSaleCost(startDate, endDate);
 		//注 替换后 工程已不输出
 		assertEquals("showSaleList!"+ line
 				+"showPurchaseList!"+ line
