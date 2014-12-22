@@ -36,7 +36,7 @@ public class FinanceAccountDataService_DriverTest extends TestCase{
 		AccountPO po=new AccountPO();
 		int resultAdd=accountdataservice.addAccount(po);
 		int resultDel=accountdataservice.deleteAccount(po);
-		int resultMod=accountdataservice.modifyAccount(po);
+		int resultMod=accountdataservice.modifyAccount(po,"NewName");
 		accountdataservice.findAccount(null);
 		assertEquals(0,resultAdd);
 		assertEquals(0,resultDel);

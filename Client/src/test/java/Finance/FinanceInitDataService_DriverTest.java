@@ -32,7 +32,7 @@ public class FinanceInitDataService_DriverTest extends TestCase{
 	
 	public void testInitDatadrive() throws RemoteException {
 		BeginInfoPO po=new BeginInfoPO();
-		int result=initdataservice.initInfo(po);
+		int result=initdataservice.initInfo("heheda",po);
 		initdataservice.getInfo(null);
 		assertEquals(0,result);
 		assertEquals("Initial stock success!"+line
