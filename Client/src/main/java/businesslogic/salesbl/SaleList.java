@@ -79,10 +79,6 @@ public class SaleList implements SaleListBLService{
 		return profit;
 	}
 	
-	public double getGoodsOver(String startDate,String endDate){
-		StockControlBLService scb=new StockControlController();
-		return scb.getGoodsOverIncome(startDate,endDate);
-	}
 	
 /*	public double primeCostIncome(String startDate,String endDate){
 		StockControlBLService scb=new StockControlController();
@@ -117,15 +113,7 @@ public class SaleList implements SaleListBLService{
 		return prprofit;
 	}
 	
-	public double getGoodsLow(String startDate,String endDate){
-		StockControlBLService scb=new StockControlController();
-		return scb.getGoodsLowCost(startDate, endDate);
-	}
-	
-	public double getGoodsGift(String startDate,String endDate){
-		StockControlBLService scb=new StockControlController();
-		return scb.getGiftCost(startDate, endDate);
-	}
+
 	
 	public double getDiscountMoney(String startDate,String endDate){
 		double profit=0;

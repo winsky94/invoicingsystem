@@ -38,9 +38,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
-import po.ReceiptPO.ReceiptType;
 import po.UserPO.UserJob;
-import vo.MemberVO;
 import vo.ReceiptVO;
 import Presentation.mainui.ExportExcel;
 import Presentation.mainui.MainFrame;
@@ -59,10 +57,12 @@ import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.ReceiptController;
 import businesslogic.salesbl.SaleList;
 import businesslogic.stockbl.goods.GoodsController;
+import businesslogic.stockbl.stockManage.StockControlController;
 import businesslogic.userbl.User;
 import businesslogicservice.memberblservice.MemberViewService;
 import businesslogicservice.receiptblservice.ReceiptListService;
 import businesslogicservice.salesblservice.SaleListBLService;
+import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import businesslogicservice.userblservice.UserViewService;
 
@@ -512,18 +512,20 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		String startDate=from.getDate();
 		String endDate=to.getDate();
 		SaleListBLService ss;
+		StockControlBLService sc;
 		try {
 			ss = new SaleList();
-			double saleIncome=ss.saleIncome(startDate, endDate);
-	 		double goodsOver=ss.goodsOver(startDate, endDate);
+			sc= new StockControlController();
+			double saleIncome=ss.getSaleIncome(startDate, endDate);
+	 		double goodsOver=sc.getGoodsOverIncome(startDate, endDate);
 	 		double adjustCost=ss.getAdjustCost(startDate, endDate);
-	 		double purchaseReturn=ss.purchaseReturnProfitCalc(startDate, endDate);
-	 		double couponProfit=ss.couponProfitCalc(startDate, endDate);
-	 		double discountMoney=ss.DiscountMoney(startDate, endDate);
+	 		double purchaseReturn=ss.getPurchaseReturnProfitCalc(startDate, endDate);
+	 		double couponProfit=ss.getCouponProfitCalc(startDate, endDate);
+	 		double discountMoney=ss.getDiscountMoney(startDate, endDate);
 	 		double totalIncome=saleIncome+goodsOver+adjustCost+purchaseReturn+couponProfit;
-	 		double saleCost=ss.saleCost(startDate, endDate);
-	 		double goodsLow=ss.goodsLow(startDate, endDate);
-	 		double goodsGift=ss.goodsGift(startDate, endDate);
+	 		double saleCost=ss.getSaleCost(startDate, endDate);
+	 		double goodsLow=sc.getGoodsLowCost(startDate, endDate);
+	 		double goodsGift=sc.getGiftCost(startDate, endDate);
 	 		double totalCost=saleCost+goodsLow+goodsGift;
 	 		double profit=totalIncome-totalCost;
 			double[] data={saleIncome,goodsOver,adjustCost,purchaseReturn,couponProfit,
