@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import dataservice.financedataservice.listdataservice.PaymentDataService;
 import po.PaymentPO;
+import po.ReceiptPO;
 import po.TransferItemPO;
 import vo.PaymentVO;
 import vo.ReceiptVO;
@@ -183,6 +184,28 @@ public class Payment extends Receipt implements PaymentBLService{
 			e.printStackTrace();
 		}
 		return 1;
+	}
+	
+	public ReceiptPO getRedReceipt(ReceiptPO po){
+		PaymentPO payment=(PaymentPO)po;
+		ArrayList<TransferItemPO> list=payment.getTransferlist();
+		for(int i=0;i<list.size();i++){
+			double m=list.get(i).getMoney();
+			list.get(i).setMoney(-m);
+		}
+	
+		PaymentPO redPayment=new PaymentPO(payment.getId(),payment.getMemberID(),
+				payment.getMemberName(),payment.getUserID(),list,payment.getTotalMoney()*(-1),
+				payment.getStatus(),payment.getHurry());
+	    	
+		try {
+			service.createPayment(redPayment);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return redPayment;
+		
 	}
 	
 }

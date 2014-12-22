@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import dataservice.financedataservice.listdataservice.CashlistDataService;
 import po.CashlistPO;
 import po.ClauseItemPO;
+import po.ReceiptPO;
 import vo.CashlistVO;
 import vo.ClauseItemVO;
 import vo.ReceiptVO;
@@ -145,6 +146,23 @@ public class CashList extends Receipt implements CashlistBLService{
 	@Override
 	public int modify(CashlistVO vo) {
 		return service.modify(voToPo(vo));
+	}
+	
+	public ReceiptPO getRedReceipt(ReceiptPO po){
+		CashlistPO cashlist=(CashlistPO)po;
+		ArrayList<ClauseItemPO> list=cashlist.getClauselist();
+		for(int i=0;i<list.size();i++){
+			double m=list.get(i).getMoney();
+			list.get(i).setMoney(-m);
+		}
+	
+		CashlistPO redCashlist=new CashlistPO(cashlist.getId(),cashlist.getUserID(),
+				cashlist.getAccount(),list,cashlist.getTotalMoney()*(-1),
+				cashlist.getStatus(),cashlist.getHurry());
+	    	
+		service.createCashlist(redCashlist);
+		return redCashlist;
+		
 	}
 }
 

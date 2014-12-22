@@ -8,6 +8,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import po.CollectionPO;
+import po.ReceiptPO;
 import po.TransferItemPO;
 import vo.CollectionVO;
 import vo.ReceiptVO;
@@ -208,5 +209,22 @@ public class Collection extends Receipt implements CollectionBLService{
 			e.printStackTrace();
 		}
 		return 1;
+	}
+	
+	public ReceiptPO getRedReceipt(ReceiptPO po){
+		CollectionPO collection=(CollectionPO)po;
+		ArrayList<TransferItemPO> list=collection.getTransferlist();
+		for(int i=0;i<list.size();i++){
+			double m=list.get(i).getMoney();
+			list.get(i).setMoney(-m);
+		}
+	
+		CollectionPO redCollection=new CollectionPO(collection.getId(),collection.getMemberID(),
+				collection.getMemberName(),collection.getUserID(),list,collection.getTotalMoney()*(-1),
+				collection.getStatus(),collection.getHurry());
+	    	
+		service.createCollection(redCollection);
+		return redCollection;
+		
 	}
 }
