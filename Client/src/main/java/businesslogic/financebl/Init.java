@@ -175,4 +175,9 @@ public class Init implements FinanceInitBLService{
 		service.setTime(s);
 	}
 
+	@Override
+	public void reset() {
+		service.reset();
+	}
+
 }
