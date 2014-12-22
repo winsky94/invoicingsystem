@@ -9,7 +9,7 @@ import po.GiftPO;
 import dataservice.stockdataservice.giftdataservice.GiftDataService;
 import dataservice.stockdataservice.giftdataservice.GiftDataService_stub;
 
-public class GiftDataService_DriverTest extends TestCase{
+public class GiftDataService_DriverTest extends TestCase {
 	private GiftDataService giftDataService;
 	String line = System.getProperty("line.separator");
 	PrintStream console = null;
@@ -28,18 +28,13 @@ public class GiftDataService_DriverTest extends TestCase{
 	}
 
 	public void testStockGoodsDataDrive() throws RemoteException {
-		GiftPO po=new GiftPO(null, null, 0);
+		GiftPO po = new GiftPO(null, null, null, null, null, 0, 0, null);
 		int resultAdd = giftDataService.addGift(po);
 		int resultDeal = giftDataService.dealGift(po);
-		giftDataService.getAccount(po);
-		giftDataService.giftCost();
-
 		assertEquals(0, resultAdd);
 		assertEquals(0, resultDeal);
-		
+
 		assertEquals("add gift in files succeed!" + line
-				+ "deal gift in files succeed!" + line
-				+ "get gift account in files succeed!" + line
-				+ "return gift cost in file succeed!" + line, bytes.toString());
+				+ "deal gift in files succeed!" + line, bytes.toString());
 	}
 }

@@ -29,31 +29,18 @@ public class StockControlDataService_DriverTest extends TestCase {
 	}
 
 	public void testStockGoodsDataDrive() throws RemoteException {
-		StockErrorPO stockErrorPO = new StockErrorPO(null, null);
+		StockErrorPO stockErrorPO = new StockErrorPO(null, null, null, null);
 		StockOverOrLowPO stockOverOrLowPO = new po.StockOverOrLowPO(null, null,
-				0, 0);
+				null, null, null, 0, 0, null, null, null, 0, 0);
 		int resultAddError = stockControlDataService
 				.addStockError(stockErrorPO);
 		int resultAddOverOrLow = stockControlDataService
 				.addStockOverOrLow(stockOverOrLowPO);
-		stockControlDataService.goodsOverIncome();
-		stockControlDataService.goodsLowCost();
-		stockControlDataService.checkStock();
-		stockControlDataService.showStock("2014年10月1日", "2014年10月17日");
-		boolean isEnough = stockControlDataService.isEnough("00001", 10);
-		stockControlDataService.PrimeCostIncome();
-		assertEquals(true, isEnough);
 
 		assertEquals(0, resultAddError);
 		assertEquals(0, resultAddOverOrLow);
 		assertEquals("add stockError receipt in file succeed!" + line
-				+ "add stockOverOrLow receipt in file succeed!" + line
-				+ "return goods over income in file succeed!" + line
-				+ "return goods low cost in file succeed!" + line
-				+ "check stock in file succeed!" + line
-				+ "show stock in file succeed!" + line
-				+ "check stock is enough in file succeed!" + line
-				+ "return prime cost income  in file succeed!" + line,
+				+ "add stockOverOrLow receipt in file succeed!" + line,
 				bytes.toString());
 	}
 }

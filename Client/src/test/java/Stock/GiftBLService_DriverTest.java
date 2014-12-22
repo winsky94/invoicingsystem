@@ -8,7 +8,7 @@ import vo.GiftVO;
 import businesslogicservice.stockblservice.giftblservice.GiftBLService;
 import businesslogicservice.stockblservice.giftblservice.GiftBLService_stub;
 
-public class GiftBLService_DriverTest extends TestCase{
+public class GiftBLService_DriverTest extends TestCase {
 	private GiftBLService giftBLService;
 	String line = System.getProperty("line.separator");
 	PrintStream console = null;
@@ -27,19 +27,16 @@ public class GiftBLService_DriverTest extends TestCase{
 	}
 
 	public void testStockGoodsBLDrive() {
-		GiftVO vo = new GiftVO();
+		GiftVO vo = new GiftVO(null, null, null, null, 0, 0, null, null);
 		int resultAdd = giftBLService.addGift(vo);
 		int resultDeal = giftBLService.dealGift(vo);
-		giftBLService.getAccount(vo);
-		giftBLService.getGiftCost();
-		
+		giftBLService.getGiftCost(null, null);
+
 		assertEquals(0, resultAdd);
 		assertEquals(0, resultDeal);
 
-		assertEquals("add gift succeed!" + line
-				+"deal gift succeed!" + line 
-				+"get gift account succeed!" + line
-				+"return gift cost succeed!" + line, bytes.toString());
+		assertEquals("add gift succeed!" + line + "deal gift succeed!" + line
+				+"get gift cost succeed!"+ line, bytes.toString());
 
 	}
 }

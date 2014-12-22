@@ -8,8 +8,6 @@ public class GiftBLService_driver {
 
 		giftService_stub.addGift(giftVO);
 		giftService_stub.dealGift(giftVO);
-		giftService_stub.getAccount(giftVO);
-		giftService_stub.getGiftCost();
 	}
 
 	public static void main(String[] args) {
