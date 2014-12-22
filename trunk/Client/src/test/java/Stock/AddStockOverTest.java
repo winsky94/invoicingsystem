@@ -23,15 +23,31 @@ public class AddStockOverTest extends TestCase {
 		num = 100;
 		exactNum = 90;
 		gap = num - exactNum;
-		good = new MockGoods("01010001", "飞利浦日光灯", "SR01", 10, 200, 100);
+		try {
+			good = new MockGoods("01010001", "飞利浦日光灯", "SR01", 10, 200, 100);
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 	}
 
 	public void testAddStockOver() throws RemoteException {
 		StockOverOrLowManage stockOverOrLowReceipt = new StockOverOrLowManage(
 				goodsName, size, num, exactNum);
-		double total = good.getGoods(goodsID).getPrice() * (num - exactNum);
-		assertEquals(total,
-				stockOverOrLowReceipt.getGap()
-						* good.getGoods(goodsID).getPrice());
+		double total = 0;
+		try {
+			total = good.getGoods(goodsID).getPrice() * (num - exactNum);
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		try {
+			assertEquals(total,
+					stockOverOrLowReceipt.getGap()
+							* good.getGoods(goodsID).getPrice());
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 	}
 }

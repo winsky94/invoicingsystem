@@ -28,7 +28,7 @@ public class StockGoodsClassDataService_DriverTest extends TestCase {
 	}
 
 	public void testStockGoodsClassDataDrive() throws RemoteException {
-		GoodsClassPO po = new GoodsClassPO(null, null);
+		GoodsClassPO po = new GoodsClassPO(null, null, null);
 		int resultAdd = stockGoodsClassDataService.addGoodsClass(po);
 		int resultMod = stockGoodsClassDataService.modifyGoodsClass(po);
 		int resultDel = stockGoodsClassDataService.deleteGoodsClass(po);

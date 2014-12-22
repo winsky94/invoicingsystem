@@ -29,7 +29,7 @@ public class StockGoodsClassBLService_DriverTest extends TestCase {
 	public void testStockGoodsClassBLDrive() {
 		GoodsClassVO vo = new GoodsClassVO(null, null);
 		int resultAdd = stockGoodsClassBLService.addGoodsClass(vo);
-		int resultMod = stockGoodsClassBLService.modifyGoodsClass(vo);
+		int resultMod = stockGoodsClassBLService.modifyGoodsClass(vo, vo);
 		int resultDel = stockGoodsClassBLService.deleteGoodsClass(vo);
 		if (resultAdd == 1)
 			System.out.println("该商品分类无法添加！");

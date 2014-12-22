@@ -27,7 +27,7 @@ public class StockGoodsBLService_DriverTest extends TestCase {
 	}
 
 	public void testStockGoodsBLDrive() {
-		GoodsVO vo = new GoodsVO(null, null, null, 0, 0, 0, 0, 0);
+		GoodsVO vo = new GoodsVO(null, null, null, 0, 0, 0, 0, 0, null, null, 0);
 		int resultAdd = stockGoodsBLService.addGoods(vo);
 		int resultMod = stockGoodsBLService.modifyGoods(vo);
 		int resultDel = stockGoodsBLService.deleteGoods(vo);

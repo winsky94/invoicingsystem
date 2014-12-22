@@ -5,54 +5,41 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
-import businesslogic.memberbl.MemberLevel;
-import businesslogic.memberbl.MemberType;
-import businesslogic.memberbl.MockMember;
+import po.ReceiptPO.ReceiptType;
+import vo.CommodityVO;
 import businesslogic.stockbl.gift.GiftReceipt;
-import businesslogic.stockbl.goods.Goods;
-import businesslogic.stockbl.goods.MockGoods;
 import businesslogic.stockbl.stockManage.MockStockControl;
+
+//rmi报错
 
 public class AddGiftReceiptTest extends TestCase {
 	private GiftReceipt giftReceipt;
 	private MockStockControl stockControl;
-	private MockGoods good1, good2, good3;
-	private MockMember member;
+	private CommodityVO c1;
+	private ArrayList<CommodityVO> giftList;
 	private double total;
 
 	public void setUp() throws ParseException {
-		member = new MockMember("00001", MemberType.XSS, MemberLevel.ONE, "小赵",
-				100);
-		good1 = new MockGoods();
-		good2 = new MockGoods("01010001", "飞利浦日光灯", "SR01", 10, 200, 100);
-		good3 = new MockGoods("01010002", "飞利浦日光灯", "SR02", 20, 300, 400);
-		stockControl=new MockStockControl();
+		try {
+			c1 = new CommodityVO("0001-SR01-0000", "飞利浦日光灯", "SR01", 100.0,
+					150.0, 1, 150.0, 100.0, "");
+			giftList = new ArrayList<CommodityVO>();
+			giftList.add(c1);
+			stockControl = new MockStockControl();
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 
 	}
 
 	public void testAddGiftReceipt() throws RemoteException {
-		//库存赠送人
-		giftReceipt = new GiftReceipt(member);
-		assertEquals(member, giftReceipt.getMember());
-		//库存赠送商品
-		ArrayList<Goods> testGiftReceiptList = new ArrayList<Goods>();
-		good1 = good2.getGoods("01010001");
-		
-		giftReceipt.addGood(good1);
-		total += good1.getPrice();
-		giftReceipt.addGood(good3);
-		total += good3.getPrice();
-
-		testGiftReceiptList.add(good1);
-		testGiftReceiptList.add(good3);
-		
-		assertEquals(testGiftReceiptList, giftReceipt.getGiftList());
-		//库存赠送单总价
+		giftReceipt = new GiftReceipt("id", "00001", "小赵", "KC-00001",
+				ReceiptType.GIFT, 0, 0, "", giftList);
+		assertEquals(giftList, giftReceipt.getGiftVOList());
+		// 库存赠送单总价
 		stockControl.addGift(giftReceipt);
 		assertEquals(total, stockControl.getGiftCost());
-		giftReceipt.deleteGood(good3);
-		total -= good3.getPrice();
-		assertEquals(total, giftReceipt.getTotal());
 
 	}
 }
