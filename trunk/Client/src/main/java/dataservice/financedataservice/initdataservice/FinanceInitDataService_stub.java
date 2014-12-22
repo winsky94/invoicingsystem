@@ -35,4 +35,10 @@ public class FinanceInitDataService_stub implements FinanceInitDataService{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
 }
