@@ -2,9 +2,10 @@ package Receipt;
 
 
 
+import businesslogic.financebl.CashList;
 import businesslogic.financebl.MockAccount;
 import businesslogic.financebl.MockCashList;
-import businesslogic.financebl.cashListItem;
+import businesslogic.financebl.MockcashListItem;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.receiptbl.Review;
 import junit.framework.TestCase;
@@ -17,14 +18,14 @@ public class RedExtruTest extends TestCase{
 	private Receipt receipt;
 	private MockCashList cashList;
 	private MockAccount account;
-	private cashListItem item1,item2;
+	private MockcashListItem item1,item2;
 	
 	
 	public void setUp() throws Exception{
 		account=new MockAccount("邮政储蓄","6221503000010256558",100000);
 		review=new Review();
-		item1=new cashListItem("公费旅游",12000,"10-13日员工奖励");
-		item2=new cashListItem("添置高清投影仪",20000,"无");
+		item1=new MockcashListItem("公费旅游",12000,"10-13日员工奖励");
+		item2=new MockcashListItem("添置高清投影仪",20000,"无");
 						
 	}	
 	public void testRedExtru() throws Exception{

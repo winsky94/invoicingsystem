@@ -7,9 +7,15 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
+import po.MemberPO.MemberLevel;
+import po.MemberPO.MemberType;
 import vo.MemberVO;
+import businesslogic.memberbl.MemAccountInfo;
+import businesslogic.memberbl.MemBaseInfo;
+import businesslogic.memberbl.MemContactInfo;
+import businesslogic.memberbl.Member;
 import businesslogicservice.memberblservice.MemberBLService;
-import businesslogicservice.memberblservice.MemberBLService_stub;
+
 
 public class MemberBLService_DriverTest extends TestCase {
 	private MemberBLService m;
@@ -18,8 +24,8 @@ public class MemberBLService_DriverTest extends TestCase {
 	ByteArrayOutputStream beos = null;
 
 	// --------------------------------------------
-	public void setUp() {
-		m = new MemberBLService_stub();
+	public void setUp() throws Exception {
+		m = new	Member();
 		beos = new ByteArrayOutputStream();
 		console = System.out;
 		System.setOut(new PrintStream(beos));
@@ -31,11 +37,12 @@ public class MemberBLService_DriverTest extends TestCase {
 
 	@Test
 	public void test() {
-		MemberVO vo = new MemberVO(line, null, null, line, line, line, line,
-				line, line, 0, 0, 0);
+		MemberVO vo =new MemberVO(new MemBaseInfo(MemberType.JHS,MemberLevel.ONE,"JHS-0000007",
+				"客户A",0,"业务员甲"),new MemAccountInfo(100000,0,0),new MemContactInfo(
+						"15850698062","南大仙林校区","210046","a@164.com"));
 		String message = "";
 		int resultAdd = m.addMember(vo);
-		int resultDel = m.deleteMember(vo);
+		int resultDel = m.deleteMember(vo.getMemberID());
 		int resultMod = m.modifyMember(vo);
 		m.findMember(message);
 		m.showMembers();

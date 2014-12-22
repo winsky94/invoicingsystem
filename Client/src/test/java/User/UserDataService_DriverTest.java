@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 import junit.framework.TestCase;
 import po.UserPO;
 import dataservice.userdataservice.UserDataService;
+import dataservice.userdataservice.UserDataService_stub;
 
 public class UserDataService_DriverTest extends TestCase {
 	private UserDataService userDataService;

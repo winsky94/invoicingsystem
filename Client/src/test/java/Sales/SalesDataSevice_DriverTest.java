@@ -2,15 +2,20 @@ package Sales;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
 import org.junit.Test;
 
+import po.CommodityPO;
 import po.PurchasePO;
 import po.PurchaseReturnPO;
 import po.SalePO;
 import po.SaleReturnPO;
+import po.ReceiptPO.ReceiptType;
+import vo.PurchaseReturnVO;
+import vo.PurchaseVO;
 import dataservice.salesdataservice.SalesDataService;
 import dataservice.salesdataservice.SalesDataService_stub;
 
@@ -34,14 +39,27 @@ public class SalesDataSevice_DriverTest extends TestCase{
 
 	@Test
 	public void test() {
-
+		ArrayList<CommodityPO> al=new ArrayList<CommodityPO>();
+		CommodityPO item =new CommodityPO("0001-001-0001","飞利浦日光灯","SRO1",100,158,100,198,98,"这是个灯");
+		al.add(item);
+		double discount[]=new double[]{1,1,1,1};
+		double total[]=new double[]{2,2,2,2,2};
+        PurchasePO pp=new PurchasePO("JHD-20141208-00001", "金大大","JHS-00001","2", "XS-00002", null,
+				"",0,0,1, 0);
+        
+        
 		
-        PurchasePO pp=new PurchasePO(null, line,null, line, line, null, 0, 0, line, line, 0);
-		PurchaseReturnPO prp=new PurchaseReturnPO(line, null, pp, null, 0, line, 0);
+		PurchaseReturnPO prp=new PurchaseReturnPO("JHTHD-20141208-00001", "JHS-00001","金大大","2",
+				"JHD-20141208-00001","XS-00002",
+				al,"",12000,0,0);
 
 
-		SalePO sp=new SalePO(null, null, null, null, null, null, null, 0, 0, null, null, 0, 0, 0, 0, 0, 0);
-    	SaleReturnPO srp=new SaleReturnPO(line, null, sp, null, 0, line, 0);
+		SalePO sp=new SalePO("金大大",al,"XSD-20141202-00001",
+				"JHS-0000001","马建国","XS-00001",1,1,"这是个销售单","02","SP-20141208-001", "", discount,total);
+		
+		
+    	SaleReturnPO srp=new SaleReturnPO("金大大",al,"XSTHD-20141202-00001",
+    			"JHS-0000001","马建国","XS-00001",1,1,"","2",discount,total);
 		String message="";
 		s.createPurchase(pp);
 		s.createPurchaseReturn(prp);
@@ -58,10 +76,12 @@ public class SalesDataSevice_DriverTest extends TestCase{
 		s.showSale();
 		s.showSaleReturn();
 		//
-		s.findPurchase(message);
-		s.findPurchaseReturn(message);
-		s.findSale(message);
-		s.findSaleReturn(message);
+		String type="时间区间";
+		message="2014120120141209";
+		s.findPurchase(message,type);
+		s.findPurchaseReturn(message,type);
+		s.findSale(message,type);
+		s.findSaleReturn(message,type);
 		//
 		assertEquals("createPurchase" + line
 				+ "createPurchaseReturn" + line

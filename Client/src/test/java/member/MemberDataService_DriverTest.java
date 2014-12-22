@@ -8,6 +8,8 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 import po.MemberPO;
+import po.MemberPO.MemberLevel;
+import po.MemberPO.MemberType;
 import dataservice.memberdataservice.MemberDataService;
 import dataservice.memberdataservice.MemberDataService_stub;
 
@@ -31,11 +33,11 @@ public class MemberDataService_DriverTest extends TestCase{
 
 	@Test
 	public void test() {
-		MemberPO po = new MemberPO(line, null, null, line, line, line, line,
-				line, line, 0, 0, 0);
+		MemberPO po = new MemberPO("JHS-0000001", MemberType.JHS, MemberLevel.ONE,"马建国","23333","深圳市蛇口区",
+				"210046","a@qq.com","一米五小公主", 100, 0,0,0);;
 		String message = "";
 		m.add(po);
-		m.delete(po);
+		m.delete(po.getMemberID());
 		m.modify(po);
 		m.find(message);
 		assertEquals("Add Successfully!" + line

@@ -3,6 +3,7 @@ package User;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import po.UserPO.UserJob;
 import junit.framework.TestCase;
 import vo.UserVO;
 import businesslogic.userbl.User;
@@ -27,8 +28,9 @@ public class UserBLService_DriverTest extends TestCase {
 		System.setOut(console);
 	}
 
-	public void testStockGoodsBLDrive() {
-		UserVO vo = new UserVO(null, null, null, null);
+	//String name, String ID, String password, UserJob job,double grades)
+	public void testUserBLDrive() {
+		UserVO vo = new UserVO("jc小金金","JL-00001","123456",UserJob.MANAGER,100);
 		int resultAdd = userBLService.addUser(vo);
 		int resultMod = userBLService.modifyUser(vo);
 		int resultDel = userBLService.deleteUser(vo.getID());
