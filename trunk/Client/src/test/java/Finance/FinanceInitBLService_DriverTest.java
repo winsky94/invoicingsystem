@@ -33,7 +33,7 @@ public class FinanceInitBLService_DriverTest extends TestCase{
 	
 	public void testInitBLdrive() throws RemoteException {
 		BeginInfoVO vo=new BeginInfoVO();
-		int result=initblservice.initInfo(vo);
+		int result=initblservice.initInfo("heheda",vo);
 		initblservice.getInfo(null);
 		assertEquals(0,result);
 		assertEquals("Initial stock success!"+line

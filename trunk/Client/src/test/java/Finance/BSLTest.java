@@ -3,13 +3,14 @@ package Finance;
 import java.rmi.RemoteException;
 import java.text.ParseException;
 
+import po.MemberPO.MemberLevel;
+import po.MemberPO.MemberType;
 import junit.framework.TestCase;
 import businesslogic.financebl.BSL;
-import businesslogic.memberbl.MemberLevel;
-import businesslogic.memberbl.MemberType;
 import businesslogic.memberbl.MockMember;
 import businesslogic.promotionbl.MockCoupon;
-import businesslogic.salesbl.CommodityList;
+import businesslogic.promotionbl.giftCouponPro;
+import businesslogic.salesbl.MockCommodityList;
 import businesslogic.salesbl.MockPurchaseReturnList;
 import businesslogic.salesbl.MockSale;
 import businesslogic.salesbl.MockSaleItem;
@@ -27,13 +28,14 @@ public class BSLTest extends TestCase {
 	private MockCoupon coupon;
 	private StockOverOrLowManage stockOver;
 	private MockStockControl stockControl;
-	private CommodityList list;
+	private MockCommodityList list;
 	private StockOverOrLowManage stockLow;
 	private MockMember member;
 	private GiftReceipt gift;
 	private MockSaleList saleList1,saleList2;
 	private MockPurchaseReturnList purchaseReturnList;
 	public void setUp() throws ParseException {
+		try {
 		good = new MockGoods("01010001", "飞利浦日光灯", "SR01", 10, 100, 200);
 		good1 = new MockGoods("01010001", "飞利浦日光灯", "SR02", 10, 100, 200);
 		good2 = new MockGoods("01010001", "飞利浦日光灯", "SR02", 10, 85, 200);
@@ -41,15 +43,21 @@ public class BSLTest extends TestCase {
 		sale2 = new MockSale("00002");
 		stockOver = new StockOverOrLowManage("飞利浦日光灯", "SR01", 100, 90);
 		stockControl = new MockStockControl();
-		list = new CommodityList();
+		list = new 	MockCommodityList();
 		coupon = new MockCoupon("20141015-0001", 1000);
 		member = new MockMember("01100", MemberType.XSS, MemberLevel.ONE,
 				"Jim", 10000);
-		gift = new GiftReceipt(member);
+		
+		gift = new GiftReceipt();
+		
 		good3 = new MockGoods("01010001", "飞利浦日光灯", "SR03", 10, 100, 200);
 		saleList1=new MockSaleList();
 		saleList2=new MockSaleList();
 		purchaseReturnList=new MockPurchaseReturnList(850.0);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 	}
 
@@ -65,7 +73,12 @@ public class BSLTest extends TestCase {
 		assertEquals(400.0, salesIncome);
 		
 		// 库存报溢收入
-		stockControl.addStockOver(stockOver);
+		try {
+			stockControl.addStockOver(stockOver);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		double goodsOverIncome = stockControl.getGoodsOverIncome();
 		assertEquals(2000.0, goodsOverIncome);
 		
@@ -80,7 +93,14 @@ public class BSLTest extends TestCase {
 		assertEquals(850.0, importReturnIncome);
 		
 		// 代金券与实际收款差额收入
-		sale1.useCoupon(coupon);
+		giftCouponPro g=null;
+		try {
+			g = new giftCouponPro();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		g.useCoupon(coupon.getID(),true);
 		saleList2.AddSale(sale1);
 		double couponIncome = saleList2.getCouponIncome();
 		assertEquals(600.0, couponIncome);
@@ -91,12 +111,17 @@ public class BSLTest extends TestCase {
 		
 		// 库存报损支出
 		stockLow = new StockOverOrLowManage("飞利浦日光灯", "SR01", 95, 100);
-		stockControl.addStockLow(stockLow);
+		try {
+			stockControl.addStockLow(stockLow);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		double goodsLowCost = stockControl.getGoodsLowCost();
 		assertEquals(1000.0, goodsLowCost);
 		
 		// 库存赠送支出
-		gift.addGood(good3);
+		gift.add();
 		stockControl.addGift(gift);
 		double goodsGiftCost = stockControl.getGiftCost();
 		assertEquals(200.0, goodsGiftCost);

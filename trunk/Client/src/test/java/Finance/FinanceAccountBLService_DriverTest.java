@@ -31,15 +31,15 @@ public class FinanceAccountBLService_DriverTest extends TestCase{
 		AccountVO vo=new AccountVO();
 		int resultAdd=accountblservice.addAccount(vo);
 		int resultDel=accountblservice.deleteAccount(vo);
-		int resultMod=accountblservice.modifyAccount(vo);
+		int resultMod=accountblservice.modifyAccount(vo,"newName");
 		accountblservice.findAccount(null);
 		assertEquals(0,resultAdd);
 		assertEquals(0,resultDel);
 		assertEquals(0,resultMod);
 		assertEquals("Add Account Success!"+line
 				+"Delete Account Success!"+line
-				+"Modify account success!"+line
-				+"Find account success!"+line,bytes.toString());		
+				+"Modify Account Success!"+line
+				+"Find Account Success!"+line,bytes.toString());		
 	}
 	
 }
