@@ -51,6 +51,7 @@ public class ModifyCashlistPanel extends AddCashReceiptPanel implements ActionLi
 		}
 		
 		// -----------title------------------
+		titlePnl.remove(title);
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
