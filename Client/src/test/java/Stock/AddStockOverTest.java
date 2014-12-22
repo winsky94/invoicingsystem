@@ -4,7 +4,8 @@ import java.rmi.RemoteException;
 import java.text.ParseException;
 
 import junit.framework.TestCase;
-import businesslogic.stockbl.goods.MockGoods;
+import vo.GoodsVO;
+import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.stockbl.stockManage.StockOverOrLowManage;
 
 public class AddStockOverTest extends TestCase {
@@ -14,17 +15,20 @@ public class AddStockOverTest extends TestCase {
 	int num;
 	int exactNum;
 	int gap;
-	MockGoods good;
+	GoodsVO goodVO;
+	GoodsController gController;
 
 	public void setUp() throws ParseException {
-		goodsID = "01010001";
+		goodsID = "0004-SR01-0000";
 		goodsName = "飞利浦日光灯";
 		size = "SR01";
-		num = 100;
-		exactNum = 90;
+		num = 90;
+		exactNum = 100;
 		gap = num - exactNum;
+		gController = new GoodsController();
 		try {
-			good = new MockGoods("01010001", "飞利浦日光灯", "SR01", 10, 200, 100);
+			goodVO = new GoodsVO("0004-SR01-0000", "飞利浦日光灯", "SR01", 0, 150.0,
+					200.0, 0.0, 0.0, "飞利浦", "", 30);
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
@@ -36,15 +40,9 @@ public class AddStockOverTest extends TestCase {
 				goodsName, size, num, exactNum);
 		double total = 0;
 		try {
-			total = good.getGoods(goodsID).getPrice() * (num - exactNum);
-		} catch (Exception e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
-		try {
-			assertEquals(total,
-					stockOverOrLowReceipt.getGap()
-							* good.getGoods(goodsID).getPrice());
+			total = gController.findByID(goodsID).getPrice() * (num - exactNum);
+			assertEquals(total, stockOverOrLowReceipt.getGap()
+					* gController.findByID(goodsID).getPrice());
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();

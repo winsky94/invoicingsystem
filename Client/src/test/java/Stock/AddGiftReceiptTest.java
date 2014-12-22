@@ -8,16 +8,11 @@ import junit.framework.TestCase;
 import po.ReceiptPO.ReceiptType;
 import vo.CommodityVO;
 import businesslogic.stockbl.gift.GiftReceipt;
-import businesslogic.stockbl.stockManage.MockStockControl;
-
-//rmi报错
 
 public class AddGiftReceiptTest extends TestCase {
 	private GiftReceipt giftReceipt;
-	private MockStockControl stockControl;
 	private CommodityVO c1;
 	private ArrayList<CommodityVO> giftList;
-	private double total;
 
 	public void setUp() throws ParseException {
 		try {
@@ -25,7 +20,6 @@ public class AddGiftReceiptTest extends TestCase {
 					150.0, 1, 150.0, 100.0, "");
 			giftList = new ArrayList<CommodityVO>();
 			giftList.add(c1);
-			stockControl = new MockStockControl();
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
@@ -37,9 +31,6 @@ public class AddGiftReceiptTest extends TestCase {
 		giftReceipt = new GiftReceipt("id", "00001", "小赵", "KC-00001",
 				ReceiptType.GIFT, 0, 0, "", giftList);
 		assertEquals(giftList, giftReceipt.getGiftVOList());
-		// 库存赠送单总价
-		stockControl.addGift(giftReceipt);
-		assertEquals(total, stockControl.getGiftCost());
-
+		giftReceipt.add();
 	}
 }
