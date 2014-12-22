@@ -2,7 +2,11 @@ package Presentation.salesui.manage.sale;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
+import po.UserPO.UserJob;
 import vo.SaleVO;
+import vo.UserVO;
 import businesslogic.salesbl.SalesController;
 import businesslogic.userbl.User;
 import businesslogicservice.salesblservice.viewInfoService;
@@ -61,6 +65,6 @@ public class SaleDetailPanel extends AddSalePanel{
 		
 		
 	}
-
+	
 
 }

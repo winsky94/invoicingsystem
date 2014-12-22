@@ -34,6 +34,7 @@ import vo.GoodsVO;
 import vo.LogVO;
 import vo.MemberVO;
 import vo.SaleVO;
+import vo.UserVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
@@ -72,16 +73,18 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 	ArrayList<Double> last_bid = new ArrayList<Double>();
 	double[] total = new double[5];
 	double[] discount = new double[4];
-	String proid = "", couponid = "";
+	String proid = "", couponid = "",memid;
 	double pre = 0, coupon = 0;
 	// public MainFrame parent;
 	SalesBLService service;
 	JPanel btnPnl,p2,p1,p3;
+	String UserID;
 
 	public AddSalePanel(MainFrame frame) throws Exception {
 		parent = frame;
 		service = new SalesController();
 		initialArray();
+		UserID=frame.getUser().getID();
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 10, 5, 10);
@@ -489,7 +492,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 			cmlist.add(cv);
 		}
 		getCost();
-		String memid = "";
+		 memid = "";
 		int i = XSSBox.getSelectedIndex() - 1;
 		if (i >= 0){
 			memid = idtxt[i];
@@ -498,8 +501,8 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 		int hurry = 1;
 		if (hurryBox.isSelected())
 			hurry = 0;
-		sale = new SaleVO(clerkFld.getText(), cmlist, id, mem, memid, parent
-				.getUser().getID(), 0, hurry, remarkFld.getText(),
+		sale = new SaleVO(clerkFld.getText(), cmlist, id, mem, memid, UserID
+				, 0, hurry, remarkFld.getText(),
 				stockFld.getText(), proid, couponid, total, discount);}
 
 	}

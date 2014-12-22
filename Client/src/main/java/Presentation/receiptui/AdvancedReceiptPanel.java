@@ -200,6 +200,7 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 			ModSalePanel sale=new ModSalePanel(father,id);
 			sale.UseToModify(ok);
 			return sale;
+
 		case COLLECTION:
 			ModifyCollectionPanel collection=new ModifyCollectionPanel(id,father);
 		    collection.UseToModify(ok); 
@@ -212,6 +213,7 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 			ModifyCashlistPanel cashlist=new ModifyCashlistPanel(id,father);
 			cashlist.UseToModify(ok);
 			return cashlist;
+
 		}
 		
 			

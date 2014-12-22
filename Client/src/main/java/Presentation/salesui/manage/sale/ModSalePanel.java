@@ -5,13 +5,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import po.UserPO.UserJob;
 import businesslogic.salesbl.SalesController;
 import businesslogicservice.salesblservice.SalesBLService;
 import vo.LogVO;
 import vo.SaleVO;
+import vo.UserVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import Presentation.mainui.log;
@@ -29,8 +32,14 @@ public class ModSalePanel extends JPanel{
 		vo=service.SFindByID(id);
 		
 		p=new AddSalePanel(father);
+		p.id=id;
+		p.UserID=vo.getUser();
+		p.proid=vo.getProid();
+		
 		this.setLayout(new BorderLayout());
 		this.add(p,BorderLayout.CENTER);
+		p.discount=vo.getDiscount();
+		p.total=vo.getTotal();
 		p.title.setText("修改销售单");
 		p.IDLbl.setText("编号:"+vo.getId());
 		p.XSSBox.setSelectedItem(vo.getMemberName());
@@ -48,7 +57,10 @@ public class ModSalePanel extends JPanel{
 		ArrayList<Object> list=new ArrayList<Object>();
 		list.addAll(vo.getSalesList());
 		p.RefreshCTable(list);
+		ActionListener[] listen=p.submitBtn.getActionListeners();
+		
 		p.submitBtn.removeActionListener(p);
+		p.exitBtn.removeActionListener(p);
 		p.submitBtn.addActionListener(new ActionListener(){
 
 			@Override
@@ -61,10 +73,6 @@ public class ModSalePanel extends JPanel{
 						log.addLog(new LogVO(log.getdate(),parent.getUser()
 							.getID(), parent.getUser().getName(), "修改一笔销售单", 3));
 						headPane.RefreshGrades();
-						SaleMgrPanel sp = new SaleMgrPanel(parent);
-						parent.setRightComponent(sp);
-						sp.RefreshPanel();
-
 					} else
 						JOptionPane.showMessageDialog(null, "销售单修改失败", "提示",
 							JOptionPane.WARNING_MESSAGE);
@@ -86,5 +94,15 @@ public class ModSalePanel extends JPanel{
 		p.exitBtn.addActionListener(ok);
 		
 	}
+	
+/*	public static void main(String[] args) throws Exception {
+		 JFrame test=	new JFrame();
+		 MainFrame frame=new MainFrame(new UserVO("JL-00001","","",UserJob.SALE,1));
+		 test.add(new ModSalePanel( frame,"XSD-20141221-00001"));
+		 test.setSize(500,400);
+		 test.setVisible(true);
+		 test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		}*/
+
 }
 
