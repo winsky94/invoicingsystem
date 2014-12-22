@@ -106,9 +106,11 @@ public class ModifyCashlistPanel extends AddCashReceiptPanel implements ActionLi
 	    }
 	   
 		super.up.remove(accountBox);
+		super.up.remove(totalLbl);
 		JLabel al=new JLabel();
 		al.setText(v.getAccount());
 		up.add(al);
+		up.add(totalLbl);
 		final ArrayList<ClauseItemVO> t=v.getClauselist();
 		for(int i=0;i<t.size();i++){
 		    ClauseItemVO tt=t.get(i);
@@ -127,13 +129,19 @@ public class ModifyCashlistPanel extends AddCashReceiptPanel implements ActionLi
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 		
-				ClauseItemVO it=t.get(e.getFirstIndex());
+			//	ClauseItemVO it=t.get(e.getLastIndex());
+				System.out.println("FIRST:"+e.getFirstIndex());
+				System.out.println("LAST:"+e.getLastIndex());
+				ClauseItemVO it=t.get(table.getSelectedRow());
 				nameFld.setText(it.getName()+"");
 				moneyFld.setText(it.getMoney()+"");
 				moneyFld.setEditable(false);
 				remarkFld.setText(it.getInfo());
 			
+				
 			}
+			
+			
 		    });
 	}
 
