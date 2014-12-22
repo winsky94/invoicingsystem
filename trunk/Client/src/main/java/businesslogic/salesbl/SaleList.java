@@ -29,7 +29,7 @@ public class SaleList implements SaleListBLService{
 	
 	}
 	
-	public double saleIncome(String startDate,String endDate){
+	public double getSaleIncome(String startDate,String endDate){
 		double profit=0;
 		ArrayList<SalePO> spo1=service.findSale(startDate+endDate, "时间区间");
 		ArrayList<SaleReturnPO> spo2=service.findSaleReturn(startDate+endDate, "时间区间");
@@ -64,7 +64,7 @@ public class SaleList implements SaleListBLService{
 		
 	}
 	
-	public double saleCost(String startDate,String endDate){
+	public double getSaleCost(String startDate,String endDate){
 		double profit=0;
 		ArrayList<SalePO> spo1=service.findSale(startDate+endDate, "时间区间");
 		ArrayList<SaleReturnPO> spo2=service.findSaleReturn(startDate+endDate, "时间区间");
@@ -79,7 +79,7 @@ public class SaleList implements SaleListBLService{
 		return profit;
 	}
 	
-	public double goodsOver(String startDate,String endDate){
+	public double getGoodsOver(String startDate,String endDate){
 		StockControlBLService scb=new StockControlController();
 		return scb.getGoodsOverIncome(startDate,endDate);
 	}
@@ -90,7 +90,7 @@ public class SaleList implements SaleListBLService{
 	}*/
 	
 	
-	public double couponProfitCalc(String startDate,String endDate){
+	public double getCouponProfitCalc(String startDate,String endDate){
 		//计算代金券与实际收款差额收入
 		double profit=0;
 		ArrayList<SalePO> spo=service.findSale(startDate+endDate, "时间区间");
@@ -102,7 +102,7 @@ public class SaleList implements SaleListBLService{
 		return profit;
 	}
 	
-	public double purchaseReturnProfitCalc(String startDate,String endDate) {
+	public double getPurchaseReturnProfitCalc(String startDate,String endDate) {
 		// 计算商品进货退货差价收入  退货钱更多？
 		double prprofit=0;
 		ArrayList<PurchaseReturnPO> ppo=service.findPurchaseReturn(startDate+endDate, "时间区间");
@@ -117,17 +117,17 @@ public class SaleList implements SaleListBLService{
 		return prprofit;
 	}
 	
-	public double goodsLow(String startDate,String endDate){
+	public double getGoodsLow(String startDate,String endDate){
 		StockControlBLService scb=new StockControlController();
 		return scb.getGoodsLowCost(startDate, endDate);
 	}
 	
-	public double goodsGift(String startDate,String endDate){
+	public double getGoodsGift(String startDate,String endDate){
 		StockControlBLService scb=new StockControlController();
 		return scb.getGiftCost(startDate, endDate);
 	}
 	
-	public double DiscountMoney(String startDate,String endDate){
+	public double getDiscountMoney(String startDate,String endDate){
 		double profit=0;
 		ArrayList<SalePO> spo1=service.findSale(startDate+endDate, "时间区间");
 		if(spo1!=null)
@@ -138,7 +138,7 @@ public class SaleList implements SaleListBLService{
 		return profit;
 	}
 	
-	public double GiftCouponUseCost(String startDate,String endDate){
+	public double getGiftCouponUseCost(String startDate,String endDate){
 		giftCouponPro gcp=null;
 		try {
 			gcp=new giftCouponPro();
@@ -246,5 +246,9 @@ public class SaleList implements SaleListBLService{
 		}
 		
 		
-	}	
+	}
+
+	
+
+	
 }
