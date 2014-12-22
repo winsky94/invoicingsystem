@@ -69,6 +69,8 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 	GridBagConstraints c = new GridBagConstraints();
 	JPanel btnPnl;
 	JPanel up;
+	JPanel titlePnl;
+	JLabel title;
 	
 	public AddCashReceiptPanel(MainFrame frame) {
 		parent=frame;
@@ -77,10 +79,10 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 		this.setBackground(Color.white);
 		this.setLayout(gbl);
 		// -----------title------------------
-		JPanel titlePnl = new JPanel();
+		titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("创建现金费用单");
+	    title = new JLabel("创建现金费用单");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
