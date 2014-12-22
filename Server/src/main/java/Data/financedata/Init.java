@@ -103,7 +103,30 @@ public class Init extends UnicastRemoteObject implements FinanceInitDataService{
 		return JXCFile.getCurrentTime();
 	}
 	
+	public String getRecentStockTime(){
+		try {
+			ArrayList<BeginInfoPO> po=showAll();
+			if(po==null)
+				return "2014-11-01";
+			else{
+				BeginInfoPO pp=po.get(po.size()-1);
+				String recent=pp.getTime();
+				return "2014-11-01";
+			}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "2014-11-01";
+	}
+	
 	public void setTime(String s) throws RemoteException{
 		JXCFile.setTime(s);
 	}
+	
+	public void reset(){
+		JXCFile.reset();
+	}
+	
+	
 }

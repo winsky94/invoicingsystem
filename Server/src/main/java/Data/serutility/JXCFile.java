@@ -12,7 +12,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+
+import Data.financedata.Init;
 
 
 public class JXCFile {
@@ -32,6 +35,16 @@ public class JXCFile {
 		}
 	}
 
+	public static void reset(){
+		try {
+			Init i=new Init();
+			String s=i.getRecentStockTime();
+			setTime(s);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public static String getCurrentTime(){
 		
