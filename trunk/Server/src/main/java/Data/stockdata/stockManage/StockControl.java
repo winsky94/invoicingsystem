@@ -28,20 +28,20 @@ public class StockControl extends UnicastRemoteObject implements
 	}
 
 	public int addStockOverOrLow(StockOverOrLowPO po) throws RemoteException {
-		// TODO 自动生成的方法存根
+		overOrLowFile = new JXCFile("overOrLowReceipt.ser");
 		overOrLowFile.write(po);
 		return 0;
 	}
 
 	public int addStockError(StockErrorPO po) throws RemoteException {
-		// TODO 自动生成的方法存根
+		errorFile = new JXCFile("errorReceipt.ser");
 		errorFile.write(po);
 		return 0;
 	}
 
 	public ArrayList<StockOverOrLowPO> getStockOverOrLowPO()
 			throws RemoteException {
-		// TODO 自动生成的方法存根
+		overOrLowFile = new JXCFile("overOrLowReceipt.ser");
 		ArrayList<StockOverOrLowPO> result = new ArrayList<StockOverOrLowPO>();
 		ArrayList<Object> list = overOrLowFile.read();
 
@@ -54,6 +54,7 @@ public class StockControl extends UnicastRemoteObject implements
 	}
 
 	public ArrayList<StockErrorPO> getStockErrorPO() throws RemoteException {
+		errorFile = new JXCFile("errorReceipt.ser");
 		ArrayList<StockErrorPO> result = new ArrayList<StockErrorPO>();
 		ArrayList<Object> list = errorFile.read();
 
@@ -67,7 +68,7 @@ public class StockControl extends UnicastRemoteObject implements
 
 	public int recordPrimeCostIncome(String primeCostIncome)
 			throws RemoteException {
-		// TODO 自动生成的方法存根
+		file = new JXCFile("primeChangeRecord.ser");
 		ArrayList<Object> originRecord = file.read();
 
 		String[] newData = primeCostIncome.split(";");
@@ -119,7 +120,7 @@ public class StockControl extends UnicastRemoteObject implements
 	}
 
 	public ArrayList<String> getPrimeCostIncome() throws RemoteException {
-		// TODO 自动生成的方法存根
+		file = new JXCFile("primeChangeRecord.ser");
 		ArrayList<Object> preRecordObject = new ArrayList<Object>();
 		preRecordObject = file.read();
 		ArrayList<String> record = new ArrayList<String>();
@@ -131,6 +132,9 @@ public class StockControl extends UnicastRemoteObject implements
 	}
 
 	public String getMaxID() throws RemoteException {
+		overOrLowFile = new JXCFile("overOrLowReceipt.ser");
+		errorFile = new JXCFile("errorReceipt.ser");
+		file = new JXCFile("primeChangeRecord.ser");
 		String result = "";
 		ArrayList<StockOverOrLowPO> list = getStockOverOrLowPO();
 
@@ -170,6 +174,9 @@ public class StockControl extends UnicastRemoteObject implements
 	}
 
 	public String getErrorMaxID() throws RemoteException {
+		overOrLowFile = new JXCFile("overOrLowReceipt.ser");
+		errorFile = new JXCFile("errorReceipt.ser");
+		file = new JXCFile("primeChangeRecord.ser");
 		String result = "";
 		ArrayList<StockErrorPO> list = getStockErrorPO();
 
@@ -217,6 +224,9 @@ public class StockControl extends UnicastRemoteObject implements
 	}
 
 	public StockOverOrLowPO findByID(String id) throws RemoteException {
+		overOrLowFile = new JXCFile("overOrLowReceipt.ser");
+		errorFile = new JXCFile("errorReceipt.ser");
+		file = new JXCFile("primeChangeRecord.ser");
 		StockOverOrLowPO po = null;
 		ArrayList<StockOverOrLowPO> list = getStockOverOrLowPO();
 		if (list != null) {
@@ -231,8 +241,9 @@ public class StockControl extends UnicastRemoteObject implements
 	}
 
 	public int excute(StockOverOrLowPO po) throws RemoteException {
-		// TODO 自动生成的方法存根
-		// 直接修改状态然后存储就好了，修改库存在bl层
+		overOrLowFile = new JXCFile("overOrLowReceipt.ser");
+		errorFile = new JXCFile("errorReceipt.ser");
+		file = new JXCFile("primeChangeRecord.ser");
 		ArrayList<Object> list = new ArrayList<Object>();
 		list = overOrLowFile.read();
 		for (int i = 0; i < list.size(); i++) {
@@ -250,7 +261,7 @@ public class StockControl extends UnicastRemoteObject implements
 	}
 
 	public int modify(StockOverOrLowPO po) throws RemoteException {
-		// TODO 自动生成的方法存根
+		overOrLowFile = new JXCFile("overOrLowReceipt.ser");
 		ArrayList<Object> list = new ArrayList<Object>();
 		list = overOrLowFile.read();
 		for (int i = 0; i < list.size(); i++) {

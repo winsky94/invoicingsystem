@@ -23,14 +23,14 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 	}
 
 	public int addGift(GiftPO po) throws RemoteException {
-		// TODO 自动生成的方法存根
+		file = new JXCFile("gift.ser");
 		file.write(po);
 		return 0;
 	}
 
 	// 注：处理库存赠送单的时候只需要将单据状态改变就好了，修改库存操作已在bl层处理过
 	public int dealGift(GiftPO po) throws RemoteException {
-		// TODO 自动生成的方法存根
+		file = new JXCFile("gift.ser");
 		ArrayList<Object> list = new ArrayList<Object>();
 		list = file.read();
 		for (int i = 0; i < list.size(); i++) {
@@ -48,6 +48,7 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 	}
 
 	public int modify(ReceiptPO po) {
+		file = new JXCFile("gift.ser");
 		ArrayList<Object> a = file.read();
 		if (a == null)
 			return 1;
@@ -64,7 +65,7 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 	}
 
 	public ArrayList<GiftPO> getGiftList() throws RemoteException {
-		// TODO 自动生成的方法存根
+		file = new JXCFile("gift.ser");
 		ArrayList<Object> list = new ArrayList<Object>();
 		list = file.read();
 		ArrayList<GiftPO> result = new ArrayList<GiftPO>();
@@ -79,7 +80,7 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 
 	public ArrayList<GiftPO> getGiftList(String beginDate, String endDate)
 			throws RemoteException {
-		// TODO 自动生成的方法存根
+		file = new JXCFile("gift.ser");
 		ArrayList<GiftPO> list = new ArrayList<GiftPO>();
 		ArrayList<GiftPO> result = new ArrayList<GiftPO>();
 		list = getGiftList();
@@ -94,7 +95,7 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 	}
 
 	public String getMaxID() throws RemoteException {
-		// TODO 自动生成的方法存根
+		file = new JXCFile("gift.ser");
 		ArrayList<GiftPO> list = getGiftList();
 		String result = "";
 
@@ -134,6 +135,7 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 	}
 
 	public GiftPO findByID(String id) throws RemoteException {
+		file = new JXCFile("gift.ser");
 		GiftPO po = null;
 		ArrayList<GiftPO> list = getGiftList();
 		if (list != null) {
@@ -148,6 +150,7 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 	}
 
 	private String getDate() {
+		file = new JXCFile("gift.ser");
 		Calendar rightNow = Calendar.getInstance();
 		SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
 		String sysDatetime = fmt.format(rightNow.getTime());
@@ -156,7 +159,7 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 	}
 
 	public int modify(GiftPO po) throws RemoteException {
-		// TODO 自动生成的方法存根
+		file = new JXCFile("gift.ser");
 		ArrayList<Object> a = file.read();
 
 		int i;

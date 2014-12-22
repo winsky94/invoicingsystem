@@ -23,6 +23,7 @@ public class Collection extends UnicastRemoteObject implements CollectionDataSer
 		file=new JXCFile("collection.ser");
 	}
 	public int createCollection(CollectionPO po) throws RemoteException{
+		file=new JXCFile("collection.ser");
 		file.write(po);
 		num++;
 /*		ArrayList<Object> al2=file.read();
@@ -38,6 +39,7 @@ public class Collection extends UnicastRemoteObject implements CollectionDataSer
 	}
 	
 	public ArrayList<CollectionPO> getCollection() throws RemoteException{
+		file=new JXCFile("collection.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -53,6 +55,7 @@ public class Collection extends UnicastRemoteObject implements CollectionDataSer
 	}
 	
 	public int setStatus(String id,int st){
+		file=new JXCFile("collection.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	 
@@ -73,6 +76,7 @@ public class Collection extends UnicastRemoteObject implements CollectionDataSer
 	}
 	
 	public int modify(CollectionPO po){
+		file=new JXCFile("collection.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	 
@@ -93,6 +97,7 @@ public class Collection extends UnicastRemoteObject implements CollectionDataSer
 	}
 	
 	public CollectionPO findByID(String id){
+		file=new JXCFile("collection.ser");
 		try {
 			ArrayList<CollectionPO> po=getCollection();
 			if(po==null)
@@ -112,6 +117,7 @@ public class Collection extends UnicastRemoteObject implements CollectionDataSer
 	}
 	
 	public ArrayList<CollectionPO> findByMember(String s){
+		file=new JXCFile("collection.ser");
 		ArrayList<CollectionPO> al=new ArrayList<CollectionPO>();
 		try {
 			ArrayList<CollectionPO> po=getCollection();
@@ -135,6 +141,7 @@ public class Collection extends UnicastRemoteObject implements CollectionDataSer
 	}
 	
 	public int getNum() throws RemoteException{
+		file=new JXCFile("collection.ser");
 		return num;
 	}
 
