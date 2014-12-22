@@ -7,8 +7,8 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
+import businesslogic.salesbl.SaleList;
 import businesslogicservice.salesblservice.SaleListBLService;
-import businesslogicservice.salesblservice.SaleListBLService_stub;
 
 public class SaleListBLService_DriverTest extends TestCase{
 	private SaleListBLService s;
@@ -17,8 +17,8 @@ public class SaleListBLService_DriverTest extends TestCase{
 	ByteArrayOutputStream beos = null;
 
 	// --------------------------------------------
-	public void setUp() {
-		s = new SaleListBLService_stub();
+	public void setUp() throws Exception {
+		s = new SaleList();
 		beos = new ByteArrayOutputStream();
 		console = System.out;
 		System.setOut(new PrintStream(beos));
@@ -30,14 +30,17 @@ public class SaleListBLService_DriverTest extends TestCase{
 
 	@Test
 	public void test() {
-		s.showSaleList();
-		s.exportSaleListToExcel();
-		s.couponProfitCalc();
-		s.purchaseReturnProfitCalc();
-		s.totalMoneyWeGot();
-		s.totalMoneyWePaid();
+		String startDate="20141201";
+		String endDate="20141209";
+		s.getAllSale();
+		s.getAllPurchase();
+		s.couponProfitCalc(startDate, endDate);
+		s.purchaseReturnProfitCalc(startDate, endDate);
+		s.saleIncome(startDate, endDate);
+		s.saleCost(startDate, endDate);
+		//注 替换后 工程已不输出
 		assertEquals("showSaleList!"+ line
-				+"Export to Excel!"+ line
+				+"showPurchaseList!"+ line
 				+"couponProfitCalc"+ line
 				+"purchaseReturnProfitCalc"+line
 				+"totalMoneyWeGot"+ line

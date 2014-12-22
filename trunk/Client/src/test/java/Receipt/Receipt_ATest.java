@@ -152,9 +152,7 @@ public class Receipt_ATest extends TestCase{
 		co.AccurateFind(message);
 		ReceiptVO vo=new ReceiptVO("SKD-20141211-00001",ReceiptType.CASHLIST,"JL-00001",
 				0,0);
-		co.Add(vo);
 		co.Approve(vo.getId(),1);
-		co.Excute(vo.getId(),ReceiptType.COLLECTION);
 		co.getSale();
 		co.Approved();
 		String id[]=new String[]{vo.getId()};
