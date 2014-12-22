@@ -21,12 +21,14 @@ public class Log extends UnicastRemoteObject implements LogService{
 	}
 
 	public void AddLog(LogPO po) throws RemoteException {
+		file=new JXCFile("log.ser");
 		file.write(po);
 		User user=new User();
 		user.addGrades(po.getUserID(),po.getAddGrades());
 	}
 
 	public ArrayList<LogPO> showAll() throws RemoteException {
+		file=new JXCFile("log.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -41,6 +43,7 @@ public class Log extends UnicastRemoteObject implements LogService{
 	}
 	
 	public ArrayList<LogPO> find(String startDate, String endDate) throws RemoteException {
+		file=new JXCFile("log.ser");
 		ArrayList<LogPO> log=showAll();
 		if(log==null)
 			return null;

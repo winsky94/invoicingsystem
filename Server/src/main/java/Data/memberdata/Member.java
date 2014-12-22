@@ -24,11 +24,13 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 	}
 
 	public int add(MemberPO po) {
+		file=new JXCFile("member.ser");
 		file.write(po);
 		return 0;
 	}
 
 	public int delete(String id) {
+		file=new JXCFile("member.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	  //不存在该用户	
@@ -47,6 +49,7 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 	}
 	
 	public int changeToReceive(String id,double m)throws RemoteException{
+		file=new JXCFile("member.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	  //不存在该用户	
@@ -69,6 +72,7 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 	}
 	
 	public int changeToPay(String id,double m)throws RemoteException{
+		file=new JXCFile("member.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	  //不存在该用户	
@@ -89,6 +93,7 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 	}
 
 	public int modify(MemberPO po) {
+		file=new JXCFile("member.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	  //不存在该用户	
@@ -120,6 +125,7 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 	}
 	
 	public MemberPO findByID(String ID){
+		file=new JXCFile("member.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -134,6 +140,7 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 	}
 
 	public ArrayList<MemberPO> find(String message) {
+		file=new JXCFile("member.ser");
 		ArrayList<MemberPO> buffer=new ArrayList<MemberPO>();
 		ArrayList<Object> a=file.read();
 		String s1="进货商";
@@ -177,6 +184,7 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 	}
 
 	public ArrayList<MemberPO> showAll() throws RemoteException {
+		file=new JXCFile("member.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -191,6 +199,7 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 	}
 	
 	public ArrayList<MemberPO> show(MemberType type)throws RemoteException{
+		file=new JXCFile("member.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -214,6 +223,7 @@ public class Member extends UnicastRemoteObject implements MemberDataService{
 	}
 	
 	public int getNum(MemberType type){
+		file=new JXCFile("member.ser");
 		ArrayList<Object> a=file.read();
 		int num=0;
 		

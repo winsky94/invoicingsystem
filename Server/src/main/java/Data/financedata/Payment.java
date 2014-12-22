@@ -23,12 +23,14 @@ public class Payment extends UnicastRemoteObject implements PaymentDataService{
 	}
 
 	public int createPayment(PaymentPO po) throws RemoteException {
+		file=new JXCFile("payment.ser");
 		file.write(po);
 		num++;
 		return 0;
 	}
 	
 	public int modify(PaymentPO po){
+		file=new JXCFile("payment.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	 
@@ -49,6 +51,7 @@ public class Payment extends UnicastRemoteObject implements PaymentDataService{
 	}
 	
 	public int setStatus(String id,int st){
+		file=new JXCFile("payment.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	 
@@ -69,6 +72,7 @@ public class Payment extends UnicastRemoteObject implements PaymentDataService{
 	}
 	
 	public ArrayList<PaymentPO> getPayment() throws RemoteException{
+		file=new JXCFile("payment.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -84,6 +88,7 @@ public class Payment extends UnicastRemoteObject implements PaymentDataService{
 	}
 	
 	public PaymentPO findByID(String id){
+		file=new JXCFile("payment.ser");
 		try {
 			ArrayList<PaymentPO> po=getPayment();
 			if(po==null)
@@ -103,6 +108,7 @@ public class Payment extends UnicastRemoteObject implements PaymentDataService{
 	}
 	
 	public ArrayList<PaymentPO> findByMember(String s){
+		file=new JXCFile("payment.ser");
 		ArrayList<PaymentPO> al=new ArrayList<PaymentPO>();
 		try {
 			ArrayList<PaymentPO> po=getPayment();
@@ -127,6 +133,7 @@ public class Payment extends UnicastRemoteObject implements PaymentDataService{
 	
 	
 	public int getNum() throws RemoteException{
+		file=new JXCFile("payment.ser");
 		return num;
 	}
 

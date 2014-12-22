@@ -24,6 +24,7 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 	
 
 	public int addAccount(AccountPO po) {
+		file=new JXCFile("account.ser");
 	    if(myFindAccount(po.getName())==null){
 	    	  file.write(po);
 	          return 0;
@@ -33,6 +34,7 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 	}
 
 	public int deleteAccount(AccountPO po) {
+		file=new JXCFile("account.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	  //不存在该用户	
@@ -51,6 +53,7 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 	}
 
 	public int modifyAccount(AccountPO po,String name) {
+		file=new JXCFile("account.ser");
 		if(myFindAccount(name)!=null){
 			return 1;
 		}
@@ -73,6 +76,7 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 	}
 	
 	public int addMoney(String s,double m) throws RemoteException{
+		file=new JXCFile("account.ser");
 		 ArrayList<Object> a=file.read();
 			
 			if(a==null)
@@ -92,6 +96,7 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 	}
 	
 	public int delMoney(String s,double m) throws RemoteException{
+		file=new JXCFile("account.ser");
 		 ArrayList<Object> a=file.read();
 			
 			if(a==null)
@@ -111,6 +116,7 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 	}
 
 	private AccountPO myFindAccount(String s){
+		file=new JXCFile("account.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -124,6 +130,7 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 	}
 	
 	public AccountPO findByName(String s) throws RemoteException {
+		file=new JXCFile("account.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -137,6 +144,7 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 	}
 	
 	public ArrayList<AccountPO> findAccount(String s) {
+		file=new JXCFile("account.ser");
 		ArrayList<Object> a=file.read();
 		ArrayList<AccountPO> buffer=new ArrayList<AccountPO>();
 		if(a==null)
@@ -151,6 +159,7 @@ public class Account extends UnicastRemoteObject implements FinanceAccountDataSe
 	}
 	
 	public ArrayList<AccountPO> showAll(){
+		file=new JXCFile("account.ser");
 		ArrayList<Object> a=file.read();
 		ArrayList<AccountPO> buffer=new ArrayList<AccountPO>();
 		if(a==null)

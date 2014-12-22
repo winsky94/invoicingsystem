@@ -21,12 +21,14 @@ public class Cashlist extends UnicastRemoteObject implements CashlistDataService
 		file=new JXCFile("cashlist.ser");
 	}
 	public int createCashlist(CashlistPO po) throws RemoteException {
+		file=new JXCFile("cashlist.ser");
 		file.write(po);
 		num++;
 		return 0;
 	}
 	
 	public int setStatus(String id,int st){
+		file=new JXCFile("cashlist.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	 
@@ -47,6 +49,7 @@ public class Cashlist extends UnicastRemoteObject implements CashlistDataService
 	}
 	
 	public int modify(CashlistPO po){
+		file=new JXCFile("cashlist.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return 1;  	 
@@ -67,6 +70,7 @@ public class Cashlist extends UnicastRemoteObject implements CashlistDataService
 	}
 	
 	public ArrayList<CashlistPO> getCashlist() throws RemoteException{
+		file=new JXCFile("cashlist.ser");
 		ArrayList<Object> a=file.read();
 		if(a==null)
 			return null;
@@ -82,6 +86,7 @@ public class Cashlist extends UnicastRemoteObject implements CashlistDataService
 	}
 	
 	public CashlistPO findByID(String id){
+		file=new JXCFile("cashlist.ser");
 		try {
 			ArrayList<CashlistPO> po=getCashlist();
 			if(po==null)
@@ -101,6 +106,7 @@ public class Cashlist extends UnicastRemoteObject implements CashlistDataService
 	}
 	
 	public int getNum() throws RemoteException{
+		file=new JXCFile("cashlist.ser");
 		return num;
 	}
 

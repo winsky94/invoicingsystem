@@ -20,13 +20,13 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 	}
 
 	public int addGoods(GoodsPO po) throws RemoteException {
-		// TODO 自动生成的方法存根
+		file = new JXCFile("stock.ser");
 		file.write(po);
 		return 0;
 	}
 
 	public int deleteGoods(GoodsPO po) throws RemoteException {
-		// TODO 自动生成的方法存根
+		file = new JXCFile("stock.ser");
 		ArrayList<Object> a = file.read();
 
 		int i;
@@ -42,7 +42,7 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 	}
 
 	public int modifyGoods(GoodsPO po) throws RemoteException {
-		// TODO 自动生成的方法存根
+		file = new JXCFile("stock.ser");
 		ArrayList<Object> a = file.read();
 
 		int i;
@@ -59,7 +59,7 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 	}
 
 	public ArrayList<GoodsPO> findGoods(String message) throws RemoteException {
-		// TODO 自动生成的方法存根
+		file = new JXCFile("stock.ser");
 		ArrayList<Object> a = file.read();
 		ArrayList<GoodsPO> result = new ArrayList<GoodsPO>();
 		int i;
@@ -77,7 +77,7 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 	}
 
 	public GoodsPO findByID(String id) throws RemoteException {
-		// TODO 自动生成的方法存根
+		file = new JXCFile("stock.ser");
 		GoodsPO result = null;
 		ArrayList<Object> list = new ArrayList<Object>();
 		list = file.read();
@@ -93,7 +93,7 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 	}
 
 	public ArrayList<GoodsPO> showGoods() throws RemoteException {
-		// TODO 自动生成的方法存根
+		file = new JXCFile("stock.ser");
 		ArrayList<GoodsPO> result = new ArrayList<GoodsPO>();
 		ArrayList<Object> a = file.read();
 		if (a == null) {
@@ -110,7 +110,7 @@ public class Goods extends UnicastRemoteObject implements StockGoodsDataService 
 	}
 
 	public String getMaxID() throws RemoteException {
-		// TODO 自动生成的方法存根
+		file = new JXCFile("stock.ser");
 		ArrayList<GoodsPO> list = showGoods();
 		String result = "";
 		if (list.size() != 0) {
