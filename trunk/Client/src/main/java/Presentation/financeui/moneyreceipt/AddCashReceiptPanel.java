@@ -158,7 +158,7 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 		up.add(userLbl);
 		up.add(new JLabel("     "));
 		// ------account---------
-		JLabel accLbl = new JLabel("账户：");
+		JLabel accLbl = new JLabel("账户:");
 		accLbl.setFont(font);
 		up.add(accLbl);
 		//---------------------------
