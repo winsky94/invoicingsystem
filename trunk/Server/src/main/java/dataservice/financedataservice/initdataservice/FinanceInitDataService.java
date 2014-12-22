@@ -12,4 +12,5 @@ public interface FinanceInitDataService extends Remote{
 	public String getCurrentTime() throws RemoteException;
 	public ArrayList<BeginInfoPO> showAll() throws RemoteException;
 	public void setTime(String s) throws RemoteException;
+	public void reset() throws RemoteException;
 }
