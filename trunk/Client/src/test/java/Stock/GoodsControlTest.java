@@ -5,25 +5,28 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
-import businesslogic.stockbl.goods.MockGoods;
-import businesslogic.stockbl.goodsClass.MockGoodsClass;
+import vo.GoodsClassVO;
+import vo.GoodsVO;
+import businesslogic.stockbl.goods.GoodsController;
 
 //rmi 错误
 public class GoodsControlTest extends TestCase {
-	MockGoodsClass goodsClass1, goodsClass2;
+	GoodsClassVO goodsClass1, goodsClass2;
 	String ClassName1;
 	String upClass1;
 	String ClassID1;
-
-	MockGoods good1, good2;
+	GoodsController gController;
+	GoodsVO good1, good2;
 
 	public void setUp() throws ParseException {
-		goodsClass1 = new MockGoodsClass("0001", "日光灯类", null);
-		goodsClass2 = new MockGoodsClass("0002", "飞利浦日光灯", goodsClass1);
-
+		goodsClass1 = new GoodsClassVO("飞利浦", "灯具");
+		goodsClass2 = new GoodsClassVO("日光灯", "飞利浦");
+		gController = new GoodsController();
 		try {
-			good1 = new MockGoods("00020001", "飞利浦日光灯", "SR01", 10, 200, 100);
-			good2 = new MockGoods("00020002", "飞利浦日光灯", "SR02", 20, 300, 200);
+			good1 = new GoodsVO("0004-SR01-0000", "飞利浦日光灯", "SR01", 0, 100.0,
+					150.0, 0.0, 0.0, "飞利浦", "", 30);
+			good2 = new GoodsVO("0004-SR02-0000", "飞利浦日光灯", "SR02", 0, 100.0,
+					150.0, 0.0, 0.0, "飞利浦", "", 30);
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
@@ -31,14 +34,15 @@ public class GoodsControlTest extends TestCase {
 
 	}
 
-	public void testAddGiftReceipt() throws RemoteException {
+	public void testAdd() throws RemoteException {
 		// 查找商品分类
-		MockGoods good = good1.findByClass(goodsClass2);
-		assertEquals(good1, good);
+		GoodsVO good = gController.showGoodsByClass(goodsClass2.getName()).get(
+				0);
+		assertEquals(good1.getName(), good.getName());
 		// 添加商品
-		ArrayList<MockGoods> goodsList = null;
+		ArrayList<GoodsVO> goodsList = null;
 		try {
-			goodsList = goodsClass2.findsGoodsInClass(goodsClass2);
+			goodsList = gController.showGoodsByClass(goodsClass2.getName());
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
