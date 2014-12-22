@@ -59,6 +59,7 @@ public class GiftPanel extends JPanel implements ActionListener {
 		detailBtn.addActionListener(this);
 		topPnl.add(detailBtn);
 		refreshBtn = new MyButton("刷新", new ImageIcon("img/stock/refresh.png"));
+		refreshBtn.addActionListener(this);
 		topPnl.add(refreshBtn);
 		// ---------------------------------------------
 		c.gridx = 0;
@@ -110,7 +111,7 @@ public class GiftPanel extends JPanel implements ActionListener {
 			father.setRightComponent(new CreateGiftPanel(father));
 
 			gm = new GiftModel();
-			giftTbl = new JTable(gm);
+			giftTbl.setModel(gm);
 			// table 渲染器，设置文字内容居中显示，设置背景色等
 			DefaultTableCellRenderer tcr = new MyTableCellRenderer();
 			for (int i = 0; i < giftTbl.getColumnCount(); i++) {
@@ -126,6 +127,16 @@ public class GiftPanel extends JPanel implements ActionListener {
 			} else {
 				String id = (String) giftTbl.getValueAt(rownum, 0);
 				father.setRightComponent(new GiftDetailPanel(father, id));
+			}
+		}
+		if (e.getSource() == refreshBtn) {
+			gm = new GiftModel();
+			giftTbl.setModel(gm);
+			// table 渲染器，设置文字内容居中显示，设置背景色等
+			DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+			for (int i = 0; i < giftTbl.getColumnCount(); i++) {
+				giftTbl.getColumn(giftTbl.getColumnName(i))
+						.setCellRenderer(tcr);
 			}
 		}
 	}

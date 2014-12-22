@@ -139,9 +139,9 @@ public class GiftReceipt extends Receipt {
 				boolean result = stockController.stockNumCheck(good
 						.getGoodsID());
 				if (result) {
-					//
-					JOptionPane.showMessageDialog(null, "库存报警啦！", null,
-							JOptionPane.WARNING_MESSAGE);
+//					//
+//					JOptionPane.showMessageDialog(null, "库存报警啦！", null,
+//							JOptionPane.WARNING_MESSAGE);
 				}
 
 			}

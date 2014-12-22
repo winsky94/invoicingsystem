@@ -10,8 +10,11 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import businesslogic.utilitybl.getServer;
 import po.StockErrorPO;
+import vo.ReceiptMessageVO;
+import businesslogic.receiptbl.ReceiptMessage;
+import businesslogic.utilitybl.getDate;
+import businesslogic.utilitybl.getServer;
 import dataservice.stockdataservice.controldataservice.StockControlDataService;
 
 public class StockErrorReceipt {
@@ -78,7 +81,22 @@ public class StockErrorReceipt {
 			exactID += nf.format(tp + 1);
 		}
 		StockErrorPO po = new StockErrorPO(exactID, goodName, size, date);
+		Send();
 		return service.addStockError(po);
+
+	}
+
+	// 发送库存报警信息给库存人员
+	public void Send() {
+		ReceiptMessage message;
+		try {
+			message = new ReceiptMessage();
+			message.addMessage(new ReceiptMessageVO(3, getDate.getAllDate()
+					+ ":" + goodName + "-" + size + "库存报警！"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
