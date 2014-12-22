@@ -11,10 +11,15 @@ import java.awt.event.MouseListener;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import vo.AccountVO;
+import vo.CashlistVO;
+import vo.CollectionVO;
+import vo.PaymentVO;
 import vo.UserVO;
 import Presentation.mainui.JLeftButton;
 import Presentation.mainui.MainFrame;
@@ -171,8 +176,11 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 			try {
 				service = new Account();
 				frame.setRightComponent(mgr);
+				ArrayList<AccountVO> a=new ArrayList<AccountVO>();
 				if( service.showAll()!=null)
 					mgr.RefreshAccountTable(service.showAll());
+				else
+					mgr.RefreshAccountTable(a);
 				mgr.table.revalidate();
 				mgr.table.repaint();
 			} catch (MalformedURLException e1) {
@@ -195,12 +203,23 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 				PaymentBLService pp=new Payment();
 				CollectionBLService bb=new Collection();
 	  			CashlistBLService cc=new CashList();
+	  			ArrayList<CollectionVO> a=new ArrayList<CollectionVO>();
+	  			ArrayList<PaymentVO> b=new ArrayList<PaymentVO>();
+	  			ArrayList<CashlistVO> c=new ArrayList<CashlistVO>();
 	  			if (pp.getPayment()!= null)
 	  			    mgr.RefreshPaymentTable(pp.getPayment());
+	  			else
+	  				 mgr.RefreshPaymentTable(b);
+	  			
 	  			if(bb.getCollection()!=null)
 	  			    mgr.RefreshCollectionTable(bb.getCollection());
+	  			else
+	  				mgr.RefreshCollectionTable(a);
+	  			
 	  			if(cc.getCashlist()!=null)
 	  				mgr.RefreshCashlistTable(cc.getCashlist());
+	  			else
+	  				mgr.RefreshCashlistTable(c);
 	  			mgr.t1.revalidate();
 	  			mgr.t2.revalidate();
 	  			mgr.t3.revalidate();
