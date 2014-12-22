@@ -104,7 +104,7 @@ public class LossPanel extends ChooseGoodsFatherPane implements ActionListener {
 		JPanel lossPnl = new JPanel();
 		lossPnl.setBackground(Color.white);
 		mid.add(lossPnl);
-		JLabel lossLbl = new JLabel("报损数量：");
+		JLabel lossLbl = new JLabel("实际数量：");
 		lossLbl.setFont(font);
 		lossPnl.add(lossLbl);
 		exactNumFld = new JTextField(6);

@@ -33,7 +33,11 @@ public class OverModel extends AbstractTableModel {
 				hang.add(vo.getId());
 				hang.add(vo.getGoodsName());
 				hang.add(vo.getSize());
-				hang.add(String.valueOf((0 - vo.getGap())));
+				int gap = vo.getGap();
+				if (gap < 0) {
+					gap = -gap;
+				}
+				hang.add(String.valueOf(gap));
 				hang.add(getUserNameByID(vo.getUser()));
 				hang.add(vo.getDate());
 				if (vo.getStatus() == 0) {
@@ -65,7 +69,11 @@ public class OverModel extends AbstractTableModel {
 			hang.add(vo.getId());
 			hang.add(vo.getGoodsName());
 			hang.add(vo.getSize());
-			hang.add(String.valueOf((0 - vo.getGap())));
+			int gap = vo.getGap();
+			if (gap < 0) {
+				gap = -gap;
+			}
+			hang.add(String.valueOf(gap));
 			hang.add(getUserNameByID(vo.getUser()));
 			hang.add(vo.getDate());
 			if (vo.getStatus() == 0) {
