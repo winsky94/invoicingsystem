@@ -6,26 +6,16 @@ import po.BeginInfoPO;
 
 public class FinanceInitDataService_stub implements FinanceInitDataService{
 
-	public int initInfo(BeginInfoPO po) {
-		System.out.println("Initial stock success!");
-		return 0;
-	}
-
-	public BeginInfoPO getInfo(BeginInfoPO po) {
-		System.out.println("Show beginInformation success!");
-		return new BeginInfoPO();
-	}
-
 	@Override
 	public int initInfo(String time, BeginInfoPO po) {
-		// TODO Auto-generated method stub
+		System.out.println("Initial stock success!");
 		return 0;
 	}
 
 	@Override
 	public BeginInfoPO getInfo(String time) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("Show beginInformation success!");
+		return new BeginInfoPO();
 	}
 
 	@Override
