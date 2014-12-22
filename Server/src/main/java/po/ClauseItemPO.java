@@ -33,6 +33,10 @@ public class ClauseItemPO implements Serializable{
 		 return info;
 	 }
 	 
+	 public void setMoney(double m){
+		 money=m;
+	 }
+	 
 	 public void setInfo(String s){
 		 info=s;
 	 }
