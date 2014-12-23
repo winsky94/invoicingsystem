@@ -15,7 +15,7 @@ public interface PromotionBLService {
 		public PromotionVO find(String id ,PromotionType type);
 		
 		
-		public GiftVO Present(PromotionVO vo);
+		
 		public ArrayList<PromotionVO> Show();
 
 }

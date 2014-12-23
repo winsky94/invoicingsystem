@@ -111,10 +111,7 @@ public class promotionController implements PromotionViewService,
 	}
 	return vo;
 }
-	public GiftVO Present(PromotionVO vo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	public ArrayList<PromotionVO> Show() {
 		// TODO Auto-generated method stub

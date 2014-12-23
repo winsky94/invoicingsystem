@@ -49,17 +49,15 @@ public  class promotion {
 	//发布和添加？
 	public  int Add(PromotionVO vo){return 0;};
 	public  int Modify(PromotionVO vo){return 0;};
-	public PromotionVO findByID(String id){return null;};
-
+	public PromotionVO findByID(String id){
+		return null;
+		};
 	
+	public void Excute(String proid,SaleVO vo){};
 	public PromotionVO Match(SaleVO vo){return null;};
 	
-	//自动生成库存赠送但
-	public GiftVO Present(PromotionVO vo){
-		
-		return null;
 	
-	}
+	
 	//子类不重写
 	public ArrayList<PromotionVO> Show(){
 		ArrayList<PromotionPO> po=service.showAll();
@@ -74,19 +72,8 @@ public  class promotion {
 		
 	}
 	
-	//查看某条记录
-	public PromotionVO show(String id){
+	
 		
-		return null;
-	}
-	
-	
-
-	
-	public String getNewID() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	public PromotionVO poToVo(PromotionPO po){
 		PromotionVO vo=new PromotionVO(po.getID(),po.getStartDate(),po.getEndDate(),
