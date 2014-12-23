@@ -28,11 +28,13 @@ public class ReceiptDataService_DriverTest extends TestCase{
 	public void testReceiptDatadrive() throws RemoteException{
 		ReceiptPO po=new ReceiptPO();
 	//	receiptdataservice.init();
-		int resultAdd=receiptdataservice.Add(po);
+		boolean resultAdd=false;
+		if(receiptdataservice.Add(po)==null)
+			resultAdd=true;
 		int resultMod=receiptdataservice.Modify(po);
 		ReceiptPO receipt=receiptdataservice.findById("SKD-20141015-00001");
 		receiptdataservice.showAll();
-		assertEquals(0,resultAdd);
+		assertEquals(true,resultAdd);
 		assertEquals(0,resultMod);
 		assertEquals("init Success!"+line+
 				"Add Receipt Success!"+line+
