@@ -9,7 +9,7 @@ import po.ReceiptPO;
 import po.ReceiptPO.ReceiptType;
 
 public interface ReceiptDataService extends Remote {
-	public int Add(ReceiptPO po)throws RemoteException;
+	public ReceiptPO Add(ReceiptPO po)throws RemoteException;
 	public ReceiptPO addAndCopy(ReceiptPO po) throws RemoteException;
 	public ReceiptPO findById(String id)throws RemoteException;
 	public int Modify(ReceiptPO po)throws RemoteException;
