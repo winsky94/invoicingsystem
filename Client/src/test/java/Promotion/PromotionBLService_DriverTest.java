@@ -54,7 +54,7 @@ public class PromotionBLService_DriverTest extends TestCase{
 		int resultMod=promotionblservice.Modify(vo);
 		PromotionMatchService matchservice=new promotionController();
 		SaleVO resultMat=matchservice.Match(salevo);
-		GiftVO giftvo=promotionblservice.Present(vo);
+		//GiftVO giftvo=promotionblservice.Present(vo);
 		promotionblservice.Show();
 		assertEquals(0,resultAdd);
 		assertEquals(0,resultMod);
