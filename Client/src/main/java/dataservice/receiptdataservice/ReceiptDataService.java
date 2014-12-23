@@ -9,7 +9,7 @@ import po.ReceiptPO.ReceiptType;
 
 public interface ReceiptDataService extends Remote{
 	//红冲
-	public int Add(ReceiptPO po);
+	public ReceiptPO Add(ReceiptPO po);
 	//红冲并复制
 	public ReceiptPO addAndCopy(ReceiptPO po) ;
 	public ReceiptPO findById(String id);
