@@ -33,8 +33,8 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 	 * totalValue;//折让后收入 private double proValue;//促销让利； private double
 	 * preValue;//会员让利 private double addDiscount; private double toPay;
 	 */
-	SalesDataService service;
-	static Commodity com;
+	private SalesDataService service;
+	private static Commodity com;
 
 	public Sale() throws Exception {
 		String host = getServer.getServer();

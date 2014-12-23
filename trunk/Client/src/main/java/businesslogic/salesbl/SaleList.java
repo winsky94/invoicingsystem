@@ -19,7 +19,7 @@ import businesslogicservice.salesblservice.SaleListBLService;
 import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
 
 public class SaleList implements SaleListBLService{
-	SalesDataService service;
+	private SalesDataService service;
 
 	public SaleList() throws Exception {
 		String host=getServer.getServer();
@@ -211,7 +211,7 @@ public class SaleList implements SaleListBLService{
 	
 	}
 
-	public ReceiptVO findReceiptByID(String ID) throws RemoteException {
+/*public ReceiptVO findReceiptByID(String ID) throws RemoteException {
 		// TODO Auto-generated method stub
 		ReceiptPO p=service.findReceiptByID(ID);
 		if(p==null)return null;
@@ -234,7 +234,7 @@ public class SaleList implements SaleListBLService{
 		}
 		
 		
-	}
+	}*/
 
 	
 

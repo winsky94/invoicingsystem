@@ -23,8 +23,8 @@ import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import dataservice.salesdataservice.SalesDataService;
 
 public class Purchase extends Receipt {
-	static Commodity com;
-	SalesDataService service;
+	private static Commodity com;
+	private SalesDataService service;
 
 	public Purchase() throws Exception {
 		String host = getServer.getServer();

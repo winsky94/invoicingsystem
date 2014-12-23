@@ -26,8 +26,8 @@ import dataservice.salesdataservice.SalesDataService;
 public class PurchaseReturn extends Receipt {
 	private double total;
 
-	static Commodity com;
-	SalesDataService service;
+	private static Commodity com;
+	private SalesDataService service;
 
 	public PurchaseReturn() throws Exception {
 		String host = getServer.getServer();
