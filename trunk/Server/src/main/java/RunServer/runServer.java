@@ -209,13 +209,15 @@ public class runServer extends JFrame implements ActionListener{
 	
 	public void init(String port){
 		try {
-
+				// 169.254.207.55
 			// 客户端启用的端口号为1099 yan 11-18
 			RMISocketFactory.setSocketFactory(new SMRMISocket());
 			String hostIP = InetAddress.getLocalHost().getHostAddress();
+			System.out.println();
+			//String hostIP="localhost";
 			int portNum=Integer.parseInt(port);
 			LocateRegistry.createRegistry(portNum);// 客户端启用的注册端口号为1099 yan 11-18
-			System.setProperty("java.rmi.server.hostname","192.168.1.1");
+			//System.setProperty("java.rmi.server.hostname","172.26.7.84");
 		
 			System.out.println("已启动服务器");
 			User user = new User();
