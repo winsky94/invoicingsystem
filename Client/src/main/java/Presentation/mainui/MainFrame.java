@@ -57,7 +57,9 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 
 			// 给panel加上图片
 			protected void paintComponent(Graphics g) {
-				ImageIcon icon = new ImageIcon("img/mainFrame/welcome.png");
+			//	ImageIcon icon = new ImageIcon("img/mainFrame/welcome.png");
+				ImageIcon icon = new ImageIcon("img/mainFrame/new year.jpg");
+			//	ImageIcon icon = new ImageIcon("img/mainFrame/heheda.jpg");
 				Image img = icon.getImage();
 				g.drawImage(img, 0, 0, getWidth(), getHeight(),
 						icon.getImageObserver());
