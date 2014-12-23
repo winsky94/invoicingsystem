@@ -18,7 +18,9 @@ public class RedExtrusion extends UnicastRemoteObject implements RedExtrusionDat
 	public RedExtrusion() throws RemoteException{
 		super();
 	}
+
 	public ReceiptPO createRedExtrusion(ReceiptPO po) throws RemoteException {
+
 		ReceiptType type=po.getType();
 		if(type==ReceiptType.COLLECTION){
 			Collection c=new Collection();
@@ -41,7 +43,9 @@ public class RedExtrusion extends UnicastRemoteObject implements RedExtrusionDat
             c.createCashlist(p2);
             return p2;
 		}
+
 		return null;
+
 	}
 	public ReceiptPO createRedExtrusionAndCopy(ReceiptPO po) throws RemoteException {
 		ReceiptType type=po.getType();

@@ -41,10 +41,10 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		super();
 	}
 	
-	public int Add(ReceiptPO po) throws RemoteException {
+	public ReceiptPO Add(ReceiptPO po) throws RemoteException {
        RedExtrusion r=new RedExtrusion();
        r.createRedExtrusion(po);
-       return 0;
+       return null;
 	}
 
 	public ReceiptPO addAndCopy(ReceiptPO po) throws RemoteException{
