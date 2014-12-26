@@ -44,7 +44,7 @@ public class PurchaseTest extends TestCase {
 	//	purchaseList2 = new PurchaseList();
 	}
 
-	public void testAddPromotion() throws Exception {
+	public void testAddPurchase() throws Exception {
 		// 进货单审批不通过
 	//	purchase1.AddGood(good);
 		pur=new Purchase();
