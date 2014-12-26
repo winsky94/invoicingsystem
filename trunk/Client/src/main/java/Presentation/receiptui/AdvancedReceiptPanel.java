@@ -34,7 +34,7 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	JPanel infoPnl, btnPnl;
-	MainFrame father;
+	static MainFrame father;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	Color color = new Color(115, 46, 126);
 	//
@@ -43,6 +43,7 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 	JButton exitBtn;
 	ReceiptType type;
 	JPanel exitPnl;
+	
 	public AdvancedReceiptPanel(JPanel info , MainFrame frame ,String id,ReceiptType type) {
 		infoPnl = info;
 		 father=frame;
@@ -155,7 +156,9 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 					update();
 			
 			}else if(e.getSource()==modBtn){
-				JPanel pane=getModPanel(id,type);
+				modOkListener ok=new modOkListener();
+				JPanel pane=getModPanel(id,type,ok,false);
+				
 				if(pane!=null){
 					AdvancedReceiptPanel advance=new AdvancedReceiptPanel(pane,
 							father, id,type);
@@ -202,37 +205,37 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 	}
 	
 	
-	public JPanel getModPanel(String id,ReceiptType type) throws Exception{
-		ActionListener ok=new modOkListener();
+	public static JPanel getModPanel(String id,ReceiptType type,ActionListener ok,boolean isRed) throws Exception{
+		
 		switch(type){
 		case SALE:
 			ModSalePanel sale=new ModSalePanel(id,father);
-			sale.UseToModify(ok);
+			sale.UseToModify(ok,isRed);
 			return sale;
 
 		case COLLECTION:
 			ModifyCollectionPanel collection=new ModifyCollectionPanel(id,father);
-		    collection.UseToModify(ok); 
+		    collection.UseToModify(ok,isRed); 
 		    return collection;
 		case PAYMENT:
 			ModifyPaymentPanel payment=new ModifyPaymentPanel(id,father);
-			payment.UseToModify(ok);
+			payment.UseToModify(ok,isRed);
 			return payment;
 		case CASHLIST:
 			ModifyCashlistPanel cashlist=new ModifyCashlistPanel(id,father);
-			cashlist.UseToModify(ok);
+			cashlist.UseToModify(ok,isRed);
 			return cashlist;
 		case PURCHASE:
 			ModPurchasePanel purchase=new ModPurchasePanel(id,father);
-			purchase.UseToModify(ok);
+			purchase.UseToModify(ok,isRed);
 			return purchase;
 		case PURCHASERETURN:
 			ModPurchaseReturnPanel purchaseReturn=new ModPurchaseReturnPanel(id,father);
-			purchaseReturn.UseToModify(ok);
+			purchaseReturn.UseToModify(ok,isRed);
 			return purchaseReturn;
 		case SALERETURN:
 			ModSaleReturnPanel saleReturn=new ModSaleReturnPanel(id,father);
-			saleReturn.UseToModify(ok);
+			saleReturn.UseToModify(ok,isRed);
 			return saleReturn;	
 
 		}
