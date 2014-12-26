@@ -64,9 +64,9 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 	JComboBox<String> JHSBox;
 	String[] idtxt;// 客户id
 	PurchaseBLService service;
-	purchaseSubmitListener psl;
+	 purchaseSubmitListener psl;
 	public exitListen elisten;
-	String id;
+	String id,memid="";
 	JPanel btnPnl, p1,p2;
 	ArrayList<Double> last_bid = new ArrayList<Double>();
 
@@ -144,7 +144,6 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 		JHSBox = new JComboBox<String>(boxText);
 		JHSBox.setBackground(Color.white);
 		JHSBox.setFont(font);
-
 		p1.add(JHSBox);
 		p1.add(new JLabel("     "));
 		// ------操作员----------------
@@ -380,25 +379,8 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 				JOptionPane.showMessageDialog(null, "请选择客户！", "提示",
 						JOptionPane.WARNING_MESSAGE);
 			}else{
-			ArrayList<CommodityVO> cmlist = new ArrayList<CommodityVO>();
-			for (int j = 0; j < table.getRowCount(); j++) {
-				ArrayList<String> line = cmContent.get(j);
-				double cost = Double.parseDouble(line.get(4)) * last_bid.get(j);
-				CommodityVO cv = new CommodityVO(line.get(0), line.get(1),
-						line.get(2), Double.parseDouble(line.get(4)),
-						last_bid.get(j), Integer.parseInt(line.get(3)),
-						Double.parseDouble(line.get(5)), cost, line.get(6));
-				cmlist.add(cv);
-			}
-			int hurry = 1;
-			if (hurryBox.isSelected())
-				hurry = 0;
-			
-		
-			String mem = JHSBox.getSelectedItem().toString();
-			PurchaseVO vo = new PurchaseVO(id, mem, idtxt[i],
-					stockFld.getText(), parent.getUser().getID(), cmlist,
-					remarkFld.getText(), totalMoney, 0, hurry);
+			memid=idtxt[i];
+			PurchaseVO vo=getPurchase();
 			int result = service.addPurchase(vo);
 			if (result == 0) {
 				JOptionPane.showMessageDialog(null, "进货单创建成功");
@@ -430,6 +412,29 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 				return i;
 		}
 		return -1;
+	}
+	
+	
+	public PurchaseVO  getPurchase(){
+		ArrayList<CommodityVO> cmlist = new ArrayList<CommodityVO>();
+		for (int j = 0; j < table.getRowCount(); j++) {
+			ArrayList<String> line = cmContent.get(j);
+			double cost = Double.parseDouble(line.get(4)) * last_bid.get(j);
+			CommodityVO cv = new CommodityVO(line.get(0), line.get(1),
+					line.get(2), Double.parseDouble(line.get(4)),
+					last_bid.get(j), Integer.parseInt(line.get(3)),
+					Double.parseDouble(line.get(5)), cost, line.get(6));
+			cmlist.add(cv);
+		}
+		int hurry = 1;
+		if (hurryBox.isSelected())
+			hurry = 0;
+		
+		String mem = JHSBox.getSelectedItem().toString();
+		PurchaseVO vo = new PurchaseVO(id, mem, memid,
+				stockFld.getText(), parent.getUser().getID(), cmlist,
+				remarkFld.getText(), totalMoney, 0, hurry);
+		return vo;
 	}
 
 }

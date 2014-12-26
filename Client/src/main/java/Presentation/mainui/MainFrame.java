@@ -79,7 +79,7 @@ public class MainFrame extends JFrame implements MouseListener, ActionListener {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setUndecorated(true);
 		this.setVisible(true);
-		this.setIconImage(new ImageIcon("img/Login/logo.png").getImage());
+		this.setIconImage(new ImageIcon("img/icon.png").getImage());
 		jsp.setDividerSize(0);
 		setDividerLocation("long");
 		jsp.setDividerSize(0);
