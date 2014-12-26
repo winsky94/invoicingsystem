@@ -185,8 +185,8 @@ public class LoginFrame extends JFrame{
 					}
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					//JOptionPane.showMessageDialog(null, "您的网络未连接！","提示",JOptionPane.WARNING_MESSAGE);
+					//e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "您的网络未连接！","提示",JOptionPane.WARNING_MESSAGE);
 					//System.exit(0);
 				}
 				
