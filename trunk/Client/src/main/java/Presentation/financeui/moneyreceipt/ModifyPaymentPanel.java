@@ -72,7 +72,7 @@ public class ModifyPaymentPanel extends CollectionAndPaymentPanel implements Act
 		this.add(titlePnl);
 		
 		
-		submitBtn.addActionListener(this);
+		
 		exitBtn.addActionListener(this);
 		ID=v.getId();
 		IDLbl.setText("ID:"+ID);
@@ -207,6 +207,7 @@ public class ModifyPaymentPanel extends CollectionAndPaymentPanel implements Act
 	public void UseToModify(ActionListener ok){
 		submitBtn.addActionListener(ok);
 		exitBtn.addActionListener(ok);
+		submitBtn.addActionListener(this);
 		
 	}
 

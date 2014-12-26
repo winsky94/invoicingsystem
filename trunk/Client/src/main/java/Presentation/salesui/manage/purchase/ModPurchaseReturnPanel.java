@@ -1,6 +1,7 @@
 package Presentation.salesui.manage.purchase;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import vo.CommodityVO;
@@ -14,7 +15,7 @@ public class ModPurchaseReturnPanel extends AddPurchasePanel{
 	 */
 	private static final long serialVersionUID = 1L;
 	PurchaseReturnVO vo;
-	public ModPurchaseReturnPanel(MainFrame frame, String ID) throws Exception {
+	public ModPurchaseReturnPanel( String id,MainFrame frame) throws Exception {
 		super(frame);
 		title.setText("修改进货退货单");
 		IDLbl.setText("编号："+vo.getId());
@@ -29,6 +30,12 @@ public class ModPurchaseReturnPanel extends AddPurchasePanel{
 			plist.add(clist.get(i));
 		RefreshCTable(plist);
 		//12.20待加监听
+	}
+	
+	public void UseToModify(ActionListener ok){
+		submitBtn.addActionListener(ok);
+		exitBtn.addActionListener(ok);
+		
 	}
 
 }

@@ -23,7 +23,10 @@ import Presentation.financeui.moneyreceipt.ModifyCollectionPanel;
 import Presentation.financeui.moneyreceipt.ModifyPaymentPanel;
 import Presentation.mainui.MainFrame;
 import Presentation.receiptui.ReceiptMgrPanel.MyButton;
+import Presentation.salesui.manage.purchase.ModPurchasePanel;
+import Presentation.salesui.manage.purchase.ModPurchaseReturnPanel;
 import Presentation.salesui.manage.sale.ModSalePanel;
+import Presentation.salesui.manage.sale.ModSaleReturnPanel;
 
 public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 	/**
@@ -153,10 +156,14 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 			
 			}else if(e.getSource()==modBtn){
 				JPanel pane=getModPanel(id,type);
-				AdvancedReceiptPanel advance=new AdvancedReceiptPanel(pane,
-						father, id,type);
-				father.setRightComponent(advance);
-				advance.remove(advance.exitPnl);
+				if(pane!=null){
+					AdvancedReceiptPanel advance=new AdvancedReceiptPanel(pane,
+							father, id,type);
+					father.setRightComponent(advance);
+					advance.remove(advance.exitPnl);
+				}else
+					JOptionPane.showMessageDialog(null,"库存太傲娇，不让你改！","提示",JOptionPane.WARNING_MESSAGE);
+					
 				
 			}
 		
@@ -188,6 +195,8 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 			father.setRightComponent(new AdvancedReceiptPanel(pane,
 					father, id,type));
 			
+				
+			
 		}
 		
 	}
@@ -197,7 +206,7 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 		ActionListener ok=new modOkListener();
 		switch(type){
 		case SALE:
-			ModSalePanel sale=new ModSalePanel(father,id);
+			ModSalePanel sale=new ModSalePanel(id,father);
 			sale.UseToModify(ok);
 			return sale;
 
@@ -213,10 +222,20 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 			ModifyCashlistPanel cashlist=new ModifyCashlistPanel(id,father);
 			cashlist.UseToModify(ok);
 			return cashlist;
+		case PURCHASE:
+			ModPurchasePanel purchase=new ModPurchasePanel(id,father);
+			purchase.UseToModify(ok);
+			return purchase;
+		case PURCHASERETURN:
+			ModPurchaseReturnPanel purchaseReturn=new ModPurchaseReturnPanel(id,father);
+			purchaseReturn.UseToModify(ok);
+			return purchaseReturn;
+		case SALERETURN:
+			ModSaleReturnPanel saleReturn=new ModSaleReturnPanel(id,father);
+			saleReturn.UseToModify(ok);
+			return saleReturn;	
 
 		}
-		
-			
 		return null;
 		
 	}

@@ -73,7 +73,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 	ArrayList<Double> last_bid = new ArrayList<Double>();
 	double[] total = new double[5];
 	double[] discount = new double[4];
-	String proid = "", couponid = "",memid;
+	String proid = "", couponid = "",memid="";
 	double pre = 0, coupon = 0;
 	// public MainFrame parent;
 	SalesBLService service;
@@ -166,8 +166,8 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 			public void itemStateChanged(ItemEvent e) {
 				// TODO Auto-generated method stub
 				if (XSSBox.getSelectedIndex() != 0)
-					clerkFld.setText(clerk[XSSBox.getSelectedIndex() - 1]);
-				pre = service.getPrivilege(idtxt[XSSBox.getSelectedIndex() - 1]);
+					{clerkFld.setText(clerk[XSSBox.getSelectedIndex() - 1]);
+					pre = service.getPrivilege(idtxt[XSSBox.getSelectedIndex() - 1]);}
 			}
 		});
 		p1.add(new JLabel("      "));
@@ -495,7 +495,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 		 memid = "";
 		int i = XSSBox.getSelectedIndex() - 1;
 		if (i >= 0){
-			memid = idtxt[i];
+			memid = idtxt[i];}
 
 		String mem = XSSBox.getSelectedItem().toString();
 		int hurry = 1;
@@ -503,7 +503,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 			hurry = 0;
 		sale = new SaleVO(clerkFld.getText(), cmlist, id, mem, memid, UserID
 				, 0, hurry, remarkFld.getText(),
-				stockFld.getText(), proid, couponid, total, discount);}
+				stockFld.getText(), proid, couponid, total, discount);
 
 	}
 

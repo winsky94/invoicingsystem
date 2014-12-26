@@ -62,8 +62,9 @@ public class AddMemberPanel extends JPanel {
 	JLabel postcodeLbl;
 	JLabel EMailLbl;
 	JLabel defaultClerkLbl;
-	String nameText, phoneText, addressText, postcodeText, EMailText,
-			clerkText;
+	//String nameText, phoneText, addressText, postcodeText, EMailText,
+			//clerkText;
+	
 	public AddListener add;
 	public AddMemberPanel(MainFrame frame) throws Exception {
 		parent = frame;
@@ -145,19 +146,9 @@ public class AddMemberPanel extends JPanel {
 		nameFld = new JTextField(6);
 		nameFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		namePnl.add(nameFld);
-		nameFld.addFocusListener(new FocusAdapter(){
-			public void focusLost(FocusEvent e){
-				if(phoneFld.getText()!=""){
-					String regex = "[u4E00-u9FA5]+";
-					if(!postcodeFld.getText().matches(regex)){
-						JOptionPane.showMessageDialog(null, "姓名输入不正确，请重新输入","错误提示",
-								JOptionPane.WARNING_MESSAGE);
-						postcodeFld.setText("");
-					}
-				}
-			}
-		});
-	
+		characterlisten character=new characterlisten();
+		nameFld.addFocusListener(character);
+			
 		// -----------phone-------------
 		JPanel phonePnl = new JPanel();
 		phonePnl.setBackground(Color.white);
@@ -168,7 +159,7 @@ public class AddMemberPanel extends JPanel {
 		phoneFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		phoneFld.addFocusListener(new FocusAdapter(){
 			public void focusLost(FocusEvent e){
-				if(phoneFld.getText()!=""){
+				if(!phoneFld.getText().equals("")){
 				String regex = "[0-9]+";//外国电话怎么办 
 				if(!phoneFld.getText().matches(regex)){
 					JOptionPane.showMessageDialog(null, "电话格式不正确，请重新输入","错误提示",
@@ -191,7 +182,7 @@ public class AddMemberPanel extends JPanel {
 		eMailPnl.add(EMailFld);
 		EMailFld.addFocusListener(new FocusAdapter(){
 			public void focusLost(FocusEvent e){
-				if(EMailFld.getText()!=""){
+				if(!EMailFld.getText().equals("")){
 				String regex = "[a-zA-Z0-9_]{1,12}+@[a-zA-Z]+(\\.[a-zA-Z]+){1,3}";
 				if(!EMailFld.getText().matches(regex)){
 					JOptionPane.showMessageDialog(null, "Email格式不正确，请重新输入","错误提示",
@@ -224,7 +215,7 @@ public class AddMemberPanel extends JPanel {
 		postcodeFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		postcodeFld.addFocusListener(new FocusAdapter(){
 			public void focusLost(FocusEvent e){
-				if(postcodeFld.getText()!=""){
+				if(!postcodeFld.getText().equals("")){
 				String regex = "[0-9]{6,6}";
 				if(!postcodeFld.getText().matches(regex)){
 					JOptionPane.showMessageDialog(null, "邮编格式不正确，请重新输入","错误提示",
@@ -247,6 +238,7 @@ public class AddMemberPanel extends JPanel {
 		defaultClerkFld = new JTextField(6);
 		defaultClerkFld.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		cPnl.add(defaultClerkFld);
+		defaultClerkFld.addFocusListener(character);
 		right.add(cPnl);
 		// ----------submitBtn---------------
 		JPanel btnPnl=new JPanel();
@@ -289,26 +281,34 @@ public class AddMemberPanel extends JPanel {
 				JOptionPane.showMessageDialog(null, "请选择用户类型，并输入信息！", "提示",
 						JOptionPane.CLOSED_OPTION);
 			} else {
-				MemberVO vo=getMemberVO();
-				int result = service.addMember(vo);
-				// 改
-				if (result == 0) {
-					JOptionPane.showMessageDialog(null, "添加客户成功！", "提示",
-							JOptionPane.CLOSED_OPTION);
-					log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
+				boolean isValid=!(nameFld.getText().equals("")||defaultClerkFld.getText().equals("")||
+						phoneFld.getText().equals("")||EMailFld.getText().equals("")||postcodeFld.getText().equals("")
+						||addressFld.getText().equals("")); 
+				if(isValid){
+					MemberVO vo=getMemberVO();
+					int result = service.addMember(vo);
+			
+					if (result == 0) {
+						JOptionPane.showMessageDialog(null, "添加客户成功！", "提示",
+								JOptionPane.CLOSED_OPTION);
+						log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
 							"添加了一个新客户"+nameFld.getText(),3));
-					try {
+						try {
 						headPane.RefreshGrades();
-					} catch (Exception e1) {
+						} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					}
+						}
 					
-				} else 
-					JOptionPane.showMessageDialog(null, "添加客户失败！", "提示",
+					} else 
+						JOptionPane.showMessageDialog(null, "添加客户失败！", "提示",
 							JOptionPane.WARNING_MESSAGE);
 				
-				Update();
+					Update();
+				}else
+					JOptionPane.showMessageDialog(null, "信息输入不完整！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+					
 			}
 			}else if(e.getSource()==cancelBtn)
 				Update();
@@ -355,13 +355,13 @@ public class AddMemberPanel extends JPanel {
 			mgr.RefreshMemberTable(service.showMembers());
 	}
 	
-	class charactelisten extends FocusAdapter{
+	class characterlisten extends FocusAdapter{
 		public void focusLost(FocusEvent e){
 			String tip="业务员";
 			if(e.getSource()==nameFld)
 				 tip="客户姓名";
 			JTextField Fld=(JTextField)e.getSource();
-			if(Fld.getText()!=""){
+			if(!Fld.getText().equals("")){
 				String regex = "[u4E00-u9FA5]+";
 				if(!Fld.getText().matches(regex)){
 					JOptionPane.showMessageDialog(null, tip+"输入不正确，请重新输入","错误提示",
@@ -372,4 +372,6 @@ public class AddMemberPanel extends JPanel {
 			
 		}
 	}
+	
+	
 }

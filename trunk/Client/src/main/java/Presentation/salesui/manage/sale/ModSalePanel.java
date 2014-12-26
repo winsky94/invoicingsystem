@@ -20,13 +20,13 @@ import Presentation.mainui.headPane;
 import Presentation.mainui.log;
 import Presentation.salesui.manage.SaleMgrPanel;
 
-public class ModSalePanel extends JPanel{
+public class ModSalePanel extends JPanel implements ActionListener{
 	MainFrame parent;
 	AddSalePanel p;
 	SaleVO vo;
 	SalesBLService service;
 	
-	public  ModSalePanel(MainFrame father,String id) throws Exception{
+	public  ModSalePanel(String id,MainFrame father) throws Exception{
 		parent=father;
 		service=new SalesController();
 		vo=service.SFindByID(id);
@@ -35,7 +35,8 @@ public class ModSalePanel extends JPanel{
 		p.id=id;
 		p.UserID=vo.getUser();
 		p.proid=vo.getProid();
-		
+		p.memid=vo.getMemberID();
+		p.UserID=vo.getUser();
 		this.setLayout(new BorderLayout());
 		this.add(p,BorderLayout.CENTER);
 		p.discount=vo.getDiscount();
@@ -48,6 +49,9 @@ public class ModSalePanel extends JPanel{
 		p.discountMoneyFld.setText(vo.getDiscount()[2]+"");
 		p.stockFld.setEditable(false);
 		p.remarkFld.setText(vo.getInfo());
+		if(vo.getHurry()==0)
+			p.hurryBox.setSelected(true);
+		p.hurryBox.setEnabled(false);
 		p.btnPnl.remove(p.addGoodsBtn);
 		p.btnPnl.remove(p.delGoodsBtn);
 		p.totalOriginLbl.setText("原初总价:"+vo.getTotalOrigin()+"元");
@@ -61,29 +65,7 @@ public class ModSalePanel extends JPanel{
 		
 		p.submitBtn.removeActionListener(p);
 		p.exitBtn.removeActionListener(p);
-		p.submitBtn.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				try{
-					p.getSale();
-					int result = service.modifySale(p.sale);
-					if (result == 0) {
-						log.addLog(new LogVO(log.getdate(),parent.getUser()
-							.getID(), parent.getUser().getName(), "修改一笔销售单", 3));
-						headPane.RefreshGrades();
-					} else
-						JOptionPane.showMessageDialog(null, "销售单修改失败", "提示",
-							JOptionPane.WARNING_MESSAGE);
-
-			
-				}catch(Exception err){
-					err.printStackTrace();
-				}
-			}
-			
-		});
+		
 		p.exitBtn.removeActionListener(p);;
 
 		//12.20带监听
@@ -92,7 +74,28 @@ public class ModSalePanel extends JPanel{
 	public void UseToModify(ActionListener ok){
 		p.submitBtn.addActionListener(ok);
 		p.exitBtn.addActionListener(ok);
+		p.submitBtn.addActionListener(this);
 		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		try{
+			p.getSale();
+			int result = service.modifySale(p.sale);
+			if (result == 0) {
+				log.addLog(new LogVO(log.getdate(),parent.getUser()
+					.getID(), parent.getUser().getName(), "修改一笔销售单", 3));
+				headPane.RefreshGrades();
+			} else
+				JOptionPane.showMessageDialog(null, "销售单修改失败", "提示",
+					JOptionPane.WARNING_MESSAGE);
+
+	
+		}catch(Exception err){
+			err.printStackTrace();
+		}
 	}
 	
 /*	public static void main(String[] args) throws Exception {

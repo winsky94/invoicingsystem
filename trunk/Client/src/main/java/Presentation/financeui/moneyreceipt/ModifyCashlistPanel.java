@@ -68,7 +68,7 @@ public class ModifyCashlistPanel extends AddCashReceiptPanel implements ActionLi
 		this.add(titlePnl);
 		
 		
-		submitBtn.addActionListener(this);
+		
 		exitBtn.addActionListener(this);
 		ID=v.getId();
 		IDLbl.setText("ID:"+ID);
@@ -198,6 +198,7 @@ public class ModifyCashlistPanel extends AddCashReceiptPanel implements ActionLi
 	public void UseToModify(ActionListener ok){
 		submitBtn.addActionListener(ok);
 		exitBtn.addActionListener(ok);
+		submitBtn.addActionListener(this);
 		
 	}
 
