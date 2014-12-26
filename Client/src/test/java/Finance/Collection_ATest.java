@@ -77,9 +77,7 @@ public class Collection_ATest  extends TestCase{
   		c.poToVo(ppp);
   	}
   	
-  	public void test_10(){
-  		
-  	}
+ 
   	
   	
 }
