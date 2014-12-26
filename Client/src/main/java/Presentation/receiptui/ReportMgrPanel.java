@@ -38,6 +38,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
+import po.ReceiptPO.ReceiptType;
 import po.UserPO.UserJob;
 import vo.ReceiptVO;
 import Presentation.mainui.ExportExcel;
@@ -78,7 +79,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	MyButton refreshBtn, exportBtn, redBtn, redCopyBtn;
 	JTextField nameFld, stockFld;
-	MainFrame father;
+	MainFrame parent;
 	//
 	JButton filterBtn;
 	DateChooser from, to;
@@ -102,10 +103,10 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 	String redCopyPath = "img/finance/details.png";
 
 	public ReportMgrPanel(MainFrame frame) throws Exception {
-		father = frame;
+		parent = frame;
 		boolean isFinance = false;
-		if (father.getUser().getJob() == UserJob.FINANCE
-				|| father.getUser().getJob() == UserJob.FINANACEMANGER) {
+		if (parent.getUser().getJob() == UserJob.FINANCE
+				|| parent.getUser().getJob() == UserJob.FINANACEMANGER) {
 			color = new Color(242, 125, 5);
 			refreshPath = "img/finance/refresh.png";
 			exportPath = "img/finance/export.png";
@@ -162,20 +163,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					int row=t2.getSelectedRow();
-					if(row>=0)
-					{
-						String id=t2.getValueAt(row, 0).toString();
-						int result=reservice.Red(id);
-						//基本都是成功 提示是否多余
-						JOptionPane.showMessageDialog(null, "红冲成功！"
-								);
-						RefreshTable();
-						t2.repaint();
-						t2.revalidate();
-					}else
-						JOptionPane.showMessageDialog(null, "请在经营历程表中选择一条单据"
-								+ "进行红冲！","提示",JOptionPane.WARNING_MESSAGE);
+					RedOperation();
 				}
 			});
 			btnPnl.add(redBtn);
@@ -185,7 +173,20 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					
+					int row=RedOperation();
+					if(row>=0)
+					{
+						String id=t2.getValueAt(row, 0).toString();
+						ReceiptType type=Total.getsType(t2.getValueAt(row, 3).toString());
+						try {
+							RedOkListener redok=new RedOkListener();
+							JPanel  pane=AdvancedReceiptPanel.getModPanel(id, type,redok,true);
+							parent.setRightComponent(pane);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
 				}
 			});
 			btnPnl.add(redCopyBtn);
@@ -616,5 +617,43 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				e1.printStackTrace();
 			}
 		}
+	}
+	
+	public int RedOperation(){
+		int row=t2.getSelectedRow();
+		if(row>=0)
+		{
+			String id=t2.getValueAt(row, 0).toString();
+			int result=reservice.Red(id);
+			//基本都是成功 提示是否多余
+			JOptionPane.showMessageDialog(null, "红冲成功！"
+					);
+			RefreshTable();
+			t2.repaint();
+			t2.revalidate();
+			return row;
+		}else
+			JOptionPane.showMessageDialog(null, "请在经营历程表中选择一条单据"
+					+ "进行红冲！","提示",JOptionPane.WARNING_MESSAGE);
+		return -1;
+	}
+	
+	class RedOkListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			ReportMgrPanel report;
+			try {
+				report = new ReportMgrPanel(parent);
+				parent.setRightComponent(report);
+				report.RefreshTable();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
+		
 	}
 }

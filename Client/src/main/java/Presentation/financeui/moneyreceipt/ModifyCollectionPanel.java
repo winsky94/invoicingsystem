@@ -36,7 +36,8 @@ public class ModifyCollectionPanel extends CollectionAndPaymentPanel implements 
 	    CollectionBLService service;
 	    CollectionVO v;
 	    JButton modBtn;
-		
+		boolean isRed=false;
+		JLabel title;
 		public ModifyCollectionPanel(String id,MainFrame frame) {
 			super(frame);
 			super.item2.remove(addBtn);
@@ -59,7 +60,7 @@ public class ModifyCollectionPanel extends CollectionAndPaymentPanel implements 
 			JPanel titlePnl = new JPanel();
 			titlePnl.setBackground(Color.white);
 			titlePnl.setLayout(new GridLayout(1, 1));
-			JLabel title = new JLabel("修改收款单");
+			 title = new JLabel("修改收款单");
 			title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 			titlePnl.add(title);
 			c.gridx = 0;
@@ -178,15 +179,20 @@ public class ModifyCollectionPanel extends CollectionAndPaymentPanel implements 
 
 				try {
 					service = new Collection();
-					int result=service.modify(vo);
+					String tip="修改";
+					int result=0;
+					if(isRed){
+						tip="制定";result=service.createCollection(vo);
+					}
+					 result=service.modify(vo);
 					if (result == 0) {
-						JOptionPane.showMessageDialog(null, "修改收款单成功！", "提示",
+						JOptionPane.showMessageDialog(null, tip+"收款单成功！", "提示",
 								JOptionPane.CLOSED_OPTION);
 						log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
-								"修改了一笔收款单",5));
+								tip+"了一笔收款单",5));
 						headPane.RefreshGrades();
 					} else {
-						JOptionPane.showMessageDialog(null, "修改收款单失败！", "提示",
+						JOptionPane.showMessageDialog(null, tip+"收款单失败！", "提示",
 								JOptionPane.WARNING_MESSAGE);
 					}
 					
@@ -204,10 +210,13 @@ public class ModifyCollectionPanel extends CollectionAndPaymentPanel implements 
 			
 		}
 		
-		public void UseToModify(ActionListener ok){
+		public void UseToModify(ActionListener ok,boolean isRed){
 			submitBtn.addActionListener(ok);
 			exitBtn.addActionListener(ok);
 			submitBtn.addActionListener(this);
+			if(isRed){
+				this.isRed=true;this.title.setText("制定收款单");
+			}
 			
 		}
 	

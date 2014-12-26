@@ -69,7 +69,7 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 		totalMoney=vo.getTotalValue();
 		pid=service.getNewID(ReceiptType.SALERETURN);
 		IDLbl.setText("编号："+pid);
-		memberLbl.setText("客户:"+vo.getMemberName());
+		memberLbl.setText("销售商:"+vo.getMemberName());
 		clerkLbl.setText("业务员:"+vo.getClerk());
 		userLbl.setText("操作员："+frame.getUser().getName());
 		stockLbl.setText("仓库"+vo.getStockid());
@@ -244,6 +244,7 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 		int hurry=1;
 		if(hurryBox.isSelected())
 			hurry=0;
+		//改不了销售信息！！！
 		SaleReturnVO v=new SaleReturnVO(pid,father.getUser().getID(),vo,0,
 				remarkFld.getText(),hurry);
 		int result=service.addSaleReturn(v);

@@ -11,7 +11,9 @@ import javax.swing.JPanel;
 
 import po.UserPO.UserJob;
 import businesslogic.salesbl.SalesController;
+import businesslogic.userbl.User;
 import businesslogicservice.salesblservice.SalesBLService;
+import businesslogicservice.userblservice.UserViewService;
 import vo.LogVO;
 import vo.SaleVO;
 import vo.UserVO;
@@ -25,7 +27,7 @@ public class ModSalePanel extends JPanel implements ActionListener{
 	AddSalePanel p;
 	SaleVO vo;
 	SalesBLService service;
-	
+	boolean isRed=false;
 	public  ModSalePanel(String id,MainFrame father) throws Exception{
 		parent=father;
 		service=new SalesController();
@@ -43,8 +45,10 @@ public class ModSalePanel extends JPanel implements ActionListener{
 		p.total=vo.getTotal();
 		p.title.setText("修改销售单");
 		p.IDLbl.setText("编号:"+vo.getId());
-		p.XSSBox.setSelectedItem(vo.getMemberName());
-		p.XSSBox.setEditable(false);
+		p.memberLbl.setText("销售商:"+vo.getMemberName());
+		p.p1.remove(p.XSSBox);
+		p.clerkLbl.setText("业务员:"+vo.getClerk());
+		p.p1.remove(p.clerkFld);
 		p.stockFld.setText(vo.getStockid());
 		p.discountMoneyFld.setText(vo.getDiscount()[2]+"");
 		p.stockFld.setEditable(false);
@@ -52,6 +56,8 @@ public class ModSalePanel extends JPanel implements ActionListener{
 		if(vo.getHurry()==0)
 			p.hurryBox.setSelected(true);
 		p.hurryBox.setEnabled(false);
+		UserViewService user=new User();
+		p.userLbl.setText("操作员:"+user.getName(vo.getId()));
 		p.btnPnl.remove(p.addGoodsBtn);
 		p.btnPnl.remove(p.delGoodsBtn);
 		p.totalOriginLbl.setText("原初总价:"+vo.getTotalOrigin()+"元");
@@ -71,10 +77,14 @@ public class ModSalePanel extends JPanel implements ActionListener{
 		//12.20带监听
 	}
 	
-	public void UseToModify(ActionListener ok){
+	public void UseToModify(ActionListener ok,boolean isRed){
 		p.submitBtn.addActionListener(ok);
 		p.exitBtn.addActionListener(ok);
 		p.submitBtn.addActionListener(this);
+		
+			if(isRed)
+			{	p.title.setText("制定销售单");this.isRed=true;}
+		
 		
 	}
 
@@ -83,13 +93,18 @@ public class ModSalePanel extends JPanel implements ActionListener{
 		// TODO Auto-generated method stub
 		try{
 			p.getSale();
-			int result = service.modifySale(p.sale);
+			String tip="修改";
+			int result=0;
+			if(isRed){
+				tip="制定";result=service.addSale(p.sale);
+			}
+			result = service.modifySale(p.sale);
 			if (result == 0) {
 				log.addLog(new LogVO(log.getdate(),parent.getUser()
-					.getID(), parent.getUser().getName(), "修改一笔销售单", 3));
+					.getID(), parent.getUser().getName(), tip+"一笔销售单", 3));
 				headPane.RefreshGrades();
 			} else
-				JOptionPane.showMessageDialog(null, "销售单修改失败", "提示",
+				JOptionPane.showMessageDialog(null, "销售单"+tip+"失败", "提示",
 					JOptionPane.WARNING_MESSAGE);
 
 	

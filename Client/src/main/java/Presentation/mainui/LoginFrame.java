@@ -267,7 +267,7 @@ public class LoginFrame extends JFrame{
 		this.setResizable(false);// 不允许调整窗口大小
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 关闭时结束进程
 		this.setVisible(true);// 窗口可见
-		this.getRootPane().setDefaultButton(loginButton);;
+		this.getRootPane().setDefaultButton(loginButton);
 		//处理拖动事件
 		  this.addMouseListener(new MouseAdapter() {  
 	            public void mousePressed(MouseEvent e) {  

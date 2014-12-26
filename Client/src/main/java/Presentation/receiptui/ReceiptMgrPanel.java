@@ -530,6 +530,9 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				SaleReturnDetailPanel saleR=new SaleReturnDetailPanel(id ,father);
 				saleR.useToReceipt();
 				return saleR;
+			case STOCKOVER:
+			case STOCKLOW:
+				
 			}
 
 		} catch (Exception ee) {

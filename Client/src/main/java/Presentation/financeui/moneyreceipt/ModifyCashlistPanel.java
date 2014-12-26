@@ -31,6 +31,8 @@ public class ModifyCashlistPanel extends AddCashReceiptPanel implements ActionLi
     CashlistBLService service;
     CashlistVO v;
     JButton modBtn;
+    boolean isRed=false;
+    JLabel title;
 	
 	public ModifyCashlistPanel(String id,MainFrame frame) {
 		super(frame);
@@ -55,7 +57,7 @@ public class ModifyCashlistPanel extends AddCashReceiptPanel implements ActionLi
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("修改现金费用单");
+		title = new JLabel("修改现金费用单");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
@@ -169,15 +171,21 @@ public class ModifyCashlistPanel extends AddCashReceiptPanel implements ActionLi
 			CashlistVO vo=new CashlistVO(v.getId(),v.getUser(),v.getAccount(),tra,v.getTotalMoney(),0,v.getHurry());
 			try {
 				service = new CashList();
-				int result=service.modify(vo);
+				String tip="修改";
+				int result=0;
+				if(isRed){
+					tip="制定";result=service.createCashlist(vo);
+				}
+				
+				 result=service.modify(vo);
 				if (result == 0) {
-					JOptionPane.showMessageDialog(null, "修改现金费用单成功！", "提示",
+					JOptionPane.showMessageDialog(null, tip+"现金费用单成功！", "提示",
 							JOptionPane.CLOSED_OPTION);
 					log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
-							"修改了一笔现金费用单",5));
+							tip+"了一笔现金费用单",5));
 					headPane.RefreshGrades();
 				} else {
-					JOptionPane.showMessageDialog(null, "修改现金费用失败！", "提示",
+					JOptionPane.showMessageDialog(null, tip+"现金费用失败！", "提示",
 							JOptionPane.WARNING_MESSAGE);
 				}
 				
@@ -195,10 +203,12 @@ public class ModifyCashlistPanel extends AddCashReceiptPanel implements ActionLi
 		
 	}
 	
-	public void UseToModify(ActionListener ok){
+	public void UseToModify(ActionListener ok,boolean isRed){
 		submitBtn.addActionListener(ok);
 		exitBtn.addActionListener(ok);
 		submitBtn.addActionListener(this);
+		if(isRed)
+		{	this.title.setText("制定现金费用单");this.isRed=true;}
 		
 	}
 

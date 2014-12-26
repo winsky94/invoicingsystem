@@ -160,7 +160,7 @@ public class AddMemberPanel extends JPanel {
 		phoneFld.addFocusListener(new FocusAdapter(){
 			public void focusLost(FocusEvent e){
 				if(!phoneFld.getText().equals("")){
-				String regex = "[0-9]+";//外国电话怎么办 
+				String regex ="^((d{3,4})|d{3,4}-)?d{7,8}$";
 				if(!phoneFld.getText().matches(regex)){
 					JOptionPane.showMessageDialog(null, "电话格式不正确，请重新输入","错误提示",
 							JOptionPane.WARNING_MESSAGE);
@@ -183,7 +183,7 @@ public class AddMemberPanel extends JPanel {
 		EMailFld.addFocusListener(new FocusAdapter(){
 			public void focusLost(FocusEvent e){
 				if(!EMailFld.getText().equals("")){
-				String regex = "[a-zA-Z0-9_]{1,12}+@[a-zA-Z]+(\\.[a-zA-Z]+){1,3}";
+				String regex = "w+([-+.]w+)*@w+([-.]w+)*.w+([-.]w+)*";
 				if(!EMailFld.getText().matches(regex)){
 					JOptionPane.showMessageDialog(null, "Email格式不正确，请重新输入","错误提示",
 							JOptionPane.WARNING_MESSAGE);
@@ -216,7 +216,7 @@ public class AddMemberPanel extends JPanel {
 		postcodeFld.addFocusListener(new FocusAdapter(){
 			public void focusLost(FocusEvent e){
 				if(!postcodeFld.getText().equals("")){
-				String regex = "[0-9]{6,6}";
+				String regex = "[1-9]d{5}(?!d) ";
 				if(!postcodeFld.getText().matches(regex)){
 					JOptionPane.showMessageDialog(null, "邮编格式不正确，请重新输入","错误提示",
 							JOptionPane.WARNING_MESSAGE);
@@ -362,7 +362,7 @@ public class AddMemberPanel extends JPanel {
 				 tip="客户姓名";
 			JTextField Fld=(JTextField)e.getSource();
 			if(!Fld.getText().equals("")){
-				String regex = "[u4E00-u9FA5]+";
+				String regex = "[u4e00-u9fa5]+";
 				if(!Fld.getText().matches(regex)){
 					JOptionPane.showMessageDialog(null, tip+"输入不正确，请重新输入","错误提示",
 							JOptionPane.WARNING_MESSAGE);
