@@ -417,6 +417,9 @@ public class AddGiftPanel extends ChooseGoodsFatherPane {
 			if(from.getDate().compareTo(to.getDate())>0)
 				JOptionPane.showMessageDialog(null, "促销时间段输入不合法！", "提示",
 						JOptionPane.WARNING_MESSAGE);
+			else if(limitFld.getText().equals(""))
+				JOptionPane.showMessageDialog(null, "请输入满赠总价！", "提示",
+						JOptionPane.WARNING_MESSAGE);
 			else{
 			GiftGoodsProVO vo=getGiftPro();
 			if (service.Add(vo) == 0) {
