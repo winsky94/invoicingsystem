@@ -17,6 +17,7 @@ public interface ReceiptBLService {
 	public ArrayList<ReceiptVO> ToApprove();
 	public ArrayList<ReceiptVO> ToApprove(ReceiptType type);
 	public ArrayList<ReceiptVO> Approved();
+	public ArrayList<ReceiptVO> Approved(ReceiptType type);
 //	public int Excute(String id);
 //	public int setStatus(String id,int st);
  }
