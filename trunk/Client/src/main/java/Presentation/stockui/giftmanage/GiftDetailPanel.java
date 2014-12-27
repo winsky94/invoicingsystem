@@ -57,7 +57,7 @@ public class GiftDetailPanel extends JPanel {
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("查看详情");
+		JLabel title = new JLabel("库存赠送单");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		cons.gridx = 0;
