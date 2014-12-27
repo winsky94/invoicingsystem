@@ -238,9 +238,9 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 					String pid = c.get(t).get(0);
 					String type=c.get(t).get(3);
 					if(type.equals("进货单"))
-						parent.setRightComponent(new PurchaseDetailPanel(parent, pid));
+						parent.setRightComponent(new PurchaseDetailPanel(pid, parent));
 					else
-						parent.setRightComponent(new PurchaseReturnDetailPanel(parent, pid));
+						parent.setRightComponent(new PurchaseReturnDetailPanel(pid, parent));
 				
 					
 				} else

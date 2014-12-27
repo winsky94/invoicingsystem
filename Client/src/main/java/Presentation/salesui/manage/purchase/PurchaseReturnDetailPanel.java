@@ -16,7 +16,7 @@ public class PurchaseReturnDetailPanel extends AddPurchasePanel{
 	viewInfoService service;
 	PurchaseReturnVO vo;
 	private static final long serialVersionUID = 1L;
-	public PurchaseReturnDetailPanel(MainFrame frame,String id) throws Exception {
+	public PurchaseReturnDetailPanel(String id,MainFrame frame) throws Exception {
 		super(frame);
 		service=new SalesController();
 		title.setText("查看进货退货单详情");
