@@ -171,8 +171,8 @@ public class Purchase extends Receipt {
 	public ReceiptPO getRedReceipt(ReceiptPO po){
 		PurchasePO purchase=(PurchasePO)po;
 		ArrayList<CommodityPO> list=com.getRedList(purchase.getPurchaseList());
-		PurchasePO redPurchase=new PurchasePO(po.getId(),po.getMemberID(),
-				po.getMemberName(),purchase.getStockID(),po.getUserID(),
+		PurchasePO redPurchase=new PurchasePO(po.getId(),
+				po.getMemberName(),po.getMemberID(),purchase.getStockID(),po.getUserID(),
 				list,po.getInfo(),-purchase.getTotalInAll(),-purchase.getAdjustCost(),
 				po.getStatus(),po.getHurry());
 		service.createPurchase(redPurchase);
