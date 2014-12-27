@@ -25,7 +25,7 @@ public class PurchaseDetailPanel extends JPanel{
 	viewInfoService service;
 	public AddPurchasePanel p;
 	JLabel member;
-	public PurchaseDetailPanel(MainFrame father,String id) throws Exception{
+	public PurchaseDetailPanel(String id,MainFrame father) throws Exception{
 		p=new AddPurchasePanel(father);
 		parent=father;
 		service=new SalesController();
