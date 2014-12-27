@@ -1,5 +1,6 @@
 package Presentation.receiptui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -180,8 +181,11 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 						ReceiptType type=Total.getsType(t2.getValueAt(row, 3).toString());
 						try {
 							RedOkListener redok=new RedOkListener();
-							JPanel  pane=AdvancedReceiptPanel.getModPanel(id, type,redok,true);
-							parent.setRightComponent(pane);
+							JPanel  pane=AdvancedReceiptPanel.getModPanel(id, type,redok,true,parent);
+							JPanel redpane=new JPanel();
+							redpane.setLayout(new BorderLayout());
+							redpane.add(pane, BorderLayout.CENTER);
+							parent.setRightComponent(redpane);
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
