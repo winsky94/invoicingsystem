@@ -387,9 +387,9 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(null, "请输入条目清单", "提示",JOptionPane.WARNING_MESSAGE);
 			}
 			else{
-			int isHurry=0;
+			int isHurry=1;
 			if(hurryBox.isSelected())
-				isHurry=1;
+				isHurry=0;
 			CashlistVO vo=new CashlistVO(ID,parent.getUser().getID(),(String)accountBox.getSelectedItem(),tra,totalMoney,0,isHurry);
 
 			try {
