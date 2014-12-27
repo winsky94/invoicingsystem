@@ -57,6 +57,7 @@ public class runServerProxy extends JFrame implements ActionListener{
 	Font font = new Font("微软雅黑", Font.PLAIN, 14);
 	JButton submitBtn,exitBtn;
 	JComboBox portBox;
+	
 	ArrayList<String> port;
 	public runServerProxy() {
 		this.setTitle("进销存系统服务器界面");
@@ -136,6 +137,7 @@ public class runServerProxy extends JFrame implements ActionListener{
 		exitBtn.setBackground(new Color(251, 147, 121));
 		bottom.add(exitBtn);
 		exitBtn.addActionListener(this);
+		this.getRootPane().setDefaultButton(submitBtn);	
 		// -------------------
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
