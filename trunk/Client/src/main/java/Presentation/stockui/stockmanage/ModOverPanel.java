@@ -22,7 +22,7 @@ public class ModOverPanel extends OverflowPanel {
 	StockOverOrLowManage manage;
 	boolean isRed = false;
 
-	public ModOverPanel(MainFrame frame, String ID) {
+	public ModOverPanel(String ID, MainFrame frame) {
 		super(frame);
 		manage = new StockOverOrLowManage();
 		overVo = manage.find(ID);

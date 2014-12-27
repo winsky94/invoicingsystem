@@ -28,7 +28,7 @@ public class ModGiftPanel extends CreateGiftPanel {
 	GiftBLService controller;
 	boolean isRed = false;
 	
-	public ModGiftPanel(MainFrame myFather, String ID) {
+	public ModGiftPanel(String ID, MainFrame myFather) {
 		super(myFather);
 		try {
 			controller = new GiftController();
