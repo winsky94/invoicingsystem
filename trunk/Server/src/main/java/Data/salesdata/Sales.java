@@ -332,7 +332,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			String qishi=message.substring(0,8);
 			String jiezhi=message.substring(8,16);
 			for(PurchasePO p:po){
-				if(qishi.compareTo(p.getDate())<=0&&p.getDate().compareTo(jiezhi)<=0)
+				if(qishi.compareTo(p.myGetDate())<=0&&p.myGetDate().compareTo(jiezhi)<=0)
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -383,7 +383,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			String qishi=message.substring(0,8);
 			String jiezhi=message.substring(8,16);
 			for(PurchaseReturnPO p:po){
-				if(qishi.compareTo(p.getDate())<=0&&p.getDate().compareTo(jiezhi)<=0)
+				if(qishi.compareTo(p.myGetDate())<=0&&p.myGetDate().compareTo(jiezhi)<=0)
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -433,7 +433,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			String qishi=message.substring(0,8);
 			String jiezhi=message.substring(8,16);
 			for(SalePO p:po){
-				if(qishi.compareTo(p.getDate())<=0&&p.getDate().compareTo(jiezhi)<=0)
+				if(qishi.compareTo(p.myGetDate())<=0&&p.myGetDate().compareTo(jiezhi)<=0)
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -492,7 +492,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			String qishi=message.substring(0,8);
 			String jiezhi=message.substring(8,16);
 			for(SaleReturnPO p:po){
-				if(qishi.compareTo(p.getDate())<=0&&p.getDate().compareTo(jiezhi)<=0)
+				if(qishi.compareTo(p.myGetDate())<=0&&p.myGetDate().compareTo(jiezhi)<=0)
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -635,30 +635,31 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	Sales a;
 		
 			a = new Sales();
-			a.showPurchase();
-			ArrayList<CommodityPO> al=new ArrayList<CommodityPO>();
-			CommodityPO item =new CommodityPO("0001-001-0001","飞利浦日光灯","SRO1",100,158,100,198,98,"这是个灯");
-			al.add(item);
-		//	a.createPurchase();
-			a.updatePurchase(new PurchasePO("JHD-20141226-00001","JHS-0000001","马建国","02","XS-00001",al,"这是个进货单", 1000,0,1, 0));
-//			double discount[]=new double[]{1,1,1,1};
-//			double total[]=new double[]{2,2,2,2,2};
-//			a.createSale(new SalePO("金大大",al,"XSD-20141202-00001","JHS-0000001","马建国","XS-00001",1,1,"这是个销售单","02",discount,total));	
-			System.out.println("Success!");
-			ArrayList<PurchasePO> pl=a.showPurchase();
-			for(PurchasePO po:pl){
-				System.out.println(po.getId()+" "+po.getDate()+" "+po.getPurchaseList().get(0).getName());
-			}
-
+//			a.showPurchase();
+////			ArrayList<CommodityPO> al=new ArrayList<CommodityPO>();
+////			CommodityPO item =new CommodityPO("0001-001-0001","飞利浦日光灯","SRO1",100,158,100,198,98,"这是个灯");
+////			al.add(item);
+//		//	a.createPurchase();
+////			a.updatePurchase(new PurchasePO("JHD-20141226-00001","JHS-0000001","马建国","02","XS-00001",al,"这是个进货单", 1000,0,1, 0));
+////			double discount[]=new double[]{1,1,1,1};
+////			double total[]=new double[]{2,2,2,2,2};
+////			a.createSale(new SalePO("金大大",al,"XSD-20141202-00001","JHS-0000001","马建国","XS-00001",1,1,"这是个销售单","02",discount,total));	
+//			System.out.println("Success!");
+//			ArrayList<PurchasePO> pl=a.showPurchase();
+//			for(PurchasePO po:pl){
+//				System.out.println(po.getId()+" "+po.getDate()+" "+po.getPurchaseList().get(0).getName());
+//			}
+//
 			ArrayList<SalePO> pl1=a.showSale();
 			for(SalePO po:pl1){
 				System.out.println(po.getId()+" "+po.getDate()+" "+po.getSalesList().get(0).getName());
 			}
 		
+			System.out.println("-------------------------");
 		try {
 			Sales b=new Sales();
-			ArrayList<ReceiptPO> pp=b.getAllSale();
-			ArrayList<PurchasePO> po=b.findPurchase("金金", "客户");
+//			ArrayList<ReceiptPO> pp=b.getAllSale();
+			ArrayList<SalePO> po=b.findSale("2014120120141227", "时间区间");
 			if(po!=null)
 				for(ReceiptPO p:po)
 					System.out.println(p.getId());
