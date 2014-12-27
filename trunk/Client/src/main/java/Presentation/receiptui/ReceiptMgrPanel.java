@@ -18,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.AbstractTableModel;
@@ -38,6 +37,8 @@ import Presentation.salesui.manage.purchase.PurchaseReturnDetailPanel;
 import Presentation.salesui.manage.sale.SaleDetailPanel;
 import Presentation.salesui.manage.sale.SaleReturnDetailPanel;
 import Presentation.stockui.giftmanage.GiftDetailPanel;
+import Presentation.stockui.stockmanage.LossDetailPanel;
+import Presentation.stockui.stockmanage.OverflowDetailPanel;
 import businesslogic.receiptbl.ReceiptController;
 import businesslogic.userbl.User;
 import businesslogicservice.receiptblservice.ReceiptBLService;
@@ -531,8 +532,13 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				saleR.useToReceipt();
 				return saleR;
 			case STOCKOVER:
+				OverflowDetailPanel overflowDetailPanel=new OverflowDetailPanel(father, id);
+				overflowDetailPanel.useToReceipt();
+				return overflowDetailPanel;
 			case STOCKLOW:
-				
+				LossDetailPanel lossDetailPanel =new LossDetailPanel(father, id);
+				lossDetailPanel.useToReceipt();
+				return lossDetailPanel;
 			}
 
 		} catch (Exception ee) {
