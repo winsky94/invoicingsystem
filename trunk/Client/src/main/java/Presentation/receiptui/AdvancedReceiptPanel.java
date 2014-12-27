@@ -162,7 +162,7 @@ public class AdvancedReceiptPanel extends JPanel implements ActionListener {
 
 			} else if (e.getSource() == modBtn) {
 				modOkListener ok = new modOkListener();
-				JPanel pane = getModPanel(id, type, ok, false);
+				JPanel pane = getModPanel(id, type, ok, false,father);
 
 				if (pane != null) {
 					AdvancedReceiptPanel advance = new AdvancedReceiptPanel(
@@ -209,7 +209,7 @@ public class AdvancedReceiptPanel extends JPanel implements ActionListener {
 	}
 
 	public static JPanel getModPanel(String id, ReceiptType type,
-			ActionListener ok, boolean isRed) throws Exception {
+			ActionListener ok, boolean isRed,MainFrame father) throws Exception {
 
 		switch (type) {
 		case SALE:
@@ -261,5 +261,7 @@ public class AdvancedReceiptPanel extends JPanel implements ActionListener {
 		}
 
 	}
+	
+	
 
 }
