@@ -197,15 +197,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// TODO Auto-generated method stub
-				if(tab.getSelectedIndex()==0){
-					if(service.ToApprove()!=null)
-						try {
-							RefreshTable(service.ToApprove(),0);
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-				}
+				Refresh();
 			}
 			
 		});
@@ -422,25 +414,33 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			Refresh();
 			
 		}else if(e.getSource()==findBtn){
-			ArrayList<ReceiptVO> receiptToApprove;
+			ArrayList<ReceiptVO> receiptApprove;
 			String find=findbox.getSelectedItem().toString();
 			//{"全部","销售单","销售退货单","进货单","进货退货单","收款单",
 			//"付款单","现金费用单","库存报损单","库存报溢单","库存赠送单"}
 			ReceiptType type=null;
-			if(find.equals("全部"))
-				receiptToApprove=service.ToApprove();
+			int i=tab.getSelectedIndex();
+			if(find.equals("全部")){
+				if(i==0)
+					receiptApprove=service.ToApprove();
+				else receiptApprove=service.Approved();
+				}
 			else{
 				type=Total.getsType(find);
-				receiptToApprove=service.ToApprove(type);
+				if(i==0)
+					receiptApprove=service.ToApprove(type);
+				else receiptApprove=service.Approved(type);
 			}
-			if(receiptToApprove==null){
-				c1.clear();
+			if(receiptApprove==null){
+				if(i==0)
+					c1.clear();
+				else c2.clear();
 				ReceiptMgrPanel.this.repaint();
 				JOptionPane.showMessageDialog(null, "没有符合条件的单据！");
 			}
 			else{
 				try {
-					RefreshTable(receiptToApprove,0);
+					RefreshTable(receiptApprove,i);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -489,7 +489,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			switch (rtype) {
 			case PURCHASE:
 				PurchaseDetailPanel pane = new PurchaseDetailPanel(
-						father, id);
+						 id,father);
 				pane.useToReceipt();
 				return pane;
 			case PAYMENT:
@@ -508,7 +508,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				cpane.useToReceipt();
 				return cpane;
 			case GIFT:
-				GiftDetailPanel gift = new GiftDetailPanel(father, id);
+				GiftDetailPanel gift = new GiftDetailPanel( id,father);
 				gift.useToReceipt();
 				return gift;
 				/*
@@ -524,7 +524,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				sale.useToReceipt();
 				return sale;
 			case PURCHASERETURN:
-				PurchaseReturnDetailPanel purchaseR=new PurchaseReturnDetailPanel(father ,id);
+				PurchaseReturnDetailPanel purchaseR=new PurchaseReturnDetailPanel( id,father);
 				purchaseR.useToReceipt();
 				return purchaseR;
 			case SALERETURN:
@@ -532,11 +532,11 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				saleR.useToReceipt();
 				return saleR;
 			case STOCKOVER:
-				OverflowDetailPanel overflowDetailPanel=new OverflowDetailPanel(father, id);
+				OverflowDetailPanel overflowDetailPanel=new OverflowDetailPanel( id,father);
 				overflowDetailPanel.useToReceipt();
 				return overflowDetailPanel;
 			case STOCKLOW:
-				LossDetailPanel lossDetailPanel =new LossDetailPanel(father, id);
+				LossDetailPanel lossDetailPanel =new LossDetailPanel( id,father);
 				lossDetailPanel.useToReceipt();
 				return lossDetailPanel;
 			}

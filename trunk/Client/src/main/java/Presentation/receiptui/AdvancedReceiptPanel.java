@@ -82,11 +82,11 @@ public class AdvancedReceiptPanel extends JPanel implements ActionListener {
 		modBtn = new MyButton("修改", new ImageIcon("img/promotion/modify.png"));
 		btnPnl.add(modBtn);
 		modBtn.addActionListener(this);
-		boolean isAbleMod = type != ReceiptType.STOCKERROR
+	/*	boolean isAbleMod = type != ReceiptType.STOCKERROR
 				&& type != ReceiptType.STOCKLOW
 				&& type != ReceiptType.STOCKOVER && type != ReceiptType.GIFT;
-		if (!isAbleMod)
-			modBtn.setEnabled(false);
+		if (!isAbleMod)*/
+			
 		// -------------------------------
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
@@ -244,16 +244,16 @@ public class AdvancedReceiptPanel extends JPanel implements ActionListener {
 			saleReturn.UseToModify(ok, isRed);
 			return saleReturn;
 		case STOCKOVER:
-			ModOverPanel over = new ModOverPanel(father, id);
+			ModOverPanel over = new ModOverPanel( id,father);
 			over.UseToModify(ok, isRed);
 			return over;
 		case STOCKLOW:
-			ModLossPanel low = new ModLossPanel(father, id);
+			ModLossPanel low = new ModLossPanel( id,father);
 			low.UseToModify(ok, isRed);
 			return low;
 		case GIFT:
 			Presentation.stockui.giftmanage.ModGiftPanel gift = new Presentation.stockui.giftmanage.ModGiftPanel(
-					father, id);
+					 id,father);
 			gift.UseToModify(ok, isRed);
 			return gift;
 		default:
