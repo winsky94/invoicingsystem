@@ -126,7 +126,7 @@ public class GiftPanel extends JPanel implements ActionListener {
 						null, JOptionPane.WARNING_MESSAGE);
 			} else {
 				String id = (String) giftTbl.getValueAt(rownum, 0);
-				father.setRightComponent(new GiftDetailPanel(father, id));
+				father.setRightComponent(new GiftDetailPanel(id, father));
 			}
 		}
 		if (e.getSource() == refreshBtn) {

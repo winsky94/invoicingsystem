@@ -22,7 +22,7 @@ public class ModLossPanel extends LossPanel {
 	StockOverOrLowManage manage;
 	boolean isRed = false;
 	
-	public ModLossPanel(MainFrame frame, String ID) {
+	public ModLossPanel(String ID, MainFrame frame) {
 		super(frame);
 		manage = new StockOverOrLowManage();
 		overVo = manage.find(ID);

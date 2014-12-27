@@ -16,7 +16,7 @@ public class OverflowDetailPanel extends OverflowPanel {
 	StockOverOrLowVO overVo;
 	StockOverOrLowManage manage;
 
-	public OverflowDetailPanel(MainFrame frame, String ID) {
+	public OverflowDetailPanel(String ID, MainFrame frame) {
 		super(frame);
 		manage = new StockOverOrLowManage();
 		overVo = manage.find(ID);

@@ -38,7 +38,7 @@ public class GiftDetailPanel extends JPanel {
 	MainFrame father;
 	JPanel btnPnl;
 
-	public GiftDetailPanel(MainFrame frame, String id) {
+	public GiftDetailPanel(String id, MainFrame frame) {
 		GiftBLService giftController = null;
 		try {
 			giftController = new GiftController();

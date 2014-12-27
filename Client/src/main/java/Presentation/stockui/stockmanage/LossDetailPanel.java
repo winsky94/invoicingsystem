@@ -16,7 +16,7 @@ public class LossDetailPanel extends LossPanel {
 	StockOverOrLowVO overVo;
 	StockOverOrLowManage manage;
 
-	public LossDetailPanel(MainFrame frame, String ID) {
+	public LossDetailPanel(String ID, MainFrame frame) {
 		super(frame);
 		manage = new StockOverOrLowManage();
 		overVo = manage.find(ID);
