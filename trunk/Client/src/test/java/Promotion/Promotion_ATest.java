@@ -47,27 +47,25 @@ public class Promotion_ATest extends TestCase{
 	}
 	
 	
-	//TUS1-2
+	//TUS1-2 添加一条代金券促销策略
 	public void test_2(){
 		ArrayList<PromotionVO> po=controll.Show();
 		for(int i=0;i<po.size();i++);
 		
 	}
-	//TUS1-3
+	
+	//TUS1-3 添加一条折扣促销策略
 	public void test_3(){
 			
 	}
 	
 	
-	//TUS1-4
+	//TUS1-4 添加一条特价包促销策略
 	public void test_4(){
 				
 	}
 	
-	//TUS1-5
-	public void test_5(){
-			
-	}
+
 	
 	
 
