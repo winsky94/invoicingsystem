@@ -11,24 +11,24 @@ import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import po.ReceiptPO.ReceiptType;
-import businesslogic.receiptbl.ReceiptController;
-import businesslogicservice.receiptblservice.ReceiptBLService;
 import Presentation.financeui.moneyreceipt.ModifyCashlistPanel;
 import Presentation.financeui.moneyreceipt.ModifyCollectionPanel;
 import Presentation.financeui.moneyreceipt.ModifyPaymentPanel;
 import Presentation.mainui.MainFrame;
-import Presentation.receiptui.ReceiptMgrPanel.MyButton;
 import Presentation.salesui.manage.purchase.ModPurchasePanel;
 import Presentation.salesui.manage.purchase.ModPurchaseReturnPanel;
 import Presentation.salesui.manage.sale.ModSalePanel;
 import Presentation.salesui.manage.sale.ModSaleReturnPanel;
+import Presentation.stockui.stockmanage.ModLossPanel;
+import Presentation.stockui.stockmanage.ModOverPanel;
+import businesslogic.receiptbl.ReceiptController;
+import businesslogicservice.receiptblservice.ReceiptBLService;
 
-public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
+public class AdvancedReceiptPanel extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
@@ -43,16 +43,17 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 	JButton exitBtn;
 	ReceiptType type;
 	JPanel exitPnl;
-	
-	public AdvancedReceiptPanel(JPanel info , MainFrame frame ,String id,ReceiptType type) {
+
+	public AdvancedReceiptPanel(JPanel info, MainFrame frame, String id,
+			ReceiptType type) {
 		infoPnl = info;
-		 father=frame;
-		 this.id=id;
-		 this.type=type;
+		father = frame;
+		this.id = id;
+		this.type = type;
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 10, 5, 10);
-		
+
 		this.setBackground(Color.white);
 		this.setLayout(gbl);
 		// ----------------------------
@@ -81,11 +82,12 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 		modBtn = new MyButton("修改", new ImageIcon("img/promotion/modify.png"));
 		btnPnl.add(modBtn);
 		modBtn.addActionListener(this);
-		boolean isAbleMod=type!=ReceiptType.STOCKERROR&&type!=ReceiptType.STOCKLOW&&
-				type!=ReceiptType.STOCKOVER&&type!=ReceiptType.GIFT;
-		if(!isAbleMod)
+		boolean isAbleMod = type != ReceiptType.STOCKERROR
+				&& type != ReceiptType.STOCKLOW
+				&& type != ReceiptType.STOCKOVER && type != ReceiptType.GIFT;
+		if (!isAbleMod)
 			modBtn.setEnabled(false);
-		//-------------------------------
+		// -------------------------------
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 2;
@@ -95,8 +97,8 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 		c.weighty = 1;
 		gbl.setConstraints(infoPnl, c);
 		this.add(infoPnl);
-		//--------exitPnl------------
-		exitPnl=new JPanel();
+		// --------exitPnl------------
+		exitPnl = new JPanel();
 		exitPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 7;
@@ -141,43 +143,46 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		try {
-			ReceiptBLService service=new ReceiptController();
-			if(e.getSource()==exitBtn){
+			ReceiptBLService service = new ReceiptController();
+			if (e.getSource() == exitBtn) {
 				update();
-			
-			}else if(e.getSource()==approvedBtn){
-				if(service.Approve(id, 2)!=0)
-					JOptionPane.showMessageDialog(null,"审批失败！","提示",JOptionPane.WARNING_MESSAGE);
-				else update();
-			}else if(e.getSource()==disapprovedBtn){
-				if(service.Approve(id, 1)!=0)
-					JOptionPane.showMessageDialog(null,"审批失败！","提示",JOptionPane.WARNING_MESSAGE);
+
+			} else if (e.getSource() == approvedBtn) {
+				if (service.Approve(id, 2) != 0)
+					JOptionPane.showMessageDialog(null, "审批失败！", "提示",
+							JOptionPane.WARNING_MESSAGE);
 				else
 					update();
-			
-			}else if(e.getSource()==modBtn){
-				modOkListener ok=new modOkListener();
-				JPanel pane=getModPanel(id,type,ok,false);
-				
-				if(pane!=null){
-					AdvancedReceiptPanel advance=new AdvancedReceiptPanel(pane,
-							father, id,type);
+			} else if (e.getSource() == disapprovedBtn) {
+				if (service.Approve(id, 1) != 0)
+					JOptionPane.showMessageDialog(null, "审批失败！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+				else
+					update();
+
+			} else if (e.getSource() == modBtn) {
+				modOkListener ok = new modOkListener();
+				JPanel pane = getModPanel(id, type, ok, false);
+
+				if (pane != null) {
+					AdvancedReceiptPanel advance = new AdvancedReceiptPanel(
+							pane, father, id, type);
 					father.setRightComponent(advance);
 					advance.remove(advance.exitPnl);
-				}else
-					JOptionPane.showMessageDialog(null,"库存太傲娇，不让你改！","提示",JOptionPane.WARNING_MESSAGE);
-					
-				
+				} else
+					JOptionPane.showMessageDialog(null, "库存太傲娇，不让你改！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+
 			}
-		
+
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 	}
-	
-	public void update(){
+
+	public void update() {
 		ReceiptMgrPanel pane;
 		try {
 			pane = new ReceiptMgrPanel(father);
@@ -187,61 +192,74 @@ public  class AdvancedReceiptPanel extends JPanel implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	class modOkListener implements ActionListener{
+
+	class modOkListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			JPanel pane=ReceiptMgrPanel.getRightAdvancePanel(id, type);
-			father.setRightComponent(new AdvancedReceiptPanel(pane,
-					father, id,type));
-			
-				
-			
+			JPanel pane = ReceiptMgrPanel.getRightAdvancePanel(id, type);
+			father.setRightComponent(new AdvancedReceiptPanel(pane, father, id,
+					type));
+
 		}
-		
+
 	}
-	
-	
-	public static JPanel getModPanel(String id,ReceiptType type,ActionListener ok,boolean isRed) throws Exception{
-		
-		switch(type){
+
+	public static JPanel getModPanel(String id, ReceiptType type,
+			ActionListener ok, boolean isRed) throws Exception {
+
+		switch (type) {
 		case SALE:
-			ModSalePanel sale=new ModSalePanel(id,father);
-			sale.UseToModify(ok,isRed);
+			ModSalePanel sale = new ModSalePanel(id, father);
+			sale.UseToModify(ok, isRed);
 			return sale;
 
 		case COLLECTION:
-			ModifyCollectionPanel collection=new ModifyCollectionPanel(id,father);
-		    collection.UseToModify(ok,isRed); 
-		    return collection;
+			ModifyCollectionPanel collection = new ModifyCollectionPanel(id,
+					father);
+			collection.UseToModify(ok, isRed);
+			return collection;
 		case PAYMENT:
-			ModifyPaymentPanel payment=new ModifyPaymentPanel(id,father);
-			payment.UseToModify(ok,isRed);
+			ModifyPaymentPanel payment = new ModifyPaymentPanel(id, father);
+			payment.UseToModify(ok, isRed);
 			return payment;
 		case CASHLIST:
-			ModifyCashlistPanel cashlist=new ModifyCashlistPanel(id,father);
-			cashlist.UseToModify(ok,isRed);
+			ModifyCashlistPanel cashlist = new ModifyCashlistPanel(id, father);
+			cashlist.UseToModify(ok, isRed);
 			return cashlist;
 		case PURCHASE:
-			ModPurchasePanel purchase=new ModPurchasePanel(id,father);
-			purchase.UseToModify(ok,isRed);
+			ModPurchasePanel purchase = new ModPurchasePanel(id, father);
+			purchase.UseToModify(ok, isRed);
 			return purchase;
 		case PURCHASERETURN:
-			ModPurchaseReturnPanel purchaseReturn=new ModPurchaseReturnPanel(id,father);
-			purchaseReturn.UseToModify(ok,isRed);
+			ModPurchaseReturnPanel purchaseReturn = new ModPurchaseReturnPanel(
+					id, father);
+			purchaseReturn.UseToModify(ok, isRed);
 			return purchaseReturn;
 		case SALERETURN:
-			ModSaleReturnPanel saleReturn=new ModSaleReturnPanel(id,father);
-			saleReturn.UseToModify(ok,isRed);
-			return saleReturn;	
-
+			ModSaleReturnPanel saleReturn = new ModSaleReturnPanel(id, father);
+			saleReturn.UseToModify(ok, isRed);
+			return saleReturn;
+		case STOCKOVER:
+			ModOverPanel over = new ModOverPanel(father, id);
+			over.UseToModify(ok, isRed);
+			return over;
+		case STOCKLOW:
+			ModLossPanel low = new ModLossPanel(father, id);
+			low.UseToModify(ok, isRed);
+			return low;
+		case GIFT:
+			Presentation.stockui.giftmanage.ModGiftPanel gift = new Presentation.stockui.giftmanage.ModGiftPanel(
+					father, id);
+			gift.UseToModify(ok, isRed);
+			return gift;
+		default:
+			return null;
 		}
-		return null;
-		
+
 	}
 
-	
 }
