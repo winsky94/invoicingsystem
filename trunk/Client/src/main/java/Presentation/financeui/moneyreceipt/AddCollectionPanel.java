@@ -92,9 +92,9 @@ public class AddCollectionPanel extends CollectionAndPaymentPanel implements Act
 				JOptionPane.showMessageDialog(null, "请输入转账列表", "提示",JOptionPane.WARNING_MESSAGE);
 			}
 			else{
-			int isHurry=0;
+			int isHurry=1;
 			if(hurryBox.isSelected())
-				isHurry=1;
+				isHurry=0;
 			
 			MemberBLService mem = null;
 				try {
