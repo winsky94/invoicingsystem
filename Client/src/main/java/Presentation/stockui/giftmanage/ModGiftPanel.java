@@ -1,0 +1,120 @@
+package Presentation.stockui.giftmanage;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+import po.ReceiptPO.ReceiptType;
+import vo.CommodityVO;
+import vo.GiftVO;
+import vo.LogVO;
+import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
+import businesslogic.stockbl.gift.GiftCommodityListModel;
+import businesslogic.stockbl.gift.GiftController;
+import businesslogic.stockbl.gift.GiftReceipt;
+import businesslogicservice.stockblservice.giftblservice.GiftBLService;
+
+public class ModGiftPanel extends CreateGiftPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	GiftVO vo;
+	GiftBLService controller;
+
+	public ModGiftPanel(MainFrame myFather, String ID) {
+		super(myFather);
+		try {
+			controller = new GiftController();
+			vo = controller.findByID(ID);
+			title.setText("修改库存赠送单");
+			this.remove(addBtn);
+			this.remove(delBtn);
+			submitBtn.removeActionListener(this);
+			exitBtn.removeActionListener(this);
+
+			// 设置下拉框显示的是选中的客户
+			String member = vo.getMemberID() + " " + vo.getMemberName();
+			memberBox.setSelectedItem(member);
+
+			// 设置表格显示赠送的商品
+			gcm = new GiftCommodityListModel(vo.getGiftList());
+			table.setModel(gcm);
+
+			submitBtn.addActionListener(new SubmitActionListener());
+			// 取消的监听===================
+		} catch (Exception e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+
+	}
+
+	class SubmitActionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO 自动生成的方法存根
+			String memberData = memberBox.getSelectedItem().toString();
+			// 要先判断有木有选择客户信息
+			if (memberData.equals("请选择用户")) {
+				JOptionPane.showMessageDialog(null, "请选择赠送客户！", null,
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			// 修改赠品数量后，需要重新更新commodityList
+			int rowCount = gcm.getRowCount();
+			ArrayList<CommodityVO> recordList = new ArrayList<CommodityVO>();
+
+			for (int i = 0; i < rowCount; i++) {
+				CommodityVO oldVO = commodityList.get(i);
+				int num = 0;
+				try {
+					num = Integer.parseInt((String) gcm.getValueAt(i, 3));
+				} catch (NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(null, "      请注意你的输入是否合法噢~ ",
+							null, JOptionPane.WARNING_MESSAGE);
+				}
+
+				if (num < 0) {
+					JOptionPane.showMessageDialog(null, "       请确定赠品数量合法噢~",
+							null, JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+
+				double cost = oldVO.getPrice() * num;
+
+				CommodityVO vo = new CommodityVO(oldVO.getID(),
+						oldVO.getName(), oldVO.getType(), oldVO.getPrice(),
+						oldVO.getLast_bid(), num, cost, cost, oldVO.getTip());
+				recordList.add(vo);
+			}
+
+			String data[] = memberData.split(" ");
+			String ID = data[0];
+			String name = data[1];
+			GiftReceipt receipt = new GiftReceipt(vo.getId(), ID, name,
+					vo.getUser(), ReceiptType.GIFT, vo.getHurry(),
+					vo.getStatus(), vo.getInfo(), vo.getGiftList());
+
+			if (receipt.Modify(vo.getId()) == 0) {
+				log.addLog(new LogVO(log.getdate(), parent.getUser().getID(),
+						parent.getUser().getName(), "创建一笔库存赠送单", 5));
+				try {
+					headPane.RefreshGrades();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			} else {
+
+			}
+		}
+
+	}
+}

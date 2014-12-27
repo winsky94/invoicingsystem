@@ -1,5 +1,10 @@
 package businesslogic.stockbl.stockManage;
 
+import java.util.ArrayList;
+
+import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
+import vo.StockOverOrLowVO;
+
 public class StockOverOrLowManage {
 	String goodName;
 	String size;
@@ -51,6 +56,29 @@ public class StockOverOrLowManage {
 		// goodsController.modifyGoods(vo);
 
 		return receipt.add();
+	}
+
+	// 根据ID查找相应的单据
+	public StockOverOrLowVO find(String id) {
+		StockOverOrLowVO result = null;
+		StockControlBLService controller = new StockControlController();
+		ArrayList<StockOverOrLowVO> list = controller.showStockOverReceipt();
+		for (StockOverOrLowVO vo : list) {
+			if (vo.getId().equals(id)) {
+				result = vo;
+				break;
+			}
+		}
+		if (result == null) {
+			list = controller.showStockLowReceipt();
+			for (StockOverOrLowVO vo : list) {
+				if (vo.getId().equals(id)) {
+					result = vo;
+					break;
+				}
+			}
+		}
+		return result;
 	}
 
 	// 库存报警
