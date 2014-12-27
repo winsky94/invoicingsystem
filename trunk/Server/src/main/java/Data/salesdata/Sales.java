@@ -329,8 +329,8 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		if(po==null)
 			return null;
 		if(type.equals("时间区间")){
-			String qishi=message.substring(0,6);
-			String jiezhi=message.substring(6,12);
+			String qishi=message.substring(0,8);
+			String jiezhi=message.substring(8,16);
 			for(PurchasePO p:po){
 				if(qishi.compareTo(p.getDate())<=0&&p.getDate().compareTo(jiezhi)<=0)
 					result.add(p);
@@ -380,8 +380,8 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		if(po==null)
 			return null;
 		if(type.equals("时间区间")){
-			String qishi=message.substring(0,6);
-			String jiezhi=message.substring(6,12);
+			String qishi=message.substring(0,8);
+			String jiezhi=message.substring(8,16);
 			for(PurchaseReturnPO p:po){
 				if(qishi.compareTo(p.getDate())<=0&&p.getDate().compareTo(jiezhi)<=0)
 					result.add(p);
@@ -430,8 +430,8 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			return null;
 		ArrayList<SalePO> result=new ArrayList<SalePO>();
 		if(type.equals("时间区间")){
-			String qishi=message.substring(0,6);
-			String jiezhi=message.substring(6,12);
+			String qishi=message.substring(0,8);
+			String jiezhi=message.substring(8,16);
 			for(SalePO p:po){
 				if(qishi.compareTo(p.getDate())<=0&&p.getDate().compareTo(jiezhi)<=0)
 					result.add(p);
@@ -489,8 +489,8 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		if(po==null)
 			return null;
 		if(type.equals("时间区间")){
-			String qishi=message.substring(0,6);
-			String jiezhi=message.substring(6,12);
+			String qishi=message.substring(0,8);
+			String jiezhi=message.substring(8,16);
 			for(SaleReturnPO p:po){
 				if(qishi.compareTo(p.getDate())<=0&&p.getDate().compareTo(jiezhi)<=0)
 					result.add(p);
