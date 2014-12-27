@@ -106,7 +106,8 @@ public class SaleList implements SaleListBLService{
 		if(ppo!=null)
 		for(int i=0;i<ppo.size();i++)
 			{PurchasePO po=(PurchasePO)service.findReceiptByID(ppo.get(i).getpurid());
-			 prprofit+=(ppo.get(i).getTotalInAll()-po.getTotalInAll());
+			if(po!=null)
+				prprofit+=(ppo.get(i).getTotalInAll()-po.getTotalInAll());
 			}
 		
 

@@ -336,6 +336,7 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 	// "商品编号", "商品名", "型号", "单价", "折扣", "折后单价"
 
 	public void RefreshCTable(ArrayList<Object> vo, double dis) {
+		if(vo.get(0) instanceof GoodsVO){
 		for (int i = 0; i < vo.size(); i++) {
 			GoodsVO gvo = (GoodsVO) vo.get(i);
 			ArrayList<String> line = new ArrayList<String>();
@@ -356,6 +357,21 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 				cmContent.get(exist).set(5, dis * gvo.getPrice() + "");
 			}
 
+		}}
+		else{
+			for(int i=0;i<vo.size();i++){
+				CommodityVO com=(CommodityVO) vo.get(i);
+				ArrayList<String> line = new ArrayList<String>();
+				line.add(com.getID());
+				line.add(com.getName());
+				line.add(com.getType());
+				line.add(com.getPrice() + "");
+				line.add(dis+"");
+				line.add(com.getPrice()*dis + "");
+				last_bid.add(com.getLast_bid());
+				cmContent.add(line);
+				
+			}
 		}
 
 	}

@@ -51,7 +51,7 @@ public class AddCouponPanel extends JPanel implements ActionListener {
 	JButton submitBtn, exitBtn;
 	PromotionBLService service;
 	ArrayList<CouponVO> couponlist;
-	boolean isLimitValid=false,isPriceValid=false,isNumValid=false;//输入是否合法
+	boolean isLimitValid=true,isPriceValid=true,isNumValid=true;//输入是否合法
  
 
 	public AddCouponPanel(MainFrame myFather) {
@@ -198,10 +198,12 @@ public class AddCouponPanel extends JPanel implements ActionListener {
 			try {
 				startDate = from.getDate();
 				endDate = to.getDate();
+				boolean isFinished=!(priceFld.getText().equals("")||limitFld.getText().equals("")
+						||totalFld.getText().equals(""));
 				if(startDate.compareTo(endDate)>0)
 					JOptionPane.showMessageDialog(null, "促销时间段输入不合法！", "提示",
 							JOptionPane.WARNING_MESSAGE);
-				else if(!(isPriceValid&&isLimitValid&&isNumValid))
+				else if(!isPriceValid||!isLimitValid||!isNumValid||!isFinished)
 					JOptionPane.showMessageDialog(null, "请输入合法数值！", "提示",
 							JOptionPane.WARNING_MESSAGE);
 				else{
@@ -302,4 +304,6 @@ public class AddCouponPanel extends JPanel implements ActionListener {
 		}
 		
 	}
+	
+
 }
