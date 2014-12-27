@@ -394,6 +394,10 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 			} else if (e.getSource() == couponBtn) {
 				UseCouponDialog dia = new UseCouponDialog(AddSalePanel.this);
 			} else if (e.getSource() == submitBtn) {
+				if(XSSBox.getSelectedIndex()==0)
+					JOptionPane.showMessageDialog(null, "请选择客户！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+				else{
 				getSale();
 				int result = service.addSale(sale);
 				if (result == 0) {
@@ -409,6 +413,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 				} else
 					JOptionPane.showMessageDialog(null, "销售单创建失败", "提示",
 							JOptionPane.WARNING_MESSAGE);
+				}
 
 			}
 		} catch (Exception e1) {
