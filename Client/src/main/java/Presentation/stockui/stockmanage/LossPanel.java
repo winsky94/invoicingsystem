@@ -38,6 +38,8 @@ public class LossPanel extends ChooseGoodsFatherPane implements ActionListener {
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JLabel IDLbl, nameLbl, sizeLbl, numLbl;
 	GoodsVO goodsVO;
+	JLabel title;
+	JPanel btnPnl;
 
 	public LossPanel(MainFrame frame) {
 		parent = frame;
@@ -50,7 +52,7 @@ public class LossPanel extends ChooseGoodsFatherPane implements ActionListener {
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("库存报损");
+		title = new JLabel("库存报损");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
@@ -114,7 +116,7 @@ public class LossPanel extends ChooseGoodsFatherPane implements ActionListener {
 		exactNumFld.setFont(font);
 		lossPnl.add(exactNumFld);
 		// -------buttons-----------------
-		JPanel btnPnl = new JPanel();
+		btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 8;
@@ -190,7 +192,7 @@ public class LossPanel extends ChooseGoodsFatherPane implements ActionListener {
 			StockPanel sp = new StockPanel(parent);
 			sp.tab.setSelectedIndex(2);
 			parent.setRightComponent(sp);
-			
+
 			log.addLog(new LogVO(log.getdate(), parent.getUser().getID(),
 					parent.getUser().getName(), "创建一笔库存报溢/报损单", 3));
 			try {

@@ -26,7 +26,8 @@ public class ModGiftPanel extends CreateGiftPanel {
 
 	GiftVO vo;
 	GiftBLService controller;
-
+	boolean isRed = false;
+	
 	public ModGiftPanel(MainFrame myFather, String ID) {
 		super(myFather);
 		try {
@@ -45,14 +46,22 @@ public class ModGiftPanel extends CreateGiftPanel {
 			// 设置表格显示赠送的商品
 			gcm = new GiftCommodityListModel(vo.getGiftList());
 			table.setModel(gcm);
-
-			submitBtn.addActionListener(new SubmitActionListener());
-			// 取消的监听===================
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void UseToModify(ActionListener ok, boolean isRed) {
+		submitBtn.addActionListener(ok);
+		exitBtn.addActionListener(ok);
+		submitBtn.addActionListener(new SubmitActionListener());
+
+		if (isRed) {
+			title.setText("制定库存赠送单");
+			this.isRed = true;
+		}
 	}
 
 	class SubmitActionListener implements ActionListener {

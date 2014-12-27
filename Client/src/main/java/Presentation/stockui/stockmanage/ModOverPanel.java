@@ -20,6 +20,7 @@ public class ModOverPanel extends OverflowPanel {
 	private static final long serialVersionUID = 1L;
 	StockOverOrLowVO overVo;
 	StockOverOrLowManage manage;
+	boolean isRed = false;
 
 	public ModOverPanel(MainFrame frame, String ID) {
 		super(frame);
@@ -33,9 +34,17 @@ public class ModOverPanel extends OverflowPanel {
 		exactNumFld.setText(String.valueOf(overVo.getExactNum()));
 		submitBtn.removeActionListener(this);
 		exitBtn.removeActionListener(this);
+	}
+
+	public void UseToModify(ActionListener ok, boolean isRed) {
+		submitBtn.addActionListener(ok);
+		exitBtn.addActionListener(ok);
 		submitBtn.addActionListener(new SubmitActionListener());
 
-		// 取消的监听===================
+		if (isRed) {
+			title.setText("制定库存报溢单");
+			this.isRed = true;
+		}
 	}
 
 	class SubmitActionListener implements ActionListener {

@@ -39,6 +39,8 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
 	JLabel IDLbl, nameLbl, sizeLbl, numLbl;
 	GoodsVO goodsVO;
+	JLabel title;
+	JPanel btnPnl;
 
 	public OverflowPanel(MainFrame frame) {
 		parent = frame;
@@ -51,7 +53,7 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("库存报溢");
+		title = new JLabel("库存报溢");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		c.gridx = 0;
@@ -115,7 +117,7 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 		exactNumFld.setFont(font);
 		overflowPnl.add(exactNumFld);
 		// -------buttons-----------------
-		JPanel btnPnl = new JPanel();
+		btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		c.gridx = 0;
 		c.gridy = 8;
@@ -171,8 +173,8 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 						null, JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			
-			if(exactNum<0){
+
+			if (exactNum < 0) {
 				JOptionPane.showMessageDialog(null, "       请确定实际库存数量合法噢~",
 						null, JOptionPane.WARNING_MESSAGE);
 				return;
