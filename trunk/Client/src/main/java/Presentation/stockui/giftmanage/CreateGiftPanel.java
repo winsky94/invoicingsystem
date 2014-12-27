@@ -42,12 +42,14 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 
 	private static final long serialVersionUID = 1L;
 	Font font = new Font("微软雅黑", Font.PLAIN, 15);
+	JLabel title;
 	JScrollPane jsp;
 	JTable table;
 	GiftCommodityListModel gcm;
 	JComboBox<String> memberBox;
 	JButton submitBtn, addBtn, delBtn, exitBtn;
 	public ArrayList<CommodityVO> commodityList = new ArrayList<CommodityVO>();
+	ArrayList<String> userList;
 
 	public CreateGiftPanel(MainFrame myFather) {
 		parent = myFather;
@@ -60,7 +62,7 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		JLabel title = new JLabel("创建库存赠送单");
+		title = new JLabel("创建库存赠送单");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
 		titlePnl.add(title);
 		cons.gridx = 0;
@@ -88,7 +90,7 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-		ArrayList<String> userList = new ArrayList<String>();
+		userList = new ArrayList<String>();
 		userList.add("请选择用户");
 		for (int i = 0; i < member.size(); i++) {
 			userList.add(member.get(i).getMemberID() + " "
@@ -216,8 +218,15 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(null, "      请注意你的输入是否合法噢~ ",
 							null, JOptionPane.WARNING_MESSAGE);
+					return ;
 				}
-
+				
+				if(num<0){
+					JOptionPane.showMessageDialog(null, "       请确定赠品数量合法噢~",
+							null, JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				
 				double cost = oldVO.getPrice() * num;
 
 				CommodityVO vo = new CommodityVO(oldVO.getID(),
@@ -238,12 +247,12 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 				// TODO 自动生成的 catch 块
 				e2.printStackTrace();
 			}
-//			int result = giftService.dealGift(vo);
-//			if (result != 0) {
-//				JOptionPane.showMessageDialog(this, "别闹啦~，库存不足以赠送的~", null,
-//						JOptionPane.WARNING_MESSAGE);
-//				return;
-//			}
+			// int result = giftService.dealGift(vo);
+			// if (result != 0) {
+			// JOptionPane.showMessageDialog(this, "别闹啦~，库存不足以赠送的~", null,
+			// JOptionPane.WARNING_MESSAGE);
+			// return;
+			// }
 			giftService.addGift(vo);
 			log.addLog(new LogVO(log.getdate(), parent.getUser().getID(),
 					parent.getUser().getName(), "创建一笔库存赠送单", 5));

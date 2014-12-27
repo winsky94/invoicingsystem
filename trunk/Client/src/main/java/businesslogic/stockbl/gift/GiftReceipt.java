@@ -11,8 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import javax.swing.JOptionPane;
-
 import po.CommodityPO;
 import po.GiftPO;
 import po.ReceiptPO;

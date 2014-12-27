@@ -20,9 +20,12 @@ import po.ReceiptPO.ReceiptType;
 import businesslogic.stockbl.stockManage.StockControlController;
 import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
 import vo.GoodsVO;
+import vo.LogVO;
 import vo.StockOverOrLowVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.headPane;
+import Presentation.mainui.log;
 import Presentation.stockui.ChooseGoodsDialog;
 
 public class LossPanel extends ChooseGoodsFatherPane implements ActionListener {
@@ -171,6 +174,12 @@ public class LossPanel extends ChooseGoodsFatherPane implements ActionListener {
 				return;
 			}
 
+			if (exactNum < 0) {
+				JOptionPane.showMessageDialog(null, "       请确定实际库存数量合法噢~",
+						null, JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+
 			StockOverOrLowVO vo = new StockOverOrLowVO("", parent.getUser()
 					.getID(), ReceiptType.STOCKLOW, 3, 0, "",
 					goodsVO.getName(), goodsVO.getSize(),
@@ -181,6 +190,15 @@ public class LossPanel extends ChooseGoodsFatherPane implements ActionListener {
 			StockPanel sp = new StockPanel(parent);
 			sp.tab.setSelectedIndex(2);
 			parent.setRightComponent(sp);
+			
+			log.addLog(new LogVO(log.getdate(), parent.getUser().getID(),
+					parent.getUser().getName(), "创建一笔库存报溢/报损单", 3));
+			try {
+				headPane.RefreshGrades();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} else if (e.getActionCommand().equals("取消")) {
 			StockPanel sp = new StockPanel(parent);
 			sp.tab.setSelectedIndex(2);
