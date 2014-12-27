@@ -226,6 +226,19 @@ public class ReceiptController implements ReceiptBLService,ReceiptListService{
 			return poTVo(toApprove);
 	}
 
+
+
+
+
+	@Override
+	public ArrayList<ReceiptVO> Approved(ReceiptType type) {
+		// TODO Auto-generated method stub
+		ArrayList<ReceiptPO>  Approved=list.showApproved(type);
+		if(Approved==null) return null;
+		else
+			return poTVo(Approved);
+	}
+
 }
 	
 	

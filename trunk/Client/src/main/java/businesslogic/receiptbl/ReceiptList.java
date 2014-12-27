@@ -83,6 +83,24 @@ public class ReceiptList {
 		
 		
 	}
+	
+	
+	public ArrayList<ReceiptPO> showApproved(ReceiptType type){
+		ArrayList<ReceiptPO> Approve=showApproved();
+		if(Approve==null) return null;
+		//已排好序
+		else{
+			ArrayList<ReceiptPO> ApproveByType=new ArrayList<ReceiptPO>();
+			for(int i=0;i<Approve.size();i++)
+				if(Approve.get(i).getType()==type)
+					ApproveByType.add(Approve.get(i));
+			if(ApproveByType.size()==0) return null;
+			else
+				return ApproveByType;
+		}
+		
+		
+	}
 
 
 	
