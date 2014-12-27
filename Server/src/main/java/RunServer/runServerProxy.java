@@ -215,7 +215,7 @@ public class runServerProxy extends JFrame implements ActionListener{
 			int portNum=Integer.parseInt(port);
 			LocateRegistry.createRegistry(portNum);// 客户端启用的注册端口号为1099 yan 11-18
 			//System.setProperty("java.rmi.server.hostname","192.168.1.1");
-		
+
 			System.out.println("已启动服务器");
 			User user = new User();
 			Member member=new Member();
