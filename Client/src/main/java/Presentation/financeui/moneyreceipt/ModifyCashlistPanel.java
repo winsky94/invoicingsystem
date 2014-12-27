@@ -32,7 +32,7 @@ public class ModifyCashlistPanel extends AddCashReceiptPanel implements ActionLi
     CashlistVO v;
     JButton modBtn;
     boolean isRed=false;
-    JLabel title;
+    JLabel mtitle;
 	
 	public ModifyCashlistPanel(String id,MainFrame frame) {
 		super(frame);
@@ -57,9 +57,9 @@ public class ModifyCashlistPanel extends AddCashReceiptPanel implements ActionLi
 		JPanel titlePnl = new JPanel();
 		titlePnl.setBackground(Color.white);
 		titlePnl.setLayout(new GridLayout(1, 1));
-		title = new JLabel("修改现金费用单");
-		title.setFont(new Font("微软雅黑", Font.PLAIN, 30));
-		titlePnl.add(title);
+		mtitle = new JLabel("修改现金费用单");
+		mtitle.setFont(new Font("微软雅黑", Font.PLAIN, 30));
+		titlePnl.add(mtitle);
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridheight = 2;
