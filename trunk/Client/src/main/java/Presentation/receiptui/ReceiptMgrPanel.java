@@ -217,10 +217,10 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		// 加急显示的时候，传一个需要改变颜色的行数的Arraylist进去
 		// 无参构造函数是不加急显示的
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
-		for (int i = 0; i < t1.getColumnCount() - 1; i++) {
-			t1.getColumn(t1.getColumnName(i)).setCellRenderer(tcr);
-
-		}
+//		for (int i = 0; i < t1.getColumnCount() - 1; i++) {
+//			t1.getColumn(t1.getColumnName(i)).setCellRenderer(tcr);
+//
+//		}
 
 		jsp1 = new JScrollPane(t1);
 		// rtm1.addTableModelListener(new TableModelListener() {
@@ -435,7 +435,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			}
 			if(receiptToApprove==null){
 				c1.clear();
-				ReceiptMgrPanel.this.repaint();	
+				ReceiptMgrPanel.this.repaint();
 				JOptionPane.showMessageDialog(null, "没有符合条件的单据！");
 			}
 			else{
