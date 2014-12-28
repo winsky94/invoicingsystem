@@ -182,6 +182,12 @@ public class LossPanel extends ChooseGoodsFatherPane implements ActionListener {
 				return;
 			}
 
+			if (exactNum >= goodsVO.getNumInStock()) {
+				JOptionPane.showMessageDialog(null, "       您确定当前是库存报损嘛？",
+						null, JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+
 			StockOverOrLowVO vo = new StockOverOrLowVO("", parent.getUser()
 					.getID(), ReceiptType.STOCKLOW, 3, 0, "",
 					goodsVO.getName(), goodsVO.getSize(),

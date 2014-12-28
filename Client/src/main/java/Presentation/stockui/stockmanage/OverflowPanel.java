@@ -179,6 +179,12 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 						null, JOptionPane.WARNING_MESSAGE);
 				return;
 			}
+			
+			if (exactNum <= goodsVO.getNumInStock()) {
+				JOptionPane.showMessageDialog(null, "       您确定当前是库存报溢嘛？",
+						null, JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 
 			StockOverOrLowVO vo = new StockOverOrLowVO("", parent.getUser()
 					.getID(), ReceiptType.STOCKOVER, 3, 0, "",

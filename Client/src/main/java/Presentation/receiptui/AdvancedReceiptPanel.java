@@ -169,9 +169,7 @@ public class AdvancedReceiptPanel extends JPanel implements ActionListener {
 							pane, father, id, type);
 					father.setRightComponent(advance);
 					advance.remove(advance.exitPnl);
-				} else
-					JOptionPane.showMessageDialog(null, "库存太傲娇，不让你改！", "提示",
-							JOptionPane.WARNING_MESSAGE);
+				} 
 
 			}
 

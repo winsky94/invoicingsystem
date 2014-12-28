@@ -26,7 +26,7 @@ public class ModOverPanel extends OverflowPanel {
 		super(frame);
 		manage = new StockOverOrLowManage();
 		overVo = manage.find(ID);
-		this.remove(addGoodsBtn);
+		this.btnPnl.remove(addGoodsBtn);
 		IDLbl.setText("单据编号:" + overVo.getId());
 		nameLbl.setText("商品名：" + overVo.getGoodsName());
 		sizeLbl.setText("型号：" + overVo.getSize());
@@ -63,6 +63,12 @@ public class ModOverPanel extends OverflowPanel {
 
 			if (exactNum < 0) {
 				JOptionPane.showMessageDialog(null, "       请确定实际库存数量合法噢~",
+						null, JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			
+			if (exactNum <= goodsVO.getNumInStock()) {
+				JOptionPane.showMessageDialog(null, "       您确定当前是库存报溢嘛？",
 						null, JOptionPane.WARNING_MESSAGE);
 				return;
 			}
