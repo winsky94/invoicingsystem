@@ -162,15 +162,36 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 	}
 
 	public void RefreshCTable(ArrayList<Object> VO) {
-
-		for (int i = 0; i < VO.size(); i++) {
-			GoodsVO goodsVO = (GoodsVO) VO.get(i);
-			CommodityVO commodityVO = new CommodityVO(goodsVO.getGoodsID(),
-					goodsVO.getName(), goodsVO.getSize(), goodsVO.getPrice(),
-					goodsVO.getLastPurchasePrice(), 1, 0, 0, "");
-			commodityList.add(commodityVO);
+		if (VO.get(0) instanceof GoodsVO) {
+			for (int i = 0; i < VO.size(); i++) {
+				GoodsVO goodsVO = (GoodsVO) VO.get(i);
+				int exist = findExistLine(goodsVO.getGoodsID());
+				if (exist < 0) {// 赠品不存在，添加赠品对象
+					CommodityVO commodityVO = new CommodityVO(
+							goodsVO.getGoodsID(), goodsVO.getName(),
+							goodsVO.getSize(), goodsVO.getPrice(),
+							goodsVO.getLastPurchasePrice(), 1, 0, 0, "");
+					commodityList.add(commodityVO);
+				} else {// 赠品存在，修改赠品数量
+					int num = commodityList.get(exist).getNum();
+					num++;
+					CommodityVO commodityVO = new CommodityVO(
+							goodsVO.getGoodsID(), goodsVO.getName(),
+							goodsVO.getSize(), goodsVO.getPrice(),
+							goodsVO.getLastPurchasePrice(), num, 0, 0, "");
+					commodityList.set(exist, commodityVO);
+				}
+			}
 		}
+	}
 
+	// 查找当前想加入的赠品是否已经存在，存在返回行号，否则返回-1
+	public int findExistLine(String id) {
+		for (int i = 0; i < commodityList.size(); i++) {
+			if (id.equals(commodityList.get(i).getID()))
+				return i;
+		}
+		return -1;
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -195,6 +216,8 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 			} else {
 				gcm.removeRow(rownum);
 				table.revalidate();
+				// 清除选择的行，否则下次不进行选择就删除会数组越界
+				table.clearSelection();
 			}
 		} else if (e.getSource() == submitBtn) {
 			String memberData = memberBox.getSelectedItem().toString();
@@ -218,15 +241,15 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(null, "      请注意你的输入是否合法噢~ ",
 							null, JOptionPane.WARNING_MESSAGE);
-					return ;
+					return;
 				}
-				
-				if(num<0){
+
+				if (num < 0) {
 					JOptionPane.showMessageDialog(null, "       请确定赠品数量合法噢~",
 							null, JOptionPane.WARNING_MESSAGE);
 					return;
 				}
-				
+
 				double cost = oldVO.getPrice() * num;
 
 				CommodityVO vo = new CommodityVO(oldVO.getID(),
