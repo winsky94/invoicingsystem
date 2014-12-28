@@ -27,7 +27,7 @@ public class ModGiftPanel extends CreateGiftPanel {
 	GiftVO vo;
 	GiftBLService controller;
 	boolean isRed = false;
-	
+
 	public ModGiftPanel(String ID, MainFrame myFather) {
 		super(myFather);
 		try {
@@ -44,6 +44,7 @@ public class ModGiftPanel extends CreateGiftPanel {
 			memberBox.setSelectedItem(member);
 
 			// 设置表格显示赠送的商品
+			commodityList = vo.getGiftList();
 			gcm = new GiftCommodityListModel(vo.getGiftList());
 			table.setModel(gcm);
 		} catch (Exception e) {
@@ -52,7 +53,7 @@ public class ModGiftPanel extends CreateGiftPanel {
 		}
 
 	}
-	
+
 	public void UseToModify(ActionListener ok, boolean isRed) {
 		submitBtn.addActionListener(ok);
 		exitBtn.addActionListener(ok);
