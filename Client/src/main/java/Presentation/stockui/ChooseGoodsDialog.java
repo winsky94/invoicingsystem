@@ -43,8 +43,7 @@ public class ChooseGoodsDialog extends JDialog {
 	 * 使用方法： 此类适用于需要选择商品的情形（如进货，销售，创建特价包，折扣等）,
 	 * 使用此dialog的上一级Panel应继承ChooseGoodsFatherPane,
 	 * chooseGoodsFatherPane继承了JPanel，唯一的区别是他有一个二维ArrayList成员变量用来给表格赋值
-	 * 本dialog里的左侧是选择商品的表格，右侧是当前已选商品 没写完: 1.JTree的建立 2.通过点击JTree改变左侧表格内容
-	 * 3.把右侧表格内容传出外层
+	 * 本dialog里的左侧是选择商品的表格，右侧是当前已选商品
 	 */
 	private static final long serialVersionUID = 1L;
 	// ArrayList<ArrayList<String>> selected=new ArrayList<ArrayList<String>>();
@@ -71,8 +70,9 @@ public class ChooseGoodsDialog extends JDialog {
 	DefaultTreeModel treeModel = null;
 	String nodeName = null;// 原有节点名称
 	GoodsClassNode newNode = null;
-    public AddListener add;
-    public ArrayList<Object> good;
+	public AddListener add;
+	public ArrayList<Object> good;
+
 	public ChooseGoodsDialog(ChooseGoodsFatherPane myFather) {
 		controller = new GoodsClassController();
 		father = myFather;
@@ -142,11 +142,14 @@ public class ChooseGoodsDialog extends JDialog {
 						if (exist < 0) {
 							ctm.addRow(leftTblMessage.get(row[i]));
 						} else
-							JOptionPane.showMessageDialog(null, "该商品已选择！",
-									"提示", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(null, "编号："
+									+ leftTblMessage.get(row[i]).get(0)
+									+ "的商品已被选择！", "提示",
+									JOptionPane.WARNING_MESSAGE);
 
 					}
 					chosenTbl.revalidate();
+					chosenTbl.clearSelection();
 				} else
 					JOptionPane.showMessageDialog(null, "请选择商品！", "提示",
 							JOptionPane.WARNING_MESSAGE);
@@ -185,7 +188,7 @@ public class ChooseGoodsDialog extends JDialog {
 		submitBtn.setBackground(new Color(166, 210, 121));
 		submitBtn.setBounds(dialogWidth * 67 / 100, dialogHeight * 78 / 100,
 				dialogWidth * 8 / 100, dialogHeight * 5 / 100);
-		add=new AddListener();
+		add = new AddListener();
 		submitBtn.addActionListener(add);
 		pnl.add(submitBtn);
 		// ----------exitBtn------------------------------------------------
@@ -411,8 +414,8 @@ public class ChooseGoodsDialog extends JDialog {
 			tree.collapsePath(parent);
 		}
 	}
-	
-	class AddListener implements ActionListener{
+
+	class AddListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			if (rightTblMessage.size() > 0) {
@@ -430,9 +433,9 @@ public class ChooseGoodsDialog extends JDialog {
 				}
 
 				father.parent.setRightComponent(father);
-				
+
 				father.RefreshCTable(good);
-				//father.repaint();
+				// father.repaint();
 			}
 
 			ChooseGoodsDialog.this.dispose();
