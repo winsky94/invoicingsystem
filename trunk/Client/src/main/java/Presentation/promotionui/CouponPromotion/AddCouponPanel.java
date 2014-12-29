@@ -54,9 +54,10 @@ public class AddCouponPanel extends JPanel implements ActionListener {
 	boolean isLimitValid=true,isPriceValid=true,isNumValid=true;//输入是否合法
  
 
-	public AddCouponPanel(MainFrame myFather) {
+	public AddCouponPanel(MainFrame myFather) throws Exception {
 		father = myFather;
 		couponlist = new ArrayList<CouponVO>();
+		service = new promotionController();
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 5, 5, 5);
@@ -231,7 +232,7 @@ public class AddCouponPanel extends JPanel implements ActionListener {
 	public void update() throws Exception {
 		PromotionPanel proPanel = new PromotionPanel((MainFrame) father);
 		((MainFrame) father).setRightComponent(proPanel);
-		service = new promotionController();
+		
 		if (service.Show() != null)
 			proPanel.RefreshProTable(service.Show());
 	}
@@ -239,7 +240,7 @@ public class AddCouponPanel extends JPanel implements ActionListener {
 	public GiftCouponProVO getCouponPro() throws Exception{
 		level = MemberLevel.valueOf((String) memberGradeBox
 				.getSelectedItem());
-			service = new promotionController();
+		
 			totalValue = Double.parseDouble(limitFld.getText());
 			double value = Double.parseDouble(priceFld.getText());
 			for (int i = 0; i < Integer.parseInt(totalFld.getText()); i++)

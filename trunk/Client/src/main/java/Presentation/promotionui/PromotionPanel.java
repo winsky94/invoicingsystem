@@ -76,7 +76,9 @@ public class PromotionPanel extends JPanel {
 		//
 		addBtn = new MyButton("制定新策略", new ImageIcon("img/promotion/add.png"));
 		addBtn.addMouseListener(new MouseAdapter() {
+			
 			public void mouseClicked(MouseEvent e) {
+				
 				JPopupMenu menu = new JPopupMenu();
 
 				menu.setBackground(Color.white);
@@ -103,47 +105,62 @@ public class PromotionPanel extends JPanel {
 				menu.add(discount);
 
 				bargin.addActionListener(new ActionListener() {
-
+				
 					public void actionPerformed(ActionEvent e) {
-						try {
-							father.setRightComponent(new AddBarginPanel(father));
-						} catch (Exception err) {
-							err.printStackTrace();
-						}
+						
+							try {
+								father.setRightComponent(new AddBarginPanel(father));
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						
 					}
 				});
 				coupon.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						father.setRightComponent(new AddCouponPanel(father));
+						
+							try {
+								father.setRightComponent(new AddCouponPanel(father));
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						
 					}
 				});
 				gift.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						try {
-							father.setRightComponent(new AddGiftPanel(father));
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+					
+							try {
+								father.setRightComponent(new AddGiftPanel(father));
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						
 					}
 				});
 				discount.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						try {
-							father.setRightComponent(new AddDiscountPanel(
-									father));
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+					
+							try {
+								father.setRightComponent(new AddDiscountPanel(
+										father));
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						
 					}
 				});
 
 				menu.show(father, e.getX(), e.getY());
 
 				// .addBtn.getX()+110,PromotionPanel.this.addBtn.getY()+110
-
+				
 			}
+			
 		});
 		top.add(addBtn);
 		//
