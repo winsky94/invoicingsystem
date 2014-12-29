@@ -375,8 +375,13 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 			} else {
 				ClauseItemVO item = new ClauseItemVO(crm.getValueAt(seleted, 0), Double.parseDouble(crm.getValueAt(seleted, 1)), crm.getValueAt(seleted, 2));
 				
-				
-				tra.remove(item);
+				for(int i=0;i<tra.size();i++){
+				   ClauseItemVO gai=tra.get(i);
+				   if(gai.getInfo().equals(item.getInfo())&&gai.getMoney()==item.getMoney()&&gai.getName().equals(item.getName())){
+				       tra.remove(i);
+				       break;
+				   }
+				}
 				totalMoney -= Double.parseDouble(crm.getValueAt(seleted, 1));
 				crm.removeRow(seleted);
 				table.revalidate();

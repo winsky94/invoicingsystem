@@ -185,7 +185,7 @@ public class ModifyCashlistPanel extends AddCashReceiptPanel implements ActionLi
 							tip+"了一笔现金费用单",5));
 					headPane.RefreshGrades();
 				} else {
-					JOptionPane.showMessageDialog(null, tip+"现金费用失败！", "提示",
+					JOptionPane.showMessageDialog(null, tip+"现金费用单失败！", "提示",
 							JOptionPane.WARNING_MESSAGE);
 				}
 				
