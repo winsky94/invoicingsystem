@@ -411,7 +411,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 		}
 		return 0;
 	}
-	
+	/*
 	public static void main(String[] args)throws Exception{
 		
 		Promotion p=new Promotion();
@@ -442,7 +442,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 		for(GiftCouponProPO po:t){
 			System.out.println(po.getStartDate()+po.getTotalValue());
 		}
-	}*/
+	}
 	 PromotionPO po=p.find("DJQ-20141230-001",PromotionType.GIFTCOUPON);
 	 System.out.println(po.IsMatch());
 	 if(po!=null){
@@ -452,5 +452,5 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 	po=p.find("DJQ-20141230-001",PromotionType.GIFTCOUPON);
 	 System.out.println(po.IsMatch());
 	 
-	}
+	}*/
 }
