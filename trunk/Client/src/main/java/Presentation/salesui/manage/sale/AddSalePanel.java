@@ -600,6 +600,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 
 	public void couponUse(String id) {
 		PromotionMatchService proservice;
+		if(!memid.equals("")){
 		try {
 			proservice = new promotionController();
 			coupon = proservice.getCouponValue(id);
@@ -612,20 +613,21 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 			else {
 				couponid = id;
 				total[4] = total[2] - coupon;
-				sale.setCouponid(id);
 				if (total[4] < 0) {
 					total[3] = -total[4];
 					total[4] = 0;
 					couponBtn.setText("代金券抵消" + total[2] + "元");
 				} else
 					couponBtn.setText("代金券抵消" + coupon + "元");
-				totalToPayLbl.setText("客户应付总价:" + total[4] + "元");
+					totalToPayLbl.setText("客户应付总价:" + total[4] + "元");
 			}
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}}
+		else
+			JOptionPane.showMessageDialog(null, "请先选择用户！");
 
 	}
 	

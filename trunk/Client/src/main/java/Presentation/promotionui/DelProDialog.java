@@ -58,8 +58,8 @@ public class DelProDialog extends JDialog{
 		pnl.add(submitBtn);
 		
 		PromotionVO vo=service.find(id, type);
-		boolean isInvalidCouponPro=type==PromotionType.GIFTCOUPON&&
-				MyDateFormat.getToday().compareTo(vo.getEndDate())>0;
+		boolean isInvalidCouponPro=(type==PromotionType.GIFTCOUPON&&
+				MyDateFormat.getToday().compareTo(vo.getEndDate())>0);
 		if(vo.IsMatch()&&!isInvalidCouponPro){
 			textLbl.setText("该促销策略匹配中，暂不能删除！");
 			submitBtn.setText("确定");
