@@ -76,7 +76,7 @@ public class ReceiptList {
 			for(int i=0;i<toApprove.size();i++)
 				if(toApprove.get(i).getType()==type)
 					toApproveByType.add(toApprove.get(i));
-			if(toApproveByType.size()==0) return null;
+			if(toApproveByType.size()!=0) return null;
 			else
 				return toApproveByType;
 		}
@@ -94,7 +94,7 @@ public class ReceiptList {
 			for(int i=0;i<Approve.size();i++)
 				if(Approve.get(i).getType()==type)
 					ApproveByType.add(Approve.get(i));
-			if(ApproveByType.size()==0) return null;
+			if(ApproveByType.size()!=0) return null;
 			else
 				return ApproveByType;
 		}
