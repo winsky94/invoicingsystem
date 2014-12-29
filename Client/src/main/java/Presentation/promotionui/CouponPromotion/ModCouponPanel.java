@@ -21,7 +21,7 @@ public class ModCouponPanel extends AddCouponPanel{
 	//处于代金券编号问题  基本匹配后不可修改 可修改满赠总价和起始时期
 	private static final long serialVersionUID = 1L;
 	GiftCouponProVO vo;
-	public ModCouponPanel(String ID,MainFrame myFather) {
+	public ModCouponPanel(String ID,MainFrame myFather) throws Exception {
 		super(myFather);
 		vo=(GiftCouponProVO)service.find(ID, PromotionType.GIFTCOUPON);
 		title.setText("修改代金券赠送策略");
