@@ -92,7 +92,7 @@ public class packPro extends promotion{
 					String date=vo.getId().split("-")[1];
 					if(start.compareTo(date)<=0&&end.compareTo(date)>=0){
 					ArrayList<CommodityVO> prolist=pro.get(i).getPack().getCombine();
-						if(searchInList(clist,prolist))
+						if(searchIsMatch(clist,prolist))
 						{	double packdis=pro.get(i).getTotalValue()-pro.get(i).getPackValue();
 							if(maxvalue<packdis)
 							{
@@ -114,14 +114,15 @@ public class packPro extends promotion{
 		vo.setProDiscount(v.getTotalValue()-v.getPackValue());
 		return vo;
 	}
-	
-	public boolean searchInList(ArrayList<CommodityVO> prolist,ArrayList<CommodityVO> list){
+	//要都存在
+	public boolean searchIsMatch(ArrayList<CommodityVO> prolist,ArrayList<CommodityVO> list){
 		boolean tag=false;
 		for(int i=0;i<prolist.size();i++){
 			tag=false;
-			for(int j=0;j<list.size();j++)
-				if(prolist.get(i).getID().equals(list.get(j).getID()))
-					{tag=true;break;	}
+			for(int j=0;j<list.size();j++){
+				if(list.get(j).getID().equals(prolist.get(i).getID()))
+				{tag=true;break;}
+			}
 			if(!tag)
 				return false;
 		}
