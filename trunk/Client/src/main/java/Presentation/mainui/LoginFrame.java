@@ -23,42 +23,33 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-
-
-
-
-
-
-
-
-
 import vo.LogVO;
 import vo.UserVO;
 import Presentation.uihelper.UIhelper;
 import businesslogic.userbl.User;
 import businesslogicservice.userblservice.UserBLService;
+
 //改进 工号 /姓名 均可登陆
-public class LoginFrame extends JFrame{
+public class LoginFrame extends JFrame {
 
 	/**
 	 * 
 	 */
-	//private UserBLService service;
+	// private UserBLService service;
 	private static final long serialVersionUID = 1L;
 	String id, key;
 	JTextField idField;
 	JPasswordField passwordField;
-    JLabel label;
+	JLabel label;
 	int screenHeight, screenWidth, frameHeight, frameWidth;
-    int xOld,yOld;
+	int xOld, yOld;
+
 	public LoginFrame() throws Exception {
-	
-	
-		
-		//service = new User();// 声明一下 yan 11-18
+
+		// service = new User();// 声明一下 yan 11-18
 		// 获得与分辨率匹配的大小
-		screenHeight=UIhelper.getScreenHeight();
-		screenWidth=UIhelper.getScreenWidth();
+		screenHeight = UIhelper.getScreenHeight();
+		screenWidth = UIhelper.getScreenWidth();
 		frameHeight = 480;
 		frameWidth = 300;
 		// 设置窗口大小，位置
@@ -82,143 +73,139 @@ public class LoginFrame extends JFrame{
 						icon.getIconHeight(), icon.getImageObserver());
 			}
 		};
-		
-		//关闭按钮
-		  
-		 final ImageIcon close=new ImageIcon("img/Login/closeButton.png");
-		 final ImageIcon close1=new ImageIcon("img/Login/closeButton1.png");
-		 final JLabel closeButton = new JLabel(close);
-        closeButton.setSize(close.getIconWidth(), close.getIconHeight());
-        closeButton.setLocation(getWidth()-20, 0);
-        closeButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        
-        final ImageIcon min=new ImageIcon("img/Login/minButton.png");
-        final ImageIcon min1=new ImageIcon("img/Login/minButton1.png");
-        final JLabel minButton=new JLabel(min);
-        minButton.setSize(min.getIconWidth(), min.getIconHeight());
-        minButton.setLocation(getWidth()-45,0);
-        minButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        class buttonListener extends MouseAdapter{
-        	public void mouseClicked(MouseEvent e) {
+
+		// 关闭按钮
+
+		final ImageIcon close = new ImageIcon("img/Login/closeButton.png");
+		final ImageIcon close1 = new ImageIcon("img/Login/closeButton1.png");
+		final JLabel closeButton = new JLabel(close);
+		closeButton.setSize(close.getIconWidth(), close.getIconHeight());
+		closeButton.setLocation(getWidth() - 20, 0);
+		closeButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+		final ImageIcon min = new ImageIcon("img/Login/minButton.png");
+		final ImageIcon min1 = new ImageIcon("img/Login/minButton1.png");
+		final JLabel minButton = new JLabel(min);
+		minButton.setSize(min.getIconWidth(), min.getIconHeight());
+		minButton.setLocation(getWidth() - 45, 0);
+		minButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		class buttonListener extends MouseAdapter {
+			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-        		if(e.getSource()==minButton)
-				  LoginFrame.this.setExtendedState(JFrame.ICONIFIED);
-        		else 
-        			System.exit(0);
-        	}
+				if (e.getSource() == minButton)
+					LoginFrame.this.setExtendedState(JFrame.ICONIFIED);
+				else
+					System.exit(0);
+			}
+
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				if(e.getSource()==minButton)
-				minButton.setIcon(min1);
-				else 
+				if (e.getSource() == minButton)
+					minButton.setIcon(min1);
+				else
 					closeButton.setIcon(close1);
-				
+
 			}
 
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				if(e.getSource()==minButton)
+				if (e.getSource() == minButton)
 					minButton.setIcon(min);
 				else
 					closeButton.setIcon(close);
-				
+
 			}
-        }
-        buttonListener bl=new buttonListener();
-        minButton.addMouseListener(bl);
-        closeButton.addMouseListener(bl);
-        
-      
-        
-        
-        mainPanel.add(minButton);
-        mainPanel.add(closeButton);  
-          
-       
+		}
+		buttonListener bl = new buttonListener();
+		minButton.addMouseListener(bl);
+		closeButton.addMouseListener(bl);
+
+		mainPanel.add(minButton);
+		mainPanel.add(closeButton);
+
 		// 设置mainPanel的大小和位置：同frame一样大小，覆盖整个frame
 		mainPanel.setSize(frameWidth, frameHeight);
 		mainPanel.setLocation(0, 0);
-		
-		//==============头像==================
-		ImageIcon icon=new ImageIcon("img/Login/tou.png");
-		icon.setImage(icon.getImage().getScaledInstance(180,180,Image.SCALE_DEFAULT));
-		label=new JLabel();
+
+		// ==============头像==================
+		ImageIcon icon = new ImageIcon("img/Login/tou.png");
+		icon.setImage(icon.getImage().getScaledInstance(180, 180,
+				Image.SCALE_DEFAULT));
+		label = new JLabel();
 		label.setLocation(55, 50);
 		label.setIcon(icon);
-		
-	
-		
-		
-		label.setSize(icon.getIconWidth(),icon.getIconHeight());
+
+		label.setSize(icon.getIconWidth(), icon.getIconHeight());
 		// ------------在mainPanel上添加组件------------------------------------------------
 		// 设置用户名文本域
 		idField = new JTextField();
 		idField.setSize(frameWidth * 64 / 100, frameHeight / 16);
 		idField.setLocation(frameWidth * 26 / 100, frameHeight * 55 / 100);
-	//	idField.getDocument().addDocumentListener(new FieldListener());
+		// idField.getDocument().addDocumentListener(new FieldListener());
 		idField.setVisible(true);
-	
-		idField.addFocusListener(new FocusAdapter(){
-			public void focusLost(FocusEvent e){
+
+		idField.addFocusListener(new FocusAdapter() {
+			public void focusLost(FocusEvent e) {
 				try {
-					
-					UserBLService service=new User();
-					UserVO v=service.showUser(idField.getText());
-					if(v!=null){
-						switch(v.getJob()){
+
+					UserBLService service = new User();
+					UserVO v = service.showUser(idField.getText());
+					if (v != null) {
+						switch (v.getJob()) {
 						case MANAGER:
-							label.setIcon(new ImageIcon("img/Login/head_p.png"));break;
+							label.setIcon(new ImageIcon("img/Login/head_p.png"));
+							break;
 						case FINANCE:
-							label.setIcon(new ImageIcon("img/Login/head_f.png"));break;
+							label.setIcon(new ImageIcon("img/Login/head_f.png"));
+							break;
 						case SALE:
-							label.setIcon(new ImageIcon("img/Login/head_s.png"));break;
+							label.setIcon(new ImageIcon("img/Login/head_s.png"));
+							break;
 						case STOCK:
-							label.setIcon(new ImageIcon("img/Login/head_k.png"));break;
+							label.setIcon(new ImageIcon("img/Login/head_k.png"));
+							break;
 						default:
 							label.setIcon(new ImageIcon("img/Login/head_a.png"));
-							
+
 						}
-							
-						
-					}else{
+
+					} else {
 						label.setIcon(new ImageIcon("img/Login/tou.png"));
 					}
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
-					//e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "您的网络未连接！","提示",JOptionPane.WARNING_MESSAGE);
-					//System.exit(0);
+					// e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "您的网络未连接！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+					// System.exit(0);
 				}
-				
 			}
 		});
-		idField.addKeyListener(new KeyAdapter(){
-			public void keyReleased(KeyEvent e){
-				if(e.getKeyCode()==KeyEvent.VK_DOWN)
+		idField.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_DOWN)
 					passwordField.requestFocus();
 			}
 		});
-	
-					
-			
+
 		// 设置密码域
 		passwordField = new JPasswordField();
 		passwordField.setSize(frameWidth * 64 / 100, frameHeight / 16);
 		passwordField
 				.setLocation(frameWidth * 26 / 100, frameHeight * 65 / 100);
-	//	passwordField.addKeyListener(new passwordFieldListener());
+		// passwordField.addKeyListener(new passwordFieldListener());
 		passwordField.setVisible(true);
-		passwordField.addKeyListener(new KeyAdapter(){
-			public void keyReleased(KeyEvent e){
-				if(e.getKeyCode()==KeyEvent.VK_UP)
+		passwordField.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_UP)
 					idField.requestFocus();
 			}
-		});     
-	//	passwordField.getDocument().addDocumentListener(new FieldListener());
+		});
+		// passwordField.getDocument().addDocumentListener(new FieldListener());
 		// 设置登录按钮
 		// 设想：改为圆形按钮
 		JButton loginButton = new JButton("登录");
-		
+
 		Font buttonFont = new Font("登录", Font.PLAIN, 13);
 		loginButton.setFont(buttonFont);
 		loginButton.setSize(frameWidth / 5, frameHeight * 6 / 100);
@@ -242,16 +229,14 @@ public class LoginFrame extends JFrame{
 		passwordLabel.setLocation(frameWidth * 8 / 100, frameHeight * 64 / 100);
 		passwordLabel.setVisible(true);
 		JPanel portraitPanel = new JPanel();
-        
+
 		mainPanel.setVisible(true);
 		mainPanel.setLayout(null);
 		// 向mainPanel添加组件
-		
-		//pane.add(image);
-		//mainPanel.add(pane);
-	
-		
-		
+
+		// pane.add(image);
+		// mainPanel.add(pane);
+
 		mainPanel.add(label);
 		mainPanel.add(idLabel);
 		mainPanel.add(passwordLabel);
@@ -260,91 +245,82 @@ public class LoginFrame extends JFrame{
 		mainPanel.add(idField);
 		mainPanel.add(passwordField);
 		// 向LoginFrame添加组件
-		//this.add(image);
-		 this.setUndecorated(true);
+		// this.add(image);
+		this.setUndecorated(true);
 		this.add(mainPanel);
 		this.repaint();
 		this.setResizable(false);// 不允许调整窗口大小
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 关闭时结束进程
 		this.setVisible(true);// 窗口可见
 		this.getRootPane().setDefaultButton(loginButton);
-		//处理拖动事件
-		  this.addMouseListener(new MouseAdapter() {  
-	            public void mousePressed(MouseEvent e) {  
-	                xOld = e.getX();  
-	                yOld = e.getY();  
-	            }  
-	        });  
-	        this.addMouseMotionListener(new MouseMotionAdapter() {  
-	            @Override  
-	            public void mouseDragged(MouseEvent e) {  
-	                int xOnScreen = e.getXOnScreen();  
-	                int yOnScreen = e.getYOnScreen();  
-	                int xx = xOnScreen - xOld;  
-	                int yy = yOnScreen - yOld;  
-	                LoginFrame.this.setLocation(xx, yy);  
-	            }  
-	        });  
-	        
-	    
+		// 处理拖动事件
+		this.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				xOld = e.getX();
+				yOld = e.getY();
+			}
+		});
+		this.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int xOnScreen = e.getXOnScreen();
+				int yOnScreen = e.getYOnScreen();
+				int xx = xOnScreen - xOld;
+				int yy = yOnScreen - yOld;
+				LoginFrame.this.setLocation(xx, yy);
+			}
+		});
+
 	}
 
 	public static void main(String[] args) throws Exception {
 		new IPFrame();
-		
-			
-			  
-			
-	}
 
-	
-	
-	
+	}
 
 	// 下面的类是按钮的事件监听器
 	class LoginListener implements ActionListener {
 		// 11-17 By jin
-		
+
 		public void actionPerformed(ActionEvent e) {
-		    UserBLService service;
+			UserBLService service;
 			try {
 				service = new User();
-			
-			String ID = idField.getText();
-			String passWord = new String(passwordField.getPassword());
-			int result = service.login(ID, passWord);
-			switch (result) {
-			case 0:
-				UserVO user=service.showUser(ID);
-				
-				MainFrame frame=new MainFrame(user);
-				frame.setDividerLocation("long");
-				log.addLog(new LogVO(log.getdate(),user.getID(),user.getName(),
-						"登陆进销存系统",2));
-				headPane.RefreshGrades();
-				LoginFrame.this.dispose();
-				break;
-			case 2:
-				 JOptionPane.showMessageDialog(null,"该用户不存在!","提示",JOptionPane.WARNING_MESSAGE);
-				 idField.setText("");passwordField.setText("");
-				 break;
-				
-			default:
-				
-				 JOptionPane.showMessageDialog(null,"密码错误","提示",JOptionPane.WARNING_MESSAGE);
-				 passwordField.setText("");
+
+				String ID = idField.getText();
+				String passWord = new String(passwordField.getPassword());
+				int result = service.login(ID, passWord);
+				switch (result) {
+				case 0:
+					UserVO user = service.showUser(ID);
+
+					MainFrame frame = new MainFrame(user);
+					frame.setDividerLocation("long");
+					log.addLog(new LogVO(log.getdate(), user.getID(), user
+							.getName(), "登陆进销存系统", 2));
+					headPane.RefreshGrades();
+					LoginFrame.this.dispose();
+					break;
+				case 2:
+					JOptionPane.showMessageDialog(null, "该用户不存在!", "提示",
+							JOptionPane.WARNING_MESSAGE);
+					idField.setText("");
+					passwordField.setText("");
+					break;
+
+				default:
+
+					JOptionPane.showMessageDialog(null, "密码错误", "提示",
+							JOptionPane.WARNING_MESSAGE);
+					passwordField.setText("");
+				}
+
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, "您的网络未连接！", "提示",
+						JOptionPane.WARNING_MESSAGE);
 			}
-
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			 JOptionPane.showMessageDialog(null,"您的网络未连接！","提示",JOptionPane.WARNING_MESSAGE);
-		}}
+		}
 	}
-
-
-
-
-
-	
 
 }
