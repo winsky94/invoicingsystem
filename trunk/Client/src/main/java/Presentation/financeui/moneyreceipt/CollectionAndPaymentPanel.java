@@ -269,6 +269,13 @@ public class CollectionAndPaymentPanel extends JPanel {
 								.getValueAt(seleted, 0), Double.parseDouble(tlm
 								.getValueAt(seleted, 1)), tlm.getValueAt(
 								seleted, 2));
+						for(int i=0;i<tra.size();i++){
+							TransferItemVO gai=tra.get(i);
+							if(gai.getAccount().equals(item.getAccount())&&gai.getInfo().equals(item.getInfo())&&gai.getMoney()==item.getMoney()){
+								tra.remove(i);
+								break;
+							}
+						}
 
 						tra.remove(item);
 						totalMoney -= Double.parseDouble(tlm.getValueAt(
