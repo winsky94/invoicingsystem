@@ -19,17 +19,17 @@ public class GoodsClass extends UnicastRemoteObject implements
 
 	public GoodsClass() throws RemoteException {
 		super();
-		file = new JXCFile("goodsClass.ser");
+		file = new JXCFile("src/main/java/goodsClass.ser");
 	}
 
 	public int addGoodsClass(GoodsClassPO po) throws RemoteException {
-		file = new JXCFile("goodsClass.ser");
+		file = new JXCFile("src/main/java/goodsClass.ser");
 		file.write(po);
 		return 0;
 	}
 
 	public int deleteGoodsClass(GoodsClassPO po) throws RemoteException {
-		file = new JXCFile("goodsClass.ser");
+		file = new JXCFile("src/main/java/goodsClass.ser");
 		ArrayList<Object> a = file.read();
 
 		if (a != null) {
@@ -49,7 +49,7 @@ public class GoodsClass extends UnicastRemoteObject implements
 
 	// 修改是要删除原来的所有的数据重新写入，调用writeM方法——yan
 	public int modifyGoodsClass(GoodsClassPO po) throws RemoteException {
-		file = new JXCFile("goodsClass.ser");
+		file = new JXCFile("src/main/java/goodsClass.ser");
 		ArrayList<Object> a = file.read();
 
 		int i;
@@ -66,7 +66,7 @@ public class GoodsClass extends UnicastRemoteObject implements
 	}
 
 	public ArrayList<GoodsClassPO> show() throws RemoteException {
-		file = new JXCFile("goodsClass.ser");
+		file = new JXCFile("src/main/java/goodsClass.ser");
 		ArrayList<GoodsClassPO> result = new ArrayList<GoodsClassPO>();
 		ArrayList<Object> a = file.read();
 
@@ -82,7 +82,7 @@ public class GoodsClass extends UnicastRemoteObject implements
 	}
 
 	public String getMaxID() throws RemoteException {
-		file = new JXCFile("goodsClass.ser");
+		file = new JXCFile("src/main/java/goodsClass.ser");
 		String maxID = null;
 		ArrayList<Object> a = file.read();
 		// 有可能是系统初始化，所以读出的MaxID可能为空!
@@ -102,7 +102,7 @@ public class GoodsClass extends UnicastRemoteObject implements
 	}
 
 	public GoodsClassPO showGoodsClassInfo(String name) throws RemoteException {
-		file = new JXCFile("goodsClass.ser");
+		file = new JXCFile("src/main/java/goodsClass.ser");
 		GoodsClassPO po = null;
 		ArrayList<Object> a = file.read();
 		if (a != null) {
