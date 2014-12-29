@@ -49,7 +49,7 @@ public class Coupon extends UnicastRemoteObject implements CouponDataService{
 			CouponPO p=al.get(i);
 			if(id.equals(p.getId())){
 				p.setUse(status);
-				p.setuseDate(date);
+				p.setUseDate(date);
 				break;
 			}
 			file=new JXCFile("coupon.ser");
