@@ -117,8 +117,8 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 
 			Member m = new Member();
 			int i = m.changeToReceive(vo.getMemberID(), vo.getToPay());
-
 			if (i == 0) {
+				
 				//修改库存数量
 				StockGoodsBLService goodsController = new GoodsController();
 				ArrayList<CommodityVO> list = vo.getSalesList();
