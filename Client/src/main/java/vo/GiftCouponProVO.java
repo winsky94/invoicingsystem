@@ -20,6 +20,9 @@ public class GiftCouponProVO extends PromotionVO{
 	public ArrayList<CouponVO> getCouponList() {
 		return couponList;
 	}
+	public  void setCouponList(ArrayList<CouponVO> list) {
+		this.couponList=list;
+	}
 	public double getTotalValue() {
 		return totalValue;
 	}

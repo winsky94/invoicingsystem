@@ -27,12 +27,16 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import po.MemberPO.MemberType;
+import po.PromotionPO.PromotionType;
 import po.ReceiptPO.ReceiptType;
 import po.UserPO.UserJob;
 import vo.CommodityVO;
+import vo.CouponVO;
+import vo.GiftCouponProVO;
 import vo.GoodsVO;
 import vo.LogVO;
 import vo.MemberVO;
+import vo.PromotionVO;
 import vo.SaleVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
@@ -47,6 +51,7 @@ import businesslogic.promotionbl.promotionController;
 import businesslogic.salesbl.SalesController;
 import businesslogicservice.memberblservice.MemberViewService;
 import businesslogicservice.promotionblservice.PromotionMatchService;
+import businesslogicservice.promotionblservice.PromotionViewService;
 import businesslogicservice.salesblservice.SalesBLService;
 
 public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListener {
@@ -401,8 +406,31 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 				getSale();
 				int result = service.addSale(sale);
 				if (result == 0) {
-					JOptionPane.showMessageDialog(null, "销售单创建成功！"
-							);
+					if(proid.equals("")){
+					JOptionPane.showMessageDialog(null, "销售单创建成功！");}
+					else{
+						String type=proid.split("-")[0];
+						if(type.equals("SP")){
+							JOptionPane.showMessageDialog(null, "符合赠品促销策略"+proid+",审批通过后"
+									+ "赠品将会送出！");
+						}else if(type.equals("DJQ")){
+							PromotionViewService proser=new promotionController();
+							PromotionVO v=proser.find(proid, PromotionType.GIFTCOUPON);
+							if(v!=null){
+							ArrayList<CouponVO> cou=((GiftCouponProVO)v).getCouponList();
+							String couid="";
+							for(int i=0;i<cou.size();i++){
+								couid+=cou.get(i).getId();
+								if(i!=cou.size()-1)
+									couid+=",";
+							}
+							JOptionPane.showMessageDialog(null, "符合代金券促销策略，代金券id为"+couid);
+									
+							}
+						}
+						
+						
+					}
 					log.addLog(new LogVO(log.getdate(),parent.getUser()
 							.getID(), parent.getUser().getName(), "创建一笔销售单", 6));
 					headPane.RefreshGrades();
@@ -486,6 +514,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 	}
 
 	public void getSale() {
+		double origin=0;
 		ArrayList<CommodityVO> cmlist = new ArrayList<CommodityVO>();
 		for (int j = 0; j < table.getRowCount(); j++) {
 			ArrayList<String> line = cmContent.get(j);
@@ -494,6 +523,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 					line.get(2), Double.parseDouble(line.get(4)),
 					last_bid.get(j), Integer.parseInt(line.get(3)),
 					Double.parseDouble(line.get(5)), cost, line.get(6));
+			origin+=cv.getTotal();
 			cmlist.add(cv);
 		}
 		getCost();
@@ -506,6 +536,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 		int hurry = 1;
 		if (hurryBox.isSelected())
 			hurry = 0;
+		total[2]=origin-discount[3];
 		sale = new SaleVO(clerkFld.getText(), cmlist, id, mem, memid, UserID
 				, 0, hurry, remarkFld.getText(),
 				stockFld.getText(), proid, couponid, total, discount);

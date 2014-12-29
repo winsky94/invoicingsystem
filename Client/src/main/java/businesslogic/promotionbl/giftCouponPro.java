@@ -40,35 +40,16 @@ public class giftCouponPro extends promotion{
 	
 	//data层modify可能有问题
 	public void useCoupon(String couponid,boolean status){
-		 ArrayList<PromotionPO> po =service.show(PromotionType.GIFTCOUPON);
-		 boolean tag=false;
-		 if(po!=null){
-		 for(int i=0;i<po.size();i++){
-			 ArrayList<CouponPO>  clist=((GiftCouponProPO)po.get(i)).getCouponList();
-			 for(int j=0;j<clist.size();j++){
-				 if(couponid.equals(clist.get(j).getId())){
-					 GiftCouponProPO p=((GiftCouponProPO)po.get(i));
-					 p.getCouponList().get(j).setUse(status);
-					 service.Modify(p);
-					 tag=true;
-					 break;
-					 
-				 }
-				 if(tag)
-					 break;
-			 }
-		 }
-		 }
+	
+		 coupon.modifyCoupon(couponid,status,getDate.getdate());
 		
 	}
 	
 	public double getCouponValue(String id){
-		ArrayList<GiftCouponProVO> vo=show();
-		if(vo==null) return -1;
+		ArrayList<CouponVO> vo=coupon.getAllCoupon();
+		if(vo==null) return -1;//不存在
 		for(int i=0;i<vo.size();i++){
-			ArrayList<CouponVO> cvo=vo.get(i).getCouponList();
-			for(int j=0;j<cvo.size();j++){
-				CouponVO cv=cvo.get(j);
+			CouponVO cv=vo.get(i);
 				if(id.equals(cv.getId())){
 					if(cv.getIsUse()==true)
 						return -2;//代金券已被使用
@@ -76,40 +57,10 @@ public class giftCouponPro extends promotion{
 				}
 					
 			}
-		}
-		
-		
 		return -1;//该代金券id不存在
 	}
 	
-	public String[] getCouponId(int n){
-		 NumberFormat nf = NumberFormat.getInstance();
-	     nf.setMinimumIntegerDigits(5); 
-	     nf.setGroupingUsed(false);
-	     String date=getDate.getdate();
-		String[] result=new String[n];
-		ArrayList<PromotionPO> po=service.show(PromotionType.GIFTCOUPON);
-		if(po==null){
-			for(int i=1;i<=n;i++)
-				result[i-1]=date+nf.format(i);
-		}else{
-			GiftCouponProPO gpv=(GiftCouponProPO)po.get(po.size()-1);
-			int size=gpv.getCouponList().size();
-			String id=gpv.getCouponList().get(size-1).getId();
-			
-		if(date.equals(id.substring(0, 8)))
-		{	id=id.substring(8);
-			double d=Double.parseDouble(id)+1;
-			for(int i=0;i<n;i++)
-				result[i]=date+nf.format(d++);}
-		else{
-			for(int i=1;i<=n;i++)
-				result[i-1]=date+nf.format(i);
-		}
-		}
-		
-		return result;
-	}
+	
 	
 	public ArrayList<GiftCouponProVO> show(){
 		ArrayList<PromotionPO> po=service.show(PromotionType.GIFTCOUPON);
@@ -131,9 +82,7 @@ public class giftCouponPro extends promotion{
 		// TODO Auto-generated method stub
 		GiftCouponProVO v=(GiftCouponProVO)vo;
 		ArrayList<CouponVO> cvo=v.getCouponList();
-		String[] cid=getCouponId(cvo.size());
-		for(int i=0;i<cid.length;i++)
-			cvo.get(i).setId(cid[i]);
+		v.setCouponList(coupon.createNewCoupon(cvo));
 		return service.Add(voToPo(v));
 	}
 	
@@ -200,6 +149,14 @@ public class giftCouponPro extends promotion{
 				
 				
 			}}
+			if(result!=null){
+				if(result.IsMatch()){
+					GiftCouponProVO cou=(GiftCouponProVO)result;
+					cou.setCouponList(coupon.createNewCoupon(cou.getCouponList()));
+					service.Modify(voToPo(cou));
+					
+				}//创建一组新单据
+			}
 			return result;
 		}
 	}
@@ -242,21 +199,16 @@ public class giftCouponPro extends promotion{
 	
 	
 	public double getCouponCost(String startDate ,String endDate){
-		ArrayList<GiftCouponProVO> pro=show();
+		ArrayList<CouponVO> vo=coupon.getAllCoupon();
 		double cost=0;
-		if(pro==null) return 0;
-		for(int i=0;i<pro.size();i++){
-			String start=pro.get(i).getStartDate();
-			String end=pro.get(i).getEndDate();
-			boolean isValid=startDate.compareTo(start)<=0&&endDate.compareTo(end)>=0;
+		if(vo==null) return 0;
+		for(int i=0;i<vo.size();i++){
+			String date=vo.get(i).getUseDate();
+			boolean isValid=startDate.compareTo(date)<=0&&endDate.compareTo(date)>=0;
 			if(isValid){
-			ArrayList<CouponVO> vo=pro.get(i).getCouponList();
-			for(int j=0;j<vo.size();j++)
-				if(vo.get(j).getIsUse())
-					cost+=vo.get(j).getValue();
-			}
+			cost+=vo.get(i).getValue();
 		}
-		
+	}
 		return cost;
 	}
 
