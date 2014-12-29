@@ -24,7 +24,7 @@ public class CouponPO implements Serializable{
 		this.useDate=date;
 	}
 	
-	public String getUserDate(){
+	public String getUseDate(){
 		return this.useDate;
 	}
 	public String getId() {
