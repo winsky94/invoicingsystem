@@ -109,7 +109,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 				return 1;
 			for(int i=0;i<al.size();i++){
 				PackProPO p=al.get(i);
-				if(p.equals(it.getID())){
+				if(p.getID().equals(it.getID())){
 					p.setStartDate(it.getStartDate());
 					p.setEndDate(it.getEndDate());
 					p.setLevel(it.getLevel());
@@ -132,7 +132,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 			
 			for(int i=0;i<al.size();i++){
 				DiscountProPO p=al.get(i);
-				if(p.equals(it.getID())){
+				if(p.getID().equals(it.getID())){
 					p.setStartDate(it.getStartDate());
 					p.setEndDate(it.getEndDate());
 					p.setLevel(it.getLevel());
@@ -153,7 +153,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 				return 1;
 			for(int i=0;i<al.size();i++){
 				GiftCouponProPO p=al.get(i);
-				if(p.equals(it.getID())){
+				if(p.getID().equals(it.getID())){
 					p.setStartDate(it.getStartDate());
 					p.setEndDate(it.getEndDate());
 					p.setLevel(it.getLevel());
@@ -175,7 +175,7 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 				return 1;
 			for(int i=0;i<al.size();i++){
 				GiftGoodProPO p=al.get(i);
-				if(p.equals(it.getID())){
+				if(p.getID().equals(it.getID())){
 					p.setStartDate(it.getStartDate());
 					p.setEndDate(it.getEndDate());
 					p.setLevel(it.getLevel());
@@ -413,8 +413,9 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 	}
 	
 	public static void main(String[] args)throws Exception{
+		
 		Promotion p=new Promotion();
-		ArrayList<GiftCouponProPO> t;
+		/*ArrayList<GiftCouponProPO> t;
 		
 	t=p.getGiftCouponPro();
 	//p.show(PromotionType.GIFTCOUPON);
@@ -441,6 +442,15 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 		for(GiftCouponProPO po:t){
 			System.out.println(po.getStartDate()+po.getTotalValue());
 		}
+	}*/
+	 PromotionPO po=p.find("DJQ-20141230-001",PromotionType.GIFTCOUPON);
+	 System.out.println(po.IsMatch());
+	 if(po!=null){
+		 po.setIsMatch(true);
+		 p.Modify(po);
+	 }
+	po=p.find("DJQ-20141230-001",PromotionType.GIFTCOUPON);
+	 System.out.println(po.IsMatch());
+	 
 	}
-
 }
