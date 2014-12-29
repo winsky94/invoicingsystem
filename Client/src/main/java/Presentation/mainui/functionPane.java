@@ -17,6 +17,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+
+import businesslogic.financebl.Init;
+import businesslogicservice.financeblservice.initblservice.FinanceInitBLService;
 //rightPane 的顶上部分基本窗口操作按钮
 public class functionPane extends JPanel{
 	JPanel parent;
@@ -90,8 +93,18 @@ public class functionPane extends JPanel{
     			
     		//state=mainFrame.getExtendedState();
 			  mainFrame.setExtendedState(JFrame.HIDE_ON_CLOSE);}
-    		else if(e.getSource()==close)
+    		else if(e.getSource()==close){
+    			try {
+    			FinanceInitBLService service = new Init();;
+    			service.reset();
     			System.exit(0);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+    		
+    			
+    		}	
     		else if(e.getSource()==max){
     			if(mainFrame.getExtendedState()!=JFrame.MAXIMIZED_BOTH)
     				{
