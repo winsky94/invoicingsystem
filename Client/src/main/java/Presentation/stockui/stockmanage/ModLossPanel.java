@@ -21,7 +21,7 @@ public class ModLossPanel extends LossPanel {
 	StockOverOrLowVO overVo;
 	StockOverOrLowManage manage;
 	boolean isRed = false;
-	
+
 	public ModLossPanel(String ID, MainFrame frame) {
 		super(frame);
 		manage = new StockOverOrLowManage();
@@ -68,8 +68,8 @@ public class ModLossPanel extends LossPanel {
 						null, JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			
-			if (exactNum >= goodsVO.getNumInStock()) {
+
+			if (exactNum >= overVo.getNum()) {
 				JOptionPane.showMessageDialog(null, "       您确定当前是库存报损嘛？",
 						null, JOptionPane.WARNING_MESSAGE);
 				return;

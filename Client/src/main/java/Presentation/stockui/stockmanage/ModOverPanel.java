@@ -66,8 +66,8 @@ public class ModOverPanel extends OverflowPanel {
 						null, JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			
-			if (exactNum <= goodsVO.getNumInStock()) {
+
+			if (exactNum <= overVo.getNum()) {
 				JOptionPane.showMessageDialog(null, "       您确定当前是库存报溢嘛？",
 						null, JOptionPane.WARNING_MESSAGE);
 				return;
