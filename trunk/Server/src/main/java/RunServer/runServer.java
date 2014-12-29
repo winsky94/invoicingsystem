@@ -212,7 +212,7 @@ public class runServer extends JFrame implements ActionListener{
 				// 169.254.207.55
 			// 客户端启用的端口号为1099 yan 11-18
 		//	RMISocketFactory.setSocketFactory(new SMRMISocket());
-		//	String hostIP = InetAddress.getLocalHost().getHostAddress();
+			String hostIP = InetAddress.getLocalHost().getHostAddress();
 		//	System.out.println(hostIP);
 			//System.out.println();
 			//String hostIP="localhost";
