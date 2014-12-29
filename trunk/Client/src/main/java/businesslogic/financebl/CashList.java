@@ -16,6 +16,7 @@ import vo.ClauseItemVO;
 import vo.ReceiptVO;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.utilitybl.getDate;
+import businesslogic.utilitybl.getServer;
 import businesslogicservice.financeblservice.listblservice.CashlistBLService;
 
 public class CashList extends Receipt implements CashlistBLService{
@@ -23,7 +24,7 @@ public class CashList extends Receipt implements CashlistBLService{
 	 
 	 public CashList()throws Exception{
 		 //   	System.setSecurityManager(new SecurityManager());
-		 		String host="localhost:1099";
+		        String host=getServer.getServer();
 		 		String url="rmi://"+host+"/cashlistService";
 		 		
 		 		service=(CashlistDataService)Naming.lookup(url);

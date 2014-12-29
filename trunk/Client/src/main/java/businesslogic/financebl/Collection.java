@@ -16,6 +16,7 @@ import vo.TransferItemVO;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.utilitybl.getDate;
+import businesslogic.utilitybl.getServer;
 import businesslogicservice.financeblservice.listblservice.CollectionBLService;
 import dataservice.financedataservice.listdataservice.CollectionDataService;
 
@@ -31,7 +32,7 @@ public class Collection extends Receipt implements CollectionBLService{
      double totalMoney;
      public Collection()throws Exception{
  //   	System.setSecurityManager(new SecurityManager());
- 		String host="localhost:1099";
+    	String host=getServer.getServer();
  		String url="rmi://"+host+"/collectionService";
  	
  		service=(CollectionDataService)Naming.lookup(url);
