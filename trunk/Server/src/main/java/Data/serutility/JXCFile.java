@@ -27,6 +27,9 @@ public class JXCFile {
 			name = s;
 		} else if (s.equals("src/main/java/begininfo.ser")) {
 			name = s;
+		}
+		else if(s.equals("src/main/java/goodsClass.ser")){
+			name=s;		
 		} else {
 			name = "src/main/java/" + time + "/" + s;
 		}
