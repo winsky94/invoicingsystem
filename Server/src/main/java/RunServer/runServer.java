@@ -211,14 +211,15 @@ public class runServer extends JFrame implements ActionListener{
 		try {
 				// 169.254.207.55
 			// 客户端启用的端口号为1099 yan 11-18
-			RMISocketFactory.setSocketFactory(new SMRMISocket());
-			String hostIP = InetAddress.getLocalHost().getHostAddress();
-			System.out.println();
+		//	RMISocketFactory.setSocketFactory(new SMRMISocket());
+		//	String hostIP = InetAddress.getLocalHost().getHostAddress();
+		//	System.out.println(hostIP);
+			//System.out.println();
 			//String hostIP="localhost";
 			int portNum=Integer.parseInt(port);
 			LocateRegistry.createRegistry(portNum);// 客户端启用的注册端口号为1099 yan 11-18
-			//System.setProperty("java.rmi.server.hostname","172.26.7.84");
-		
+		//	//System.setProperty("java.rmi.server.hostname","172.26.7.84");
+		//	String hostIP="rmi://114.212.42.102:1099/";
 			System.out.println("已启动服务器");
 			User user = new User();
 			Member member=new Member();
@@ -235,11 +236,11 @@ public class runServer extends JFrame implements ActionListener{
 			Cashlist cashlist=new Cashlist();
 			Init init=new Init();
 			Log log=new Log();
-			String url="//"+hostIP+":"+portNum+"/";
+			//String url="//"+hostIP+":"+portNum+"/";
 			Naming.rebind("promotionService",pro);
 			Naming.rebind("salesService",sale);
 			Naming.rebind("memberService",member);
-			Naming.bind("userService", user);	
+			Naming.rebind("userService", user);	
 			Naming.rebind("goodsClassService", gc);
 			Naming.rebind("goodsService", g);
 			Naming.rebind("collectionService", collection);
