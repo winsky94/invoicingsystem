@@ -34,7 +34,6 @@ import vo.GoodsVO;
 import vo.LogVO;
 import vo.MemberVO;
 import vo.SaleVO;
-import vo.UserVO;
 import Presentation.mainui.ChooseGoodsFatherPane;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
@@ -74,7 +73,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 	double[] total = new double[5];
 	double[] discount = new double[4];
 	String proid = "", couponid = "",memid="";
-	double pre = 0, coupon = 0;
+	double pre = 1, coupon = 0;
 	// public MainFrame parent;
 	SalesBLService service;
 	JPanel btnPnl,p2,p1,p3;
@@ -83,6 +82,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 	public AddSalePanel(MainFrame frame) throws Exception {
 		parent = frame;
 		service = new SalesController();
+		init();
 		initialArray();
 		UserID=frame.getUser().getID();
 		GridBagLayout gbl = new GridBagLayout();
@@ -535,7 +535,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 			getSale();
 			PromotionMatchService proservice = new promotionController();
 			if (!sale.getMemberID().equals("")) {
-				sale = proservice.Match(sale);
+				sale = proservice.Match(sale);}
 				discount = sale.getDiscount();
 				total = sale.getTotal();
 				discount[1] = (total[1] - discount[0] - discount[2])
@@ -548,17 +548,18 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 					total[4] = 0;
 				} else
 					total[3] = 0;
-
+			
 				proid = sale.getProid();
 				// sale.setDiscount(discount);
 				// sale.setTotal(total);
+			
 				totalOriginLbl.setText("原初总价:" + sale.getTotalOrigin() + "元");
 				totalProDiscountLbl.setText("折让金额:"
 						+ (sale.getTotalOrigin() - sale.getTotalValue()) + "元");
 				totalFinDiscountLbl.setText("折后总价:" + sale.getTotalValue()
 						+ "元");
 				totalToPayLbl.setText("客户应付总价:" + sale.getToPay() + "元");
-			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -595,5 +596,14 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void init(){
+		int i=0;
+		for( i=0;i<4;i++){
+			discount[i]=0;
+			total[i]=0;
+		}
+		total[i]=0;
 	}
 }
