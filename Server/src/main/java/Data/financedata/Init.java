@@ -107,17 +107,17 @@ public class Init extends UnicastRemoteObject implements FinanceInitDataService{
 		try {
 			ArrayList<BeginInfoPO> po=showAll();
 			if(po==null)
-				return "2014-11-01";
+				return "2014-12-21";
 			else{
 				BeginInfoPO pp=po.get(po.size()-1);
 				String recent=pp.getTime();
-				return "2014-11-01";
+				return recent;
 			}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "2014-11-01";
+		return "2014-12-21";
 	}
 	
 	public void setTime(String s) throws RemoteException{
