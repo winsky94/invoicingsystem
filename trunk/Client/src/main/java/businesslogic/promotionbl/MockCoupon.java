@@ -6,7 +6,8 @@ public class MockCoupon extends coupon{
 	private double faceValue;
 	private Boolean isUse;
 	
-	public MockCoupon(String id,double value){
+	public MockCoupon(String id,double value) throws Exception{
+		super();
 		this.id=id;
 		this.faceValue=value;
 		this.isUse=false;

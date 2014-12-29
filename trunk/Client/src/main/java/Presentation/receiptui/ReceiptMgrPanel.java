@@ -97,32 +97,27 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-			/*	int[] row = t1.getSelectedRows();
-				if (row.length > 0) {
-					for (int i = 0; i < row.length; i++) {
-						String id = c1.get(row[i]).get(0).toString();
-						if (service.Approve(id, 2) != 0)
-							JOptionPane.showMessageDialog(null, "审批失败！", "提示",
-									JOptionPane.WARNING_MESSAGE);
-					}
-					Refresh();
+				/*
+				 * int[] row = t1.getSelectedRows(); if (row.length > 0) { for
+				 * (int i = 0; i < row.length; i++) { String id =
+				 * c1.get(row[i]).get(0).toString(); if (service.Approve(id, 2)
+				 * != 0) JOptionPane.showMessageDialog(null, "审批失败！", "提示",
+				 * JOptionPane.WARNING_MESSAGE); } Refresh();
+				 * 
+				 * }
+				 */
 
-				} */
-				
-				
-					ArrayList<String> choose=BatchChoose();
-					if(choose!=null){
-						String batch[]=new String[choose.size()];
-						for(int i=0;i<choose.size();i++)
-							batch[i]=choose.get(i);
-						service.Batch(batch, 2);
-						Refresh();
-					}	
-					else	
-						JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
-								JOptionPane.WARNING_MESSAGE);
-					
-					
+				ArrayList<String> choose = BatchChoose();
+				if (choose != null) {
+					String batch[] = new String[choose.size()];
+					for (int i = 0; i < choose.size(); i++)
+						batch[i] = choose.get(i);
+					service.Batch(batch, 2);
+					Refresh();
+				} else
+					JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+
 			}
 
 		});
@@ -133,30 +128,25 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-			/*	int[] row = t1.getSelectedRows();
-				if (row.length > 0) {
-					for (int i = 0; i < row.length; i++) {
-						String id = c1.get(row[i]).get(0).toString();
-						if (service.Approve(id, 1) != 0)
-							JOptionPane.showMessageDialog(null, "审批失败！", "提示",
-									JOptionPane.WARNING_MESSAGE);
-					}
+				/*
+				 * int[] row = t1.getSelectedRows(); if (row.length > 0) { for
+				 * (int i = 0; i < row.length; i++) { String id =
+				 * c1.get(row[i]).get(0).toString(); if (service.Approve(id, 1)
+				 * != 0) JOptionPane.showMessageDialog(null, "审批失败！", "提示",
+				 * JOptionPane.WARNING_MESSAGE); } Refresh(); }
+				 */
+
+				ArrayList<String> choose = BatchChoose();
+				if (choose != null) {
+					String batch[] = new String[choose.size()];
+					for (int i = 0; i < choose.size(); i++)
+						batch[i] = choose.get(i);
+					service.Batch(batch, 1);
 					Refresh();
-				} */
-				
-				ArrayList<String> choose=BatchChoose();
-					if(choose!=null){
-						String batch[]=new String[choose.size()];
-						for(int i=0;i<choose.size();i++)
-							batch[i]=choose.get(i);
-						service.Batch(batch, 1);
-						Refresh();}
-					else	
-						JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
-								JOptionPane.WARNING_MESSAGE);
-					
-					
-					
+				} else
+					JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+
 			}
 
 		});
@@ -169,8 +159,8 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		btnPnl.add(refreshBtn);
 		refreshBtn.addActionListener(this);
 		// -------筛选--------------------
-		String type[]={"全部","销售单","销售退货单","进货单","进货退货单","收款单",
-				"付款单","现金费用单","库存报损单","库存报溢单","库存赠送单"};
+		String type[] = { "全部", "销售单", "销售退货单", "进货单", "进货退货单", "收款单", "付款单",
+				"现金费用单", "库存报损单", "库存报溢单", "库存赠送单" };
 		findbox = new JComboBox<String>(type);
 		findbox.setBackground(Color.white);
 		findbox.setForeground(color);
@@ -192,27 +182,27 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		c.weighty = 1;
 		gbl.setConstraints(tab, c);
 		this.add(tab);
-		tab.addChangeListener(new ChangeListener(){
+		tab.addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// TODO Auto-generated method stub
 				Refresh();
 			}
-			
+
 		});
 		// -------待审批-------------------
-		rtm1 = new ReceiptTableModel(c1,0);
+		rtm1 = new ReceiptTableModel(c1, 0);
 		t1 = new JTable(rtm1);
 		t1.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
 		// 加急显示的时候，传一个需要改变颜色的行数的Arraylist进去
 		// 无参构造函数是不加急显示的
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
-//		for (int i = 0; i < t1.getColumnCount() - 1; i++) {
-//			t1.getColumn(t1.getColumnName(i)).setCellRenderer(tcr);
-//
-//		}
+		// for (int i = 0; i < t1.getColumnCount() - 1; i++) {
+		// t1.getColumn(t1.getColumnName(i)).setCellRenderer(tcr);
+		//
+		// }
 
 		jsp1 = new JScrollPane(t1);
 		// rtm1.addTableModelListener(new TableModelListener() {
@@ -225,7 +215,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		// });
 		tab.add("待审批单据", jsp1);
 		// ---------已审批------------------
-		rtm2 = new ReceiptTableModel(c2,1);
+		rtm2 = new ReceiptTableModel(c2, 1);
 		t2 = new JTable(rtm2);
 		t2.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
@@ -328,14 +318,16 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 	public void Refresh() {
 
 		try {
-			ArrayList<ReceiptVO> vo=new ArrayList<ReceiptVO>();
-			if (service.ToApprove() != null)
-				{vo=service.ToApprove();}
-				ReceiptMgrPanel.this.RefreshTable(vo, 0);
-				
-			if (service.Approved() != null){
-				vo=service.Approved();}
-				ReceiptMgrPanel.this.RefreshTable(vo, 1);
+			ArrayList<ReceiptVO> vo = new ArrayList<ReceiptVO>();
+			if (service.ToApprove() != null) {
+				vo = service.ToApprove();
+			}
+			ReceiptMgrPanel.this.RefreshTable(vo, 0);
+
+			if (service.Approved() != null) {
+				vo = service.Approved();
+			}
+			ReceiptMgrPanel.this.RefreshTable(vo, 1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -350,16 +342,18 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		if (t == 0) {
 			c1.clear();
 			tableContent = c1;
-		} else{c2.clear();
-			tableContent = c2;}
-		ArrayList<Integer> hurry=new ArrayList<Integer>();
+		} else {
+			c2.clear();
+			tableContent = c2;
+		}
+		ArrayList<Integer> hurry = new ArrayList<Integer>();
 		for (int i = 0; i < vo.size(); i++) {
 			ArrayList<Object> line = new ArrayList<Object>();
 			ReceiptVO v = vo.get(i);
 			line.add(v.getId());
 			line.add(v.getDate());
 			line.add(Total.getType(v.getType()));
-			if(v.getHurry()==0)
+			if (v.getHurry() == 0)
 				hurry.add(i);
 			// 销售/进货
 			if (v.getType() == ReceiptType.PAYMENT) {
@@ -382,7 +376,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			if (t == 0)
 				line.add(new Boolean(false));
 			tableContent.add(line);
-			ReceiptMgrPanel.this.repaint();
+			
 
 		}
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer(hurry);
@@ -390,7 +384,9 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			t1.getColumn(t1.getColumnName(i)).setCellRenderer(tcr);
 
 		}
-		
+		ReceiptMgrPanel.this.repaint();
+		t1.revalidate();
+		t2.revalidate();
 
 	}
 
@@ -405,50 +401,49 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				String id = c1.get(i).get(0).toString();
 				String type = c1.get(i).get(2).toString();
 				ReceiptType rtype = Total.getsType(type);
-				JPanel pane=getRightAdvancePanel(id,rtype);
-				father.setRightComponent(new AdvancedReceiptPanel(pane,
-						father, id,rtype));
-				
+				JPanel pane = getRightAdvancePanel(id, rtype);
+				father.setRightComponent(new AdvancedReceiptPanel(pane, father,
+						id, rtype));
+
 			}
-		}else if(e.getSource()==refreshBtn){
+		} else if (e.getSource() == refreshBtn) {
 			Refresh();
-			
-		}else if(e.getSource()==findBtn){
+
+		} else if (e.getSource() == findBtn) {
 			ArrayList<ReceiptVO> receiptApprove;
-			String find=findbox.getSelectedItem().toString();
-			//{"全部","销售单","销售退货单","进货单","进货退货单","收款单",
-			//"付款单","现金费用单","库存报损单","库存报溢单","库存赠送单"}
-			ReceiptType type=null;
-			int i=tab.getSelectedIndex();
-			if(find.equals("全部")){
-				if(i==0)
-					receiptApprove=service.ToApprove();
-				else receiptApprove=service.Approved();
-				}
-			else{
-				type=Total.getsType(find);
-				if(i==0)
-					receiptApprove=service.ToApprove(type);
-				else receiptApprove=service.Approved(type);
+			String find = findbox.getSelectedItem().toString();
+			// {"全部","销售单","销售退货单","进货单","进货退货单","收款单",
+			// "付款单","现金费用单","库存报损单","库存报溢单","库存赠送单"}
+			ReceiptType type = null;
+			int i = tab.getSelectedIndex();
+			if (find.equals("全部")) {
+				if (i == 0)
+					receiptApprove = service.ToApprove();
+				else
+					receiptApprove = service.Approved();
+			} else {
+				type = Total.getsType(find);
+				if (i == 0)
+					receiptApprove = service.ToApprove(type);
+				else
+					receiptApprove = service.Approved(type);
 			}
-			if(receiptApprove==null){
-				if(i==0)
+			if (receiptApprove == null) {
+				if (i == 0)
 					c1.clear();
-				else c2.clear();
+				else
+					c2.clear();
 				ReceiptMgrPanel.this.repaint();
 				JOptionPane.showMessageDialog(null, "没有符合条件的单据！");
-			}
-			else{
+			} else {
 				try {
-					RefreshTable(receiptApprove,i);
+					RefreshTable(receiptApprove, i);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
-			
-			
-		
+
 		}
 
 	}
@@ -474,27 +469,28 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 
 	}
 
-	public ArrayList<String> BatchChoose(){
-		ArrayList<String> choose=new ArrayList<String>();
-		for(int i=0;i<c1.size();i++){
-			if((boolean) t1.getValueAt(i, 7))
+	public ArrayList<String> BatchChoose() {
+		ArrayList<String> choose = new ArrayList<String>();
+		for (int i = 0; i < c1.size(); i++) {
+			if ((boolean) t1.getValueAt(i, 7))
 				choose.add((String) c1.get(i).get(0));
 		}
-		if(choose.size()==0)return null;
-		else return choose;
+		if (choose.size() == 0)
+			return null;
+		else
+			return choose;
 	}
-	
-	public static JPanel getRightAdvancePanel(String id,ReceiptType rtype){
+
+	public static JPanel getRightAdvancePanel(String id, ReceiptType rtype) {
 		try {
 			switch (rtype) {
 			case PURCHASE:
-				PurchaseDetailPanel pane = new PurchaseDetailPanel(
-						 id,father);
+				PurchaseDetailPanel pane = new PurchaseDetailPanel(id, father);
 				pane.useToReceipt();
 				return pane;
 			case PAYMENT:
-				PaymentDetailPanel paypane = new PaymentDetailPanel(
-						father, findChosen(id, c1, 2));
+				PaymentDetailPanel paypane = new PaymentDetailPanel(father,
+						findChosen(id, c1, 2));
 				paypane.useToReceipt();
 				return paypane;
 			case COLLECTION:
@@ -503,40 +499,42 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 				colpane.useToReceipt();
 				return colpane;
 			case CASHLIST:
-				CashDetailPanel cpane = new CashDetailPanel(father,
-						findChosen(id, c1, 0));
+				CashDetailPanel cpane = new CashDetailPanel(father, findChosen(
+						id, c1, 0));
 				cpane.useToReceipt();
 				return cpane;
 			case GIFT:
-				GiftDetailPanel gift = new GiftDetailPanel( id,father);
+				GiftDetailPanel gift = new GiftDetailPanel(id, father);
 				gift.useToReceipt();
 				return gift;
 				/*
-				 * case PURCHASERETURN: PurchaseReturnDetailPanel
-				 * prpane=new
-				 * PurchaseReturnDetailPanel(father,findChosen(
-				 * id,c1,4)); prpane.useToReceipt();
-				 * father.setRightComponent(new AdvancedReceiptPanel(
-				 * prpane, father, id));
+				 * case PURCHASERETURN: PurchaseReturnDetailPanel prpane=new
+				 * PurchaseReturnDetailPanel(father,findChosen( id,c1,4));
+				 * prpane.useToReceipt(); father.setRightComponent(new
+				 * AdvancedReceiptPanel( prpane, father, id));
 				 */
 			case SALE:
-				SaleDetailPanel sale=new SaleDetailPanel(id ,father);
+				SaleDetailPanel sale = new SaleDetailPanel(id, father);
 				sale.useToReceipt();
 				return sale;
 			case PURCHASERETURN:
-				PurchaseReturnDetailPanel purchaseR=new PurchaseReturnDetailPanel( id,father);
+				PurchaseReturnDetailPanel purchaseR = new PurchaseReturnDetailPanel(
+						id, father);
 				purchaseR.useToReceipt();
 				return purchaseR;
 			case SALERETURN:
-				SaleReturnDetailPanel saleR=new SaleReturnDetailPanel(id ,father);
+				SaleReturnDetailPanel saleR = new SaleReturnDetailPanel(id,
+						father);
 				saleR.useToReceipt();
 				return saleR;
 			case STOCKOVER:
-				OverflowDetailPanel overflowDetailPanel=new OverflowDetailPanel( id,father);
+				OverflowDetailPanel overflowDetailPanel = new OverflowDetailPanel(
+						id, father);
 				overflowDetailPanel.useToReceipt();
 				return overflowDetailPanel;
 			case STOCKLOW:
-				LossDetailPanel lossDetailPanel =new LossDetailPanel( id,father);
+				LossDetailPanel lossDetailPanel = new LossDetailPanel(id,
+						father);
 				lossDetailPanel.useToReceipt();
 				return lossDetailPanel;
 			}
