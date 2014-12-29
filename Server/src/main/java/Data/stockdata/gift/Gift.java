@@ -56,7 +56,8 @@ public class Gift extends UnicastRemoteObject implements GiftDataService {
 		for (i = 0; i < a.size(); i++) {
 			ReceiptPO b = (ReceiptPO) a.get(i);
 			if (b.getId().equals(po.getId())) {
-				b.setInfo(po.getInfo());
+//				b.setInfo(po.getInfo());
+				a.set(i, po);
 				break;
 			}
 		}
