@@ -131,6 +131,7 @@ public class runServer extends JFrame implements ActionListener {
 		submitBtn.setBackground(new Color(166, 210, 121));
 		bottom.add(submitBtn);
 		submitBtn.addActionListener(this);
+		this.getRootPane().setDefaultButton(submitBtn);	
 		bottom.add(new JLabel());
 		exitBtn = new JButton("取消");
 		exitBtn.setFont(font);
