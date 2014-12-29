@@ -17,99 +17,93 @@ import java.util.ArrayList;
 
 import Data.financedata.Init;
 
-
 public class JXCFile {
 	static String time;
 	String name;
 
 	public JXCFile(String s) {
-		time=getCurrentTime();
-		if(s.equals("src/main/java/user.ser")){
-			name=s;
-		}
-		else if(s.equals("src/main/java/begininfo.ser")){
-			name=s;
-		}
-		else{
-		    name = "src/main/java/"+time+"/"+s;
+		time = getCurrentTime();
+		if (s.equals("src/main/java/user.ser")) {
+			name = s;
+		} else if (s.equals("src/main/java/begininfo.ser")) {
+			name = s;
+		} else {
+			name = "src/main/java/" + time + "/" + s;
 		}
 	}
 
-	public static void reset(){
+	public static void reset() {
 		try {
-			Init i=new Init();
-			String s=i.getRecentStockTime();
+			Init i = new Init();
+			String s = i.getRecentStockTime();
 			setTime(s);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	public static String getCurrentTime(){
-		
-	
-        try{
-			
-			File file=new File("src/main/java/currentstock.txt");
-	        if(!file.exists()){
-	        	
-	        	file.createNewFile();
-	        	return null;
-	            
-	        }
-			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
-	        String temp = null;
-	        temp = br.readLine();
-	        time=temp;
-	        br.close();
-		}
-		catch (IOException e){
+
+	public static String getCurrentTime() {
+
+		try {
+
+			File file = new File("src/main/java/currentstock.txt");
+			if (!file.exists()) {
+
+				file.createNewFile();
+				return null;
+
+			}
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					new FileInputStream(file), "UTF-8"));
+			String temp = null;
+			temp = br.readLine();
+			time = temp;
+			br.close();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        return time;
+		return time;
 	}
-	
-	public static void setTime(String s){
-		
-        try{		
-			File file=new File("src/main/java/currentstock.txt");
-	        if(!file.exists()){   	
-	        	try {
+
+	public static void setTime(String s) {
+
+		try {
+			File file = new File("src/main/java/currentstock.txt");
+			if (!file.exists()) {
+				try {
 					file.createNewFile();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 
-	        }
-	        
-	        BufferedWriter bw = null;
+			}
+
+			BufferedWriter bw = null;
 			try {
-				bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
+				bw = new BufferedWriter(new OutputStreamWriter(
+						new FileOutputStream(file), "UTF-8"));
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
-			bw.write(s);	       
+			bw.write(s);
 			bw.close();
-		   }
-		catch (IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        
-}
-	
-	
-	
-	public static void init(String time){
-		File outfile = new File("src/main/java/"+time+"/");                 
-		  if(!outfile .exists()  && !outfile .isDirectory()){
-		      outfile.mkdir();
+
+	}
+
+	public static void init(String time) {
+		File outfile = new File("src/main/java/" + time + "/");
+		if (!outfile.exists() && !outfile.isDirectory()) {
+			outfile.mkdir();
 		}
 		setTime(time);
 	}
-	
+
 	public ArrayList<Object> read() {
 		ArrayList<Object> ls = new ArrayList<Object>();
 
@@ -130,7 +124,6 @@ public class JXCFile {
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println(name + "文件不存在");
 			return null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -261,19 +254,19 @@ public class JXCFile {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void main(String[] args){
+
+	public static void main(String[] args) {
 		JXCFile.init("2014-11-01");
-//		JXCFile file=new JXCFile("figures.ser");
-//		Integer i=new Integer(1);
-//		file.write(i);
-//		ArrayList<Object> a=file.read();
-//		if(a==null)
-//			System.out.println("空哒！");
-//		else{
-//			for(Object o:a)
-//				System.out.println((Integer)o);
-//		}
-		
+		// JXCFile file=new JXCFile("figures.ser");
+		// Integer i=new Integer(1);
+		// file.write(i);
+		// ArrayList<Object> a=file.read();
+		// if(a==null)
+		// System.out.println("空哒！");
+		// else{
+		// for(Object o:a)
+		// System.out.println((Integer)o);
+		// }
+
 	}
 }
