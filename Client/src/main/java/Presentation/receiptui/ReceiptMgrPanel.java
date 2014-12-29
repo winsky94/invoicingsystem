@@ -385,8 +385,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 
 		}
 		ReceiptMgrPanel.this.repaint();
-		t1.revalidate();
-		t2.revalidate();
+		
 
 	}
 
