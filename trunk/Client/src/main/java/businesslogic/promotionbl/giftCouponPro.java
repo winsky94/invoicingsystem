@@ -150,13 +150,17 @@ public class giftCouponPro extends promotion{
 				
 			}}
 			if(result!=null){
+				GiftCouponProVO cou=(GiftCouponProVO)result;
 				if(result.IsMatch()){
-					GiftCouponProVO cou=(GiftCouponProVO)result;
-					cou.setCouponList(coupon.createNewCoupon(cou.getCouponList()));
-					service.Modify(voToPo(cou));
 					
-				}//创建一组新单据
+					cou.setCouponList(coupon.createNewCoupon(cou.getCouponList()));
+					
+				}else{
+					cou.setIsMatch(true);	
+				}
+				service.Modify(voToPo(cou));
 			}
+			
 			return result;
 		}
 	}

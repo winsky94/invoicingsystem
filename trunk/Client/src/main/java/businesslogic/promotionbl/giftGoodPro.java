@@ -126,6 +126,11 @@ public class giftGoodPro extends promotion{
 				}
 				}
 			}
+			if(result!=null&&!result.IsMatch()){
+				GiftGoodsProVO gopro=(GiftGoodsProVO)result;
+				gopro.setIsMatch(true);
+				service.Modify(voToPo(gopro));
+			}
 			return result;
 		}
 	}
@@ -164,6 +169,7 @@ public class giftGoodPro extends promotion{
 	
 		try {
 			po.setIsMatch(false);
+			service.Modify(po);
 			Modify(poToVo(po));
 			GiftController gift=new GiftController();
 			gift.autoAdd(vo.getMemberID(),vo.getMemberName(), vo.getUser(), clist);

@@ -100,11 +100,9 @@ public class promotionController implements PromotionViewService,
 		PromotionVO pro = null;
 		if ((pro = ggp.Match(vo)) != null) {
 			vo.setProid(pro.getId());
-			pro.setIsMatch(true);
 			return vo;
 		} else if ((pro = gcp.Match(vo)) != null) {
 			vo.setProid(pro.getId());
-			pro.setIsMatch(true);
 			return vo;
 		} else if ((pro = dcp.Match(vo)) != null) {
 			vo.setProid(pro.getId());
