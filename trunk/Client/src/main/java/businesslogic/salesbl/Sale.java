@@ -118,20 +118,24 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 			Member m = new Member();
 			int i = m.changeToReceive(vo.getMemberID(), vo.getToPay());
 			if (i == 0) {
-				
-				//修改库存数量
+				// 修改库存数量
 				StockGoodsBLService goodsController = new GoodsController();
 				ArrayList<CommodityVO> list = vo.getSalesList();
 				for (CommodityVO cvo : list) {
-
 					GoodsVO goodsVO = goodsController.findByID(cvo.getID());
-					goodsVO.setNumInStock(goodsVO.getNumInStock()
-							- cvo.getNum());
-					goodsController.modifyGoods(goodsVO);
-					
-					//库存报警检查
-					StockControlBLService stockController = new StockControlController();
-					stockController.stockNumCheck(goodsVO.getGoodsID());
+					// 检查是否可以销售
+					StockControlBLService contronller = new StockControlController();
+					if (contronller.isEnough(cvo.getID(), cvo.getNum())) {
+						goodsVO.setNumInStock(goodsVO.getNumInStock()
+								- cvo.getNum());
+						goodsController.modifyGoods(goodsVO);
+
+						// 库存报警检查
+						StockControlBLService stockController = new StockControlController();
+						stockController.stockNumCheck(goodsVO.getGoodsID());
+					} else {
+						return 1;// 库存数量不满足销售
+					}
 				}
 				if (!vo.getProid().equals(""))
 					promotionController.Excute(vo.getProid(), vo);
@@ -140,9 +144,7 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 					gp.useCoupon(vo.getCouponid(), status);
 				}
 			} else {
-
 				return 1;// 不成功 超过额度
-
 			}
 
 		} catch (Exception e) {
