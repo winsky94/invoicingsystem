@@ -367,6 +367,7 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 	       }
 		}
 		else if (e.getSource() == delBtn) {
+			
 			int seleted = table.getSelectedRow();
 			if (seleted < 0) {
 				JOptionPane.showMessageDialog(null, "请选择一行", "提示",
@@ -380,6 +381,7 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 				crm.removeRow(seleted);
 				table.revalidate();
 				totalLbl.setText("总额:" + totalMoney);
+				table.clearSelection();
 			}
 		}
 		else if(e.getSource()==submitBtn){

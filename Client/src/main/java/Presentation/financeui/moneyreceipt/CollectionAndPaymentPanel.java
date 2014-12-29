@@ -276,6 +276,7 @@ public class CollectionAndPaymentPanel extends JPanel {
 						tlm.removeRow(seleted);
 						table.revalidate();
 						totalLbl.setText("总额汇总:" + totalMoney);
+						table.clearSelection();
 					}
 				}
 			}
