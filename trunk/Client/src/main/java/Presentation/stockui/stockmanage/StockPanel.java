@@ -151,8 +151,6 @@ public class StockPanel extends JPanel {
 	class ExportBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			System.out
-					.println("StockPanel.ExportBtnListener.actionPerformed()导出");
 			JFileChooser jfc = new JFileChooser(System.getProperty("user.home"));
 			jfc.setFileFilter(new XLSFilter());
 			jfc.setDialogTitle("导出");
