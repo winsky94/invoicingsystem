@@ -1,5 +1,6 @@
 package businesslogic.financebl;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import po.AccountPO;
 import dataservice.financedataservice.accountdataservice.FinanceAccountDataService;
 import vo.AccountVO;
+import businesslogic.utilitybl.getServer;
 import businesslogicservice.financeblservice.accountblservice.FinanceAccountBLService;
 
 public class Account implements FinanceAccountBLService{
@@ -16,10 +18,17 @@ public class Account implements FinanceAccountBLService{
 	private FinanceAccountDataService service;
 	 
 	public Account() throws MalformedURLException, RemoteException, NotBoundException{
-		String host="localhost:1099";
-		String url="rmi://"+host+"/accountService";
-	
-		service=(FinanceAccountDataService)Naming.lookup(url);
+		String host;
+		try {
+			host = getServer.getServer();
+			String url="rmi://"+host+"/accountService";
+			
+			service=(FinanceAccountDataService)Naming.lookup(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	
 		
 	}

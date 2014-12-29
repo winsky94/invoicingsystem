@@ -15,6 +15,7 @@ import vo.TransferItemVO;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.utilitybl.getDate;
+import businesslogic.utilitybl.getServer;
 import businesslogicservice.financeblservice.listblservice.PaymentBLService;
 
 public class Payment extends Receipt implements PaymentBLService{
@@ -28,7 +29,7 @@ public class Payment extends Receipt implements PaymentBLService{
      double totalMoney;
      public Payment()throws Exception{
  //   	System.setSecurityManager(new SecurityManager());
- 		String host="localhost:1099";
+    	String host=getServer.getServer();
  		String url="rmi://"+host+"/paymentService";
  		
  		service=(PaymentDataService)Naming.lookup(url);

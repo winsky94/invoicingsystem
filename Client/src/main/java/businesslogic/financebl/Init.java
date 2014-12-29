@@ -15,6 +15,7 @@ import vo.MemberVO;
 import businesslogic.memberbl.MemAccountInfo;
 import businesslogic.memberbl.MemBaseInfo;
 import businesslogic.memberbl.MemContactInfo;
+import businesslogic.utilitybl.getServer;
 import businesslogicservice.financeblservice.initblservice.FinanceInitBLService;
 
 public class Init implements FinanceInitBLService{
@@ -23,7 +24,7 @@ public class Init implements FinanceInitBLService{
 	 
 	 public Init()throws Exception{
 		 //   	System.setSecurityManager(new SecurityManager());
-		 		String host="localhost:1099";
+		        String host=getServer.getServer();
 		 		String url="rmi://"+host+"/initService";
 		 		
 		 		service=(FinanceInitDataService)Naming.lookup(url);
