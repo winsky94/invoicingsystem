@@ -60,7 +60,13 @@ public class BSLTableModel extends AbstractTableModel{
 	}
 	
 	public ArrayList<ArrayList<String>> getExportContent(){
-		
-		return cm;
+		ArrayList<String> head1=new ArrayList<String>();
+		for(int i=0;i<head.length;i++)
+			head1.add(head[i]);
+		ArrayList<ArrayList<String>> result=new ArrayList<ArrayList<String>>();
+		result.add(head1);
+		for(int i=0;i<cm.size();i++)
+			result.add(cm.get(i));
+		return result;
 	}
 }
