@@ -46,20 +46,20 @@ import Data.stockdata.stockManage.StockControl;
 import Data.userdata.Log;
 import Data.userdata.User;
 
-
 //rmi 启动 服务注册  11-17 By jin
-public class runServer extends JFrame implements ActionListener{
+public class runServer extends JFrame implements ActionListener {
 	Toolkit kit = Toolkit.getDefaultToolkit();
-	int screenWidth =  kit.getScreenSize().width;
+	int screenWidth = kit.getScreenSize().width;
 	int screenHeight = kit.getScreenSize().height;
 	int frameWidth = screenWidth * 30 / 100;
 	int frameHeight = screenHeight * 35 / 100;
-	int xOld,yOld;
+	int xOld, yOld;
 	// ------------------------
 	Font font = new Font("微软雅黑", Font.PLAIN, 14);
-	JButton submitBtn,exitBtn;
+	JButton submitBtn, exitBtn;
 	JComboBox portBox;
 	ArrayList<String> port;
+
 	public runServer() {
 		this.setTitle("进销存系统服务器界面");
 		this.setIconImage(kit.getImage("img/icon.png"));
@@ -67,7 +67,7 @@ public class runServer extends JFrame implements ActionListener{
 				(screenHeight - frameHeight) / 2, frameWidth, frameHeight);
 		this.setLayout(new GridLayout(1, 1));
 		// -------------------
-		JPanel pnl = new JPanel(){
+		JPanel pnl = new JPanel() {
 			private static final long serialVersionUID = 1L;
 
 			// 给panel加上图片
@@ -84,11 +84,11 @@ public class runServer extends JFrame implements ActionListener{
 		JPanel titlePnl = new JPanel();
 		titlePnl.setOpaque(false);
 		pnl.add(titlePnl);
-		JLabel title=new JLabel("欢迎使用进销存系统");
+		JLabel title = new JLabel("欢迎使用进销存系统");
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 25));
 		title.setForeground(Color.white);
 		titlePnl.add(title);
-		//----------------------
+		// ----------------------
 		JPanel top = new JPanel();
 		top.setOpaque(false);
 		pnl.add(top);
@@ -103,23 +103,23 @@ public class runServer extends JFrame implements ActionListener{
 		portLbl.setFont(font);
 		portLbl.setForeground(Color.white);
 		mid.add(portLbl);
-		port=new ArrayList<String>();
-		//最近一次记录存在最末行
-		portBox=new JComboBox<String>();
+		port = new ArrayList<String>();
+		// 最近一次记录存在最末行
+		portBox = new JComboBox<String>();
 		portBox.setEditable(true);
-		//读取历史记录
+		// 读取历史记录
 		try {
-			BufferedReader br=new BufferedReader(new FileReader("Port.txt"));
-			String str=null;
-				while((str=br.readLine())!=null){
-					port.add(str);
-				}
+			BufferedReader br = new BufferedReader(new FileReader("Port.txt"));
+			String str = null;
+			while ((str = br.readLine()) != null) {
+				port.add(str);
+			}
 			br.close();
-			for(int i=port.size()-1;i>=0;i--)
+			for (int i = port.size() - 1; i >= 0; i--)
 				portBox.addItem(port.get(i));
 			portBox.setSelectedIndex(0);
 		} catch (IOException e) {
-				// TODO Auto-generated catch block
+			// TODO Auto-generated catch block
 			portBox.setToolTipText("请输入端口号!");
 		}
 		portBox.setBackground(Color.white);
@@ -143,124 +143,122 @@ public class runServer extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setUndecorated(true);
 		this.setVisible(true);
-		//处理拖动事件
-		  this.addMouseListener(new MouseAdapter() {  
-	            public void mousePressed(MouseEvent e) {  
-	                xOld = e.getX();  
-	                yOld = e.getY();  
-	            }  
-	        });  
-	        this.addMouseMotionListener(new MouseMotionAdapter() {  
-	            @Override  
-	            public void mouseDragged(MouseEvent e) {  
-	                int xOnScreen = e.getXOnScreen();  
-	                int yOnScreen = e.getYOnScreen();  
-	                int xx = xOnScreen - xOld;  
-	                int yy = yOnScreen - yOld;  
-	                runServer.this.setLocation(xx, yy);  
-	            }  
-	        });  
+		// 处理拖动事件
+		this.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				xOld = e.getX();
+				yOld = e.getY();
+			}
+		});
+		this.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int xOnScreen = e.getXOnScreen();
+				int yOnScreen = e.getYOnScreen();
+				int xx = xOnScreen - xOld;
+				int yy = yOnScreen - yOld;
+				runServer.this.setLocation(xx, yy);
+			}
+		});
 
-		
-	
-		
 	}
+
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource()==exitBtn){
+		if (e.getSource() == exitBtn) {
 			this.dispose();
-		}else{
+		} else {
 			this.dispose();
-			String portNum=portBox.getSelectedItem().toString();
+			String portNum = portBox.getSelectedItem().toString();
 			init(portNum);
-			//存储历史记录
+			// 存储历史记录
 			try {
-				BufferedWriter bw=new BufferedWriter(new FileWriter("Port.txt"));
-				for(int i=0;i<port.size();i++)
-					if(port.get(i).equals(portNum)){
+				BufferedWriter bw = new BufferedWriter(new FileWriter(
+						"Port.txt"));
+				for (int i = 0; i < port.size(); i++)
+					if (port.get(i).equals(portNum)) {
 						port.remove(i);
 						break;
 					}
 				port.add(portNum);
-				int more=port.size()-10;
-				if(more>0){
-					while(more>0){
+				int more = port.size() - 10;
+				if (more > 0) {
+					while (more > 0) {
 						port.remove(0);
 						more--;
 					}
 				}
-				for(int i=0;i<port.size();i++)
-					bw.write(port.get(i)+"\r\n");
+				for (int i = 0; i < port.size(); i++)
+					bw.write(port.get(i) + "\r\n");
 				bw.close();
-				
+
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		/**
 		 * 加载安全机制
 		 */
 		new runServer();
 	}
-	
-	public void init(String port){
+
+	public void init(String port) {
 		try {
-				// 169.254.207.55
+			// 169.254.207.55
 			// 客户端启用的端口号为1099 yan 11-18
-		//	RMISocketFactory.setSocketFactory(new SMRMISocket());
+			// RMISocketFactory.setSocketFactory(new SMRMISocket());
 			String hostIP = InetAddress.getLocalHost().getHostAddress();
-		//	System.out.println(hostIP);
-			//System.out.println();
-			//String hostIP="localhost";
-			int portNum=Integer.parseInt(port);
+			System.out.println("IP地址为:"+hostIP);
+			// System.out.println();
+			// String hostIP="localhost";
+			int portNum = Integer.parseInt(port);
 			LocateRegistry.createRegistry(portNum);// 客户端启用的注册端口号为1099 yan 11-18
-		//	//System.setProperty("java.rmi.server.hostname","172.26.7.84");
-		//	String hostIP="rmi://114.212.42.102:1099/";
+			System.out.println("端口号为:"+portNum);
+			// //System.setProperty("java.rmi.server.hostname","172.26.7.84");
+			// String hostIP="rmi://114.212.42.102:1099/";
 			System.out.println("已启动服务器");
 			User user = new User();
-			Member member=new Member();
-			GoodsClass gc=new GoodsClass();
-			Goods g=new Goods();
-			Collection collection=new Collection();
-			Sales sale=new Sales();
-			Promotion pro=new Promotion();
-			Account account=new Account();
-			StockControl controller=new StockControl();
-			Gift giftService=new Gift();
-			Payment payment=new Payment();
-			Receipt receipt=new Receipt();
-			Cashlist cashlist=new Cashlist();
-			Init init=new Init();
-			Log log=new Log();
-			//String url="//"+hostIP+":"+portNum+"/";
-			Naming.rebind("promotionService",pro);
-			Naming.rebind("salesService",sale);
-			Naming.rebind("memberService",member);
-			Naming.rebind("userService", user);	
+			Member member = new Member();
+			GoodsClass gc = new GoodsClass();
+			Goods g = new Goods();
+			Collection collection = new Collection();
+			Sales sale = new Sales();
+			Promotion pro = new Promotion();
+			Account account = new Account();
+			StockControl controller = new StockControl();
+			Gift giftService = new Gift();
+			Payment payment = new Payment();
+			Receipt receipt = new Receipt();
+			Cashlist cashlist = new Cashlist();
+			Init init = new Init();
+			Log log = new Log();
+			// String url="//"+hostIP+":"+portNum+"/";
+			Naming.rebind("promotionService", pro);
+			Naming.rebind("salesService", sale);
+			Naming.rebind("memberService", member);
+			Naming.rebind("userService", user);
 			Naming.rebind("goodsClassService", gc);
 			Naming.rebind("goodsService", g);
 			Naming.rebind("collectionService", collection);
-			Naming.rebind("accountService",account);
-			Naming.rebind("stockManageService",controller);
-			Naming.rebind("giftService",giftService);//我加了由此向上的两个绑定——12.04_yan
-			Naming.rebind("paymentService",payment);
+			Naming.rebind("accountService", account);
+			Naming.rebind("stockManageService", controller);
+			Naming.rebind("giftService", giftService);// 我加了由此向上的两个绑定——12.04_yan
+			Naming.rebind("paymentService", payment);
 			Naming.rebind("receiptService", receipt);
 			Naming.rebind("cashlistService", cashlist);
 			Naming.rebind("initService", init);
 			Naming.rebind("logService", log);
-			
-			JOptionPane.showMessageDialog(null, "服务器已运行！","提示",JOptionPane.INFORMATION_MESSAGE);
-			
+
+			JOptionPane.showMessageDialog(null, "服务器已运行！", "提示",
+					JOptionPane.INFORMATION_MESSAGE);
 
 		} catch (Exception e) {
 			System.out.println("错误" + e);
 		}
 	}
-
-
 
 }
