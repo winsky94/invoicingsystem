@@ -140,6 +140,7 @@ public class SystemLogPanel extends JPanel {
 	}
 
 	public void RefreshTable(ArrayList<LogVO> log) {
+		cm.clear();
 		for (int i = 0; i < log.size(); i++) {
 			LogVO vo = log.get(i);
 			ArrayList<String> line = new ArrayList<String>();
