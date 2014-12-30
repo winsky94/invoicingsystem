@@ -284,7 +284,14 @@ public class MemberMgrPanel extends JPanel {
 			// TODO Auto-generated method stub
 			try {
 				MemberBLService service=new Member();
-				MemberMgrPanel.this.RefreshMemberTable(service.findMember(searchFld.getText()));
+				ArrayList<MemberVO> vo=service.findMember(searchFld.getText());
+				if(vo!=null)
+					MemberMgrPanel.this.RefreshMemberTable(vo);
+				else{
+					cm.clear();
+					memberTable.revalidate();
+					JOptionPane.showMessageDialog(null,"没有符合的客户!");
+				}
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
