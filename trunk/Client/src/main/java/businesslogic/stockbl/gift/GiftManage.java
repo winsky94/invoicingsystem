@@ -7,8 +7,6 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 import po.CommodityPO;
 import po.GiftPO;
 import vo.CommodityVO;
@@ -80,8 +78,8 @@ public class GiftManage {
 						.getGoodsID());
 				if (result) {
 					//
-//					JOptionPane.showMessageDialog(null, "库存报警啦！", null,
-//							JOptionPane.WARNING_MESSAGE);
+					// JOptionPane.showMessageDialog(null, "库存报警啦！", null,
+					// JOptionPane.WARNING_MESSAGE);
 				}
 
 			}
