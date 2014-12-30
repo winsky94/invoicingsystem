@@ -4,10 +4,8 @@ import java.util.Comparator;
 
 import po.ReceiptPO;
 
-
 public	class SequenceOfReceiptPO implements Comparator<ReceiptPO> {
       public int compare(ReceiptPO a1, ReceiptPO a2) { 
-      
       if(a1.getHurry()==a2.getHurry()){
              if(a1.getDate().equals(a2.getDate())){
     	        return a1.getType().compareTo(a2.getType());
