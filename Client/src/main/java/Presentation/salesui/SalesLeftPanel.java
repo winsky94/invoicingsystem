@@ -37,20 +37,16 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 	Color salesColor;
 	MainFrame parent;
 	JPanel headPane;
-	//MemberBLService service;
-	//SaleListBLService saleservice;
 	public SalesLeftPanel(MainFrame frame) throws Exception{
 		salesColor=frame.getTheme()[0];
 		parent=frame;
-		
-		//saleservice=new SaleList();
+
 		//===构造头像
 		GridBagLayout grid=new GridBagLayout();
 		GridBagConstraints c=new GridBagConstraints();
 	
 		UserVO user=frame.getUser();
 		this.setLayout(grid);
-		
 		
 		c.fill=GridBagConstraints.HORIZONTAL;
 		c.gridx=0;c.gridy=0;
@@ -61,8 +57,7 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 		this.add(headPane);
 		
 		
-		
-		
+		//----功能菜单--------
 		JPanel down=new JPanel();
 		c.weightx=3;c.weighty=4;
 		c.gridx=0;c.gridy=2;
@@ -73,16 +68,8 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 		down.setBackground(salesColor);
 		down.setLayout(new GridLayout(6,1));
 		
-		
-		//
-		/*!!!!!BL看这里！！：这里的构造器应放入User姓名和头像！！！！！！！！！*/
-		//userInfoBtn=new UserInfoButton("严顺宽", new ImageIcon("img/sales/ysk.png"),salesColor);
-		// 客户管理按钮
-		
 		memberBtn = new JLeftButton("客户管理",
 				new ImageIcon("img/sales/memberMgr.png"),salesColor);
-		
-		
 		memberBtn.addActionListener(this);
 		down.add(memberBtn);
 		// 进货管理按钮
@@ -93,7 +80,6 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 		// 销售管理按钮
 		saleBtn = new JLeftButton("销售管理", new ImageIcon("img/sales/saleMgr.png"),
 				salesColor);
-
 		saleBtn.addActionListener(this);
 		down.add(saleBtn);
 		// 关于按钮
@@ -101,7 +87,6 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 				salesColor);
 		aboutBtn.addActionListener(this);
 		down.add(aboutBtn);
-		//
 		
 		backBtn=new JLeftButton("收起菜单",new ImageIcon("img/mainFrame/back.png"),salesColor);
 		backBtn.addActionListener(this);
@@ -112,32 +97,27 @@ public class SalesLeftPanel extends JPanel implements ActionListener {
 		
 }
 	
-	//JButton userInfoBtn,purchaseBtn, saleBtn, memberBtn,aboutBtn;
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		try {
-		if(e.getSource()==purchaseBtn){
-			PurchaseMgrPanel pgr=new PurchaseMgrPanel(parent);
-			parent.setRightComponent(pgr);
-			pgr.RefreshPanel();
-		}else if(e.getSource()==memberBtn){
-			MemberMgrPanel mgr=new MemberMgrPanel(parent);
+			if(e.getSource()==purchaseBtn){
+				PurchaseMgrPanel pgr=new PurchaseMgrPanel(parent);
+				parent.setRightComponent(pgr);
+				pgr.RefreshPanel();
+			}else if(e.getSource()==memberBtn){
+				MemberMgrPanel mgr=new MemberMgrPanel(parent);
+				parent.setRightComponent(mgr);
+				mgr.RefreshPanel();
+			}else if(e.getSource()==saleBtn){
+				SaleMgrPanel sp=new SaleMgrPanel(parent);
+				parent.setRightComponent(sp);
+				sp.RefreshPanel();
 			
-			parent.setRightComponent(mgr);
-			
-			mgr.RefreshPanel();
-		}else if(e.getSource()==saleBtn){
-			SaleMgrPanel sp=new SaleMgrPanel(parent);
-			parent.setRightComponent(sp);
-			sp.RefreshPanel();
-			
-		}else if(e.getSource()==aboutBtn){
-			parent.setRightComponent(new AboutPanel());
-		}else if(e.getSource()==backBtn){
-			
+			}else if(e.getSource()==aboutBtn){
+				parent.setRightComponent(new AboutPanel());
+			}else if(e.getSource()==backBtn){
 				parent.setLeftComponent(new SaleLeftShortPanel(parent));
-		
-		}
+			}
 		}catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
