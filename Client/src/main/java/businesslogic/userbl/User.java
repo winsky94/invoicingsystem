@@ -78,11 +78,19 @@ public class User implements UserBLService,UserViewService{
 	public String NewUserID(UserJob job){
 		ArrayList<UserPO> po=service.showAll();
 		String lastID=null;
+		UserJob mana=null;
+		if(job==UserJob.FINANCEMANAGER)
+			mana=UserJob.FINANCE;
+		else if(job==UserJob.SALEMANAGER)
+			mana=UserJob.SALE;
 		if(po==null) lastID="00001";
 		else{
-		for(int i=0;i<po.size();i++){
-			if(po.get(i).getJob()==job)
-				{lastID=po.get(i).getID();}
+		
+		for(int i=po.size()-1;i>=0;i--){
+			if(po.get(i).getJob()==job||po.get(i).getJob()==mana){
+				lastID=po.get(i).getID();
+				break;
+			}
 		}
 		if(lastID!=null)
 		{	
