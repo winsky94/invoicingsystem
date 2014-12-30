@@ -15,7 +15,9 @@ public class Purchase_ATest extends TestCase{
 	ArrayList<CommodityVO> cmlist;
 	PurchaseVO purchase1,purchase2;
 	
-	public void setUp(){
+	public void setUp() throws Exception{
+		controller=new SalesController();
+		cmlist=new ArrayList<CommodityVO>();
 		CommodityVO com=new CommodityVO("0001-SR01-0001","蓝之恋吊灯","SR01",1000,800,1,1000,800
 				,"在做测试");
 		cmlist.add(com);
@@ -62,14 +64,16 @@ public class Purchase_ATest extends TestCase{
 		message="1";
 		type="仓库";
 		plist=controller.findPurchase(message, type);
-		for(PurchaseVO vo:plist)
+		if(plist!=null){
+			for(PurchaseVO vo:plist)
 			assertEquals(message,vo.getStockid());
+		}
 		
 	}
 	
 	//修改一个进货单
 	public void test_3(){
-		PurchaseVO purchase=controller.PFindByID("JHD-20141208-00002");
+		PurchaseVO purchase=controller.PFindByID("JHD-20141208-00001");
 		ArrayList<CommodityVO> clist=purchase.getPurchaseList();
 		CommodityVO com=new CommodityVO("0001-SR01-0002","蓝之恋吊灯","SR01",1000,800,1,1000,800
 				,"在做测试");
@@ -77,10 +81,10 @@ public class Purchase_ATest extends TestCase{
 		purchase.setPurchaseList(clist);
 		int result=controller.modifyPurchase(purchase);
 		assertEquals(0,result);
-		purchase=controller.PFindByID("JHD-20141208-00002");
+		purchase=controller.PFindByID("JHD-20141208-00001");
 		boolean isExist=false;
 		for(CommodityVO v:purchase.getPurchaseList())
-			if(v.getID().equals("0001-SR01-00002"))
+			if(v.getID().equals("0001-SR01-0002"))
 			{
 				isExist=true;break;
 			}
