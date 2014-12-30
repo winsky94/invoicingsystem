@@ -34,15 +34,13 @@ import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
 
 public class MemberMgrPanel extends JPanel {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	MyButton addBtn, delBtn, modBtn, refreshBtn, searchBtn;
 	JTextField searchFld;
 	JTable memberTable;
 	MemberTableModel utm;
-	ArrayList<ArrayList<String>> c = new ArrayList<ArrayList<String>>();
+	ArrayList<ArrayList<String>> cm = new ArrayList<ArrayList<String>>();
 	JScrollPane jsp;
 	String keyWord;
 	MainFrame parent;
@@ -128,7 +126,7 @@ public class MemberMgrPanel extends JPanel {
 				"应收额度", "应收", "应付", "默认业务员" };
 
 		public int getRowCount() {
-			return c.size();
+			return cm.size();
 		}
 
 		public int getColumnCount() {
@@ -136,7 +134,7 @@ public class MemberMgrPanel extends JPanel {
 		}
 
 		public String getValueAt(int row, int col) {
-			return c.get(row).get(col);
+			return cm.get(row).get(col);
 		}
 
 		public String getColumnName(int col) {
@@ -146,7 +144,7 @@ public class MemberMgrPanel extends JPanel {
 	
 
 	public void RefreshMemberTable(ArrayList<MemberVO> vo) {
-		c.clear();
+		cm.clear();
 
 		for (MemberVO VO : vo) {
 			ArrayList<String> lineInfo = new ArrayList<String>();
@@ -165,7 +163,7 @@ public class MemberMgrPanel extends JPanel {
 			lineInfo.add(Double.toString(VO.getToReceive()));
 			lineInfo.add(Double.toString(VO.getToPay()));
 			lineInfo.add(VO.getDefaultClerk());
-			c.add(lineInfo);
+			cm.add(lineInfo);
 
 		}
 		memberTable.revalidate();
@@ -194,10 +192,22 @@ public class MemberMgrPanel extends JPanel {
 			int[] i = memberTable.getSelectedRows();
 			ArrayList<String> Id = new ArrayList<String>();
 			if (i.length > 0) {
-				for (int j = 0; j < i.length; j++)
-					Id.add((String) memberTable.getValueAt(i[j], 0));
-
-				JDialog delDlg = new DelMemberDialog(Id, parent);
+				for (int j = 0; j < i.length; j++){
+					double toPay=Double.parseDouble(cm.get(i[j]).get(10));
+					if(toPay>0)
+						JOptionPane.showMessageDialog(null, "还欠该用户钱呢，付完款再删吧！");
+					else{
+						double toReceive=Double.parseDouble(cm.get(i[j]).get(9));
+						if(toReceive>0)
+							JOptionPane.showMessageDialog(null, "该用户还欠着钱呢，收完款再删吧！");
+						else
+							Id.add((String) memberTable.getValueAt(i[j], 0));
+							
+					}
+				}	
+				if(Id.size()!=0) {
+					JDialog delDlg = new DelMemberDialog(Id, parent);
+				} 
 			} else {
 				JOptionPane.showMessageDialog(null, "请选择用户", "提示",
 						JOptionPane.WARNING_MESSAGE);
