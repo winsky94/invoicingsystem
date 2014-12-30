@@ -5,12 +5,14 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import po.ReceiptPO.ReceiptType;
 import vo.CommodityVO;
 import vo.GiftVO;
 import vo.LogVO;
 import Presentation.mainui.MainFrame;
+import Presentation.mainui.MyTableCellRenderer;
 import Presentation.mainui.headPane;
 import Presentation.mainui.log;
 import businesslogic.stockbl.gift.GiftCommodityListModel;
@@ -47,6 +49,11 @@ public class ModGiftPanel extends CreateGiftPanel {
 			commodityList = vo.getGiftList();
 			gcm = new GiftCommodityListModel(vo.getGiftList());
 			table.setModel(gcm);
+			// table 渲染器，设置文字内容居中显示，设置背景色等
+			DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+			for (int i = 0; i < table.getColumnCount(); i++) {
+				table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
+			}
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
@@ -77,6 +84,13 @@ public class ModGiftPanel extends CreateGiftPanel {
 						JOptionPane.WARNING_MESSAGE);
 				return;
 			}
+
+			if (gcm == null || gcm.getRowCount() == 0) {
+				JOptionPane.showMessageDialog(null, "           请选择赠品哈~", null,
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+
 			// 修改赠品数量后，需要重新更新commodityList
 			int rowCount = gcm.getRowCount();
 			ArrayList<CommodityVO> recordList = new ArrayList<CommodityVO>();
@@ -110,7 +124,7 @@ public class ModGiftPanel extends CreateGiftPanel {
 			String name = data[1];
 			GiftReceipt receipt = new GiftReceipt(vo.getId(), ID, name,
 					vo.getUser(), ReceiptType.GIFT, vo.getHurry(),
-					vo.getStatus(), vo.getInfo(), vo.getGiftList());
+					vo.getStatus(), vo.getInfo(), recordList);
 
 			if (receipt.Modify(vo.getId()) == 0) {
 				log.addLog(new LogVO(log.getdate(), parent.getUser().getID(),

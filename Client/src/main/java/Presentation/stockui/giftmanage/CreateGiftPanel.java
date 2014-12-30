@@ -227,8 +227,13 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 						JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			// 赠送数量默认为1
-
+			//判断是否选择了商品,赠送数量默认为1
+			if(gcm==null||gcm.getRowCount()==0){
+				JOptionPane.showMessageDialog(null, "           请选择赠品哈~", null,
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			
 			// 修改赠品数量后，需要重新更新commodityList
 			int rowCount = gcm.getRowCount();
 			ArrayList<CommodityVO> recordList = new ArrayList<CommodityVO>();
