@@ -3,11 +3,12 @@ package vo;
 import java.util.ArrayList;
 
 public class BeginInfoVO {
-	 ArrayList<GoodsVO> goods;
+		//商品，客户，账户初始信息
+	    ArrayList<GoodsVO> goods;
 	    ArrayList<MemberVO> member;
 	    ArrayList<AccountVO> account;
 	    String time;
-	    String userID;
+	    String userID;//套账创建者
 	    
 	    public BeginInfoVO(){
 	    	time=null;
