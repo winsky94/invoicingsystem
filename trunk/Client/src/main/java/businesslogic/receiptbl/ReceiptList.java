@@ -49,7 +49,7 @@ public class ReceiptList {
 				approved.add(p);
 			
 		}
-		if(approved.size()!=0) return null;
+		if(approved.size()==0) return null;
 		else return MySort.sort(approved);
 	}
 	
@@ -94,7 +94,7 @@ public class ReceiptList {
 			for(int i=0;i<Approve.size();i++)
 				if(Approve.get(i).getType()==type)
 					ApproveByType.add(Approve.get(i));
-			if(ApproveByType.size()!=0) return null;
+			if(ApproveByType.size()==0) return null;
 			else
 				return ApproveByType;
 		}
