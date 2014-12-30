@@ -17,12 +17,15 @@ import java.util.ArrayList;
 
 import Data.financedata.Init;
 
+
+//文件读取
 public class JXCFile {
 	static String time;
 	String name;
 
 	public JXCFile(String s) {
-		time = getCurrentTime();
+		//获取当前套账地址
+		time=getCurrentTime();
 		if (s.equals("src/main/java/user.ser")) {
 			name = s;
 		} else if (s.equals("src/main/java/begininfo.ser")) {
@@ -35,7 +38,10 @@ public class JXCFile {
 		}
 	}
 
-	public static void reset() {
+
+	
+	//用户退出时，重置系统套账为当前最新套账
+	public static void reset(){
 		try {
 			Init i = new Init();
 			String s = i.getRecentStockTime();
@@ -46,17 +52,15 @@ public class JXCFile {
 		}
 	}
 
+	
 	public static String getCurrentTime() {
-
 		try {
-
 			File file = new File("src/main/java/currentstock.txt");
 			if (!file.exists()) {
-
 				file.createNewFile();
 				return null;
-
 			}
+			
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					new FileInputStream(file), "UTF-8"));
 			String temp = null;
@@ -69,6 +73,9 @@ public class JXCFile {
 		return time;
 	}
 
+	
+	
+//设置当前套账
 	public static void setTime(String s) {
 
 		try {
@@ -76,29 +83,28 @@ public class JXCFile {
 			if (!file.exists()) {
 				try {
 					file.createNewFile();
-				} catch (IOException e) {
+					} catch (IOException e) {
 					e.printStackTrace();
-				}
-
+					}
 			}
 
 			BufferedWriter bw = null;
 			try {
 				bw = new BufferedWriter(new OutputStreamWriter(
 						new FileOutputStream(file), "UTF-8"));
-			} catch (UnsupportedEncodingException e) {
+				} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
-			} catch (FileNotFoundException e) {
+				} catch (FileNotFoundException e) {
 				e.printStackTrace();
-			}
+				}
 			bw.write(s);
 			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-
+		} 
 	}
-
+	
+	
 	public static void init(String time) {
 		File outfile = new File("src/main/java/" + time + "/");
 		if (!outfile.exists() && !outfile.isDirectory()) {
@@ -107,22 +113,23 @@ public class JXCFile {
 		setTime(time);
 	}
 
+	
+	
+	/*************************文件读写***********************************/
+	
 	public ArrayList<Object> read() {
 		ArrayList<Object> ls = new ArrayList<Object>();
-
 		try {
 			FileInputStream fin = new FileInputStream(name);
 			if (fin.available() <= 0) {
 				fin.close();
 				return null;
-
 			} else {
 				ObjectInputStream in = new ObjectInputStream(fin);
 				while (fin.available() > 0) {
 					ls.add(in.readObject());
 				}
 				in.close();
-
 				return ls;
 			}
 		} catch (FileNotFoundException e) {
@@ -208,6 +215,8 @@ public class JXCFile {
 		}
 	}
 
+	
+	//单对象存储
 	public void write(Object o) {
 		try {
 			boolean isexist = false;
@@ -231,6 +240,7 @@ public class JXCFile {
 		}
 	}
 
+	
 	// 向文件中写入一个对象，覆盖原来的所有内容
 	public void writeM(Object a) {
 		File ff = new File(name);
@@ -249,7 +259,7 @@ public class JXCFile {
 				pos = fo.getChannel().position() - 4;
 				fo.getChannel().truncate(pos);
 			}
-
+			
 			os.writeObject(a);
 			os.close();
 		} catch (IOException e) {
@@ -258,18 +268,4 @@ public class JXCFile {
 		}
 	}
 
-	public static void main(String[] args) {
-		JXCFile.init("2014-11-01");
-		// JXCFile file=new JXCFile("figures.ser");
-		// Integer i=new Integer(1);
-		// file.write(i);
-		// ArrayList<Object> a=file.read();
-		// if(a==null)
-		// System.out.println("空哒！");
-		// else{
-		// for(Object o:a)
-		// System.out.println((Integer)o);
-		// }
-
-	}
 }
