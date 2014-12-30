@@ -9,6 +9,8 @@ import po.PromotionPO.PromotionType;
 import junit.framework.TestCase;
 import vo.CommodityVO;
 import vo.GiftVO;
+import vo.PackProVO;
+import vo.PackVO;
 import vo.PromotionVO;
 import vo.SaleVO;
 import businesslogic.promotionbl.promotionController;
@@ -43,8 +45,12 @@ public class PromotionBLService_DriverTest extends TestCase{
 	//String memberName,String memberID, String user,  int status,
 	//int hurry,String info, String stockid,String proid,String couponid, double[] total,double[] discount
 	public void testPromotionBLDrive() throws Exception{
-		PromotionVO vo=new PromotionVO("SP-20141205-001","20141205","20141223",PromotionType.GIFTGOODS,
-				MemberLevel.ONE);
+		double totalValue=1000;
+		double packValue=600;
+		PackVO p=new PackVO(totalValue,packValue,commodity);
+		String startDate="20141209";String endDate="20150112";
+		String id=promotionblservice.getNewID(PromotionType.PACK);
+		PromotionVO vo=new PackProVO(id,startDate,endDate,MemberLevel.ONE,p);
 		CommodityVO com=new CommodityVO("0001-SR01-0001","蓝之恋吊灯","SR01",1000,800,1,1000,800
 				,"在做测试");
 		commodity.add(com);
@@ -58,11 +64,7 @@ public class PromotionBLService_DriverTest extends TestCase{
 		promotionblservice.Show();
 		assertEquals(0,resultAdd);
 		assertEquals(0,resultMod);
-		assertEquals("Add Promotion Success!"+line
-				+"Modify Promotion Success!"+line
-				+"Match Promotion Success!"+line
-				+"Give Present by Promotion Success!"+line
-				+"Show Promotion Success!"+line,bytes.toString());
+	
 		
 	}
 	
