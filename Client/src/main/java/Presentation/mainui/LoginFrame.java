@@ -29,7 +29,7 @@ import Presentation.uihelper.UIhelper;
 import businesslogic.userbl.User;
 import businesslogicservice.userblservice.UserBLService;
 
-//改进 工号 /姓名 均可登陆
+
 public class LoginFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -291,6 +291,7 @@ public class LoginFrame extends JFrame {
 				}
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
+				e1.printStackTrace();
 				JOptionPane.showMessageDialog(null, "您的网络未连接！", "提示",
 						JOptionPane.WARNING_MESSAGE);
 			}
