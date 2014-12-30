@@ -182,10 +182,10 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 						try {
 							RedOkListener redok=new RedOkListener();
 							JPanel  pane=AdvancedReceiptPanel.getModPanel(id, type,redok,true,parent);
-							JPanel redpane=new JPanel();
-							redpane.setLayout(new BorderLayout());
-							redpane.add(pane, BorderLayout.CENTER);
-							parent.setRightComponent(redpane);
+							//JPanel redpane=new JPanel();
+							//redpane.setLayout(new BorderLayout());
+							//redpane.add(pane, BorderLayout.CENTER);
+							RedDialog dialog=new RedDialog(parent,false,pane);
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
