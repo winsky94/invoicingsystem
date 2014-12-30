@@ -12,8 +12,8 @@ import vo.LogVO;
 public class log {
 	public  static  void  addLog(LogVO vo){
 		try {
-			//LogBLService service=new logbl();
-			//service.AddLog(vo);
+			LogBLService service=new logbl();
+			service.AddLog(vo);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
