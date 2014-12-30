@@ -14,8 +14,10 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import po.UserPO.UserJob;
 import vo.AccountVO;
 import vo.CashlistVO;
 import vo.CollectionVO;
@@ -171,6 +173,7 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==accountBtn){
+			if(frame.getUser().getJob()==UserJob.FINANACEMANGER){
 			AccountPanel mgr=new AccountPanel(frame);
 			FinanceAccountBLService service;
 			try {
@@ -183,6 +186,7 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 					mgr.RefreshAccountTable(a);
 				mgr.table.revalidate();
 				mgr.table.repaint();
+			
 			} catch (MalformedURLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -192,7 +196,9 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 			} catch (NotBoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
+			}}else
+				JOptionPane.showMessageDialog(null, "只有财务经理才能进行账户管理，等你升职了再点我吧！","提示",
+						JOptionPane.WARNING_MESSAGE);
 			
 		}
 		else if(e.getSource()==collectionBtn){
