@@ -12,7 +12,7 @@ import vo.LogVO;
 public class logbl implements LogBLService{
 	LogService service;
 	public logbl() throws Exception{
-		String host="localhost:1099";
+		String host=getServer.getServer();;
 		String url="rmi://"+host+"/logService";
 	
 		service=(LogService)Naming.lookup(url);
