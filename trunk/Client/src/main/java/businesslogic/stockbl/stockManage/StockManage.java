@@ -315,7 +315,9 @@ public class StockManage {
 					try {
 						GoodsPO good = goodsService.findByID(goodID);
 						// 调价收入先暂时跟默认进价比了==
-						double purchasePrice = good.getPurchasePrice();
+						double purchasePrice=0;
+						if(good!=null)
+							purchasePrice = good.getPurchasePrice();
 						double exactPurchasePrice = vo.getPrice();
 						result += (purchasePrice - exactPurchasePrice)
 								* vo.getNum();
