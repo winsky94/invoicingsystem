@@ -317,7 +317,7 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 			} else if (s == 1)
 				line.add("审批不通过");
 			else if (s == 2)
-				line.add("待执行");
+				line.add("执行完毕");
 			else if (s == 3)
 				line.add("执行完毕");
 			String name = user.showUser(v.getUser()).getName();

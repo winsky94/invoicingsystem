@@ -50,13 +50,14 @@ public class Purchase extends Receipt {
 			e1.printStackTrace();
 		}
 
-		// 修改库存数量及出厂日期
+		// 修改库存数量、最近进价及出厂日期
 		StockGoodsBLService goodsController = new GoodsController();
 		ArrayList<CommodityVO> list = vo.getPurchaseList();
 		for (CommodityVO cvo : list) {
 			try {
 				GoodsVO goodsVO = goodsController.findByID(cvo.getID());
 				goodsVO.setNumInStock(goodsVO.getNumInStock() + cvo.getNum());
+				goodsVO.setLastPurchasePrice(cvo.getPrice());
 				goodsVO.setManufactureDate(vo.getDate());// 修改出厂日期
 				goodsController.modifyGoods(goodsVO);
 			} catch (RemoteException e) {

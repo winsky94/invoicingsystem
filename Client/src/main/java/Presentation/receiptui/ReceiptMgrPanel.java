@@ -112,8 +112,13 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 					String batch[] = new String[choose.size()];
 					for (int i = 0; i < choose.size(); i++)
 						batch[i] = choose.get(i);
-					service.Batch(batch, 2);
+					int result = service.Batch(batch, 2);
+					if (result != 0) {
+						JOptionPane.showMessageDialog(null, "审批失败！", "提示",
+								JOptionPane.WARNING_MESSAGE);
+					}
 					Refresh();
+
 				} else
 					JOptionPane.showMessageDialog(null, "请选择一条单据审批！", "提示",
 							JOptionPane.WARNING_MESSAGE);
@@ -199,10 +204,10 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		// 加急显示的时候，传一个需要改变颜色的行数的Arraylist进去
 		// 无参构造函数是不加急显示的
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
-		// for (int i = 0; i < t1.getColumnCount() - 1; i++) {
-		// t1.getColumn(t1.getColumnName(i)).setCellRenderer(tcr);
-		//
-		// }
+		for (int i = 0; i < t1.getColumnCount() - 1; i++) {
+			t1.getColumn(t1.getColumnName(i)).setCellRenderer(tcr);
+
+		}
 
 		jsp1 = new JScrollPane(t1);
 		// rtm1.addTableModelListener(new TableModelListener() {
@@ -376,7 +381,6 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			if (t == 0)
 				line.add(new Boolean(false));
 			tableContent.add(line);
-			
 
 		}
 		DefaultTableCellRenderer tcr = new MyTableCellRenderer(hurry);
@@ -385,7 +389,6 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 
 		}
 		ReceiptMgrPanel.this.repaint();
-		
 
 	}
 

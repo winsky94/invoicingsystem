@@ -118,7 +118,6 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 			Member m = new Member();
 			int i = m.changeToReceive(vo.getMemberID(), vo.getToPay());
 			if (i == 0) {
-				// 修改库存数量
 				StockGoodsBLService goodsController = new GoodsController();
 				ArrayList<CommodityVO> list = vo.getSalesList();
 				for (CommodityVO cvo : list) {
@@ -126,8 +125,11 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 					// 检查是否可以销售
 					StockControlBLService contronller = new StockControlController();
 					if (contronller.isEnough(cvo.getID(), cvo.getNum())) {
+						// 修改库存数量
 						goodsVO.setNumInStock(goodsVO.getNumInStock()
 								- cvo.getNum());
+						//修改最近售价
+						goodsVO.setLastPrice(cvo.getPrice());
 						goodsController.modifyGoods(goodsVO);
 
 						// 库存报警检查
