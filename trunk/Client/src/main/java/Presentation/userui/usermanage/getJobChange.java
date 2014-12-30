@@ -17,7 +17,7 @@ public class getJobChange {
 		else if(s.equals("销售经理"))
 			return UserJob.SALEMANAGER;
 		else{
-			return UserJob.FINANACEMANGER;
+			return UserJob.FINANCEMANAGER;
 		}
 		
 	}
@@ -30,7 +30,7 @@ public class getJobChange {
 			return "销售经理";
 		case FINANCE:
 			return "财务人员";
-		case FINANACEMANGER:
+		case FINANCEMANAGER:
 			return "财务经理";
 		case ADMINSTRATOR:
 			return "系统管理员";

@@ -63,7 +63,7 @@ public class UserPO implements Serializable {
 	}*/
 	
 	public enum UserJob implements Serializable{
-		MANAGER,FINANCE,FINANACEMANGER,SALE,STOCK,ADMINSTRATOR,SALEMANAGER
+		MANAGER,FINANCE,FINANCEMANAGER,SALE,STOCK,ADMINSTRATOR,SALEMANAGER
 
 	}
 

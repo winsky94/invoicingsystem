@@ -173,7 +173,7 @@ public class LeftLongPanel extends JPanel implements ActionListener,MouseListene
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==accountBtn){
-			if(frame.getUser().getJob()==UserJob.FINANACEMANGER){
+			if(frame.getUser().getJob()==UserJob.FINANCEMANAGER){
 			AccountPanel mgr=new AccountPanel(frame);
 			FinanceAccountBLService service;
 			try {

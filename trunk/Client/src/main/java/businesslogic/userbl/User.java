@@ -103,6 +103,11 @@ public class User implements UserBLService,UserViewService{
 			return "KC-"+lastID;
 		case FINANCE:
 			return "CW-"+lastID;
+		case FINANCEMANAGER:
+			return "CW-"+lastID;
+		case SALEMANAGER:
+			return "XS-"+lastID;
+			
 		default:
 			return "GL-"+lastID;		
 			
