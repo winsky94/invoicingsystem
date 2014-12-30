@@ -12,10 +12,7 @@ public class JLeftButton extends JButton{
 	
 	public JLeftButton(String txt,ImageIcon icon,Color color){
 		this(icon,color);
-		this.setText(txt);;
-		
-		
-		
+		this.setText(txt);;	
 	}
 	public JLeftButton(ImageIcon icon,Color color){
 		super(icon);

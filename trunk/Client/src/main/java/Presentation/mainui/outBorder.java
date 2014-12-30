@@ -14,15 +14,10 @@ public class outBorder extends TitledBorder{
 	static Border border=BorderFactory.createBevelBorder(BevelBorder.LOWERED);
 	public outBorder(String title){
 		super(border,title);
-	
-		
 		Font style=new Font("黑体",Font.BOLD,12);
-		
 		this.setTitleFont(style);
 		this.setTitlePosition(TitledBorder.CENTER);
 		this.setTitleJustification(TitledBorder.LEADING);
-	
 	}
 	 
-  
 }
