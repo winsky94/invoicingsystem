@@ -187,15 +187,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		c.weighty = 1;
 		gbl.setConstraints(tab, c);
 		this.add(tab);
-		tab.addChangeListener(new ChangeListener() {
-
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				// TODO Auto-generated method stub
-				Refresh();
-			}
-
-		});
+	
 		// -------待审批-------------------
 		rtm1 = new ReceiptTableModel(c1, 0);
 		t1 = new JTable(rtm1);
@@ -229,6 +221,15 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		}
 		jsp2 = new JScrollPane(t2);
 		tab.add("已审批单据", jsp2);
+		tab.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+				Refresh();
+			}
+
+		});
 
 	}
 
@@ -326,13 +327,13 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			ArrayList<ReceiptVO> vo = new ArrayList<ReceiptVO>();
 			if (service.ToApprove() != null) {
 				vo = service.ToApprove();
+				ReceiptMgrPanel.this.RefreshTable(vo, 0);
 			}
-			ReceiptMgrPanel.this.RefreshTable(vo, 0);
-
 			if (service.Approved() != null) {
 				vo = service.Approved();
+				ReceiptMgrPanel.this.RefreshTable(vo, 1);
 			}
-			ReceiptMgrPanel.this.RefreshTable(vo, 1);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -383,10 +384,12 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			tableContent.add(line);
 
 		}
-		DefaultTableCellRenderer tcr = new MyTableCellRenderer(hurry);
-		for (int i = 0; i < t1.getColumnCount() - 1; i++) {
-			t1.getColumn(t1.getColumnName(i)).setCellRenderer(tcr);
+		if(t==0){
+			DefaultTableCellRenderer tcr = new MyTableCellRenderer(hurry);
+			for (int i = 0; i < t1.getColumnCount() - 1; i++) {
+				t1.getColumn(t1.getColumnName(i)).setCellRenderer(tcr);
 
+			}
 		}
 		
 		if(t==0){
