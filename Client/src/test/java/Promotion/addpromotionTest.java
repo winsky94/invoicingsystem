@@ -72,12 +72,12 @@ public class addpromotionTest extends TestCase {
 		good3 = good1.getGoods("01010001");
 		good4 = good2.getGoods("02010002");
 		list.Add(promotion);
-		double value = good3.getPrice() + good4.getPrice();
+		double value = ppp.getValue();
 		// 统计赠品总值
 		GiftCouponProVO pro=(GiftCouponProVO) list.find(promotion.getId(), PromotionType.GIFTCOUPON);
 		assertEquals(value, pro.getTotalValue());
 		list.Delete(pro.getId(),PromotionType.GIFTCOUPON );
-		value -= good3.getPrice();
+		
 		assertEquals(value, pro.getTotalValue());
 		// 发布促销策略
 		//int resultRelease = pro.Release(pro);

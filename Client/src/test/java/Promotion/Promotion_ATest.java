@@ -70,7 +70,7 @@ public class Promotion_ATest extends TestCase{
 		PromotionVO vo=controll.find(id, PromotionType.GIFTCOUPON);
 		if(vo!=null){
 			GiftCouponProVO gifcvo=(GiftCouponProVO)vo;
-			assertEquals(1000,gifcvo.getTotalValue());
+			assertEquals(1000.0,gifcvo.getTotalValue());
 		}
 				
 		
@@ -85,6 +85,7 @@ public class Promotion_ATest extends TestCase{
 		CommodityVO vo=new CommodityVO("0001-SR01-0002","蓝之恋吊灯","SR01",1000,800,1,1000,800
 				,"在做测试");
 		commodity.add(vo);
+		commodity.add(vo);
 		ArrayList<Double> discount=new ArrayList<Double>();
 		discount.add(0.9);discount.add(0.8);
 		String id=controll.getNewID(PromotionType.DISCOUNT);
@@ -97,8 +98,8 @@ public class Promotion_ATest extends TestCase{
 			DiscountProVO dispro=(DiscountProVO)pro;
 			discount=dispro.getCountList();
 			commodity=dispro.getGoodsList();
-			assertEquals(900,discount.get(0)*commodity.get(0).getPrice());
-			assertEquals(800,discount.get(1)*commodity.get(1).getPrice());
+			assertEquals(900.0,discount.get(0)*commodity.get(0).getPrice());
+			assertEquals(800.0,discount.get(1)*commodity.get(1).getPrice());
 			
 			
 		}
@@ -125,8 +126,8 @@ public class Promotion_ATest extends TestCase{
 		PromotionVO vo=controll.find(id, PromotionType.PACK);
 		if(vo!=null){
 			pack=(PackProVO)vo;
-			assertEquals(1000,pack.getTotalValue());
-			assertEquals(600,pack.getPackValue());
+			assertEquals(1000.0,pack.getTotalValue());
+			assertEquals(600.0,pack.getPackValue());
 		}
 		
 				

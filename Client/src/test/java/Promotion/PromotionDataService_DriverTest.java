@@ -44,10 +44,10 @@ public class PromotionDataService_DriverTest extends TestCase {
 		promotiondataservice.showAll();	
 		assertEquals(0,resultAdd);
 		assertEquals(0,resultMod);
-		assertEquals("init Promotion Success!"+line
-				+"Add Promotion Success!"+line
+		assertEquals(
+				"Add Promotion Success!"+line
 				+"Modify Promotion Success!"+line
-				+"find Promotion (id=CXD-20141015-00001) Success!"+line
+				//+"find Promotion (id=CXD-20141015-00001) Success!"+line
 				+"Show Promotion Success!"+line,bytes.toString());
 		
 	}
