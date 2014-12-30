@@ -7,17 +7,13 @@ import vo.ReceiptVO;
 
 public interface ReceiptBLService {
 	
-	public int Modify(String id);
+	//public int Modify(String id);
 	public int Batch(String[] id,int status);
 	
-	
-	public ReceiptVO View(String id);
-	public ArrayList<ReceiptVO> Refresh();
 	public int Approve(String id,int status);
 	public ArrayList<ReceiptVO> ToApprove();
 	public ArrayList<ReceiptVO> ToApprove(ReceiptType type);
 	public ArrayList<ReceiptVO> Approved();
 	public ArrayList<ReceiptVO> Approved(ReceiptType type);
-//	public int Excute(String id);
-//	public int setStatus(String id,int st);
+
  }
