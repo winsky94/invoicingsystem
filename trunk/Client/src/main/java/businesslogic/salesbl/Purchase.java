@@ -56,10 +56,11 @@ public class Purchase extends Receipt {
 		for (CommodityVO cvo : list) {
 			try {
 				GoodsVO goodsVO = goodsController.findByID(cvo.getID());
+				if(goodsVO!=null){
 				goodsVO.setNumInStock(goodsVO.getNumInStock() + cvo.getNum());
 				goodsVO.setLastPurchasePrice(cvo.getPrice());
 				goodsVO.setManufactureDate(vo.getDate());// 修改出厂日期
-				goodsController.modifyGoods(goodsVO);
+				goodsController.modifyGoods(goodsVO);}
 			} catch (RemoteException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
