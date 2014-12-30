@@ -26,7 +26,6 @@ public class Receipt {
 	private String memberID;
 	private String userID;
 	private po.ReceiptPO.ReceiptType type;
-	private Date createDate;
 	private int status;
 	private int hurry;
 	private String info;
@@ -62,18 +61,10 @@ public class Receipt {
 	}
 
 
-	// 保存 可以再编辑？
-	public int Add(ReceiptVO vo) {
-
-		return 0;
-	}
+	
 
 	// 修改
-	public int Modify(String id) {
-
-		return 0;
-	}
-
+	
 	public void Send(String id) {
 		ReceiptMessage message;
 		try {
@@ -110,16 +101,9 @@ public class Receipt {
 		
 	} 
 
-	// 经营历程表
-	public ArrayList<ReceiptVO> View() {
+	
 
-		return null;
-	}
-
-	public ReceiptVO View(String id) {
-
-		return null;
-	}
+	
 
 	public int excute(ReceiptVO vo) {
 		this.status = 5;
@@ -128,10 +112,7 @@ public class Receipt {
 
 	//
 
-	public ArrayList<ReceiptVO> Refresh() {
-		return null;
-	}
-
+	
 	public String getId() {
 		return id;
 	}
@@ -152,9 +133,7 @@ public class Receipt {
 		return type;
 	}
 
-	public Date getCreateDate() {
-		return createDate;
-	}
+	
 
 	public String getStatus() {
 		String result = "";
