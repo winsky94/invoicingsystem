@@ -46,24 +46,6 @@ public class Member_ATest extends TestCase{
 		
 	}
 	
-	//TUS1-2
-	public void test_3(){
-		
-	}
-	//TUS1-2
-	public void test_4(){
-			
-		}
-		//TUS1-2
-	public void test_5(){
-			
-		}
-		//TUS1-2
-	public void test_6(){
-			
-	}
-		//TUS1-2
-	public void test_2(){
-			
-	}
+	
+	
 }
