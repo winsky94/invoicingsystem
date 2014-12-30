@@ -110,6 +110,7 @@ public class ModifyUserPanel extends JPanel {
 		typeBox.setSelectedItem(getJobChange.getJobString(vo.getJob()));
 		typeBox.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		typeBox.setBackground(Color.white);
+		typeBox.setEnabled(false);
 		mc.gridx=1;
 		mc.gridy=1;
 		mc.gridwidth=3;

@@ -107,7 +107,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		parent = frame;
 		boolean isFinance = false;
 		if (parent.getUser().getJob() == UserJob.FINANCE
-				|| parent.getUser().getJob() == UserJob.FINANACEMANGER) {
+				|| parent.getUser().getJob() == UserJob.FINANCEMANAGER) {
 			color = new Color(242, 125, 5);
 			refreshPath = "img/finance/refresh.png";
 			exportPath = "img/finance/export.png";
