@@ -23,16 +23,12 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import Presentation.uihelper.UIhelper;
 
-
+//输入服务器IP和port
 public class IPFrame extends JFrame implements ActionListener{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	int screenWidth = UIhelper.getScreenWidth();
 	int screenHeight = UIhelper.getScreenHeight();
@@ -54,7 +50,6 @@ public class IPFrame extends JFrame implements ActionListener{
 		// -------------------
 		JPanel pnl = new JPanel(){
 			private static final long serialVersionUID = 1L;
-
 			// 给panel加上图片
 			protected void paintComponent(Graphics g) {
 				ImageIcon icon = new ImageIcon("img/net.png");
@@ -64,7 +59,7 @@ public class IPFrame extends JFrame implements ActionListener{
 			}
 		};
 		this.add(pnl);
-		// -------------------
+		//--------------------
 		pnl.setLayout(new GridLayout(4, 1));
 		JPanel titlePnl = new JPanel();
 		titlePnl.setOpaque(false);
@@ -126,7 +121,7 @@ public class IPFrame extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setUndecorated(true);
 		this.setVisible(true);
-		//处理拖动事件
+		//处理窗口拖动事件
 		  this.addMouseListener(new MouseAdapter() {  
 	            public void mousePressed(MouseEvent e) {  
 	                xOld = e.getX();  
@@ -148,15 +143,12 @@ public class IPFrame extends JFrame implements ActionListener{
 
 	}
 
-	public static void main(String[] args) {
-		IPFrame i = new IPFrame();
-
-	}
-	
+	//获取本地历史记录
 	public void init(){
 		port=new ArrayList<String>();
 		IP=new ArrayList<String>();
 		try {
+			//初始化Port
 			BufferedReader br=new BufferedReader(new FileReader("Port.txt"));
 			String str=null;
 				while((str=br.readLine())!=null){
@@ -191,6 +183,7 @@ public class IPFrame extends JFrame implements ActionListener{
 			this.dispose();
 		}else if(e.getSource()==submitBtn){
 			this.dispose();
+			//存储历史记录
 			String txt=IPBox.getSelectedItem().toString();
 			String file="IP.txt";
 			write(txt,file,IP);
