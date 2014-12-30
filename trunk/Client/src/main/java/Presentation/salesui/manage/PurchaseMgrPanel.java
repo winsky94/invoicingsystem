@@ -41,7 +41,7 @@ import businesslogicservice.salesblservice.PurchaseBLService;
 import businesslogicservice.salesblservice.SaleListBLService;
 import businesslogicservice.salesblservice.SalesBLService;
 import businesslogicservice.userblservice.UserBLService;
-
+//进货管理主界面
 public class PurchaseMgrPanel extends JPanel implements ActionListener {
 	/**
 	 * 
@@ -113,13 +113,7 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 		bo.setBackground(Color.white);
 		bo.setForeground(frame.getTheme()[0]);
 		btnPnl.add(bo);
-		// ----------------------------------
-		//
-		/*
-		 * 
-		 * 
-		 * 这个表格BL来搞一下~注入信息
-		 */
+		//----------进货列表----------
 		pmm = new PurchaseMgrModel();
 		table = new JTable(pmm);
 		table.getTableHeader().setReorderingAllowed(false);
@@ -139,13 +133,6 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 		this.add(jsp);
 	}
 
-	// public void RefreshPurchaseTabel(ArrayList<ReceiptVO> VO){
-	// ArrayList<ArrayList<String>> c=ctm.getContent();
-	// for(ReceiptVO vo:VO){
-	// //if(Receipt)
-	// }
-	//
-	// }
 
 	class SearchFldListener implements DocumentListener {
 
@@ -202,8 +189,7 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-					}
-				
+					}				
 			}
 		}
 
@@ -226,8 +212,7 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 					}
 					else
 						JOptionPane.showMessageDialog(null, "请选择一条进货单进行退货!", "提示",
-								JOptionPane.WARNING_MESSAGE);
-						
+								JOptionPane.WARNING_MESSAGE);					
 				} else
 					JOptionPane.showMessageDialog(null, "请选择一条进货单进行退货!", "提示",
 							JOptionPane.WARNING_MESSAGE);
@@ -240,13 +225,10 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 					if(type.equals("进货单"))
 						parent.setRightComponent(new PurchaseDetailPanel(pid, parent));
 					else
-						parent.setRightComponent(new PurchaseReturnDetailPanel(pid, parent));
-				
-					
+						parent.setRightComponent(new PurchaseReturnDetailPanel(pid, parent));									
 				} else
 					JOptionPane.showMessageDialog(null, "请选择一条进货单进行查看!", "提示",
-							JOptionPane.WARNING_MESSAGE);
-			
+							JOptionPane.WARNING_MESSAGE);			
 			}else if(e.getSource()==refreshBtn){
 				RefreshPanel();
 			}
@@ -256,11 +238,8 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	
 	class MyButton extends JButton {
-
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
 
 		MyButton(String text, Icon icon) {
@@ -281,9 +260,7 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 	}
 
 	class PurchaseMgrModel extends AbstractTableModel {
-		/**
-		 * 
-		 */
+		
 		private static final long serialVersionUID = 1L;
 		String head[] = { "单据编号", "日期", "状态", "类型", "供应商", "操作员", "总额合计" };
 
@@ -312,7 +289,7 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 		}
 	}
 
-	// 加急置顶显示 显示图标
+	// 加急高亮显示 
 	// 单据编号","日期","状态","类型","供应商","操作员","总额合计
 	public void RefreshPurchaseTable(ArrayList<ReceiptVO> vo) throws Exception {
 		UserBLService user = new User();
@@ -329,13 +306,9 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 				line.add("审批不通过");
 			else if (s == 2)
 				line.add("审批通过");
-			else if (s == 3)
-				line.add("执行完毕");
-
 			String name = user.showUser(v.getUser()).getName();
 			if (v.getType() == ReceiptType.PURCHASE) {
 				line.add("进货单");
-				;
 				PurchaseVO pv = (PurchaseVO) v;
 				line.add(v.getMemberName());
 				line.add(name);

@@ -29,7 +29,6 @@ import vo.SaleReturnVO;
 import vo.SaleVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
-import Presentation.salesui.manage.purchase.AddPurchaseReturnPanel;
 import Presentation.salesui.manage.sale.AddSalePanel;
 import Presentation.salesui.manage.sale.AddSaleReturnPanel;
 import Presentation.salesui.manage.sale.SaleDetailPanel;
@@ -38,9 +37,11 @@ import Presentation.uihelper.MySort;
 import businesslogic.salesbl.SaleList;
 import businesslogic.salesbl.SalesController;
 import businesslogic.userbl.User;
+import businesslogicservice.salesblservice.SaleListBLService;
 import businesslogicservice.salesblservice.SalesBLService;
 import businesslogicservice.userblservice.UserBLService;
 
+//销售管理主界面
 public class SaleMgrPanel extends JPanel implements ActionListener {
 	/**
 	 * 
@@ -55,7 +56,7 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 	String keyWord;
 	MainFrame parent;
 	JComboBox bo;
-	businesslogicservice.salesblservice.SaleListBLService listservice;
+	SaleListBLService listservice;
 
 	public SaleMgrPanel(MainFrame frame) throws Exception {
 		parent = frame;
@@ -111,12 +112,7 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 		bo.setBackground(Color.white);
 		bo.setForeground(frame.getTheme()[0]);
 		btnPnl.add(bo);
-		// ----------------------------------
-		/*
-		 * 
-		 * 
-		 * 这个表格BL来搞一下~注入信息
-		 */
+		// -----------销售列表-----------------------
 		smm = new SaleMgrModel();
 		table = new JTable(smm);
 		table.getTableHeader().setReorderingAllowed(false);
@@ -155,8 +151,7 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 	class SearchBtnListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
+			// TODO Auto-generated method stub			
 			String txt=searchFld.getText();
 			if(txt.equals("")){
 				JOptionPane.showMessageDialog(null, "请输入查找内容!", "提示",
@@ -188,14 +183,12 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 					else{
 						vo=MySort.sort(vo);
 						try {
-							RefreshSaleTable(vo);
-						
+							RefreshSaleTable(vo);						
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-					}
-				
+					}				
 			}
 		}
 	}
@@ -203,39 +196,39 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		try {
-		if (e.getSource() == saleBtn) {
+			if (e.getSource() == saleBtn) {
 				parent.setRightComponent(new AddSalePanel(parent));
-		} else if (e.getSource() == saleReturnBtn){
-			int t = table.getSelectedRow();
-			if (t >= 0) {
-				String type=c.get(t).get(3);
-				if(type.equals("销售单")){
-					String pid = c.get(t).get(0);
-					parent.setRightComponent(new AddSaleReturnPanel(parent, pid));
-				}
-				else
-					JOptionPane.showMessageDialog(null, "请选择一条销售单进行退货!", "提示",
+			}else if (e.getSource() == saleReturnBtn){
+				int t = table.getSelectedRow();
+				if (t >= 0) {
+					String type=c.get(t).get(3);
+					if(type.equals("销售单")){
+						String pid = c.get(t).get(0);
+						parent.setRightComponent(new AddSaleReturnPanel(parent, pid));
+					}
+					else
+						JOptionPane.showMessageDialog(null, "请选择一条销售单进行退货!", "提示",
 							JOptionPane.WARNING_MESSAGE);
-			} else
-				JOptionPane.showMessageDialog(null, "请选择一条销售单进行退货!", "提示",
+				} else
+					JOptionPane.showMessageDialog(null, "请选择一条销售单进行退货!", "提示",
 						JOptionPane.WARNING_MESSAGE);
 			
-		}else if(e.getSource()==detailBtn){
+			}else if(e.getSource()==detailBtn){
 			
-			int t=table.getSelectedRow();
-			if(t>=0){
-				String type=c.get(t).get(3);
-				String pid = c.get(t).get(0);
-				if(type.equals("销售单"))
-					parent.setRightComponent(new SaleDetailPanel(pid,parent));
-				else 
-					parent.setRightComponent(new SaleReturnDetailPanel(pid,parent));
+				int t=table.getSelectedRow();
+				if(t>=0){
+					String type=c.get(t).get(3);
+					String pid = c.get(t).get(0);
+					if(type.equals("销售单"))
+						parent.setRightComponent(new SaleDetailPanel(pid,parent));
+					else 
+						parent.setRightComponent(new SaleReturnDetailPanel(pid,parent));
 							
-			}
+				}
 		
-		}else if(e.getSource()==refreshBtn){
-			RefreshPanel();
-		}
+			}else if(e.getSource()==refreshBtn){
+				RefreshPanel();
+			}
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -317,9 +310,7 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 			} else if (s == 1)
 				line.add("审批不通过");
 			else if (s == 2)
-				line.add("执行完毕");
-			else if (s == 3)
-				line.add("执行完毕");
+				line.add("审批通过");
 			String name = user.showUser(v.getUser()).getName();
 			if (v.getType() == ReceiptType.SALE) {
 				line.add("销售单");
