@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
-import java.rmi.server.RMISocketFactory;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -49,6 +48,10 @@ import Data.userdata.User;
 
 //rmi 启动 服务注册  11-17 By jin
 public class runServer extends JFrame implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Toolkit kit = Toolkit.getDefaultToolkit();
 	int screenWidth = kit.getScreenSize().width;
 	int screenHeight = kit.getScreenSize().height;
@@ -58,7 +61,7 @@ public class runServer extends JFrame implements ActionListener {
 	// ------------------------
 	Font font = new Font("微软雅黑", Font.PLAIN, 14);
 	JButton submitBtn, exitBtn;
-	JComboBox portBox;
+	JComboBox<String> portBox;
 	ArrayList<String> port;
 
 	public runServer() {
@@ -89,7 +92,7 @@ public class runServer extends JFrame implements ActionListener {
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 25));
 		title.setForeground(Color.white);
 		titlePnl.add(title);
-		// ----------------------
+		// ----------title------------
 		JPanel top = new JPanel();
 		top.setOpaque(false);
 		pnl.add(top);
@@ -105,7 +108,6 @@ public class runServer extends JFrame implements ActionListener {
 		portLbl.setForeground(Color.white);
 		mid.add(portLbl);
 		port = new ArrayList<String>();
-		// 最近一次记录存在最末行
 		portBox = new JComboBox<String>();
 		portBox.setEditable(true);
 		// 读取历史记录
@@ -116,6 +118,7 @@ public class runServer extends JFrame implements ActionListener {
 				port.add(str);
 			}
 			br.close();
+			// 最近一次记录存在最末行
 			for (int i = port.size() - 1; i >= 0; i--)
 				portBox.addItem(port.get(i));
 			portBox.setSelectedIndex(0);
@@ -145,7 +148,7 @@ public class runServer extends JFrame implements ActionListener {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setUndecorated(true);
 		this.setVisible(true);
-		// 处理拖动事件
+		// 处理窗口拖动
 		this.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				xOld = e.getX();
@@ -172,6 +175,7 @@ public class runServer extends JFrame implements ActionListener {
 		} else {
 			this.dispose();
 			String portNum = portBox.getSelectedItem().toString();
+			//初始化Server RMI
 			init(portNum);
 			// 存储历史记录
 			try {
@@ -201,27 +205,17 @@ public class runServer extends JFrame implements ActionListener {
 		}
 	}
 
-	public static void main(String[] args) {
-		/**
-		 * 加载安全机制
-		 */
-		new runServer();
-	}
-
+	
 	public void init(String port) {
 		try {
-			// 169.254.207.55
-			// 客户端启用的端口号为1099 yan 11-18
-			// RMISocketFactory.setSocketFactory(new SMRMISocket());
+	
 			String hostIP = InetAddress.getLocalHost().getHostAddress();
 			System.out.println("IP地址为:"+hostIP);
-			// System.out.println();
-			// String hostIP="localhost";
+		
 			int portNum = Integer.parseInt(port);
 			LocateRegistry.createRegistry(portNum);// 客户端启用的注册端口号为1099 yan 11-18
 			System.out.println("端口号为:"+portNum);
-			// //System.setProperty("java.rmi.server.hostname","172.26.7.84");
-			// String hostIP="rmi://114.212.42.102:1099/";
+			
 			System.out.println("已启动服务器");
 			User user = new User();
 			Member member = new Member();
@@ -239,7 +233,7 @@ public class runServer extends JFrame implements ActionListener {
 			Coupon coupon=new Coupon();
 			Init init = new Init();
 			Log log = new Log();
-			// String url="//"+hostIP+":"+portNum+"/";
+			
 			Naming.rebind("promotionService", pro);
 			Naming.rebind("couponService", coupon);
 			Naming.rebind("salesService", sale);
@@ -250,7 +244,7 @@ public class runServer extends JFrame implements ActionListener {
 			Naming.rebind("collectionService", collection);
 			Naming.rebind("accountService", account);
 			Naming.rebind("stockManageService", controller);
-			Naming.rebind("giftService", giftService);// 我加了由此向上的两个绑定——12.04_yan
+			Naming.rebind("giftService", giftService);// 加了由此向上的两个绑定——12.04_yan
 			Naming.rebind("paymentService", payment);
 			Naming.rebind("receiptService", receipt);
 			Naming.rebind("cashlistService", cashlist);
@@ -263,6 +257,11 @@ public class runServer extends JFrame implements ActionListener {
 		} catch (Exception e) {
 			System.out.println("错误" + e);
 		}
+	}
+	
+	public static void main(String[] args) {
+		
+		new runServer();
 	}
 
 }
