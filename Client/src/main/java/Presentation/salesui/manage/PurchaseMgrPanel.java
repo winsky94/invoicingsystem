@@ -351,6 +351,7 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 			c.add(line);
 
 		}
+		purchaseTbl.revalidate();
 		PurchaseMgrPanel.this.repaint();
 	}
 

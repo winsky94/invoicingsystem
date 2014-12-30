@@ -164,11 +164,13 @@ public class SystemLogPanel extends JPanel {
 					if(log==null){
 						cm.clear();
 						SystemLogPanel.this.repaint();
+						logTbl.revalidate();
 						JOptionPane.showMessageDialog(SystemLogPanel.this,"没有符合要求的日志记录!");
 					}else{
 						RefreshTable(log);
-						SystemLogPanel.this.repaint();
+						logTbl.revalidate();
 					}
+					
 					
 				}
 			} catch (Exception e1) {

@@ -610,17 +610,22 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			if(type.equals("经营历程"))
 				ohtm.clear();
 			else sdtm.clear();
+			t1.revalidate();
+			t2.revalidate();
 			ReportMgrPanel.this.repaint();
-//			JOptionPane.showMessageDialog(ReportMgrPanel.this, "没有符合条件的单据！");		
+			JOptionPane.showMessageDialog(ReportMgrPanel.this, "没有符合条件的单据！");		
 		}else{
 			try {
 				if(type.equals("经营历程"))
 					{ohtm.RefreshTable(receipt);
 					t2.revalidate();
+				
 					}
 				else
 					{sdtm.RefreshList(receipt);
-					t1.revalidate();}
+					t1.revalidate();
+				//	t2.validate();
+					}
 				//ReportMgrPanel.this.repaint();
 			
 			} catch (Exception e1) {
@@ -640,7 +645,6 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			JOptionPane.showMessageDialog(null, "红冲成功！"
 					);
 			RefreshTable();
-			t2.repaint();
 			t2.revalidate();
 			return row;
 		}else

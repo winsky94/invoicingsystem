@@ -340,6 +340,7 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 			c.add(line);
 
 		}
+		table.revalidate();
 		SaleMgrPanel.this.repaint();
 	}
 
