@@ -147,11 +147,13 @@ public class Member implements MemberBLService,MemberViewService{
 	}
 	
 	public MemberVO poToVo(MemberPO po){
+	   if(po!=null){
 	   bInfo=new MemBaseInfo(po.getmType(),po.getmLevel(),po.getMemberID(),po.getName(),po.getPoints(),po.getDefaultClerk());
 	   aInfo=new MemAccountInfo(po.getMaxOwe(),po.getToReceive(),po.getToPay());
 	   cInfo=new MemContactInfo(po.getTel(),po.getAddress(),po.getPostcode(),po.getEMail());
 	   MemberVO vo=new MemberVO(bInfo,aInfo,cInfo);
-	   return vo;
+	   return vo;}
+	   else return null;
 		
 	}
 	
