@@ -98,15 +98,15 @@ public class ModifyUserPanel extends JPanel {
 		mbl.setConstraints(nameFld, mc);
 		midPnl.add(nameFld);
 		//---------type----------------------
-		JLabel typeLbl=new JLabel("工种：");
+		JLabel typeLbl=new JLabel("工种："+getJobChange.getJobString(vo.getJob()));
 		typeLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
 		mc.gridx=0;
 		mc.gridy=1;
-		mc.gridwidth=1;
+		mc.gridwidth=3;
 		mc.gridheight=1;
 		mbl.setConstraints(typeLbl, mc);
 		midPnl.add(typeLbl);
-		typeBox=new JComboBox<String>(typeList);
+		/*typeBox=new JComboBox<String>(typeList);
 		typeBox.setSelectedItem(getJobChange.getJobString(vo.getJob()));
 		typeBox.setFont(new Font("微软雅黑", Font.PLAIN, 14));
 		typeBox.setBackground(Color.white);
@@ -116,7 +116,7 @@ public class ModifyUserPanel extends JPanel {
 		mc.gridwidth=3;
 		mc.gridheight=1;
 		mbl.setConstraints(typeBox, mc);
-		midPnl.add(typeBox);
+		midPnl.add(typeBox);*/
 		//-------key--------------------------
 		JLabel keyLbl=new JLabel("密码：");
 		keyLbl.setFont(new Font("微软雅黑", Font.BOLD, 14));
