@@ -168,6 +168,7 @@ public class MemberMgrPanel extends JPanel {
 			c.add(lineInfo);
 
 		}
+		memberTable.revalidate();
 		MemberMgrPanel.this.repaint();
 
 	}
