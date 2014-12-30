@@ -32,10 +32,6 @@ import businesslogicservice.userblservice.UserBLService;
 //改进 工号 /姓名 均可登陆
 public class LoginFrame extends JFrame {
 
-	/**
-	 * 
-	 */
-	// private UserBLService service;
 	private static final long serialVersionUID = 1L;
 	String id, key;
 	JTextField idField;
@@ -45,23 +41,20 @@ public class LoginFrame extends JFrame {
 	int xOld, yOld;
 
 	public LoginFrame() throws Exception {
-
-		// service = new User();// 声明一下 yan 11-18
+		
 		// 获得与分辨率匹配的大小
 		screenHeight = UIhelper.getScreenHeight();
 		screenWidth = UIhelper.getScreenWidth();
 		frameHeight = 480;
 		frameWidth = 300;
-		// 设置窗口大小，位置
 		this.setSize(frameWidth, frameHeight);
 		this.setLocation((screenWidth - frameWidth) / 2,
 				(screenHeight - frameHeight) / 2);
-		// 窗口标题
 		this.setTitle("欢迎使用进销存系统");
 		// 设置图标
 		this.setIconImage(new ImageIcon("img/icon.png").getImage());
 
-		// ----------下面是覆盖整个窗口的MainPanel---------------------------------------------
+		// ----------覆盖整个窗口的MainPanel---------------------------------------------
 		JPanel mainPanel = new JPanel() {
 			private static final long serialVersionUID = 1L;
 
@@ -74,21 +67,23 @@ public class LoginFrame extends JFrame {
 			}
 		};
 
-		// 关闭按钮
-
+		
+		//-------- 关闭按钮----------
 		final ImageIcon close = new ImageIcon("img/Login/closeButton.png");
 		final ImageIcon close1 = new ImageIcon("img/Login/closeButton1.png");
 		final JLabel closeButton = new JLabel(close);
 		closeButton.setSize(close.getIconWidth(), close.getIconHeight());
 		closeButton.setLocation(getWidth() - 20, 0);
 		closeButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
+		
+		//-------- 最小化按钮----------
 		final ImageIcon min = new ImageIcon("img/Login/minButton.png");
 		final ImageIcon min1 = new ImageIcon("img/Login/minButton1.png");
 		final JLabel minButton = new JLabel(min);
 		minButton.setSize(min.getIconWidth(), min.getIconHeight());
 		minButton.setLocation(getWidth() - 45, 0);
 		minButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		
 		class buttonListener extends MouseAdapter {
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
@@ -97,23 +92,19 @@ public class LoginFrame extends JFrame {
 				else
 					System.exit(0);
 			}
-
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
 				if (e.getSource() == minButton)
 					minButton.setIcon(min1);
 				else
 					closeButton.setIcon(close1);
-
 			}
-
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
 				if (e.getSource() == minButton)
 					minButton.setIcon(min);
 				else
 					closeButton.setIcon(close);
-
 			}
 		}
 		buttonListener bl = new buttonListener();
@@ -127,27 +118,26 @@ public class LoginFrame extends JFrame {
 		mainPanel.setSize(frameWidth, frameHeight);
 		mainPanel.setLocation(0, 0);
 
-		// ==============头像==================
+		// --------------头像---------------
 		ImageIcon icon = new ImageIcon("img/Login/tou.png");
 		icon.setImage(icon.getImage().getScaledInstance(180, 180,
 				Image.SCALE_DEFAULT));
 		label = new JLabel();
 		label.setLocation(55, 50);
 		label.setIcon(icon);
-
 		label.setSize(icon.getIconWidth(), icon.getIconHeight());
+		
 		// ------------在mainPanel上添加组件------------------------------------------------
 		// 设置用户名文本域
 		idField = new JTextField();
 		idField.setSize(frameWidth * 64 / 100, frameHeight / 16);
 		idField.setLocation(frameWidth * 26 / 100, frameHeight * 55 / 100);
-		// idField.getDocument().addDocumentListener(new FieldListener());
 		idField.setVisible(true);
 
+		//实时检测id
 		idField.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				try {
-
 					UserBLService service = new User();
 					UserVO v = service.showUser(idField.getText());
 					if (v != null) {
@@ -166,21 +156,18 @@ public class LoginFrame extends JFrame {
 							break;
 						default:
 							label.setIcon(new ImageIcon("img/Login/head_a.png"));
-
 						}
-
 					} else {
 						label.setIcon(new ImageIcon("img/Login/tou.png"));
 					}
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					// e1.printStackTrace();
 					JOptionPane.showMessageDialog(null, "您的网络未连接！", "提示",
 							JOptionPane.WARNING_MESSAGE);
-					// System.exit(0);
 				}
 			}
 		});
+		
+		
 		idField.addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_DOWN)
@@ -193,7 +180,6 @@ public class LoginFrame extends JFrame {
 		passwordField.setSize(frameWidth * 64 / 100, frameHeight / 16);
 		passwordField
 				.setLocation(frameWidth * 26 / 100, frameHeight * 65 / 100);
-		// passwordField.addKeyListener(new passwordFieldListener());
 		passwordField.setVisible(true);
 		passwordField.addKeyListener(new KeyAdapter() {
 			public void keyReleased(KeyEvent e) {
@@ -201,11 +187,9 @@ public class LoginFrame extends JFrame {
 					idField.requestFocus();
 			}
 		});
-		// passwordField.getDocument().addDocumentListener(new FieldListener());
-		// 设置登录按钮
-		// 设想：改为圆形按钮
-		JButton loginButton = new JButton("登录");
 
+		// 设置登录按钮
+		JButton loginButton = new JButton("登录");
 		Font buttonFont = new Font("登录", Font.PLAIN, 13);
 		loginButton.setFont(buttonFont);
 		loginButton.setSize(frameWidth / 5, frameHeight * 6 / 100);
@@ -221,6 +205,7 @@ public class LoginFrame extends JFrame {
 		idLabel.setSize(frameWidth / 5, frameHeight / 11);
 		idLabel.setLocation(frameWidth * 8 / 100, frameHeight * 54 / 100);
 		idLabel.setVisible(true);
+		
 		// 设置了密码标签
 		JLabel passwordLabel = new JLabel("密码");
 		Font passwordLabelFont = new Font("密码", Font.BOLD, 14);
@@ -232,10 +217,7 @@ public class LoginFrame extends JFrame {
 
 		mainPanel.setVisible(true);
 		mainPanel.setLayout(null);
-		// 向mainPanel添加组件
-
-		// pane.add(image);
-		// mainPanel.add(pane);
+	
 
 		mainPanel.add(label);
 		mainPanel.add(idLabel);
@@ -244,16 +226,15 @@ public class LoginFrame extends JFrame {
 		mainPanel.add(loginButton);
 		mainPanel.add(idField);
 		mainPanel.add(passwordField);
-		// 向LoginFrame添加组件
-		// this.add(image);
+
 		this.setUndecorated(true);
 		this.add(mainPanel);
 		this.repaint();
-		this.setResizable(false);// 不允许调整窗口大小
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 关闭时结束进程
-		this.setVisible(true);// 窗口可见
+		this.setResizable(false);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
 		this.getRootPane().setDefaultButton(loginButton);
-		// 处理拖动事件
+		// 处理窗口拖动事件
 		this.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				xOld = e.getX();
@@ -273,29 +254,25 @@ public class LoginFrame extends JFrame {
 
 	}
 
-	public static void main(String[] args) throws Exception {
-		new IPFrame();
+	
 
-	}
-
-	// 下面的类是按钮的事件监听器
+	// 下面的类是按钮的事件监听器  11-17 By jin
 	class LoginListener implements ActionListener {
-		// 11-17 By jin
-
 		public void actionPerformed(ActionEvent e) {
 			UserBLService service;
 			try {
 				service = new User();
-
+				
 				String ID = idField.getText();
 				String passWord = new String(passwordField.getPassword());
 				int result = service.login(ID, passWord);
 				switch (result) {
 				case 0:
+					//成功登陆
 					UserVO user = service.showUser(ID);
-
 					MainFrame frame = new MainFrame(user);
 					frame.setDividerLocation("long");
+					//操作日志
 					log.addLog(new LogVO(log.getdate(), user.getID(), user
 							.getName(), "登陆进销存系统", 2));
 					headPane.RefreshGrades();
@@ -307,20 +284,23 @@ public class LoginFrame extends JFrame {
 					idField.setText("");
 					passwordField.setText("");
 					break;
-
 				default:
-
 					JOptionPane.showMessageDialog(null, "密码错误", "提示",
 							JOptionPane.WARNING_MESSAGE);
 					passwordField.setText("");
 				}
-
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(null, "您的网络未连接！", "提示",
 						JOptionPane.WARNING_MESSAGE);
 			}
 		}
+	}
+	
+	
+	public static void main(String[] args) throws Exception {
+		//选择ip和port
+		new IPFrame();
 	}
 
 }
