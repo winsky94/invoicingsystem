@@ -44,18 +44,19 @@ public class Coupon extends UnicastRemoteObject implements CouponDataService{
 
 	public void ModifyCoupon(String id, boolean status,String date) throws RemoteException {
 		ArrayList<CouponPO> al=getAllCoupon();
-
-		for(int i=0;i<al.size();i++){
-			CouponPO p=al.get(i);
-			if(id.equals(p.getId())){
-				p.setUse(status);
-				p.setUseDate(date);
-				break;
-			}
-			file=new JXCFile("coupon.ser");
-			file.writeM(al);
+		if(al!=null){
+			for(int i=0;i<al.size();i++){
+				CouponPO p=al.get(i);
+				if(id.equals(p.getId())){
+					p.setUse(status);
+					p.setUseDate(date);
+					break;
+				}
+				file=new JXCFile("coupon.ser");
+				file.writeM(al);
 		
-	    }
+			}
+		}
 	}
 	
 	
