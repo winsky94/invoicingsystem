@@ -118,31 +118,15 @@ public class Receipt_ATest extends TestCase{
 	
 	//TUS3-2  筛选日期
 	public void test_5() throws Exception{
-		ReceiptMessage message=new ReceiptMessage();
-		message.addMessage(new ReceiptMessageVO(0,"我哦鸡孵鹅  "));
-		message.deleteessage(new ReceiptMessageVO(0,"我哦鸡孵鹅"));
-		message.getSaleApproved();
-		message.getToApprove();
-		message.getFinanceApproved();
+		
 		
 	}
 	
 	//(String id,ReceiptType type,String user,int status,int hurry){
 	public void test_6() throws Exception {
 		Receipt t=new Receipt();
-		ReceiptVO vo=new ReceiptVO("SKD-20141211-00001",ReceiptType.CASHLIST,"JL-00001",
-				0,0);
-		t.Add(vo);
-		t.excute(vo);
-		t.getHurry();
-		t.getId();
-		t.getInfo();
-		t.getCreateDate();
-		t.getStatus();
-		t.getUserID();
-		t.getType();
-		t.View();
-		t.View(vo.getId());
+		ReceiptVO vo=new ReceiptVO("SKD-20141211-00001",ReceiptType.CASHLIST,"JL-00001", 0, 0);
+	
 	}
 	
 	
@@ -152,14 +136,7 @@ public class Receipt_ATest extends TestCase{
 		co.AccurateFind(message);
 		ReceiptVO vo=new ReceiptVO("SKD-20141211-00001",ReceiptType.CASHLIST,"JL-00001",
 				0,0);
-		co.Approve(vo.getId(),1);
-		co.getSale();
-		co.Approved();
-		String id[]=new String[]{vo.getId()};
-		co.Batch(id, 2);
-		co.View();
-		co.View(vo.getId());
-		co.Refresh();
+	
 		
 	}
 	
