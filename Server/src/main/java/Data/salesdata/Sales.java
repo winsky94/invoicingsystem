@@ -560,6 +560,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		if(all.size()==0)
 			return null;
 		
+		  if(all!=null)
 		  Collections.sort(all,new SequenceOfReceiptPO());
 		  
 		  return all;
@@ -583,6 +584,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		if(all.size()==0)
 			return null;
 		
+		  if(all!=null)
 		  Collections.sort(all,new SequenceOfReceiptPO());
 		  
 		  return all;
