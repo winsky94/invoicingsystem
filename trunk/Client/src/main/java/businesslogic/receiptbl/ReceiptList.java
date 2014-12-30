@@ -49,7 +49,7 @@ public class ReceiptList {
 				approved.add(p);
 			
 		}
-		if(approved.size()==0) return null;
+		if(approved.size()!=0) return null;
 		else return MySort.sort(approved);
 	}
 	
@@ -64,7 +64,7 @@ public class ReceiptList {
 			
 		}
 		if(toApprove.size()==0) return null;
-		else return MySort.hurrySort(toApprove);
+		else return MySort.sort(toApprove);
 	}
 	
 	public ArrayList<ReceiptPO> showToApprove(ReceiptType type){
@@ -76,7 +76,7 @@ public class ReceiptList {
 			for(int i=0;i<toApprove.size();i++)
 				if(toApprove.get(i).getType()==type)
 					toApproveByType.add(toApprove.get(i));
-			if(toApproveByType.size()!=0) return null;
+			if(toApproveByType.size()==0) return null;
 			else
 				return toApproveByType;
 		}
