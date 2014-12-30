@@ -53,7 +53,7 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 	JComboBox bo;
 	String keyWord;
 	MainFrame parent;
-	JTable purchaseTbl;
+	//JTable purchaseTbl;
 	JScrollPane jsp;
 	PurchaseMgrModel pmm;
 	SaleListBLService listservice;
@@ -351,7 +351,7 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 			c.add(line);
 
 		}
-		purchaseTbl.revalidate();
+		table.revalidate();
 		PurchaseMgrPanel.this.repaint();
 	}
 
