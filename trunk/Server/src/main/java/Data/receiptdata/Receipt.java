@@ -3,7 +3,9 @@ package Data.receiptdata;
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Collections;
 
+import Data.datafactory.SequenceOfReceiptPO;
 import Data.financedata.Cashlist;
 import Data.financedata.Collection;
 import Data.financedata.Payment;
@@ -183,6 +185,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		if(al.size()==0)
 			return null;
 		
+		Collections.sort(al,new SequenceOfReceiptPO());
 		return al;
 	}
 
@@ -333,6 +336,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 				if(startDate.compareTo(po.myGetDate())<=0&&po.myGetDate().compareTo(endDate)<=0)
 					result.add(po);	
 			}
+			Collections.sort(result,new SequenceOfReceiptPO());
 		     return result;
 	}
 	
@@ -352,7 +356,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		}
 		if(result.size()==0)
 			return null;
-					
+		Collections.sort(result,new SequenceOfReceiptPO());			
 		return result;	
 	}
 	
@@ -369,6 +373,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		}
 		if(result.size()==0)
 			return null;
+		Collections.sort(result,new SequenceOfReceiptPO());
 	    return result;
 	}
 	
@@ -398,6 +403,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		}
 		if(al.size()==0)
 			return null;
+		Collections.sort(result,new SequenceOfReceiptPO());
 		return result;
 	}
 	
@@ -491,6 +497,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 			}
 		}*/
 		
+		Collections.sort(result,new SequenceOfReceiptPO());
 		return result;
 			
 	}
