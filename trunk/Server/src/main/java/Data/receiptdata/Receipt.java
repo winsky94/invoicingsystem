@@ -185,6 +185,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		if(al.size()==0)
 			return null;
 		
+		if(al!=null)
 		Collections.sort(al,new SequenceOfReceiptPO());
 		return al;
 	}
@@ -336,6 +337,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 				if(startDate.compareTo(po.myGetDate())<=0&&po.myGetDate().compareTo(endDate)<=0)
 					result.add(po);	
 			}
+			if(result!=null)
 			Collections.sort(result,new SequenceOfReceiptPO());
 		     return result;
 	}
@@ -356,6 +358,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		}
 		if(result.size()==0)
 			return null;
+		if(result!=null)
 		Collections.sort(result,new SequenceOfReceiptPO());			
 		return result;	
 	}
@@ -373,6 +376,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		}
 		if(result.size()==0)
 			return null;
+		if(result!=null)
 		Collections.sort(result,new SequenceOfReceiptPO());
 	    return result;
 	}
@@ -403,6 +407,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 		}
 		if(al.size()==0)
 			return null;
+		if(result!=null)
 		Collections.sort(result,new SequenceOfReceiptPO());
 		return result;
 	}
@@ -497,6 +502,7 @@ public class Receipt extends UnicastRemoteObject implements ReceiptDataService{
 			}
 		}*/
 		
+		if(result!=null)
 		Collections.sort(result,new SequenceOfReceiptPO());
 		return result;
 			
