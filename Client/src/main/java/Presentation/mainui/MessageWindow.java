@@ -25,6 +25,7 @@ import Presentation.uihelper.UIhelper;
 import businesslogic.receiptbl.ReceiptMessage;
 import businesslogicservice.receiptblservice.ReceiptTipService;
 
+//消息提示
 public class MessageWindow extends JWindow {
 	/**
 	 * 
@@ -42,7 +43,7 @@ public class MessageWindow extends JWindow {
 	boolean tag=false;
 	int typetag;
 	static MessageWindow instance = null;
-
+	//单例
 	private MessageWindow(MainFrame frame) {
 		super(frame);
 		parent=frame;
@@ -103,7 +104,6 @@ public class MessageWindow extends JWindow {
 
 	
 	public void getNewMessage(){
-
 		try {
 			ReceiptTipService service = new ReceiptMessage();
 			ArrayList<ReceiptMessageVO> vo = null;
@@ -131,8 +131,8 @@ public class MessageWindow extends JWindow {
 				message.clear();
 				if(parent.getMessage()!=null)
 				{	
-					parent.getMessage().setIcon(new ImageIcon("img/newMessage.gif"));}
-			
+					parent.getMessage().setIcon(new ImageIcon("img/newMessage.gif"));
+				}
 				for (int i = 0; i < vo.size(); i++)
 					message.add(vo.get(i).getInfo());
 			}

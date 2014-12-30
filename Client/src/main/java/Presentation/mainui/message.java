@@ -1,31 +1,25 @@
 package Presentation.mainui;
-
+//信箱线程
 public class message extends Thread{
 	MainFrame frame;
 	boolean stop;
 	MessageWindow w;
-	public message(/*MainFrame frame*/MessageWindow tip){
-		//this.frame=frame;
+	public message(MessageWindow tip){
 		stop=false;
-		w=tip;
-		
+		w=tip;	
 	}
-	public void run(){
 	
-		//MessageWindow w=MessageWindow.getInstance(frame);
-		//w.testThread();
-		while(!stop)
-		{
+	
+	public void run(){
+		while(!stop){
 			w.getNewMessage();
-			
-		 try {
-			this.sleep(5000);
-		} catch (InterruptedException e) {
+			try {
+				this.sleep(5000);
+		 	} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		}
-		
+		 	}
+		}	
 	}
 	
 	public void startThread(){
@@ -33,10 +27,7 @@ public class message extends Thread{
 	}
 	public void stopThead(){
 		this.stop=true;
-		
 	}
-
-
 
 }
 

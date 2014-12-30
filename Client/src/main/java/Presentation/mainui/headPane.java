@@ -19,15 +19,14 @@ import Presentation.userui.UserSet;
 import businesslogic.userbl.User;
 import businesslogicservice.userblservice.UserBLService;
 
-// 头像Pane 构造
+//左侧菜单panel 头像Pane 构造
 public class headPane extends JPanel{
-	JLabel head,info,name,job;
-	static JLabel grade;
-	int width,height;
+	 JLabel head,info,name,job;
+	 static JLabel grade;
+	 int width,height;
 	 JFrame rame;
 	 Border border;
 	 Color[] theme=new Color[2];
-	 //i=0 long  i=1 short
 	 static UserVO user;
 	public headPane( MainFrame frame,JPanel parent,UserVO user,int i){
 		//--------------userInfo Pane构造
@@ -45,8 +44,7 @@ public class headPane extends JPanel{
 		case MANAGER:
 			head=new JLabel(new ImageIcon("img/promotion/head.png"));
 			job=new JLabel("总经理");	
-			break;
-			
+			break;		
 		case FINANCE:
 			head=new JLabel(new ImageIcon("img/finance/xxh.png"));
 			job=new JLabel("财务人员");	
@@ -58,14 +56,11 @@ public class headPane extends JPanel{
 		case ADMINSTRATOR:
 			head=new JLabel(new ImageIcon("img/login/admin.png"));
 			job=new JLabel("系统管理员");
-		
 			break;
 		case SALE:
 			head=new JLabel(new ImageIcon("img/sales/wn.png"));
 			job=new JLabel("销售人员");
-			break;
-			
-			
+			break;		
 		}
 		 border=BorderFactory.createLineBorder(new Color(0,0,0,0f));
 		head.setBorder(border);
@@ -110,10 +105,7 @@ public class headPane extends JPanel{
 				
 			}
 		});
-		
-		
-		
-		
+	
 	}
 	
 	public static void  RefreshGrades() throws Exception{
