@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 
 import javax.swing.*;
 
+import po.UserPO.UserJob;
 import businesslogic.financebl.Account;
 import businesslogic.financebl.CashList;
 import businesslogic.financebl.Collection;
@@ -113,6 +114,7 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource()==accountBtn){
+			if(frame.getUser().getJob()==UserJob.FINANACEMANGER){
 			AccountPanel mgr=new AccountPanel(frame);
 			FinanceAccountBLService service;
 			try {
@@ -129,7 +131,9 @@ public class LeftShortPanel extends JPanel implements ActionListener,MouseListen
 			} catch (NotBoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}	
+			}}else
+				JOptionPane.showMessageDialog(null, "只有财务经理才能进行账户管理，等你升职了再点我吧！","提示",
+					JOptionPane.WARNING_MESSAGE);	
 		}
 		else if(arg0.getSource()==receiptBtn){
 			CollectionPanel mgr = new CollectionPanel(frame);
