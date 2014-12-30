@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import po.ReceiptPO.ReceiptType;
 
-//double[] discount;pro/pre/money/toaldiscount;
-//double[] total; cost/origin/value/couponIncom/toPay
+//double[] discount;促销折让/会员折让/人员折让/总金额;
+//double[] total;成本/原价/折后价/代金券差额收/客户应付
 public class SaleVO extends ReceiptVO {
 	private String clerk;
 	private ArrayList<CommodityVO> salesList;
@@ -73,8 +73,6 @@ public class SaleVO extends ReceiptVO {
 		return total[3];
 	}
 	
-
-	
 	public double getTotalValue(){
 		return total[2];
 	}
@@ -99,6 +97,5 @@ public class SaleVO extends ReceiptVO {
 	public void setSaleList(ArrayList<CommodityVO> list){
 		this.salesList=list;
 	}
-	
 	
 }

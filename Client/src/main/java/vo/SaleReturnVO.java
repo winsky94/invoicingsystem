@@ -7,13 +7,15 @@ import po.ReceiptPO.ReceiptType;
 
 
 
-
+//double[] discount;促销折让/会员折让/人员折让/总金额;
+//double[] total;成本/原价/折后价/代金券差额收/客户应付
 public class SaleReturnVO extends ReceiptVO{
 	private String clerk;
 	private ArrayList<CommodityVO> saleReturnList;
-	private double[] total=new double[5];
-	private double[] discount=new double[4];
+	private double[] total=new double[5];//总计类数据
+	private double[] discount=new double[4];//折让类数据
 	private String stockid;
+	
 	public SaleReturnVO(String id,String user,SaleVO s,int status,
 			String info,int hurry){
 		super(id, s.getMemberName(),s.getMemberID(), user, ReceiptType.SALERETURN, 
@@ -36,7 +38,6 @@ public class SaleReturnVO extends ReceiptVO{
 		this.saleReturnList=list;
 		this.stockid=sid;
 	}
-	
 	
 	
 	public String getStockid() {
