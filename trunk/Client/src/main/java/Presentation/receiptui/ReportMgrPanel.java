@@ -499,10 +499,14 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		try {
 			ArrayList<ReceiptVO> vo = reservice.getSale();
 			if (vo != null)
-				sdtm.RefreshList(vo);
+				{sdtm.RefreshList(vo);
+				 t1.revalidate();
+				}
 			vo = reservice.View();
 			if (vo != null)
-				ohtm.RefreshTable(vo);
+				{ohtm.RefreshTable(vo);
+				 t2.revalidate();
+				}
 			
 			//	ostm.RefreshTable(data);
 			refreshBSLTable();
@@ -579,7 +583,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			FilterRefresh(receipt,type);	
 		}else if(e.getSource()==refreshBtn){
 			RefreshTable();
-			ReportMgrPanel.this.repaint();
+		//	ReportMgrPanel.this.repaint();
 		}
 	}
 	
@@ -611,10 +615,13 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		}else{
 			try {
 				if(type.equals("经营历程"))
-					ohtm.RefreshTable(receipt);
+					{ohtm.RefreshTable(receipt);
+					t2.revalidate();
+					}
 				else
-					sdtm.RefreshList(receipt);
-				ReportMgrPanel.this.repaint();
+					{sdtm.RefreshList(receipt);
+					t1.revalidate();}
+				//ReportMgrPanel.this.repaint();
 			
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block

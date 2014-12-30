@@ -388,7 +388,12 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			t1.getColumn(t1.getColumnName(i)).setCellRenderer(tcr);
 
 		}
-		ReceiptMgrPanel.this.repaint();
+		
+		if(t==0){
+			t1.revalidate();
+		}else
+			t2.revalidate();
+		
 
 	}
 
