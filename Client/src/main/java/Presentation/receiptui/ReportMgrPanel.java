@@ -624,9 +624,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				else
 					{sdtm.RefreshList(receipt);
 					t1.revalidate();
-				//	t2.validate();
 					}
-				//ReportMgrPanel.this.repaint();
+				ReportMgrPanel.this.repaint();
 			
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block

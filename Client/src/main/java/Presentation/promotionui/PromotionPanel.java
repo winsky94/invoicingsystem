@@ -287,7 +287,7 @@ public class PromotionPanel extends JPanel {
 	}
 
 	public void RefreshProTable(ArrayList<PromotionVO> vo) {
-
+		content.clear();
 		for (int i = 0; i < vo.size(); i++) {
 			ArrayList<String> line = new ArrayList<String>();
 			PromotionVO v = vo.get(i);
@@ -297,6 +297,7 @@ public class PromotionPanel extends JPanel {
 			line.add(getChangeProType.getProTypeString(v.getType()));
 			content.add(line);
 		}
+		PromotionPanel.this.repaint();
 	}
 
 	class PromotionTableModel extends AbstractTableModel {
