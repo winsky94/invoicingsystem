@@ -15,8 +15,10 @@ import vo.SaleReturnVO;
 import businesslogic.memberbl.Member;
 import businesslogic.receiptbl.Receipt;
 import businesslogic.stockbl.goods.GoodsController;
+import businesslogic.stockbl.stockManage.StockControlController;
 import businesslogic.utilitybl.getDate;
 import businesslogic.utilitybl.getServer;
+import businesslogicservice.stockblservice.controlblservice.StockControlBLService;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import dataservice.salesdataservice.SalesDataService;
 
@@ -64,6 +66,7 @@ public class SaleReturn extends Receipt {
 		}
 
 	}
+
 	public String getNewID() {
 		// TODO Auto-generated method stub
 		String id = null;
@@ -89,32 +92,50 @@ public class SaleReturn extends Receipt {
 
 	public int excute(ReceiptVO v) {
 		// 修改库存
-		SaleReturnVO vo=(SaleReturnVO)v;
+		SaleReturnVO vo = (SaleReturnVO) v;
 		Member m;
 		try {
 			m = new Member();
-			m.changeToReceive(vo.getMemberID(),-vo.getTotal()[4]);
+			m.changeToReceive(vo.getMemberID(), -vo.getTotal()[4]);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		//库存入库
+
+		// 库存入库
 		StockGoodsBLService goodsController = new GoodsController();
 		ArrayList<CommodityVO> list = vo.getSaleReturnList();
+		// 存储待更新商品
+		ArrayList<GoodsVO> saleReturnGoods = new ArrayList<GoodsVO>();
 		for (CommodityVO cvo : list) {
 			try {
 				GoodsVO goodsVO = goodsController.findByID(cvo.getID());
-				goodsVO.setNumInStock(goodsVO.getNumInStock() + cvo.getNum());
-				goodsController.modifyGoods(goodsVO);
+				// 检查是否可以销售
+				StockControlBLService contronller = new StockControlController();
+				if (contronller.isEnough(cvo.getID(), cvo.getNum())) {
+					// 修改库存数量
+					goodsVO.setNumInStock(goodsVO.getNumInStock()
+							- cvo.getNum());
+					// 修改最近售价
+					goodsVO.setLastPrice(cvo.getPrice());
+					saleReturnGoods.add(goodsVO);
+				} else {
+					return 2;// 库存数量不满足销售
+				}
 			} catch (RemoteException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
 			}
-
+			// check均无问题 执行
+			for (GoodsVO goodsVO : saleReturnGoods) {
+				goodsController.modifyGoods(goodsVO);
+				// 库存报警检查
+				StockControlBLService stockController = new StockControlController();
+				stockController.stockNumCheck(goodsVO.getGoodsID());
+			}
 		}
-		Reply(vo.getId(),vo.getType(),0);
-		return 0;//执行成功
+		Reply(vo.getId(), vo.getType(), 0);
+		return 0;// 执行成功
 
 	}
 
@@ -151,21 +172,22 @@ public class SaleReturn extends Receipt {
 				vo.getDiscount(), vo.getTotal());
 		return po;
 	}
-	
-	public ReceiptPO getRedReceipt(ReceiptPO po){
-		SaleReturnPO sale=(SaleReturnPO)po;
-		ArrayList<CommodityPO> list=com.getRedList(sale.getSalesreturnList());
-		double total[]=new double[sale.getTotal().length];
-		double discount[]=new double[sale.getDiscount().length];
-		for(int i=0;i<total.length;i++)
-			total[i]=-sale.getTotal()[i];
-		for(int j=0;j<discount.length;j++)
-			discount[j]=-sale.getDiscount()[j];
-		SaleReturnPO redSale=new SaleReturnPO(sale.getClerk(),list,po.getId(),po.getMemberID(),
-				po.getMemberName(),po.getUserID(),po.getStatus(),po.getHurry(),
-				po.getInfo(),sale.getStockID(),discount,total);
+
+	public ReceiptPO getRedReceipt(ReceiptPO po) {
+		SaleReturnPO sale = (SaleReturnPO) po;
+		ArrayList<CommodityPO> list = com.getRedList(sale.getSalesreturnList());
+		double total[] = new double[sale.getTotal().length];
+		double discount[] = new double[sale.getDiscount().length];
+		for (int i = 0; i < total.length; i++)
+			total[i] = -sale.getTotal()[i];
+		for (int j = 0; j < discount.length; j++)
+			discount[j] = -sale.getDiscount()[j];
+		SaleReturnPO redSale = new SaleReturnPO(sale.getClerk(), list,
+				po.getId(), po.getMemberID(), po.getMemberName(),
+				po.getUserID(), po.getStatus(), po.getHurry(), po.getInfo(),
+				sale.getStockID(), discount, total);
 		service.createSaleReturn(redSale);
 		return redSale;
-		
+
 	}
 }
