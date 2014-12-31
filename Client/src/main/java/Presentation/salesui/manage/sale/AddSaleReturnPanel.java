@@ -279,5 +279,7 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 
 			cmContent.add(line);
 		}
+		table.revalidate();
 	}
+	
 }
