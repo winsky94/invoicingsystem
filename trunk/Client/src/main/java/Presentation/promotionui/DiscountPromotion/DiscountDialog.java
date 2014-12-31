@@ -199,27 +199,30 @@ public class DiscountDialog extends JDialog {
 				try {
 					discount = Double.parseDouble(discountFld.getText()) * 0.1;
 					DecimalFormat df = new DecimalFormat("#.##");
-					String v = df.format(discount);
-					if (rightTblMessage.size() > 0) {
-						ArrayList<Object> good = new ArrayList<Object>();
-						try {
-							for (int i = 0; i < rightTblMessage.size(); i++) {
-								String id = rightTblMessage.get(i).get(0);
+					if(discount<=0||discount>=10){
+						JOptionPane.showMessageDialog(null, "折扣需在0-10折之间哦!",
+								"提示", JOptionPane.WARNING_MESSAGE);
+					}else{
+						String v = df.format(discount);
+						if (rightTblMessage.size() > 0) {
+							ArrayList<Object> good = new ArrayList<Object>();
+							try {
+								for (int i = 0; i < rightTblMessage.size(); i++) {
+									String id = rightTblMessage.get(i).get(0);
 
 								good.add(service.findByID(id));
-							}
+								}
 
-						} catch (RemoteException e1) {
+							} catch (RemoteException e1) {
 							// TODO Auto-generated catch block
-							e1.printStackTrace();
+								e1.printStackTrace();
+							}
+							father.parent.setRightComponent(father);
+							father.RefreshCTable(good, Double.parseDouble(v));
 						}
 
-						father.parent.setRightComponent(father);
-						father.RefreshCTable(good, Double.parseDouble(v));
-					}
-
 					DiscountDialog.this.dispose();
-
+					}
 				} catch (Exception err) {
 					JOptionPane.showMessageDialog(null, "请输入合法数值,e.g 9折!",
 							"提示", JOptionPane.WARNING_MESSAGE);

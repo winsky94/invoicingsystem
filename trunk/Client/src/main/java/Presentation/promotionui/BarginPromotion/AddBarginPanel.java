@@ -420,7 +420,10 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 			else if(!IsPackValid)
 				JOptionPane.showMessageDialog(null, "请输入特价包特价！", "提示",
 						JOptionPane.WARNING_MESSAGE);
-			else{
+			else if(cmContent.size()==0){
+				JOptionPane.showMessageDialog(null, "请选择特价包！", "提示",
+						JOptionPane.WARNING_MESSAGE);			
+			}else{
 			    PackProVO vo=getPackPro();
 				if (service.Add(vo) == 0) {
 					JOptionPane.showMessageDialog(null, "策略添加成功", "提示",

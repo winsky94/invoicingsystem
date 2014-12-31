@@ -166,11 +166,13 @@ public class AddGiftPanel extends ChooseGoodsFatherPane {
 				int[] row = table.getSelectedRows();
 				if (row.length > 0) {
 					for (int i = 0; i < row.length; i++) {
-						cmContent.remove(row[i]);
-						last_bid.remove(row[i]);
-						// parent.setRightComponent(PurchasePane.this);
-
-						table.revalidate();
+						if(row[i]==cmContent.size()-1){
+							JOptionPane.showMessageDialog(null, "我是统计数据怎么能删我呢！");
+						}else{
+							cmContent.remove(row[i]);
+							last_bid.remove(row[i]);
+							table.revalidate();
+						}
 					}
 					cmContent.remove(cmContent.size() - 1);
 					addTotal();
@@ -421,7 +423,10 @@ public class AddGiftPanel extends ChooseGoodsFatherPane {
 			else if(limitFld.getText().equals(""))
 				JOptionPane.showMessageDialog(null, "请输入满赠总价！", "提示",
 						JOptionPane.WARNING_MESSAGE);
-			else{
+			else if(cmContent.size()==0){
+				JOptionPane.showMessageDialog(null, "请选择赠品！", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			}else{
 			GiftGoodsProVO vo=getGiftPro();
 			if (service.Add(vo) == 0) {
 				JOptionPane.showMessageDialog(null, "策略添加成功", "提示",
