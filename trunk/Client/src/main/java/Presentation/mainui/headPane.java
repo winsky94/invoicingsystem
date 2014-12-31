@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import po.UserPO.UserJob;
 import vo.UserVO;
 import Presentation.userui.UserSet;
 import businesslogic.userbl.User;
@@ -46,6 +47,7 @@ public class headPane extends JPanel{
 			job=new JLabel("总经理");	
 			break;		
 		case FINANCE:
+		case FINANCEMANAGER:
 			head=new JLabel(new ImageIcon("img/finance/xxh.png"));
 			job=new JLabel("财务人员");	
 			break;
@@ -58,11 +60,16 @@ public class headPane extends JPanel{
 			job=new JLabel("系统管理员");
 			break;
 		case SALE:
+		case SALEMANAGER:
 			head=new JLabel(new ImageIcon("img/sales/wn.png"));
 			job=new JLabel("销售人员");
 			break;		
 		}
-		 border=BorderFactory.createLineBorder(new Color(0,0,0,0f));
+		if(user.getJob()==UserJob.FINANCEMANAGER)
+			job.setText("财务经理");
+		else if(user.getJob()==UserJob.SALEMANAGER)
+			job.setText("销售经理");
+		border=BorderFactory.createLineBorder(new Color(0,0,0,0f));
 		head.setBorder(border);
 		name.setForeground(Color.WHITE);
 		job.setForeground(Color.WHITE);

@@ -146,9 +146,11 @@ public class LoginFrame extends JFrame {
 							label.setIcon(new ImageIcon("img/Login/head_p.png"));
 							break;
 						case FINANCE:
+						case FINANCEMANAGER:
 							label.setIcon(new ImageIcon("img/Login/head_f.png"));
 							break;
 						case SALE:
+						case SALEMANAGER:
 							label.setIcon(new ImageIcon("img/Login/head_s.png"));
 							break;
 						case STOCK:
