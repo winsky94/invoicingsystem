@@ -19,7 +19,7 @@ public class Sales_ATest extends TestCase{
 			CommodityVO com=new CommodityVO("0001-SR01-0001","蓝之恋吊灯","SR01",1000,800,1,1000,800
 					,"在做测试");
 			commodity.add(com);
-			double[] total=new double[]{100,120,110,0,110};
+			double[] total=new double[]{800,1000,1000,0,1000};
 			double[] discount=new double[]{0,0,0,0};
 			SaleVO sale=new SaleVO("金金",commodity,"XSD-20141205-00001","马建国","XSS-00001",
 					"XS-00001",0,0,"","1","","",total,discount);
@@ -54,14 +54,16 @@ public class Sales_ATest extends TestCase{
 			String message="金大大";
 			String type="客户";
 			ArrayList<SaleVO> salelist=controller.findSale(message, type);
-			for(SaleVO vo:salelist){
-				assertEquals(message,vo.getMemberName());
-			}
+			if(salelist!=null)
+				for(SaleVO vo:salelist)
+					assertEquals(message,vo.getMemberName());
+			
 			type="业务员";
 			salelist=controller.findSale(message, type);
-			for(SaleVO vo:salelist){
-				assertEquals(message,vo.getClerk());
-			}
+			if(salelist!=null)
+				for(SaleVO vo:salelist)
+					assertEquals(message,vo.getClerk());
+			
 			
 			
 		}
