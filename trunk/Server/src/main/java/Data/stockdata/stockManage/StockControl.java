@@ -66,58 +66,58 @@ public class StockControl extends UnicastRemoteObject implements
 		return result;
 	}
 
-	public int recordPrimeCostIncome(String primeCostIncome)
-			throws RemoteException {
-		file = new JXCFile("primeChangeRecord.ser");
-		ArrayList<Object> originRecord = file.read();
-
-		String[] newData = primeCostIncome.split(";");
-		String date = newData[0];
-		double money = 0;
-		money = Double.parseDouble(newData[1]);
-		ArrayList<String> record = new ArrayList<String>();
-
-		if (originRecord != null) {
-			@SuppressWarnings("unchecked")
-			ArrayList<Object> preRecordObject = (ArrayList<Object>) originRecord
-					.get(0);
-
-			if (preRecordObject != null) {
-				for (int i = 0; i < preRecordObject.size(); i++) {
-					Object o = preRecordObject.get(i);
-					record.add((String) o);
-				}
-
-				int index = -1;
-				for (int i = 0; i < record.size(); i++) {
-					String preRecord = record.get(i);
-					String data[] = preRecord.split(";");
-					if (date.equals(data[1])) {
-						money += Double.parseDouble(data[1]);
-						index = i;
-						break;
-					}
-				}
-
-				String newRecord = date + ";" + String.valueOf(money);
-
-				if (index == -1) {
-					record.add(newRecord);
-				} else {
-					record.set(index, newRecord);
-				}
-			} else {
-				String newRecord = date + ";" + String.valueOf(money);
-				record.add(newRecord);
-			}
-
-		} else {
-			String newRecord = date + ";" + String.valueOf(money);
-			record.add(newRecord);
-		}
-		file.writeM(record);
-		return 0;
-	}
+//	public int recordPrimeCostIncome(String primeCostIncome)
+//			throws RemoteException {
+//		file = new JXCFile("primeChangeRecord.ser");
+//		ArrayList<Object> originRecord = file.read();
+//
+//		String[] newData = primeCostIncome.split(";");
+//		String date = newData[0];
+//		double money = 0;
+//		money = Double.parseDouble(newData[1]);
+//		ArrayList<String> record = new ArrayList<String>();
+//
+//		if (originRecord != null) {
+//			@SuppressWarnings("unchecked")
+//			ArrayList<Object> preRecordObject = (ArrayList<Object>) originRecord
+//					.get(0);
+//
+//			if (preRecordObject != null) {
+//				for (int i = 0; i < preRecordObject.size(); i++) {
+//					Object o = preRecordObject.get(i);
+//					record.add((String) o);
+//				}
+//
+//				int index = -1;
+//				for (int i = 0; i < record.size(); i++) {
+//					String preRecord = record.get(i);
+//					String data[] = preRecord.split(";");
+//					if (date.equals(data[1])) {
+//						money += Double.parseDouble(data[1]);
+//						index = i;
+//						break;
+//					}
+//				}
+//
+//				String newRecord = date + ";" + String.valueOf(money);
+//
+//				if (index == -1) {
+//					record.add(newRecord);
+//				} else {
+//					record.set(index, newRecord);
+//				}
+//			} else {
+//				String newRecord = date + ";" + String.valueOf(money);
+//				record.add(newRecord);
+//			}
+//
+//		} else {
+//			String newRecord = date + ";" + String.valueOf(money);
+//			record.add(newRecord);
+//		}
+//		file.writeM(record);
+//		return 0;
+//	}
 
 	public ArrayList<String> getPrimeCostIncome() throws RemoteException {
 		file = new JXCFile("primeChangeRecord.ser");
