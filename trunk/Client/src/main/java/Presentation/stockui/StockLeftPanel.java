@@ -32,7 +32,7 @@ public class StockLeftPanel extends JPanel implements ActionListener{
 	public StockLeftPanel(MainFrame frame) {
 		parent=frame;
 		stockColor=frame.getTheme()[0];
-		//===构造头像
+		//--------构造头像----------
 				GridBagLayout grid=new GridBagLayout();
 				GridBagConstraints c=new GridBagConstraints();
 			
@@ -80,7 +80,7 @@ public class StockLeftPanel extends JPanel implements ActionListener{
 				stockColor);
 		aboutBtn.addActionListener(this);
 		down.add(aboutBtn);
-		//
+		
 		
 		backBtn=new JLeftButton("收起菜单",new ImageIcon("img/mainFrame/back.png"),
 				stockColor);
