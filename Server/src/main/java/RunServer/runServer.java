@@ -26,7 +26,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Data.financedata.Account;
@@ -135,7 +134,7 @@ public class runServer extends JFrame implements ActionListener {
 		submitBtn.setBackground(new Color(166, 210, 121));
 		bottom.add(submitBtn);
 		submitBtn.addActionListener(this);
-		this.getRootPane().setDefaultButton(submitBtn);	
+		this.getRootPane().setDefaultButton(submitBtn);
 		bottom.add(new JLabel());
 		exitBtn = new JButton("取消");
 		exitBtn.setFont(font);
@@ -175,7 +174,7 @@ public class runServer extends JFrame implements ActionListener {
 		} else {
 			this.dispose();
 			String portNum = portBox.getSelectedItem().toString();
-			//初始化Server RMI
+			// 初始化Server RMI
 			init(portNum);
 			// 存储历史记录
 			try {
@@ -205,18 +204,13 @@ public class runServer extends JFrame implements ActionListener {
 		}
 	}
 
-	
 	public void init(String port) {
 		try {
-	
+
 			String hostIP = InetAddress.getLocalHost().getHostAddress();
-			System.out.println("IP地址为:"+hostIP);
-		
 			int portNum = Integer.parseInt(port);
 			LocateRegistry.createRegistry(portNum);// 客户端启用的注册端口号为1099 yan 11-18
-			System.out.println("端口号为:"+portNum);
-			
-			System.out.println("已启动服务器");
+
 			User user = new User();
 			Member member = new Member();
 			GoodsClass gc = new GoodsClass();
@@ -230,10 +224,10 @@ public class runServer extends JFrame implements ActionListener {
 			Payment payment = new Payment();
 			Receipt receipt = new Receipt();
 			Cashlist cashlist = new Cashlist();
-			Coupon coupon=new Coupon();
+			Coupon coupon = new Coupon();
 			Init init = new Init();
 			Log log = new Log();
-			
+
 			Naming.rebind("promotionService", pro);
 			Naming.rebind("couponService", coupon);
 			Naming.rebind("salesService", sale);
@@ -250,15 +244,15 @@ public class runServer extends JFrame implements ActionListener {
 			Naming.rebind("cashlistService", cashlist);
 			Naming.rebind("initService", init);
 			Naming.rebind("logService", log);
-			new ServerMainFrame(hostIP,port);
+			new ServerMainFrame(hostIP, port);
 
 		} catch (Exception e) {
 			System.out.println("错误" + e);
 		}
 	}
-	
+
 	public static void main(String[] args) {
-		
+
 		new runServer();
 	}
 
