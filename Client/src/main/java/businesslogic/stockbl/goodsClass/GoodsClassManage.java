@@ -76,10 +76,12 @@ public class GoodsClassManage {
 			e.printStackTrace();
 		}
 		ArrayList<GoodsClassVO> result = new ArrayList<GoodsClassVO>();
-		for (int i = 0; i < list.size(); i++) {
-			GoodsClassPO po = list.get(i);
-			GoodsClassVO vo = goodsClassPOToVO(po);
-			result.add(vo);
+		if(list!=null){
+			for (int i = 0; i < list.size(); i++) {
+				GoodsClassPO po = list.get(i);
+				GoodsClassVO vo = goodsClassPOToVO(po);
+				result.add(vo);
+			}
 		}
 		return result;
 	}

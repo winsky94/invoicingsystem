@@ -101,7 +101,7 @@ public class StockManage {
 		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
 		// 出库由销售、进货退货、赠送组成
 		// 入库由销售退货、进货组成
-		// 金额的话，相应的部分有对应的金额，库存赠送没有金额
+		// 金额的话，相应的部分有对应的金额，
 		// 注意单据要在执行完毕后才可以计算
 		ArrayList<GoodsPO> goodsList = new ArrayList<GoodsPO>();
 		ArrayList<SalePO> saleList = new ArrayList<SalePO>();
@@ -141,7 +141,6 @@ public class StockManage {
 					if (beginDate.compareTo(date) <= 0
 							&& endDate.compareTo(date) >= 0) {// 在当前日期内
 						if (purchasePo.getStatus() == 3||purchasePo.getStatus()==2) {// 执行完毕
-							//进货不给设置3只能判断2
 							ArrayList<CommodityPO> cList = purchasePo
 									.getPurchaseList();
 							for (int k = 0; k < cList.size(); k++) {
