@@ -73,9 +73,10 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 	JButton submitBtn, couponBtn, addGoodsBtn, delGoodsBtn, exitBtn;
 	SaleVO sale;
 	ArrayList<Double> last_bid = new ArrayList<Double>();
-	//double[] discount;促销折让/会员折让/人员折让/总金额;
-	//double[] total;成本/原价/折后价/代金券差额收/客户应付
+	
+	//成本/原价/折后价/代金券差额收/客户应付
 	double tCost=0,tOrigin=0,tValue=0,tCoupon=0,tPay=0;
+	//促销折让/会员折让/人员折让/总金额;
 	double dPromotion=0,dPriviledge=0,dDiscount=0,dTotalDis=0;
 	double pre = 1, coupon = 0;
 	SalesBLService service;
