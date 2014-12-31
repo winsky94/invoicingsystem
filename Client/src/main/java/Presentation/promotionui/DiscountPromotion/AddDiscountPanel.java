@@ -232,10 +232,13 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 			if(from.getDate().compareTo(to.getDate())>0)
 				JOptionPane.showMessageDialog(null, "促销时间段输入不合法！", "提示",
 						JOptionPane.WARNING_MESSAGE);
-			else{
-			DiscountProVO vo=getDiscountPro();
-			if (service.Add(vo) == 0) {
-				JOptionPane.showMessageDialog(null, "策略添加成功", "提示",
+			else if(cmContent.size()==0){
+				JOptionPane.showMessageDialog(null, "请选择要打折的商品！", "提示",
+						JOptionPane.WARNING_MESSAGE);
+			}else{
+				DiscountProVO vo=getDiscountPro();
+				if (service.Add(vo) == 0) {
+					JOptionPane.showMessageDialog(null, "策略添加成功", "提示",
 						JOptionPane.WARNING_MESSAGE);
 				try {
 					update();
