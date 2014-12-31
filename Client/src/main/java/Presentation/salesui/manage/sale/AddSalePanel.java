@@ -384,7 +384,10 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 									"提示", JOptionPane.WARNING_MESSAGE);
 							discountMoneyFld.setText("");
 						}else {
-							tOrigin = dis;
+							dTotalDis-=dDiscount;
+							dDiscount = dis;
+							dTotalDis+=dDiscount;
+							
 							matchPromotion();//实时匹配促销
 						}
 					else {
@@ -574,7 +577,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 				dPriviledge = (tOrigin- dPromotion - dDiscount)
 						* (1 - pre);
 				dTotalDis = dDiscount + dPromotion + dPriviledge;
-				tValue = tOrigin  -dTotalDis;// 总价
+				tValue = tOrigin-dTotalDis;// 总价
 				tPay = tValue - coupon;
 				if (tPay < 0) {
 					tCoupon = -tPay;
