@@ -83,7 +83,6 @@ public class StockErrorReceipt {
 		StockErrorPO po = new StockErrorPO(exactID, goodName, size, date);
 		Send();
 		return service.addStockError(po);
-
 	}
 
 	// 发送库存报警信息给库存人员
