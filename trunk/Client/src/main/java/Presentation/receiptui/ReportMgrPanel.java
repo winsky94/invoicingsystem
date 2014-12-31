@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
@@ -517,24 +518,54 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		StockControlBLService sc;
 		try {
 			ss = new SaleList();
-			sc = new StockControlController();
-			double saleIncome = ss.getSaleIncome(startDate, endDate);
-			double goodsOver = sc.getGoodsOverIncome(startDate, endDate);
-			double adjustCost = ss.getAdjustCost(startDate, endDate);
-			double purchaseReturn = ss.getPurchaseReturnProfitCalc(startDate,
-					endDate);
-			double couponProfit = ss.getCouponProfitCalc(startDate, endDate);
-			double discountMoney = ss.getDiscountMoney(startDate, endDate);
-			double totalIncome = saleIncome + goodsOver + adjustCost
-					+ purchaseReturn + couponProfit;
-			double saleCost = ss.getSaleCost(startDate, endDate);
-			double goodsLow = sc.getGoodsLowCost(startDate, endDate);
-			double goodsGift = sc.getGiftCost(startDate, endDate);
-			double totalCost = saleCost + goodsLow + goodsGift;
-			double profit = totalIncome - totalCost;
-			double[] data = { saleIncome, goodsOver, adjustCost,
-					purchaseReturn, couponProfit, discountMoney, totalIncome,
-					saleCost, goodsLow, goodsGift, totalCost, profit };
+			sc= new StockControlController();
+			DecimalFormat df = new DecimalFormat("#.##");
+			
+			double saleIncome=ss.getSaleIncome(startDate, endDate);
+			String saleIncomea=df.format(saleIncome);
+			double saleIncome1=Double.parseDouble(saleIncomea);
+			
+	 		double goodsOver=sc.getGoodsOverIncome(startDate, endDate);
+	 		String goodsOvera=df.format(goodsOver);
+	 		double goodsOver1=Double.parseDouble(goodsOvera);
+	 		
+	 		double adjustCost=ss.getAdjustCost(startDate, endDate);
+	 		String adjustCosta=df.format(adjustCost);
+	 		double adjustCost1=Double.parseDouble(adjustCosta);
+	 		
+	 		double purchaseReturn=ss.getPurchaseReturnProfitCalc(startDate, endDate);
+	 		String purchaseReturna=df.format(purchaseReturn);
+	 		double purchaseReturn1=Double.parseDouble(purchaseReturna);
+	 		
+	 		double couponProfit=ss.getCouponProfitCalc(startDate, endDate);
+	 		String couponProfita=df.format(couponProfit);
+	 		double couponProfit1=Double.parseDouble(couponProfita);
+	 		
+	 		double discountMoney=ss.getDiscountMoney(startDate, endDate);
+	 		String discountMoneya=df.format(discountMoney);
+	 		double discountMoney1=Double.parseDouble(discountMoneya);
+	 		
+	 		double totalIncome=saleIncome+goodsOver+adjustCost+purchaseReturn+couponProfit;
+	 		String totalIncomea=df.format(totalIncome);
+	 		double totalIncome1=Double.parseDouble(totalIncomea);
+	 		
+	 		double saleCost=ss.getSaleCost(startDate, endDate);
+	 		String saleCosta=df.format(saleCost);
+	 		double saleCost1=Double.parseDouble(saleCosta);
+	 		
+	 		double goodsLow=sc.getGoodsLowCost(startDate, endDate);
+	 		String goodsLowa=df.format(goodsLow);
+	 		double goodsLow1=Double.parseDouble(goodsLowa);
+	 		
+	 		double goodsGift=sc.getGiftCost(startDate, endDate);
+	 		String goodsGifta=df.format(goodsGift);
+	 		double goodsGift1=Double.parseDouble(goodsGifta);
+	 		
+	 		double totalCost=saleCost+goodsLow+goodsGift;
+	 		double profit=totalIncome-totalCost;
+			double[] data={saleIncome1,goodsOver1,adjustCost1,purchaseReturn1,couponProfit1,
+					discountMoney1,totalIncome1,saleCost1,goodsLow1,goodsGift1,totalCost,profit};
+			
 			bstm.RefreshTable(data);
 			t3.revalidate();
 			t3.repaint();
