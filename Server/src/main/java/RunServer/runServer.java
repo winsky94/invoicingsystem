@@ -92,7 +92,7 @@ public class runServer extends JFrame implements ActionListener {
 		title.setFont(new Font("微软雅黑", Font.PLAIN, 25));
 		title.setForeground(Color.white);
 		titlePnl.add(title);
-		// ----------title------------
+		// --------------------------
 		JPanel top = new JPanel();
 		top.setOpaque(false);
 		pnl.add(top);
@@ -250,9 +250,9 @@ public class runServer extends JFrame implements ActionListener {
 			Naming.rebind("cashlistService", cashlist);
 			Naming.rebind("initService", init);
 			Naming.rebind("logService", log);
-
-			JOptionPane.showMessageDialog(null, "服务器已运行！", "提示",
-					JOptionPane.INFORMATION_MESSAGE);
+			new ServerMainFrame(hostIP,port);
+//			JOptionPane.showMessageDialog(null, "服务器已运行！", "提示",
+//					JOptionPane.INFORMATION_MESSAGE);
 
 		} catch (Exception e) {
 			System.out.println("错误" + e);
