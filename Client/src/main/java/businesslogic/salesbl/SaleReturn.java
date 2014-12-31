@@ -163,6 +163,7 @@ public class SaleReturn extends Receipt {
 
 	}
 
+
 	public SaleReturnPO voToPo(SaleReturnVO vo) {
 		ArrayList<CommodityVO> list = vo.getSaleReturnList();
 		ArrayList<CommodityPO> rList = com.voTPo(list);
