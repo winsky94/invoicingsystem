@@ -41,8 +41,8 @@ public class ModSalePanel extends JPanel implements ActionListener{
 		p.UserID=vo.getUser();
 		this.setLayout(new BorderLayout());
 		this.add(p,BorderLayout.CENTER);
-		p.discount=vo.getDiscount();
-		p.total=vo.getTotal();
+		p.setDiscount(vo.getDiscount());
+		p.setTotal(vo.getTotal());
 		p.title.setText("修改销售单");
 		p.IDLbl.setText("编号:"+vo.getId());
 		p.memberLbl.setText("销售商:"+vo.getMemberName());
