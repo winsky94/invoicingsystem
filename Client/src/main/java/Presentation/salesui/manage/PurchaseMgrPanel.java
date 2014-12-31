@@ -58,7 +58,7 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 	JScrollPane jsp;
 	PurchaseMgrModel pmm;
 	SaleListBLService listservice;
-	ArrayList<ArrayList<String>> c = new ArrayList<ArrayList<String>>();
+	ArrayList<ArrayList<String>> cm = new ArrayList<ArrayList<String>>();
 
 	public PurchaseMgrPanel(MainFrame frame) throws Exception {
 		parent = frame;
@@ -181,6 +181,8 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 						vo.addAll(service.findPurchaseReturn(txt, t));
 					if(vo.size()==0){
 						JOptionPane.showMessageDialog(null, "没有符合要求的单据！");
+						cm.clear();
+						table.revalidate();						
 					}
 					else{
 						vo=MySort.sort(vo);
@@ -206,9 +208,9 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 			else if (e.getSource() == purchaseReturnBtn) {
 				int t = table.getSelectedRow();
 				if (t >= 0) {
-					String type=c.get(t).get(3);
+					String type=cm.get(t).get(3);
 					if(type.equals("进货单")){
-					String pid = c.get(t).get(0);
+					String pid = cm.get(t).get(0);
 					parent.setRightComponent(new AddPurchaseReturnPanel(parent, pid));
 					}
 					else
@@ -221,8 +223,8 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 			} else if (e.getSource() == detailBtn) {
 				int t = table.getSelectedRow();
 				if (t >= 0) {
-					String pid = c.get(t).get(0);
-					String type=c.get(t).get(3);
+					String pid = cm.get(t).get(0);
+					String type=cm.get(t).get(3);
 					if(type.equals("进货单"))
 						parent.setRightComponent(new PurchaseDetailPanel(pid, parent));
 					else
@@ -266,7 +268,7 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 		String head[] = { "单据编号", "日期", "状态", "类型", "供应商", "操作员", "总额合计" };
 
 		public int getRowCount() {
-			return c.size();
+			return cm.size();
 		}
 
 		public int getColumnCount() {
@@ -274,7 +276,7 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 		}
 
 		public Object getValueAt(int row, int col) {
-			return c.get(row).get(col);
+			return cm.get(row).get(col);
 		}
 
 		public String getColumnName(int col) {
@@ -282,19 +284,18 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 		}
 
 		public void addRow(ArrayList<String> v) {
-			c.add(v);
+			cm.add(v);
 		}
 
 		public void removeRow(int row) {
-			c.remove(row);
+			cm.remove(row);
 		}
 	}
 
-	// 加急高亮显示 
 	// 单据编号","日期","状态","类型","供应商","操作员","总额合计
 	public void RefreshPurchaseTable(ArrayList<ReceiptVO> vo) throws Exception {
 		UserBLService user = new User();
-		c.clear();
+		cm.clear();
 		for (int i = 0; i < vo.size(); i++) {
 			ReceiptVO v = vo.get(i);
 			ArrayList<String> line = new ArrayList<String>();
@@ -317,7 +318,7 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 				line.add(prv.getTotalInAll() + "");
 			}
 
-			c.add(line);
+			cm.add(line);
 
 		}
 		table.revalidate();
