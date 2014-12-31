@@ -60,7 +60,7 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 	ArrayList<ArrayList<String>> cmContent;
 	ArrayList<Double> last_bid = new ArrayList<Double>();
 	double totalMoney;
-	//退货 查看复用  退货单不允许添加或删除商品 只允许改价格
+	//退货 查看复用  销售退货完全逆操作
 	public AddSaleReturnPanel(MainFrame frame ,String id) throws Exception{
 		this(frame);
 		service=new SalesController();
@@ -176,6 +176,7 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 			else return false;
 		}};
 		cmContent=cm.getContent();
+		table.setEnabled(false);
 		table.getTableHeader().setReorderingAllowed(false);
 		
 		// table 渲染器，设置文字内容居中显示，设置背景色等
