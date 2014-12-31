@@ -27,7 +27,7 @@ public class Purchase_ATest extends TestCase{
 				"",0,0,1);
 	}
 	
-	//根据进货单 创建一条进货退货单
+	//TUS 1-2 根据进货单 创建一条进货退货单
 	public void test_1(){
 		int addPurchase=controller.addPurchase(purchase1);
 		boolean create=false;
@@ -53,7 +53,7 @@ public class Purchase_ATest extends TestCase{
 		
 	}
 	
-	//根据type找进货单
+	//TUS 2-1 2-2根据type找进货单
 	public void test_2(){
 		String message="金大大";
 		String type="客户";
@@ -71,7 +71,7 @@ public class Purchase_ATest extends TestCase{
 		
 	}
 	
-	//修改一个进货单
+	//TUS 1-3修改一个进货单
 	public void test_3(){
 		PurchaseVO purchase=controller.PFindByID("JHD-20141208-00001");
 		ArrayList<CommodityVO> clist=purchase.getPurchaseList();
