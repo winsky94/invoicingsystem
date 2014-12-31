@@ -135,7 +135,18 @@ public class Total {
 		case GIFT:
 			if(i==1) reason="库存不足,无法赠送,";
 			break;
+		case COLLECTION:
+			if(i==2) reason="客户应付小于0,";
+			else if(i==3)  reason="账户余额小于0,";
+		    break;
+		case PAYMENT:
+			if(i==2) reason="客户应收小于0,";
+			else if(i==3)  reason="账户余额小于0,";
+		    break;
+		case CASHLIST:
+			if(i==3)  reason="账户余额小于0,";
 		}
+		
 		return reason;
 	}
 

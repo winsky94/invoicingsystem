@@ -131,7 +131,12 @@ public class AddCollectionPanel extends CollectionAndPaymentPanel implements Act
 					log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
 							"创建了一笔收款单",5));
 					headPane.RefreshGrades();
-				} else {
+				} 
+				else if(result==2){
+					JOptionPane.showMessageDialog(null, "你收客户的钱收多啦！不能创建该收款单哦！", "提示",
+							JOptionPane.CLOSED_OPTION);
+				}
+				else {
 					JOptionPane.showMessageDialog(null, "创建收款单失败！", "提示",
 							JOptionPane.WARNING_MESSAGE);
 				}
