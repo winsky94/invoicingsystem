@@ -633,7 +633,8 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 			// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		}else
+			JOptionPane.showMessageDialog(null, "请先选择商品！");
 
 	}
 	
