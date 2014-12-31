@@ -519,7 +519,7 @@ public class DateChooser extends JPanel{
     
     public void setTime(String time){
     	int year=Integer.parseInt(time.substring(0, 4));
-    	int month=Integer.parseInt(time.substring(4, 6));
+    	int month=Integer.parseInt(time.substring(4, 6))-1;
     	int date=Integer.parseInt(time.substring(6,8));
     	select.set(year, month, date);
     	commit();
