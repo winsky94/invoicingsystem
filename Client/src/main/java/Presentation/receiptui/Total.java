@@ -144,7 +144,9 @@ public class Total {
 			else if(i==3)  reason="账户余额小于0,";
 		    break;
 		case CASHLIST:
-			if(i==3)  reason="账户余额小于0,";
+			if(i==3)  reason="账户余额小于0,";break;
+		case PURCHASERETURN:
+			if(i==1)  reason="库存不足,无法退货,";break;
 		}
 		
 		return reason;
