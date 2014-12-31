@@ -2,6 +2,8 @@ package po;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import po.ReceiptPO.ReceiptType;
+
 
 public class PurchaseReturnPO extends ReceiptPO implements Serializable{
 	/**
@@ -12,12 +14,21 @@ public class PurchaseReturnPO extends ReceiptPO implements Serializable{
 	double totalInAll;
 	private String stockid;
 	
-	public PurchaseReturnPO(String id,String memberID,String name, String stockid,String user,ArrayList<CommodityPO> purchasereturnList,String info, double totalInAll,int status, int hurry) {
+	private String purid;
+	
+	public PurchaseReturnPO(String id,String memberID,String name, String stockid,String purid,String user,ArrayList<CommodityPO> purchasereturnList,String info, double totalInAll,int status, int hurry) {
 		super(id,memberID,name,user,ReceiptType.PURCHASERETURN,info,status, hurry);
 		this.stockid=stockid;
 		this.purchaseReturnList = purchasereturnList;
 		this.totalInAll=totalInAll;
+		this.purid=purid;
 	}
+	
+	public String getpurid(){
+		return purid;
+	}
+	
+
 	
 	public String getStockID(){
 		return stockid;
