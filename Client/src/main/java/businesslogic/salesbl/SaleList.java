@@ -80,17 +80,11 @@ public class SaleList implements SaleListBLService{
 	}
 	
 	
-/*	public double primeCostIncome(String startDate,String endDate){
-		StockControlBLService scb=new StockControlController();
-		return scb.getPrimeCostIncome(startDate, endDate);
-	}*/
-	
 	
 	public double getCouponProfitCalc(String startDate,String endDate){
 		//计算代金券与实际收款差额收入
 		double profit=0;
 		ArrayList<SalePO> spo=service.findSale(startDate+endDate, "时间区间");
-		//ArrayList<SaleReturnPO> srpo=service.findSaleReturn(startDate+endDate, "时间区间")
 		if(spo!=null)
 		for(int i=0;i<spo.size();i++)
 			profit+=spo.get(i).getCouponPrice();
@@ -137,31 +131,7 @@ public class SaleList implements SaleListBLService{
 		}
 		return gcp.getCouponCost(startDate, endDate);
 	}
-	
-	//为什么All Income All cost还要在搜索一遍呢  直接把界面获取的加起来不就好了 耗时间啊
-	/*public double AllIncome(String startDate,String endDate){
-		double profit=0;
-		profit+=saleIncome(startDate,endDate);
-		profit+=goodsOver(startDate,endDate);
-		profit+=getAdjustCost(startDate,endDate);
-		profit+=purchaseReturnProfitCalc(startDate,endDate);
-		profit+=couponProfitCalc(startDate,endDate);
-		return profit;
-	}*/
-	
-	
-	/*public double AllCost(String startDate,String endDate){
-		double cost=0;
-		cost+=saleCost(startDate,endDate);
-		cost+=goodsLow(startDate,endDate);
-		cost+=goodsGift(startDate,endDate);
-		cost+=GiftCouponUseCost(startDate,endDate);
-		return cost;
-	}*/
-	
-	//public double allProfit(String startDate,String endDate){
-	//	return AllIncome(startDate,endDate)-AllCost(startDate,endDate);
-	//}
+
 	
 	
 	public ArrayList<ReceiptVO> getAllPurchase() {
