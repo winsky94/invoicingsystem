@@ -177,7 +177,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 
 							RedOkListener redok=new RedOkListener();
 							JPanel  pane=AdvancedReceiptPanel.getModPanel(id, type,redok,true,parent);
-							 dialog=new RedDialog(parent,false,pane);
+						    dialog=new RedDialog(parent,false,pane);
 
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
