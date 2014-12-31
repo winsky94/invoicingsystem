@@ -94,11 +94,11 @@ public class functionPane extends JPanel{
     			if(mainFrame.getExtendedState()!=JFrame.MAXIMIZED_BOTH){
     				mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     				max.setIcon(new ImageIcon("img/mainFrame/small.png"));
-    				mainFrame.removeMouseMotionListener(mainFrame.getMove());
+    				mainFrame.jsp.removeMouseMotionListener(mainFrame.getMove());
     			}else{
     				mainFrame.setExtendedState(JFrame.NORMAL);
    				 	max.setIcon(new ImageIcon("img/mainFrame/max.png"));
-   				 	mainFrame.addMouseMotionListener(mainFrame.getMove());
+   				 	mainFrame.jsp.addMouseMotionListener(mainFrame.getMove());
     			}
     		}else if(e.getSource()==help){
     			   try{   
