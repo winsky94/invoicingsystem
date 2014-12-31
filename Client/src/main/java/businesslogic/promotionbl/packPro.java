@@ -115,7 +115,8 @@ public class packPro extends promotion{
 		vo.setProDiscount(v.getTotalValue()-v.getPackValue());
 		return vo;
 	}
-	//要都存在
+	
+	//必须包含整个特价包
 	public boolean searchIsMatch(ArrayList<CommodityVO> prolist,ArrayList<CommodityVO> list){
 		boolean tag=false;
 		for(int i=0;i<prolist.size();i++){
