@@ -259,13 +259,12 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 		elisten = new exitListen();
 		exitBtn.addActionListener(elisten);
 		table.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+		//根据用户输入数据 价格/数量 自动计算更新表格界面其他数据
 		ctm.addTableModelListener(new TableModelListener() {
 
 			public void tableChanged(TableModelEvent e) {
 				// TODO Auto-generated method stub
-
 				int i = e.getLastRow();
-
 				int j = e.getColumn();
 				int num = 0;
 				double price = 0;
@@ -285,12 +284,9 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 								.getValueAt(i, j + 1));
 						table.setValueAt(price * num + "", i, j + 1);
 					}
-
 					totalMoney += price * num;
 					totalLbl.setText("总计:" + totalMoney + "元");
-
 					table.revalidate();
-
 				}
 
 			}
