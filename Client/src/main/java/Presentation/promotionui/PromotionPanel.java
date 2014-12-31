@@ -26,8 +26,6 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import businesslogic.promotionbl.promotionController;
-import businesslogicservice.promotionblservice.PromotionViewService;
 import po.PromotionPO.PromotionType;
 import vo.PromotionVO;
 import Presentation.mainui.MainFrame;
@@ -45,6 +43,8 @@ import Presentation.promotionui.GiftPromotion.AddGiftPanel;
 import Presentation.promotionui.GiftPromotion.GiftDetailPanel;
 import Presentation.promotionui.GiftPromotion.ModGiftPanel;
 import Presentation.uihelper.MyDateFormat;
+import businesslogic.promotionbl.promotionController;
+import businesslogicservice.promotionblservice.PromotionViewService;
 
 public class PromotionPanel extends JPanel {
 	/**
@@ -73,12 +73,12 @@ public class PromotionPanel extends JPanel {
 		top.setBackground(Color.white);
 		top.setLayout(new GridLayout(1, 5));
 		// --------------------------
-		//
+
 		addBtn = new MyButton("制定新策略", new ImageIcon("img/promotion/add.png"));
 		addBtn.addMouseListener(new MouseAdapter() {
-			
+
 			public void mouseClicked(MouseEvent e) {
-				
+
 				JPopupMenu menu = new JPopupMenu();
 
 				menu.setBackground(Color.white);
@@ -105,74 +105,72 @@ public class PromotionPanel extends JPanel {
 				menu.add(discount);
 
 				bargin.addActionListener(new ActionListener() {
-				
+
 					public void actionPerformed(ActionEvent e) {
-						
-							try {
-								father.setRightComponent(new AddBarginPanel(father));
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						
+
+						try {
+							father.setRightComponent(new AddBarginPanel(father));
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
 					}
 				});
 				coupon.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
-							try {
-								father.setRightComponent(new AddCouponPanel(father));
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						
+
+						try {
+							father.setRightComponent(new AddCouponPanel(father));
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
 					}
 				});
 				gift.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-					
-							try {
-								father.setRightComponent(new AddGiftPanel(father));
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						
+
+						try {
+							father.setRightComponent(new AddGiftPanel(father));
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
 					}
 				});
 				discount.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-					
-							try {
-								father.setRightComponent(new AddDiscountPanel(
-										father));
-							} catch (Exception e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-						
+
+						try {
+							father.setRightComponent(new AddDiscountPanel(
+									father));
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
 					}
 				});
 
 				menu.show(father, e.getX(), e.getY());
-
-				// .addBtn.getX()+110,PromotionPanel.this.addBtn.getY()+110
-				
 			}
-			
+
 		});
 		top.add(addBtn);
 		//
 		delBtn = new MyButton("删除策略", new ImageIcon("img/promotion/del.png"));
 		delBtn.addActionListener(new ActionListener() {
-			//当已匹配时不可删除  若为代金券 则促销时间已过时 匹配与否均可删除
+			// 当已匹配时不可删除 若为代金券 则促销时间已过时 匹配与否均可删除
 			public void actionPerformed(ActionEvent e) {
 				int row = proTbl.getSelectedRow();
-				if(row>=0){
-						ArrayList<String> info = content.get(row);
-						String id = info.get(0);
-						PromotionType type = getChangeProType.getProType(info.get(3));
+				if (row >= 0) {
+					ArrayList<String> info = content.get(row);
+					String id = info.get(0);
+					PromotionType type = getChangeProType.getProType(info
+							.get(3));
 					try {
 						JDialog delDlg = new DelProDialog(id, type, father);
 					} catch (Exception e1) {
@@ -189,31 +187,37 @@ public class PromotionPanel extends JPanel {
 		modBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				//该促销已匹配时是不可修改
+				// 该促销已匹配时是不可修改
 				try {
-					int i=proTbl.getSelectedRow();
-					if(i>=0){
-						PromotionViewService service=new promotionController();
-						String id=content.get(i).get(0);
-						PromotionType type = getChangeProType.getProType(content.get(i).get(3));
-						PromotionVO vo=service.find(id, type);
-						if(vo.IsMatch())
-							JOptionPane.showMessageDialog(null, "该促销策略匹配中，暂无法修改！");
-						else{
-							if(type==PromotionType.DISCOUNT)
-								father.setRightComponent(new ModDiscountPanel(id,father));
-							else if(type==PromotionType.GIFTCOUPON)
-								father.setRightComponent(new ModCouponPanel(id,father));
-							else if(type==PromotionType.PACK)
-								father.setRightComponent(new ModBarginPanel(id,father));
+					int i = proTbl.getSelectedRow();
+					if (i >= 0) {
+						PromotionViewService service = new promotionController();
+						String id = content.get(i).get(0);
+						PromotionType type = getChangeProType
+								.getProType(content.get(i).get(3));
+						PromotionVO vo = service.find(id, type);
+						if (vo.IsMatch())
+							JOptionPane.showMessageDialog(null,
+									"该促销策略匹配中，暂无法修改！");
+						else {
+							if (type == PromotionType.DISCOUNT)
+								father.setRightComponent(new ModDiscountPanel(
+										id, father));
+							else if (type == PromotionType.GIFTCOUPON)
+								father.setRightComponent(new ModCouponPanel(id,
+										father));
+							else if (type == PromotionType.PACK)
+								father.setRightComponent(new ModBarginPanel(id,
+										father));
 							else
-								father.setRightComponent(new ModGiftPanel(id,father));
-								
+								father.setRightComponent(new ModGiftPanel(id,
+										father));
+
 						}
-							
-					}else
+
+					} else
 						JOptionPane.showMessageDialog(null, "请选择要修改的促销策略");
-					
+
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -225,10 +229,6 @@ public class PromotionPanel extends JPanel {
 		//
 		refreshBtn = new MyButton("刷新列表", new ImageIcon(
 				"img/promotion/refresh.png"));
-		refreshBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		top.add(refreshBtn);
 		//
 		detailBtn = new MyButton("查看详情", new ImageIcon(
@@ -236,21 +236,25 @@ public class PromotionPanel extends JPanel {
 		detailBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-				int i=proTbl.getSelectedRow();
-				if(i>=0){
-					String type=content.get(i).get(3);
-					String id=content.get(i).get(0);
-					if(type.equals("商品赠送"))
-						father.setRightComponent(new GiftDetailPanel(father,id));
-					else if(type.equals("代金券赠送"))
-						father.setRightComponent(new CouponDetailPanel(father,id));
-					else if(type.equals("特价包"))
-						father.setRightComponent(new BarginDetailPanel(father,id));
-					else 
-						father.setRightComponent(new DiscountDetailPanel(father,id));	
-				}else
-					JOptionPane.showMessageDialog(null, "请选择要查看的促销策略!");
-					
+					int i = proTbl.getSelectedRow();
+					if (i >= 0) {
+						String type = content.get(i).get(3);
+						String id = content.get(i).get(0);
+						if (type.equals("商品赠送"))
+							father.setRightComponent(new GiftDetailPanel(
+									father, id));
+						else if (type.equals("代金券赠送"))
+							father.setRightComponent(new CouponDetailPanel(
+									father, id));
+						else if (type.equals("特价包"))
+							father.setRightComponent(new BarginDetailPanel(
+									father, id));
+						else
+							father.setRightComponent(new DiscountDetailPanel(
+									father, id));
+					} else
+						JOptionPane.showMessageDialog(null, "请选择要查看的促销策略!");
+
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

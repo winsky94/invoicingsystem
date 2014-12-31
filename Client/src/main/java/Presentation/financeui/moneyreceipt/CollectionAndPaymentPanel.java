@@ -153,9 +153,7 @@ public class CollectionAndPaymentPanel extends JPanel {
 		JLabel accountLbl = new JLabel("银行账户：");
 		accountLbl.setFont(font);
 		item1.add(accountLbl);
-		// accountFld = new JTextField(10);
-		// accountFld.setFont(font);
-		// item1.add(accountFld);
+
 
 		st = new ArrayList<String>();
 		FinanceAccountBLService fin = null;

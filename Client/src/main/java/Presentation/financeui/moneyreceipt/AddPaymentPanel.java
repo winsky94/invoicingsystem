@@ -74,17 +74,7 @@ public class AddPaymentPanel extends CollectionAndPaymentPanel implements Action
 
 	}
 
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setBounds(100, 50, 920, 600);
-		testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-/*		AddCollectionPanel gp = new AddCollectionPanel();
-		gp.setBounds(0, 0, 920, 600);
-		testFrame.add(gp);
-		testFrame.setVisible(true);
-*/
-	}
 
 	public void actionPerformed(ActionEvent e) {
 	  

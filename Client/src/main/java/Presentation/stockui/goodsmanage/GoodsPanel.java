@@ -45,7 +45,11 @@ import businesslogic.stockbl.goods.GoodsModel;
 import businesslogic.stockbl.goodsClass.GoodsClassController;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBLService;
-
+/*
+ * Author:yan
+ * lastModify:12-30 by jin
+ * description:商品及分类管理主界面
+ * */
 public class GoodsPanel extends JPanel implements ActionListener {
 	/**
 	 * 
@@ -83,7 +87,7 @@ public class GoodsPanel extends JPanel implements ActionListener {
 		this.setLayout(gbl);
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(3, 3, 3, 3);
-		// -----------upPnl--------------------------------------------------------
+		// -----------upButtonPnl--------------------------------------------------------
 		JPanel btnPnl = new JPanel();
 		btnPnl.setBackground(Color.white);
 		addGoodsBtn = new MyButton("添加商品", new ImageIcon("img/stock/add.png"));
@@ -347,12 +351,8 @@ public class GoodsPanel extends JPanel implements ActionListener {
 		// 渲染器，用于调整树背景色及文字背景色
 		DefaultTreeCellRenderer cellRenderer = (DefaultTreeCellRenderer) tree
 				.getCellRenderer();
-		// cellRenderer.setLeafIcon(new ImageIcon());
-		// cellRenderer.setOpenIcon(new ImageIcon());
-		// cellRenderer.setClosedIcon(new ImageIcon());
 		cellRenderer.setFont(new Font("微软雅黑", Font.PLAIN, 12));
 		cellRenderer.setBackgroundSelectionColor(new Color(135, 206, 235));
-		// cellRenderer.setBorderSelectionColor(new Color(245, 255, 250));
 		cellRenderer.setTextNonSelectionColor(Color.black);
 		cellRenderer.setTextSelectionColor(Color.blue);
 
@@ -732,7 +732,7 @@ public class GoodsPanel extends JPanel implements ActionListener {
 		TreeNode root = (TreeNode) tree.getModel().getRoot();
 		expandAll(tree, new TreePath(root), true);
 	}
-
+	//展开树
 	private void expandAll(JTree tree, TreePath parent, boolean expand) {
 		// Traverse children
 		TreeNode node = (TreeNode) parent.getLastPathComponent();
