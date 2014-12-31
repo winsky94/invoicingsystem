@@ -74,14 +74,7 @@ public class GiftManage {
 
 				// 检测库存是否报警
 				StockControlBLService stockController = new StockControlController();
-				boolean result = stockController.stockNumCheck(good
-						.getGoodsID());
-				if (result) {
-					//
-					// JOptionPane.showMessageDialog(null, "库存报警啦！", null,
-					// JOptionPane.WARNING_MESSAGE);
-				}
-
+				stockController.stockNumCheck(good.getGoodsID());
 			}
 
 			// 调用服务器端处理库存赠送单

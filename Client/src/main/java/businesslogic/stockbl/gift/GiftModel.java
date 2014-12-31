@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 import vo.GiftVO;
+import vo.UserVO;
 import businesslogic.userbl.User;
 import businesslogicservice.stockblservice.giftblservice.GiftBLService;
 import businesslogicservice.userblservice.UserBLService;
@@ -90,7 +91,16 @@ public class GiftModel extends AbstractTableModel {
 			String userName = "";
 			try {
 				UserBLService userController = new User();
-				userName = userController.showUser(vo.getUser()).getName();
+				if (vo.getUser() == null) {
+					userName = "系统";
+				} else {
+					UserVO u = userController.showUser(vo.getUser());
+					if (u != null) {
+						userName = u.getName();
+					} else {
+						userName = "系统";
+					}
+				}
 			} catch (Exception e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
