@@ -115,7 +115,6 @@ public class StockLowReceipt extends Receipt {
 			goodsController.modifyGoods(goodvo);
 			StockOverOrLowPO po = voToPo(vo);
 			service.excute(po);
-			Reply(v.getId(), vo.getType(), 0);
 			return 0;
 		} else {
 			return 10;

@@ -156,10 +156,6 @@ public class GiftReceipt extends Receipt {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
 			}
-			if (result == 0)
-				Reply(v.getId(), v.getType(), 0);
-			else
-				Reply(v.getId(), v.getType(), 1);
 			return result;
 		} else {
 			Reply(v.getId(), v.getType(), 1);
