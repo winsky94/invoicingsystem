@@ -38,9 +38,9 @@ public class giftCouponPro extends promotion{
 		
 	}
 	
-	//data层modify可能有问题
-	public void useCoupon(String couponid,boolean status){
 	
+	public void useCoupon(String couponid,boolean status){
+		//代金券使用日期 属性 用于计算代金券支出
 		 coupon.modifyCoupon(couponid,status,getDate.getdate());
 		
 	}

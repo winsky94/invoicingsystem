@@ -17,16 +17,16 @@ import businesslogicservice.promotionblservice.PromotionViewService;
 public class promotionController implements PromotionViewService,
 		PromotionMatchService, PromotionBLService {
 
-	static giftCouponPro gcp;
-	static giftGoodPro ggp;
-	packPro pp;
-	discountPro dcp;
+	private static giftCouponPro giftcoupon;
+	private static giftGoodPro giftgood;
+	private packPro pack;
+	private discountPro discount;
 
 	public promotionController() throws Exception {
-		gcp = new giftCouponPro();
-		ggp = new giftGoodPro();
-		pp = new packPro();
-		dcp = new discountPro();
+		giftcoupon = new giftCouponPro();
+		giftgood = new giftGoodPro();
+		pack = new packPro();
+		discount = new discountPro();
 
 	}
 
@@ -34,14 +34,13 @@ public class promotionController implements PromotionViewService,
 		// TODO Auto-generated method stub
 		switch (type) {
 		case GIFTCOUPON:
-			return gcp.getNewID();
+			return giftcoupon.getNewID();
 		case GIFTGOODS:
-			return ggp.getNewID();
+			return giftgood.getNewID();
 		case PACK:
-			return pp.getNewID();
+			return pack.getNewID();
 		default:
-			return dcp.getNewID();
-
+			return discount.getNewID();
 		}
 	}
 
@@ -49,13 +48,13 @@ public class promotionController implements PromotionViewService,
 		// TODO Auto-generated method stub
 		switch (type) {
 		case GIFTCOUPON:
-			return gcp.Delete(id);
+			return giftcoupon.Delete(id);
 		case GIFTGOODS:
-			return ggp.Delete(id);
+			return giftgood.Delete(id);
 		case PACK:
-			return pp.Delete(id);
+			return pack.Delete(id);
 		default:
-			return dcp.Delete(id);
+			return discount.Delete(id);
 		}
 	}
 
@@ -63,13 +62,13 @@ public class promotionController implements PromotionViewService,
 		// TODO Auto-generated method stub
 		switch (vo.getType()) {
 		case GIFTCOUPON:
-			return gcp.Add(vo);
+			return giftcoupon.Add(vo);
 		case GIFTGOODS:
-			return ggp.Add(vo);
+			return giftgood.Add(vo);
 		case PACK:
-			return pp.Add(vo);
+			return pack.Add(vo);
 		default:
-			return dcp.Add(vo);
+			return discount.Add(vo);
 		}
 	}
 
@@ -79,38 +78,33 @@ public class promotionController implements PromotionViewService,
 			return 1;
 		switch (vo.getType()) {
 		case GIFTCOUPON:
-			return gcp.Modify(vo);
+			return giftcoupon.Modify(vo);
 		case GIFTGOODS:
-			return ggp.Modify(vo);
+			return giftgood.Modify(vo);
 		case PACK:
-			return pp.Modify(vo);
+			return pack.Modify(vo);
 		default:
-			return dcp.Modify(vo);
+			return discount.Modify(vo);
 		}
 	}
 
-	// 优先级商品 代金券 折扣 特价包
-	// gcp;
-	// giftGoodPro ggp;
-	// packPro pp;
-	// discountPro dcp;
-	// 0表示已匹配
+	// 促销策略适配 优先级 商品 代金券 折扣 特价包
 	public SaleVO Match(SaleVO vo) {
 		// TODO Auto-generated method stub
 		PromotionVO pro = null;
-		if ((pro = ggp.Match(vo)) != null) {
+		if ((pro = giftgood.Match(vo)) != null) {
 			vo.setProid(pro.getId());
 			return vo;
-		} else if ((pro = gcp.Match(vo)) != null) {
+		} else if ((pro = giftcoupon.Match(vo)) != null) {
 			vo.setProid(pro.getId());
 			return vo;
-		} else if ((pro = dcp.Match(vo)) != null) {
+		} else if ((pro = discount.Match(vo)) != null) {
 			vo.setProid(pro.getId());
-			vo = dcp.excute(pro, vo);
+			vo = discount.excute(pro, vo);
 			return vo;
-		} else if ((pro = pp.Match(vo)) != null) {
+		} else if ((pro = pack.Match(vo)) != null) {
 			vo.setProid(pro.getId());
-			vo = pp.excute(pro, vo);
+			vo = pack.excute(pro, vo);
 			return vo;
 		}
 		return vo;
@@ -131,7 +125,7 @@ public class promotionController implements PromotionViewService,
 	@Override
 	public double getCouponValue(String id) {
 		// TODO Auto-generated method stub
-		return gcp.getCouponValue(id);
+		return giftcoupon.getCouponValue(id);
 	}
 
 	public static void Excute(String proid, SaleVO vo) {
@@ -141,11 +135,8 @@ public class promotionController implements PromotionViewService,
 			pro = new promotion();
 			PromotionPO po = pro.find(proid);
 			if (po != null) {
-				if (po.getType() == PromotionType.GIFTCOUPON) {
-					// gcp.useCoupon(vo.getCouponid());没有用 仅为赠出
-				} else {
-
-					ggp.Excute(po, vo);
+				if (po.getType() == PromotionType.GIFTGOODS) {
+					giftgood.Excute(po, vo);
 				}
 			}
 		} catch (Exception e) {
@@ -160,22 +151,24 @@ public class promotionController implements PromotionViewService,
 		// TODO Auto-generated method stub
 		switch (type) {
 		case PACK:
-			return pp.findByID(id);
+			return pack.findByID(id);
 		case DISCOUNT:
-			return dcp.findByID(id);
+			return discount.findByID(id);
 		case GIFTGOODS:
-			return ggp.findByID(id);
+			return giftgood.findByID(id);
 		default:
-			return gcp.findByID(id);
+			return giftcoupon.findByID(id);
 		}
 
 	}
 
+	
+	//----各类型单独查找----------
 	public GiftCouponProVO gpFindByID(String id) {
 		// TODO Auto-generated method stub
 		try {
 
-			return (GiftCouponProVO) gcp.findByID(id);
+			return (GiftCouponProVO) giftcoupon.findByID(id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -189,7 +182,7 @@ public class promotionController implements PromotionViewService,
 		// TODO Auto-generated method stub
 		try {
 
-			return (GiftGoodsProVO) ggp.findByID(id);
+			return (GiftGoodsProVO) giftgood.findByID(id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -202,7 +195,7 @@ public class promotionController implements PromotionViewService,
 		// TODO Auto-generated method stub
 		try {
 
-			return (DiscountProVO) dcp.findByID(id);
+			return (DiscountProVO) discount.findByID(id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -215,7 +208,7 @@ public class promotionController implements PromotionViewService,
 		// TODO Auto-generated method stub
 		try {
 
-			return (PackProVO) pp.findByID(id);
+			return (PackProVO) pack.findByID(id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
