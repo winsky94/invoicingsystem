@@ -70,7 +70,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 	JComboBox<String> XSSBox;
 	JTextField clerkFld, stockFld, discountMoneyFld, remarkFld;
 	JScrollPane jsp;
-	String id,UserID,proid = "", couponid = "",memid="";
+	String id,UserID,proid = "", couponid = "",memid="",mem="";
 	CommodityTableModel ctm;
 	JTable table;
 	String[] idtxt, clerk;
@@ -546,7 +546,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 		int i = XSSBox.getSelectedIndex() - 1;
 		if (i >= 0){
 			memid = idtxt[i];}
-		String mem = XSSBox.getSelectedItem().toString();
+		mem= XSSBox.getSelectedItem().toString();
 		int hurry = 1;
 		if (hurryBox.isSelected())
 			hurry = 0;
