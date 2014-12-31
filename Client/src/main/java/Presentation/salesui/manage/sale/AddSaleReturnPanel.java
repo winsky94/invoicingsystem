@@ -60,7 +60,7 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 	ArrayList<ArrayList<String>> cmContent;
 	ArrayList<Double> last_bid = new ArrayList<Double>();
 	double totalMoney;
-	//退货 查看复用  退货单不允许添加或删除商品 只允许改价格？
+	//退货 查看复用  退货单不允许添加或删除商品 只允许改价格
 	public AddSaleReturnPanel(MainFrame frame ,String id) throws Exception{
 		this(frame);
 		service=new SalesController();
@@ -78,9 +78,7 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 		
 	}
 	public AddSaleReturnPanel(MainFrame frame)  {
-		father = frame;
-		
-		
+		father = frame;	
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 10, 5, 10);
@@ -170,13 +168,9 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 		JLabel tableLbl = new JLabel("销售退货商品列表       ");
 		tableLbl.setFont(new Font("微软雅黑", Font.PLAIN, 21));
 		p3.add(tableLbl);
-		// -------合计----------------
-		///totalLbl = new JLabel("总计:___________");
-		//totalLbl.setFont(font);
-		//p3.add(totalLbl);
-		// ------table--------------
 		cm=new CommodityTableModel();
-		table = new JTable(cm){public boolean isCellEditable(int row,int column){
+		table = new JTable(cm){
+		public boolean isCellEditable(int row,int column){
 			if(column==6||column==3)
 				return true;
 			else return false;
@@ -244,7 +238,6 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 		int hurry=1;
 		if(hurryBox.isSelected())
 			hurry=0;
-		//改不了销售信息！！！
 		SaleReturnVO v=new SaleReturnVO(pid,father.getUser().getID(),vo,0,
 				remarkFld.getText(),hurry);
 		int result=service.addSaleReturn(v);
@@ -253,7 +246,6 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 			SaleMgrPanel pmg;
 			try {
 				pmg = new SaleMgrPanel(father);
-
 				father.setRightComponent(pmg);
 				pmg.RefreshPanel();
 				log.addLog(new LogVO(log.getdate(),father.getUser()
@@ -265,10 +257,7 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 			}
 		} else
 			JOptionPane.showMessageDialog(null, "创建失败！", "提示",
-					JOptionPane.WARNING_MESSAGE);
-			
-			
-		
+					JOptionPane.WARNING_MESSAGE);		
 	}
 
 }
