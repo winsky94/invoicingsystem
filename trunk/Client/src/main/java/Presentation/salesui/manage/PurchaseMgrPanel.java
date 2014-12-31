@@ -29,6 +29,7 @@ import vo.PurchaseVO;
 import vo.ReceiptVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
+import Presentation.receiptui.Total;
 import Presentation.salesui.manage.purchase.AddPurchasePanel;
 import Presentation.salesui.manage.purchase.AddPurchaseReturnPanel;
 import Presentation.salesui.manage.purchase.PurchaseDetailPanel;
@@ -300,12 +301,7 @@ public class PurchaseMgrPanel extends JPanel implements ActionListener {
 			line.add(v.getId());
 			line.add(v.getDate());
 			int s = v.getStatus();
-			if (s == 0) {
-				line.add("待审批");
-			} else if (s == 1)
-				line.add("审批不通过");
-			else if (s == 2)
-				line.add("审批通过");
+			line.add(Total.getStatus(s));
 			String name = user.showUser(v.getUser()).getName();
 			if (v.getType() == ReceiptType.PURCHASE) {
 				line.add("进货单");

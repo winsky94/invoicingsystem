@@ -97,17 +97,6 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 		approvedBtn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				/*
-				 * int[] row = t1.getSelectedRows(); if (row.length > 0) { for
-				 * (int i = 0; i < row.length; i++) { String id =
-				 * c1.get(row[i]).get(0).toString(); if (service.Approve(id, 2)
-				 * != 0) JOptionPane.showMessageDialog(null, "审批失败！", "提示",
-				 * JOptionPane.WARNING_MESSAGE); } Refresh();
-				 * 
-				 * }
-				 */
-
 				ArrayList<String> choose = BatchChoose();
 				if (choose != null) {
 					String batch[] = new String[choose.size()];
@@ -115,7 +104,13 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 						batch[i] = choose.get(i);
 					int result = service.Batch(batch, 2);
 					if (result != 0) {
-						JOptionPane.showMessageDialog(null, "审批失败！", "提示",
+						String tip="审批失败!";
+						if(batch.length==0){
+							int i=t1.getSelectedRow();
+							ReceiptType type=Total.getsType((String) c1.get(i).get(2));
+							tip=Total.getFailReason(type, result)+tip;
+						}
+						JOptionPane.showMessageDialog(null, tip, "提示",
 								JOptionPane.WARNING_MESSAGE);
 					}
 					Refresh();
