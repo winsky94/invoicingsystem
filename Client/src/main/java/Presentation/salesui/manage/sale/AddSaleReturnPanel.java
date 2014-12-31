@@ -63,7 +63,7 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 	//退货 查看复用  销售退货完全逆操作
 	public AddSaleReturnPanel(MainFrame frame ,String id) throws Exception{
 		this(frame);
-		service=new SalesController();
+		
 		vo=service.SFindByID(id);
 
 		totalMoney=vo.getTotalValue();
@@ -77,8 +77,9 @@ public class AddSaleReturnPanel extends JPanel implements ActionListener {
 		RefreshCTable(vo.getSalesList());
 		
 	}
-	public AddSaleReturnPanel(MainFrame frame)  {
+	public AddSaleReturnPanel(MainFrame frame) throws Exception  {
 		father = frame;	
+		service=new SalesController();
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 10, 5, 10);
