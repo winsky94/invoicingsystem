@@ -29,7 +29,7 @@ public class Sales_ATest extends TestCase{
 	
 	//String id,String user,SaleVO s,int status,
 		//String info,int hurry)
-	//根据进货单 创建一条销售退货单
+	///TUS 1-1根据进货单 创建一条销售退货单
 		public void test_1(){
 			SaleVO sale=controller.SFindByID("XSD-20141205-00001");
 			String id=controller.getNewID(ReceiptType.SALERETURN);
@@ -48,7 +48,7 @@ public class Sales_ATest extends TestCase{
 		}
 		
 		
-		//根据type找销售单
+		//TUS1-3根据type找销售单
 		public void test_2(){
 			String message="金大大";
 			String type="客户";
@@ -66,7 +66,7 @@ public class Sales_ATest extends TestCase{
 		}
 		
 		
-		//修改一个销售单
+		//TUS1-4修改一个销售单
 		public void test_3(){
 			SaleVO sale=controller.SFindByID("XSD-20141205-00001");
 			ArrayList<CommodityVO> clist=sale.getSalesList();
