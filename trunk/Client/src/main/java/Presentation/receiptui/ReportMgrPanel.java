@@ -503,15 +503,15 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			
 	 		double goodsOver=sc.getGoodsOverIncome(startDate, endDate);
 	 		String goodsOvera=df.format(goodsOver);
-	 		double goodsOver1=Double.parseDouble(goodsOvera);
+	 		double goodsOver1=Math.abs(Double.parseDouble(goodsOvera));
 	 		
 	 		double adjustCost=ss.getAdjustCost(startDate, endDate);
 	 		String adjustCosta=df.format(adjustCost);
-	 		double adjustCost1=Double.parseDouble(adjustCosta);
+	 		double adjustCost1=Math.abs(Double.parseDouble(adjustCosta));
 	 		
 	 		double purchaseReturn=ss.getPurchaseReturnProfitCalc(startDate, endDate);
 	 		String purchaseReturna=df.format(purchaseReturn);
-	 		double purchaseReturn1=Double.parseDouble(purchaseReturna);
+	 		double purchaseReturn1=Math.abs(Double.parseDouble(purchaseReturna));
 	 		
 	 		double couponProfit=ss.getCouponProfitCalc(startDate, endDate);
 	 		String couponProfita=df.format(couponProfit);
@@ -523,7 +523,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 	 		
 	 		double totalIncome=saleIncome+goodsOver+adjustCost+purchaseReturn+couponProfit;
 	 		String totalIncomea=df.format(totalIncome);
-	 		double totalIncome1=Double.parseDouble(totalIncomea);
+	 		double totalIncome1=Math.abs(Double.parseDouble(totalIncomea));
 	 		
 	 		double saleCost=ss.getSaleCost(startDate, endDate);
 	 		String saleCosta=df.format(saleCost);
@@ -531,14 +531,14 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 	 		
 	 		double goodsLow=sc.getGoodsLowCost(startDate, endDate);
 	 		String goodsLowa=df.format(goodsLow);
-	 		double goodsLow1=Double.parseDouble(goodsLowa);
+	 		double goodsLow1=Math.abs(Double.parseDouble(goodsLowa));
 	 		
 	 		double goodsGift=sc.getGiftCost(startDate, endDate);
 	 		String goodsGifta=df.format(goodsGift);
-	 		double goodsGift1=Double.parseDouble(goodsGifta);
+	 		double goodsGift1=Math.abs(Double.parseDouble(goodsGifta));
 	 		
-	 		double totalCost=saleCost+goodsLow+goodsGift;
-	 		double profit=totalIncome-totalCost;
+	 		double totalCost=saleCost1+goodsLow1+goodsGift1;
+	 		double profit=totalIncome1-totalCost;
 			double[] data={saleIncome1,goodsOver1,adjustCost1,purchaseReturn1,couponProfit1,
 					discountMoney1,totalIncome1,saleCost1,goodsLow1,goodsGift1,totalCost,profit};
 			
