@@ -1,6 +1,5 @@
 package Presentation.receiptui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -11,9 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.net.MalformedURLException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
@@ -31,9 +27,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
@@ -52,7 +45,6 @@ import Presentation.receiptui.tablemodels.MyGroupTableHeaderUI;
 import Presentation.receiptui.tablemodels.MyHeaderButtonRenderer;
 import Presentation.receiptui.tablemodels.MyTableHeader;
 import Presentation.receiptui.tablemodels.OperationHistoryTableModel;
-import Presentation.receiptui.tablemodels.OperationStatementTableModel;
 import Presentation.receiptui.tablemodels.SaleDetailTableModel;
 import Presentation.uihelper.DateChooser;
 import businesslogic.memberbl.Member;
@@ -303,36 +295,35 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 						MemberViewService memservice = new Member();
 						String[] memName = memservice.getAllMemberName();
 						memberCbox.removeAllItems();
-						if (memName != null) {
-							for (String name : memName)
-								memberCbox.addItem(name);
-							UserViewService userservice = new User();
-							String[] userName = userservice.getAllUserName();
-							clerkCbox.removeAllItems();
-							for (String name : userName)
-								clerkCbox.addItem(name);
-							if (tab.getSelectedIndex() == 0) {
-								// 销售明细 根据商品名筛选
-								nameOrTypeLbl.setText("按商品名");
-								StockGoodsBLService goodservice = new GoodsController();
-								String goodName[] = goodservice
-										.getAllGoodsName();
-								nameOrTypeCbox.removeAllItems();
-								for (String name : goodName)
-									nameOrTypeCbox.addItem(name);
-							} else {
-								// 经营历程 根据单据类型筛选
-								nameOrTypeLbl.setText("按单据类型");
-								String type[] = { "全部", "销售单", "销售退货单", "进货单",
-										"进货退货单", "收款单", "付款单", "现金费用单",
-										"库存报警单", "库存报损单", "库存报溢单", "库存赠送单" };
-								nameOrTypeCbox.removeAllItems();
-								nameOrTypeCbox.setEditable(false);
-								for (String item : type)
-									nameOrTypeCbox.addItem(item);
-							}
+
+						for (String name : memName)
+							memberCbox.addItem(name);
+						UserViewService userservice = new User();
+						String[] userName = userservice.getAllUserName();
+						clerkCbox.removeAllItems();
+						for (String name : userName)
+							clerkCbox.addItem(name);
+						if (tab.getSelectedIndex() == 0) {
+							// 销售明细 根据商品名筛选
+							nameOrTypeLbl.setText("按商品名");
+							StockGoodsBLService goodservice = new GoodsController();
+							String goodName[] = goodservice.getAllGoodsName();
+							nameOrTypeCbox.removeAllItems();
+							for (String name : goodName)
+								nameOrTypeCbox.addItem(name);
+						} else {
+							// 经营历程 根据单据类型筛选
+							nameOrTypeLbl.setText("按单据类型");
+							String type[] = { "全部", "销售单", "销售退货单", "进货单",
+									"进货退货单", "收款单", "付款单", "现金费用单", "库存报警单",
+									"库存报损单", "库存报溢单", "库存赠送单" };
+							nameOrTypeCbox.removeAllItems();
+							nameOrTypeCbox.setEditable(false);
+							for (String item : type)
+								nameOrTypeCbox.addItem(item);
 						}
 					}
+
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
