@@ -30,8 +30,9 @@ public class SalesController implements SalesBLService,PurchaseBLService,viewInf
 		purchaseReturn=new PurchaseReturn();
 		saleReturn=new SaleReturn();
 	}
+	
 	public String getNewID(ReceiptType type){
-		//获取当期日期变成String;
+		
 			ArrayList<ReceiptPO> po;
 			String id=null;
 			String d=null;
@@ -43,22 +44,31 @@ public class SalesController implements SalesBLService,PurchaseBLService,viewInf
 			case SALERETURN:
 				id="XSTHD-";d=saleReturn.getNewID();break;
 			default:
-				id="JHTHD-";d=purchaseReturn.getNewID();
-			
-				
-			}
-			
+				id="JHTHD-";d=purchaseReturn.getNewID();			
+			}	
+			//获取当期日期变成String;
 			String date=getDate.getdate()+"-";
-			return id+date+d;
-		
+			return id+date+d;	
 	}
 	
-	//通知审批
+	public int addSale(SaleVO vo) {
+		// TODO Auto-generated method stub
+		return sale.Add(vo);
+	}
+	public int addSaleReturn(SaleReturnVO vo) {
+		// TODO Auto-generated method stub
+		return saleReturn.add(vo);
+	}
 	
-
+	public int addPurchase(PurchaseVO vo) {
+		// TODO Auto-generated method stub
+		return purchase.AddPurchase(vo);
+	}
 	
-			
-			
+	public int addPurchaseReturn(PurchaseReturnVO vo) {
+		// TODO Auto-generated method stub
+		return purchaseReturn.AddPurchaseReturn(vo);
+	}
 	
 	public int modifySale(SaleVO vo) {
 		// TODO Auto-generated method stub
@@ -70,6 +80,15 @@ public class SalesController implements SalesBLService,PurchaseBLService,viewInf
 		return saleReturn.Modify(vo);
 	}
 
+	public int modifyPurchase(PurchaseVO vo) {
+		// TODO Auto-generated method stub
+		return purchase.ModifyPurchase(vo);
+	}
+	
+	public int modifyPurchaseReturn(PurchaseReturnVO vo) {
+		// TODO Auto-generated method stub
+		return purchaseReturn.ModifyPurchaseReturn(vo);
+	}
 	public ArrayList<PurchaseVO> showPurchase() {
 		// TODO Auto-generated method stub
 		return purchase.show();
@@ -110,38 +129,28 @@ public class SalesController implements SalesBLService,PurchaseBLService,viewInf
 		return saleReturn.find(message, type);
 	}
 	
-	public int addPurchase(PurchaseVO vo) {
-		// TODO Auto-generated method stub
-		return purchase.AddPurchase(vo);
-	}
-	public int addPurchaseReturn(PurchaseReturnVO vo) {
-		// TODO Auto-generated method stub
-		return purchaseReturn.AddPurchaseReturn(vo);
-	}
-	public int addSale(SaleVO vo) {
-		// TODO Auto-generated method stub
-		return sale.Add(vo);
-	}
-	public int addSaleReturn(SaleReturnVO vo) {
-		// TODO Auto-generated method stub
-		return saleReturn.add(vo);
-	}
-	public int modifyPurchase(PurchaseVO vo) {
-		// TODO Auto-generated method stub
-		return purchase.ModifyPurchase(vo);
-	}
-	public int modifyPurchaseReturn(PurchaseReturnVO vo) {
-		// TODO Auto-generated method stub
-		return purchaseReturn.ModifyPurchaseReturn(vo);
-	}
-	
-	
-
 	public PurchaseVO PFindByID(String id) {
 		// TODO Auto-generated method stub
 		return purchase.find(id);
 	}
-	@Override
+	
+	
+	public SaleVO SFindByID(String id) {
+		// TODO Auto-generated method stub
+		return sale.find(id);
+	}
+
+	public PurchaseReturnVO PRFindByID(String id) {
+		// TODO Auto-generated method stub
+		return purchaseReturn.find(id);
+	}
+
+	public SaleReturnVO SRFindByID(String id) {
+		// TODO Auto-generated method stub
+		return saleReturn.find(id);
+	}
+	
+
 	public double getPrivilege(String MemberID)   {
 		// TODO Auto-generated method stub
 		double pre=0;
@@ -153,21 +162,6 @@ public class SalesController implements SalesBLService,PurchaseBLService,viewInf
 		}
 		return pre;
 			
-	}
-	@Override
-	public SaleVO SFindByID(String id) {
-		// TODO Auto-generated method stub
-		return sale.find(id);
-	}
-	@Override
-	public PurchaseReturnVO PRFindByID(String id) {
-		// TODO Auto-generated method stub
-		return purchaseReturn.find(id);
-	}
-	@Override
-	public SaleReturnVO SRFindByID(String id) {
-		// TODO Auto-generated method stub
-		return saleReturn.find(id);
 	}
 	
 

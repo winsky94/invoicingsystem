@@ -31,6 +31,16 @@ public class Commodity {
 		return List;
 	}
 	
+	public static ArrayList<CommodityVO> poTVo(ArrayList<CommodityPO> po){
+		ArrayList<CommodityVO> List=new ArrayList<CommodityVO>();
+		
+		for(int i=0;i<po.size();i++)
+			List.add(poToVO(po.get(i)));
+		return List;
+	}
+	
+	
+	//红冲
 	public static ArrayList<CommodityPO>  getRedList(ArrayList<CommodityPO> list){
 		ArrayList<CommodityPO> result=new ArrayList<CommodityPO>();
 		for(int i=0;i<list.size();i++){
@@ -43,13 +53,5 @@ public class Commodity {
 		return result;
 	}
 	
-	
-public static ArrayList<CommodityVO> poTVo(ArrayList<CommodityPO> po){
-	ArrayList<CommodityVO> List=new ArrayList<CommodityVO>();
-	
-	for(int i=0;i<po.size();i++)
-		List.add(poToVO(po.get(i)));
-	return List;}
-	
+}	
 
-}
