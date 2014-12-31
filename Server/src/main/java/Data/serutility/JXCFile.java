@@ -241,31 +241,31 @@ public class JXCFile {
 	}
 
 	
-	// 向文件中写入一个对象，覆盖原来的所有内容
-	public void writeM(Object a) {
-		File ff = new File(name);
-		ff.delete();
-		try {
-			boolean isexist = false;
-			File file = new File(name);
-			if (file.exists())
-				isexist = true;
-			FileOutputStream fo = new FileOutputStream(name);
-			long pos = 0;
-
-			ObjectOutputStream os;
-			os = new ObjectOutputStream(fo);
-			if (isexist) {
-				pos = fo.getChannel().position() - 4;
-				fo.getChannel().truncate(pos);
-			}
-			
-			os.writeObject(a);
-			os.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	// 向文件中写入一个对象，覆盖原来的所有内容
+//	public void writeM(Object a) {
+//		File ff = new File(name);
+//		ff.delete();
+//		try {
+//			boolean isexist = false;
+//			File file = new File(name);
+//			if (file.exists())
+//				isexist = true;
+//			FileOutputStream fo = new FileOutputStream(name);
+//			long pos = 0;
+//
+//			ObjectOutputStream os;
+//			os = new ObjectOutputStream(fo);
+//			if (isexist) {
+//				pos = fo.getChannel().position() - 4;
+//				fo.getChannel().truncate(pos);
+//			}
+//			
+//			os.writeObject(a);
+//			os.close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 }
