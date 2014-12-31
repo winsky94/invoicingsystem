@@ -44,9 +44,6 @@ public class ModMemberPane extends AddMemberPanel {
 		 submitBtn.removeActionListener(add);
 		 submitBtn.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e){
-					if(typeCbox.getSelectedItem().equals("进货商"))
-						mtype=MemberType.JHS;
-						else mtype=MemberType.XSS;
 					MemBaseInfo bInfo=new MemBaseInfo(vo.getmType(),vo.getmLevel(),vo.getMemberID(),nameFld.getText(),vo.getPoints(),defaultClerkFld.getText());
 					MemContactInfo cInfo=new MemContactInfo(phoneFld.getText(), addressFld.getText(),
 							postcodeFld.getText(),  EMailFld.getText());
