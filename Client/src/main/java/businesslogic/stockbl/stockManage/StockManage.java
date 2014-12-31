@@ -298,7 +298,7 @@ public class StockManage {
 	public boolean isEnough(String id, int num) {
 		ArrayList<GoodsPO> list = goodsService.findGoods(id);
 		if (list.size() != 0) {
-			if (list.get(0).getVirtualNumInStock() < num) {
+			if (list.get(0).getNumInStock() < num) {
 				return false;
 			} else {
 				return true;
