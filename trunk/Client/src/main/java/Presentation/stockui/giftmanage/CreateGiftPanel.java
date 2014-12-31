@@ -227,13 +227,13 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 						JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			//判断是否选择了商品,赠送数量默认为1
-			if(gcm==null||gcm.getRowCount()==0){
+			// 判断是否选择了商品,赠送数量默认为1
+			if (gcm == null || gcm.getRowCount() == 0) {
 				JOptionPane.showMessageDialog(null, "           请选择赠品哈~", null,
 						JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			
+
 			// 修改赠品数量后，需要重新更新commodityList
 			int rowCount = gcm.getRowCount();
 			ArrayList<CommodityVO> recordList = new ArrayList<CommodityVO>();
@@ -275,12 +275,7 @@ public class CreateGiftPanel extends ChooseGoodsFatherPane implements
 				// TODO 自动生成的 catch 块
 				e2.printStackTrace();
 			}
-			// int result = giftService.dealGift(vo);
-			// if (result != 0) {
-			// JOptionPane.showMessageDialog(this, "别闹啦~，库存不足以赠送的~", null,
-			// JOptionPane.WARNING_MESSAGE);
-			// return;
-			// }
+
 			giftService.addGift(vo);
 			log.addLog(new LogVO(log.getdate(), parent.getUser().getID(),
 					parent.getUser().getName(), "创建一笔库存赠送单", 5));

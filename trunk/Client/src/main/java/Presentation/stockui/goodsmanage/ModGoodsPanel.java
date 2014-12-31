@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -114,7 +115,7 @@ public class ModGoodsPanel extends JPanel implements ActionListener {
 		lastSalePriceLbl.setFont(font);
 		lastSalePricePnl.add(lastSalePriceLbl);
 		// -------purchasePrice-----------------
-		pPriceText=String.valueOf(vo.getPurchasePrice()); 
+		pPriceText = String.valueOf(vo.getPurchasePrice());
 		JPanel purchasePricePnl = new JPanel();
 		purchasePricePnl.setBackground(Color.white);
 		mPnl.add(purchasePricePnl);
@@ -128,7 +129,7 @@ public class ModGoodsPanel extends JPanel implements ActionListener {
 				new PPriceFieldListener());
 		purchasePricePnl.add(purchasePriceFld);
 		// -------salePrice-----------------
-		sPriceText=String.valueOf(vo.getPrice());
+		sPriceText = String.valueOf(vo.getPrice());
 		JPanel salePricePnl = new JPanel();
 		salePricePnl.setBackground(Color.white);
 		mPnl.add(salePricePnl);
@@ -180,6 +181,35 @@ public class ModGoodsPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == submitBtn) {
+			if (pPriceText == null || sPriceText == null) {
+				JOptionPane.showMessageDialog(null, "       请输入完整的商品信息!", null,
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			// 监测默认进价和默认售价输入是否合法
+			try {
+				Double.parseDouble(pPriceText);
+			} catch (NumberFormatException nfe) {
+				JOptionPane.showMessageDialog(null, "         请确定你的输入合法噢~",
+						null, JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			try {
+				Double.parseDouble(sPriceText);
+			} catch (NumberFormatException nfe) {
+				JOptionPane.showMessageDialog(null, "         请确定你的输入合法噢~",
+						null, JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+
+			// 检测输入为正数
+			if (Double.parseDouble(pPriceText) < 0
+					|| Double.parseDouble(sPriceText) < 0) {
+				JOptionPane.showMessageDialog(null, "         进售价数值必须为正噢~",
+						null, JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+
 			// 监听
 			StockGoodsBLService controller = new GoodsController();
 			try {
@@ -187,9 +217,9 @@ public class ModGoodsPanel extends JPanel implements ActionListener {
 				oldVO.setPurchasePrice(Double.parseDouble(pPriceText));
 				oldVO.setPrice(Double.parseDouble(sPriceText));
 				controller.modifyGoods(oldVO);
-				
+
 				parent.setRightComponent(new GoodsPanel(parent));
-				
+
 			} catch (RemoteException e1) {
 				// TODO 自动生成的 catch 块
 				e1.printStackTrace();
