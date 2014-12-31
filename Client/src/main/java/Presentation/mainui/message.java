@@ -1,5 +1,10 @@
 package Presentation.mainui;
-//信箱线程
+/*
+ * Author:jin
+ * last-modify:12-16 by jin
+ * description: thread for ther message box to refresh data
+ * 
+ * */
 public class message extends Thread{
 	MainFrame frame;
 	boolean stop;

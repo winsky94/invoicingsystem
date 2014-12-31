@@ -19,7 +19,11 @@ import Presentation.promotionui.ProLeftPanel;
 import Presentation.salesui.SalesLeftPanel;
 import Presentation.stockui.StockLeftPanel;
 import Presentation.userui.UserLeftPanel;
-
+/*
+ * Author:huang
+ * lastModify:12-31 by jin
+ * 
+ * */
 public class MainFrame extends JFrame implements  ActionListener {
 	
 	private static final long serialVersionUID = 1L;

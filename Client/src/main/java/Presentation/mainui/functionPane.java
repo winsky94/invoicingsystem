@@ -17,7 +17,7 @@ import javax.swing.border.Border;
 
 import businesslogic.financebl.Init;
 import businesslogicservice.financeblservice.initblservice.FinanceInitBLService;
-//rightPane 的顶上部分基本窗口操作按钮
+//rightPane 的顶上部分基本窗口操作按钮  11-29 by jin
 public class functionPane extends JPanel{
 	JPanel parent;
 	JLabel close,min,max,skin,help;
