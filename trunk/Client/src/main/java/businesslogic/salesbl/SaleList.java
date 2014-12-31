@@ -103,8 +103,6 @@ public class SaleList implements SaleListBLService{
 			if(po!=null)
 				prprofit+=(ppo.get(i).getTotalInAll()-po.getTotalInAll());
 			}
-		
-
 		return prprofit;
 	}
 	
