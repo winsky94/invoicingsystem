@@ -22,6 +22,7 @@ import vo.LogVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.headPane;
 import Presentation.mainui.log;
+import Presentation.stockui.StockMessage;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 
@@ -182,6 +183,13 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自动生成的方法存根
 		if (e.getSource() == submitBtn) {
+			// 检测是否输入了所有数据
+			if (nameText == null || pPriceText == null || sPriceText == null
+					|| classText == null || minNumText == null) {
+				JOptionPane.showMessageDialog(null, "       请输入完整的商品信息!", null,
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			// 监测默认进价和默认售价输入是否合法
 			try {
 				Double.parseDouble(pPriceText);
@@ -209,8 +217,9 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 			if (Double.parseDouble(pPriceText) < 0
 					|| Double.parseDouble(sPriceText) < 0
 					|| Integer.parseInt(minNumText) < 0) {
-				JOptionPane.showMessageDialog(null, "            数值必须为正噢~", null,
-						JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null, "         进售价数值必须为正噢~",
+						null, JOptionPane.WARNING_MESSAGE);
+				return;
 			}
 
 			StockGoodsBLService controller = new GoodsController();
@@ -221,7 +230,8 @@ public class AddGoodsPanel extends JPanel implements ActionListener {
 					manufactoryDate, Integer.parseInt(minNumText));
 			int result = controller.addGoods(vo);
 			if (result != 0) {
-				JOptionPane.showMessageDialog(null, "            该商品已存在", null,
+				String stringResult=StockMessage.getStringResult(result);
+				JOptionPane.showMessageDialog(null, stringResult, null,
 						JOptionPane.WARNING_MESSAGE);
 				return;
 			} else {

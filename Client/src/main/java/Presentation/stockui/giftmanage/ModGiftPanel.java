@@ -136,7 +136,7 @@ public class ModGiftPanel extends CreateGiftPanel {
 					e1.printStackTrace();
 				}
 			} else {
-				JOptionPane.showMessageDialog(null, "修改失败", "提示",
+				JOptionPane.showMessageDialog(null, "          修改失败", "提示",
 						JOptionPane.WARNING_MESSAGE);
 			}
 		}

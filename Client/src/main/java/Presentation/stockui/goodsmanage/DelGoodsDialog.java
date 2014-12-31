@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import vo.GoodsVO;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
+import Presentation.stockui.StockMessage;
 import Presentation.uihelper.UIhelper;
 
 public class DelGoodsDialog extends JDialog {
@@ -69,7 +70,8 @@ public class DelGoodsDialog extends JDialog {
 			int result = controller.deleteGoods(vo);
 			DelGoodsDialog.this.dispose();
 			if (result != 0) {
-				JOptionPane.showMessageDialog(null, "             删除失败", null,
+				String stringResult = StockMessage.getStringResult(result);
+				JOptionPane.showMessageDialog(null, stringResult, null,
 						JOptionPane.WARNING_MESSAGE);
 			}
 

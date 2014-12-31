@@ -39,6 +39,7 @@ import vo.GoodsClassVO;
 import vo.GoodsVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
+import Presentation.stockui.StockMessage;
 import businesslogic.stockbl.goods.GoodsController;
 import businesslogic.stockbl.goods.GoodsModel;
 import businesslogic.stockbl.goodsClass.GoodsClassController;
@@ -220,6 +221,7 @@ public class GoodsPanel extends JPanel implements ActionListener {
 			parent.setRightComponent(new AddGoodsPanel(parent, GoodsClass));
 
 			// 重新再获得数据模型,刷新界面
+			tree.clearSelection();
 			goodsModel = new GoodsModel();
 			goodsTable.setModel(goodsModel);
 			// table 渲染器，设置文字内容居中显示，设置背景色等
@@ -251,6 +253,7 @@ public class GoodsPanel extends JPanel implements ActionListener {
 				new DelGoodsDialog(vo);
 
 				// 重新再获得数据模型,刷新界面
+				tree.clearSelection();
 				goodsModel = new GoodsModel();
 				goodsTable.setModel(goodsModel);
 				// table 渲染器，设置文字内容居中显示，设置背景色等
@@ -282,6 +285,7 @@ public class GoodsPanel extends JPanel implements ActionListener {
 				parent.setRightComponent(new ModGoodsPanel(parent, vo));
 
 				// 重新再获得数据模型,刷新界面
+				tree.clearSelection();
 				goodsModel = new GoodsModel();
 				goodsTable.setModel(goodsModel);
 				// table 渲染器，设置文字内容居中显示，设置背景色等
@@ -436,7 +440,8 @@ public class GoodsPanel extends JPanel implements ActionListener {
 					tree.scrollPathToVisible(new TreePath(newNode.getPath()));
 					expandTree(tree);// 还是自己写的方法
 				} else {
-					JOptionPane.showMessageDialog(null, "添加失败", null,
+					String stringResult = StockMessage.getStringResult(result);
+					JOptionPane.showMessageDialog(null, stringResult, null,
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -456,7 +461,9 @@ public class GoodsPanel extends JPanel implements ActionListener {
 						treeModel.removeNodeFromParent(selectionNode);
 						treeModel.reload();
 					} else {
-						JOptionPane.showMessageDialog(null, "删除失败", null,
+						String stringResult = StockMessage
+								.getStringResult(result);
+						JOptionPane.showMessageDialog(null, stringResult, null,
 								JOptionPane.ERROR_MESSAGE);
 					}
 				}
@@ -467,15 +474,16 @@ public class GoodsPanel extends JPanel implements ActionListener {
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) treePath
 					.getLastPathComponent();
 			GoodsClassVO oldVO = controller.showGoodsClassInfo(node.toString());
-			new UpdateGoodsClassDialog(this, node.toString());
+			new ModifyGoodsClassDialog(this, node.toString());
 			if (updateNode != null) {
 				GoodsClassVO newVO = new GoodsClassVO(updateNode.toString(),
 						oldVO.getUpClassName());
 				int result = controller.modifyGoodsClass(oldVO, newVO);
 
 				if (result != 0) {
-					JOptionPane.showMessageDialog(null, "         修改分类数据失败",
-							null, JOptionPane.WARNING_MESSAGE);
+					String stringResult = StockMessage.getStringResult(result);
+					JOptionPane.showMessageDialog(null, stringResult, null,
+							JOptionPane.WARNING_MESSAGE);
 				} else {
 					node.setUserObject(updateNode.toString());
 					treeModel.reload();
@@ -599,7 +607,7 @@ public class GoodsPanel extends JPanel implements ActionListener {
 
 	}
 
-	class UpdateGoodsClassDialog extends JDialog implements ActionListener {
+	class ModifyGoodsClassDialog extends JDialog implements ActionListener {
 		private static final long serialVersionUID = 1L;
 		JLabel oldClassjl = null;
 		JLabel classjl = null;
@@ -610,7 +618,7 @@ public class GoodsPanel extends JPanel implements ActionListener {
 
 		GoodsPanel father = null;
 
-		public UpdateGoodsClassDialog(GoodsPanel father, String parent) {
+		public ModifyGoodsClassDialog(GoodsPanel father, String parent) {
 			this.father = father;
 
 			Font font = new Font("楷体", Font.BOLD, 16);
@@ -662,15 +670,12 @@ public class GoodsPanel extends JPanel implements ActionListener {
 			if (e.getSource() == okjb) {
 				if (oldClassjtf.getText().trim().equals("")
 						|| classjtf.getText().trim().equals("")) {
-					JOptionPane.showMessageDialog(this, "请填写全部信息！", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "        请填写全部信息！",
+							"Error", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				father.updateNode = new DefaultMutableTreeNode(classjtf
 						.getText().trim());
-				System.out
-						.println("GoodsPanel.UpdateGoodsClassDialog.actionPerformed():updateNode:"
-								+ updateNode);
 				this.dispose();
 			} else if (e.getSource() == canceljb) {
 				father.updateNode = null;
@@ -710,6 +715,7 @@ public class GoodsPanel extends JPanel implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			// TODO 自动生成的方法存根
+			tree.clearSelection();
 			goodsModel = new GoodsModel();
 			goodsTable.setModel(goodsModel);
 			// table 渲染器，设置文字内容居中显示，设置背景色等
