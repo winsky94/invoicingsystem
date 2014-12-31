@@ -29,8 +29,7 @@ public class RedDialog extends JDialog implements ActionListener{
 	    
 		this.setBounds((screenWidth - dialogWidth) / 2,
 				(screenHeight - dialogHeight) / 2, dialogWidth, dialogHeight);
-//		this.setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
-	    this.setLocation(300,250);
+
 		this.setVisible(true);
 	    		
 	}

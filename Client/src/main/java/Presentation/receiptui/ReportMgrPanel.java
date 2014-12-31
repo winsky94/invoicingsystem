@@ -666,6 +666,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				report = new ReportMgrPanel(parent);
 				parent.setRightComponent(report);
 				report.RefreshTable();
+				report.tab.setSelectedIndex(1);
 				
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
