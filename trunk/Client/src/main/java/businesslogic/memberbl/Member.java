@@ -83,7 +83,13 @@ public class Member implements MemberBLService,MemberViewService{
 		
 		return poToVo(po);
 	}
-
+	public int checkToReceive(String id,double m){
+		MemberPO p=service.findByID(id);
+		double toReceive=p.getToReceive();
+		if(toReceive+m>p.getMaxOwe())
+			return 1;
+		return 0;
+	}
 	public int changeToReceive(String id,double m){
 		return service.changeToReceive(id, m);
 	}
