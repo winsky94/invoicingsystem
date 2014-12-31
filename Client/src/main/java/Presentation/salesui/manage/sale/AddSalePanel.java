@@ -130,6 +130,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 		midPnl.add(p3);
 
 		// --------ID----------------
+		//------获取新单据ID----
 		id = service.getNewID(ReceiptType.SALE);
 		IDLbl = new JLabel("ID：" + id);
 		IDLbl.setFont(font);
