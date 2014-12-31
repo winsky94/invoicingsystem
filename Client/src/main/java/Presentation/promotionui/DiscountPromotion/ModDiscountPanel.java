@@ -31,6 +31,7 @@ public class ModDiscountPanel extends AddDiscountPanel{
 		content.addAll(vo.getGoodsList());
 		RefreshCTable(content,vo.getCountList());
 		//加监听！
+		submitBtn.removeActionListener(slisten);;
 		submitBtn.removeAll();
 		submitBtn.addActionListener(new ActionListener(){
 
