@@ -166,6 +166,12 @@ public class LossPanel extends ChooseGoodsFatherPane implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO 自动生成的方法存根
 		if (e.getActionCommand().equals("确定")) {
+			// 检测是否选择了商品
+			if (goodsVO == null) {
+				JOptionPane.showMessageDialog(null, "         请选择报损商品!", null,
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			// 监测实际库存是否填写合格
 			int exactNum = 0;
 			try {

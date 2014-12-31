@@ -164,6 +164,12 @@ public class OverflowPanel extends ChooseGoodsFatherPane implements
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getActionCommand().equals("确定")) {
+			// 检测是否选择了商品
+			if (goodsVO == null) {
+				JOptionPane.showMessageDialog(null, "         请选择报溢商品!", null,
+						JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			// 监测实际库存是否填写合法
 			int exactNum = 0;
 			try {
