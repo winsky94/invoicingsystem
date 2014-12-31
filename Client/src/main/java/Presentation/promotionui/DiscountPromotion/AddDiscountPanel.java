@@ -150,7 +150,7 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 					double p = Double.parseDouble((String) table.getValueAt(i,
 							j));
 					DecimalFormat df = new DecimalFormat("#.##");
-					String value=df.format(d*p+"");
+					String value=df.format(d*p);
 					table.setValueAt(value + "", i, j + 1);
 				}
 
