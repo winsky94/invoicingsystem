@@ -75,6 +75,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 	JTextField nameFld, stockFld;
 	MainFrame parent;
 	//
+	RedDialog dialog;
 	JButton filterBtn;
 	DateChooser from, to;
 	JLabel nameOrTypeLbl, memberLbl, clerkLbl, stockLbl;
@@ -173,14 +174,11 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 						ReceiptType type = Total.getsType(t2.getValueAt(row, 3)
 								.toString());
 						try {
-							RedOkListener redok = new RedOkListener();
-							JPanel pane = AdvancedReceiptPanel.getModPanel(id,
-									type, redok, true, parent);
-							// JPanel redpane=new JPanel();
-							// redpane.setLayout(new BorderLayout());
-							// redpane.add(pane, BorderLayout.CENTER);
-							RedDialog dialog = new RedDialog(parent, false,
-									pane);
+
+							RedOkListener redok=new RedOkListener();
+							JPanel  pane=AdvancedReceiptPanel.getModPanel(id, type,redok,true,parent);
+							 dialog=new RedDialog(parent,false,pane);
+
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -190,31 +188,9 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			});
 			btnPnl.add(redCopyBtn);
 		}
-		// // -----搜索框---------------
-		// findFld = new JTextField(13);
-		// findFld.setFont(font);
-		// findFld.getDocument().addDocumentListener(new DocumentListener() {
-		//
-		// public void removeUpdate(DocumentEvent e) {
-		// keyword = findFld.getText();
-		//
-		// }
-		//
-		// public void insertUpdate(DocumentEvent e) {
-		// keyword = findFld.getText();
-		//
-		// }
-		//
-		// public void changedUpdate(DocumentEvent e) {
-		// keyword = findFld.getText();
-		//
-		// }
-		// });
-		// twoTimePnl.add(findFld);
-		// // -----搜索按钮-------------
-		// findBtn = new MyButton(new ImageIcon(findPath));
-		// twoTimePnl.add(findBtn);
-		// ----日期--------------
+//		// -----搜索框---------------
+
+
 		JLabel fromLbl = new JLabel("起始时间：");
 		fromLbl.setFont(font);
 		fromLbl.setForeground(color);
@@ -374,11 +350,11 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		jsp2 = new JScrollPane(t2);
 		tab.add("经营历程表", jsp2);
 		// -------经营情况表--------------
-		// ostm = new OperationStatementTableModel();
-		// t3 = new JTable(ostm);
+
 		// ------------------------test!!!!!!!!!!!------------------------------
 		bstm = new BSLTableModel();
 		t3 = new JTable(bstm) {
+
 			private static final long serialVersionUID = 1L;
 
 			protected JTableHeader createDefaultTableHeader() {
@@ -686,9 +662,11 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			// TODO Auto-generated method stub
 			ReportMgrPanel report;
 			try {
+				dialog.dispose();
 				report = new ReportMgrPanel(parent);
 				parent.setRightComponent(report);
 				report.RefreshTable();
+				
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
