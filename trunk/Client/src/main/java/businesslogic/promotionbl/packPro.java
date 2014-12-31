@@ -29,9 +29,6 @@ public class packPro extends promotion{
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
-
 	public PromotionVO findByID(String id){
 		PackProPO gpo=(PackProPO)service.find(id, PromotionType.PACK);
 		if(gpo==null) return null;
@@ -92,7 +89,7 @@ public class packPro extends promotion{
 					String end=pro.get(i).getEndDate();
 					String date=vo.getId().split("-")[1];
 					if(start.compareTo(date)<=0&&end.compareTo(date)>=0){
-					ArrayList<CommodityVO> prolist=pro.get(i).getPack().getCombine();
+						ArrayList<CommodityVO> prolist=pro.get(i).getPack().getCombine();
 						if(searchIsMatch(prolist,clist))
 						{	double packdis=pro.get(i).getTotalValue()-pro.get(i).getPackValue();
 							if(maxvalue<packdis)
@@ -110,11 +107,7 @@ public class packPro extends promotion{
 	}
 	
 	
-	public SaleVO excute(PromotionVO pro,SaleVO vo){
-		PackProVO v=(PackProVO)pro;
-		vo.setProDiscount(v.getTotalValue()-v.getPackValue());
-		return vo;
-	}
+
 	
 	//必须包含整个特价包
 	public boolean searchIsMatch(ArrayList<CommodityVO> prolist,ArrayList<CommodityVO> list){
@@ -131,6 +124,13 @@ public class packPro extends promotion{
 		return true;
 	}
 
+	
+	public SaleVO excute(PromotionVO pro,SaleVO vo){
+		PackProVO v=(PackProVO)pro;
+		vo.setProDiscount(v.getTotalValue()-v.getPackValue());
+		return vo;
+	}
+	
 	public String getNewID() {
 		// TODO Auto-generated method stub
 		String id=null;

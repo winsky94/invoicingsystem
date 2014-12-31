@@ -38,31 +38,7 @@ public class Collection extends Receipt implements CollectionBLService{
  		service=(CollectionDataService)Naming.lookup(url);
      }
     
-/*	 public Collection(String id,  String memberID,
-			String memberName,String userID,Date date, int hurry, int status,
-			String info,String sid,double Money) throws Exception{
-		super(id,memberID,memberName, userID, ReceiptType.COLLECTION, date, hurry, status, info,sid);
-		// TODO Auto-generated constructor stub
-		this.totalMoney=Money;
-	}
-*/
 
-	
-
-    
-  /*  public Collection(MockMember b,MockMember c,double m){
-   	 this(null,b,c,null,null,m);
-    }  */
-    
-   /* public Collection(String a,MockMember b,MockMember j,String c,ArrayList<TransferItem> d,double e){
-   	 ID=a;
-   	 supplier=b;
-   	 seller=j;
-   	 user=c;
-   	 transferlist=d;
-   	 totalMoney=e;
-    }
-    */
 	
      public String getNewID() {
     	 String id=null;

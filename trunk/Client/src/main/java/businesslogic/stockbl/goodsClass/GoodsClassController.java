@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import vo.GoodsClassVO;
 import businesslogicservice.stockblservice.goodsclassblservice.StockGoodsClassBLService;
 
-public class GoodsClassController implements StockGoodsClassBLService,
-		Serializable {
+public class GoodsClassController implements StockGoodsClassBLService,Serializable {
 
 	/**
 	 * 
