@@ -110,9 +110,7 @@ public class Member implements MemberBLService,MemberViewService{
 			if(p>spoint[i]&&(i==spoint.length-1?true:p<=spoint[i+1]))
 				{po.setmLevel(level[i]);break;}
 		}
-		return po;
-			
-		
+		return po;	
 	}
 
 	
