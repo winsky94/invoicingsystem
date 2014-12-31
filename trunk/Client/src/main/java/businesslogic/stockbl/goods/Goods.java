@@ -32,7 +32,6 @@ public class Goods {
 	private String size;
 	private String gc;
 	private int numInStock;
-	private int virtualnumInStock;
 	private double purchasePrice;
 	private double price;
 	private double lastPurchasePrice;
@@ -72,7 +71,6 @@ public class Goods {
 		this.size = size;
 		this.gc = gc;
 		this.numInStock = numInStock;
-		this.virtualnumInStock = numInStock;
 		this.price = price;
 		this.purchasePrice = purchasePrice;
 		this.lastPrice = lastPrice;
@@ -109,8 +107,8 @@ public class Goods {
 			}
 			goodsID = gClassManage.getID(gc) + "-" + size + "-" + ID;
 			GoodsPO po = new GoodsPO(goodsID, name, size, numInStock,
-					virtualnumInStock, purchasePrice, price, lastPurchasePrice,
-					lastPrice, gc, manufactoryDate, minNumInStock);
+					purchasePrice, price, lastPurchasePrice, lastPrice, gc,
+					manufactoryDate, minNumInStock);
 			return service.addGoods(po);
 		}
 	}
@@ -192,17 +190,17 @@ public class Goods {
 		}
 		if (isOperate == false) {
 			GoodsPO po = new GoodsPO(goodsID, name, size, numInStock,
-					virtualnumInStock, purchasePrice, price, lastPurchasePrice,
-					lastPrice, gc, manufactoryDate, minNumInStock);
+					purchasePrice, price, lastPurchasePrice, lastPrice, gc,
+					manufactoryDate, minNumInStock);
 			result = service.deleteGoods(po);
 		}
 		return result;
 	}
 
 	public int modifyGoods(String id) {
-		GoodsPO po = new GoodsPO(id, name, size, numInStock, virtualnumInStock,
-				purchasePrice, price, lastPurchasePrice, lastPrice, gc,
-				manufactoryDate, minNumInStock);
+		GoodsPO po = new GoodsPO(id, name, size, numInStock, purchasePrice,
+				price, lastPurchasePrice, lastPrice, gc, manufactoryDate,
+				minNumInStock);
 
 		return service.modifyGoods(po);
 	}
@@ -310,10 +308,6 @@ public class Goods {
 		return numInStock;
 	}
 
-	public int getVirtualnumInStock() {
-		return virtualnumInStock;
-	}
-
 	public double getPurchasePrice() {
 		return purchasePrice;
 	}
@@ -340,10 +334,6 @@ public class Goods {
 
 	public void setNumInStock(int numInStock) {
 		this.numInStock = numInStock;
-	}
-
-	public void setVirtualnumInStock(int virtualnumInStock) {
-		this.virtualnumInStock = virtualnumInStock;
 	}
 
 	public void setPurchasePrice(double purchasePrice) {

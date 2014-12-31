@@ -53,7 +53,7 @@ public class Init implements FinanceInitBLService{
 		else{
 			a=new ArrayList<GoodsPO>();
 			for(GoodsVO g:goods){
-				GoodsPO p=new GoodsPO(g.getGoodsID(),g.getName(),g.getSize(),g.getNumInStock(),g.getNumInStock(),g.getPurchasePrice(),g.getPrice(),g.getLastPurchasePrice(),g.getLastPrice(),g.getGoodsClass(),g.getManufactureDate(),g.getMinNumInstock());
+				GoodsPO p=new GoodsPO(g.getGoodsID(),g.getName(),g.getSize(),g.getNumInStock(),g.getPurchasePrice(),g.getPrice(),g.getLastPurchasePrice(),g.getLastPrice(),g.getGoodsClass(),g.getManufactureDate(),g.getMinNumInstock());
                 a.add(p);
 			}
 		}

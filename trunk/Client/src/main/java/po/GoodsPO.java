@@ -7,39 +7,37 @@ public class GoodsPO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String GoodsID;
-	String name;
-	String size;
-	int numInStock;
-	int virtualnumInStock;
-	double purchasePrice;
-	double price;
-	double lastPurchasePrice;
-	double lastPrice;
-	String goodsClass;
-	String manufactureDate;
-	int minNumInStock;
-	
+	private String GoodsID;
+	private String name;
+	private String size;
+	private int numInStock;
+	private double purchasePrice;
+	private double price;
+	private double lastPurchasePrice;
+	private double lastPrice;
+	private String goodsClass;
+	private String manufactureDate;
+	private int minNumInStock;
+
 	public GoodsPO() {
 
 	}
 
 	public GoodsPO(String goodsID, String name, String size, int numInStock,
-			int virtualnumInStock, double purchasePrice, double price,
-			double lastPurchasePrice, double lastPrice, String goodsClass,
-			String manufactureDate,int minNumInStock) {
+			double purchasePrice, double price, double lastPurchasePrice,
+			double lastPrice, String goodsClass, String manufactureDate,
+			int minNumInStock) {
 		GoodsID = goodsID;
 		this.name = name;
 		this.size = size;
 		this.numInStock = numInStock;
-		this.virtualnumInStock = virtualnumInStock;
 		this.purchasePrice = purchasePrice;
 		this.price = price;
 		this.lastPurchasePrice = lastPurchasePrice;
 		this.lastPrice = lastPrice;
 		this.goodsClass = goodsClass;
 		this.manufactureDate = manufactureDate;
-		this.minNumInStock=minNumInStock;
+		this.minNumInStock = minNumInStock;
 	}
 
 	public String getGoodsID() {
@@ -72,10 +70,6 @@ public class GoodsPO implements Serializable {
 
 	public void setNumInStock(int numInStock) {
 		this.numInStock = numInStock;
-	}
-
-	public int getVirtualNumInStock() {
-		return virtualnumInStock;
 	}
 
 	public double getPurchasePrice() {
