@@ -122,12 +122,12 @@ public class Sale extends Receipt {
 		try {
 
 			Member m = new Member();
-			int i = m.changeToReceive(vo.getMemberID(), vo.getToPay());
+			int i = m.checkToReceive(vo.getMemberID(), vo.getToPay());
 			if (i == 0) {
-				//更新业绩点
-				m.updatePoints(vo.getMemberID(), vo.getTotalValue());
+				//库存和客户应收均无问题 再执行
 				StockGoodsBLService goodsController = new GoodsController();
 				ArrayList<CommodityVO> list = vo.getSalesList();
+				ArrayList<GoodsVO> saleGoods=new ArrayList<GoodsVO>();
 				for (CommodityVO cvo : list) {
 					GoodsVO goodsVO = goodsController.findByID(cvo.getID());
 					// 检查是否可以销售
@@ -138,15 +138,21 @@ public class Sale extends Receipt {
 								- cvo.getNum());
 						//修改最近售价
 						goodsVO.setLastPrice(cvo.getPrice());
-						goodsController.modifyGoods(goodsVO);
-
-						// 库存报警检查
-						StockControlBLService stockController = new StockControlController();
-						stockController.stockNumCheck(goodsVO.getGoodsID());
+						saleGoods.add(goodsVO);						
 					} else {
 						return 1;// 库存数量不满足销售
 					}
 				}
+				//check均无问题 执行
+				for(GoodsVO goodsVO:saleGoods){
+					goodsController.modifyGoods(goodsVO);
+					// 库存报警检查
+					StockControlBLService stockController = new StockControlController();
+					stockController.stockNumCheck(goodsVO.getGoodsID());
+					
+				}
+				m.changeToReceive(vo.getMemberID(),vo.getTotalValue());
+				m.updatePoints(vo.getMemberID(), vo.getTotalValue());
 				//执行促销策略
 				if (!vo.getProid().equals(""))
 					promotionController.Excute(vo.getProid(), vo);
