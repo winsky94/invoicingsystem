@@ -49,15 +49,9 @@ public  class promotion {
 	//发布和添加？
 	public  int Add(PromotionVO vo){return 0;};
 	public  int Modify(PromotionVO vo){return 0;};
-	public PromotionVO findByID(String id){
-		return null;
-		};
-	
+	public PromotionVO findByID(String id){return null;};
 	public void Excute(String proid,SaleVO vo){};
 	public PromotionVO Match(SaleVO vo){return null;};
-	
-	
-	
 	//子类不重写
 	public ArrayList<PromotionVO> Show(){
 		ArrayList<PromotionPO> po=service.showAll();
