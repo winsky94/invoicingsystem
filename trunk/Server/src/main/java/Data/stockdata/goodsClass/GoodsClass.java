@@ -71,7 +71,7 @@ public class GoodsClass extends UnicastRemoteObject implements
 		ArrayList<Object> a = file.read();
 
 		if (a == null) {
-
+			return null;
 		} else {
 			for (int i = 0; i < a.size(); i++) {
 				GoodsClassPO b = (GoodsClassPO) a.get(i);
