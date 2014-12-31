@@ -408,7 +408,12 @@ public class AddCashReceiptPanel extends JPanel implements ActionListener{
 					log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
 							"创建一笔现金费用单",4));
 					headPane.RefreshGrades();
-				} else {
+				}
+				else if(result==3){
+					JOptionPane.showMessageDialog(null, "账户余额不足哦，不能创建该现金费用单！", "提示",
+							JOptionPane.CLOSED_OPTION);
+				}
+				else {
 					JOptionPane.showMessageDialog(null, "创建现金费用单失败！", "提示",
 							JOptionPane.WARNING_MESSAGE);
 				}

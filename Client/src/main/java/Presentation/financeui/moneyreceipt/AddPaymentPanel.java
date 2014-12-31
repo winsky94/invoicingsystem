@@ -133,7 +133,16 @@ public class AddPaymentPanel extends CollectionAndPaymentPanel implements Action
 					log.addLog(new LogVO(log.getdate(),parent.getUser().getID(),parent.getUser().getName(),
 							"创建了一笔付款单",5));
 					headPane.RefreshGrades();
-				} else {
+				} 
+				else if(result==2){
+					JOptionPane.showMessageDialog(null, "你付客户的钱付多啦！不能创建该付款单哦！", "提示",
+							JOptionPane.CLOSED_OPTION);
+				}
+				else if(result==3){
+					JOptionPane.showMessageDialog(null, "账户余额不足啦，不可以创建该付款单哦！", "提示",
+							JOptionPane.CLOSED_OPTION);
+				}
+				else {
 					JOptionPane.showMessageDialog(null, "创建付款单失败！", "提示",
 							JOptionPane.WARNING_MESSAGE);
 				}

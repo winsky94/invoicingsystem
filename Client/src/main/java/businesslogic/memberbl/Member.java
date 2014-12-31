@@ -90,6 +90,23 @@ public class Member implements MemberBLService,MemberViewService{
 			return 1;
 		return 0;
 	}
+	
+	public int isToReceive(String id,double m){
+		MemberVO v=findById(id);
+		if((v.getToReceive()+m)<0){
+			return 1;
+		}
+		return 0;
+	}
+	
+	public int isToPay(String id,double m){
+		MemberVO v=findById(id);
+		if((v.getToPay()+m)<0){
+			return 1;
+		}
+		return 0;
+	}
+	
 	public int changeToReceive(String id,double m){
 		return service.changeToReceive(id, m);
 	}
