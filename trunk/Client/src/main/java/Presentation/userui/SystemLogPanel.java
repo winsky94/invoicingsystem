@@ -151,6 +151,7 @@ public class SystemLogPanel extends JPanel {
 			line.add("+" + vo.getAddGrades());
 			cm.add(line);
 		}
+		SystemLogPanel.this.repaint();
 	}
 	
 	class dateListener extends FocusAdapter{

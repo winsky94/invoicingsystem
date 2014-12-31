@@ -22,7 +22,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
 
 import po.ReceiptPO.ReceiptType;
 import vo.CollectionVO;
@@ -197,14 +196,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 
 		}
 		jsp1 = new JScrollPane(t1);
-		// rtm1.addTableModelListener(new TableModelListener() {
-		//
-		// @Override
-		// public void tableChanged(TableModelEvent e) {
-		// t1.repaint();
-		//
-		// }
-		// });
+
 		tab.add("待审批单据", jsp1);
 		// ---------已审批------------------
 		rtm2 = new ReceiptTableModel(c2, 1);
@@ -391,7 +383,7 @@ public class ReceiptMgrPanel extends JPanel implements ActionListener {
 			t1.revalidate();
 		}else
 			t2.revalidate();
-		
+		ReceiptMgrPanel.this.repaint();
 
 	}
 
