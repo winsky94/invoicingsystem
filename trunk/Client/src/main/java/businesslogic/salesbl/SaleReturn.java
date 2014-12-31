@@ -115,7 +115,7 @@ public class SaleReturn extends Receipt {
 				if (contronller.isEnough(cvo.getID(), cvo.getNum())) {
 					// 修改库存数量
 					goodsVO.setNumInStock(goodsVO.getNumInStock()
-							- cvo.getNum());
+							+ cvo.getNum());
 					// 修改最近售价
 					goodsVO.setLastPrice(cvo.getPrice());
 					saleReturnGoods.add(goodsVO);

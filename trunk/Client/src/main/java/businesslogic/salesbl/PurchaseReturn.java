@@ -57,27 +57,34 @@ public class PurchaseReturn extends Receipt {
 		// 修改库存数量
 		StockGoodsBLService goodsController = new GoodsController();
 		ArrayList<CommodityVO> list = vo.getPurchaseReturnList();
+		// 存储待更新商品
+		ArrayList<GoodsVO> purchaseReturnGoods = new ArrayList<GoodsVO>();
 		for (CommodityVO cvo : list) {
 			try {
 				GoodsVO goodsVO = goodsController.findByID(cvo.getID());
 				// 检查是否可以销售
 				StockControlBLService contronller = new StockControlController();
 				if (contronller.isEnough(cvo.getID(), cvo.getNum())) {
+					// 修改库存数量
 					goodsVO.setNumInStock(goodsVO.getNumInStock()
 							- cvo.getNum());
-					goodsController.modifyGoods(goodsVO);
-
-					// 库存报警检查
-					StockControlBLService stockController = new StockControlController();
-					stockController.stockNumCheck(goodsVO.getGoodsID());
+					// 修改最近售价
+					goodsVO.setLastPrice(cvo.getPrice());
+					purchaseReturnGoods.add(goodsVO);
 				} else {
-					return 1;// 库存不满足进货退货
+					return 2;// 库存数量不满足进货退货
 				}
 			} catch (RemoteException e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
 			}
-
+			// check均无问题 执行
+			for (GoodsVO goodsVO : purchaseReturnGoods) {
+				goodsController.modifyGoods(goodsVO);
+				// 库存报警检查
+				StockControlBLService stockController = new StockControlController();
+				stockController.stockNumCheck(goodsVO.getGoodsID());
+			}
 		}
 		return 0;
 	}
