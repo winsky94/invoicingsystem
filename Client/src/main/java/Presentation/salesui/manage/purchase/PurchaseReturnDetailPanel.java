@@ -30,6 +30,7 @@ public class PurchaseReturnDetailPanel extends AddPurchasePanel{
 		p2.remove(stockFld);
 		remarkLbl.setText("备注:"+vo.getInfo());
 		p2.remove(remarkFld);
+		totalLbl.setText("总计:"+vo.getTotalInAll()+"元");
 		if(vo.getHurry()==0)
 			hurryBox.setSelected(true);
 		hurryBox.setEnabled(false);
