@@ -82,6 +82,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 	SalesBLService service;
 	JPanel btnPnl,p2,p1,p3;
 	public AddSalePanel(MainFrame frame) throws Exception {
+		super();
 		parent = frame;
 		service = new SalesController();
 		UserID=frame.getUser().getID();
