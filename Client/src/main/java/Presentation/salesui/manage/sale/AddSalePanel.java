@@ -338,6 +338,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 						last_bid.remove(row[i]);
 						table.revalidate();
 						matchPromotion();
+						table.clearSelection();
 					}
 				} else
 					JOptionPane.showMessageDialog(null, "请选择要删除的商品", "提示",
