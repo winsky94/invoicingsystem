@@ -82,7 +82,6 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 	SalesBLService service;
 	JPanel btnPnl,p2,p1,p3;
 	public AddSalePanel(MainFrame frame) throws Exception {
-		super();
 		parent = frame;
 		service = new SalesController();
 		UserID=frame.getUser().getID();
@@ -404,7 +403,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 					JOptionPane.showMessageDialog(null, "请选择客户！", "提示",
 							JOptionPane.WARNING_MESSAGE);
 				else{
-					if(isValid()){
+					if(isInputValid()){
 						getSale();
 						int result = service.addSale(sale);
 						if (result == 0) {
@@ -633,7 +632,7 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 
 	}
 	
-	public boolean isValid(){
+	public boolean isInputValid(){
 		boolean isValid=!(stockFld.getText().equals("")||memid.equals("")||cmContent.size()==0);
 		return isValid;
 	}
