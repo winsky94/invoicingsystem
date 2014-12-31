@@ -140,7 +140,8 @@ public class StockManage {
 					String date = purchasePo.getDate().replace("/", "");
 					if (beginDate.compareTo(date) <= 0
 							&& endDate.compareTo(date) >= 0) {// 在当前日期内
-						if (purchasePo.getStatus() == 3) {// 执行完毕
+						if (purchasePo.getStatus() == 3||purchasePo.getStatus()==2) {// 执行完毕
+							//进货不给设置3只能判断2
 							ArrayList<CommodityPO> cList = purchasePo
 									.getPurchaseList();
 							for (int k = 0; k < cList.size(); k++) {
@@ -164,7 +165,8 @@ public class StockManage {
 					String date = saleReturnPO.getDate().replace("/", "");
 					if (beginDate.compareTo(date) <= 0
 							&& endDate.compareTo(date) >= 0) {// 在当前日期内
-						if (saleReturnPO.getStatus() == 3) {// 执行完毕
+						if (saleReturnPO.getStatus() == 3||saleReturnPO.getStatus() == 2) {// 执行完毕
+							//销售退货不给设置3，只给设置2
 							ArrayList<CommodityPO> cList = saleReturnPO
 									.getSalesreturnList();
 							for (int k = 0; k < cList.size(); k++) {
@@ -186,7 +188,8 @@ public class StockManage {
 					String date = salePO.getDate().replace("/", "");
 					if (beginDate.compareTo(date) <= 0
 							&& endDate.compareTo(date) >= 0) {// 在当前日期内
-						if (salePO.getStatus() == 3) {// 执行完毕
+						if (salePO.getStatus() == 3||salePO.getStatus() == 2) {// 执行完毕
+							//销售不给设置3，只给设置2
 							ArrayList<CommodityPO> cList = salePO
 									.getSalesList();
 							for (int k = 0; k < cList.size(); k++) {
@@ -211,7 +214,8 @@ public class StockManage {
 					String date = purchaseReturnPO.getDate().replace("/", "");
 					if (beginDate.compareTo(date) <= 0
 							&& endDate.compareTo(date) >= 0) {// 在当前日期内
-						if (purchaseReturnPO.getStatus() == 3) {// 执行完毕
+						if (purchaseReturnPO.getStatus() == 3||purchaseReturnPO.getStatus() == 2) {// 执行完毕
+							//进货退货不给设置3，只能判断2了
 							ArrayList<CommodityPO> cList = purchaseReturnPO
 									.getPurchaseReturnList();
 							for (int k = 0; k < cList.size(); k++) {
