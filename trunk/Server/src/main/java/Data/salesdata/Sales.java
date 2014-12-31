@@ -14,6 +14,7 @@ import po.ReceiptPO;
 import po.ReceiptPO.ReceiptType;
 import po.SalePO;
 import po.SaleReturnPO;
+
 import dataservice.salesdataservice.SalesDataService;
 
 public class Sales extends UnicastRemoteObject implements SalesDataService{
@@ -92,6 +93,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		return 0;
 	}
 	
+	
 	public int createPurchase(PurchasePO po) throws RemoteException{
 		file=new JXCFile("purchase.ser");
 		file.write(po);
@@ -114,34 +116,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 	}
 
 	
-	public ArrayList<ReceiptPO> findByGoodsName(String name) throws RemoteException{
-		ArrayList<ReceiptPO> sale=getAllSale();
-		if(sale==null) return null;
-		else{
-			ArrayList<ReceiptPO> result=new ArrayList<ReceiptPO>();
-			ArrayList<CommodityPO> com;
-			for(ReceiptPO po:sale){
-				if(po.getType()==ReceiptType.SALE){
-					com=((SalePO)po).getSalesList();
-				}else{
-					com=((SaleReturnPO)po).getSalesreturnList();
-				}
-				if(com!=null){
-					for(CommodityPO cpo:com){
-						if(cpo.getName().equals(name))
-						{
-							result.add(po);break;
-						}
-					}
-				}
-					
-			
-			}
-			if(result.size()==0) return null;
-			else return result;
-		}
-		
-	}
+
 	public int createPurchaseReturn(PurchaseReturnPO po) throws RemoteException{
 		file=new JXCFile("purchasereturn.ser");
 		file.write(po);
@@ -217,7 +192,6 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			if(p.getId().equals(po.getId())){
 				tag=true;
 				p.setInfo(po.getInfo());
-				p.setMemberID(po.getMemberID());
 				p.setPurchaseList(po.getPurchaseList());
 				p.setStatus(po.getStatus());
 				p.setTotalInAll(po.getTotalInAll());
@@ -244,7 +218,6 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 				tag=true;
 				p.setHurry(po.getHurry());
 				p.setInfo(po.getInfo());
-				p.setMemberID(po.getMemberID());
 				p.setStatus(po.getStatus());
 				p.setTotalInAll(po.getTotalInAll());
 				break;
@@ -269,8 +242,6 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 				tag=true;
 				p.setHurry(po.getHurry());
 				p.setInfo(po.getInfo());
-				p.setMemberID(po.getMemberID());
-				p.setClerk(po.getClerk());
 				p.setCost(po.getCost());
 				p.setCouponPrice(po.getCouponPrice());
 				p.setDiscount(po.getDiscountValue());
@@ -302,8 +273,6 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 				tag=true;
 				p.setHurry(po.getHurry());
 				p.setInfo(po.getInfo());
-				p.setMemberID(po.getMemberID());
-				p.setClerk(po.getClerk());
 				p.setCost(po.getCost());
 				p.setCouponPrice(po.getCouponPrice());
 				p.setDiscount(po.getDiscountValue());
@@ -329,10 +298,10 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		if(po==null)
 			return null;
 		if(type.equals("时间区间")){
-			String qishi=message.substring(0,8);
-			String jiezhi=message.substring(8,16);
+			String start=message.substring(0,8);
+			String end=message.substring(8,16);
 			for(PurchasePO p:po){
-				if(qishi.compareTo(p.myGetDate())<=0&&p.myGetDate().compareTo(jiezhi)<=0)
+				if(start.compareTo(p.myGetDate())<=0&&p.myGetDate().compareTo(end)<=0)
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -380,10 +349,10 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		if(po==null)
 			return null;
 		if(type.equals("时间区间")){
-			String qishi=message.substring(0,8);
-			String jiezhi=message.substring(8,16);
+			String start=message.substring(0,8);
+			String end=message.substring(8,16);
 			for(PurchaseReturnPO p:po){
-				if(qishi.compareTo(p.myGetDate())<=0&&p.myGetDate().compareTo(jiezhi)<=0)
+				if(start.compareTo(p.myGetDate())<=0&&p.myGetDate().compareTo(end)<=0)
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -430,10 +399,10 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			return null;
 		ArrayList<SalePO> result=new ArrayList<SalePO>();
 		if(type.equals("时间区间")){
-			String qishi=message.substring(0,8);
-			String jiezhi=message.substring(8,16);
+			String start=message.substring(0,8);
+			String end=message.substring(8,16);
 			for(SalePO p:po){
-				if(qishi.compareTo(p.myGetDate())<=0&&p.myGetDate().compareTo(jiezhi)<=0)
+				if(start.compareTo(p.myGetDate())<=0&&p.myGetDate().compareTo(end)<=0)
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -489,10 +458,10 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		if(po==null)
 			return null;
 		if(type.equals("时间区间")){
-			String qishi=message.substring(0,8);
-			String jiezhi=message.substring(8,16);
+			String start=message.substring(0,8);
+			String end=message.substring(8,16);
 			for(SaleReturnPO p:po){
-				if(qishi.compareTo(p.myGetDate())<=0&&p.myGetDate().compareTo(jiezhi)<=0)
+				if(start.compareTo(p.myGetDate())<=0&&p.myGetDate().compareTo(end)<=0)
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -506,8 +475,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 					      result.add(p);
 					      break;
 					  }
-				  }
-					
+				  }					
 			}
 			if(result.size()==0)
 				return null;
@@ -559,11 +527,10 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		
 		if(all.size()==0)
 			return null;
-		
-		  if(all!=null)
-		  Collections.sort(all,new SequenceOfReceiptPO());
+		if(all!=null)
+		   Collections.sort(all,new SequenceOfReceiptPO());
 		  
-		  return all;
+		 return all;
 
 	}
 	public ArrayList<ReceiptPO> getAllPurchase() throws RemoteException{
@@ -583,9 +550,8 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		
 		if(all.size()==0)
 			return null;
-		
-		  if(all!=null)
-		  Collections.sort(all,new SequenceOfReceiptPO());
+		 if(all!=null)
+		   Collections.sort(all,new SequenceOfReceiptPO());
 		  
 		  return all;
 
@@ -632,11 +598,53 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		  return null;
 	}
 	
+	public ArrayList<ReceiptPO> findByGoodsName(String name) throws RemoteException{
+		ArrayList<ReceiptPO> sale=getAllSale();
+		if(sale==null) return null;
+		else{
+			ArrayList<ReceiptPO> result=new ArrayList<ReceiptPO>();
+			ArrayList<CommodityPO> com;
+			for(ReceiptPO po:sale){
+				if(po.getType()==ReceiptType.SALE){
+					com=((SalePO)po).getSalesList();
+				}else{
+					com=((SaleReturnPO)po).getSalesreturnList();
+				}
+				if(com!=null){
+					for(CommodityPO cpo:com){
+						if(cpo.getName().equals(name))
+						{
+							result.add(po);break;
+						}
+					}
+				}			
+			}
+			if(result.size()==0) return null;
+			else return result;
+		}
+		
+	}
 	
 	public static void main(String[] args) throws RemoteException{
 	Sales a;
 		
 			a = new Sales();
+			ArrayList<CommodityPO> commodity=new ArrayList<CommodityPO>();
+			CommodityPO com=new CommodityPO("0001-SR01-0001","蓝之恋吊灯","SR01",1000,800,1,1000,800
+					,"在做测试");
+			commodity.add(com);
+			double[] total=new double[]{800,1000,1000,0,1000};
+			double[] discount=new double[]{0,0,0,0};
+			//创建销售单
+				
+		SalePO sale=new SalePO("金金",commodity,"XSD-20141205-00001","马建国","XSS-00001",
+					"XS-00001",0,0,"","1","","",discount,total);
+			
+		a.createSale(sale);
+			sale.setStatus(2);
+			a.updateSale(sale);
+			a.updateSale(sale);
+			//System.out.println(a.findReceiptByID("XSD-20141205-00001").getStatus());
 //			a.showPurchase();
 ////			ArrayList<CommodityPO> al=new ArrayList<CommodityPO>();
 ////			CommodityPO item =new CommodityPO("0001-001-0001","飞利浦日光灯","SRO1",100,158,100,198,98,"这是个灯");
@@ -652,10 +660,10 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 //				System.out.println(po.getId()+" "+po.getDate()+" "+po.getPurchaseList().get(0).getName());
 //			}
 //
-			ArrayList<SalePO> pl1=a.showSale();
-			for(SalePO po:pl1){
-				System.out.println(po.getHurry());
-			}
+			//ArrayList<SalePO> pl1=a.showSale();
+			//for(SalePO po:pl1){
+				//System.out.println(po.getHurry());
+			//}
 		
 			/*System.out.println("-------------------------");
 		try {
