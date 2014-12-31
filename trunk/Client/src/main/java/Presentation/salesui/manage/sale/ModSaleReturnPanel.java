@@ -1,5 +1,6 @@
 package Presentation.salesui.manage.sale;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -44,6 +45,8 @@ public class ModSaleReturnPanel extends JPanel implements ActionListener{
 		p.remarkFld.setText(vo.getInfo());
 		p.submitBtn.removeActionListener(p);
 		p.exitBtn.removeActionListener(p);
+		this.setLayout(new BorderLayout());
+		this.add(p, BorderLayout.CENTER);
 		//12.20带监听
 	}
 	
