@@ -153,8 +153,7 @@ public class ModifyUserPanel extends JPanel {
 		
 		submitBtn.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				ujob=getJobChange.getJobType(typeBox.getSelectedItem().toString());
-				UserVO VO=new UserVO(nameFld.getText(),vo.getID(),keyFld.getText(),ujob,vo.getGrades());
+				UserVO VO=new UserVO(nameFld.getText(),vo.getID(),keyFld.getText(),vo.getJob(),vo.getGrades());
 				int i=service.modifyUser(VO);
 				if(i==0)
 					JOptionPane.showMessageDialog(null,"修改成功","提示",JOptionPane.CLOSED_OPTION);
