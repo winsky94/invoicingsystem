@@ -29,7 +29,11 @@ import Presentation.uihelper.UIhelper;
 import businesslogic.userbl.User;
 import businesslogicservice.userblservice.UserBLService;
 
-
+/*
+ * Author:wang
+ * lastModify:12-1 By jin
+ * 
+ * */
 public class LoginFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;

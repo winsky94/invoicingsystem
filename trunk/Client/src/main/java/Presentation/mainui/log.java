@@ -8,7 +8,12 @@ import businesslogic.utilitybl.logbl;
 import businesslogicservice.userblservice.LogBLService;
 import vo.LogVO;
 
-
+/*
+ *Author:jin 
+ *lastModify:12-06 by jin
+ *description:add the system log when user do operation 
+ *s
+ * */
 public class log {
 	public  static  void  addLog(LogVO vo){
 		try {
