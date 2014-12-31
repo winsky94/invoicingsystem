@@ -32,8 +32,8 @@ public class IPFrame extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	int screenWidth = UIhelper.getScreenWidth();
 	int screenHeight = UIhelper.getScreenHeight();
-	int frameWidth = screenWidth * 30 / 100;
-	int frameHeight = screenHeight * 35 / 100;
+	int frameWidth = 410;
+	int frameHeight = 270;
 	int xOld,yOld;
 	// ------------------------
 	Font font = new Font("微软雅黑", Font.PLAIN, 14);
