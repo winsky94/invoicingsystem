@@ -259,6 +259,7 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 						last_bid.remove(row[i]);
 						// parent.setRightComponent(PurchasePane.this);
 						table.revalidate();
+						table.clearSelection();
 					}
 				} else
 					JOptionPane.showMessageDialog(null, "请选择要删除的商品", "提示",
