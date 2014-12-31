@@ -6,14 +6,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 public class CommodityTableModel extends AbstractTableModel{
+
 	
-	
-	
-	/**
- * 
- */
-ArrayList<ArrayList<String>> cmContent=new ArrayList<ArrayList<String>>();
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
+	ArrayList<ArrayList<String>> cmContent=new ArrayList<ArrayList<String>>();
 	String head[] = { "商品编号","名称", "型号","数量","单价","金额","备注" };
 	public int getRowCount() {
 		return cmContent.size();
@@ -47,22 +43,23 @@ private static final long serialVersionUID = 1L;
 				fireTableCellUpdated(row, column);
 		 }
 		 else{
-		 if(((String)value).equals(""))
-			 JOptionPane.showMessageDialog(null, "请输入合法数值!");
-		 else{
-			 try{
-			  v=Double.parseDouble((String)value);
-			  if(v<=0)
-					 JOptionPane.showMessageDialog(null, "请输入合法数值!"); 
+			 if(((String)value).equals(""))
+				 JOptionPane.showMessageDialog(null, "请输入合法数值!");
 			 else{
-					 cmContent.get(row).set(column,(String)value ); 
-					fireTableCellUpdated(row, column);}
+				 try{
+					 v=Double.parseDouble((String)value);
+					 if(v<=0)
+						 JOptionPane.showMessageDialog(null, "请输入合法数值!"); 
+					 else{
+						 cmContent.get(row).set(column,(String)value ); 
+						 fireTableCellUpdated(row, column);}
 					
-			 }
-			 catch(Exception e){
-				 JOptionPane.showMessageDialog(null, "请输入数字!");
-			 }
-			}}
+				 }
+				 catch(Exception e){
+					 JOptionPane.showMessageDialog(null, "请输入数字!");
+				 }
+			}
+	}
 			
 }  
 	
