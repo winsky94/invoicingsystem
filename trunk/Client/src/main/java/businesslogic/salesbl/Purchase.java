@@ -75,8 +75,6 @@ public class Purchase extends Receipt {
 		
 		
 		ModifyPurchase(vo);
-		
-		Reply(vo.getId(), vo.getType(), 0);
 		return 0;
 	}
 

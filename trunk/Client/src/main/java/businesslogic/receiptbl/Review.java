@@ -56,13 +56,13 @@ public class Review {
 			boolean RedORNormal=tag==0||(tag==1&&saleReceipt.getCouponid().equals(""));
 			if(!RedORNormal)
 			{	Sale sale=(Sale)receipt;
-				result=sale.excute(saleReceipt,false);
-				
+				result=sale.excute(saleReceipt,false);				
 			}
 			else
 				result=receipt.excute(vo);	//正常执行   部分单据的红冲执行需要分开 仅出现在销售
 		}else
-			 result=receipt.excute(vo);		 
+			 result=receipt.excute(vo);	
+			 receipt.Reply(vo.getId(), vo.getType(), result);
 	
 		return result;//0成功  1不成功  
 	}
@@ -113,10 +113,7 @@ public class Review {
 	}
 
 	
-	public ArrayList<ReceiptVO> Refresh(){
-		return null;
-	}
-	//**传参数呢 还是id呢
+
 	public int Approve(String id,int status){
 	//	int i=service.Approve(id,status);
 		int result=0;
@@ -144,15 +141,4 @@ public class Review {
 		return result;
 	}
 	
-	
-	
-	//红冲 i=0,仅红冲，i=1并复制
-	public ReceiptVO RedExtru(Receipt receipt,int i){
-		MockCashList cash=(MockCashList)receipt;
-		MockAccount ac=(MockAccount)cash.getAccout();
-		ac.updateBalance(-cash.getTotal());
-		
-		
-		return null;
-	} 
 }
