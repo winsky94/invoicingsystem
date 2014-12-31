@@ -170,8 +170,7 @@ public class Sale extends Receipt {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//返回审批结果
-		Reply(vo.getId(), vo.getType(), 1);
+	
 		return 0;
 	}
 

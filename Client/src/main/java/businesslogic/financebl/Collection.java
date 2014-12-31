@@ -113,7 +113,6 @@ public class Collection extends Receipt implements CollectionBLService{
 				e.printStackTrace();
 			}
 			
-			Reply(vo.getId(),vo.getType(),0);
 			System.out.println("执行成功！");
 		
 

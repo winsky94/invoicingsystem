@@ -120,7 +120,6 @@ public class Payment extends Receipt implements PaymentBLService{
 				e.printStackTrace();
 			}
 			
-			Reply(vo.getId(),vo.getType(),0);
 			System.out.println("执行成功！");
 		
     	
