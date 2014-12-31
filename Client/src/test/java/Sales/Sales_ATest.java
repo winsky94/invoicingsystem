@@ -12,6 +12,7 @@ import businesslogic.salesbl.SalesController;
 public class Sales_ATest extends TestCase{
 		SalesController controller;
 		ArrayList<CommodityVO> cmlist;
+		CommodityVO ccm;
 		public void setUp() throws Exception{
 			controller=new SalesController();
 			cmlist=new ArrayList<CommodityVO>();
@@ -19,6 +20,8 @@ public class Sales_ATest extends TestCase{
 			CommodityVO com=new CommodityVO("0001-SR01-0001","蓝之恋吊灯","SR01",1000,800,1,1000,800
 					,"在做测试");
 			commodity.add(com);
+			ccm=new CommodityVO("0001-SR01-0002","蓝之恋吊灯","SR01",1000,800,1,1000,800
+					,"在做测试");
 			double[] total=new double[]{800,1000,1000,0,1000};
 			double[] discount=new double[]{0,0,0,0};
 			SaleVO sale=new SaleVO("金金",commodity,"XSD-20141205-00001","金大大","XSS-00001",
@@ -70,9 +73,7 @@ public class Sales_ATest extends TestCase{
 		public void test_3(){
 			SaleVO sale=controller.SFindByID("XSD-20141205-00001");
 			ArrayList<CommodityVO> clist=sale.getSalesList();
-			CommodityVO com=new CommodityVO("0001-SR01-0002","蓝之恋吊灯","SR01",1000,800,1,1000,800
-					,"在做测试");
-			clist.add(com);
+			clist.add(ccm);
 			sale.setSaleList(clist);
 			int result=controller.modifySale(sale);
 			assertEquals(0,result);

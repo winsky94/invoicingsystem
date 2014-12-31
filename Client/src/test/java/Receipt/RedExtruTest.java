@@ -35,7 +35,7 @@ public class RedExtruTest extends TestCase{
 		double money=item1.getMoney()+item2.getMoney();
 		//费用单总额计算
 		assertEquals(money,cashList.getTotal());
-		review.RedExtru(cashList, 0);
+	//	review.RedExtru(cashList, 0);
 		//红冲入账的结果,该账户余额减少
 		assertEquals(68000.0,account.getBalance());
 		

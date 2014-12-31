@@ -104,13 +104,7 @@ public class Receipt_ATest extends TestCase{
 	
 	
 	//TUS3-1 筛选类型
-	public void test_4(){
-		list.showAllReceipt();
-		String[] message=new String[]{"1"};
-		list.AccurateFind(message);
-		list.showApproved();
-		list.showToApprove();
-		
+	public void test_4(){	
 		
 		
 	}
