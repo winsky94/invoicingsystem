@@ -63,7 +63,8 @@ public class packPro extends promotion{
 		if(vo==null) return 1;
 		else {
 			PackProPO po=voToPo((PackProVO)vo);
-			return service.Modify(po);
+			PromotionPO p=po;
+			return service.Modify(p);
 		}
 	}
 

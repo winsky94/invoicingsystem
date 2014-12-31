@@ -90,7 +90,8 @@ public class giftGoodPro extends promotion{
 		if(vo==null) return 1;
 		else{
 			GiftGoodProPO po=voToPo((GiftGoodsProVO)vo);
-			return service.Modify(po);
+			PromotionPO p=po;
+			return service.Modify(p);
 		}
 		
 	}

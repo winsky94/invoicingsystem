@@ -93,7 +93,9 @@ public class giftCouponPro extends promotion{
 		if(vo==null) return 1;
 		else{
 			GiftCouponProVO v=(GiftCouponProVO)vo;
-			return service.Modify(voToPo(v));
+			GiftCouponProPO po=voToPo(v);
+			PromotionPO p=po;
+			return service.Modify(p);
 		}
 	}
 

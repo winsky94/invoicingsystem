@@ -125,7 +125,8 @@ public  class discountPro extends promotion{
 		if(vo==null) return 1;
 		else{
 			DiscountProPO po=voToPo((DiscountProVO)vo);
-			return service.Modify(po);
+			PromotionPO p=po;
+			return service.Modify(p);
 		}
 	}
 
