@@ -91,7 +91,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 	JTabbedPane tab, toptab;
 	SaleDetailTableModel sdtm;// 销售明细表
 	OperationHistoryTableModel ohtm;// 经验历程表
-//	OperationStatementTableModel ostm;// 经营情况表
+	// OperationStatementTableModel ostm;// 经营情况表
 	BSLTableModel bstm;
 	JTable t1, t2, t3;// 销售明细表；经营历程表；经营情况表
 	JScrollPane jsp1, jsp2, jsp3;// 销售明细表；经营历程表；经营情况表
@@ -136,7 +136,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		c.weighty = 0.1;
 		gbl.setConstraints(toptab, c);
 		this.add(toptab);
-		
+
 		// -----------------------------
 		JPanel buttonPnl = new JPanel();
 		buttonPnl.setBackground(Color.white);
@@ -160,7 +160,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		if (isFinance) {
 			redBtn = new MyButton("红冲", new ImageIcon(redPath));
 			redBtn.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
@@ -170,22 +170,24 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			btnPnl.add(redBtn);
 			redCopyBtn = new MyButton("红冲并复制", new ImageIcon(redCopyPath));
 			redCopyBtn.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					int row=RedOperation();
-					if(row>=0)
-					{
-						String id=t2.getValueAt(row, 0).toString();
-						ReceiptType type=Total.getsType(t2.getValueAt(row, 3).toString());
+					int row = RedOperation();
+					if (row >= 0) {
+						String id = t2.getValueAt(row, 0).toString();
+						ReceiptType type = Total.getsType(t2.getValueAt(row, 3)
+								.toString());
 						try {
-							RedOkListener redok=new RedOkListener();
-							JPanel  pane=AdvancedReceiptPanel.getModPanel(id, type,redok,true,parent);
-							//JPanel redpane=new JPanel();
-							//redpane.setLayout(new BorderLayout());
-							//redpane.add(pane, BorderLayout.CENTER);
-							RedDialog dialog=new RedDialog(parent,false,pane);
+							RedOkListener redok = new RedOkListener();
+							JPanel pane = AdvancedReceiptPanel.getModPanel(id,
+									type, redok, true, parent);
+							// JPanel redpane=new JPanel();
+							// redpane.setLayout(new BorderLayout());
+							// redpane.add(pane, BorderLayout.CENTER);
+							RedDialog dialog = new RedDialog(parent, false,
+									pane);
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -195,38 +197,38 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 			});
 			btnPnl.add(redCopyBtn);
 		}
-//		// -----搜索框---------------
-//		findFld = new JTextField(13);
-//		findFld.setFont(font);
-//		findFld.getDocument().addDocumentListener(new DocumentListener() {
-//
-//			public void removeUpdate(DocumentEvent e) {
-//				keyword = findFld.getText();
-//
-//			}
-//
-//			public void insertUpdate(DocumentEvent e) {
-//				keyword = findFld.getText();
-//
-//			}
-//
-//			public void changedUpdate(DocumentEvent e) {
-//				keyword = findFld.getText();
-//
-//			}
-//		});
-//		twoTimePnl.add(findFld);
-//		// -----搜索按钮-------------
-//		findBtn = new MyButton(new ImageIcon(findPath));
-//		twoTimePnl.add(findBtn);
+		// // -----搜索框---------------
+		// findFld = new JTextField(13);
+		// findFld.setFont(font);
+		// findFld.getDocument().addDocumentListener(new DocumentListener() {
+		//
+		// public void removeUpdate(DocumentEvent e) {
+		// keyword = findFld.getText();
+		//
+		// }
+		//
+		// public void insertUpdate(DocumentEvent e) {
+		// keyword = findFld.getText();
+		//
+		// }
+		//
+		// public void changedUpdate(DocumentEvent e) {
+		// keyword = findFld.getText();
+		//
+		// }
+		// });
+		// twoTimePnl.add(findFld);
+		// // -----搜索按钮-------------
+		// findBtn = new MyButton(new ImageIcon(findPath));
+		// twoTimePnl.add(findBtn);
 		// ----日期--------------
 		JLabel fromLbl = new JLabel("起始时间：");
 		fromLbl.setFont(font);
 		fromLbl.setForeground(color);
-		dateListener datelistener=new dateListener();
+		dateListener datelistener = new dateListener();
 		from = new DateChooser();
 		from.showDate.addFocusListener(datelistener);
-		
+
 		twoTimePnl.add(fromLbl);
 		twoTimePnl.add(from);
 		JLabel toLbl = new JLabel("截止时间：");
@@ -247,14 +249,14 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		JPanel f2 = new JPanel();
 		f2.setBackground(Color.white);
 		filterPnl.add(f2);
-		
+
 		// -----四大复选框-----------
 		// -----按商品名筛选-------------
 		nameOrTypeLbl = new JLabel("按商品名");
 		nameOrTypeLbl.setFont(font);
 		nameOrTypeLbl.setForeground(color);
 		f1.add(nameOrTypeLbl);
-		nameOrTypeCbox=new JComboBox<String>();
+		nameOrTypeCbox = new JComboBox<String>();
 		nameOrTypeCbox.setBackground(Color.white);
 		nameOrTypeCbox.setForeground(color);
 		nameOrTypeCbox.setFont(font);
@@ -290,48 +292,51 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		stockFld.setFont(font);
 		f2.add(stockFld);
 		// -----单据类型------------
-		
+
 		f2.add(new JLabel());
-		toptab.addChangeListener(new ChangeListener(){
+		toptab.addChangeListener(new ChangeListener() {
 
 			public void stateChanged(ChangeEvent e) {
 				// TODO Auto-generated method stub
 				try {
-					if(toptab.getSelectedIndex()==1){
+					if (toptab.getSelectedIndex() == 1) {
 						MemberViewService memservice = new Member();
-						String[] memName=memservice.getAllMemberName();
+						String[] memName = memservice.getAllMemberName();
 						memberCbox.removeAllItems();
-						for(String name:memName)
-							memberCbox.addItem(name);
-						UserViewService userservice=new User();
-						String[] userName=userservice.getAllUserName();
-						clerkCbox.removeAllItems();
-						for(String name:userName)
-							clerkCbox.addItem(name);
-						if(tab.getSelectedIndex()==0){
-							//销售明细  根据商品名筛选
-							nameOrTypeLbl.setText("按商品名");
-							StockGoodsBLService goodservice=new GoodsController();
-							String goodName[]=goodservice.getAllGoodsName();
-							nameOrTypeCbox.removeAllItems();
-							for(String name:goodName)
-								nameOrTypeCbox.addItem(name);
-						}else{
-							//经营历程  根据单据类型筛选
-							nameOrTypeLbl.setText("按单据类型");
-							String type[]={"全部","销售单","销售退货单","进货单","进货退货单","收款单",
-									"付款单","现金费用单","库存报警单","库存报损单","库存报溢单","库存赠送单"};
-							nameOrTypeCbox.removeAllItems();
-							nameOrTypeCbox.setEditable(false);
-							for(String item:type)
-								nameOrTypeCbox.addItem(item);
+						if (memName != null) {
+							for (String name : memName)
+								memberCbox.addItem(name);
+							UserViewService userservice = new User();
+							String[] userName = userservice.getAllUserName();
+							clerkCbox.removeAllItems();
+							for (String name : userName)
+								clerkCbox.addItem(name);
+							if (tab.getSelectedIndex() == 0) {
+								// 销售明细 根据商品名筛选
+								nameOrTypeLbl.setText("按商品名");
+								StockGoodsBLService goodservice = new GoodsController();
+								String goodName[] = goodservice
+										.getAllGoodsName();
+								nameOrTypeCbox.removeAllItems();
+								for (String name : goodName)
+									nameOrTypeCbox.addItem(name);
+							} else {
+								// 经营历程 根据单据类型筛选
+								nameOrTypeLbl.setText("按单据类型");
+								String type[] = { "全部", "销售单", "销售退货单", "进货单",
+										"进货退货单", "收款单", "付款单", "现金费用单",
+										"库存报警单", "库存报损单", "库存报溢单", "库存赠送单" };
+								nameOrTypeCbox.removeAllItems();
+								nameOrTypeCbox.setEditable(false);
+								for (String item : type)
+									nameOrTypeCbox.addItem(item);
+							}
 						}
-						
 					}
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} 
+				}
 			}
 		});
 		// -------筛选按钮----------------
@@ -361,11 +366,10 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		t1 = new JTable(sdtm);
 		t1.getTableHeader().setReorderingAllowed(false);
 		// table 渲染器，设置文字内容居中显示，设置背景色等
-				DefaultTableCellRenderer tcr = new MyTableCellRenderer();
-				for (int i = 0; i < t1.getColumnCount(); i++) {
-					t1.getColumn(t1.getColumnName(i)).setCellRenderer(
-							tcr);
-				}
+		DefaultTableCellRenderer tcr = new MyTableCellRenderer();
+		for (int i = 0; i < t1.getColumnCount(); i++) {
+			t1.getColumn(t1.getColumnName(i)).setCellRenderer(tcr);
+		}
 		jsp1 = new JScrollPane(t1);
 		tab.add("销售明细表", jsp1);
 		// ------经营历程表--------------
@@ -373,17 +377,16 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		t2 = new JTable(ohtm);
 		t2.getTableHeader().setReorderingAllowed(false);
 		for (int i = 0; i < t2.getColumnCount(); i++) {
-			t2.getColumn(t2.getColumnName(i)).setCellRenderer(
-					tcr);
+			t2.getColumn(t2.getColumnName(i)).setCellRenderer(tcr);
 		}
 		jsp2 = new JScrollPane(t2);
 		tab.add("经营历程表", jsp2);
 		// -------经营情况表--------------
-//		ostm = new OperationStatementTableModel();
-//		t3 = new JTable(ostm);
-		//------------------------test!!!!!!!!!!!------------------------------
-		bstm=new BSLTableModel();
-		t3=new JTable(bstm){
+		// ostm = new OperationStatementTableModel();
+		// t3 = new JTable(ostm);
+		// ------------------------test!!!!!!!!!!!------------------------------
+		bstm = new BSLTableModel();
+		t3 = new JTable(bstm) {
 			private static final long serialVersionUID = 1L;
 
 			protected JTableHeader createDefaultTableHeader() {
@@ -416,24 +419,23 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		header.addColumnGroup(g_profit);
 		TableCellRenderer renderer = new MyHeaderButtonRenderer();
 		TableColumnModel model = t3.getColumnModel();
-		
+
 		t3.getColumnModel().getColumn(3).setPreferredWidth(130);
 		t3.getColumnModel().getColumn(4).setPreferredWidth(200);
 		t3.getColumnModel().getColumn(11).setPreferredWidth(100);
-				
+
 		for (int i = 0; i < model.getColumnCount(); i++) {
 			model.getColumn(i).setHeaderRenderer(renderer);
 		}
 		t3.getTableHeader().setUI(new MyGroupTableHeaderUI());
-		//------------------------test!!!!!!!!!!!------------------------------
+		// ------------------------test!!!!!!!!!!!------------------------------
 		t3.getTableHeader().setReorderingAllowed(false);
 		for (int i = 0; i < t3.getColumnCount(); i++) {
-			t3.getColumn(t3.getColumnName(i)).setCellRenderer(
-					tcr);
+			t3.getColumn(t3.getColumnName(i)).setCellRenderer(tcr);
 		}
 		jsp3 = new JScrollPane(t3);
 		tab.add("经营情况表", jsp3);
-		tab.addChangeListener(new ChangeListener(){
+		tab.addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
@@ -441,7 +443,7 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				RefreshTable();
 				toptab.setSelectedIndex(0);
 			}
-			
+
 		});
 
 	}
@@ -498,17 +500,17 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 	public void RefreshTable() {
 		try {
 			ArrayList<ReceiptVO> vo = reservice.getSale();
-			if (vo != null)
-				{sdtm.RefreshList(vo);
-				 t1.revalidate();
-				}
+			if (vo != null) {
+				sdtm.RefreshList(vo);
+				t1.revalidate();
+			}
 			vo = reservice.View();
-			if (vo != null)
-				{ohtm.RefreshTable(vo);
-				 t2.revalidate();
-				}
-			
-			//	ostm.RefreshTable(data);
+			if (vo != null) {
+				ohtm.RefreshTable(vo);
+				t2.revalidate();
+			}
+
+			// ostm.RefreshTable(data);
 			refreshBSLTable();
 
 		} catch (Exception e1) {
@@ -516,37 +518,40 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 		}
 
 	}
-	
-	public void refreshBSLTable(){
-		String startDate=from.getDate();
-		String endDate=to.getDate();
+
+	public void refreshBSLTable() {
+		String startDate = from.getDate();
+		String endDate = to.getDate();
 		SaleListBLService ss;
 		StockControlBLService sc;
 		try {
 			ss = new SaleList();
-			sc= new StockControlController();
-			double saleIncome=ss.getSaleIncome(startDate, endDate);
-	 		double goodsOver=sc.getGoodsOverIncome(startDate, endDate);
-	 		double adjustCost=ss.getAdjustCost(startDate, endDate);
-	 		double purchaseReturn=ss.getPurchaseReturnProfitCalc(startDate, endDate);
-	 		double couponProfit=ss.getCouponProfitCalc(startDate, endDate);
-	 		double discountMoney=ss.getDiscountMoney(startDate, endDate);
-	 		double totalIncome=saleIncome+goodsOver+adjustCost+purchaseReturn+couponProfit;
-	 		double saleCost=ss.getSaleCost(startDate, endDate);
-	 		double goodsLow=sc.getGoodsLowCost(startDate, endDate);
-	 		double goodsGift=sc.getGiftCost(startDate, endDate);
-	 		double totalCost=saleCost+goodsLow+goodsGift;
-	 		double profit=totalIncome-totalCost;
-			double[] data={saleIncome,goodsOver,adjustCost,purchaseReturn,couponProfit,
-					discountMoney,totalIncome,saleCost,goodsLow,goodsGift,totalCost,profit};
+			sc = new StockControlController();
+			double saleIncome = ss.getSaleIncome(startDate, endDate);
+			double goodsOver = sc.getGoodsOverIncome(startDate, endDate);
+			double adjustCost = ss.getAdjustCost(startDate, endDate);
+			double purchaseReturn = ss.getPurchaseReturnProfitCalc(startDate,
+					endDate);
+			double couponProfit = ss.getCouponProfitCalc(startDate, endDate);
+			double discountMoney = ss.getDiscountMoney(startDate, endDate);
+			double totalIncome = saleIncome + goodsOver + adjustCost
+					+ purchaseReturn + couponProfit;
+			double saleCost = ss.getSaleCost(startDate, endDate);
+			double goodsLow = sc.getGoodsLowCost(startDate, endDate);
+			double goodsGift = sc.getGiftCost(startDate, endDate);
+			double totalCost = saleCost + goodsLow + goodsGift;
+			double profit = totalIncome - totalCost;
+			double[] data = { saleIncome, goodsOver, adjustCost,
+					purchaseReturn, couponProfit, discountMoney, totalIncome,
+					saleCost, goodsLow, goodsGift, totalCost, profit };
 			bstm.RefreshTable(data);
 			t3.revalidate();
 			t3.repaint();
 		} catch (Exception e) {
-		
+
 			e.printStackTrace();
 		}
- 		
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -564,95 +569,95 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				} else if (tab.getSelectedIndex() == 1)
 					ExportExcel.Exprot(ohtm.getExportContent(), fileName);
 				else
-				//	ExportExcel.Exprot(ostm.getExportContent(), fileName);
-				    ExportExcel.Exprot(bstm.getExportContent(), fileName);
+					// ExportExcel.Exprot(ostm.getExportContent(), fileName);
+					ExportExcel.Exprot(bstm.getExportContent(), fileName);
 				// saveXLSContents();
 			}
-		}else if(e.getSource()==filterBtn){
-			String type="销售明细";
-			String typeOrName=nameOrTypeCbox.getSelectedItem().toString();
-			if(tab.getSelectedIndex()==1){
-				type="经营历程";
-				if(!typeOrName.equals("全部"))
-					typeOrName=Total.getsType(typeOrName).toString();
+		} else if (e.getSource() == filterBtn) {
+			String type = "销售明细";
+			String typeOrName = nameOrTypeCbox.getSelectedItem().toString();
+			if (tab.getSelectedIndex() == 1) {
+				type = "经营历程";
+				if (!typeOrName.equals("全部"))
+					typeOrName = Total.getsType(typeOrName).toString();
 			}
-			
-			String message[]={from.getDate()+to.getDate(),typeOrName,
-					memberCbox.getSelectedItem().toString(),clerkCbox.getSelectedItem().toString(),stockFld.getText(),type};
-			ArrayList<ReceiptVO> receipt=reservice.AccurateFind(message);
-			FilterRefresh(receipt,type);	
-		}else if(e.getSource()==refreshBtn){
+
+			String message[] = { from.getDate() + to.getDate(), typeOrName,
+					memberCbox.getSelectedItem().toString(),
+					clerkCbox.getSelectedItem().toString(), stockFld.getText(),
+					type };
+			ArrayList<ReceiptVO> receipt = reservice.AccurateFind(message);
+			FilterRefresh(receipt, type);
+		} else if (e.getSource() == refreshBtn) {
 			RefreshTable();
-		//	ReportMgrPanel.this.repaint();
+			// ReportMgrPanel.this.repaint();
 		}
 	}
-	
-	class dateListener extends FocusAdapter{
-		public void focusLost(FocusEvent e){
+
+	class dateListener extends FocusAdapter {
+		public void focusLost(FocusEvent e) {
 			((JLabel) e.getSource()).setFocusable(true);
-			String start=from.getDate();
-			String end=to.getDate();
-			if(start.compareTo(end)<=0){
-				String type="销售明细";
-				if(tab.getSelectedIndex()==1)
-					type="经营历程";
-				String[] filter={start+end,null,null,null,null,type};
-				ArrayList<ReceiptVO> receipt=reservice.AccurateFind(filter);
-				FilterRefresh(receipt,type);
+			String start = from.getDate();
+			String end = to.getDate();
+			if (start.compareTo(end) <= 0) {
+				String type = "销售明细";
+				if (tab.getSelectedIndex() == 1)
+					type = "经营历程";
+				String[] filter = { start + end, null, null, null, null, type };
+				ArrayList<ReceiptVO> receipt = reservice.AccurateFind(filter);
+				FilterRefresh(receipt, type);
 			}
 			refreshBSLTable();
 			ReportMgrPanel.this.repaint();
 		}
-	} 
+	}
 
-	public void FilterRefresh(ArrayList<ReceiptVO> receipt,String type){
-		if(receipt==null){
-			if(type.equals("经营历程"))
+	public void FilterRefresh(ArrayList<ReceiptVO> receipt, String type) {
+		if (receipt == null) {
+			if (type.equals("经营历程"))
 				ohtm.clear();
-			else sdtm.clear();
+			else
+				sdtm.clear();
 			t1.revalidate();
 			t2.revalidate();
 			ReportMgrPanel.this.repaint();
-			JOptionPane.showMessageDialog(ReportMgrPanel.this, "没有符合条件的单据！");		
-		}else{
+			JOptionPane.showMessageDialog(ReportMgrPanel.this, "没有符合条件的单据！");
+		} else {
 			try {
-				if(type.equals("经营历程"))
-					{ohtm.RefreshTable(receipt);
+				if (type.equals("经营历程")) {
+					ohtm.RefreshTable(receipt);
 					t2.revalidate();
-				
-					}
-				else
-					{sdtm.RefreshList(receipt);
+
+				} else {
+					sdtm.RefreshList(receipt);
 					t1.revalidate();
-					}
+				}
 				ReportMgrPanel.this.repaint();
-			
+
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
 	}
-	
-	public int RedOperation(){
-		int row=t2.getSelectedRow();
-		if(row>=0)
-		{
-			String id=t2.getValueAt(row, 0).toString();
-			int result=reservice.Red(id);
-			//基本都是成功 提示是否多余
-			JOptionPane.showMessageDialog(null, "红冲成功！"
-					);
+
+	public int RedOperation() {
+		int row = t2.getSelectedRow();
+		if (row >= 0) {
+			String id = t2.getValueAt(row, 0).toString();
+			int result = reservice.Red(id);
+			// 基本都是成功 提示是否多余
+			JOptionPane.showMessageDialog(null, "红冲成功！");
 			RefreshTable();
 			t2.revalidate();
 			return row;
-		}else
-			JOptionPane.showMessageDialog(null, "请在经营历程表中选择一条单据"
-					+ "进行红冲！","提示",JOptionPane.WARNING_MESSAGE);
+		} else
+			JOptionPane.showMessageDialog(null, "请在经营历程表中选择一条单据" + "进行红冲！",
+					"提示", JOptionPane.WARNING_MESSAGE);
 		return -1;
 	}
-	
-	class RedOkListener implements ActionListener{
+
+	class RedOkListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -666,8 +671,8 @@ public class ReportMgrPanel extends JPanel implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
+
 		}
-		
+
 	}
 }
