@@ -30,10 +30,7 @@ public class SaleReturnDetailPanel extends AddSaleReturnPanel{
 		RefreshCTable(vo.getSaleReturnList());
 		remarkLbl.setText("备注:"+vo.getInfo());
 		p2.remove(remarkFld);
-		btnPnl.remove(submitBtn);
-		
-		
-		
+		btnPnl.remove(submitBtn);		
 	}
 	
 	
