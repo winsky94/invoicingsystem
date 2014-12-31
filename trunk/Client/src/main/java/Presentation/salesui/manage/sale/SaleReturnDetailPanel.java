@@ -19,6 +19,7 @@ public class SaleReturnDetailPanel extends AddSaleReturnPanel{
 		IDLbl.setText("编号："+vo.getId());
 		memberLbl.setText("客户:"+vo.getMemberName());
 		clerkLbl.setText("业务员:"+vo.getClerk());
+		id=vo.getId();
 		if(vo.getHurry()==0)
 			hurryBox.setSelected(true);
 		hurryBox.setEnabled(false);
