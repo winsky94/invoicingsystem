@@ -116,14 +116,15 @@ public class giftGoodPro extends promotion{
 				String end=pro.get(i).getEndDate();
 				String date=vo.getId().split("-")[1];
 				if(start.compareTo(date)<=0&&end.compareTo(date)>=0){
-				if(total>=pro.get(i).getTotalValue())
-				{
-					double giftvalue=cal(pro.get(i).getGiftList());
-					if(value<giftvalue){
-						value=giftvalue;result=pro.get(i);
-					}
+					if(total>=pro.get(i).getTotalValue())
+					{
+						//获取赠品总值最大
+						double giftvalue=cal(pro.get(i).getGiftList());
+						if(value<giftvalue){
+							value=giftvalue;result=pro.get(i);
+						}
 					
-				}
+					}
 				}
 			}
 			if(result!=null&&!result.IsMatch()){
@@ -138,8 +139,7 @@ public class giftGoodPro extends promotion{
 	public static double cal(ArrayList<CommodityVO> v){
 		double t=0;
 		for(int i=0;i<v.size();i++){
-			t+=v.get(i).getTotal();
-			
+			t+=v.get(i).getTotal();	
 		}
 		return t;
 	}
