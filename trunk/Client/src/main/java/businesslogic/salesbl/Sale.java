@@ -127,6 +127,7 @@ public class Sale extends Receipt {
 				//库存和客户应收均无问题 再执行
 				StockGoodsBLService goodsController = new GoodsController();
 				ArrayList<CommodityVO> list = vo.getSalesList();
+				//存储待更新商品
 				ArrayList<GoodsVO> saleGoods=new ArrayList<GoodsVO>();
 				for (CommodityVO cvo : list) {
 					GoodsVO goodsVO = goodsController.findByID(cvo.getID());
