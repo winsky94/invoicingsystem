@@ -118,7 +118,6 @@ public class StockOverReceipt extends Receipt {
 
 			StockOverOrLowPO po = voToPo(vo);
 			service.excute(po);
-			Reply(v.getId(), v.getType(), 0);
 			return 0;
 		} else {
 			return 10;
