@@ -634,8 +634,6 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 				e.printStackTrace();
 			}
 		}
-		else
-			JOptionPane.showMessageDialog(null, "请先选择用户！");
 
 	}
 	
