@@ -395,7 +395,6 @@ public class StockManage {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-//System.out.println("StockManage.getGiftCost()赠送支出："+giftCost);
 		return giftCost;
 	}
 
