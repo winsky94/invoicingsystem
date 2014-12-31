@@ -61,13 +61,7 @@ public class PurchaseDetailPanel extends JPanel{
 			
 		this.setLayout(new BorderLayout());
 		this.add(p,BorderLayout.CENTER);
-		this.repaint();
-	
-		
-		
-		
-		
-		
+		this.repaint();		
 	}
 	public void useToReceipt() {
 		// TODO Auto-generated method stub

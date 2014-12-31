@@ -37,7 +37,7 @@ public class ModSaleReturnPanel extends JPanel implements ActionListener{
 		p.stockLbl.setText("仓库:"+vo.getStockid());
 		p.clerkLbl.setText("业务员："+vo.getClerk());
 		UserViewService user=new User();
-		p.userLbl.setText("操作员:"+user.getName(vo.getId()));
+		p.userLbl.setText("操作员:"+user.getName(vo.getUser()));
 		p.totalFinDiscountLbl.setText("退货总额："+vo.getTotal()[2]+"元");
 		if(vo.getHurry()==0)
 			p.hurryBox.setSelected(true);
@@ -45,6 +45,7 @@ public class ModSaleReturnPanel extends JPanel implements ActionListener{
 		p.remarkFld.setText(vo.getInfo());
 		p.submitBtn.removeActionListener(p);
 		p.exitBtn.removeActionListener(p);
+		p.RefreshCTable(vo.getSaleReturnList());
 		this.setLayout(new BorderLayout());
 		this.add(p, BorderLayout.CENTER);
 		//12.20带监听

@@ -50,6 +50,8 @@ public class ModPurchaseReturnPanel extends JPanel implements ActionListener{
 		p.RefreshCTable(plist);
 		p.submitBtn.removeActionListener(p.psl);
 		p.exitBtn.removeActionListener(p.elisten);
+		this.setLayout(new BorderLayout());
+		this.add(p, BorderLayout.CENTER);
 		
 	}
 	
