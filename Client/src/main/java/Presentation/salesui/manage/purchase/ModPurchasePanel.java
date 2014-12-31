@@ -53,7 +53,7 @@ public class ModPurchasePanel extends JPanel implements ActionListener{
 			p.hurryBox.setSelected(true);
 		p.hurryBox.setEnabled(false);
 		UserViewService user=new User();
-		p.userLbl.setText("操作员:"+user.getName(vo.getId()));
+		p.userLbl.setText("操作员:"+user.getName(vo.getUser()));
 		p.btnPnl.remove(p.addGoodsBtn);
 		p.btnPnl.remove(p.delGoodsBtn);
 		p.submitBtn.removeActionListener(p.psl);
