@@ -23,6 +23,7 @@ public class ModGiftPanel extends AddGiftPanel{
 		super(myFather);
 		vo=(GiftGoodsProVO)service.find(ID, PromotionType.GIFTGOODS);
 		title.setText("修改赠品赠送策略");
+		id=vo.getId();
 		from.setTime(vo.getStartDate());
 		to.setTime(vo.getEndDate());
 		memberGradeBox.setSelectedItem(vo.getMemberlevel());

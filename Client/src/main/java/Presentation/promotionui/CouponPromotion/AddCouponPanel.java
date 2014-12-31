@@ -58,6 +58,7 @@ public class AddCouponPanel extends JPanel implements ActionListener {
 		father = myFather;
 		couponlist = new ArrayList<CouponVO>();
 		service = new promotionController();
+		id = service.getNewID(PromotionType.GIFTCOUPON);
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 5, 5, 5);
@@ -245,7 +246,6 @@ public class AddCouponPanel extends JPanel implements ActionListener {
 			double value = Double.parseDouble(priceFld.getText());
 			for (int i = 0; i < Integer.parseInt(totalFld.getText()); i++)
 				couponlist.add(new CouponVO("", value, false));
-			id = service.getNewID(PromotionType.GIFTCOUPON);
 			GiftCouponProVO vo = new GiftCouponProVO(id, startDate,
 					endDate, level, couponlist, totalValue);
 			return vo;

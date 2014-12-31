@@ -29,6 +29,7 @@ public class ModBarginPanel extends AddBarginPanel{
 		super(myFather);
 		vo=(PackProVO)service.find(ID, PromotionType.PACK);
 		//------------------
+		id=vo.getId();
 		title.setText("修改特价包促销策略");
 		from.setTime(vo.getStartDate());	
 		to.setTime(vo.getEndDate());

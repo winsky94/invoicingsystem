@@ -25,6 +25,7 @@ public class ModDiscountPanel extends AddDiscountPanel{
 		super(myFather);
 		vo=(DiscountProVO)service.find(ID, PromotionType.DISCOUNT);
 		title.setText("修改打折促销策略");
+		id=vo.getId();
 		from.setTime(vo.getStartDate());
 		to.setTime(vo.getEndDate());
 		memberGradeBox.setSelectedItem(vo.getMemberlevel());

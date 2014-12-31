@@ -28,6 +28,7 @@ public class ModCouponPanel extends AddCouponPanel{
 		from.setTime(vo.getStartDate());
 		to.setTime(vo.getEndDate());
 		isLimitValid=true;
+		id=vo.getId();
 		memberGradeBox.setSelectedItem(vo.getMemberlevel());
 		limitFld.setText(String.valueOf(vo.getTotalValue()));
 		priceFld.setText(String.valueOf(vo.getCouponList().get(0).getValue()));
