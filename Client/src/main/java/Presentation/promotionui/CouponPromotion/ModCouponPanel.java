@@ -27,6 +27,7 @@ public class ModCouponPanel extends AddCouponPanel{
 		title.setText("修改代金券赠送策略");
 		from.setTime(vo.getStartDate());
 		to.setTime(vo.getEndDate());
+		isLimitValid=true;
 		memberGradeBox.setSelectedItem(vo.getMemberlevel());
 		limitFld.setText(String.valueOf(vo.getTotalValue()));
 		priceFld.setText(String.valueOf(vo.getCouponList().get(0).getValue()));

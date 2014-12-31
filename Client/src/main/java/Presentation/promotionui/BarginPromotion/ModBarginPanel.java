@@ -32,6 +32,7 @@ public class ModBarginPanel extends AddBarginPanel{
 		title.setText("修改特价包促销策略");
 		from.setTime(vo.getStartDate());	
 		to.setTime(vo.getEndDate());
+		IsPackValid=true;
 		memberGradeBox.setSelectedItem(vo.getMemberlevel());
 		defaultTotalLbl.setText("原价:"+vo.getTotalValue()+"元");
 		priceFld.setText(String.valueOf(vo.getPackValue()));

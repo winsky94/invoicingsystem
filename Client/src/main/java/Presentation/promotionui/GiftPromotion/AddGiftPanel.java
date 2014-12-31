@@ -427,6 +427,16 @@ public class AddGiftPanel extends ChooseGoodsFatherPane {
 				JOptionPane.showMessageDialog(null, "请选择赠品！", "提示",
 						JOptionPane.WARNING_MESSAGE);
 			}else{
+				try{
+					double p=Double.parseDouble(limitFld.getText());
+					if(p<0)
+						JOptionPane.showMessageDialog(null, "请输入不小于0的满赠总价！", "提示",
+								JOptionPane.WARNING_MESSAGE);
+				}catch(Exception ee){
+					JOptionPane.showMessageDialog(null, "满赠总价请输入数值！", "提示",
+							JOptionPane.WARNING_MESSAGE);
+				}
+					
 			GiftGoodsProVO vo=getGiftPro();
 			if (service.Add(vo) == 0) {
 				JOptionPane.showMessageDialog(null, "策略添加成功", "提示",
