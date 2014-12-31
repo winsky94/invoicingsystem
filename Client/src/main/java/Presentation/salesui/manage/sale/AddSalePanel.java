@@ -53,7 +53,10 @@ import businesslogicservice.memberblservice.MemberViewService;
 import businesslogicservice.promotionblservice.PromotionMatchService;
 import businesslogicservice.promotionblservice.PromotionViewService;
 import businesslogicservice.salesblservice.SalesBLService;
-
+/*
+ * Author:wang
+ * lastModify:12-31 by jin
+ * */
 public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListener {
 
 	
