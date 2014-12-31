@@ -140,7 +140,7 @@ public class Sale extends Receipt {
 						goodsVO.setLastPrice(cvo.getPrice());
 						saleGoods.add(goodsVO);						
 					} else {
-						return 1;// 库存数量不满足销售
+						return 2;// 库存数量不满足销售
 					}
 				}
 				//check均无问题 执行
