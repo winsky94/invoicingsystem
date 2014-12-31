@@ -375,6 +375,9 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 			if(i<0){
 				JOptionPane.showMessageDialog(null, "请选择客户！", "提示",
 						JOptionPane.WARNING_MESSAGE);
+			}else if(!isInputValid()){
+				JOptionPane.showMessageDialog(null, "信息输入不完整无法提交！", "提示",
+						JOptionPane.WARNING_MESSAGE);		
 			}else{
 			memid=idtxt[i];
 			PurchaseVO vo=getPurchase();
@@ -432,6 +435,12 @@ public class AddPurchasePanel extends ChooseGoodsFatherPane {
 				stockFld.getText(), parent.getUser().getID(), cmlist,
 				remarkFld.getText(), totalMoney, 0, hurry);
 		return vo;
+	}
+	
+	
+	private boolean isInputValid(){
+		boolean isValid=!(stockFld.getText().equals("")||cmContent.size()==0);
+		return isValid;
 	}
 
 }
