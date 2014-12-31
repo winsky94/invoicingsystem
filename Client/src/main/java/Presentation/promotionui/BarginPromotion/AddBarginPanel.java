@@ -148,16 +148,18 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 			public void focusLost(FocusEvent e){
 				try{
 					double price=Double.parseDouble(priceFld.getText());
-					if(price>=totalMoney)
-					{	JOptionPane.showMessageDialog(null, "特价必须小于原价！", "提示",
+					if(price>=totalMoney){
+						JOptionPane.showMessageDialog(null, "特价必须小于原价！", "提示",
 								JOptionPane.WARNING_MESSAGE);
 						priceFld.setText("");
-						IsPackValid=false;}
-					else if(price<0)
-					{	JOptionPane.showMessageDialog(null, "请输入合法数值！", "提示",
+						IsPackValid=false;
+					}
+					else if(price<0){
+						JOptionPane.showMessageDialog(null, "请输入合法数值！", "提示",
 							JOptionPane.WARNING_MESSAGE);
 						priceFld.setText("");
-						IsPackValid=false;}	
+						IsPackValid=false;
+					}	
 					else{
 						IsPackValid=true;
 					}
@@ -258,7 +260,6 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 						defaultTotalLbl.setText("原价：" + totalMoney + "元");
 						cmContent.remove(row[i]);
 						last_bid.remove(row[i]);
-						// parent.setRightComponent(PurchasePane.this);
 						table.revalidate();
 						table.clearSelection();
 					}
