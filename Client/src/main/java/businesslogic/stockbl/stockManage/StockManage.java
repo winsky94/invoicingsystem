@@ -308,7 +308,7 @@ public class StockManage {
 		}
 	}
 
-	// 获得每个进货单的库存调价收入(未测试==)
+	// 获得每个进货单的库存调价收入
 	public double getPrimeCostIncome(ArrayList<CommodityVO> commodityList) {
 		double result = 0;
 
@@ -318,7 +318,7 @@ public class StockManage {
 					String goodID = vo.getID();
 					try {
 						GoodsPO good = goodsService.findByID(goodID);
-						// 调价收入先暂时跟默认进价比了==
+						// 调价收入跟默认进价比了==
 						double purchasePrice=0;
 						if(good!=null)
 							purchasePrice = good.getPurchasePrice();

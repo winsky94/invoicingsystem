@@ -74,7 +74,7 @@ public class StockControlController implements StockControlBLService {
 		return manage.isEnough(ID, num);
 	}
 
-	// 商品调价收入(未测试==)
+	// 商品调价收入
 	public double getPrimeCostIncome(ArrayList<CommodityVO> commodityList) {
 		// TODO 自动生成的方法存根
 		StockManage manage = new StockManage();
