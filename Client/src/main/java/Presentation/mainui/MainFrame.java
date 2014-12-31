@@ -86,6 +86,7 @@ public class MainFrame extends JFrame implements  ActionListener {
 			this.setLeftComponent(new ProLeftPanel(this));
 			break;
 		case FINANCE:
+		case FINANCEMANAGER:
 			type = "finance";
 			setColor();
 			this.setLeftComponent(new LeftLongPanel(this));
@@ -101,6 +102,7 @@ public class MainFrame extends JFrame implements  ActionListener {
 			this.setLeftComponent(new StockLeftPanel(this));
 			break;
 		case SALE:
+		case SALEMANAGER:
 			type = "sales";
 			setColor();
 			this.setLeftComponent(new SalesLeftPanel(this));
