@@ -50,6 +50,23 @@ public class CashList extends Receipt implements CashlistBLService{
 		}
 
 	public int createCashlist(CashlistVO vo) {
+		
+		
+		try {
+			Account a=new Account();
+			if(a.isMoney(vo.getAccount(), (-1)*vo.getTotalMoney())==1){
+				return 3;
+			}
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		CashlistPO po=voToPo(vo);
 			return service.createCashlist(po);
 	}

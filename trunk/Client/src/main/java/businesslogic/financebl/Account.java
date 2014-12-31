@@ -48,7 +48,23 @@ public class Account implements FinanceAccountBLService{
 		AccountPO po=voToPo(vo);
 		return service.modifyAccount(po,name);
 	}
-
+   
+	public int isMoney(String id,double m){
+		AccountVO v;
+		try {
+			v = findByName(id);
+			if((v.getMoney()+m)<0){
+				return 1;
+			}
+			else return 0;
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 1;
+	}
+	
+	
 	public int addMoney(String id,double m){
 		return service.addMoney(id,m);
 	}

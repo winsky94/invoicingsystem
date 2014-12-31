@@ -128,8 +128,20 @@ public class Collection extends Receipt implements CollectionBLService{
   
 	public int createCollection(CollectionVO vo) {
 		
+		try {
+			Member m=new Member();
+			if(m.isToPay(vo.getMemberID(), vo.getTotalMoney())==1){
+				return 2;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		CollectionPO po=voToPo(vo);
 		Send(vo.getId());
+		
 		return service.createCollection(po);
 //		System.out.println(vo.getID()+" "+vo.getSupplier()+" "+vo.getSeller()+" "+vo.getUser()+" "+b.get(0).getAccount()+" "+vo.getTotalMoney());		
 	}
