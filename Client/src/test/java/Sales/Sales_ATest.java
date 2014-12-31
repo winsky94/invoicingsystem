@@ -51,7 +51,7 @@ public class Sales_ATest extends TestCase{
 		}
 		
 		
-		//TUS1-3根据type找销售单
+		//TUS2-1  2-2根据type找销售单
 		public void test_2(){
 			String message="金大大";
 			String type="客户";
