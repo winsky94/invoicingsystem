@@ -30,17 +30,14 @@ public class Receipt {
 	private int hurry;
 	private String info;
 
-	ReceiptDataService service;
+	private ReceiptDataService service;
 
 	public Receipt()throws Exception{
-		 //   	System.setSecurityManager(new SecurityManager());
 		 		String host=getServer.getServer();
 		 		String url="rmi://"+host+"/receiptService";
 		 		
 		 		service=(ReceiptDataService)Naming.lookup(url);
-		     }
-	
-	// 属性有哪些
+	}
 
 	public Receipt(String id,String memberID,String memberName,
 			String userID, po.ReceiptPO.ReceiptType type, int hurry, int status,
@@ -56,14 +53,8 @@ public class Receipt {
 		
 	}
 	
-	public int setStatus(String id,int st){
-		return service.setStatus(id, st);
-	}
-
-
 	
 
-	// 修改
 	
 	public void Send(String id) {
 		ReceiptMessage message;
@@ -100,19 +91,19 @@ public class Receipt {
 		
 		
 	} 
-
 	
-
+	public ReceiptPO getRedReceipt(ReceiptPO po){
+		return null;
+	}
 	
-
 	public int excute(ReceiptVO vo) {
-		this.status = 5;
 		return 0;
 	}
 
-	//
+	public int setStatus(String id,int st){
+		return service.setStatus(id, st);
+	}
 
-	
 	public String getId() {
 		return id;
 	}
@@ -160,14 +151,6 @@ public class Receipt {
 		return info;
 	}
 	
-	public ReceiptPO getRedReceipt(ReceiptPO po){
-		return null;
-	}
-
-	// 11-27 yan
-	
-
-	// 11-30 yan
 	public String getmemberName() {
 		// TODO 自动生成的方法存根
 		return memberName;
