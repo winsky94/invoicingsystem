@@ -323,7 +323,7 @@ public class StockManage {
 						if(good!=null)
 							purchasePrice = good.getPurchasePrice();
 						double exactPurchasePrice = vo.getPrice();
-						result += (purchasePrice - exactPurchasePrice)
+						result += Math.abs(purchasePrice - exactPurchasePrice)
 								* vo.getNum();
 					} catch (RemoteException e) {
 						// TODO 自动生成的 catch 块
