@@ -256,7 +256,7 @@ public class LoginFrame extends JFrame {
 
 	}
 
-	
+
 
 	// 下面的类是按钮的事件监听器  11-17 By jin
 	class LoginListener implements ActionListener {

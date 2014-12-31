@@ -21,12 +21,12 @@ import businesslogicservice.financeblservice.initblservice.FinanceInitBLService;
 public class functionPane extends JPanel{
 	JPanel parent;
 	JLabel close,min,max,skin,help;
-	JFrame mainFrame;
+	MainFrame mainFrame;
 	int fsize;
 	Border border;
 	
 	Color color;//框主题色
-	public functionPane(JFrame frame){
+	public functionPane(MainFrame frame){
 		mainFrame=frame;
 		color=((MainFrame)frame).getTheme()[0];
 		buttonListener listen=new buttonListener();
@@ -94,9 +94,11 @@ public class functionPane extends JPanel{
     			if(mainFrame.getExtendedState()!=JFrame.MAXIMIZED_BOTH){
     				mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     				max.setIcon(new ImageIcon("img/mainFrame/small.png"));
+    				mainFrame.removeMouseMotionListener(mainFrame.getMove());
     			}else{
     				mainFrame.setExtendedState(JFrame.NORMAL);
    				 	max.setIcon(new ImageIcon("img/mainFrame/max.png"));
+   				 	mainFrame.addMouseMotionListener(mainFrame.getMove());
     			}
     		}else if(e.getSource()==help){
     			   try{   
