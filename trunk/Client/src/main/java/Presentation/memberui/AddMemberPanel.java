@@ -64,7 +64,8 @@ public class AddMemberPanel extends JPanel {
 	JLabel defaultClerkLbl;
 	//String nameText, phoneText, addressText, postcodeText, EMailText,
 			//clerkText;
-	
+	JPanel left;
+	JPanel typePnl;
 	public AddListener add;
 	public AddMemberPanel(MainFrame frame) throws Exception {
 		parent = frame;
@@ -103,7 +104,7 @@ public class AddMemberPanel extends JPanel {
 		gbl.setConstraints(mPnl, c);
 		this.add(mPnl);
 		mPnl.setLayout(new GridLayout(1, 2));
-		JPanel left = new JPanel();
+		left = new JPanel();
 		JPanel right = new JPanel();
 		left.setBackground(Color.white);
 		right.setBackground(Color.white);
@@ -122,7 +123,7 @@ public class AddMemberPanel extends JPanel {
 		IDPnl.add(IDLbl);
 		left.add(IDPnl);
 		// -------type--------------------
-		JPanel typePnl = new JPanel();
+		typePnl = new JPanel();
 		typePnl.setBackground(Color.white);
 		left.add(typePnl);
 		typeLbl = new JLabel("类型");
