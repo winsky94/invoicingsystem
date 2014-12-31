@@ -170,6 +170,7 @@ public class AdvancedReceiptPanel extends JPanel implements ActionListener {
 				if (pane != null) {
 					AdvancedReceiptPanel advance = new AdvancedReceiptPanel(
 							pane, father, id, type);
+					advance.btnPnl.remove(advance.modBtn);
 					father.setRightComponent(advance);
 					advance.remove(advance.exitPnl);
 				} 

@@ -58,6 +58,8 @@ public class ModSalePanel extends JPanel implements ActionListener{
 		p.hurryBox.setEnabled(false);
 		UserViewService user=new User();
 		p.userLbl.setText("操作员:"+user.getName(vo.getUser()));
+		p.couponBtn.setText("代金券抵消"+(vo.getTotalValue()-vo.getToPay())+"元");
+		p.couponBtn.setEnabled(false);
 		p.btnPnl.remove(p.addGoodsBtn);
 		p.btnPnl.remove(p.delGoodsBtn);
 		p.totalOriginLbl.setText("原初总价:"+vo.getTotalOrigin()+"元");
