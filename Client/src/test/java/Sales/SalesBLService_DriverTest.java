@@ -28,6 +28,7 @@ public class SalesBLService_DriverTest extends TestCase {
 
 	// --------------------------------------------
 	public void setUp() throws Exception {
+		p=new SalesController();
 		s = new SalesController();
 		beos = new ByteArrayOutputStream();
 		console = System.out;

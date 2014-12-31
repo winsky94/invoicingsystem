@@ -95,10 +95,7 @@ public class SalesDataSevice_DriverTest extends TestCase{
 				+ "showPurchaseReturn"+ line
 				+ "showSale" + line
 				+ "showSaleReturn" + line
-				+ "findPurchase" + line
-				+ "findPurchaseReturn"+ line
-				+ "findSale" + line
-				+ "findSaleReturn" + line,beos.toString());
+				,beos.toString());
 	}
 
 }
