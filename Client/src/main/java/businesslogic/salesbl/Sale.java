@@ -24,28 +24,20 @@ import businesslogicservice.stockblservice.controlblservice.StockControlBLServic
 import businesslogicservice.stockblservice.goodsblservice.StockGoodsBLService;
 import dataservice.salesdataservice.SalesDataService;
 
-public class Sale extends Receipt { // 单据总值包含代金券金额
-	// 要默认业务员
-	/*
-	 * private String clerk; private ArrayList<CommodityVO> list; private double
-	 * discountValue;//折让金额 private double cost;//销售成本，商品总值 private double
-	 * couponIncome;//代金券差值收入 private double totalOrigin;//原始总价 private double
-	 * totalValue;//折让后收入 private double proValue;//促销让利； private double
-	 * preValue;//会员让利 private double addDiscount; private double toPay;
-	 */
+public class Sale extends Receipt { 
+
 	private SalesDataService service;
 	private static Commodity com;
 
 	public Sale() throws Exception {
 		String host = getServer.getServer();
 		String url = "rmi://" + host + "/salesService";
-
 		service = (SalesDataService) Naming.lookup(url);
 
 	}
 
 	public int Add(SaleVO vo) {
-		Send(vo.getId());
+		Send(vo.getId());//发送待审批单据提示消息
 		return service.createSale(voToPo(vo));
 	}
 
@@ -66,6 +58,18 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 		}
 
 	}
+	
+	
+	public SaleVO find(String id) {
+		ReceiptPO po = service.findReceiptByID(id);
+		if (po == null)
+			return null;
+		else {
+			SalePO ppo = (SalePO) po;
+			return poToVo(ppo);
+		}
+
+	}
 
 	public ArrayList<SaleVO> show() {
 		ArrayList<SalePO> po = service.showSale();
@@ -79,7 +83,7 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 		}
 	}
 
-	// 算入折让 网络放这儿合适否？
+	// 计算会员优惠
 	public double getPrivilege(String MemberID) throws Exception {
 		Member member = new Member();
 		MemberLevel level = member.findById(MemberID).getmLevel();
@@ -104,11 +108,13 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 
 	}
 
+	//正常执行
 	public int excute(ReceiptVO v) {
+		
 		return excute(v, true);
 	}
 
-	// 单据执行 等待助教回答member应收应付的问题
+	//参数二  若红冲销售单 ，则代金券要设为未使用过
 	public int excute(ReceiptVO v, boolean tag) {
 		// 修改库存
 		boolean status = tag;
@@ -118,6 +124,8 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 			Member m = new Member();
 			int i = m.changeToReceive(vo.getMemberID(), vo.getToPay());
 			if (i == 0) {
+				//更新业绩点
+				m.updatePoints(vo.getMemberID(), vo.getTotalValue());
 				StockGoodsBLService goodsController = new GoodsController();
 				ArrayList<CommodityVO> list = vo.getSalesList();
 				for (CommodityVO cvo : list) {
@@ -139,13 +147,15 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 						return 1;// 库存数量不满足销售
 					}
 				}
+				//执行促销策略
 				if (!vo.getProid().equals(""))
 					promotionController.Excute(vo.getProid(), vo);
+				//代金券使用
 				if (!vo.getCouponid().equals("")) {
 					giftCouponPro gp = new giftCouponPro();
 					gp.useCoupon(vo.getCouponid(), status);
 				}
-			} else {
+			}else{
 				return 1;// 不成功 超过额度
 			}
 
@@ -153,45 +163,11 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//返回审批结果
 		Reply(vo.getId(), vo.getType(), 1);
 		return 0;
 	}
 
-	public static SalePO voToPo(SaleVO vo) {
-		ArrayList<CommodityPO> saList;
-		ArrayList<CommodityVO> List = vo.getSalesList();
-
-		saList = com.voTPo(List);
-		SalePO po = new SalePO(vo.getClerk(), saList, vo.getId(),
-				vo.getMemberID(), vo.getMemberName(), vo.getUser(),
-				vo.getStatus(), vo.getHurry(), vo.getInfo(), vo.getStockid(),
-				vo.getProid(), vo.getProid(), vo.getDiscount(), vo.getTotal());
-		return po;
-	}
-
-	public static SaleVO poToVo(SalePO po) {
-		ArrayList<CommodityVO> saList;
-		ArrayList<CommodityPO> List = po.getSalesList();
-
-		saList = com.poTVo(List);
-		SaleVO vo = new SaleVO(po.getClerk(), saList, po.getId(),
-				po.getMemberName(), po.getMemberID(), po.getUserID(),
-				po.getStatus(), po.getHurry(), po.getInfo(), po.getStockID(),
-				po.getProid(), po.getCouponid(), po.getTotal(),
-				po.getDiscount());
-		return vo;
-	}
-
-	public SaleVO find(String id) {
-		ReceiptPO po = service.findReceiptByID(id);
-		if (po == null)
-			return null;
-		else {
-			SalePO ppo = (SalePO) po;
-			return poToVo(ppo);
-		}
-
-	}
 
 	public String getNewID() {
 		// TODO Auto-generated method stub
@@ -216,6 +192,7 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 		return id;
 	}
 
+	//获取红冲单据
 	public ReceiptPO getRedReceipt(ReceiptPO po) {
 		SalePO sale = (SalePO) po;
 		ArrayList<CommodityPO> list = com.getRedList(sale.getSalesList());
@@ -229,9 +206,35 @@ public class Sale extends Receipt { // 单据总值包含代金券金额
 				po.getMemberID(), po.getMemberName(), po.getUserID(),
 				po.getStatus(), po.getHurry(), po.getInfo(), sale.getStockID(),
 				sale.getProid(), sale.getCouponid(), discount, total);
-		service.createSale(redSale);
+		service.createSale(redSale);//入库
 		return redSale;
 
+	}
+	
+	
+	public static SalePO voToPo(SaleVO vo) {
+		ArrayList<CommodityPO> saList;
+		ArrayList<CommodityVO> List = vo.getSalesList();
+
+		saList = com.voTPo(List);
+		SalePO po = new SalePO(vo.getClerk(), saList, vo.getId(),
+				vo.getMemberID(), vo.getMemberName(), vo.getUser(),
+				vo.getStatus(), vo.getHurry(), vo.getInfo(), vo.getStockid(),
+				vo.getProid(), vo.getProid(), vo.getDiscount(), vo.getTotal());
+		return po;
+	}
+
+	public static SaleVO poToVo(SalePO po) {
+		ArrayList<CommodityVO> saList;
+		ArrayList<CommodityPO> List = po.getSalesList();
+
+		saList = com.poTVo(List);
+		SaleVO vo = new SaleVO(po.getClerk(), saList, po.getId(),
+				po.getMemberName(), po.getMemberID(), po.getUserID(),
+				po.getStatus(), po.getHurry(), po.getInfo(), po.getStockID(),
+				po.getProid(), po.getCouponid(), po.getTotal(),
+				po.getDiscount());
+		return vo;
 	}
 
 }
