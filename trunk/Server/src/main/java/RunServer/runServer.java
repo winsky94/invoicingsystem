@@ -251,8 +251,6 @@ public class runServer extends JFrame implements ActionListener {
 			Naming.rebind("initService", init);
 			Naming.rebind("logService", log);
 			new ServerMainFrame(hostIP,port);
-//			JOptionPane.showMessageDialog(null, "服务器已运行！", "提示",
-//					JOptionPane.INFORMATION_MESSAGE);
 
 		} catch (Exception e) {
 			System.out.println("错误" + e);
