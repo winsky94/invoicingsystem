@@ -29,6 +29,7 @@ import vo.SaleReturnVO;
 import vo.SaleVO;
 import Presentation.mainui.MainFrame;
 import Presentation.mainui.MyTableCellRenderer;
+import Presentation.receiptui.Total;
 import Presentation.salesui.manage.sale.AddSalePanel;
 import Presentation.salesui.manage.sale.AddSaleReturnPanel;
 import Presentation.salesui.manage.sale.SaleDetailPanel;
@@ -305,12 +306,7 @@ public class SaleMgrPanel extends JPanel implements ActionListener {
 			line.add(v.getId());
 			line.add(v.getDate());
 			int s = v.getStatus();
-			if (s == 0) {
-				line.add("待审批");
-			} else if (s == 1)
-				line.add("审批不通过");
-			else if (s == 2)
-				line.add("审批通过");
+			line.add(Total.getStatus(s));
 			String name = user.showUser(v.getUser()).getName();
 			if (v.getType() == ReceiptType.SALE) {
 				line.add("销售单");

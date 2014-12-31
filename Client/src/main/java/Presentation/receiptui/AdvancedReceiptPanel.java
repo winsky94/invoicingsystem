@@ -148,9 +148,12 @@ public class AdvancedReceiptPanel extends JPanel implements ActionListener {
 				update();
 
 			} else if (e.getSource() == approvedBtn) {
-				if (service.Approve(id, 2) != 0)
-					JOptionPane.showMessageDialog(null, "审批失败！", "提示",
+				int result=service.Approve(id, 2) ;
+				if (result!= 0){			
+					String tip=Total.getFailReason(type, result);
+					JOptionPane.showMessageDialog(null,tip+ "审批失败！", "提示",
 							JOptionPane.WARNING_MESSAGE);
+				}
 				else
 					update();
 			} else if (e.getSource() == disapprovedBtn) {

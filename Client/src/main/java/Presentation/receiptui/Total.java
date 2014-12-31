@@ -119,10 +119,24 @@ public class Total {
 	public static double cal(ArrayList<CommodityVO> v){
 		double t=0;
 		for(int i=0;i<v.size();i++){
-			t+=v.get(i).getTotal();
-			
+			t+=v.get(i).getTotal();		
 		}
 		return t;
+	}
+	
+	
+	public static String getFailReason(ReceiptType type,int i){
+		String  reason="";
+		switch(type){
+		case SALE:
+		   if(i==1) reason="超过客户应收额度,";
+		   else if(i==2) reason="库存不足，无法出库,";
+		   break;
+		case GIFT:
+			if(i==1) reason="库存不足,无法赠送,";
+			break;
+		}
+		return reason;
 	}
 
 }
