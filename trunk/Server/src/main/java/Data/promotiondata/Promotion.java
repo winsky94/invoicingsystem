@@ -453,4 +453,37 @@ public class Promotion extends UnicastRemoteObject implements PromotionDataServi
 	 System.out.println(po.IsMatch());
 	 
 	}*/
+	
+//	public static void main(String[] args){
+//			try {
+//				Promotion p=new Promotion();
+//				ArrayList<GiftGoodProPO> g=p.getGiftGoodPro();
+//				GiftGoodProPO pp=g.get(0);
+//				System.out.println(pp.getTotalValue());
+//				pp.setTotalValue(101);
+//				p.Modify(pp);
+//				ArrayList<GiftGoodProPO> g1=p.getGiftGoodPro();
+//				GiftGoodProPO pp1=g1.get(0);
+//				System.out.println(pp1.getTotalValue());
+//			} catch (RemoteException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//	}
+	public static void main(String[] args){
+		try {
+			Promotion p=new Promotion();
+			ArrayList<DiscountProPO> g=p.getDiscountPro();
+			DiscountProPO pp=g.get(0);
+			System.out.println(pp.getLevel());
+			pp.setLevel(MemberLevel.FIVE);;
+			p.Modify(pp);
+			ArrayList<DiscountProPO> g1=p.getDiscountPro();
+			DiscountProPO pp1=g1.get(0);
+			System.out.println(pp1.getLevel());
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
 }

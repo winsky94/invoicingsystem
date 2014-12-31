@@ -311,7 +311,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			for(PurchasePO p:po){
 				ArrayList<CommodityPO> c=p.getPurchaseList();
 				  for(CommodityPO cp:c){
-					  if(cp.getName().equals(message)){
+					  if(cp.getName().contains(message)){
 					      result.add(p);
 					      break;
 					  }
@@ -323,7 +323,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		}
 		else if(type.equals("客户")){
 			for(PurchasePO p:po){
-				if(p.getMemberName().equals(message))
+				if(p.getMemberName().contains(message))
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -331,7 +331,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		}
 		else if(type.equals("仓库")){
 			for(PurchasePO p:po){
-				if(p.getStockID().equals(message))
+				if(p.getStockID().contains(message))
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -362,7 +362,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			for(PurchaseReturnPO p:po){
 				ArrayList<CommodityPO> c=p.getPurchaseReturnList();
 				  for(CommodityPO cp:c){
-					  if(cp.getName().equals(message)){
+					  if(cp.getName().contains(message)){
 					      result.add(p);
 					      break;
 					  }
@@ -374,7 +374,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		}
 		else if(type.equals("客户")){
 			for(PurchaseReturnPO p:po){
-				if(p.getMemberName().equals(message))
+				if(p.getMemberName().contains(message))
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -382,7 +382,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		}
 		else if(type.equals("仓库")){
 			for(PurchaseReturnPO p:po){
-				if(p.getStockID().equals(message))
+				if(p.getStockID().contains(message))
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -412,7 +412,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			for(SalePO p:po){
 				ArrayList<CommodityPO> c=p.getSalesList();
 				  for(CommodityPO cp:c){
-					  if(cp.getName().equals(message)){
+					  if(cp.getName().contains(message)){
 					      result.add(p);
 					      break;
 					  }
@@ -424,7 +424,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		}
 		else if(type.equals("客户")){
 			for(SalePO p:po){
-				if(p.getMemberName().equals(message))
+				if(p.getMemberName().contains(message))
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -432,7 +432,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		}
 		else if(type.equals("业务员")){
 			for(SalePO p:po){
-				if(p.getClerk().equals(message))
+				if(p.getClerk().contains(message))
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -440,7 +440,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		}
 		else if(type.equals("仓库")){
 			for(SalePO p:po){
-				if(p.getStockID().equals(message))
+				if(p.getStockID().contains(message))
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -471,7 +471,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 			for(SaleReturnPO p:po){
 				ArrayList<CommodityPO> c=p.getSalesreturnList();
 				  for(CommodityPO cp:c){
-					  if(cp.getName().equals(message)){
+					  if(cp.getName().contains(message)){
 					      result.add(p);
 					      break;
 					  }
@@ -482,7 +482,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		}
 		else if(type.equals("客户")){
 			for(SaleReturnPO p:po){
-				if(p.getMemberName().equals(message))
+				if(p.getMemberName().contains(message))
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -490,7 +490,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		}
 		else if(type.equals("业务员")){
 			for(SaleReturnPO p:po){
-				if(p.getClerk().equals(message))
+				if(p.getClerk().contains(message))
 					result.add(p);
 			}
 			if(result.size()==0)
@@ -498,7 +498,7 @@ public class Sales extends UnicastRemoteObject implements SalesDataService{
 		}
 		else if(type.equals("仓库")){
 			for(SaleReturnPO p:po){
-				if(p.getStockID().equals(message))
+				if(p.getStockID().contains(message))
 					result.add(p);
 			}
 			if(result.size()==0)
