@@ -23,7 +23,15 @@ public class ModMemberPane extends AddMemberPanel {
 		vo=service.findById(id);
 		title.setText("修改客户");
 		IDLbl.setText("编号："+vo.getMemberID());
-		typeCbox.removeItemListener(typel);
+		typePnl.remove(typeCbox);
+		//typeCbox.removeItemListener(typel);
+		String memberType="";
+		switch(vo.getmType().toString()){
+		case "JHS":memberType="进货商";break;
+		case "XSS":memberType="销售商";break;
+		default:memberType="未知";
+		}
+		typeLbl.setText("类型:"+memberType);
 		
 		levelbl=new JLabel("客户等级:"+vo.getMemberID().toString());
 		
@@ -39,7 +47,7 @@ public class ModMemberPane extends AddMemberPanel {
 					if(typeCbox.getSelectedItem().equals("进货商"))
 						mtype=MemberType.JHS;
 						else mtype=MemberType.XSS;
-					MemBaseInfo bInfo=new MemBaseInfo(mtype,vo.getmLevel(),vo.getMemberID(),nameFld.getText(),vo.getPoints(),defaultClerkFld.getText());
+					MemBaseInfo bInfo=new MemBaseInfo(vo.getmType(),vo.getmLevel(),vo.getMemberID(),nameFld.getText(),vo.getPoints(),defaultClerkFld.getText());
 					MemContactInfo cInfo=new MemContactInfo(phoneFld.getText(), addressFld.getText(),
 							postcodeFld.getText(),  EMailFld.getText());
 					MemAccountInfo aInfo=new MemAccountInfo(vo.getMaxOwe(),vo.getToReceive(),vo.getToPay());
