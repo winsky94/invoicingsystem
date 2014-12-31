@@ -36,7 +36,7 @@ public class ModPurchaseReturnPanel extends JPanel implements ActionListener{
 		p.JHSLbl.setText("进货商:"+vo.getMemberName());
 		p.p1.remove(p.JHSBox);
 		UserViewService user=new User();
-		p.userLbl.setText("操作员:"+user.getName(vo.getId()));
+		p.userLbl.setText("操作员:"+user.getName(vo.getUser()));
 		p.stockLbl.setText("仓库:"+vo.getStockid());
 		p.p2.remove(p.stockFld);
 		if(vo.getHurry()==0)
