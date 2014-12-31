@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -146,8 +147,9 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 
 					double p = Double.parseDouble((String) table.getValueAt(i,
 							j));
-
-					table.setValueAt(d * p + "", i, j + 1);
+					DecimalFormat df = new DecimalFormat("#.##");
+					String value=df.format(d*p+"");
+					table.setValueAt(value + "", i, j + 1);
 				}
 
 			}
@@ -309,7 +311,7 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 
 			try {
 				double n = Double.parseDouble((String) value);
-				if (n <= 0)
+				if (n <= 0||n>=10)
 					JOptionPane.showMessageDialog(null, "请输入合法数值");
 				else {
 					cmContent.get(row).set(column, (String) value);

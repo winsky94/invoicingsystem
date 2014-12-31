@@ -41,9 +41,9 @@ public class ModDiscountPanel extends AddDiscountPanel{
 					JOptionPane.showMessageDialog(null, "促销时间段输入不合法！", "提示",
 							JOptionPane.WARNING_MESSAGE);
 				else{
-				DiscountProVO vo=getDiscountPro();
-				if (service.Modify(vo) == 0) {
-					JOptionPane.showMessageDialog(null, "策略修改成功", "提示",
+					DiscountProVO vo=getDiscountPro();
+					if (service.Modify(vo) == 0) {
+						JOptionPane.showMessageDialog(null, "策略修改成功", "提示",
 							JOptionPane.WARNING_MESSAGE);
 					try {
 						update();
