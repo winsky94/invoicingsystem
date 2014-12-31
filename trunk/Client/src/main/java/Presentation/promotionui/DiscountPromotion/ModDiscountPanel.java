@@ -28,7 +28,7 @@ public class ModDiscountPanel extends AddDiscountPanel{
 		id=vo.getId();
 		from.setTime(vo.getStartDate());
 		to.setTime(vo.getEndDate());
-		memberGradeBox.setSelectedItem(vo.getMemberlevel());
+		memberGradeBox.setSelectedItem(vo.getMemberlevel().toString());
 		content.addAll(vo.getGoodsList());
 		RefreshCTable(content,vo.getCountList());
 		//加监听！

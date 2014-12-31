@@ -34,7 +34,7 @@ public class ModBarginPanel extends AddBarginPanel{
 		from.setTime(vo.getStartDate());	
 		to.setTime(vo.getEndDate());
 		IsPackValid=true;
-		memberGradeBox.setSelectedItem(vo.getMemberlevel());
+		memberGradeBox.setSelectedItem(vo.getMemberlevel().toString());
 		defaultTotalLbl.setText("原价:"+vo.getTotalValue()+"元");
 		priceFld.setText(String.valueOf(vo.getPackValue()));
 		content.addAll(vo.getPack().getCombine());
