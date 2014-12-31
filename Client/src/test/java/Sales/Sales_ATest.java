@@ -21,7 +21,7 @@ public class Sales_ATest extends TestCase{
 			commodity.add(com);
 			double[] total=new double[]{800,1000,1000,0,1000};
 			double[] discount=new double[]{0,0,0,0};
-			SaleVO sale=new SaleVO("金金",commodity,"XSD-20141205-00001","马建国","XSS-00001",
+			SaleVO sale=new SaleVO("金金",commodity,"XSD-20141205-00001","金大大","XSS-00001",
 					"XS-00001",0,0,"","1","","",total,discount);
 			controller.addSale(sale);
 			
@@ -30,7 +30,6 @@ public class Sales_ATest extends TestCase{
 	//String id,String user,SaleVO s,int status,
 		//String info,int hurry)
 	//根据进货单 创建一条销售退货单
-	
 		public void test_1(){
 			SaleVO sale=controller.SFindByID("XSD-20141205-00001");
 			String id=controller.getNewID(ReceiptType.SALERETURN);
@@ -59,13 +58,11 @@ public class Sales_ATest extends TestCase{
 					assertEquals(message,vo.getMemberName());
 			
 			type="业务员";
+			message="金金";
 			salelist=controller.findSale(message, type);
 			if(salelist!=null)
 				for(SaleVO vo:salelist)
 					assertEquals(message,vo.getClerk());
-			
-			
-			
 		}
 		
 		
