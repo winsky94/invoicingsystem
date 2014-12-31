@@ -57,7 +57,6 @@ public class CollectionPanel extends JPanel implements ActionListener {
 	ArrayList<ArrayList<String>> c3 = new ArrayList<ArrayList<String>>();
 	// --------------------------
 	MyButton collectionBtn, payBtn, cashBtn, refreshBtn, detailBtn;
-	// ArrayList<ArrayList<String>> c = new ArrayList<ArrayList<String>>();
 	MainFrame parent;
 
 	public CollectionPanel(MainFrame frame) {
