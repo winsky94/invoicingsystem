@@ -36,6 +36,7 @@ public class MainFrame extends JFrame implements  ActionListener {
 	MessageWindow mw;
 	message m;
 	boolean messageWinExist=false;
+	MoveListener move;
 	public MainFrame(UserVO myuser) throws Exception {
 		
 		user = myuser;
@@ -116,17 +117,18 @@ public class MainFrame extends JFrame implements  ActionListener {
 				yOld = e.getY();
 			}
 		});
-		jsp.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				int xOnScreen = e.getXOnScreen();
-				int yOnScreen = e.getYOnScreen();
-				int xx = xOnScreen - xOld;
-				int yy = yOnScreen - yOld;
-				MainFrame.this.setLocation(xx, yy);
-			}
-		});
+		move=new MoveListener();
+		jsp.addMouseMotionListener(move);
 	
+	}
+	class MoveListener extends MouseMotionAdapter{
+		public void mouseDragged(MouseEvent e) {
+			int xOnScreen = e.getXOnScreen();
+			int yOnScreen = e.getYOnScreen();
+			int xx = xOnScreen - xOld;
+			int yy = yOnScreen - yOld;
+			MainFrame.this.setLocation(xx, yy);
+		}
 	}
 	
 	//左右比例
@@ -272,5 +274,8 @@ public class MainFrame extends JFrame implements  ActionListener {
 	}
 	public void setUser(UserVO vo) {
 		this.user = vo;
+	}
+	public  MouseMotionAdapter getMove(){
+		return this.move;
 	}
 }
