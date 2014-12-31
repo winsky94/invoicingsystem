@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -580,6 +581,8 @@ public class AddSalePanel extends ChooseGoodsFatherPane implements ActionListene
 				dPriviledge = (tOrigin- dPromotion - dDiscount)
 						* (1 - pre);
 				dTotalDis = dDiscount + dPromotion + dPriviledge;
+				DecimalFormat df = new DecimalFormat("#.##");
+				dTotalDis=Double.parseDouble(df.format(dTotalDis));
 				tValue = tOrigin-dTotalDis;// 总价
 				tPay = tValue - coupon;
 				if (tPay < 0) {
