@@ -63,13 +63,14 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 	submitListener slisten;
 	ArrayList<Double> last_bid = new ArrayList<Double>();
 	boolean IsPackValid=false;
-
+	String id="";
 	JLabel title;
 	public AddBarginPanel(MainFrame myFather) throws Exception {
-		parent = myFather;
+		parent = myFather;		
 		totalMoney = 0;
 		barginMoney = 0;
 		service = new promotionController();
+		id = service.getNewID(PromotionType.PACK);
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 40, 5, 40);
@@ -461,7 +462,7 @@ public class AddBarginPanel extends ChooseGoodsFatherPane {
 		String endDate = to.getDate();
 		MemberLevel level = MemberLevel.valueOf((String) memberGradeBox
 			.getSelectedItem());
-		String id = service.getNewID(PromotionType.PACK);
+		
 		PackVO pack = new PackVO(totalMoney, Double.parseDouble(priceFld
 			.getText()), cmlist);
 		PackProVO vo = new PackProVO(id, startDate, endDate, level, pack);

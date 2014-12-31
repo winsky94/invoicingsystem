@@ -57,9 +57,11 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 	PromotionBLService service;
 	submitListener slisten;
 	JLabel title;
+	String id="";
 	public AddDiscountPanel(MainFrame myFather) throws Exception {
 		parent = myFather;
 		service = new promotionController();
+		id = service.getNewID(PromotionType.DISCOUNT);
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5, 45, 5, 45);
@@ -277,7 +279,6 @@ public class AddDiscountPanel extends ChooseGoodsFatherPane {
 		String endDate = to.getDate();
 		MemberLevel level = MemberLevel.valueOf((String) memberGradeBox
 				.getSelectedItem());
-		String id = service.getNewID(PromotionType.DISCOUNT);
 
 		DiscountProVO vo = new DiscountProVO(id, startDate, endDate, level,
 				discount, cmlist);

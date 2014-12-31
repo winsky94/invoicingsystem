@@ -60,9 +60,11 @@ public class AddGiftPanel extends ChooseGoodsFatherPane {
 	PromotionBLService service;
 	submitListener slisten;
 	JLabel title;
+	String id="";
 	public AddGiftPanel(MainFrame myFather) throws Exception {
 		parent =myFather;
 		service = new promotionController();
+		id = service.getNewID(PromotionType.GIFTGOODS);
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(10, 45, 10, 45);
@@ -408,7 +410,7 @@ public class AddGiftPanel extends ChooseGoodsFatherPane {
 		String endDate = to.getDate();
 		MemberLevel level = MemberLevel.valueOf((String) memberGradeBox
 				.getSelectedItem());
-		String id = service.getNewID(PromotionType.GIFTGOODS);
+		
 		GiftGoodsProVO vo = new GiftGoodsProVO(id, startDate, endDate,
 				level, cmlist, Double.parseDouble(limitFld.getText()));
 		return vo;
