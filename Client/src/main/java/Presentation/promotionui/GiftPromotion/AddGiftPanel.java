@@ -174,6 +174,7 @@ public class AddGiftPanel extends ChooseGoodsFatherPane {
 					}
 					cmContent.remove(cmContent.size() - 1);
 					addTotal();
+					table.clearSelection();
 
 				} else
 					JOptionPane.showMessageDialog(null, "请选择要删除的商品", "提示",
